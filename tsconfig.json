@@ -15,6 +15,10 @@
     "noEmit": false,
     "jsx": "react-jsx",
     "jsxImportSource": "theme-ui"
+    // "baseUrl": "./src",
+    // "paths": {
+    //   "@eduardoac-skimlinks/webext-redux": ["webext-redux"]
+    // }
   },
   "include": ["src"],
   "exclude": ["build", "node_modules"]

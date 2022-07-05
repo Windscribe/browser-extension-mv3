@@ -14,16 +14,21 @@
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
   },
   "dependencies": {
+    "@eduardoac-skimlinks/webext-redux": "^3.0.0-release-candidate",    
     "@emotion/react": "^11.9.3",
     "@hot-loader/react-dom": "^17.0.2",
+    "@reduxjs/toolkit": "^1.8.3",
     "@types/expect-puppeteer": "^5.0.1",
+    "@types/react-redux": "^7.1.24",
     "@types/jest-environment-puppeteer": "^5.0.2",
     "@mdx-js/react": "^2.1.2",
+    "dotenv-webpack": "^7.1.1",
     "jest": "^28.1.2",
     "puppeteer": "^15.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
+    "react-redux": "^8.0.2",
     "theme-ui": "^0.14.6"
   },
   "devDependencies": {
