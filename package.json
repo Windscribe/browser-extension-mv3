@@ -3,6 +3,7 @@
   "version": "4.0.0",
   "description": "windscribe",
   "license": "MIT",
+  "preset": "jest-puppeteer",
   "repository": {
     "type": "git",
     "url": ""
@@ -10,12 +11,17 @@
   "scripts": {
     "build": "node utils/build.js",
     "start": "node utils/webserver.js",
-    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "test": "jest"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@hot-loader/react-dom": "^17.0.2",
+    "@types/expect-puppeteer": "^5.0.1",
+    "@types/jest-environment-puppeteer": "^5.0.2",
     "@mdx-js/react": "^2.1.2",
+    "jest": "^28.1.2",
+    "puppeteer": "^15.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
@@ -46,6 +52,7 @@
     "fs-extra": "^10.0.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest-puppeteer": "^6.1.0",
     "node-sass": "^6.0.1",
     "prettier": "^2.5.1",
     "sass-loader": "^12.4.0",
