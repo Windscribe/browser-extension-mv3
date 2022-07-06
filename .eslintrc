@@ -1,6 +1,13 @@
 {
   "extends": "react-app",
   "globals": {
-    "chrome": "readonly"
+    "chrome": "readonly",
+    "page": true,
+    "browser": true,
+    "context": true,
+    "jestPuppeteer": true
+  },
+  "env": {
+    "jest": true
   }
 }
