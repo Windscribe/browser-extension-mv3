@@ -13,6 +13,3 @@ const Popup = () => {
 }
 
 export default Popup
-
-import SplashPage from '../../components/SplashPage'
-  return <SplashPage />

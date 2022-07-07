@@ -1,12 +1,13 @@
 import React from 'react'
+import { Button, Flex, Text, useThemeUI } from 'theme-ui'
 import splashBackground from '../../assets/img/splashBackground.png'
 import rotatingLogo from '../../assets/img/rotatingLogo.gif'
 
 const SplashPage = () => {
+  const { theme } = useThemeUI()
   return (
-    <div
+    <Flex
       sx={{
-        display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         position: 'relative',
@@ -25,49 +26,51 @@ const SplashPage = () => {
           height: '40px',
         }}
       />
-      <div
+      <Text
         sx={{
           mt: '24px',
           fontSize: '24px',
           fontWeight: '600',
-          color: '#fff',
+          color: theme.colors?.white,
         }}
       >
         Keep Your Secrets.
-      </div>
-      <button
+      </Text>
+      <Button
         sx={{
           all: 'unset',
+          cursor: 'pointer',
           mt: '52px',
           fontSize: '14px',
           width: '228px',
           height: '40px',
-          backgroundColor: '#55ff8a',
+          backgroundColor: theme.colors?.green,
           borderRadius: '20px',
           textAlign: 'center',
           ':hover': {
-            backgroundColor: '#fff',
+            backgroundColor: theme.colors?.white,
           },
         }}
       >
         Get Started
-      </button>
-      <button
+      </Button>
+      <Button
         sx={{
           all: 'unset',
+          cursor: 'pointer',
           mt: '24px',
           opacity: '0.5',
           fontSize: '14px',
           fontWeight: '600',
-          color: '#fff',
+          color: theme.colors?.white,
           ':hover': {
             opacity: '1',
           },
         }}
       >
         Login
-      </button>
-    </div>
+      </Button>
+    </Flex>
   )
 }
 
