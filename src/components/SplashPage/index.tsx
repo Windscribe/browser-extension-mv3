@@ -36,15 +36,14 @@ const SplashPage = () => {
         Keep Your Secrets.
       </Text>
       <Button
+        variant="rectangle"
         sx={{
-          all: 'unset',
-          cursor: 'pointer',
           mt: '52px',
           fontSize: '14px',
           width: '228px',
           height: '40px',
+          color: theme.colors?.black,
           backgroundColor: theme.colors?.green,
-          borderRadius: '20px',
           textAlign: 'center',
           ':hover': {
             backgroundColor: theme.colors?.white,
@@ -54,9 +53,8 @@ const SplashPage = () => {
         Get Started
       </Button>
       <Button
+        variant="simple"
         sx={{
-          all: 'unset',
-          cursor: 'pointer',
           mt: '24px',
           opacity: '0.5',
           fontSize: '14px',
