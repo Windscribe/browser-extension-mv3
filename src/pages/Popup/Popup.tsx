@@ -1,31 +1,15 @@
 import React from 'react'
-import './Popup.css'
 import { ThemeProvider } from 'theme-ui'
 import { theme } from '../../theme'
+import './Popup.css'
+import SplashPage from '../../components/SplashPage'
 
 const Popup = () => {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React!
-          </a>
-        </header>
-      </div>
+      <SplashPage />
     </ThemeProvider>
   )
 }
 
 export default Popup
-
-import SplashPage from '../../components/SplashPage'
-  return <SplashPage />
