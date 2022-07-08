@@ -1,22 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 import log from '../../utils/log';
 
-interface TestState {
+interface ExampleState {
 	counter: number;
 }
 
-const initialState: TestState = {
+const initialState: ExampleState = {
 	counter: 42
 };
 
-export const recreateSlice = (updatedState: TestState) => {
+// TODO Refactor. Unite recreateSlice() & exampleSlice()
+export const recreateSlice = (updatedState?: ExampleState) => {
 	return createSlice({
-		name: 'test',
+		name: 'example',
 		initialState: updatedState || initialState,
 		reducers: {
 			increment(state) {
-				log('increment.counter ', state.counter);
 				state.counter += 1;
 			},
 			decrement(state) {
@@ -29,12 +28,12 @@ export const recreateSlice = (updatedState: TestState) => {
 	});
 };
 
-export const testSlice = createSlice({
-	name: 'test',
+export const exampleSlice = createSlice({
+	name: 'example',
 	initialState,
 	reducers: {
 		increment(state) {
-			log('increment.counter ', state.counter);
+			log('increment');
 			state.counter += 1;
 		},
 		decrement(state) {
@@ -46,5 +45,5 @@ export const testSlice = createSlice({
 	}
 });
 
-export const { increment, decrement, set } = testSlice.actions;
-export default testSlice.reducer;
+export const { increment, decrement, set } = exampleSlice.actions;
+export default exampleSlice.reducer;

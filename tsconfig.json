@@ -20,6 +20,6 @@
     //   "@eduardoac-skimlinks/webext-redux": ["webext-redux"]
     // }
   },
-  "include": ["src"],
+  "include": ["src", "assets/img/custom.d.ts"],
   "exclude": ["build", "node_modules"]
 }

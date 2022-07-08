@@ -1,69 +1,32 @@
-// The place to store webext-redux libary logic. 
-import { wrapStore, Store } from '@eduardoac-skimlinks/webext-redux';
-import { configureStore } from '@reduxjs/toolkit';
+/* 
+	The place for webext-redux dependent logic.
+*/
 
-// import store from './store';
-import testReducer, { recreateSlice } from './slices/test';
-import log from '../utils/log';
+import { Store, wrapStore } from '@eduardoac-skimlinks/webext-redux';
 
-const reducer = {
-	test: testReducer,
-};
+import { reconstructFrom, StoreType } from './store';
+import browserApi from '../services/browserApi';
+import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from '../utils/constants';
 
-// export default () => {
-// 	wrapStore(store, {
-// 		portName: process.env.REACT_APP_REDUX_PORT || 'WS_BROWSER_EXTENSION_STORE',
-// 	});
-// };
+export async function initializeWrappedStore() {
+	const stateFromStorage = await browserApi.getStateFromStorage();
+	const lastStateFromStorage = stateFromStorage[STORAGE_CACHE_VERSION];
 
-const CACHE_VERSION = '1';
+	const store: StoreType = reconstructFrom(lastStateFromStorage);
 
-async function loadState(keys?: string[]): Promise<Record<string, any>> {
-	const storage = await chrome.storage.local.get(CACHE_VERSION);
-	log('adapter loadState() storage', storage);
-	return storage;
-}
+	wrapStore(store, { portName: REACT_APP_REDUX_PORT });
 
-function clearState() {
-	return chrome.storage.local.clear();
-};
-
-async function saveState(state: Record<string, any>): Promise<void> {
-	await chrome.storage.local.set({ [CACHE_VERSION]: state });
-}
-
-
-export default async function initializeExtension() {
-	const stateFromStorage = await loadState();
-	log('adapter stateFromStorage', stateFromStorage.test);
-
-	// Change reducer?
-	const { reducer } = recreateSlice(stateFromStorage.test);
-	const store = configureStore({
-		reducer: reducer
-	});
-	wrapStore(store, { portName: process.env.REACT_APP_REDUX_PORT });
-
-	/**
+	/*
 	 * Clear the state information after the store has updated
-	 * IMPORTANT: After we store the state for a new cache version
+	 * After we store the state for a new cache version
 	 * in Chrome.store.local, clearState will remove any older cache versions
 	 * preventing us from exceeding its max quota allocation.
-	 * (Currently, 5MB - 17/02/2022)
-	 *
 	 */
-	await clearState();
-	/*
-	 * Keeping a copy of the redux store in [Chrome local storage API](https://developer.chrome.com/docs/extensions/reference/storage/#property-local).
-	 * Redux store doesn't persist in memory forever - in Windows environment
-	 * it's deleted every time the browser closes (OSX behaves differently).
-	 */
-	log('adapter store.getState()', store.getState());
-	await saveState(store.getState());
+	await browserApi.clearStateInStorage();
 
-	store.subscribe(() => {
-		log('adapter store.subscribe', store.getState());
-		saveState(store.getState());
+	await browserApi.saveStateInStorage(store.getState());
+	store.subscribe(async () => {
+		await browserApi.saveStateInStorage(store.getState());
 	});
 }
 

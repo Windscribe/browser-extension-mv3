@@ -1,5 +1,4 @@
-// import { actions } from './dux';
-import store from './store';
-import wrapStore from './webExtAdapter';
+import store, { RootState } from './store';
+import { initializeWrappedStore, ProxyStore } from './webExtAdapter';
 
-export { store, wrapStore/*,  actions,  logicMiddleware*/ };
+export { store, RootState, initializeWrappedStore, ProxyStore };

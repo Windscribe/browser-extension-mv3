@@ -10,15 +10,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
 
-var alias = {
+const alias = {
   'react-dom': '@hot-loader/react-dom',
-  // 'webext-redux': '@eduardoac-skimlinks/webext-redux'
 };
 
 // load the secrets
-var secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
+const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
 
-var fileExtensions = [
+const fileExtensions = [
   'jpg',
   'jpeg',
   'png',
@@ -137,7 +136,7 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/pages/Content/content.styles.css'),
+          from: path.resolve(__dirname, 'src/pages/content/content.styles.css'),
           to: path.join(__dirname, 'build'),
           force: true,
         },
@@ -162,25 +161,25 @@ const options = {
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Options', 'index.html'),
+      template: path.join(__dirname, 'src', 'pages', 'options', 'index.html'),
       filename: 'options.html',
       chunks: ['options'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
+      template: path.join(__dirname, 'src', 'pages', 'popup', 'index.html'),
       filename: 'popup.html',
       chunks: ['popup'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.html'),
+      template: path.join(__dirname, 'src', 'pages', 'devtools', 'index.html'),
       filename: 'devtools.html',
       chunks: ['devtools'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Panel', 'index.html'),
+      template: path.join(__dirname, 'src', 'pages', 'panel', 'index.html'),
       filename: 'panel.html',
       chunks: ['panel'],
       cache: false,
