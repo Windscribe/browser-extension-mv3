@@ -1,49 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit';
-import log from '../../utils/log';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ExampleState {
 	counter: number;
 }
 
-const initialState: ExampleState = {
+const defaultState: ExampleState = {
 	counter: 42
 };
 
-// TODO Refactor. Unite recreateSlice() & exampleSlice()
-export const recreateSlice = (updatedState?: ExampleState) => {
-	return createSlice({
-		name: 'example',
-		initialState: updatedState || initialState,
-		reducers: {
-			increment(state) {
-				state.counter += 1;
-			},
-			decrement(state) {
-				state.counter -= 1;
-			},
-			set(state, action) {
-				state.counter = action.payload;
-			},
-		}
-	});
-};
-
-export const exampleSlice = createSlice({
+export const create = (initialState?: ExampleState) => createSlice({
 	name: 'example',
-	initialState,
+	initialState: initialState || defaultState,
 	reducers: {
 		increment(state) {
-			log('increment');
 			state.counter += 1;
 		},
 		decrement(state) {
 			state.counter -= 1;
 		},
-		set(state, action) {
+		set(state, action: PayloadAction<number>) {
 			state.counter = action.payload;
 		},
 	}
 });
 
+
+const exampleSlice = create();
 export const { increment, decrement, set } = exampleSlice.actions;
 export default exampleSlice.reducer;

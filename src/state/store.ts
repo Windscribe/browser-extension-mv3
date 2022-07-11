@@ -1,21 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import exampleReducer, { recreateSlice } from './slices/example';
+import exampleReducer, { create } from './slices/example';
 
-// TODO Refactor function below
-export function reconstructFrom(stateFromStorage: RootState): StoreType {
-
-  const exampleReducer = recreateSlice(stateFromStorage?.example).reducer;
+export function buildFrom(initialState?: RootState) {
+  // TODO  Make it iterate through all slices when we create more of them
+  const exampleReducer = create(initialState?.example).reducer;
 
   const reducer = {
     example: exampleReducer,
   };
-
-  const store = configureStore({ reducer });
-
-  return store;
+  return configureStore({ reducer });
 }
 
-// TODO Declare types
 const reducer = {
   example: exampleReducer,
 };

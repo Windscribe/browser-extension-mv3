@@ -1,14 +1,14 @@
-import { STORAGE_CACHE_VERSION } from '../../utils/constants';
+import { RootState } from 'state';
+import { STORAGE_CACHE_VERSION } from 'utils/constants';
 
 type OnChangedCallBack = Parameters<typeof chrome.storage.onChanged.addListener>[0];
 
-// TODO Review types
 const api = {
 	subscribeOnStorageChange(cb: OnChangedCallBack) {
 		chrome.storage.onChanged.addListener(cb);
 	},
 
-	async getStateFromStorage(keys?: string[]): Promise<Record<string, any>> {
+	async getStateFromStorage(): Promise<Record<string, RootState>> {
 		return await chrome.storage.local.get(STORAGE_CACHE_VERSION);
 	},
 
@@ -16,7 +16,7 @@ const api = {
 		return await chrome.storage.local.clear();
 	},
 
-	async saveStateInStorage(state: Record<string, any>) {
+	async saveStateInStorage(state: RootState) {
 		return await chrome.storage.local.set({ [STORAGE_CACHE_VERSION]: state });
 	}
 };

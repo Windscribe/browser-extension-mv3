@@ -1,4 +1,8 @@
+import chrome from './chrome';
+
 const api = {
+	...chrome,
+
 	// do be done
 };
 

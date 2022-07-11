@@ -4,15 +4,15 @@
 
 import { Store, wrapStore } from '@eduardoac-skimlinks/webext-redux';
 
-import { reconstructFrom, StoreType } from './store';
-import browserApi from '../services/browserApi';
-import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from '../utils/constants';
+import browserApi from 'services/browserApi';
+import { buildFrom, StoreType } from './store';
+import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from 'utils/constants';
 
 export async function initializeWrappedStore() {
 	const stateFromStorage = await browserApi.getStateFromStorage();
 	const lastStateFromStorage = stateFromStorage[STORAGE_CACHE_VERSION];
 
-	const store: StoreType = reconstructFrom(lastStateFromStorage);
+	const store: StoreType = buildFrom(lastStateFromStorage);
 
 	wrapStore(store, { portName: REACT_APP_REDUX_PORT });
 

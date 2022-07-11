@@ -38,7 +38,7 @@ const options = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
     options: path.join(__dirname, 'src', 'pages', 'options', 'index.jsx'),
-    popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.jsx'),
+    popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
     background: path.join(__dirname, 'src', 'pages', 'background', 'index.ts'),
     contentScript: path.join(__dirname, 'src', 'pages', 'content', 'index.js'),
     devtools: path.join(__dirname, 'src', 'pages', 'devtools', 'index.js'),
