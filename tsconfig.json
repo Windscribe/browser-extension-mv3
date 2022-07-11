@@ -14,11 +14,8 @@
     "resolveJsonModule": true,
     "noEmit": false,
     "jsx": "react-jsx",
-    "jsxImportSource": "theme-ui"
-    // "baseUrl": "./src",
-    // "paths": {
-    //   "@eduardoac-skimlinks/webext-redux": ["webext-redux"]
-    // }
+    "jsxImportSource": "theme-ui",
+    "baseUrl": "./src",
   },
   "include": ["src", "assets/img/custom.d.ts"],
   "exclude": ["build", "node_modules"]

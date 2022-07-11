@@ -1,11 +1,10 @@
+import edge, { EdgeApiAdapter } from './edge';
 import chrome, { ChromeApiAdapter } from './chrome';
 import safari, { SafariApiAdapter } from './safari';
-import edge, { EdgeApiAdapter } from './edge';
-import { BROWSER, BrowserName } from '../../utils/constants';
-import log from '../../utils/log';
+import log from 'utils/log';
+import { BROWSER, BrowserName } from 'utils/constants';
 
-// TODO Describe BrowserApiAdapter interface
-type BrowserApiAdapter = ChromeApiAdapter; // | SafariApiAdapter | EdgeApiAdapter;
+type BrowserApiAdapter = ChromeApiAdapter | SafariApiAdapter | EdgeApiAdapter;
 
 type BrowserApis = {
 	[K in BrowserName]: BrowserApiAdapter;
@@ -13,8 +12,8 @@ type BrowserApis = {
 
 const browserApis: BrowserApis = {
 	'Chrome': chrome,
-	'Safari': chrome,
-	'Edge': chrome
+	'Safari': safari,
+	'Edge': edge,
 };
 
 const selectedApi = browserApis[BROWSER];

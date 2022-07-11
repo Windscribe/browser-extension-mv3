@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch, connect } from 'react-redux';
 
 import './Popup.css';
-import { RootState } from '../../state';
-import logo from '../../assets/img/logo.svg';
-import { increment } from '../../state/slices/example';
+import { RootState } from 'state';
+import logo from 'assets/img/logo.svg';
+import { increment } from 'state/slices/example';
 
 type ExampleProps = {
-	example: { counter: number; };
+	example?: { counter: number; };
 };
 
 const Example = (props: ExampleProps) => {

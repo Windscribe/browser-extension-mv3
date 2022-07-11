@@ -1,5 +1,5 @@
-import { initializeWrappedStore } from '../../state';
-import log from '../../utils/log';
+import { initializeWrappedStore } from 'state';
+import log from 'utils/log';
 
 ; (async () => {
 	await initializeWrappedStore();
