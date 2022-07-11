@@ -19,4 +19,5 @@ export type BrowserName = 'Chrome' | 'Safari' | 'Edge';
 export const BROWSER: BrowserName = process.env.BROWSER as BrowserName || 'Chrome';
 
 export const STORAGE_CACHE_VERSION: string = '1';
+
 export const REACT_APP_REDUX_PORT: string = process.env.REACT_APP_REDUX_PORT || 'WS_BROWSER_EXTENSION_STORE';

@@ -8,8 +8,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const ASSET_PATH = process.env.ASSET_PATH || '/';
-
 const alias = {
   'react-dom': '@hot-loader/react-dom',
 };
@@ -35,7 +33,7 @@ if (fileSystem.existsSync(secretsPath)) {
 }
 
 const options = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: env.NODE_ENV || 'development',
   entry: {
     options: path.join(__dirname, 'src', 'pages', 'options', 'index.jsx'),
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
@@ -51,14 +49,12 @@ const options = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build'),
     clean: true,
-    publicPath: ASSET_PATH,
+    publicPath: env.ASSET_PATH,
   },
   module: {
     rules: [
       {
-        // look for .css or .scss files
         test: /\.(css|scss)$/,
-        // in the `src` directory
         use: [
           {
             loader: 'style-loader',
@@ -114,8 +110,6 @@ const options = {
   plugins: [
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
-    // expose and write the allowed env vars on the compiled bundle
-    // new webpack.EnvironmentPlugin(['NODE_ENV']),
     new Dotenv(),
     new CopyWebpackPlugin({
       patterns: [
