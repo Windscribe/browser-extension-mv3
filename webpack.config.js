@@ -111,6 +111,7 @@ const options = {
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
     new Dotenv(),
+    // TODO Review plugins. Probably they could be optimized
     new CopyWebpackPlugin({
       patterns: [
         {
