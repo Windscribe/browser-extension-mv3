@@ -1,17 +1,11 @@
-import React from 'react';
-import { useDispatch, connect } from 'react-redux';
-
 import './Popup.css';
-import { RootState } from 'state';
+import { useSelector, useDispatch } from 'state/hooks';
 import logo from 'assets/img/logo.svg';
 import { increment } from 'state/slices/example';
 
-type ExampleProps = {
-	example?: { counter: number; };
-};
-
-const Example = (props: ExampleProps) => {
+const Example = () => {
 	const dispatch = useDispatch();
+	const counter = useSelector((state) => state.example.counter);
 
 	const handleClick = async () => {
 		await dispatch(increment());
@@ -22,7 +16,7 @@ const Example = (props: ExampleProps) => {
 			<header className="App-header">
 				<img src={logo} className="App-logo" alt="logo" />
 				<p>
-					Counter value is <code>{props.example?.counter}</code>
+					Counter value is <code>{counter}</code>
 				</p>
 				<button className='button' onClick={handleClick}>Test Redux</button>
 			</header>
@@ -30,6 +24,4 @@ const Example = (props: ExampleProps) => {
 	);
 };
 
-const mapStateToProps = (state: RootState, ownProps: ExampleProps) => ({ example: state.example });
-
-export default connect(mapStateToProps)(Example);
+export default Example;
