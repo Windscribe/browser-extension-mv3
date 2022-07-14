@@ -1,7 +1,6 @@
-console.log('%c Content script works!', 'background: #383E49; color: #1ADEAE');
 // Example of how to use proxyStore
-
 /*
+import { ProxyStore } from 'state';
 import { REACT_APP_REDUX_PORT } from 'utils/constants';
 
 try {
@@ -16,7 +15,6 @@ try {
 	log('Error while creating proxy store in a content script: ', err, 'error');
 }
 */
-
 
 // Demo of how to spoof an userAgent
 /*
