@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import './index.css';
 import log from 'utils/log';
 import Example from './Example';
+import Router from 'navigation/Router';
 import { ProxyStore } from 'state';
 import browserApi from 'services/browserApi';
 import {
@@ -32,7 +33,8 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, (response) => {
 
 		render(
 			<Provider store={proxyStore}>
-				<Example />
+				<Router />
+				{/* <Example /> */}
 			</Provider>,
 			window.document.querySelector('#app-container')
 		);

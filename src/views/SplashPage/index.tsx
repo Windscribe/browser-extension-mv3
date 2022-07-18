@@ -78,4 +78,4 @@
 //   );
 // };
 
-// export default SplashPage;
+export default () => <p>SplashPage</p>;

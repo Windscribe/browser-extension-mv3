@@ -1,4 +1,4 @@
-import store, { RootState } from './store';
+import store, { type RootState } from './store';
 import { initializeWrappedStore, ProxyStore } from './webExtAdapter';
 
 export { store, RootState, initializeWrappedStore, ProxyStore };

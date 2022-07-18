@@ -1,4 +1,4 @@
-import { RootState } from 'state';
+import { type RootState } from 'state';
 import { STORAGE_CACHE_VERSION } from 'utils/constants';
 
 type OnChangedCallBack = Parameters<typeof chrome.storage.onChanged.addListener>[0];

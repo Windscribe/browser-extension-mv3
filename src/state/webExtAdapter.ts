@@ -5,7 +5,7 @@
 import { Store, wrapStore } from '@eduardoac-skimlinks/webext-redux';
 
 import browserApi from 'services/browserApi';
-import { buildFrom, StoreType } from './store';
+import { buildFrom, type StoreType } from './store';
 import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from 'utils/constants';
 
 export async function initializeWrappedStore() {
