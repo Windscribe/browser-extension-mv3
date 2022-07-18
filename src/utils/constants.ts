@@ -15,7 +15,7 @@ export const ENVS = {
   },
 };
 
-export type BrowserName = 'Chrome' | 'Safari' | 'Edge';
+export type BrowserName = 'Chrome' | 'Edge';
 export const BROWSER: BrowserName = process.env.BROWSER as BrowserName || 'Chrome';
 
 export const STORAGE_CACHE_VERSION: string = '1';
