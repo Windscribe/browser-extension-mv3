@@ -21,3 +21,4 @@ export const BROWSER: BrowserName = process.env.BROWSER as BrowserName || 'Chrom
 export const STORAGE_CACHE_VERSION: string = '1';
 
 export const REACT_APP_REDUX_PORT: string = process.env.REACT_APP_REDUX_PORT || 'WS_BROWSER_EXTENSION_STORE';
+export const WAKE_UP_NEO = 'wake-up-background-service-worker';

@@ -5,7 +5,7 @@ import { increment } from 'state/slices/example';
 
 const Example = () => {
 	const dispatch = useDispatch();
-	const counter = useSelector((state) => state.example.counter);
+	const counter = useSelector((state) => state?.example?.counter);
 
 	const handleClick = async () => {
 		await dispatch(increment());
