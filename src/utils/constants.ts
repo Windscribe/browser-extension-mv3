@@ -1,4 +1,4 @@
-export const CLIENT_AUTH_SECRET = '952b4412f002315aa50751032fcaab03'
+export const CLIENT_AUTH_SECRET = '952b4412f002315aa50751032fcaab03';
 
 export const ENVS = {
   STG: {
@@ -13,4 +13,12 @@ export const ENVS = {
     BACKUP_ASSETS_URL: 'https://assets.totallyacdn.com',
     ROOT_URL: 'https://www.windscribe.com',
   },
-}
+};
+
+export type BrowserName = 'Chrome' | 'Edge';
+export const BROWSER: BrowserName = process.env.BROWSER as BrowserName || 'Chrome';
+
+export const STORAGE_CACHE_VERSION: string = '1';
+
+export const REACT_APP_REDUX_PORT: string = process.env.REACT_APP_REDUX_PORT || 'WS_BROWSER_EXTENSION_STORE';
+export const WAKE_UP_NEO = 'wake-up-background-service-worker';

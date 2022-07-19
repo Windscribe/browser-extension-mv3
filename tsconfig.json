@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2019",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
     "skipLibCheck": true,
@@ -14,8 +14,9 @@
     "resolveJsonModule": true,
     "noEmit": false,
     "jsx": "react-jsx",
-    "jsxImportSource": "theme-ui"
+    "jsxImportSource": "theme-ui",
+    "baseUrl": "./src",
   },
-  "include": ["src"],
+  "include": ["src", "assets/img/custom.d.ts"],
   "exclude": ["build", "node_modules"]
 }

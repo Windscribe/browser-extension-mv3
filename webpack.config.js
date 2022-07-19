@@ -1,22 +1,21 @@
-var webpack = require('webpack'),
-  path = require('path'),
-  fileSystem = require('fs-extra'),
-  env = require('./utils/env'),
-  CopyWebpackPlugin = require('copy-webpack-plugin'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  TerserPlugin = require('terser-webpack-plugin');
-var { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const fileSystem = require('fs-extra');
+const env = require('./scripts/env');
+const Dotenv = require('dotenv-webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const ASSET_PATH = process.env.ASSET_PATH || '/';
-
-var alias = {
+const alias = {
   'react-dom': '@hot-loader/react-dom',
 };
 
 // load the secrets
-var secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
+const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
 
-var fileExtensions = [
+const fileExtensions = [
   'jpg',
   'jpeg',
   'png',
@@ -33,15 +32,15 @@ if (fileSystem.existsSync(secretsPath)) {
   alias['secrets'] = secretsPath;
 }
 
-var options = {
-  mode: process.env.NODE_ENV || 'development',
+const options = {
+  mode: env.NODE_ENV || 'development',
   entry: {
-    options: path.join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
-    popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
-    background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
-    contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.js'),
-    devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
-    panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
+    options: path.join(__dirname, 'src', 'pages', 'options', 'index.jsx'),
+    popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
+    background: path.join(__dirname, 'src', 'pages', 'background', 'index.ts'),
+    contentScript: path.join(__dirname, 'src', 'pages', 'content', 'index.js'),
+    devtools: path.join(__dirname, 'src', 'pages', 'devtools', 'index.js'),
+    panel: path.join(__dirname, 'src', 'pages', 'panel', 'index.jsx'),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'contentScript', 'devtools'],
@@ -50,14 +49,12 @@ var options = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build'),
     clean: true,
-    publicPath: ASSET_PATH,
+    publicPath: env.ASSET_PATH,
   },
   module: {
     rules: [
       {
-        // look for .css or .scss files
         test: /\.(css|scss)$/,
-        // in the `src` directory
         use: [
           {
             loader: 'style-loader',
@@ -81,7 +78,11 @@ var options = {
         loader: 'html-loader',
         exclude: /node_modules/,
       },
-      { test: /\.(ts|tsx)$/, loader: 'ts-loader', exclude: /node_modules/ },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.(js|jsx)$/,
         use: [
@@ -97,6 +98,10 @@ var options = {
     ],
   },
   resolve: {
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules'
+    ],
     alias: alias,
     extensions: fileExtensions
       .map((extension) => '.' + extension)
@@ -105,15 +110,15 @@ var options = {
   plugins: [
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
-    // expose and write the allowed env vars on the compiled bundle
-    new webpack.EnvironmentPlugin(['NODE_ENV']),
+    new Dotenv(),
+    // TODO Review plugins. Probably they could be optimized
     new CopyWebpackPlugin({
       patterns: [
         {
           from: 'src/manifest.json',
           to: path.join(__dirname, 'build'),
           force: true,
-          transform: function (content, path) {
+          transform: function(content, path) {
             // generates the manifest file using the package.json informations
             return Buffer.from(
               JSON.stringify({
@@ -129,7 +134,7 @@ var options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/pages/Content/content.styles.css',
+          from: path.resolve(__dirname, 'src/pages/content/content.styles.css'),
           to: path.join(__dirname, 'build'),
           force: true,
         },
@@ -154,25 +159,25 @@ var options = {
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Options', 'index.html'),
+      template: path.join(__dirname, 'src', 'pages', 'options', 'index.html'),
       filename: 'options.html',
       chunks: ['options'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
+      template: path.join(__dirname, 'src', 'pages', 'popup', 'index.html'),
       filename: 'popup.html',
       chunks: ['popup'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.html'),
+      template: path.join(__dirname, 'src', 'pages', 'devtools', 'index.html'),
       filename: 'devtools.html',
       chunks: ['devtools'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Panel', 'index.html'),
+      template: path.join(__dirname, 'src', 'pages', 'panel', 'index.html'),
       filename: 'panel.html',
       chunks: ['panel'],
       cache: false,
@@ -181,6 +186,9 @@ var options = {
   infrastructureLogging: {
     level: 'info',
   },
+  experiments: {
+    topLevelAwait: true,
+  }
 };
 
 if (env.NODE_ENV === 'development') {
