@@ -13,7 +13,6 @@ const SplashPage = () => {
         position: 'relative',
         backgroundImage: `url(${splashBackground})`,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: '324px 298px',
         height: '100vh',
       }}
     >
