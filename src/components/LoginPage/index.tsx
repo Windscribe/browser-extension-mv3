@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
-import ArrowLeft from 'assets/img/arrowLeft.svg'
+import Header from 'components/Header'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 
@@ -17,41 +17,10 @@ const LoginPage = () => {
         flexDirection: 'column',
       }}
     >
-      <Flex
-        sx={{
-          height: '64px',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          px: '16px',
-          borderBottom: `1px solid ${theme.colors?.border}`,
-        }}
-      >
-        <Button
-          variant="circle"
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ArrowLeft
-            sx={{
-              minWidth: '16px',
-              fill: theme.colors?.primaryText,
-            }}
-          />
-        </Button>
-        <Text
-          sx={{
-            fontSize: '24px',
-            color: theme.colors?.primaryText,
-            fontWeight: '600',
-          }}
-        >
-          Login
-        </Text>
-        <Text sx={{ color: theme.colors?.secondaryText }}>Sign up</Text>
-      </Flex>
+      <Header
+        title="Login"
+        RightSideComponent={<Text sx={{ color: theme.colors?.secondaryText }}>Sign up</Text>}
+      />
       <Box as="form" sx={{ mx: '16px' }}>
         <Flex sx={{ justifyContent: 'space-between' }}>
           <Label htmlFor="username">Username</Label>
