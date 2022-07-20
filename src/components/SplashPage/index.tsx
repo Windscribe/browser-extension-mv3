@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Flex, Text, useThemeUI } from 'theme-ui'
-import splashBackground from '../../assets/img/splashBackground.png'
-import rotatingLogo from '../../assets/img/rotatingLogo.gif'
+import splashBackground from 'assets/img/splashBackground.png'
+import rotatingLogo from 'assets/img/rotatingLogo.gif'
 
 const SplashPage = () => {
   const { theme } = useThemeUI()

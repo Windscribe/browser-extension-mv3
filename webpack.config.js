@@ -1,35 +1,24 @@
-const webpack = require('webpack');
-const path = require('path');
-const fileSystem = require('fs-extra');
-const env = require('./scripts/env');
-const Dotenv = require('dotenv-webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const fileSystem = require('fs-extra')
+const env = require('./scripts/env')
+const Dotenv = require('dotenv-webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const alias = {
   'react-dom': '@hot-loader/react-dom',
-};
+}
 
 // load the secrets
-const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
+const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js')
 
-const fileExtensions = [
-  'jpg',
-  'jpeg',
-  'png',
-  'gif',
-  'eot',
-  'otf',
-  'svg',
-  'ttf',
-  'woff',
-  'woff2',
-];
+const fileExtensions = ['jpg', 'jpeg', 'png', 'gif', 'eot', 'otf', 'ttf', 'woff', 'woff2']
 
 if (fileSystem.existsSync(secretsPath)) {
-  alias['secrets'] = secretsPath;
+  alias['secrets'] = secretsPath
 }
 
 const options = {
@@ -74,6 +63,11 @@ const options = {
         // },
       },
       {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+        exclude: /node_modules/,
+      },
+      {
         test: /\.html$/,
         loader: 'html-loader',
         exclude: /node_modules/,
@@ -81,7 +75,7 @@ const options = {
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(js|jsx)$/,
@@ -98,13 +92,10 @@ const options = {
     ],
   },
   resolve: {
-    modules: [
-      path.resolve(__dirname, 'src'),
-      'node_modules'
-    ],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     alias: alias,
     extensions: fileExtensions
-      .map((extension) => '.' + extension)
+      .map(extension => '.' + extension)
       .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
@@ -118,15 +109,15 @@ const options = {
           from: 'src/manifest.json',
           to: path.join(__dirname, 'build'),
           force: true,
-          transform: function(content, path) {
+          transform: function (content, path) {
             // generates the manifest file using the package.json informations
             return Buffer.from(
               JSON.stringify({
                 description: process.env.npm_package_description,
                 version: process.env.npm_package_version,
                 ...JSON.parse(content.toString()),
-              })
-            );
+              }),
+            )
           },
         },
       ],
@@ -188,11 +179,11 @@ const options = {
   },
   experiments: {
     topLevelAwait: true,
-  }
-};
+  },
+}
 
 if (env.NODE_ENV === 'development') {
-  options.devtool = 'cheap-module-source-map';
+  options.devtool = 'cheap-module-source-map'
 } else {
   options.optimization = {
     minimize: true,
@@ -201,7 +192,7 @@ if (env.NODE_ENV === 'development') {
         extractComments: false,
       }),
     ],
-  };
+  }
 }
 
-module.exports = options;
+module.exports = options

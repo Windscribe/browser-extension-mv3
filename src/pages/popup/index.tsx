@@ -4,7 +4,7 @@ import { ThemeProvider } from 'theme-ui'
 import { theme } from '../../theme'
 import './index.css'
 import log from 'utils/log'
-import SplashPage from 'components/SplashPage'
+import LoginPage from 'components/LoginPage'
 import { ProxyStore } from 'state'
 import browserApi from 'services/browserApi'
 import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT, WAKE_UP_NEO } from 'utils/constants'
@@ -30,7 +30,7 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
     render(
       <Provider store={proxyStore}>
         <ThemeProvider theme={theme}>
-          <SplashPage />
+          <LoginPage />
         </ThemeProvider>
       </Provider>,
       window.document.querySelector('#app-container'),
