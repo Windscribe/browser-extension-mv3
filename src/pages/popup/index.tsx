@@ -4,18 +4,13 @@ import { ThemeProvider } from 'theme-ui'
 import { theme } from '../../theme'
 import './index.css'
 import log from 'utils/log'
-import Example from './Example'
 import SplashPage from 'components/SplashPage'
 import { ProxyStore } from 'state'
 import browserApi from 'services/browserApi'
-import {
-  STORAGE_CACHE_VERSION,
-  REACT_APP_REDUX_PORT,
-  WAKE_UP_NEO,
-} from 'utils/constants'
+import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT, WAKE_UP_NEO } from 'utils/constants'
 
 // Wake up background script and then initialize connection between ProxyStore and WrappedStore
-browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, (response) => {
+browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
   log(response.type)
 
   const proxyStore: any = new ProxyStore({
@@ -38,7 +33,7 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, (response) => {
           <SplashPage />
         </ThemeProvider>
       </Provider>,
-      window.document.querySelector('#app-container')
+      window.document.querySelector('#app-container'),
     )
   })
 })
