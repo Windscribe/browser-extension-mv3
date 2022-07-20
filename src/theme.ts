@@ -9,6 +9,7 @@ export const theme: Theme = {
     foreground: '#d8d8d8',
     primaryText: '#fff',
     secondaryText: '#rgba(255, 255, 255, 0.5)',
+    black: '#020d1c',
     white: '#fff',
     blue: '#006aff',
     green: '#55ff8a',
@@ -18,9 +19,27 @@ export const theme: Theme = {
       light: {
         background: '#fff',
         foreground: 'rgba(2, 13, 28, 0.1)',
-        primaryText: '#020d1c',
-        secondaryText: '#rgba(255, 255, 255, 0.5)',
+        primaryText: 'black',
+        secondaryText: 'rgba(2, 13, 28 0.5)',
       },
+    },
+  },
+  buttons: {
+    simple: {
+      cursor: 'pointer',
+      backgroundColor: 'transparent',
+      padding: 0,
+    },
+    circle: {
+      cursor: 'pointer',
+      width: '32px',
+      height: '32px',
+      color: 'primaryText',
+      backgroundColor: 'foreground',
+    },
+    rectangle: {
+      cursor: 'pointer',
+      borderRadius: '20px',
     },
   },
 }
