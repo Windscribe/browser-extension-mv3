@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
 import ArrowLeft from 'assets/img/arrowLeft.svg'
-import ShowPassword from '../../assets/img/showPassword.svg'
-import HidePassword from '../../assets/img/hidePassword.svg'
+import ShowPassword from 'assets/img/showPassword.svg'
+import HidePassword from 'assets/img/hidePassword.svg'
 
 const LoginPage = () => {
   const { theme } = useThemeUI()
