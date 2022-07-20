@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2019",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": false,
+    "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -17,6 +17,7 @@
     "jsxImportSource": "theme-ui",
     "baseUrl": "./src",
   },
-  "include": ["src", "assets/img/custom.d.ts"],
-  "exclude": ["build", "node_modules"]
+  "include": ["src"],
+  "exclude": ["build", "node_modules"],
+  "files": ["custom.d.ts"]
 }
