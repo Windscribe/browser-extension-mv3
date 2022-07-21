@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Flex, Text, useThemeUI } from 'theme-ui'
 import splashBackground from 'assets/img/splashBackground.png'
 import rotatingLogo from 'assets/img/rotatingLogo.gif'
@@ -36,7 +35,7 @@ const SplashPage = () => {
         Keep Your Secrets.
       </Text>
       <Button
-        variant="rectangle"
+        variant="rounded"
         sx={{
           mt: '52px',
           fontSize: '14px',

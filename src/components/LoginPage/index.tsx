@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
 import Header from 'components/Header'
 import ShowPassword from 'assets/img/showPassword.svg'
@@ -81,7 +81,7 @@ const LoginPage = () => {
             </Link>
           </Flex>
           <Button
-            variant="rectangle"
+            variant="rounded"
             type="submit"
             sx={{
               width: '103px',

@@ -56,7 +56,7 @@ export const theme: Theme = {
       color: 'primaryText',
       backgroundColor: 'foreground',
     },
-    rectangle: {
+    rounded: {
       cursor: 'pointer',
       borderRadius: '20px',
     },
