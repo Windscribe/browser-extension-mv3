@@ -15,18 +15,7 @@ const alias = {
 // load the secrets
 const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
 
-const fileExtensions = [
-  'jpg',
-  'jpeg',
-  'png',
-  'gif',
-  'eot',
-  'otf',
-  'svg',
-  'ttf',
-  'woff',
-  'woff2',
-];
+const fileExtensions = ['jpg', 'jpeg', 'png', 'gif', 'eot', 'otf', 'ttf', 'woff', 'woff2'];
 
 if (fileSystem.existsSync(secretsPath)) {
   alias['secrets'] = secretsPath;
@@ -74,6 +63,11 @@ const options = {
         // },
       },
       {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+        exclude: /node_modules/,
+      },
+      {
         test: /\.html$/,
         loader: 'html-loader',
         exclude: /node_modules/,
@@ -81,7 +75,7 @@ const options = {
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(js|jsx)$/,
@@ -98,13 +92,10 @@ const options = {
     ],
   },
   resolve: {
-    modules: [
-      path.resolve(__dirname, 'src'),
-      'node_modules'
-    ],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     alias: alias,
     extensions: fileExtensions
-      .map((extension) => '.' + extension)
+      .map(extension => '.' + extension)
       .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
@@ -125,7 +116,7 @@ const options = {
                 description: process.env.npm_package_description,
                 version: process.env.npm_package_version,
                 ...JSON.parse(content.toString()),
-              })
+              }),
             );
           },
         },
@@ -188,7 +179,7 @@ const options = {
   },
   experiments: {
     topLevelAwait: true,
-  }
+  },
 };
 
 if (env.NODE_ENV === 'development') {

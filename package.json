@@ -15,10 +15,11 @@
   },
   "dependencies": {
     "@eduardoac-skimlinks/webext-redux": "^3.0.0-release-candidate",
-    "@emotion/react": "^11.9.3",
+    "@emotion/react": "11.7.1",
     "@hot-loader/react-dom": "^17.0.2",
     "@mdx-js/react": "^2.1.2",
     "@reduxjs/toolkit": "^1.8.3",
+    "@svgr/webpack": "^6.3.0",
     "dotenv-webpack": "^7.1.1",
     "jest": "^28.1.2",
     "puppeteer": "^15.3.1",

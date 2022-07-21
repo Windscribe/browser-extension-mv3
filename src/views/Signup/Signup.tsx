@@ -1,68 +1,63 @@
-// // import { Box, Flex, Text } from 'rebass'
-// import {
-// 	Button,
-// 	Flex,
-// 	Text,
-// 	Input,
-// 	Label,
-// 	Box,
-// 	Link,
-// 	useThemeUI,
-// } from 'theme-ui';
+import {
+	Box,
+	Flex,
+	Text,
+} from 'theme-ui';
 
-// // import { OverrideAppHeight } from 'components/Utils';
-// import Header from 'components/LoginHeader';
-// // import { useTranslation } from 'react-i18next';
-// // import { useTheme } from 'ui/hooks';
-// // import { ThemeContext } from '@emotion/core';
-// // import Button from './Button';
+// import { OverrideAppHeight } from 'components/Utils';
+import Header from 'components/Header';
+import Button from './Button';
 
-// export default () => {
-// 	// const { colors, space, fontSizes } = useTheme(ThemeContext);
-// 	const { theme } = useThemeUI();
-// 	const { rawColors } = theme;
-// 	const { t } = useTranslation();
-// 	return (
-// 		<Box bg={rawColors?.background}>
-// 			{/* <OverrideAppHeight height={'300px'} /> */}
-// 			<Flex sx={{
-// 				flexDirection: "column"
-// 			}}>
-// 				<Header headerText="Sign up" buttonText="Login" buttonView="Login" />
-// 				<Flex
-// 					sx={{
-// 						flexDirection: "column"
-// 					}}
-// 				>
-// 					<Text
-// 						color={colors.fg}
-// 						pt={space[6]}
-// 						fontSize={fontSizes[1]}
-// 						textAlign="center"
-// 					>
-// 						{t('Pick your plan')}
-// 					</Text>
-// 					<Box mx={space[8]} my={space[6]}>
-// 						<Button
-// 							bgColor={colors.divider}
-// 							color={colors.fg}
-// 							text="Free"
-// 							subtext="Up to 10GB/month"
-// 							path="signup"
-// 						/>
-// 					</Box>
-// 					<Box mx={space[8]} mb={space[6]}>
-// 						<Button
-// 							bgColor={colors.green}
-// 							color={colors.black}
-// 							text="Pro"
-// 							subtext="Unlimited GB & more"
-// 							path="upgrade"
-// 							isPro
-// 						/>
-// 					</Box>
-// 				</Flex>
-// 			</Flex>
-// 		</Box>
-// 	);
-// };
+export default () => {
+	return (
+		<Box bg='background'>
+			{/* <OverrideAppHeight height={'300px'} /> */}
+			<Flex sx={{
+				flexDirection: "column"
+			}}>
+				<Header
+					title="Sign up"
+					RightSideComponent={
+						<Text sx={{
+							fontSize: '14px',
+							color: 'secondaryText'
+						}}>Login</Text>
+					}
+				/>
+			</Flex>
+			<Flex sx={{
+				flexDirection: "column"
+			}}>
+				<Text
+					color='warmgrey'
+					pt='24px'
+					sx={{
+						fontSize: 1,
+						textAlign: "center"
+					}}
+				>
+					Pick your plan
+				</Text>
+				<Box mx='32px' my='24px'>
+					<Button
+						bg='lowwhite'
+						color='white'
+						text='Free'
+						subtext="Up to 10GB/month"
+					// path="signup"
+					/>
+				</Box>
+				<Box mx='32px' mb='24px' >
+					<Button
+						bg='green'
+						color='black'
+						text='Pro'
+						subtext="Unlimited GB & more"
+					// path="upgrade"
+					// isPro
+					/>
+				</Box>
+			</Flex>
+		</Box >
+	);
+};

@@ -1,8 +1,10 @@
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'theme-ui';
 
 import './index.css';
 import log from 'utils/log';
+import theme from 'styles';
 import Example from './Example';
 import Router from 'navigation/Router';
 import { ProxyStore } from 'state';
@@ -32,10 +34,12 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, (response) => {
 		browserApi.subscribeOnStorageChange(update);
 
 		render(
-			<Provider store={proxyStore}>
-				<Router />
-				{/* <Example /> */}
-			</Provider>,
+			<ThemeProvider theme={theme}>
+				<Provider store={proxyStore}>
+					<Router />
+					{/* <Example /> */}
+				</Provider>
+			</ThemeProvider>,
 			window.document.querySelector('#app-container')
 		);
 	});

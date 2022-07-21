@@ -10,7 +10,7 @@ interface ViewState {
 const defaultState: ViewState = {
 	previous: [],
 	//current: 'SplashPage',
-	current: 'Example',
+	current: 'Signup',
 };
 
 export const create = (initialState?: ViewState) => createSlice({
