@@ -1,6 +1,5 @@
 import './Popup.css';
 import { useSelector, useDispatch } from 'state/hooks';
-import logo from 'assets/img/logo.svg';
 import { increment } from 'state/slices/example';
 
 const Example = () => {
@@ -14,7 +13,6 @@ const Example = () => {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
 				<p>
 					Counter value is <code>{counter}</code>
 				</p>
