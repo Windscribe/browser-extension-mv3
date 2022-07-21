@@ -35,7 +35,7 @@ const SplashPage = () => {
         Keep Your Secrets.
       </Text>
       <Button
-        variant="rectangle"
+        variant="rounded"
         sx={{
           mt: '52px',
           fontSize: '14px',
