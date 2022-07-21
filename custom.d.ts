@@ -1,3 +1,6 @@
-declare module '*.png'
-declare module '*.svg'
-declare module '*.gif'
+declare module '*.svg' {
+  const content: any
+  export default content
+}
+
+declare module 'assets/*'
