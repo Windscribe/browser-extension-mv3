@@ -1,3 +1,3 @@
-import api from './browserApiFactory';
+import api from './browserApiFactory'
 
-export default api;
+export default api

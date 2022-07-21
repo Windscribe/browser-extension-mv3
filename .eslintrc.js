@@ -51,13 +51,13 @@ module.exports = {
     },
   ],
   globals: {
-    chrome: "readonly",
+    chrome: 'readonly',
     page: true,
     browser: true,
     context: true,
-    jestPuppeteer: true
+    jestPuppeteer: true,
   },
   env: {
-    jest: true
-  }
-};
+    jest: true,
+  },
+}

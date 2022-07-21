@@ -1,5 +1,5 @@
 module.exports = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   PORT: process.env.PORT || 3000,
-  ASSET_PATH: process.env.ASSET_PATH || '/'
-};
+  ASSET_PATH: process.env.ASSET_PATH || '/',
+}

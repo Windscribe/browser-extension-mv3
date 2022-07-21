@@ -1,24 +1,24 @@
-const webpack = require('webpack');
-const path = require('path');
-const fileSystem = require('fs-extra');
-const env = require('./scripts/env');
-const Dotenv = require('dotenv-webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const fileSystem = require('fs-extra')
+const env = require('./scripts/env')
+const Dotenv = require('dotenv-webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const alias = {
   'react-dom': '@hot-loader/react-dom',
-};
+}
 
 // load the secrets
-const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
+const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js')
 
-const fileExtensions = ['jpg', 'jpeg', 'png', 'gif', 'eot', 'otf', 'ttf', 'woff', 'woff2'];
+const fileExtensions = ['jpg', 'jpeg', 'png', 'gif', 'eot', 'otf', 'ttf', 'woff', 'woff2']
 
 if (fileSystem.existsSync(secretsPath)) {
-  alias['secrets'] = secretsPath;
+  alias['secrets'] = secretsPath
 }
 
 const options = {
@@ -109,7 +109,7 @@ const options = {
           from: 'src/manifest.json',
           to: path.join(__dirname, 'build'),
           force: true,
-          transform: function(content, path) {
+          transform: function (content, path) {
             // generates the manifest file using the package.json informations
             return Buffer.from(
               JSON.stringify({
@@ -117,7 +117,7 @@ const options = {
                 version: process.env.npm_package_version,
                 ...JSON.parse(content.toString()),
               }),
-            );
+            )
           },
         },
       ],
@@ -180,10 +180,10 @@ const options = {
   experiments: {
     topLevelAwait: true,
   },
-};
+}
 
 if (env.NODE_ENV === 'development') {
-  options.devtool = 'cheap-module-source-map';
+  options.devtool = 'cheap-module-source-map'
 } else {
   options.optimization = {
     minimize: true,
@@ -192,7 +192,7 @@ if (env.NODE_ENV === 'development') {
         extractComments: false,
       }),
     ],
-  };
+  }
 }
 
-module.exports = options;
+module.exports = options

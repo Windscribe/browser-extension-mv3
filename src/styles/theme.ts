@@ -1,4 +1,4 @@
-import type { Theme } from 'theme-ui';
+import type { Theme } from 'theme-ui'
 
 export const theme: Theme = {
   styles: {
@@ -7,7 +7,7 @@ export const theme: Theme = {
         fontSize: '14px',
       },
       width: '324px',
-      height: '298px'
+      height: '298px',
     },
   },
   config: {
@@ -76,15 +76,15 @@ export const theme: Theme = {
         backgroundColor: 'white',
         color: 'black',
         div: {
-          color: 'background'
+          color: 'background',
         },
         span: {
-          color: 'background'
+          color: 'background',
         },
         svg: {
-          fill: 'background'
-        }
-      }
+          fill: 'background',
+        },
+      },
     },
   },
   forms: {
@@ -109,4 +109,4 @@ export const theme: Theme = {
       },
     },
   },
-};
+}
