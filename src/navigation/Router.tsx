@@ -1,4 +1,3 @@
-import { finishDraft } from 'immer'
 import { useSelector } from 'state/hooks'
 import { type View } from 'state/slices/view'
 import * as Views from 'views'

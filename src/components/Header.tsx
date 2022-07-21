@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Flex, Text, useThemeUI } from 'theme-ui'
 import ArrowLeft from 'assets/img/arrowLeft.svg'
 

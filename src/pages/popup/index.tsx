@@ -5,7 +5,6 @@ import { ThemeProvider } from 'theme-ui'
 import './index.css'
 import log from 'utils/log'
 import theme from 'styles'
-import Example from './Example'
 import Router from 'navigation/Router'
 import { ProxyStore } from 'state'
 import browserApi from 'services/browserApi'
@@ -33,7 +32,6 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
       <ThemeProvider theme={theme}>
         <Provider store={proxyStore}>
           <Router />
-          {/* <Example /> */}
         </Provider>
       </ThemeProvider>,
       window.document.querySelector('#app-container'),
