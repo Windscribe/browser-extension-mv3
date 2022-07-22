@@ -3,12 +3,9 @@ import { Box, Flex, Text, Button as SimpleButton } from 'theme-ui'
 // import { OverrideAppHeight } from 'components/Utils';
 import Header from 'components/Header'
 import Button from './Button'
-import { useDispatch } from 'state/hooks'
-import { set } from 'state/slices/view'
+import { goTo } from 'services/navigation'
 
 export default () => {
-  const dispatch = useDispatch()
-  const goLogin = () => dispatch(set('Login'))
   return (
     <Box bg="background">
       {/* <OverrideAppHeight height={'300px'} /> */}
@@ -22,7 +19,7 @@ export default () => {
           RightSideComponent={
             <SimpleButton
               variant="simple"
-              onClick={goLogin}
+              onClick={goTo('Login')}
               sx={{
                 fontSize: '14px',
                 color: 'secondaryText',

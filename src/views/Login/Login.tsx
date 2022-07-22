@@ -3,8 +3,7 @@ import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-u
 import Header from 'components/Header'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
-import { useDispatch } from 'state/hooks'
-import { set } from 'state/slices/view'
+import { goTo } from 'services/navigation'
 
 export default () => {
   const { theme } = useThemeUI()
@@ -12,9 +11,6 @@ export default () => {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
-
-  const dispatch = useDispatch()
-  const goSignup = () => dispatch(set('Signup'))
 
   return (
     <Flex
@@ -27,7 +23,7 @@ export default () => {
         RightSideComponent={
           <Button
             variant="simple"
-            onClick={goSignup}
+            onClick={goTo('Signup')}
             sx={{
               fontSize: '14px',
               color: 'secondaryText',

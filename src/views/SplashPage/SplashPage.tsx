@@ -1,13 +1,10 @@
 import { Button, Flex, Text, useThemeUI } from 'theme-ui'
 import splashBackground from 'assets/img/splashBackground.png'
 import rotatingLogo from 'assets/img/rotatingLogo.gif'
-import { set } from 'state/slices/view'
-import { useDispatch } from 'state/hooks'
+import { goTo } from 'services/navigation'
 
 const SplashPage = () => {
   const { theme } = useThemeUI()
-  const dispatch = useDispatch()
-  const goLogin = () => dispatch(set('Login'))
 
   return (
     <Flex
@@ -57,7 +54,7 @@ const SplashPage = () => {
         Get Started
       </Button>
       <Button
-        onClick={goLogin}
+        onClick={goTo('Login')}
         variant="simple"
         sx={{
           mt: '24px',
