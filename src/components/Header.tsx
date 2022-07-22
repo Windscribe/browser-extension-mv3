@@ -1,5 +1,7 @@
 import { Button, Flex, Text, useThemeUI } from 'theme-ui'
 import ArrowLeft from 'assets/img/arrowLeft.svg'
+import { useDispatch } from 'state/hooks'
+import { back } from 'state/slices/view'
 
 interface HeaderProps {
   title: string
@@ -8,6 +10,8 @@ interface HeaderProps {
 
 const Header = ({ title, RightSideComponent }: HeaderProps) => {
   const { theme } = useThemeUI()
+  const dispatch = useDispatch()
+  const goBack = () => dispatch(back())
 
   return (
     <Flex
@@ -20,6 +24,7 @@ const Header = ({ title, RightSideComponent }: HeaderProps) => {
       }}
     >
       <Button
+        onClick={goBack}
         variant="circle"
         sx={{
           display: 'flex',

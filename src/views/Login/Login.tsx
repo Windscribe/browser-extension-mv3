@@ -3,13 +3,18 @@ import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-u
 import Header from 'components/Header'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
+import { useDispatch } from 'state/hooks'
+import { set } from 'state/slices/view'
 
-const LoginPage = () => {
+export default () => {
   const { theme } = useThemeUI()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+
+  const dispatch = useDispatch()
+  const goSignup = () => dispatch(set('Signup'))
 
   return (
     <Flex
@@ -19,7 +24,18 @@ const LoginPage = () => {
     >
       <Header
         title="Login"
-        RightSideComponent={<Text sx={{ color: theme.colors?.secondaryText }}>Sign up</Text>}
+        RightSideComponent={
+          <Button
+            variant="simple"
+            onClick={goSignup}
+            sx={{
+              fontSize: '14px',
+              color: 'secondaryText',
+            }}
+          >
+            Sign up
+          </Button>
+        }
       />
       <Box as="form" sx={{ mx: '16px' }}>
         <Flex sx={{ justifyContent: 'space-between' }}>
@@ -98,5 +114,3 @@ const LoginPage = () => {
     </Flex>
   )
 }
-
-export default LoginPage

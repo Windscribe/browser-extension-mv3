@@ -9,8 +9,7 @@ interface ViewState {
 
 const defaultState: ViewState = {
   previous: [],
-  //current: 'SplashPage',
-  current: 'Signup',
+  current: 'SplashPage',
 }
 
 export const create = (initialState?: ViewState) =>
@@ -26,8 +25,7 @@ export const create = (initialState?: ViewState) =>
       },
       back(state) {
         const { previous } = state
-        previous.pop()
-        state.current = previous[previous.length - 1]
+        state.current = previous.pop() ?? defaultState.current
       },
     },
   })

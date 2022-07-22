@@ -1,10 +1,14 @@
-import { Box, Flex, Text } from 'theme-ui'
+import { Box, Flex, Text, Button as SimpleButton } from 'theme-ui'
 
 // import { OverrideAppHeight } from 'components/Utils';
 import Header from 'components/Header'
 import Button from './Button'
+import { useDispatch } from 'state/hooks'
+import { set } from 'state/slices/view'
 
 export default () => {
+  const dispatch = useDispatch()
+  const goLogin = () => dispatch(set('Login'))
   return (
     <Box bg="background">
       {/* <OverrideAppHeight height={'300px'} /> */}
@@ -16,14 +20,16 @@ export default () => {
         <Header
           title="Sign up"
           RightSideComponent={
-            <Text
+            <SimpleButton
+              variant="simple"
+              onClick={goLogin}
               sx={{
                 fontSize: '14px',
                 color: 'secondaryText',
               }}
             >
               Login
-            </Text>
+            </SimpleButton>
           }
         />
       </Flex>
