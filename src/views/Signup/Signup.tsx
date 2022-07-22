@@ -3,7 +3,6 @@ import { Box, Flex, Text, Button as SimpleButton } from 'theme-ui'
 // import { OverrideAppHeight } from 'components/Utils';
 import Header from 'components/Header'
 import Button from './Button'
-import { goTo } from 'services/navigation'
 
 export default () => {
   return (
@@ -14,25 +13,7 @@ export default () => {
           flexDirection: 'column',
         }}
       >
-        <Header
-          title="Sign up"
-          RightSideComponent={
-            <SimpleButton
-              variant="simple"
-              onClick={goTo('Login')}
-              sx={{
-                fontSize: '14px',
-                color: 'white',
-                opacity: 0.5,
-                '&:hover': {
-                  opacity: 1,
-                },
-              }}
-            >
-              Login
-            </SimpleButton>
-          }
-        />
+        <Header title="Sign up" buttonRoute="Login" buttonText="Login" />
       </Flex>
       <Flex
         sx={{

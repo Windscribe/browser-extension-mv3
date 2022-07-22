@@ -3,7 +3,6 @@ import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-u
 import Header from 'components/Header'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
-import { goTo } from 'services/navigation'
 
 export default () => {
   const { theme } = useThemeUI()
@@ -18,25 +17,7 @@ export default () => {
         flexDirection: 'column',
       }}
     >
-      <Header
-        title="Login"
-        RightSideComponent={
-          <Button
-            variant="simple"
-            onClick={goTo('Signup')}
-            sx={{
-              fontSize: '14px',
-              color: 'white',
-              opacity: 0.5,
-              '&:hover': {
-                opacity: 1,
-              },
-            }}
-          >
-            Sign up
-          </Button>
-        }
-      />
+      <Header title="Login" buttonRoute="Signup" buttonText="Sign up" />
       <Box as="form" sx={{ mx: '16px' }}>
         <Flex sx={{ justifyContent: 'space-between' }}>
           <Label htmlFor="username">Username</Label>
