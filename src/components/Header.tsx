@@ -27,6 +27,14 @@ const Header = ({ title, RightSideComponent }: HeaderProps) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          transition: 'all 0.3s ease 0s',
+          '&:focus': {
+            border: '1px solid ${colors.iconBg}',
+          },
+          '&:hover': {
+            'box-shadow': 'rgb(2 13 28 / 20%) 0px 0px 0px 8px',
+            outline: '0px',
+          },
         }}
       >
         <ArrowLeft

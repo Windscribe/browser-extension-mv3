@@ -22,7 +22,11 @@ export default () => {
               onClick={goTo('Login')}
               sx={{
                 fontSize: '14px',
-                color: 'secondaryText',
+                color: 'white',
+                opacity: 0.5,
+                '&:hover': {
+                  opacity: 1,
+                },
               }}
             >
               Login
