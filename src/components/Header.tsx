@@ -36,7 +36,7 @@ const Header = ({ title, RightSideComponent }: HeaderProps) => {
             border: '1px solid ${colors.iconBg}',
           },
           '&:hover': {
-            'box-shadow': 'rgb(2 13 28 / 20%) 0px 0px 0px 8px',
+            boxShadow: 'rgb(2 13 28 / 20%) 0px 0px 0px 8px',
             outline: '0px',
           },
         }}
