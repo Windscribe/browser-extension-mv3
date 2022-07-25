@@ -31,6 +31,7 @@ export default ({ bg, color, text, subtext }: ButtonProps) => {
           <Flex
             color={color}
             sx={{
+              fontSize: '12px',
               alignItems: 'center',
               opacity: 0.5,
             }}

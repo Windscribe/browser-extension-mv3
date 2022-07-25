@@ -1,7 +1,8 @@
-import { Box, Flex, Text, Button as SimpleButton } from 'theme-ui'
+import { Box, Flex, Text } from 'theme-ui'
 
 // import { OverrideAppHeight } from 'components/Utils';
 import Header from 'components/Header'
+import HeaderLink from 'components/HeaderLink'
 import Button from './Button'
 
 export default () => {
@@ -13,7 +14,10 @@ export default () => {
           flexDirection: 'column',
         }}
       >
-        <Header title="Sign up" buttonRoute="Login" buttonText="Login" />
+        <Header
+          title="Sign up"
+          RightSideComponent={<HeaderLink buttonRoute="Login" buttonText="Login" />}
+        />
       </Flex>
       <Flex
         sx={{
@@ -21,10 +25,10 @@ export default () => {
         }}
       >
         <Text
-          color="warmgrey"
+          color="secondaryText"
           pt="24px"
           sx={{
-            fontSize: 1,
+            fontSize: '14px',
             textAlign: 'center',
           }}
         >

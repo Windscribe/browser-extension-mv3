@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
+
 import Header from 'components/Header'
+import HeaderLink from 'components/HeaderLink'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 
@@ -17,7 +19,10 @@ export default () => {
         flexDirection: 'column',
       }}
     >
-      <Header title="Login" buttonRoute="Signup" buttonText="Sign up" />
+      <Header
+        title="Login"
+        RightSideComponent={<HeaderLink buttonRoute="Signup" buttonText="Sign up" />}
+      />
       <Box as="form" sx={{ mx: '16px' }}>
         <Flex sx={{ justifyContent: 'space-between' }}>
           <Label htmlFor="username">Username</Label>

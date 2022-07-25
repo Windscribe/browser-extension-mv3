@@ -1,16 +1,14 @@
 import { Button, Flex, Text, useThemeUI } from 'theme-ui'
 import ArrowLeft from 'assets/img/arrowLeft.svg'
-import { goBack, goTo } from 'services/navigation'
-import { type View } from 'state/slices/view'
+import { goBack } from 'services/navigation'
 import { useSelector } from 'state/hooks'
 
 interface HeaderProps {
   title: string
-  buttonText: string
-  buttonRoute: View
+  RightSideComponent?: React.ReactNode
 }
 
-const Header = ({ title, buttonText, buttonRoute }: HeaderProps) => {
+const Header = ({ title, RightSideComponent }: HeaderProps) => {
   const { theme } = useThemeUI()
   const { previous } = useSelector(s => s.view)
   const prevPage = previous[previous.length - 1] ?? ''
@@ -59,20 +57,7 @@ const Header = ({ title, buttonText, buttonRoute }: HeaderProps) => {
       >
         {title}
       </Text>
-      <Button
-        variant="simple"
-        onClick={goTo(buttonRoute)}
-        sx={{
-          fontSize: '14px',
-          color: 'white',
-          opacity: 0.5,
-          '&:hover': {
-            opacity: 1,
-          },
-        }}
-      >
-        {buttonText}
-      </Button>
+      {RightSideComponent}
     </Flex>
   )
 }

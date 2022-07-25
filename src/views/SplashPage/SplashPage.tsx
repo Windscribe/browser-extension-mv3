@@ -37,6 +37,7 @@ const SplashPage = () => {
         Keep Your Secrets.
       </Text>
       <Button
+        onClick={goTo('Signup')}
         variant="rounded"
         sx={{
           mt: '52px',
