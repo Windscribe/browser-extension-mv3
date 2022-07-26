@@ -1,39 +1,20 @@
 import type { Theme } from 'theme-ui'
 
+import { rawColors } from './colors'
+
 export const theme: Theme = {
+  rawColors,
   styles: {
     root: {
       body: {
         fontSize: '14px',
       },
+      width: '324px',
+      height: '298px',
     },
   },
   config: {
     initialColorModeName: 'dark',
-  },
-  rawColors: {
-    black: '#020d1c',
-    white: '#fff',
-    blue: '#006aff',
-    green: '#55ff8a',
-    yellow: '#ffef02',
-    red: '#FF3B3B',
-    background: '#1a2432',
-    foreground: 'rgba(216, 216, 216, 0.1)',
-    primaryText: '#fff',
-    secondaryText: 'rgba(255, 255, 255, 0.5)',
-    softText: 'black',
-    border: 'rgba(255, 255, 255, 0.05)',
-    modes: {
-      light: {
-        background: '#fff',
-        foreground: 'rgba(2, 13, 28, 0.1)',
-        primaryText: 'black',
-        secondaryText: 'rgba(2, 13, 28 0.5)',
-        softText: 'white',
-        border: 'rgba(2, 13, 28, 0.05)',
-      },
-    },
   },
   links: {
     primary: {
@@ -60,6 +41,28 @@ export const theme: Theme = {
       cursor: 'pointer',
       borderRadius: '20px',
     },
+    rectangle: {
+      cursor: 'pointer',
+      width: '260px',
+      height: '48px',
+      pt: '16px',
+      px: '16px',
+      pb: '15px',
+      borderRadius: '6px',
+      ':hover': {
+        backgroundColor: 'white',
+        color: 'black',
+        div: {
+          color: 'background',
+        },
+        span: {
+          color: 'background',
+        },
+        svg: {
+          fill: 'background',
+        },
+      },
+    },
   },
   forms: {
     label: {
@@ -67,8 +70,6 @@ export const theme: Theme = {
       color: 'primaryText',
       mt: '16px',
       mb: '8px',
-      mr: '16px',
-      width: 'auto',
     },
     input: {
       height: '40px',
@@ -79,6 +80,9 @@ export const theme: Theme = {
       '&:focus': {
         borderColor: 'primary',
         outline: 'none',
+      },
+      '&:-webkit-autofill': {
+        WebkitTextFillColor: 'primaryText',
       },
     },
   },

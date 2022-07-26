@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
+
 import Header from 'components/Header'
+import HeaderLink from 'components/HeaderLink'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 
-const LoginPage = () => {
+export default () => {
   const { theme } = useThemeUI()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -19,7 +21,7 @@ const LoginPage = () => {
     >
       <Header
         title="Login"
-        RightSideComponent={<Text sx={{ color: theme.colors?.secondaryText }}>Sign up</Text>}
+        RightSideComponent={<HeaderLink buttonRoute="Signup" buttonText="Sign up" />}
       />
       <Box as="form" sx={{ mx: '16px' }}>
         <Flex sx={{ justifyContent: 'space-between' }}>
@@ -98,5 +100,3 @@ const LoginPage = () => {
     </Flex>
   )
 }
-
-export default LoginPage

@@ -1,28 +1,26 @@
-const WebpackDevServer = require('webpack-dev-server');
-const webpack = require('webpack');
-const config = require('../webpack.config');
-const env = require('./env');
-const path = require('path');
+const WebpackDevServer = require('webpack-dev-server')
+const webpack = require('webpack')
+const config = require('../webpack.config')
+const env = require('./env')
+const path = require('path')
 
-const options = config.chromeExtensionBoilerplate || {};
-const excludeEntriesToHotReload = options.notHotReload || [];
+const options = config.chromeExtensionBoilerplate || {}
+const excludeEntriesToHotReload = options.notHotReload || []
 
 for (const entryName in config.entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
     config.entry[entryName] = [
       'webpack/hot/dev-server',
       `webpack-dev-server/client?hot=true&hostname=localhost&port=${env.PORT}`,
-    ].concat(config.entry[entryName]);
+    ].concat(config.entry[entryName])
   }
 }
 
-config.plugins = [new webpack.HotModuleReplacementPlugin()].concat(
-  config.plugins || []
-);
+config.plugins = [new webpack.HotModuleReplacementPlugin()].concat(config.plugins || [])
 
-delete config.chromeExtensionBoilerplate;
+delete config.chromeExtensionBoilerplate
 
-const compiler = webpack(config);
+const compiler = webpack(config)
 
 const server = new WebpackDevServer(
   {
@@ -43,13 +41,13 @@ const server = new WebpackDevServer(
     },
     allowedHosts: 'all',
   },
-  compiler
-);
+  compiler,
+)
 
 if (env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept();
+  module.hot.accept()
 }
 
-(async () => {
-  await server.start();
-})();
+;(async () => {
+  await server.start()
+})()

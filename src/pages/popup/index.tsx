@@ -1,10 +1,11 @@
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'theme-ui'
-import { theme } from '../../theme'
+
 import './index.css'
 import log from 'utils/log'
-import LoginPage from 'components/LoginPage'
+import theme from 'styles'
+import { Router } from 'services/navigation'
 import { ProxyStore } from 'state'
 import browserApi from 'services/browserApi'
 import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT, WAKE_UP_NEO } from 'utils/constants'
@@ -28,11 +29,11 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
     browserApi.subscribeOnStorageChange(update)
 
     render(
-      <Provider store={proxyStore}>
-        <ThemeProvider theme={theme}>
-          <LoginPage />
-        </ThemeProvider>
-      </Provider>,
+      <ThemeProvider theme={theme}>
+        <Provider store={proxyStore}>
+          <Router />
+        </Provider>
+      </ThemeProvider>,
       window.document.querySelector('#app-container'),
     )
   })

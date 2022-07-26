@@ -44,7 +44,7 @@
   }
 }
 
- /* Styles for button in Example. To be removed. */
+/* Styles for button in Example. To be removed. */
 .button {
   border: none;
   color: white;
@@ -55,5 +55,5 @@
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  background-color: #008CBA;
+  background-color: #008cba;
 }

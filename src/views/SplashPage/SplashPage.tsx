@@ -1,9 +1,11 @@
 import { Button, Flex, Text, useThemeUI } from 'theme-ui'
 import splashBackground from 'assets/img/splashBackground.png'
 import rotatingLogo from 'assets/img/rotatingLogo.gif'
+import { goTo } from 'services/navigation'
 
 const SplashPage = () => {
   const { theme } = useThemeUI()
+
   return (
     <Flex
       sx={{
@@ -35,6 +37,7 @@ const SplashPage = () => {
         Keep Your Secrets.
       </Text>
       <Button
+        onClick={goTo('Signup')}
         variant="rounded"
         sx={{
           mt: '52px',
@@ -52,6 +55,7 @@ const SplashPage = () => {
         Get Started
       </Button>
       <Button
+        onClick={goTo('Login')}
         variant="simple"
         sx={{
           mt: '24px',
