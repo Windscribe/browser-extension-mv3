@@ -40,7 +40,7 @@ export default () => {
             color="white"
             text="Free"
             subtext="Up to 10GB/month"
-            // path="signup"
+            url="https://windscribe.com/signup?cpid=ext_chrome&platform=chrome"
           />
         </Box>
         <Box mx="32px" mb="24px">
@@ -49,8 +49,7 @@ export default () => {
             color="black"
             text="Pro"
             subtext="Unlimited GB & more"
-            // path="upgrade"
-            // isPro
+            url="https://windscribe.com/upgrade?pcpid=upgrade_ext1"
           />
         </Box>
       </Flex>
