@@ -20,6 +20,8 @@ const SplashPage: ThemeUiElement = () => {
   }
 
 
+  if (sessionData) goTo('Home')
+
   return (
     <Flex
       sx={{
