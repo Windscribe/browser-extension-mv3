@@ -37,6 +37,7 @@ const SplashPage = () => {
         Keep Your Secrets.
       </Text>
       <Button
+        data-testid="get-started-button"
         onClick={goTo('Signup')}
         variant="rounded"
         sx={{

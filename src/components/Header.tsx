@@ -24,6 +24,7 @@ const Header = ({ title, RightSideComponent }: HeaderProps) => {
       }}
     >
       <Button
+        data-testid="go-back-button"
         onClick={goBack()}
         variant="circle"
         aria-label={`Back to ${prevPage}`}
@@ -49,6 +50,7 @@ const Header = ({ title, RightSideComponent }: HeaderProps) => {
         />
       </Button>
       <Text
+        data-testid="header-title"
         sx={{
           fontSize: '24px',
           color: theme.colors?.primaryText,

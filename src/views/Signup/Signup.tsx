@@ -7,7 +7,7 @@ import Button from './Button'
 
 export default () => {
   return (
-    <Box bg="background">
+    <Box data-testid="signup-page" bg="background">
       {/* <OverrideAppHeight height={'300px'} /> */}
       <Flex
         sx={{
@@ -36,6 +36,7 @@ export default () => {
         </Text>
         <Box mx="32px" my="24px">
           <Button
+            dataTestId="windscribe-signup-button"
             bg="lowwhite"
             color="white"
             text="Free"

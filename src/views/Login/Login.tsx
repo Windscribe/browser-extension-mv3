@@ -15,6 +15,7 @@ export default () => {
 
   return (
     <Flex
+      data-testid="login-page"
       sx={{
         flexDirection: 'column',
       }}
