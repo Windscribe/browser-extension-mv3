@@ -1,5 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'state/hooks'
 import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
+
+import { login } from '../../api/index'
+import { set } from 'state/slices/view'
+import { setSession } from 'state/slices/session'
 
 import Header from 'components/Header'
 import HeaderLink from 'components/HeaderLink'
@@ -9,10 +14,23 @@ import { type ThemeUiElement } from 'components/types'
 
 const Login: ThemeUiElement = () => {
   const { theme } = useThemeUI()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+
+  const handleLogin = (e: any) => {
+    e.preventDefault()
+    login(e.target.username.value, e.target.password.value).then(response => {
+      if (response.errorMessage) {
+        setError(response.errorMessage)
+      } else if (response.data?.session_auth_hash) {
+        dispatch(setSession(response.data))
+        dispatch(set('Home'))
+      }
+    })
+  }
 
   return (
     <Flex
@@ -25,8 +43,8 @@ const Login: ThemeUiElement = () => {
         title="Login"
         RightSideComponent={<HeaderLink buttonRoute="Signup" buttonText="Sign up" />}
       />
-      <Box as="form" sx={{ mx: '16px' }}>
-        <Flex sx={{ justifyContent: 'space-between' }}>
+      <Box as="form" onSubmit={e => handleLogin(e)} sx={{ mx: '16px' }}>
+        <Flex sx={{ justifyContent: 'space-between', gap: '16px' }}>
           <Label htmlFor="username">Username</Label>
           {error && (
             <Text
@@ -72,7 +90,7 @@ const Login: ThemeUiElement = () => {
             {showPassword ? <HidePassword /> : <ShowPassword />}
           </Box>
         </Flex>
-        <Flex sx={{ mt: '16px', justifyContent: 'space-between' }}>
+        <Flex sx={{ mt: '16px', mb: '18px', justifyContent: 'space-between' }}>
           <Flex sx={{ flexDirection: 'column' }}>
             <Text sx={{ color: theme.colors?.secondaryText }}>2FA Code?</Text>
             <Link

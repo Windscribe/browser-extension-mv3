@@ -10,7 +10,8 @@ export const theme: Theme = {
         fontSize: '14px',
       },
       width: '324px',
-      height: '298px',
+      minHeight: '298px',
+      height: 'auto',
     },
   },
   config: {
@@ -70,6 +71,8 @@ export const theme: Theme = {
       color: 'primaryText',
       mt: '16px',
       mb: '8px',
+      mr: '16px',
+      width: 'auto',
     },
     input: {
       height: '40px',
