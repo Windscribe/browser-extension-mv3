@@ -19,6 +19,7 @@ const Login: ThemeUiElement = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [use2fa, setUse2fa] = useState(false)
   const [error, setError] = useState('')
   const [use2fa, setUse2fa] = useState(false)
   const [error2fa, setError2fa] = useState('')
