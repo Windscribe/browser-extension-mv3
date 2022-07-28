@@ -1,0 +1,12 @@
+variables:
+  CI: "true"
+
+stages:
+  - test
+
+test:
+  stage: test
+  image: samujoha/gitlab-ci-puppeteer-headful:latest
+  script:
+    - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
+    - npm run test
