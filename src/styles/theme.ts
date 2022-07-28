@@ -29,6 +29,7 @@ export const theme: Theme = {
       cursor: 'pointer',
       backgroundColor: 'transparent',
       padding: 0,
+      textAlign: 'left',
     },
     circle: {
       cursor: 'pointer',

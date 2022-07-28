@@ -19,6 +19,7 @@ const Login: ThemeUiElement = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [use2fa, setUse2fa] = useState(false)
   const [error, setError] = useState('')
 
   type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => void
@@ -74,25 +75,81 @@ const Login: ThemeUiElement = () => {
             autofillBackgroundColor="foreground"
             onChange={e => setUsername(e.target.value)}
           />
-          <Label htmlFor="password">Password</Label>
-          <Flex>
+          <Box
+            sx={{
+              minWidth: '16px',
+              fill: theme.colors?.primaryText,
+              position: 'absolute',
+              mt: '12px',
+              right: '28px',
+              cursor: 'pointer',
+            }}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <HidePassword /> : <ShowPassword />}
+          </Box>
+        </Flex>
+        {use2fa && (
+          <>
+            <Flex sx={{ justifyContent: 'space-between', gap: '16px', mt: '16px' }}>
+              <Button
+                variant="simple"
+                sx={{
+                  color: theme.colors?.secondaryText,
+                  mb: '8px',
+                  ':hover': { color: theme.colors?.primaryText },
+                }}
+                onClick={() => setUse2fa(false)}
+              >
+                2FA Code
+              </Button>
+              {error && (
+                <Text
+                  sx={{
+                    width: 'auto',
+                    fontSize: '12px',
+                    mt: '16px',
+                    mb: '8px',
+                    color: 'red',
+                  }}
+                >
+                  {error}
+                </Text>
+              )}
+            </Flex>
+
             <Input
               required
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              onChange={e => setPassword(e.target.value)}
-              sx={{ pr: '38px' }}
+              type="text"
+              name="2fa"
+              autofillBackgroundColor="foreground"
+              // onChange={e => setUsername(e.target.value)}
+              sx={{ mb: '10px' }}
             />
-            <Box
-              sx={{
-                minWidth: '16px',
-                fill: theme.colors?.primaryText,
-                position: 'absolute',
-                mt: '12px',
-                right: '28px',
-                cursor: 'pointer',
-              }}
-              onClick={() => setShowPassword(!showPassword)}
+            <Box sx={{ color: theme.colors?.secondaryText, fontSize: '12px', width: '181px' }}>
+              If enabled, use an authentication app to generate the code.
+            </Box>
+          </>
+        )}
+        <Flex sx={{ mt: '16px', mb: '18px', justifyContent: 'space-between' }}>
+          <Flex sx={{ flexDirection: 'column' }}>
+            {!use2fa && (
+              <Button
+                variant="simple"
+                sx={{
+                  color: theme.colors?.secondaryText,
+                  ':hover': { color: theme.colors?.primaryText },
+                }}
+                onClick={() => setUse2fa(true)}
+              >
+                2FA Code?
+              </Button>
+            )}
+            <Link
+              href="https://windscribe.com/forgotpassword"
+              target="_blank"
+              variant="primary"
+              sx={{ mt: '8px' }}
             >
               {showPassword ? <HidePassword /> : <ShowPassword />}
             </Box>
