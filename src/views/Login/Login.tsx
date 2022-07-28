@@ -19,8 +19,9 @@ const Login: ThemeUiElement = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [use2fa, setUse2fa] = useState(false)
   const [error, setError] = useState('')
+  const [use2fa, setUse2fa] = useState(false)
+  const [error2fa, setError2fa] = useState('')
 
   type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => void
   const handleLogin: HandleLogin = e => {
@@ -123,7 +124,6 @@ const Login: ThemeUiElement = () => {
               type="text"
               name="2fa"
               autofillBackgroundColor="foreground"
-              // onChange={e => setUsername(e.target.value)}
               sx={{ mb: '10px' }}
             />
             <Box sx={{ color: theme.colors?.secondaryText, fontSize: '12px', width: '181px' }}>
