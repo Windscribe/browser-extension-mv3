@@ -10,6 +10,7 @@ type HeaderLinkProps = {
 
 export default ({ buttonText, buttonRoute }: HeaderLinkProps) => (
   <Button
+    data-testid="header-go-to-button"
     variant="simple"
     onClick={goTo(buttonRoute)}
     sx={{

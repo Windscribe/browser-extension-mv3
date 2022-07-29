@@ -8,16 +8,17 @@ type ButtonProps = {
   text?: string
   subtext?: string
   url: string
+  dataTestId?: string
 }
 
-export default ({ bg, color, text, subtext, url }: ButtonProps) => {
+export default ({ bg, color, text, subtext, url, dataTestId }: ButtonProps) => {
   const gotoLink = async () => {
     //TODO Implement separate, browser-agnostic service. Get rid of hardcoded url.
     await chrome.tabs.create({ url })
   }
 
   return (
-    <Button onClick={gotoLink} variant="rectangle" bg={bg} color={color}>
+    <Button onClick={gotoLink} variant="rectangle" bg={bg} color={color} data-testid={dataTestId}>
       <Flex
         sx={{
           flexDirection: 'row',

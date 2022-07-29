@@ -11,7 +11,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "start": "node scripts/webserver.js",
-    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "test": "jest  --runInBand"
   },
   "dependencies": {
     "@eduardoac-skimlinks/webext-redux": "^3.0.0-release-candidate",
@@ -37,6 +38,7 @@
     "@types/chrome": "^0.0.177",
     "@types/expect-puppeteer": "^5.0.1",
     "@types/jest-environment-puppeteer": "^5.0.2",
+    "@types/puppeteer": "^5.4.6",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",

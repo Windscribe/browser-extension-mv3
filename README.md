@@ -106,3 +106,12 @@ ApiCall({ key: secrets.key })
 - [Chrome Extension documentation](https://developer.chrome.com/extensions/getstarted)
 
 ---
+
+## Test
+To run e2e tests run the command
+
+```
+$ yarn run test
+```
+
+It opens a browser window, makes stuff, and closes it automatically. Please, don't interrupt test scenarios by pressing keys or clicking or whatever.
