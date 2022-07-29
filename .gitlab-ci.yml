@@ -12,6 +12,9 @@ build:
   script:
   - yarn install
   - yarn run build
+  cache:
+    paths:
+      - node_modules/
 
 test:
   stage: test
