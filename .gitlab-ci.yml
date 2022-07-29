@@ -1,4 +1,4 @@
-image: node:latest
+image: samujoha/gitlab-ci-puppeteer-headful:latest
 
 variables:
   CI: "true"
@@ -10,7 +10,7 @@ stages:
 build:
   stage: build
   script:
-  - yarn install
+  - yarn install --frozen-lockfile
   - yarn run build
   cache:
     paths:
@@ -18,7 +18,8 @@ build:
 
 test:
   stage: test
-  image: samujoha/gitlab-ci-puppeteer-headful:latest
   script:
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
+    - yarn install --frozen-lockfile
+    - yarn run build
     - yarn run test
