@@ -2,11 +2,18 @@ variables:
   CI: "true"
 
 stages:
+  - build
   - test
+
+build:
+  stage: build
+  script:
+  - yarn install
+  - yarn run build
 
 test:
   stage: test
   image: samujoha/gitlab-ci-puppeteer-headful:latest
   script:
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
-    - npm run test
+    - yarn run test
