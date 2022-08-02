@@ -16,18 +16,16 @@ build:
   script:
   - yarn install --frozen-lockfile
   - yarn run build
-  cache:
+  artifacts:
     paths:
       - node_modules/
+      - build/
+    expire_in: 7 days
 
 test:
   stage: test
-  before_script:
-    - echo "checking node version"
-    - node -v
+  needs:
+    - job: build
   script:
-  # Use arrtifact from build step instead
-    - yarn install --frozen-lockfile
-    - yarn run build
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
     - yarn run test
