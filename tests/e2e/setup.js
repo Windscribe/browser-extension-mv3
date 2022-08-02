@@ -3,22 +3,19 @@ const path = require('path')
 
 const extPath = path.resolve(__dirname, '../../build')
 
-console.log('process.env.DISABLE_SANDBOX : ', process.env.DISABLE_SANDBOX)
-
 const launchBrowser = async () =>
   await puppeteer.launch({
     headless: false,
     devtools: false,
-    dumpio: true,
     dumpio: true,
     product: 'chrome',
     slowMo: false,
     args: [
       `--disable-extensions-except=${extPath}`,
       `--load-extension=${extPath}`,
-      `--gpu-disable`,
-      //].concat(process.env.DISABLE_SANDBOX ? ['--no-sandbox', '--disable-setuid-sandbox'] : []),
-    ].concat(['--no-sandbox', '--disable-setuid-sandbox']),
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
   })
 
 const setup = async () => {
