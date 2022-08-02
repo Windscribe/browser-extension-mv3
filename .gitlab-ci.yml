@@ -25,5 +25,7 @@ test:
     - echo "checking node version"
     - node -v
   script:
+    - yarn install --frozen-lockfile
+    - yarn run build
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
     - yarn run test
