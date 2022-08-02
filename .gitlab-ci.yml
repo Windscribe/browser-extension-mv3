@@ -1,6 +1,5 @@
 default:
   image: digitalcatharsis/gitlab-ci-puppeteer-headful:latest
-  pull_policy: if-not-present
 
 variables:
   CI: "true"
