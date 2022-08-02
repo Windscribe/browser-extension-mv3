@@ -27,7 +27,7 @@ describe('Signup', () => {
     await popupPage.waitForSelector('[data-testid=login-page]')
     header = await popupPage.$('[data-testid=header-title]')
     title = await header.evaluate(el => el.textContent)
-    expect(title).toEqual('Login')
+    expect(title).toEqual('Login333')
 
     // Go back
     const goBackButton = await popupPage.$('[data-testid=go-back-button]')
