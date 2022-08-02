@@ -1,4 +1,5 @@
-image: digitalcatharsis/gitlab-ci-puppeteer-headful:latest
+default:
+  image: digitalcatharsis/gitlab-ci-puppeteer-headful:latest
 
 variables:
   CI: "true"
