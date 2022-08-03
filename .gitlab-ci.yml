@@ -5,8 +5,25 @@ variables:
   CI: "true"
 
 stages:
+  - lint
   - build
   - test
+
+eslint:
+  stage: lint
+  script:
+  - yarn install eslint \
+      eslint-config-prettier \
+      eslint-config-react-app \
+      eslint-plugin-flowtype \
+      eslint-plugin-import \
+      eslint-plugin-jest-dom \
+      eslint-plugin-jsx-a11y \
+      eslint-plugin-no-only-tests \
+      eslint-plugin-prettier \
+      eslint-plugin-react \
+      eslint-plugin-react-hooks
+  - yarn run lint
 
 build:
   stage: build
