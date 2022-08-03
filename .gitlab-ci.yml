@@ -12,37 +12,32 @@ stages:
 eslint:
   stage: lint
   script:
-  - npm install eslint
-      eslint-config-prettier
-      eslint-config-react-app
-      eslint-plugin-flowtype
-      eslint-plugin-import
-      eslint-plugin-jest-dom
-      eslint-plugin-jsx-a11y
-      eslint-plugin-no-only-tests
-      eslint-plugin-prettier
-      eslint-plugin-react
-      eslint-plugin-react-hooks
+  - yarn install --frozen-lockfile
   - yarn run lint
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 7 days
 
 build:
   stage: build
+  needs:
+    - job: eslint
   before_script:
     - echo "checking node version"
     - node -v
   script:
   - printf "\nNODE_ENV=CI" >> ".env"
-  - yarn install --frozen-lockfile
   - yarn run build 
   artifacts:
     paths:
-      - node_modules/
       - build/
     expire_in: 7 days
 
 test:
   stage: test
   needs:
+    - job: eslint
     - job: build
   script:
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
