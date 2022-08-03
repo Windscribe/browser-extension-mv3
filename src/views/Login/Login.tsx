@@ -31,13 +31,28 @@ const Login: ThemeUiElement = () => {
         if (errorMessage) {
           setError(errorMessage)
           return
-        }
         if (data?.session_auth_hash) {
           dispatch(setSession(data))
           dispatch(set('Home'))
         }
       },
     )
+    const twoFa = e.target.twoFa ? e.target.twoFa.value : undefined
+    login(e.target.username.value, e.target.password.value, twoFa).then(response => {
+      console.log(response)
+      if (response.errorMessage) {
+        //2FA error codes
+        if (response.errorCode === 1340 || response.errorCode === 1341) {
+          setError2fa(response.errorMessage)
+          setUse2fa(true)
+        } else {
+          setError(response.errorMessage)
+        }
+      } else if (response.data?.session_auth_hash) {
+        dispatch(setSession(response.data))
+        dispatch(set('Home'))
+      }
+    })
   }
 
   return (
@@ -104,17 +119,16 @@ const Login: ThemeUiElement = () => {
               >
                 2FA Code
               </Button>
-              {error && (
+              {error2fa && (
                 <Text
                   sx={{
                     width: 'auto',
                     fontSize: '12px',
-                    mt: '16px',
                     mb: '8px',
                     color: 'red',
                   }}
                 >
-                  {error}
+                  {error2fa}
                 </Text>
               )}
             </Flex>
@@ -122,7 +136,7 @@ const Login: ThemeUiElement = () => {
             <Input
               required
               type="text"
-              name="2fa"
+              name="twoFa"
               autofillBackgroundColor="foreground"
               sx={{ mb: '10px' }}
             />
@@ -136,6 +150,7 @@ const Login: ThemeUiElement = () => {
             {!use2fa && (
               <Button
                 variant="simple"
+                type="button"
                 sx={{
                   color: theme.colors?.secondaryText,
                   ':hover': { color: theme.colors?.primaryText },
