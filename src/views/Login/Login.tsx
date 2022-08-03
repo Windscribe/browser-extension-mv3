@@ -111,17 +111,16 @@ const Login: ThemeUiElement = () => {
               >
                 2FA Code
               </Button>
-              {error && (
+              {error2fa && (
                 <Text
                   sx={{
                     width: 'auto',
                     fontSize: '12px',
-                    mt: '16px',
                     mb: '8px',
                     color: 'red',
                   }}
                 >
-                  {error}
+                  {error2fa}
                 </Text>
               )}
             </Flex>
@@ -129,7 +128,7 @@ const Login: ThemeUiElement = () => {
             <Input
               required
               type="text"
-              name="2fa"
+              name="twoFa"
               autofillBackgroundColor="foreground"
               sx={{ mb: '10px' }}
             />
@@ -143,6 +142,7 @@ const Login: ThemeUiElement = () => {
             {!use2fa && (
               <Button
                 variant="simple"
+                type="button"
                 sx={{
                   color: theme.colors?.secondaryText,
                   ':hover': { color: theme.colors?.primaryText },
