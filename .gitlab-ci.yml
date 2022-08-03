@@ -14,8 +14,9 @@ build:
     - echo "checking node version"
     - node -v
   script:
+  - printf "\nNODE_ENV=CI" >> ".env"
   - yarn install --frozen-lockfile
-  - yarn run build
+  - yarn run build 
   artifacts:
     paths:
       - node_modules/

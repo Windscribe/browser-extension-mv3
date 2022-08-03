@@ -21,6 +21,8 @@ if (fileSystem.existsSync(secretsPath)) {
   alias['secrets'] = secretsPath
 }
 
+const maybeProgressPlugin = env.NODE_ENV === 'development' ? [new webpack.ProgressPlugin()] : []
+
 const options = {
   mode: env.NODE_ENV || 'development',
   entry: {
@@ -100,7 +102,6 @@ const options = {
   },
   plugins: [
     new CleanWebpackPlugin({ verbose: false }),
-    new webpack.ProgressPlugin(),
     new Dotenv(),
     // TODO Review plugins. Probably they could be optimized
     new CopyWebpackPlugin({
@@ -173,6 +174,7 @@ const options = {
       chunks: ['panel'],
       cache: false,
     }),
+    ...maybeProgressPlugin,
   ],
   infrastructureLogging: {
     level: 'info',
