@@ -12,7 +12,6 @@ type ButtonProps = {
   url: string
   dataTestId?: string
 }
-const a = 1
 
 const Button: ThemeUiElement<ButtonProps> = ({ bg, color, text, subtext, url, dataTestId }) => {
   const gotoLink = async () => {
