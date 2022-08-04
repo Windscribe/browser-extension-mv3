@@ -14,15 +14,16 @@ import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT, WAKE_UP_NEO } from 'utils/
 browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
   log(response.type)
 
-  const proxyStore: any = new ProxyStore({
+  const proxyStore = new ProxyStore({
     portName: REACT_APP_REDUX_PORT,
   })
 
   proxyStore.ready().then(() => {
     type AreaName = 'sync' | 'local' | 'managed'
     type Changes = { [key: string]: chrome.storage.StorageChange }
+    type Update = (changes: Changes, areaName?: AreaName) => void
 
-    const update = (changes: Changes, areaName: AreaName) => {
+    const update: Update = changes => {
       const newState = changes[STORAGE_CACHE_VERSION].newValue
       proxyStore.replaceState(newState)
     }

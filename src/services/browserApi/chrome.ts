@@ -6,7 +6,7 @@ type OnMessageCallBack = Parameters<typeof chrome.runtime.onMessage.addListener>
 type Message = Record<'type', string>
 
 const api = {
-  subscribeOnStorageChange(cb: OnChangedCallBack) {
+  subscribeOnStorageChange(cb: OnChangedCallBack): void {
     chrome.storage.onChanged.addListener(cb)
   },
 
@@ -14,20 +14,20 @@ const api = {
     return await chrome.storage.local.get(STORAGE_CACHE_VERSION)
   },
 
-  async clearStateInStorage() {
+  async clearStateInStorage(): Promise<void> {
     return await chrome.storage.local.clear()
   },
 
-  async saveStateInStorage(state: RootState) {
+  async saveStateInStorage(state: RootState): Promise<void> {
     return await chrome.storage.local.set({ [STORAGE_CACHE_VERSION]: state })
   },
 
   runtime: {
-    sendMessage(message: Message, cb: (response: Message) => void) {
+    sendMessage(message: Message, cb: (response: Message) => void): void {
       chrome.runtime.sendMessage(message, cb)
     },
     onMessage: {
-      addListener(cb: OnMessageCallBack) {
+      addListener(cb: OnMessageCallBack): void {
         chrome.runtime.onMessage.addListener(cb)
       },
     },

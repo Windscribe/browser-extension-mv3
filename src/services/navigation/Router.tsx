@@ -1,9 +1,12 @@
 import { useSelector } from 'state/hooks'
 import { type View } from 'state/slices/view'
+
 import * as Views from 'views'
 
-export default () => {
+const Router: () => JSX.Element = () => {
   const currentView: View = useSelector(s => s?.view?.current)
-  const View = Views[currentView]
-  return View ? <View /> : <p>'Windscribe has encountered a problem. Please try again later.'</p>
+  const View: React.ElementType = Views[currentView]
+  return View ? <View /> : <p>Windscribe has encountered a problem. Please try again later.</p>
 }
+
+export default Router

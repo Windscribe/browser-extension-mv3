@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { type Create } from './types'
 
 interface ExampleState {
   counter: number
@@ -8,7 +9,7 @@ const defaultState: ExampleState = {
   counter: 42,
 }
 
-export const create = (initialState?: ExampleState) =>
+export const create: Create<ExampleState> = initialState =>
   createSlice({
     name: 'example',
     initialState: initialState || defaultState,

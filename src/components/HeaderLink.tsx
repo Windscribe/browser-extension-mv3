@@ -1,18 +1,19 @@
 import { Button } from 'theme-ui'
 
 import { type View } from 'state/slices/view'
-import { goTo } from 'services/navigation'
+import { useGoTo } from 'services/navigation'
+import { type ThemeUiElement } from 'components/types'
 
 type HeaderLinkProps = {
   buttonText: string
   buttonRoute: View
 }
 
-export default ({ buttonText, buttonRoute }: HeaderLinkProps) => (
+const HeaderLink: ThemeUiElement<HeaderLinkProps> = ({ buttonText, buttonRoute }) => (
   <Button
     data-testid="header-go-to-button"
     variant="simple"
-    onClick={goTo(buttonRoute)}
+    onClick={useGoTo(buttonRoute)}
     sx={{
       fontSize: '14px',
       color: 'white',
@@ -25,3 +26,5 @@ export default ({ buttonText, buttonRoute }: HeaderLinkProps) => (
     {buttonText}
   </Button>
 )
+
+export default HeaderLink

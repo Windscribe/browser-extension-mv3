@@ -1,11 +1,12 @@
 import { Box, Flex, Text } from 'theme-ui'
 
 // import { OverrideAppHeight } from 'components/Utils';
+import { type ThemeUiElement } from 'components/types'
 import Header from 'components/Header'
 import HeaderLink from 'components/HeaderLink'
 import Button from './Button'
 
-export default () => {
+const Signup: ThemeUiElement = () => {
   return (
     <Box data-testid="signup-page" bg="background">
       {/* <OverrideAppHeight height={'300px'} /> */}
@@ -57,3 +58,5 @@ export default () => {
     </Box>
   )
 }
+
+export default Signup

@@ -1,8 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction, type ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
+
+import { type Create } from './types'
 import type * as Containers from 'views'
 
 export type View = keyof typeof Containers
-interface ViewState {
+export interface ViewState {
   previous: View[]
   current: View
 }
@@ -12,10 +14,10 @@ const defaultState: ViewState = {
   current: 'SplashPage',
 }
 
-export const create = (initialState?: ViewState) =>
+export const create: Create<ViewState> = initialState =>
   createSlice({
     name: 'view',
-    initialState: defaultState,
+    initialState: initialState || defaultState,
     reducers: {
       set(state, action: PayloadAction<View>) {
         // probably not going back more than 3 times
@@ -31,5 +33,8 @@ export const create = (initialState?: ViewState) =>
   })
 
 const viewSlice = create()
-export const { set, back } = viewSlice.actions
+const set = viewSlice.actions.set
+const back = viewSlice.actions.back as ActionCreatorWithoutPayload
+
+export { back, set }
 export default viewSlice.reducer

@@ -5,8 +5,9 @@ import Header from 'components/Header'
 import HeaderLink from 'components/HeaderLink'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
+import { type ThemeUiElement } from 'components/types'
 
-export default () => {
+const Login: ThemeUiElement = () => {
   const { theme } = useThemeUI()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -101,3 +102,5 @@ export default () => {
     </Flex>
   )
 }
+
+export default Login

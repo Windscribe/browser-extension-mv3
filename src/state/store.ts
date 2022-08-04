@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import exampleReducer, { create } from './slices/example'
 import viewReducer, { create as createView } from './slices/view'
 
-export function buildFrom(initialState?: RootState) {
+export function buildFrom(initialState?: RootState): StoreType {
   // TODO  Make it iterate through all slices when we create more of them
   const exampleReducer = create(initialState?.example).reducer
   const viewReducer = createView(initialState?.view).reducer
