@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* 
 Custom colored console.log 
 Could be used until pushToDebugLog() will be implemented

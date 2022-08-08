@@ -1,6 +1,8 @@
-import { Button, Flex, Text } from 'theme-ui'
+import { Button as ThemeUiButton, Flex, Text } from 'theme-ui'
+
 import ExternalLinkSvg from 'assets/img/externalLinkIcon.svg'
 import { type Colors } from 'styles'
+import { type ThemeUiElement } from 'components/types'
 
 type ButtonProps = {
   bg?: Colors
@@ -11,14 +13,20 @@ type ButtonProps = {
   dataTestId?: string
 }
 
-export default ({ bg, color, text, subtext, url, dataTestId }: ButtonProps) => {
+const Button: ThemeUiElement<ButtonProps> = ({ bg, color, text, subtext, url, dataTestId }) => {
   const gotoLink = async () => {
     //TODO Implement separate, browser-agnostic service. Get rid of hardcoded url.
     await chrome.tabs.create({ url })
   }
 
   return (
-    <Button onClick={gotoLink} variant="rectangle" bg={bg} color={color} data-testid={dataTestId}>
+    <ThemeUiButton
+      onClick={gotoLink}
+      variant="rectangle"
+      bg={bg}
+      color={color}
+      data-testid={dataTestId}
+    >
       <Flex
         sx={{
           flexDirection: 'row',
@@ -56,6 +64,8 @@ export default ({ bg, color, text, subtext, url, dataTestId }: ButtonProps) => {
           </Flex>
         </Flex>
       </Flex>
-    </Button>
+    </ThemeUiButton>
   )
 }
+
+export default Button

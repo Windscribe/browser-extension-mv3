@@ -1,14 +1,15 @@
 import { Button, Flex, Text, useThemeUI } from 'theme-ui'
 import ArrowLeft from 'assets/img/arrowLeft.svg'
-import { goBack } from 'services/navigation'
+import { useGoBack } from 'services/navigation'
 import { useSelector } from 'state/hooks'
+import { type ThemeUiElement } from 'components/types'
 
 interface HeaderProps {
   title: string
   RightSideComponent?: React.ReactNode
 }
 
-const Header = ({ title, RightSideComponent }: HeaderProps) => {
+const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => {
   const { theme } = useThemeUI()
   const { previous } = useSelector(s => s.view)
   const prevPage = previous[previous.length - 1] ?? ''
@@ -25,7 +26,7 @@ const Header = ({ title, RightSideComponent }: HeaderProps) => {
     >
       <Button
         data-testid="go-back-button"
-        onClick={goBack()}
+        onClick={useGoBack()}
         variant="circle"
         aria-label={`Back to ${prevPage}`}
         sx={{
