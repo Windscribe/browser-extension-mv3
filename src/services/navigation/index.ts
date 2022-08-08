@@ -1,2 +1,2 @@
 export { default as Router } from './Router'
-export { useGoBack, useGoTo } from './actions'
+export { useGoBack, useGoTo, useResetView } from './actions'

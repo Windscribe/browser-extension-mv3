@@ -8,6 +8,7 @@ import theme from 'styles'
 import { Router } from 'services/navigation'
 import { ProxyStore } from 'state'
 import browserApi from 'services/browserApi'
+import { reset as resetView } from 'state/slices/view'
 import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT, WAKE_UP_NEO } from 'utils/constants'
 
 // Wake up background script and then initialize connection between ProxyStore and WrappedStore
@@ -19,6 +20,8 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
   })
 
   proxyStore.ready().then(() => {
+    proxyStore.dispatch(resetView())
+
     type AreaName = 'sync' | 'local' | 'managed'
     type Changes = { [key: string]: chrome.storage.StorageChange }
     type Update = (changes: Changes, areaName?: AreaName) => void

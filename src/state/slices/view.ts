@@ -29,12 +29,17 @@ export const create: Create<ViewState> = initialState =>
         const { previous } = state
         state.current = previous.pop() ?? defaultState.current
       },
+      reset(state) {
+        state.previous = []
+        state.current = defaultState.current
+      },
     },
   })
 
 const viewSlice = create()
 const set = viewSlice.actions.set
 const back = viewSlice.actions.back as ActionCreatorWithoutPayload
+const reset = viewSlice.actions.reset as ActionCreatorWithoutPayload
 
-export { back, set }
+export { back, set, reset }
 export default viewSlice.reducer
