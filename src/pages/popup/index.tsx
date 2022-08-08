@@ -19,32 +19,37 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
     portName: REACT_APP_REDUX_PORT,
   })
 
-  proxyStore.ready().then(() => {
-    proxyStore.dispatch(resetView())
+  proxyStore
+    .ready()
+    .then(() => {
+      type AreaName = 'sync' | 'local' | 'managed'
+      type Changes = { [key: string]: chrome.storage.StorageChange }
+      type Update = (changes: Changes, areaName?: AreaName) => void
 
-    type AreaName = 'sync' | 'local' | 'managed'
-    type Changes = { [key: string]: chrome.storage.StorageChange }
-    type Update = (changes: Changes, areaName?: AreaName) => void
+      const update: Update = changes => {
+        const newState = changes[STORAGE_CACHE_VERSION].newValue
+        proxyStore.replaceState(newState)
+      }
+      browserApi.subscribeOnStorageChange(update)
+      proxyStore.dispatch(resetView())
 
-    const update: Update = changes => {
-      const newState = changes[STORAGE_CACHE_VERSION].newValue
-      proxyStore.replaceState(newState)
-    }
-    browserApi.subscribeOnStorageChange(update)
-
-    render(
-      <ThemeProvider theme={theme}>
-        <Provider store={proxyStore}>
-          <Router />
-        </Provider>
-      </ThemeProvider>,
-      window.document.querySelector('#app-container'),
-    )
-  })
+      render(
+        <ThemeProvider theme={theme}>
+          <Provider store={proxyStore}>
+            <Router />
+          </Provider>
+        </ThemeProvider>,
+        window.document.querySelector('#app-container'),
+      )
+    })
+    .catch((err: any): void => {
+      log('Error while rendering UI: ', err, 'error')
+    })
 })
+
 /*
 	@link https://webpack.js.org/concepts/hot-module-replacement/
 	@link https://webpack.js.org/guides/hot-module-replacement
 	Still don't understand do we really need it.
 */
-// if (module.hot) module.hot.accept();
+// if (module.hot) module.hot.accept()

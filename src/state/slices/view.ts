@@ -30,8 +30,7 @@ export const create: Create<ViewState> = initialState =>
         state.current = previous.pop() ?? defaultState.current
       },
       reset(state) {
-        state.previous = []
-        state.current = defaultState.current
+        state = { ...defaultState }
       },
     },
   })
