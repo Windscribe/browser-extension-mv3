@@ -29,7 +29,7 @@ build:image:
 eslint:
   stage: lint
   needs:
-    - job: build:container
+    - job: build:image
   script:
   - yarn install --frozen-lockfile
   - yarn run lint
