@@ -11,7 +11,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const alias = {
   'react-dom': '@hot-loader/react-dom',
 }
-
+console.log('env', env.NODE_ENV)
 // load the secrets
 const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js')
 
