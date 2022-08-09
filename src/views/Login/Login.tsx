@@ -83,80 +83,25 @@ const Login: ThemeUiElement = () => {
             autofillBackgroundColor="foreground"
             onChange={e => setUsername(e.target.value)}
           />
-          <Box
-            sx={{
-              minWidth: '16px',
-              fill: theme.colors?.primaryText,
-              position: 'absolute',
-              mt: '12px',
-              right: '28px',
-              cursor: 'pointer',
-            }}
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <HidePassword /> : <ShowPassword />}
-          </Box>
-        </Flex>
-        {use2fa && (
-          <>
-            <Flex sx={{ justifyContent: 'space-between', gap: '16px', mt: '16px' }}>
-              <Button
-                variant="simple"
-                sx={{
-                  color: theme.colors?.secondaryText,
-                  mb: '8px',
-                  ':hover': { color: theme.colors?.primaryText },
-                }}
-                onClick={() => setUse2fa(false)}
-              >
-                2FA Code
-              </Button>
-              {error2fa && (
-                <Text
-                  sx={{
-                    width: 'auto',
-                    fontSize: '12px',
-                    mb: '8px',
-                    color: 'red',
-                  }}
-                >
-                  {error2fa}
-                </Text>
-              )}
-            </Flex>
-
+          <Label htmlFor="password">Password</Label>
+          <Flex>
             <Input
               required
-              type="text"
-              name="twoFa"
-              autofillBackgroundColor="foreground"
-              sx={{ mb: '10px' }}
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              onChange={e => setPassword(e.target.value)}
+              sx={{ pr: '38px' }}
             />
-            <Box sx={{ color: theme.colors?.secondaryText, fontSize: '12px', width: '181px' }}>
-              If enabled, use an authentication app to generate the code.
-            </Box>
-          </>
-        )}
-        <Flex sx={{ mt: '16px', mb: '18px', justifyContent: 'space-between' }}>
-          <Flex sx={{ flexDirection: 'column' }}>
-            {!use2fa && (
-              <Button
-                variant="simple"
-                type="button"
-                sx={{
-                  color: theme.colors?.secondaryText,
-                  ':hover': { color: theme.colors?.primaryText },
-                }}
-                onClick={() => setUse2fa(true)}
-              >
-                2FA Code?
-              </Button>
-            )}
-            <Link
-              href="https://windscribe.com/forgotpassword"
-              target="_blank"
-              variant="primary"
-              sx={{ mt: '8px' }}
+            <Box
+              sx={{
+                minWidth: '16px',
+                fill: theme.colors?.primaryText,
+                position: 'absolute',
+                mt: '12px',
+                right: '28px',
+                cursor: 'pointer',
+              }}
+              onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <HidePassword /> : <ShowPassword />}
             </Box>
