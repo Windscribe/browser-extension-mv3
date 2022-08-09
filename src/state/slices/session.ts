@@ -14,7 +14,7 @@ export const create = (initialState?: SessionState) =>
     name: 'session',
     initialState: initialState || defaultState,
     reducers: {
-      setSession(state, action: PayloadAction<any>) {
+      setSession(state, action: PayloadAction<SessionData>) {
         state.data = action.payload
       },
     },

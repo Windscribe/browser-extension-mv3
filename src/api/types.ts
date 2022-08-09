@@ -3,15 +3,7 @@ export interface Parameters {
   password?: string
   session_type_id?: number
   session_auth_hash?: string
-  platform?: string
-}
-
-export interface LoginData {
-  username?: string
-  password?: string
-  session_type_id?: number
-  session_auth_hash?: string
-  platform?: string
+  platform?: 'chrome' | 'firefox'
 }
 
 export interface MetaData {

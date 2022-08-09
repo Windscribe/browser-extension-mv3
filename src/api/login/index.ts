@@ -1,5 +1,5 @@
-import prepareQueryString from '../prepareQueryString'
-import { Parameters, ApiResponse } from '../types'
+import prepareQueryString from 'api/prepareQueryString'
+import { type Parameters, ApiResponse } from 'api/types'
 
 const login = async (username: string, password: string): Promise<ApiResponse> => {
   const parameters: Parameters = {

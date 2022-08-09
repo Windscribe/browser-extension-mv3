@@ -1,19 +1,11 @@
-const fetchApi = async (
-  path: string,
-  method: string,
-  useAssets: boolean,
-  useBackup = false
-) => {
+const fetchApi = async (path: string, method: string, useAssets: boolean, useBackup = false) => {
   let url: string
 
+  // Change url's when using actually api
   if (useBackup) {
-    url = useAssets
-      ? 'assets-staging.windscribe.com'
-      : 'api-staging.windscribe.com'
+    url = useAssets ? 'assets-staging.windscribe.com' : 'api-staging.windscribe.com'
   } else {
-    url = useAssets
-      ? 'assets-staging.windscribe.com'
-      : 'api-staging.windscribe.com'
+    url = useAssets ? 'assets-staging.windscribe.com' : 'api-staging.windscribe.com'
   }
 
   const controller = new AbortController()
@@ -30,11 +22,11 @@ const fetchApi = async (
 
 const sendRequest = async (path: string, method: string, useAssets = false) => {
   return fetchApi(path, method, useAssets)
-    .then((response) => response.json())
+    .then(response => response.json())
     .catch(() =>
       fetchApi(path, method, useAssets, true)
-        .then((response) => response.json())
-        .catch(() => ({ errorMessage: 'API connectivity issues' }))
+        .then(response => response.json())
+        .catch(() => ({ errorMessage: 'API connectivity issues' })),
     )
 }
 

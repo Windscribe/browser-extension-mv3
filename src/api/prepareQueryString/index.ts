@@ -1,15 +1,16 @@
 import md5 from 'crypto-js/md5'
-import { Parameters } from '../types'
-import sendRequest from '../fetchApi'
+import { type Parameters } from 'api/types'
+import sendRequest from 'api/fetchApi'
+import { CLIENT_AUTH_SECRET } from 'utils/constants'
 
 const getClientAuthHash = (time: string) => {
-  return md5(`${'952b4412f002315aa50751032fcaab03'}${time}`).toString()
+  return md5(`${CLIENT_AUTH_SECRET}${time}`).toString()
 }
 
 const prepareQueryString = (
-  endpoint: string,
-  method: string,
-  parameters: Parameters
+  endpoint: 'Session' | 'BestLocation' | 'Notifications' | 'ServerCredentials',
+  method: 'GET' | 'POST',
+  parameters: Parameters,
 ) => {
   const time = Math.round(new Date().getTime() / 1000).toString()
   const clientAuthHash = getClientAuthHash(time)

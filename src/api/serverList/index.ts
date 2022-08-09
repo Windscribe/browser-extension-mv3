@@ -1,4 +1,4 @@
-import sendRequest from '../fetchApi'
+import sendRequest from 'api/fetchApi'
 
 const serverList = async (type: number, loc_hash: string) => {
   const path = `serverlist/chrome/${type}/${loc_hash}`

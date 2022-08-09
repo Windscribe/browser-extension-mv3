@@ -1,5 +1,5 @@
-import prepareQueryString from '../prepareQueryString'
-import { Parameters } from '../types'
+import prepareQueryString from 'api/prepareQueryString'
+import { type Parameters } from 'api/types'
 
 const bestLocation = async (session_auth_hash: string) => {
   const parameters: Parameters = {

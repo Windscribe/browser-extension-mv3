@@ -10,7 +10,7 @@ const SplashPage: ThemeUiElement = () => {
   const goToSignup = useGoTo('Signup')
   const goToLogin = useGoTo('Login')
 
-  if (sessionData) goTo('Home')
+  if (sessionData) goTo('Home')()
 
   return (
     <Flex
