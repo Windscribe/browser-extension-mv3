@@ -1,5 +1,5 @@
 image:
-  name: ${DOCKER_REPO}:master
+  name: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3:39-run-test-remotely
   entrypoint:
     - '/usr/bin/env'
     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
