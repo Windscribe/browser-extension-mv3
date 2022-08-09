@@ -1,5 +1,5 @@
 image:
-  name: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3:39-run-test-remotely
+  name: ${DOCKER_REPO}:${CI_COMMIT_REF_SLUG}
   entrypoint:
     - '/usr/bin/env'
     - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
@@ -28,8 +28,6 @@ build:image:
 
 eslint:
   stage: lint
-  needs:
-    - job: build:image
   script:
   - yarn install --frozen-lockfile
   - yarn run lint
