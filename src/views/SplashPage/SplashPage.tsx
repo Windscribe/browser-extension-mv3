@@ -27,7 +27,7 @@ const SplashPage: ThemeUiElement = () => {
         position: 'relative',
         backgroundImage: `url(${splashBackground})`,
         backgroundRepeat: 'no-repeat',
-        height: '100vh',
+        height: '298px',
       }}
     >
       <img
