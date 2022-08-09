@@ -75,7 +75,7 @@ const SplashPage: ThemeUiElement = () => {
         onClick={goToLogin}
         variant="simple"
         sx={{
-          mt: '24px',
+          my: '24px',
           opacity: '0.5',
           fontSize: '14px',
           fontWeight: '600',

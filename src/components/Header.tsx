@@ -30,9 +30,6 @@ const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => {
         variant="circle"
         aria-label={`Back to ${prevPage}`}
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
           transition: 'all 0.3s ease 0s',
           '&:focus': {
             border: '1px solid ${colors.iconBg}',
