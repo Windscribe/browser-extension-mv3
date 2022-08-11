@@ -8,6 +8,7 @@ import theme from 'styles'
 import { Router } from 'services/navigation'
 import { ProxyStore } from 'state'
 import browserApi from 'services/browserApi'
+import { reset as resetView } from 'state/slices/view'
 import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT, WAKE_UP_NEO } from 'utils/constants'
 
 // Wake up background script and then initialize connection between ProxyStore and WrappedStore
@@ -18,30 +19,37 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
     portName: REACT_APP_REDUX_PORT,
   })
 
-  proxyStore.ready().then(() => {
-    type AreaName = 'sync' | 'local' | 'managed'
-    type Changes = { [key: string]: chrome.storage.StorageChange }
-    type Update = (changes: Changes, areaName?: AreaName) => void
+  proxyStore
+    .ready()
+    .then(() => {
+      type AreaName = 'sync' | 'local' | 'managed'
+      type Changes = { [key: string]: chrome.storage.StorageChange }
+      type Update = (changes: Changes, areaName?: AreaName) => void
 
-    const update: Update = changes => {
-      const newState = changes[STORAGE_CACHE_VERSION].newValue
-      proxyStore.replaceState(newState)
-    }
-    browserApi.subscribeOnStorageChange(update)
+      const update: Update = changes => {
+        const newState = changes[STORAGE_CACHE_VERSION].newValue
+        proxyStore.replaceState(newState)
+      }
+      browserApi.subscribeOnStorageChange(update)
+      proxyStore.dispatch(resetView())
 
-    render(
-      <ThemeProvider theme={theme}>
-        <Provider store={proxyStore}>
-          <Router />
-        </Provider>
-      </ThemeProvider>,
-      window.document.querySelector('#app-container'),
-    )
-  })
+      render(
+        <ThemeProvider theme={theme}>
+          <Provider store={proxyStore}>
+            <Router />
+          </Provider>
+        </ThemeProvider>,
+        window.document.querySelector('#app-container'),
+      )
+    })
+    .catch((err: any): void => {
+      log('Error while rendering UI: ', err, 'error')
+    })
 })
+
 /*
 	@link https://webpack.js.org/concepts/hot-module-replacement/
 	@link https://webpack.js.org/guides/hot-module-replacement
 	Still don't understand do we really need it.
 */
-// if (module.hot) module.hot.accept();
+// if (module.hot) module.hot.accept()
