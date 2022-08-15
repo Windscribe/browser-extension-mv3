@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'state/hooks'
+import { useState } from 'react'
+import { useDispatch } from 'state/hooks'
 import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
 
 import { login } from '../../api/index'
@@ -13,6 +13,7 @@ import HidePassword from 'assets/img/hidePassword.svg'
 import { type ThemeUiElement } from 'components/types'
 
 const Login: ThemeUiElement = () => {
+  const dispatch = useDispatch()
   const { theme } = useThemeUI()
 
   const [username, setUsername] = useState('')

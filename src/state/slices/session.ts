@@ -1,15 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { type Create } from './types'
 import { SessionData } from 'api/types'
 
 interface SessionState {
-  data: SessionData
+  data: SessionData | null
 }
 
 const defaultState: SessionState = {
-  data: {},
+  data: null,
 }
 
-export const create = (initialState?: SessionState) =>
+export const create: Create<SessionState> = initialState =>
   createSlice({
     name: 'session',
     initialState: initialState || defaultState,

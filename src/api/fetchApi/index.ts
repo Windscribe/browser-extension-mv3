@@ -1,4 +1,6 @@
-const fetchApi = async (path: string, method: string, useAssets: boolean, useBackup = false) => {
+import { type ApiResponse, method } from 'api/types'
+
+const fetchApi = async (path: string, method: method, useAssets: boolean, useBackup = false) => {
   let url: string
 
   // Change url's when using actually api
@@ -20,7 +22,11 @@ const fetchApi = async (path: string, method: string, useAssets: boolean, useBac
   })
 }
 
-const sendRequest = async (path: string, method: string, useAssets = false) => {
+const sendRequest = async (
+  path: string,
+  method: method,
+  useAssets = false,
+): Promise<ApiResponse> => {
   return fetchApi(path, method, useAssets)
     .then(response => response.json())
     .catch(() =>
