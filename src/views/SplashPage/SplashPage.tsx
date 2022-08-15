@@ -8,11 +8,12 @@ import { useSelector } from 'state/hooks'
 
 const SplashPage: ThemeUiElement = () => {
   const { theme } = useThemeUI()
-  const sessionData = useSelector(state => state.session.data)
 
   const goToSignup = useGoTo('Signup')
   const goToLogin = useGoTo('Login')
   const goToHome = useGoTo('Home')
+
+  const sessionData = useSelector(state => state.session?.data)
 
   if (sessionData) {
     goToHome()

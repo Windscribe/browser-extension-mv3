@@ -4,7 +4,7 @@ export interface Parameters {
   session_type_id?: number
   session_auth_hash?: string
   platform?: 'chrome' | 'firefox'
-  '2fa_code'?: string | undefined
+  '2fa_code'?: string
 }
 
 export interface MetaData {

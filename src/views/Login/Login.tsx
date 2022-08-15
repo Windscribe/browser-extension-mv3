@@ -28,7 +28,6 @@ const Login: ThemeUiElement = () => {
     e.preventDefault()
     const twoFa = e.currentTarget.twoFa ? e.currentTarget.twoFa.value : undefined
     login(e.currentTarget.username.value, e.currentTarget.password.value, twoFa).then(response => {
-      console.log(response)
       if (response.errorMessage) {
         //2FA error codes
         if (response.errorCode === 1340 || response.errorCode === 1341) {
@@ -110,7 +109,7 @@ const Login: ThemeUiElement = () => {
                   variant="simple"
                   type="button"
                   sx={{
-                    color: theme.colors?.secondaryText,
+                    color: 'secondaryText',
                     mb: '8px',
                     ':hover': { color: theme.colors?.primaryText },
                   }}
@@ -137,7 +136,7 @@ const Login: ThemeUiElement = () => {
                 type="text"
                 name="twoFa"
                 autofillBackgroundColor="foreground"
-                sx={{ mb: '10px' }}
+                mb="10px"
               />
               <Box sx={{ color: theme.colors?.secondaryText, fontSize: '12px', width: '181px' }}>
                 If enabled, use an authentication app to generate the code.
