@@ -18,7 +18,6 @@ const SplashPage: ThemeUiElement = () => {
     goToHome()
   }
 
-  if (sessionData) goTo('Home')()
 
   return (
     <Flex
