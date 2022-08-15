@@ -23,3 +23,9 @@ export const STORAGE_CACHE_VERSION = '1'
 export const REACT_APP_REDUX_PORT: string =
   process.env.REACT_APP_REDUX_PORT || 'WS_BROWSER_EXTENSION_STORE'
 export const WAKE_UP_NEO = 'wake-up-background-service-worker'
+
+export const ACCOUNT_PLAN = {
+  FREE: 0,
+  PREMIUM: 1,
+  UNLIMITED: -1,
+} as const

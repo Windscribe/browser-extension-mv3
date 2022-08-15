@@ -1,9 +1,11 @@
 import type { Theme } from 'theme-ui'
 
 import { rawColors } from './colors'
+import { zIndices } from './zIndices'
 
 export const theme: Theme = {
   rawColors,
+  zIndices,
   styles: {
     root: {
       body: {
