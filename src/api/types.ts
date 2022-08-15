@@ -45,23 +45,6 @@ export interface SessionData {
   username?: string
 }
 
-export interface SessionData {
-  billing_plan_id?: number
-  email?: string
-  email_status?: number
-  is_premium?: number
-  last_reset?: string
-  loc_hash?: string
-  loc_rev?: number
-  reg_date?: number
-  session_auth_hash?: string
-  status?: number
-  traffic_max?: number
-  traffic_used?: number
-  user_id?: string
-  username?: string
-}
-
 export type endpoint = 'Session' | 'BestLocation' | 'Notifications' | 'ServerCredentials'
 
 export type method = 'GET' | 'POST' | 'PUT' | 'DELETE'
