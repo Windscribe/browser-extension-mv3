@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'state/hooks'
-import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
+import { Button, Flex, Text, Input, Label, Box, Link } from 'theme-ui'
 
 import { login } from '../../api/index'
 import { set } from 'state/slices/view'
@@ -14,7 +14,6 @@ import { type ThemeUiElement } from 'components/types'
 
 const Login: ThemeUiElement = () => {
   const dispatch = useDispatch()
-  const { theme } = useThemeUI()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -69,7 +68,7 @@ const Login: ThemeUiElement = () => {
                   fontSize: '12px',
                   mt: '16px',
                   mb: '8px',
-                  color: 'red',
+                  color: 'bloodRed',
                 }}
               >
                 {error}
@@ -95,7 +94,7 @@ const Login: ThemeUiElement = () => {
             <Box
               sx={{
                 minWidth: '16px',
-                fill: theme.colors?.primaryText,
+                fill: 'primaryText',
                 position: 'absolute',
                 mt: '12px',
                 right: '28px',
@@ -115,7 +114,7 @@ const Login: ThemeUiElement = () => {
                   sx={{
                     color: 'secondaryText',
                     mb: '8px',
-                    ':hover': { color: theme.colors?.primaryText },
+                    ':hover': { color: 'primaryText' },
                   }}
                   onClick={() => setUse2fa(false)}
                 >
@@ -127,7 +126,7 @@ const Login: ThemeUiElement = () => {
                       width: 'auto',
                       fontSize: '12px',
                       mb: '8px',
-                      color: 'red',
+                      color: 'bloodRed',
                     }}
                   >
                     {error2fa}
@@ -142,7 +141,7 @@ const Login: ThemeUiElement = () => {
                 autofillBackgroundColor="foreground"
                 mb="10px"
               />
-              <Box sx={{ color: theme.colors?.secondaryText, fontSize: '12px', width: '181px' }}>
+              <Box sx={{ color: 'secondaryText', fontSize: '12px', width: '181px' }}>
                 If enabled, use an authentication app to generate the code.
               </Box>
             </>
@@ -154,8 +153,8 @@ const Login: ThemeUiElement = () => {
                   variant="simple"
                   type="button"
                   sx={{
-                    color: theme.colors?.secondaryText,
-                    ':hover': { color: theme.colors?.primaryText },
+                    color: 'secondaryText',
+                    ':hover': { color: 'primaryText' },
                   }}
                   onClick={() => setUse2fa(true)}
                 >
@@ -177,9 +176,8 @@ const Login: ThemeUiElement = () => {
               sx={{
                 width: '103px',
                 height: '40px',
-                color: theme.colors?.softText,
-                backgroundColor:
-                  !!username && !!password ? theme.colors?.green : theme.colors?.foreground,
+                color: 'softBlack',
+                backgroundColor: !!username && !!password ? 'neonGreen' : 'foreground',
               }}
             >
               Login

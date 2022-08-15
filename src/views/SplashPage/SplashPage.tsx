@@ -1,4 +1,4 @@
-import { Button, Flex, Text, useThemeUI } from 'theme-ui'
+import { Button, Flex, Text } from 'theme-ui'
 
 import { type ThemeUiElement } from 'components/types'
 import splashBackground from 'assets/img/splashBackground.png'
@@ -7,8 +7,6 @@ import { useGoTo } from 'services/navigation'
 import { useSelector } from 'state/hooks'
 
 const SplashPage: ThemeUiElement = () => {
-  const { theme } = useThemeUI()
-
   const goToSignup = useGoTo('Signup')
   const goToLogin = useGoTo('Login')
   const goToHome = useGoTo('Home')
@@ -44,7 +42,7 @@ const SplashPage: ThemeUiElement = () => {
           mt: '24px',
           fontSize: '24px',
           fontWeight: '600',
-          color: theme.colors?.white,
+          color: 'white',
         }}
       >
         Keep Your Secrets.
@@ -58,11 +56,11 @@ const SplashPage: ThemeUiElement = () => {
           fontSize: '14px',
           width: '228px',
           height: '40px',
-          color: theme.colors?.black,
-          backgroundColor: theme.colors?.green,
+          color: 'softBlack',
+          backgroundColor: 'neonGreen',
           textAlign: 'center',
           ':hover': {
-            backgroundColor: theme.colors?.white,
+            backgroundColor: 'white',
           },
         }}
       >
@@ -76,7 +74,7 @@ const SplashPage: ThemeUiElement = () => {
           opacity: '0.5',
           fontSize: '14px',
           fontWeight: '600',
-          color: theme.colors?.white,
+          color: 'white',
           ':hover': {
             opacity: '1',
           },

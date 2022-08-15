@@ -6,7 +6,7 @@ import { type ThemeUiElement } from 'components/types'
 
 type ButtonProps = {
   bg?: Colors
-  color?: Colors
+  color?: string
   text?: string
   subtext?: string
   url: string

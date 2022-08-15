@@ -57,7 +57,7 @@ export const theme: Theme = {
       borderRadius: '6px',
       ':hover': {
         backgroundColor: 'white',
-        color: 'black',
+        color: 'softBlack',
         div: {
           color: 'background',
         },

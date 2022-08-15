@@ -1,4 +1,4 @@
-import { Button, Flex, Text, useThemeUI } from 'theme-ui'
+import { Button, Flex, Text } from 'theme-ui'
 import ArrowLeft from 'assets/img/arrowLeft.svg'
 import { useGoBack } from 'services/navigation'
 import { useSelector } from 'state/hooks'
@@ -10,7 +10,6 @@ interface HeaderProps {
 }
 
 const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => {
-  const { theme } = useThemeUI()
   const { previous } = useSelector(s => s.view)
   const prevPage = previous[previous.length - 1] ?? ''
 
@@ -21,7 +20,8 @@ const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         px: '16px',
-        borderBottom: `1px solid ${theme.colors?.border}`,
+        borderBottom: '1px solid',
+        borderColor: 'border',
       }}
     >
       <Button
@@ -43,7 +43,7 @@ const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => {
         <ArrowLeft
           sx={{
             minWidth: '16px',
-            fill: theme.colors?.primaryText,
+            fill: 'primaryText',
           }}
         />
       </Button>
@@ -51,7 +51,7 @@ const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => {
         data-testid="header-title"
         sx={{
           fontSize: '24px',
-          color: theme.colors?.primaryText,
+          color: 'primaryText',
           fontWeight: '600',
         }}
       >
