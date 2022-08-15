@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Text, useThemeUI } from 'theme-ui'
+import { type ThemeUiElement } from 'components/types'
 import HeaderButton from './HeaderButton'
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -11,7 +12,7 @@ import Shield from 'assets/img/shield.svg'
 import Blocker from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 
-export default () => {
+const Home: ThemeUiElement = () => {
   const { theme } = useThemeUI()
 
   return (
@@ -107,11 +108,11 @@ export default () => {
               sx={{
                 mr: '8px',
                 ':hover': {
-                  'svg:nth-child(1)': {
+                  'svg:nth-of-type(1)': {
                     mr: '12.8px',
                     fill: theme.colors?.white,
                   },
-                  'svg:nth-child(2)': {
+                  'svg:nth-of-type(2)': {
                     visibility: 'initial',
                     fill: theme.colors?.white,
                   },

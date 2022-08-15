@@ -1,11 +1,15 @@
 import { Button, Box, Flex, useThemeUI } from 'theme-ui'
+import { type ThemeUiElement } from 'components/types'
 
 type HeaderButtonProps = {
   Icon: React.ReactNode
   count: number
 }
 
-export default ({ Icon, count = 0 }: HeaderButtonProps) => {
+const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({
+  Icon,
+  count = 0,
+}: HeaderButtonProps) => {
   const { theme } = useThemeUI()
 
   return (
@@ -49,3 +53,5 @@ export default ({ Icon, count = 0 }: HeaderButtonProps) => {
     </Button>
   )
 }
+
+export default HeaderButton
