@@ -1,5 +1,10 @@
 import { useState } from 'react'
+import { useDispatch } from 'state/hooks'
 import { Button, Flex, Text, Input, Label, Box, Link, useThemeUI } from 'theme-ui'
+
+import { login } from '../../api/index'
+import { set } from 'state/slices/view'
+import { setSession } from 'state/slices/session'
 
 import Header from 'components/Header'
 import HeaderLink from 'components/HeaderLink'
@@ -8,11 +13,30 @@ import HidePassword from 'assets/img/hidePassword.svg'
 import { type ThemeUiElement } from 'components/types'
 
 const Login: ThemeUiElement = () => {
+  const dispatch = useDispatch()
   const { theme } = useThemeUI()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+
+  type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => void
+  const handleLogin: HandleLogin = e => {
+    e.preventDefault()
+    login(e.currentTarget.username?.value, e.currentTarget.password?.value).then(
+      ({ errorMessage, data }) => {
+        if (errorMessage) {
+          setError(errorMessage)
+          return
+        }
+        if (data?.session_auth_hash) {
+          dispatch(setSession(data))
+          dispatch(set('Home'))
+        }
+      },
+    )
+  }
 
   return (
     <Flex
@@ -25,79 +49,81 @@ const Login: ThemeUiElement = () => {
         title="Login"
         RightSideComponent={<HeaderLink buttonRoute="Signup" buttonText="Sign up" />}
       />
-      <Box as="form" sx={{ mx: '16px' }}>
-        <Flex sx={{ justifyContent: 'space-between' }}>
-          <Label htmlFor="username">Username</Label>
-          {error && (
-            <Text
-              sx={{
-                width: 'auto',
-                fontSize: '12px',
-                mt: '16px',
-                mb: '8px',
-                color: 'red',
-              }}
-            >
-              {error}
-            </Text>
-          )}
-        </Flex>
-        <Input
-          required
-          type="text"
-          name="username"
-          autofillBackgroundColor="foreground"
-          onChange={e => setUsername(e.target.value)}
-        />
-        <Label htmlFor="password">Password</Label>
-        <Flex>
+      <Box sx={{ mx: '16px' }}>
+        <form onSubmit={handleLogin}>
+          <Flex sx={{ justifyContent: 'space-between', gap: '16px' }}>
+            <Label htmlFor="username">Username</Label>
+            {error && (
+              <Text
+                sx={{
+                  width: 'auto',
+                  fontSize: '12px',
+                  mt: '16px',
+                  mb: '8px',
+                  color: 'red',
+                }}
+              >
+                {error}
+              </Text>
+            )}
+          </Flex>
           <Input
             required
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            onChange={e => setPassword(e.target.value)}
-            sx={{ pr: '38px' }}
+            type="text"
+            name="username"
+            autofillBackgroundColor="foreground"
+            onChange={e => setUsername(e.target.value)}
           />
-          <Box
-            sx={{
-              minWidth: '16px',
-              fill: theme.colors?.primaryText,
-              position: 'absolute',
-              mt: '12px',
-              right: '28px',
-              cursor: 'pointer',
-            }}
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <HidePassword /> : <ShowPassword />}
-          </Box>
-        </Flex>
-        <Flex sx={{ mt: '16px', justifyContent: 'space-between' }}>
-          <Flex sx={{ flexDirection: 'column' }}>
-            <Text sx={{ color: theme.colors?.secondaryText }}>2FA Code?</Text>
-            <Link
-              href="https://windscribe.com/forgotpassword"
-              target="_blank"
-              variant="primary"
-              sx={{ mt: '8px' }}
+          <Label htmlFor="password">Password</Label>
+          <Flex>
+            <Input
+              required
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              onChange={e => setPassword(e.target.value)}
+              sx={{ pr: '38px' }}
+            />
+            <Box
+              sx={{
+                minWidth: '16px',
+                fill: theme.colors?.primaryText,
+                position: 'absolute',
+                mt: '12px',
+                right: '28px',
+                cursor: 'pointer',
+              }}
+              onClick={() => setShowPassword(!showPassword)}
             >
-              Forgot password?
-            </Link>
+              {showPassword ? <HidePassword /> : <ShowPassword />}
+            </Box>
           </Flex>
-          <Button
-            variant="rounded"
-            type="submit"
-            sx={{
-              width: '103px',
-              height: '40px',
-              color: theme.colors?.softText,
-              backgroundColor:
-                !!username && !!password ? theme.colors?.green : theme.colors?.foreground,
-            }}
-          >
-            Login
-          </Button>
-        </Flex>
+          <Flex sx={{ mt: '16px', mb: '18px', justifyContent: 'space-between' }}>
+            <Flex sx={{ flexDirection: 'column' }}>
+              <Text sx={{ color: theme.colors?.secondaryText }}>2FA Code?</Text>
+              <Link
+                href="https://windscribe.com/forgotpassword"
+                target="_blank"
+                variant="primary"
+                sx={{ mt: '8px' }}
+              >
+                Forgot password?
+              </Link>
+            </Flex>
+            <Button
+              variant="rounded"
+              type="submit"
+              sx={{
+                width: '103px',
+                height: '40px',
+                color: theme.colors?.softText,
+                backgroundColor:
+                  !!username && !!password ? theme.colors?.green : theme.colors?.foreground,
+              }}
+            >
+              Login
+            </Button>
+          </Flex>
+        </form>
       </Box>
     </Flex>
   )

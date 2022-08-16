@@ -4,11 +4,19 @@ import { type ThemeUiElement } from 'components/types'
 import splashBackground from 'assets/img/splashBackground.png'
 import rotatingLogo from 'assets/img/rotatingLogo.gif'
 import { useGoTo } from 'services/navigation'
+import { useSelector } from 'state/hooks'
 
 const SplashPage: ThemeUiElement = () => {
   const { theme } = useThemeUI()
+  const sessionData = useSelector(state => state.session.data)
+
   const goToSignup = useGoTo('Signup')
   const goToLogin = useGoTo('Login')
+  const goToHome = useGoTo('Home')
+
+  if (sessionData) {
+    goToHome()
+  }
 
   return (
     <Flex
