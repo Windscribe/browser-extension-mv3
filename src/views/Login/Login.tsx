@@ -23,24 +23,28 @@ const Login: ThemeUiElement = () => {
   const [use2fa, setUse2fa] = useState(false)
   const [error2fa, setError2fa] = useState('')
 
-  type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => void
-  const handleLogin: HandleLogin = e => {
+  type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => Promise<void>
+  const handleLogin: HandleLogin = async e => {
     e.preventDefault()
-    const twoFa = e.currentTarget.twoFa ? e.currentTarget.twoFa.value : undefined
-    login(e.currentTarget.username.value, e.currentTarget.password.value, twoFa).then(response => {
-      if (response.errorMessage) {
-        //2FA error codes
-        if (response.errorCode === 1340 || response.errorCode === 1341) {
-          setError2fa(response.errorMessage)
-          setUse2fa(true)
-        } else {
-          setError(response.errorMessage)
-        }
-      } else if (response.data?.session_auth_hash) {
-        dispatch(setSession(response.data))
-        dispatch(set('Home'))
+    const { twoFa, username, password } = e.currentTarget
+    const { errorMessage, errorCode, data } = await login(
+      username?.value,
+      password?.value,
+      twoFa?.value,
+    )
+    if (errorMessage) {
+      // Maybe we need to store these error codes as constants somewhere? We can discuss
+      if (errorCode === 1340 || errorCode === 1341) {
+        setError2fa(errorMessage)
+        setUse2fa(true)
+        return
       }
-    })
+      setError(errorMessage)
+    }
+    if (data?.session_auth_hash) {
+      dispatch(setSession(data))
+      dispatch(set('Home'))
+    }
   }
 
   return (
