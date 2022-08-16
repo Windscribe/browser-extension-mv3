@@ -45,6 +45,6 @@ export interface SessionData {
   username?: string
 }
 
-export type endpoint = 'Session' | 'BestLocation' | 'Notifications' | 'ServerCredentials'
+export type Endpoint = 'Session' | 'BestLocation' | 'Notifications' | 'ServerCredentials'
 
-export type method = 'GET' | 'POST' | 'PUT' | 'DELETE'
+export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
