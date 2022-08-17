@@ -16,7 +16,7 @@ All initial redux boilerplate and slices stored in `src/state`. We use `slices` 
 
 Adding a new slice is fairly simple. Navigate to a plugin in `src/state/slices`. Simply add a new file with the same name as future slice. Using of `createSlice` enables writing immutable updates using "mutating" JS syntax like `state.value = 123`, with no spreads needed. It also automatically generates action creator functions for each reducer, and generates action type strings internally based on your reducer's names.
 
-```
+```js
 interface ExampleState {
   counter: number
 }
@@ -49,7 +49,7 @@ export default exampleSlice.reducer
 
 Then go to `src/state/store` and add the new created slice to reducers list:
 
-```
+```js
 const exampleReducer = createExample(initialState?.example).reducer
 const viewReducer = createView(initialState?.view).reducer
 
@@ -94,7 +94,7 @@ If you do use the redux store directly from the popup then it will bypass the me
 
 You should provide context `<Provider store={proxyStore}>` into a root React component  and than use `useDispatch` and `useSelector` hooks form `src/state/hooks.ts`.
 
-```
+```jsx
 import { useSelector, useDispatch } from 'state/hooks'
 import { increment } from 'state/slices/example'
 
@@ -130,7 +130,7 @@ Contrary to regular Redux, all dispatches are asynchronous and return a Promise.
 
 To navigate between views in the Popup you can use hooks `useGoTo` and `useGoBack` from `src/services/navigation`
 
-```
+```jsx
 import { useGoTo, useGoBack } from 'services/navigation'
 
 const SplashPage: ThemeUiElement = () => {
