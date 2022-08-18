@@ -20,22 +20,31 @@ const Login: ThemeUiElement = () => {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+  const [use2fa, setUse2fa] = useState(false)
+  const [error2fa, setError2fa] = useState('')
 
-  type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => void
-  const handleLogin: HandleLogin = e => {
+  type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => Promise<void>
+  const handleLogin: HandleLogin = async e => {
     e.preventDefault()
-    login(e.currentTarget.username?.value, e.currentTarget.password?.value).then(
-      ({ errorMessage, data }) => {
-        if (errorMessage) {
-          setError(errorMessage)
-          return
-        }
-        if (data?.session_auth_hash) {
-          dispatch(setSession(data))
-          dispatch(set('Home'))
-        }
-      },
+    const { twoFa, username, password } = e.currentTarget
+    const { errorMessage, errorCode, data } = await login(
+      username?.value,
+      password?.value,
+      twoFa?.value,
     )
+    if (errorMessage) {
+      // Maybe we need to store these error codes as constants somewhere? We can discuss
+      if (errorCode === 1340 || errorCode === 1341) {
+        setError2fa(errorMessage)
+        setUse2fa(true)
+        return
+      }
+      setError(errorMessage)
+    }
+    if (data?.session_auth_hash) {
+      dispatch(setSession(data))
+      dispatch(set('Home'))
+    }
   }
 
   return (
@@ -97,9 +106,62 @@ const Login: ThemeUiElement = () => {
               {showPassword ? <HidePassword /> : <ShowPassword />}
             </Box>
           </Flex>
+          {use2fa && (
+            <>
+              <Flex sx={{ justifyContent: 'space-between', gap: '16px', mt: '16px' }}>
+                <Button
+                  variant="simple"
+                  type="button"
+                  sx={{
+                    color: 'secondaryText',
+                    mb: '8px',
+                    ':hover': { color: theme.colors?.primaryText },
+                  }}
+                  onClick={() => setUse2fa(false)}
+                >
+                  2FA Code
+                </Button>
+                {error2fa && (
+                  <Text
+                    sx={{
+                      width: 'auto',
+                      fontSize: '12px',
+                      mb: '8px',
+                      color: 'red',
+                    }}
+                  >
+                    {error2fa}
+                  </Text>
+                )}
+              </Flex>
+
+              <Input
+                required
+                type="text"
+                name="twoFa"
+                autofillBackgroundColor="foreground"
+                mb="10px"
+              />
+              <Box sx={{ color: theme.colors?.secondaryText, fontSize: '12px', width: '181px' }}>
+                If enabled, use an authentication app to generate the code.
+              </Box>
+            </>
+          )}
           <Flex sx={{ mt: '16px', mb: '18px', justifyContent: 'space-between' }}>
             <Flex sx={{ flexDirection: 'column' }}>
-              <Text sx={{ color: theme.colors?.secondaryText }}>2FA Code?</Text>
+              {!use2fa && (
+                <Button
+                  variant="simple"
+                  type="button"
+                  sx={{
+                    color: theme.colors?.secondaryText,
+                    ':hover': { color: theme.colors?.primaryText },
+                  }}
+                  onClick={() => setUse2fa(true)}
+                >
+                  2FA Code?
+                </Button>
+              )}
               <Link
                 href="https://windscribe.com/forgotpassword"
                 target="_blank"

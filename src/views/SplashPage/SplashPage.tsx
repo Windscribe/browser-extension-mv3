@@ -8,15 +8,17 @@ import { useSelector } from 'state/hooks'
 
 const SplashPage: ThemeUiElement = () => {
   const { theme } = useThemeUI()
-  const sessionData = useSelector(state => state.session.data)
 
   const goToSignup = useGoTo('Signup')
   const goToLogin = useGoTo('Login')
   const goToHome = useGoTo('Home')
 
+  const sessionData = useSelector(state => state.session?.data)
+
   if (sessionData) {
     goToHome()
   }
+
 
   return (
     <Flex
@@ -26,7 +28,7 @@ const SplashPage: ThemeUiElement = () => {
         position: 'relative',
         backgroundImage: `url(${splashBackground})`,
         backgroundRepeat: 'no-repeat',
-        height: '100vh',
+        height: '298px',
       }}
     >
       <img

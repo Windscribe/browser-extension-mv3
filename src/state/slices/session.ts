@@ -3,11 +3,11 @@ import { type Create } from './types'
 import { SessionData } from 'api/types'
 
 interface SessionState {
-  data: SessionData | null
+  data?: SessionData
 }
 
 const defaultState: SessionState = {
-  data: null,
+  data: undefined,
 }
 
 export const create: Create<SessionState> = initialState =>
