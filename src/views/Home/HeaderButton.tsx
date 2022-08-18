@@ -7,8 +7,6 @@ type HeaderButtonProps = {
 }
 
 const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, count = 0 }) => {
-  const { theme } = useThemeUI()
-
   return (
     <Button
       variant="circle"
