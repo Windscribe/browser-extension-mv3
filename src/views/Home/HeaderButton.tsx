@@ -1,4 +1,4 @@
-import { Button, Box, Flex, useThemeUI } from 'theme-ui'
+import { Button, Box, Flex } from 'theme-ui'
 import { type ThemeUiElement } from 'components/types'
 
 type HeaderButtonProps = {
@@ -13,12 +13,12 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, count = 0 }) =>
     <Button
       variant="circle"
       sx={{
-        backgroundColor: theme.colors?.halfBlack,
-        fill: theme.colors?.halfWhite,
+        backgroundColor: 'halfBlack',
+        fill: 'halfWhite',
         transition: '0.3s',
         transform: 'scale(1)',
         ':hover': {
-          fill: theme.colors?.white,
+          fill: 'white',
           transform: 'scale(1.1)',
         },
       }}
@@ -32,7 +32,7 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, count = 0 }) =>
           width: '14px',
           right: '-4px',
           bottom: '-2px',
-          backgroundColor: theme.colors?.lightGreen,
+          backgroundColor: 'neonGreen70',
           alignItems: 'center',
           justifyContent: 'center',
         }}
@@ -40,7 +40,7 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, count = 0 }) =>
         <Box
           sx={{
             fontSize: '9px',
-            color: theme.colors?.green,
+            color: 'neonGreen',
             fontWeight: '700',
           }}
         >

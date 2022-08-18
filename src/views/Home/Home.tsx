@@ -21,7 +21,7 @@ const Home: ThemeUiElement = () => {
         sx={{
           height: '160px',
           width: '100%',
-          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.blue}, rgba(0, 106, 255, 0))`,
+          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.lakeBlue}, rgba(0, 106, 255, 0))`,
         }}
       >
         <Flex
@@ -34,19 +34,19 @@ const Home: ThemeUiElement = () => {
               alignItems: 'center',
               height: '56px',
               width: '186px',
-              backgroundColor: theme.colors?.halfBlack,
+              backgroundColor: 'halfBlack',
             }}
           >
             <Button variant="simple">
-              <Menu sx={{ fill: theme.colors?.white, opacity: '0.5', mx: '24px' }} />
+              <Menu sx={{ fill: 'white', opacity: '0.5', mx: '24px' }} />
             </Button>
-            <Logo sx={{ fill: theme.colors?.white }} />
+            <Logo sx={{ fill: 'white' }} />
           </Flex>
           <HeaderBlade
             sx={{
               width: '46px',
               height: '56px',
-              fill: theme.colors?.halfBlack,
+              fill: 'halfBlack',
               mr: '4px',
             }}
           />
@@ -74,7 +74,7 @@ const Home: ThemeUiElement = () => {
                 sx={{
                   fontSize: '12px',
                   fontWeight: '600',
-                  color: theme.colors?.white,
+                  color: 'white',
                   mr: '8px',
                 }}
               >
@@ -83,7 +83,7 @@ const Home: ThemeUiElement = () => {
               <Text
                 sx={{
                   fontSize: '12px',
-                  color: theme.colors?.halfWhite,
+                  color: 'halfWhite',
                 }}
               >
                 000.000.00.000
@@ -92,7 +92,7 @@ const Home: ThemeUiElement = () => {
             <Text
               sx={{
                 fontSize: '16px',
-                color: theme.colors?.white,
+                color: 'white',
               }}
             >
               Autopilot
@@ -110,11 +110,11 @@ const Home: ThemeUiElement = () => {
                 ':hover': {
                   'svg:nth-of-type(1)': {
                     mr: '12.8px',
-                    fill: theme.colors?.white,
+                    fill: 'white',
                   },
                   'svg:nth-of-type(2)': {
                     visibility: 'initial',
-                    fill: theme.colors?.white,
+                    fill: 'white',
                   },
                 },
               }}
@@ -122,7 +122,7 @@ const Home: ThemeUiElement = () => {
               <Globe
                 sx={{
                   transition: '0.25s',
-                  fill: theme.colors?.halfWhite,
+                  fill: 'halfWhite',
                   visibility: 'initial',
                 }}
               />
@@ -130,7 +130,7 @@ const Home: ThemeUiElement = () => {
                 sx={{
                   transition: '0.1s',
                   ml: '-8px',
-                  fill: theme.colors?.halfWhite,
+                  fill: 'halfWhite',
                   visibility: 'hidden',
                 }}
               />
@@ -144,10 +144,11 @@ const Home: ThemeUiElement = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 borderRadius: '50%',
-                border: `solid 3px ${theme.colors?.green}`,
+                border: 'solid 3px',
+                borderColor: 'neonGreen',
                 transition: '0.3s',
                 ':hover': {
-                  fill: theme.colors?.white,
+                  fill: 'white',
                   transform: 'scale(1.1)',
                 },
               }}
@@ -162,15 +163,13 @@ const Home: ThemeUiElement = () => {
           alignItems: 'center',
           height: '48px',
           width: '100%',
-          backgroundColor: theme.colors?.background,
+          backgroundColor: 'background',
           px: '16px',
           justifyContent: 'space-between',
         }}
       >
-        <Text sx={{ fontWeight: '600', fontSize: '14px', color: theme.colors?.halfWhite }}>
-          Windscribe.com
-        </Text>
-        <WhitelistOff sx={{ fill: theme.colors?.halfWhite }} />
+        <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}>Windscribe.com</Text>
+        <WhitelistOff sx={{ fill: 'halfWhite' }} />
       </Flex>
       <Box
         sx={{
@@ -178,7 +177,7 @@ const Home: ThemeUiElement = () => {
           opacity: '0.2',
           top: '26px',
           zIndex: '-1',
-          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.black}, rgba(2, 13, 28, 0))`,
+          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.softBlack}, rgba(2, 13, 28, 0))`,
         }}
       >
         <Autopilot />
