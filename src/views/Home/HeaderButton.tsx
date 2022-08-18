@@ -6,10 +6,7 @@ type HeaderButtonProps = {
   count: number
 }
 
-const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({
-  Icon,
-  count = 0,
-}: HeaderButtonProps) => {
+const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, count = 0 }) => {
   const { theme } = useThemeUI()
 
   return (
