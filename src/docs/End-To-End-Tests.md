@@ -18,7 +18,7 @@ To run e2e tests run the command:
 $ yarn run test
 ```
 
-It opens a browser window, makes stuff, and closes it automatically. Please, don't interrupt test scenarios by pressing keys or clicking or whatever.
+It opens a browser window, runs test scenarios, and closes it automatically. Please, don't interrupt this process by pressing keys or clicking or whatever.
 
 ### Setup
 

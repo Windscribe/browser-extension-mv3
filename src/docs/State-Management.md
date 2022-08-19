@@ -1,6 +1,6 @@
 # Overview
 
-For state management we use `webext-redux` to facilitate passing state between the `background` service worker and `popup`. We use an alternative version of the library which supports `manifest v3`. See on a [github](https://github.com/eduardoacskimlinks/webext-redux).
+For state management we use `webext-redux` to facilitate passing state between the `background` service worker and `popup`. We use an alternative version of the library which supports `manifest v3`. See on [github](https://github.com/eduardoacskimlinks/webext-redux).
 
 ###  Webext-redux Dataflow
 
@@ -10,7 +10,7 @@ For state management we use `webext-redux` to facilitate passing state between t
 
 ## Location
 
-All initial redux boilerplate and slices stored in `src/state`. We use `slices` to combine reducers and organize Redux logic.
+All initial redux boilerplate and slices are stored in `src/state`. We use `slices` to combine reducers and organize Redux logic.
 
 ## Adding a new slice
 
@@ -65,7 +65,7 @@ For now we are creating all slices by using `create` function for each slice, bu
 
 ### Data compatibility
 
-As was mentioned in the start of this page, the extension uses `webext-redux` to enable state to be passed between the `popup` and `background` pages. Under the hood, `webext-redux` used the [WebExtension messaging interface](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage) This is not without its caveats. For example the messaging system cannot support `Functions` they will be transformed into strings. It's recommended to only send data that adheres [to the structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm) to limit the amount of issues that may be caused.
+As was mentioned at the start of this page, the extension uses `webext-redux` to enable state to be passed between the `popup` and `background` pages. Under the hood, `webext-redux` used the [WebExtension messaging interface](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage) This is not without its caveats. For example the messaging system cannot support `Functions` they will be transformed into strings. It's recommended to only send data that adheres [to the structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm) to limit the amount of issues that may be caused.
 
 ### Background service worker
 
