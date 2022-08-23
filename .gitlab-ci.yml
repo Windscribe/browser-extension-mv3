@@ -1,37 +1,31 @@
 image:
-  name: ${DOCKER_REPO}:${CI_COMMIT_REF_SLUG}
-  entrypoint:
-    - '/usr/bin/env'
-    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-
-workflow:
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - when: always
+  name: ${DOCKER_REPO}:master
+# Lets find out if this is needed
+#  entrypoint:
+#    - '/usr/bin/env'
+#    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
 variables:
   DOCKER_REPO: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3
-  DOCKERFILE: e2e.Dockerfile
 
 stages:
-  - prepare-environment
+  - prepare_environment
   - lint
   - build
   - test
 
 build:image:
   image: docker
-  stage: prepare-environment
+  stage: prepare_environment
   rules:
-    # - if: $CI_COMMIT_BRANCH == "master"
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "master"
       changes:
-        - ${DOCKERFILE}
+        - Dockerfile
+    - if: $FORCE_DOCKER_REBUILD
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker build -f ${DOCKERFILE} -t ${DOCKER_REPO}:${CI_COMMIT_REF_SLUG} .
-    - docker push ${DOCKER_REPO}:${CI_COMMIT_REF_SLUG}
+    - docker login -u ${CI_REGISTRY_USER} -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker build -t ${DOCKER_REPO}:master .
+    - docker push ${DOCKER_REPO}:master
 
 eslint:
   stage: lint
