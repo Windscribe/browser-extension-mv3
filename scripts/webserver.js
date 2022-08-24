@@ -1,3 +1,4 @@
+require('dotenv').config()
 const WebpackDevServer = require('webpack-dev-server')
 const webpack = require('webpack')
 const config = require('../webpack.config')

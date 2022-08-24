@@ -1,0 +1,63 @@
+image:
+  name: ${DOCKER_REPO}:master
+# Lets find out if this is needed
+#  entrypoint:
+#    - '/usr/bin/env'
+#    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+
+variables:
+  DOCKER_REPO: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3
+
+stages:
+  - prepare_environment
+  - lint
+  - build
+  - test
+
+build:image:
+  image: docker
+  stage: prepare_environment
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      changes:
+        - Dockerfile
+    - if: $CI_COMMIT_BRANCH == "CI-Adjustments"
+    - if: $CI_COMMIT_BRANCH == "39-run-test-remotely"
+  script:
+    - docker login -u ${CI_REGISTRY_USER} -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker build -t ${DOCKER_REPO}:master .
+    - docker push ${DOCKER_REPO}:master
+
+eslint:
+  stage: lint
+  script:
+  - yarn install --frozen-lockfile
+  - yarn run lint
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 7 days
+
+build:extension:
+  stage: build
+  needs:
+    - job: eslint
+  before_script:
+    - echo "checking node version"
+    - node -v
+  script:
+  - printf "\nNODE_ENV=CI" >> ".env"
+  - yarn run build 
+  artifacts:
+    paths:
+      - build/
+    expire_in: 7 days
+
+test:
+  stage: test
+  needs:
+    - job: eslint
+    - job: build:extension
+  script:
+    - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
+    - yarn run test
