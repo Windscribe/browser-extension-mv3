@@ -12,6 +12,7 @@ export const theme: Theme = {
       width: '324px',
       // minHeight: '298px',
       height: 'auto',
+      backgroundColor: 'white',
     },
   },
   config: {

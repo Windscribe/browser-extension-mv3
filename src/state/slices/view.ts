@@ -11,7 +11,7 @@ export interface ViewState {
 
 const defaultState: ViewState = {
   previous: [],
-  current: 'SplashPage',
+  current: 'Locations',
 }
 
 export const create: Create<ViewState> = initialState =>

@@ -3,6 +3,7 @@ export const rawColors = {
   halfBlack: 'rgba(0, 0, 0, 0.5)',
   white: '#fff',
   halfWhite: 'rgba(255, 255, 255, 0.5)',
+  quarterwhite: 'rgba(255, 255, 255, 0.25)',
   lakeBlue: '#006aff',
   neonGreen: '#55ff8a',
   neonGreen70: 'rgba(49, 151, 91, 0.7)',
@@ -13,6 +14,7 @@ export const rawColors = {
   primaryText: '#fff',
   secondaryText: 'rgba(255, 255, 255, 0.5)',
   border: 'rgba(255, 255, 255, 0.05)',
+  iconBgSolid: '#323a47',
   modes: {
     light: {
       background: '#fff',
@@ -21,6 +23,7 @@ export const rawColors = {
       secondaryText: 'rgba(2, 13, 28, 0.5)',
       softText: 'white',
       border: 'rgba(2, 13, 28, 0.05)',
+      iconBgSolid: '#e5e6e8',
     },
   },
 }

@@ -1,9 +1,8 @@
 import { Box, Flex, Text } from 'theme-ui'
 
 // import { OverrideAppHeight } from 'components/Utils';
-import { type ThemeUiElement } from 'components/types'
-import Header from 'components/Header'
-import HeaderLink from 'components/HeaderLink'
+import { type ThemeUiElement } from 'utils/types'
+import { Header, HeaderLink } from 'components'
 import Button from './Button'
 
 const Signup: ThemeUiElement = () => {

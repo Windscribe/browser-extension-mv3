@@ -6,11 +6,10 @@ import { login } from '../../api/index'
 import { set } from 'state/slices/view'
 import { setSession } from 'state/slices/session'
 
-import Header from 'components/Header'
-import HeaderLink from 'components/HeaderLink'
+import { Header, HeaderLink } from 'components'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
-import { type ThemeUiElement } from 'components/types'
+import { type ThemeUiElement } from 'utils/types'
 
 const Login: ThemeUiElement = () => {
   const dispatch = useDispatch()

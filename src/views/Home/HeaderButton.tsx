@@ -1,5 +1,5 @@
 import { Button, Box, Flex } from 'theme-ui'
-import { type ThemeUiElement } from 'components/types'
+import { type ThemeUiElement } from 'utils/types'
 
 type HeaderButtonProps = {
   Icon: React.ReactNode
