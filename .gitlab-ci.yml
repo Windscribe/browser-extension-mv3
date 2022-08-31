@@ -1,9 +1,5 @@
 image:
   name: ${DOCKER_REPO}:master
-# Lets find out if this is needed
-#  entrypoint:
-#    - '/usr/bin/env'
-#    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
 variables:
   DOCKER_REPO: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3
