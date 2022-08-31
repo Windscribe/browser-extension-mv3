@@ -34,12 +34,7 @@ const Locations: ThemeUiElement = () => {
   const locationSorting = 'geography' // Mock
 
   return (
-    <Column
-      bg="background"
-      sx={{
-        maxHeight: '433px', // !important ?
-      }}
-    >
+    <Column bg="background">
       <Header
         role="tablist"
         setTab={handleTabSwitch}
@@ -55,7 +50,7 @@ const Locations: ThemeUiElement = () => {
         {
           {
             locations: <LocationsList locations={locationsMock} />,
-            favourites: null, // TBD
+            favourites: null, // will be implemented later
           }[currentTab]
         }
       </ScrollableBox>

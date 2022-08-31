@@ -1,6 +1,6 @@
 import { Box, Text, Flex } from 'theme-ui'
 
-import { InlineBlock, FlagIcon } from 'components'
+import { FlagIcon } from 'components'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import flags from 'assets/flags'
 import { type CountryCodeType } from 'utils/types'
@@ -16,12 +16,12 @@ const LocationsListItemSummary: React.FC<LocationsListItemSummaryProps> = ({
   countryCode,
   isExpanded,
 }) => {
-  const Flag = flags[countryCode] || flags['AUTO']
+  const Flag: React.ElementType = flags[countryCode] || flags['AUTO']
 
   return (
     <>
       <Flex>
-        <FlagIcon Svg={Flag} isExpanded={isExpanded} />
+        <FlagIcon Svg={Flag} />
         <Text
           sx={{
             color: `${isExpanded ? 'primaryText' : 'secondaryText'}`,

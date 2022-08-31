@@ -15,7 +15,6 @@ export type DebouncedInputOnChangeHandler = DebouncedFunction<SearchInputChangeH
 
 export type SearchInputProps = {
   onSearchInputChange: SearchInputChangeHandler
-  // onSearchInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onSearchInputClose: () => void
   focusInitKey?: string | null
 }

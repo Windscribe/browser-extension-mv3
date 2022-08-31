@@ -3,16 +3,11 @@ import { Box } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 
 type FlagIconProps = {
-  isExpanded: boolean
   shouldShowProOnlyIcon?: boolean
-  Svg: React.ElementType
+  Svg: React.ElementType // Should be more specific - SVG element only. Don't know how to do it yet
 }
 
-const FlagIcon: ThemeUiElement<FlagIconProps> = ({
-  Svg,
-  isExpanded,
-  shouldShowProOnlyIcon = false,
-}) => {
+const FlagIcon: ThemeUiElement<FlagIconProps> = ({ Svg, shouldShowProOnlyIcon = false }) => {
   // const ProOnlyIcon = lightOrDark === 'light' ? ProCountryIconDark : ProCountryIconLight
   const ProOnlyIcon = ProCountryIconDark
   return (
