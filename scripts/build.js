@@ -1,3 +1,4 @@
+require('dotenv').config()
 const webpack = require('webpack')
 const config = require('../webpack.config')
 

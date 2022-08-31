@@ -11,7 +11,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const alias = {
   'react-dom': '@hot-loader/react-dom',
 }
-
 // load the secrets
 const secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js')
 
@@ -20,6 +19,8 @@ const fileExtensions = ['jpg', 'jpeg', 'png', 'gif', 'eot', 'otf', 'ttf', 'woff'
 if (fileSystem.existsSync(secretsPath)) {
   alias['secrets'] = secretsPath
 }
+
+const maybeProgressPlugin = env.NODE_ENV === 'development' ? [new webpack.ProgressPlugin()] : []
 
 const options = {
   mode: env.NODE_ENV || 'development',
@@ -100,7 +101,6 @@ const options = {
   },
   plugins: [
     new CleanWebpackPlugin({ verbose: false }),
-    new webpack.ProgressPlugin(),
     new Dotenv(),
     // TODO Review plugins. Probably they could be optimized
     new CopyWebpackPlugin({
@@ -173,6 +173,7 @@ const options = {
       chunks: ['panel'],
       cache: false,
     }),
+    ...maybeProgressPlugin,
   ],
   infrastructureLogging: {
     level: 'info',

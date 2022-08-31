@@ -13,8 +13,9 @@ const launchBrowser = async () =>
     args: [
       `--disable-extensions-except=${extPath}`,
       `--load-extension=${extPath}`,
-      `--gpu-disable`,
-    ].concat(process.env.DISABLE_SANDBOX ? ['--no-sandbox', '--disable-setuid-sandbox'] : []),
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
   })
 
 const setup = async () => {
