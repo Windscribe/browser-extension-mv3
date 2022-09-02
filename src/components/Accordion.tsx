@@ -41,7 +41,9 @@ const Accordion: React.FC<AccordionProps> = ({ Summary, Details }) => {
       </Rectangle>
       {isExpanded && (
         <Box
+          data-testid="accordion-details-list"
           pb="16px"
+          as="ul"
           sx={{
             paddingBottom: '16px',
             paddingLeft: '16px',

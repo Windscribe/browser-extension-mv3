@@ -58,12 +58,14 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({ dat
           </Flex>
           {chosenId === id ? (
             <CheckmarkIcon
+              data-testid="checkmark-icon"
               sx={{
                 fill: 'primaryText',
               }}
             />
           ) : (
             <ArrowRightIcon
+              data-testid="arrow-right-icon"
               sx={{
                 fill: 'secondaryText',
               }}

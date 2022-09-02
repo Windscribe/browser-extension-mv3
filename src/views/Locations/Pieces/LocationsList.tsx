@@ -8,7 +8,7 @@ type LocationsListProps = {
 
 const LocationsList: React.FC<LocationsListProps> = ({ locations }) => {
   return (
-    <Column>
+    <Column data-testid="locations-list">
       {locations.map(({ id, name, groups, country_code: countryCode }) => (
         <LocationsListItem key={id} {...{ name, groups, countryCode }} />
       ))}

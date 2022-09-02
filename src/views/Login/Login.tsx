@@ -3,8 +3,8 @@ import { useDispatch } from 'state/hooks'
 import { Button, Flex, Text, Input, Label, Box, Link } from 'theme-ui'
 
 import { login } from '../../api/index'
-import { set } from 'state/slices/view'
 import { setSession } from 'state/slices/session'
+import { useGoTo } from 'services/navigation'
 
 import { Header, HeaderLink } from 'components'
 import ShowPassword from 'assets/img/showPassword.svg'
@@ -13,6 +13,7 @@ import { type ThemeUiElement } from 'utils/types'
 
 const Login: ThemeUiElement = () => {
   const dispatch = useDispatch()
+  const gotToHome = useGoTo('Home')
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -41,13 +42,14 @@ const Login: ThemeUiElement = () => {
     }
     if (data?.session_auth_hash) {
       dispatch(setSession(data))
-      dispatch(set('Home'))
+      gotToHome()
     }
   }
 
   return (
     <Flex
       data-testid="login-page"
+      bg="background"
       sx={{
         flexDirection: 'column',
       }}
@@ -78,6 +80,7 @@ const Login: ThemeUiElement = () => {
             required
             type="text"
             name="username"
+            data-testid="username-input"
             autofillBackgroundColor="foreground"
             onChange={e => setUsername(e.target.value)}
           />
@@ -87,6 +90,7 @@ const Login: ThemeUiElement = () => {
               required
               type={showPassword ? 'text' : 'password'}
               name="password"
+              data-testid="password-input"
               onChange={e => setPassword(e.target.value)}
               sx={{ pr: '38px' }}
             />
@@ -172,6 +176,7 @@ const Login: ThemeUiElement = () => {
             <Button
               variant="rounded"
               type="submit"
+              data-testid="login-button"
               sx={{
                 width: '103px',
                 height: '40px',

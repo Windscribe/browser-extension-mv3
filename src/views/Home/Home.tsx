@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Text, useThemeUI } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
+import { useGoTo } from 'services/navigation'
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
 import Logo from 'assets/img/logo.svg'
@@ -14,9 +15,10 @@ import ArrowRight from 'assets/img/arrowRight.svg'
 
 const Home: ThemeUiElement = () => {
   const { theme } = useThemeUI()
+  const gotToLocations = useGoTo('Locations')
 
   return (
-    <Box sx={{ height: '208px', width: '100%' }}>
+    <Box data-testid="home-page" sx={{ height: '208px', width: '100%' }}>
       <Box
         sx={{
           height: '160px',
@@ -105,6 +107,8 @@ const Home: ThemeUiElement = () => {
           >
             <Button
               variant="simple"
+              data-testid="globe-button"
+              onClick={gotToLocations}
               sx={{
                 mr: '8px',
                 ':hover': {

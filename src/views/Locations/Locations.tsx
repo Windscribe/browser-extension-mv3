@@ -34,7 +34,7 @@ const Locations: ThemeUiElement = () => {
   const locationSorting = 'geography' // Mock
 
   return (
-    <Column bg="background">
+    <Column data-testid="locations-page" bg="background">
       <Header
         role="tablist"
         setTab={handleTabSwitch}
