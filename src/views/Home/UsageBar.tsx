@@ -1,10 +1,10 @@
-import { Box, Button, Flex, Text, type BoxProps } from 'theme-ui'
+import { MouseEventHandler } from 'react'
+import { Box, Button, Flex, Text, type ButtonProps } from 'theme-ui'
 import bytes from 'bytes'
 
 import { useSelector } from 'state/hooks'
 import { SpaceBetween } from 'components/Flexbox'
 import Branch from 'components/Branch'
-import { type Colors } from 'styles'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
 import { useGoTo } from 'services/navigation'
 
@@ -14,26 +14,14 @@ const getUsageColor = (percentage: number) => {
   return 'red'
 }
 
-const UsageText: React.FC<{ color: Colors; children: React.ReactNode }> = ({ color, children }) => (
-  <Text
-    sx={{
-      color,
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}
-  >
-    {children}
-  </Text>
-)
-
-const UsageBar: React.FC<BoxProps> = props => {
+const UsageBar: React.FC<ButtonProps> = () => {
   const goToSignup = useGoTo('Signup')
   const data = useSelector(s => s.session)
   const { traffic_max, traffic_used, username } = data
   const percentageUsed = (traffic_used / traffic_max) * 100
   const remainingDataBytes = bytes(traffic_max - traffic_used)
 
-  const handleClick = async () => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = async () => {
     if (username) {
       //TODO Implement separate, browser-agnostic service. Get rid of hardcoded url.
       const url = `${ENVS.PROD.ROOT_URL}/upgrade?pcpid=upgrade_ext1`
@@ -45,22 +33,20 @@ const UsageBar: React.FC<BoxProps> = props => {
   }
 
   return (
-    <Box
+    <Button
+      variant="simple"
       aria-label="Usage Bar"
       tabIndex={0}
       onClick={handleClick}
       bg="black"
       sx={{
         width: '100%',
-        zIndex: 'bottomBar',
-        cursor: 'pointer',
         '&:hover': {
           '.upgrade': {
             color: 'white',
           },
         },
       }}
-      {...props}
     >
       <SpaceBetween>
         <Box
@@ -93,18 +79,24 @@ const UsageBar: React.FC<BoxProps> = props => {
             if={traffic_max === ACCOUNT_PLAN.UNLIMITED}
             Then={<Text color="green">Unlimited</Text>}
             Else={
-              <UsageText color={getUsageColor(percentageUsed)}>
+              <Text
+                sx={{
+                  color: getUsageColor(percentageUsed),
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                }}
+              >
                 <Branch
                   if={parseFloat(remainingDataBytes) <= 0}
                   Then="Out of data"
                   Else={`${remainingDataBytes} ${'Left'}`}
                 />
-              </UsageText>
+              </Text>
             }
           />
         </Flex>
         {/* </WithTooltip> */}
-        <Button variant="simple" tabIndex={0} p="0px">
+        <Box>
           <Text
             className="upgrade"
             sx={{
@@ -117,9 +109,9 @@ const UsageBar: React.FC<BoxProps> = props => {
           >
             {username ? 'upgrade' : 'get more data'}
           </Text>
-        </Button>
+        </Box>
       </SpaceBetween>
-    </Box>
+    </Button>
   )
 }
 
