@@ -11,9 +11,9 @@ const SplashPage: ThemeUiElement = () => {
   const goToLogin = useGoTo('Login')
   const goToHome = useGoTo('Home')
 
-  const sessionData = useSelector(state => state.session?.data)
+  const authHash = useSelector(state => state.session?.session_auth_hash)
 
-  if (sessionData) {
+  if (authHash) {
     goToHome()
   }
 

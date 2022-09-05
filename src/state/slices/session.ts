@@ -2,7 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { type Create } from './types'
 import { SessionData } from 'api/types'
 
-export interface SessionState extends SessionData {}
+export interface SessionState extends SessionData {
+  error?: number
+}
 
 const defaultState: SessionState = {
   billing_plan_id: undefined,
@@ -19,6 +21,7 @@ const defaultState: SessionState = {
   traffic_used: undefined,
   user_id: undefined,
   username: undefined,
+  error: undefined,
 }
 
 export const create: Create<SessionState> = initialState =>
