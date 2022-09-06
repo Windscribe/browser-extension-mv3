@@ -2,12 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { type Create } from './types'
 import { SessionData } from 'api/types'
 
-interface SessionState {
-  data?: SessionData
+export interface SessionState extends SessionData {
+  error?: number
 }
 
 const defaultState: SessionState = {
-  data: undefined,
+  billing_plan_id: undefined,
+  email: undefined,
+  email_status: undefined,
+  is_premium: undefined,
+  last_reset: undefined,
+  loc_hash: undefined,
+  loc_rev: undefined,
+  reg_date: undefined,
+  session_auth_hash: undefined,
+  status: undefined,
+  traffic_max: undefined,
+  traffic_used: undefined,
+  user_id: undefined,
+  username: undefined,
+  error: undefined,
 }
 
 export const create: Create<SessionState> = initialState =>
@@ -15,8 +29,8 @@ export const create: Create<SessionState> = initialState =>
     name: 'session',
     initialState: initialState || defaultState,
     reducers: {
-      setSession(state, action: PayloadAction<SessionData>) {
-        state.data = action.payload
+      setSession(state, action: PayloadAction<SessionState>) {
+        state = action.payload
       },
     },
   })

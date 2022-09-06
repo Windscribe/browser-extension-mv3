@@ -42,7 +42,7 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
         window.document.querySelector('#app-container'),
       )
     })
-    .catch((err: any): void => {
+    .catch((err: unknown): void => {
       log('Error while rendering UI: ', err, 'error')
     })
 })

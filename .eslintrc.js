@@ -21,7 +21,6 @@ module.exports = {
   },
   plugins: ['react-hooks', 'jest-dom', 'no-only-tests', '@typescript-eslint'],
   rules: {
-    curly: 'error',
     'jsx-a11y/href-no-hash': [0],
     'jsx-a11y/heading-has-content': [0],
     'no-console': [1, { allow: ['warn', 'error'] }],

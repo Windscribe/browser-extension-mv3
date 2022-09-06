@@ -30,6 +30,7 @@ export const create: Create<ViewState> = initialState =>
         state.current = previous.pop() ?? defaultState.current
       },
       reset(state) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         state = { ...defaultState }
       },
     },
