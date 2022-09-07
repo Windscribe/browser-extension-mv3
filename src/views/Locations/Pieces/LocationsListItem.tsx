@@ -8,7 +8,7 @@ import { type CountryCodeType } from 'utils/types'
 type LocationsListItemProps = {
   name: string
   countryCode: CountryCodeType
-  groups: Datacenter[]
+  groups?: Datacenter[]
 }
 
 const LocationsListItem: React.FC<LocationsListItemProps> = ({ name, groups, countryCode }) => {

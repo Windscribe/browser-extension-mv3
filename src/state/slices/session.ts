@@ -8,14 +8,14 @@ export interface SessionState extends SessionData {
 
 const defaultState: SessionState = {
   billing_plan_id: undefined,
-  email: undefined,
+  email: '',
   email_status: undefined,
-  is_premium: undefined,
+  is_premium: 0,
   last_reset: undefined,
   loc_hash: undefined,
   loc_rev: undefined,
   reg_date: undefined,
-  session_auth_hash: undefined,
+  session_auth_hash: '',
   status: undefined,
   traffic_max: undefined,
   traffic_used: undefined,
@@ -30,7 +30,7 @@ export const create: Create<SessionState> = initialState =>
     initialState: initialState || defaultState,
     reducers: {
       setSession(state, action: PayloadAction<SessionState>) {
-        state = action.payload
+        return { ...state, ...action.payload }
       },
     },
   })

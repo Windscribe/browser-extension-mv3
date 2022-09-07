@@ -42,6 +42,13 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
         window.document.querySelector('#app-container'),
       )
     })
+    .then(() => {
+      //TODO if development
+      type W = typeof window & {
+        store: ProxyStore
+      }
+      ;(window as W).store = proxyStore
+    })
     .catch((err: unknown): void => {
       log('Error while rendering UI: ', err, 'error')
     })

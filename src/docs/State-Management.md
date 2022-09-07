@@ -47,6 +47,8 @@ export const { increment, decrement, set } = exampleSlice.actions
 export default exampleSlice.reducer
 ```
 
+> Note! You can't mutate state itself like `state = action.payload`, only state's properties. Nonetheless, if you need mutate a state than return a new one instead `return { ...state, ...action.payload }`
+
 Then go to `src/state/store` and add the new created slice to reducers list:
 
 ```js

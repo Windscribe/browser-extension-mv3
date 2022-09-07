@@ -1,12 +1,11 @@
 import { Column } from 'components/Flexbox'
 import LocationsListItem from './LocationsListItem'
-import { type Location } from '../types'
+import { useSelector } from 'state/hooks'
 
-type LocationsListProps = {
-  locations: Location[]
-}
+const LocationsList: React.FC = () => {
+  const serverList = useSelector(s => s.serverList) || {} // TODO consider to get rid of empty object
+  const locations = Object.values(serverList)
 
-const LocationsList: React.FC<LocationsListProps> = ({ locations }) => {
   return (
     <Column data-testid="locations-list">
       {locations.map(({ id, name, groups, country_code: countryCode }) => (

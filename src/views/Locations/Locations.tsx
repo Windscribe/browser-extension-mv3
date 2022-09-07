@@ -1,18 +1,39 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import debounce from 'lodash.debounce'
 
+import { useDispatch, useSelector } from 'state/hooks'
 import { Column } from 'components/Flexbox'
 import { ScrollableBox } from 'components'
 import Header from './Pieces/Header'
 import LocationsList from './Pieces/LocationsList'
 import { type ThemeUiElement } from 'utils/types'
-import type { DebouncedInputOnChangeHandler, Location, Tab, SetTab } from './types'
-import tempMock from './locationsMock'
-
-const locationsMock = tempMock as unknown as Location[]
+import type { DebouncedInputOnChangeHandler, Tab, SetTab } from './types'
+import { serverList } from 'api'
+import { updateById, type ServerListState } from 'state/slices/serverList'
 
 const Locations: ThemeUiElement = () => {
+  const dispatch = useDispatch()
+  const locHash = useSelector(s => s.session.loc_hash)
+  const isPro = useSelector(s => s.session.is_premium)
+
   const [currentTab, setCurrentTab] = useState<Tab>('locations')
+
+  useEffect(() => {
+    getServerList()
+  })
+
+  // TODO Consider to create adapter or hook between react and api
+  const getServerList = async () => {
+    if (locHash) {
+      const resp = await serverList(locHash, isPro)
+      if (resp && Array.isArray(resp.data)) {
+        const serverMap: ServerListState = {}
+        resp.data.forEach(server => (serverMap[server.id] = server))
+        console.log('%c serverMap ', 'background: #383E49; color: #1ADEAE', serverMap)
+        dispatch(updateById(serverMap))
+      }
+    }
+  }
 
   // used to track the first key press to pass as initial input to search field
   const [focusInitKey, setFocusInitKey] = useState(null)
@@ -49,7 +70,7 @@ const Locations: ThemeUiElement = () => {
       <ScrollableBox>
         {
           {
-            locations: <LocationsList locations={locationsMock} />,
+            locations: <LocationsList />,
             favourites: null, // will be implemented later
           }[currentTab]
         }

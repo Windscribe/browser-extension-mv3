@@ -12,6 +12,7 @@ browserApi.runtime.onMessage.addListener((request, _, sendResponse) => {
 initializeWrappedStore().then(() => {
   log('bg store was initialized')
 })
+
 chrome.storage.local.get(null).then(storage => {
   log('bg storage:', storage)
 })

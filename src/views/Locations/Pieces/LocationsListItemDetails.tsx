@@ -7,17 +7,17 @@ import CheckmarkIcon from 'assets/img/checkmark.svg'
 import { type Datacenter } from '../types'
 
 type LocationsListItemDetailsProps = {
-  datacenters: Datacenter[]
+  datacenters?: Datacenter[]
 }
 
 const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({ datacenters }) => {
   const [chosenId, setChosenId] = useState<number>()
   // TODO add dispatch action
   const handleClick: React.MouseEventHandler = e => setChosenId(+e.currentTarget.id)
-
+  // TODO don't expand accordion if datacenters is empty
   return (
     <>
-      {datacenters.map(({ id, city, nick }) => (
+      {datacenters?.map(({ id, city, nick }) => (
         <Box
           id={`${id}`}
           key={id}
