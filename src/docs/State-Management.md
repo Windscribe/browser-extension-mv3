@@ -21,14 +21,14 @@ interface ExampleState {
   counter: number
 }
 
-const defaultState: ExampleState = {
+const initialState: ExampleState = {
   counter: 42,
 }
 
-export const create: Create<ExampleState> = initialState =>
+export const exampleSlice = 
   createSlice({
     name: 'example',
-    initialState: initialState || defaultState,
+    initialState,
     reducers: {
       increment(state) {
         state.counter += 1
@@ -42,7 +42,6 @@ export const create: Create<ExampleState> = initialState =>
     },
   })
 
-const exampleSlice = create()
 export const { increment, decrement, set } = exampleSlice.actions
 export default exampleSlice.reducer
 ```
@@ -52,16 +51,14 @@ export default exampleSlice.reducer
 Then go to `src/state/store` and add the new created slice to reducers list:
 
 ```js
-const exampleReducer = createExample(initialState?.example).reducer
-const viewReducer = createView(initialState?.view).reducer
+import exampleReducer from './slices/example'
+import viewReducer from './slices/view'
 
 const reducer = {
   example: exampleReducer,
   view: viewReducer,
 }
-
 ```
-For now we are creating all slices by using `create` function for each slice, but we plan to get rid of this when we collect enough of them.
 
 ## Considerations when passing state between background and popup
 
