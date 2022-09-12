@@ -1,4 +1,5 @@
 import { Box, Text, Flex } from 'theme-ui'
+import { createSelector } from '@reduxjs/toolkit'
 
 import HeartIcon from 'assets/img/heart-outline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
@@ -6,17 +7,25 @@ import CheckmarkIcon from 'assets/img/checkmark.svg'
 import { setCurrentDataCenterById } from 'state/slices/servers'
 import { useDispatch, useSelector } from 'state/hooks'
 import { useGoTo } from 'services/navigation'
+import { type RootState } from 'state'
 
 type LocationsListItemDetailsProps = {
   dataCentersIds?: number[]
 }
 
-const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({ dataCentersIds }) => {
+const selectDataCentersById = createSelector(
+  (state: RootState) => state.servers.dataCenters,
+  (_: RootState, dataCentersIds: number[]) => dataCentersIds,
+  (dataCenters, ids) => ids.map(id => dataCenters[id]),
+)
+
+const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
+  dataCentersIds = [],
+}) => {
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
   const currentDataCenterId = useSelector(s => s.servers.currentDataCenter?.id)
-  //TODO rewrite to avoid rerendering
-  const dataCenters = useSelector(s => dataCentersIds?.map(id => s.servers.dataCenters[id]))
+  const dataCenters = useSelector(state => selectDataCentersById(state, dataCentersIds))
 
   const handleClick: React.MouseEventHandler = e => {
     const dataCenterId = +e.currentTarget.id
@@ -26,7 +35,7 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({ dat
 
   return (
     <>
-      {dataCenters?.map(({ id, city, nick }) => (
+      {dataCenters.map(({ id, city, nick }) => (
         <Box
           id={`${id}`}
           key={id}
