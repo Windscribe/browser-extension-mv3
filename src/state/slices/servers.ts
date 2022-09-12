@@ -1,10 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { County, DataCenter } from 'api/types'
+import type { Country, DataCenter, CurrentDataCenter } from 'api/types'
 
 export type ServersState = {
-  countries: { [key in County['id']]: County }
+  countries: { [key in Country['id']]: Country }
   dataCenters: { [key in DataCenter['id']]: DataCenter }
-  currentDataCenter: DataCenter | null
+  currentDataCenter: CurrentDataCenter | null
 }
 
 const initialState: ServersState = {
@@ -22,7 +22,11 @@ export const serversSlice = createSlice({
       return { ...state, ...action.payload }
     },
     setCurrentDataCenterById(state, action: PayloadAction<number>) {
-      state.currentDataCenter = state.dataCenters[action.payload]
+      const id = action.payload
+      const countriesArray = Object.values(state.countries)
+      const country = countriesArray.find(country => country.dataCentersIds.includes(id))
+      const countryCode = country?.country_code || 'AUTO'
+      state.currentDataCenter = { ...state.dataCenters[id], ...{ countryCode } }
     },
   },
 })

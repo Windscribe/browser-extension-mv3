@@ -1,21 +1,28 @@
 import { Box, Button, Flex, Text, useThemeUI } from 'theme-ui'
+
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
 import { useGoTo } from 'services/navigation'
+import { useSelector } from 'state/hooks'
+
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
 import Logo from 'assets/img/logo.svg'
 import WhitelistOff from 'assets/img/whitelistOff.svg'
-import Autopilot from 'assets/flags/AUTOPILOT.svg'
 import PowerButton from 'assets/img/powerButton.svg'
 import Globe from 'assets/img/globe.svg'
 import Shield from 'assets/img/shield.svg'
 import Blocker from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
+import Flags from 'assets/flags'
 
 const Home: ThemeUiElement = () => {
   const { theme } = useThemeUI()
   const gotToLocations = useGoTo('Locations')
+  const city = useSelector(s => s.servers.currentDataCenter?.city)
+  const nick = useSelector(s => s.servers.currentDataCenter?.nick)
+  const countryCode = useSelector(s => s.servers.currentDataCenter?.countryCode) || 'AUTO'
+  const Flag = Flags[countryCode] || Flags['AUTO']
 
   return (
     <Box data-testid="home-page" sx={{ height: '208px', width: '100%' }}>
@@ -69,14 +76,14 @@ const Home: ThemeUiElement = () => {
             <Flex
               sx={{
                 alignItems: 'center',
-                mb: '10px',
+                mb: '12px',
               }}
             >
               <Text
                 sx={{
                   fontSize: '12px',
                   fontWeight: '600',
-                  color: 'white',
+                  color: 'primaryText',
                   mr: '8px',
                 }}
               >
@@ -85,20 +92,32 @@ const Home: ThemeUiElement = () => {
               <Text
                 sx={{
                   fontSize: '12px',
-                  color: 'halfWhite',
+                  color: 'secondaryText',
                 }}
               >
                 000.000.00.000
               </Text>
             </Flex>
-            <Text
-              sx={{
-                fontSize: '16px',
-                color: 'white',
-              }}
-            >
-              Autopilot
-            </Text>
+            <Box mb="8px">
+              <Text
+                sx={{
+                  fontSize: '16px',
+                  color: 'primaryText',
+                }}
+              >
+                {city}
+              </Text>
+            </Box>
+            {nick && (
+              <Text
+                sx={{
+                  fontSize: '14px',
+                  color: 'secondaryText',
+                }}
+              >
+                {nick}
+              </Text>
+            )}
           </Box>
           <Flex
             sx={{
@@ -126,7 +145,7 @@ const Home: ThemeUiElement = () => {
               <Globe
                 sx={{
                   transition: '0.25s',
-                  fill: 'halfWhite',
+                  fill: 'secondaryText',
                   visibility: 'initial',
                 }}
               />
@@ -134,7 +153,7 @@ const Home: ThemeUiElement = () => {
                 sx={{
                   transition: '0.1s',
                   ml: '-8px',
-                  fill: 'halfWhite',
+                  fill: 'secondaryText',
                   visibility: 'hidden',
                 }}
               />
@@ -172,11 +191,14 @@ const Home: ThemeUiElement = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}>Windscribe.com</Text>
-        <WhitelistOff sx={{ fill: 'halfWhite' }} />
+        <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'secondaryText' }}>
+          Windscribe.com
+        </Text>
+        <WhitelistOff sx={{ fill: 'secondaryText' }} />
       </Flex>
       <Box
         sx={{
+          width: '100%',
           position: 'absolute',
           opacity: '0.2',
           top: '26px',
@@ -184,7 +206,7 @@ const Home: ThemeUiElement = () => {
           backgroundImage: `linear-gradient(to bottom, ${theme.colors?.softBlack}, rgba(2, 13, 28, 0))`,
         }}
       >
-        <Autopilot />
+        <Flag />
       </Box>
     </Box>
   )

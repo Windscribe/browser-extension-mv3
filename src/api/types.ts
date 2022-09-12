@@ -77,7 +77,7 @@ export type ServerListDataItem = {
 }
 export type ServerListData = ServerListDataItem[]
 
-export type County = Omit<ServerListDataItem, 'groups'> & {
+export type Country = Omit<ServerListDataItem, 'groups'> & {
   dataCentersIds: DataCenter['id'][]
 }
 
@@ -92,6 +92,10 @@ export type DataCenter = {
   link_speed: string
   health: number
   hosts: Host[]
+}
+
+export type CurrentDataCenter = DataCenter & {
+  countryCode: CountryCodeType
 }
 
 export type Host = {
