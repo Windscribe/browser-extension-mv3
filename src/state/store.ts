@@ -1,14 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import viewReducer from './slices/view'
 import sessionReducer from './slices/session'
-import serverListReducer from './slices/serverList'
-import currentLocationReducer from './slices/currentLocation'
+import serversReducer from './slices/servers'
 
 const reducer = {
   view: viewReducer,
   session: sessionReducer,
-  serverList: serverListReducer,
-  currentLocation: currentLocationReducer,
+  servers: serversReducer,
 }
 
 const store = configureStore({

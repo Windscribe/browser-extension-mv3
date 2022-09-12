@@ -4,20 +4,28 @@ import { Box, Text, Flex } from 'theme-ui'
 import HeartIcon from 'assets/img/heart-outline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
-import { type Datacenter } from '../types'
+import { setCurrentDataCenterById } from 'state/slices/servers'
+import { useDispatch, useSelector } from 'state/hooks'
 
 type LocationsListItemDetailsProps = {
-  datacenters?: Datacenter[]
+  dataCentersIds?: number[]
 }
 
-const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({ datacenters }) => {
+const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({ dataCentersIds }) => {
+  const dispatch = useDispatch()
   const [chosenId, setChosenId] = useState<number>()
-  // TODO add dispatch action
-  const handleClick: React.MouseEventHandler = e => setChosenId(+e.currentTarget.id)
-  // TODO don't expand accordion if datacenters is empty
+  //TODO rewrite to avoid rerendering
+  const dataCenters = useSelector(s => dataCentersIds?.map(id => s.servers.dataCenters[id]))
+
+  const handleClick: React.MouseEventHandler = e => {
+    const dataCenterId = +e.currentTarget.id
+    setChosenId(dataCenterId)
+    dispatch(setCurrentDataCenterById(dataCenterId))
+  }
+
   return (
     <>
-      {datacenters?.map(({ id, city, nick }) => (
+      {dataCenters?.map(({ id, city, nick }) => (
         <Box
           id={`${id}`}
           key={id}

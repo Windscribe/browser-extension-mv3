@@ -63,24 +63,7 @@ export type ServerNodes = {
   group: string
 }
 
-export type ServerGroup = {
-  id: number
-  city: string
-  nick: string
-  pro: 0 | 1
-  gps: string
-  tz: string
-  wg_pubkey: string
-  link_speed: string
-  health: 0 | 1
-  hosts: {
-    hostname: string
-    weight: number
-    health: 0 | 1
-  }[]
-}
-
-export type Server = {
+export type ServerListDataItem = {
   id: number
   name: string
   country_code: CountryCodeType
@@ -90,7 +73,29 @@ export type Server = {
   p2p: 0 | 1
   tz_offset: string
   dns_hostname: string
-  groups?: ServerGroup[]
+  groups?: DataCenter[]
+}
+export type ServerListData = ServerListDataItem[]
+
+export type County = Omit<ServerListDataItem, 'groups'> & {
+  dataCentersIds: DataCenter['id'][]
 }
 
-export type ServerListData = Server[]
+export type DataCenter = {
+  id: number
+  city: string
+  nick: string
+  pro: 0 | 1
+  gps: string
+  tz: string
+  wg_pubkey: string
+  link_speed: string
+  health: number
+  hosts: Host[]
+}
+
+export type Host = {
+  hostname: string
+  weight: number
+  health: number
+}

@@ -38,7 +38,7 @@ export type HeaderProps = HeaderTabsProps &
   HeaderActionsSectionProps &
   React.HTMLAttributes<HTMLDivElement>
 
-export type Datacenter = {
+export type DataCenter = {
   id: number
   city: string
   nick: string
@@ -48,5 +48,5 @@ export type Location = {
   id: number
   name: string
   country_code: CountryCodeType
-  groups: Datacenter[]
+  groups: DataCenter[]
 }

@@ -9,7 +9,7 @@ import LocationsList from './Pieces/LocationsList'
 import { type ThemeUiElement } from 'utils/types'
 import type { DebouncedInputOnChangeHandler, Tab, SetTab } from './types'
 import { serverList } from 'api'
-import { updateById, type ServerListState } from 'state/slices/serverList'
+import { setServers, type ServersState } from 'state/slices/servers'
 
 const Locations: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -27,10 +27,19 @@ const Locations: ThemeUiElement = () => {
     if (locHash) {
       const resp = await serverList(locHash, isPro)
       if (resp && Array.isArray(resp.data)) {
-        const serverMap: ServerListState = {}
-        resp.data.forEach(server => (serverMap[server.id] = server))
-        console.log('%c serverMap ', 'background: #383E49; color: #1ADEAE', serverMap)
-        dispatch(updateById(serverMap))
+        const countries: ServersState['countries'] = {}
+        const dataCenters: ServersState['dataCenters'] = {}
+
+        resp.data.forEach(country => {
+          const dataCentersIds: number[] = []
+          country.groups?.forEach(dataCenter => {
+            dataCenters[dataCenter.id] = dataCenter
+            dataCentersIds.push(dataCenter.id)
+          })
+          countries[country.id] = { ...country, dataCentersIds }
+        })
+
+        dispatch(setServers({ countries, dataCenters }))
       }
     }
   }
