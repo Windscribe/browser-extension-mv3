@@ -43,11 +43,12 @@ browserApi.runtime.sendMessage({ type: WAKE_UP_NEO }, response => {
       )
     })
     .then(() => {
-      //TODO if development
-      type W = typeof window & {
-        store: ProxyStore
+      if (process.env.NODE_ENV === 'development') {
+        type W = typeof window & {
+          store: ProxyStore
+        }
+        ;(window as W).store = proxyStore
       }
-      ;(window as W).store = proxyStore
     })
     .catch((err: unknown): void => {
       log('Error while rendering UI: ', err, 'error')

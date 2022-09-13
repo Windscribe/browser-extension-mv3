@@ -100,6 +100,7 @@ const Home: ThemeUiElement = () => {
             </Flex>
             <Box mb="8px">
               <Text
+                data-testid="city"
                 sx={{
                   fontSize: '16px',
                   color: 'primaryText',
@@ -110,6 +111,7 @@ const Home: ThemeUiElement = () => {
             </Box>
             {nick && (
               <Text
+                data-testid="nick"
                 sx={{
                   fontSize: '14px',
                   color: 'secondaryText',
