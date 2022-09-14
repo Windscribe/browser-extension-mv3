@@ -98,16 +98,16 @@ const Home: ThemeUiElement = () => {
                 sx={{
                   fontSize: '12px',
                   fontWeight: '600',
-                  color: 'primaryText',
+                  color: isPowerOn ? 'neonGreen' : 'primaryText',
                   mr: '8px',
                 }}
               >
-                OFF
+                {isPowerOn ? 'ON' : 'OFF'}
               </Text>
               <Text
                 sx={{
                   fontSize: '12px',
-                  color: 'secondaryText',
+                  color: isPowerOn ? 'neonGreen' : 'secondaryText',
                 }}
               >
                 000.000.00.000
@@ -176,27 +176,36 @@ const Home: ThemeUiElement = () => {
                 }}
               />
             </Button>
-            <Button
-              variant="simple"
-              onClick={handlePowerButtonClick}
+            <Box
               sx={{
-                display: 'flex',
-                width: '74px',
-                height: '74px',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '50%',
-                border: 'solid 3px',
-                borderColor: 'neonGreen',
                 transition: '0.3s',
                 ':hover': {
                   fill: 'white',
                   transform: 'scale(1.1)',
                 },
+                ...(isPowerOn && {
+                  borderRadius: '50%',
+                  border: 'solid 3px',
+                  borderColor: 'neonGreen',
+                }), // TODO use separate absolute positioned element instead of border
               }}
             >
-              <PowerButton />
-            </Button>
+              <Button
+                variant="simple"
+                onClick={handlePowerButtonClick}
+                sx={{
+                  display: 'flex',
+                  width: '74px',
+                  height: '74px',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: '0.3s',
+                  transform: isPowerOn ? 'rotate(0deg)' : 'rotate(-180deg)',
+                }}
+              >
+                <PowerButton />
+              </Button>
+            </Box>
           </Flex>
         </Flex>
       </Box>
