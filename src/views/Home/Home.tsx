@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { Box, Button, Flex, Text, useThemeUI } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
+import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { useSelector } from 'state/hooks'
 
+import FlagGradientMask from 'assets/img/flag-gradient-mask.svg'
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
 import Logo from 'assets/img/logo.svg'
@@ -22,14 +25,38 @@ const Home: ThemeUiElement = () => {
   const city = useSelector(s => s.servers.currentDataCenter?.city)
   const nick = useSelector(s => s.servers.currentDataCenter?.nick)
   const countryCode = useSelector(s => s.servers.currentDataCenter?.countryCode) || 'AUTO'
-  const Flag = Flags[countryCode] || Flags['AUTO']
+  const FlagSvg = Flags[countryCode] || Flags['AUTO']
+  const [power, setPower] = useState<boolean>(false)
+
+  const handlePowerButtonClick = () => setPower(!power)
+
+  // TODO connect with a store instead of mocks
+  const status = 'connected' // mock proxy.status slice
+  const online = true // mock online slice
+  // useCallback?
+  const getOpacity = (): number => {
+    if (status === 'disconnected') return 0
+    if (status === 'connected' && !online) return 0.3
+    if (status === 'connecting' || !online) return 0.3
+    if (status === 'connected' && online) return 1
+    return 1
+  }
 
   return (
-    <Box data-testid="home-page" sx={{ height: '208px', width: '100%' }}>
+    <Box
+      data-testid="home-page"
+      sx={{
+        height: '208px',
+        width: '100%',
+        backgroundColor: 'background',
+      }}
+    >
       <Box
         sx={{
           height: '160px',
           width: '100%',
+          zIndex: 1,
+          position: 'relative',
           backgroundImage: `linear-gradient(to bottom, ${theme.colors?.lakeBlue}, rgba(0, 106, 255, 0))`,
         }}
       >
@@ -162,6 +189,7 @@ const Home: ThemeUiElement = () => {
             </Button>
             <Button
               variant="simple"
+              onClick={handlePowerButtonClick}
               sx={{
                 display: 'flex',
                 width: '74px',
@@ -191,6 +219,8 @@ const Home: ThemeUiElement = () => {
           backgroundColor: 'background',
           px: '16px',
           justifyContent: 'space-between',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
         <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'secondaryText' }}>
@@ -198,18 +228,33 @@ const Home: ThemeUiElement = () => {
         </Text>
         <WhitelistOff sx={{ fill: 'secondaryText' }} />
       </Flex>
+      {/* <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          top: '0px',
+          opacity:  0.3,
+          backgroundColor: 'lakeBlue',
+        }}
+      > */}
       <Box
         sx={{
           width: '100%',
           position: 'absolute',
-          opacity: '0.2',
+          opacity: 0.3, //getOpacity(),
           top: '26px',
-          zIndex: '-1',
-          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.softBlack}, rgba(2, 13, 28, 0))`,
         }}
       >
-        <Flag />
+        <FlagGradientMask
+          sx={{
+            position: 'absolute',
+            height: '100%',
+          }}
+        />
+        <FlagSvg sx={{ opacity: 0.5 }} />
       </Box>
+      {/* </Box> */}
     </Box>
   )
 }
