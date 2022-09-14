@@ -1,10 +1,12 @@
 export const rawColors = {
   softBlack: '#020d1c',
+  softBlackTransparent: 'rgba(2, 13, 28, 0)',
   halfBlack: 'rgba(0, 0, 0, 0.5)',
   white: '#fff',
   halfWhite: 'rgba(255, 255, 255, 0.5)',
   quarterwhite: 'rgba(255, 255, 255, 0.25)',
   lakeBlue: '#006aff',
+  lakeBlueTransparent: 'rgba(0, 106, 255, 0)',
   neonGreen: '#55ff8a',
   neonGreen70: 'rgba(49, 151, 91, 0.7)',
   bloodRed: '#FF3B3B',

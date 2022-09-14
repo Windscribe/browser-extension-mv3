@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { Box, Button, Flex, Text, useThemeUI } from 'theme-ui'
+import { Box, Button, Flex, Text } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { useSelector } from 'state/hooks'
+import { footerHeight } from 'styles/constants'
 
-import FlagGradientMask from 'assets/img/flag-gradient-mask.svg'
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
 import Logo from 'assets/img/logo.svg'
@@ -20,27 +20,14 @@ import ArrowRight from 'assets/img/arrowRight.svg'
 import Flags from 'assets/flags'
 
 const Home: ThemeUiElement = () => {
-  const { theme } = useThemeUI()
   const gotToLocations = useGoTo('Locations')
   const city = useSelector(s => s.servers.currentDataCenter?.city)
   const nick = useSelector(s => s.servers.currentDataCenter?.nick)
   const countryCode = useSelector(s => s.servers.currentDataCenter?.countryCode) || 'AUTO'
   const FlagSvg = Flags[countryCode] || Flags['AUTO']
-  const [power, setPower] = useState<boolean>(false)
+  const [isPowerOn, setIsPowerOn] = useState<boolean>(false)
 
-  const handlePowerButtonClick = () => setPower(!power)
-
-  // TODO connect with a store instead of mocks
-  const status = 'connected' // mock proxy.status slice
-  const online = true // mock online slice
-  // useCallback?
-  const getOpacity = (): number => {
-    if (status === 'disconnected') return 0
-    if (status === 'connected' && !online) return 0.3
-    if (status === 'connecting' || !online) return 0.3
-    if (status === 'connected' && online) return 1
-    return 1
-  }
+  const handlePowerButtonClick = () => setIsPowerOn(!isPowerOn)
 
   return (
     <Box
@@ -48,9 +35,6 @@ const Home: ThemeUiElement = () => {
       sx={{
         height: '208px',
         width: '100%',
-        // TODO add color transition
-        // backgroundColor: power ? 'lakeBlue' : 'background',
-        // transition: 'all 1s ease',
         backgroundColor: 'background',
       }}
     >
@@ -60,12 +44,6 @@ const Home: ThemeUiElement = () => {
           width: '100%',
           zIndex: 2,
           position: 'relative',
-          // idea - move this to flagsvg container
-          // transition: 'all 1s ease',
-          // opacity: power ? 1 : 0,
-          // backgroundImage: `linear-gradient(to bottom, ${
-          //   power ? theme.colors?.lakeBlue : theme.colors?.background
-          // }, rgba(0, 106, 255, 0))`,
         }}
       >
         <Flex
@@ -75,10 +53,11 @@ const Home: ThemeUiElement = () => {
         >
           <Flex
             sx={{
-              alignItems: 'center',
               height: '56px',
               width: '186px',
-              backgroundColor: power ? 'halfBlack' : 'background',
+              alignItems: 'center',
+              transition: 'background-color  1s ease',
+              backgroundColor: isPowerOn ? 'halfBlack' : 'background',
             }}
           >
             <Button variant="simple">
@@ -88,10 +67,11 @@ const Home: ThemeUiElement = () => {
           </Flex>
           <HeaderBlade
             sx={{
+              mr: '4px',
               width: '46px',
               height: '56px',
-              fill: power ? 'halfBlack' : 'background',
-              mr: '4px',
+              transition: 'fill 1s ease',
+              fill: isPowerOn ? 'halfBlack' : 'background',
             }}
           />
           <Flex sx={{ gap: '8px' }}>
@@ -133,13 +113,13 @@ const Home: ThemeUiElement = () => {
                 000.000.00.000
               </Text>
             </Flex>
-            {/* TODO Check fonts */}
             <Box mb="8px">
               <Text
                 data-testid="city"
                 sx={{
                   fontSize: '16px',
                   color: 'primaryText',
+                  fontWeight: 600,
                 }}
               >
                 {city}
@@ -223,7 +203,7 @@ const Home: ThemeUiElement = () => {
       <Flex
         sx={{
           alignItems: 'center',
-          height: '48px',
+          height: `${footerHeight}`,
           width: '100%',
           backgroundColor: 'background',
           px: '16px',
@@ -237,47 +217,7 @@ const Home: ThemeUiElement = () => {
         </Text>
         <WhitelistOff sx={{ fill: 'secondaryText' }} />
       </Flex>
-      <Box
-        sx={{
-          width: '100%',
-          height: 'calc(100% - 48px)',
-          position: 'absolute',
-          top: '0px',
-          zIndex: 1,
-          transition: 'opacity 1s ease',
-          opacity: power ? 0 : 1,
-          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.softBlack}, rgba(2, 13, 28, 0))`,
-        }}
-      />
-      <Box
-        sx={{
-          width: '100%',
-          height: 'calc(100% - 48px)',
-          position: 'absolute',
-          top: '0px',
-          zIndex: 1,
-          transition: 'opacity 1s ease',
-          opacity: power ? 1 : 0,
-          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.lakeBlue}, rgba(0, 106, 255, 0))`,
-        }}
-      />
-      <Box
-        sx={{
-          width: '100%',
-          position: 'absolute',
-          opacity: 0.5, //getOpacity(),
-          top: '26px',
-        }}
-      >
-        <FlagGradientMask
-          sx={{
-            position: 'absolute',
-            height: '100%',
-            zIndex: 1,
-          }}
-        />
-        <FlagSvg /* sx={{ opacity: 0.7 }} */ />
-      </Box>
+      <FlagBackground isPowerOn={isPowerOn} FlagSvg={FlagSvg} />
     </Box>
   )
 }
