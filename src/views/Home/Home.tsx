@@ -48,6 +48,9 @@ const Home: ThemeUiElement = () => {
       sx={{
         height: '208px',
         width: '100%',
+        // TODO add color transition
+        // backgroundColor: power ? 'lakeBlue' : 'background',
+        // transition: 'all 1s ease',
         backgroundColor: 'background',
       }}
     >
@@ -55,9 +58,14 @@ const Home: ThemeUiElement = () => {
         sx={{
           height: '160px',
           width: '100%',
-          zIndex: 1,
+          zIndex: 2,
           position: 'relative',
-          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.lakeBlue}, rgba(0, 106, 255, 0))`,
+          // idea - move this to flagsvg container
+          // transition: 'all 1s ease',
+          // opacity: power ? 1 : 0,
+          // backgroundImage: `linear-gradient(to bottom, ${
+          //   power ? theme.colors?.lakeBlue : theme.colors?.background
+          // }, rgba(0, 106, 255, 0))`,
         }}
       >
         <Flex
@@ -70,7 +78,7 @@ const Home: ThemeUiElement = () => {
               alignItems: 'center',
               height: '56px',
               width: '186px',
-              backgroundColor: 'halfBlack',
+              backgroundColor: power ? 'halfBlack' : 'background',
             }}
           >
             <Button variant="simple">
@@ -82,7 +90,7 @@ const Home: ThemeUiElement = () => {
             sx={{
               width: '46px',
               height: '56px',
-              fill: 'halfBlack',
+              fill: power ? 'halfBlack' : 'background',
               mr: '4px',
             }}
           />
@@ -125,6 +133,7 @@ const Home: ThemeUiElement = () => {
                 000.000.00.000
               </Text>
             </Flex>
+            {/* TODO Check fonts */}
             <Box mb="8px">
               <Text
                 data-testid="city"
@@ -228,21 +237,35 @@ const Home: ThemeUiElement = () => {
         </Text>
         <WhitelistOff sx={{ fill: 'secondaryText' }} />
       </Flex>
-      {/* <Box
+      <Box
         sx={{
           width: '100%',
-          height: '100%',
+          height: 'calc(100% - 48px)',
           position: 'absolute',
           top: '0px',
-          opacity:  0.3,
-          backgroundColor: 'lakeBlue',
+          zIndex: 1,
+          transition: 'opacity 1s ease',
+          opacity: power ? 0 : 1,
+          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.softBlack}, rgba(2, 13, 28, 0))`,
         }}
-      > */}
+      />
+      <Box
+        sx={{
+          width: '100%',
+          height: 'calc(100% - 48px)',
+          position: 'absolute',
+          top: '0px',
+          zIndex: 1,
+          transition: 'opacity 1s ease',
+          opacity: power ? 1 : 0,
+          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.lakeBlue}, rgba(0, 106, 255, 0))`,
+        }}
+      />
       <Box
         sx={{
           width: '100%',
           position: 'absolute',
-          opacity: 0.3, //getOpacity(),
+          opacity: 0.5, //getOpacity(),
           top: '26px',
         }}
       >
@@ -250,11 +273,11 @@ const Home: ThemeUiElement = () => {
           sx={{
             position: 'absolute',
             height: '100%',
+            zIndex: 1,
           }}
         />
-        <FlagSvg sx={{ opacity: 0.5 }} />
+        <FlagSvg /* sx={{ opacity: 0.7 }} */ />
       </Box>
-      {/* </Box> */}
     </Box>
   )
 }
