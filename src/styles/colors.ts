@@ -1,6 +1,7 @@
 export const rawColors = {
   softBlack: '#020d1c',
   softBlackTransparent: 'rgba(2, 13, 28, 0)',
+  quarterSoftBlack: 'rgba(2, 13, 28, 0.25)',
   halfBlack: 'rgba(0, 0, 0, 0.5)',
   white: '#fff',
   halfWhite: 'rgba(255, 255, 255, 0.5)',

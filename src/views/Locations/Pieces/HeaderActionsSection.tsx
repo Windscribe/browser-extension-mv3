@@ -3,7 +3,6 @@ import { Flex } from 'theme-ui'
 import { SpaceBetween } from 'components/Flexbox'
 import { GoBackButton } from 'components'
 import SearchInput from './SearchInput'
-import { useSelector } from 'state/hooks'
 import { type HeaderActionsSectionProps } from '../types'
 
 const HeaderActionsSection: React.FC<HeaderActionsSectionProps> = ({
@@ -11,39 +10,35 @@ const HeaderActionsSection: React.FC<HeaderActionsSectionProps> = ({
   onSearchInputClose,
   onSearchInputChange,
   focusInitKey,
-}) => {
-  const { previous } = useSelector(s => s.view)
-  const prevPage = previous[previous.length - 1]
-
-  return (
-    <SpaceBetween py="16px">
-      <GoBackButton prevPage={prevPage} />
+}) => (
+  <SpaceBetween py="16px">
+    <GoBackButton />
+    <Flex
+      mr="32px"
+      sx={{
+        flex: '1 1',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Flex
-        mr="32px"
         sx={{
-          flex: '1 1',
-          justifyContent: 'center',
-          alignItems: 'center',
+          fontWeight: 'bold',
+          fontSize: '24px',
+          color: 'primaryText',
         }}
       >
-        <Flex
-          sx={{
-            fontWeight: 'bold',
-            fontSize: '24px',
-            color: 'primaryText',
-          }}
-        >
-          Locations
-        </Flex>
+        Locations
       </Flex>
-      {showSearchInput && (
-        <SearchInput
-          onSearchInputClose={onSearchInputClose}
-          onSearchInputChange={onSearchInputChange}
-          focusInitKey={focusInitKey}
-        />
-      )}
-    </SpaceBetween>
-  )
-}
+    </Flex>
+    {showSearchInput && (
+      <SearchInput
+        onSearchInputClose={onSearchInputClose}
+        onSearchInputChange={onSearchInputChange}
+        focusInitKey={focusInitKey}
+      />
+    )}
+  </SpaceBetween>
+)
+
 export default HeaderActionsSection
