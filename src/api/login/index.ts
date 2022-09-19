@@ -10,6 +10,7 @@ const login = async (
     username,
     password,
     session_type_id: 2,
+    platform: 'chrome',
     ...(twoFACode && { '2fa_code': twoFACode }),
   }
 

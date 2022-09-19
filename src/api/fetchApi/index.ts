@@ -1,25 +1,42 @@
 import { type ApiResponse, Method } from 'api/types'
+import { setWorkingApi } from 'state/slices/session'
+import store from 'state/store'
+import { ENVS } from 'utils/constants'
 
-const fetchApi = async (path: string, method: Method, useAssets: boolean, useBackup = false) => {
-  let url: string
+const fetchTimeout = async (url: string, method = 'GET') => {
+  const controller = new AbortController()
 
-  // Change url's when using actually api
-  if (useBackup) {
-    url = useAssets ? 'assets-staging.windscribe.com' : 'api-staging.windscribe.com'
-  } else {
-    url = useAssets ? 'assets-staging.windscribe.com' : 'api-staging.windscribe.com'
+  const timeoutId = setTimeout(() => controller.abort(), 3000)
+
+  const res = await fetch(url, { method, signal: controller.signal })
+
+  clearTimeout(timeoutId)
+
+  return res
+}
+
+const fetchDoh = async () => {
+  const res = await fetch(`https://1.1.1.1/dns-query?name=${ENVS.DOH_URL}&type=TXT`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/dns-json',
+    },
+  }).then(res => res.json())
+
+  // remove quotes from the response
+  return res.Answer[0].data.slice(1, -1)
+}
+
+const fetchApi = async (apiUrl: string, path: string, method: Method, useAssets: boolean) => {
+  const workingApi = store.getState().session.workingApi
+
+  if (!workingApi) {
+    store.dispatch(setWorkingApi(apiUrl))
   }
 
-  const controller = new AbortController()
-  setTimeout(() => controller.abort(), useBackup ? 5000 : 3000)
+  const url = useAssets ? `assets.${apiUrl}` : `api.${apiUrl}`
 
-  return fetch(`https://${url}/${path}`, {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    signal: controller.signal,
-  })
+  return fetchTimeout(`https://${url}/${path}`, method)
 }
 
 const sendRequest = async <DataType>(
@@ -27,13 +44,24 @@ const sendRequest = async <DataType>(
   method: Method,
   useAssets = false,
 ): Promise<ApiResponse<DataType>> => {
-  return fetchApi(path, method, useAssets)
+  const workingApi = store.getState().session.workingApi
+
+  return await fetchApi(workingApi || ENVS.API_URL, path, method, useAssets)
     .then(response => response.json())
-    .catch(() =>
-      fetchApi(path, method, useAssets, true)
+    .catch(async () => {
+      store.dispatch(setWorkingApi(undefined))
+
+      return await fetchApi(ENVS.BACKUP_API_URL, path, method, useAssets)
         .then(response => response.json())
-        .catch(() => ({ errorMessage: 'API connectivity issues' })),
-    )
+        .catch(async () => {
+          store.dispatch(setWorkingApi(undefined))
+
+          const dohUrl = await fetchDoh()
+          return await fetchApi(dohUrl, path, method, useAssets)
+            .then(response => response.json())
+            .catch(() => ({ errorMessage: 'API connectivity issues' }))
+        })
+    })
 }
 
 export default sendRequest
