@@ -1096,10 +1096,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@eduardoac-skimlinks/webext-redux@^3.0.0-release-candidate":
-  version "3.0.0-release-candidate"
-  resolved "https://registry.yarnpkg.com/@eduardoac-skimlinks/webext-redux/-/webext-redux-3.0.0-release-candidate.tgz#b8096a59362654822eed27ad36d51c30abaa48d2"
-  integrity sha512-zOQJ97ffFKbAa1Q01bN/NLqiN8YwQUkrDe67PvDaSZPYSecHXHOSPwyx/TwVxQn3SG2OH2EPxWgFd8xLGuN/2g==
+"@eduardoac-skimlinks/webext-redux@^3.0.1-release-candidate":
+  version "3.0.1-release-candidate"
+  resolved "https://registry.yarnpkg.com/@eduardoac-skimlinks/webext-redux/-/webext-redux-3.0.1-release-candidate.tgz#62ebf214a184788ceeb29866405847c221ea2c6b"
+  integrity sha512-Gv7LOjiqye+umkR4v0FqcWo8goqP333Lr2kqtMIWJMs5S12T5b3G87PoxuVqZByJk2Ebc6mJ/v7f3HMVzgFT+w==
   dependencies:
     lodash.assignin "^4.2.0"
     lodash.clonedeep "^4.5.0"
