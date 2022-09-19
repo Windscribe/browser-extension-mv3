@@ -32,7 +32,6 @@ const GoBackButton: ThemeUiElement = () => {
       }}
     >
       <ArrowLeft
-        className="go-back-icon"
         sx={{
           minWidth: '16px',
           fill: 'secondaryText',

@@ -1,4 +1,4 @@
-import { Box, Text, Flex } from 'theme-ui'
+import { Box, Text, Flex, Button } from 'theme-ui'
 import { createSelector } from '@reduxjs/toolkit'
 
 import HeartIcon from 'assets/img/heart-outline.svg'
@@ -42,19 +42,14 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
           as="li"
           onClick={handleClick}
           sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            height: '48px',
+            height: '50px',
             padding: '16px 16px 16px 0px',
-
             color: `${currentDataCenterId === id ? 'primaryText' : 'secondaryText'}`,
             borderBottomWidth: '2px',
             borderBottomColor: 'border',
             borderBottomStyle: 'solid',
             transition: 'transform ease-in-out 0.2s',
-            cursor: 'pointer',
-
+            listStyleType: 'none',
             '&:hover': {
               color: 'primaryText',
               '& > svg': {
@@ -63,32 +58,42 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
             },
           }}
         >
-          <Flex>
-            <HeartIcon
-              sx={{
-                marginRight: '16px',
-                fill: 'secondaryText',
-              }}
-            />
-            <Text sx={{ fontWeight: '600' }}>{city}</Text>
-            &nbsp;
-            <Text sx={{ fontWeight: '400' }}>{nick}</Text>
-          </Flex>
-          {currentDataCenterId === id ? (
-            <CheckmarkIcon
-              data-testid="checkmark-icon"
-              sx={{
-                fill: 'primaryText',
-              }}
-            />
-          ) : (
-            <ArrowRightIcon
-              data-testid="arrow-right-icon"
-              sx={{
-                fill: 'secondaryText',
-              }}
-            />
-          )}
+          <Button
+            variant="simple"
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Flex>
+              <HeartIcon
+                sx={{
+                  marginRight: '16px',
+                  fill: 'secondaryText',
+                }}
+              />
+              <Text sx={{ fontWeight: '600' }}>{city}</Text>
+              &nbsp;
+              <Text sx={{ fontWeight: '400' }}>{nick}</Text>
+            </Flex>
+            {currentDataCenterId === id ? (
+              <CheckmarkIcon
+                data-testid="checkmark-icon"
+                sx={{
+                  fill: 'primaryText',
+                }}
+              />
+            ) : (
+              <ArrowRightIcon
+                data-testid="arrow-right-icon"
+                sx={{
+                  fill: 'secondaryText',
+                }}
+              />
+            )}
+          </Button>
         </Box>
       ))}
     </>

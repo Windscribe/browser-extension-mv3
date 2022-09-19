@@ -1,6 +1,5 @@
 import { Box, Text } from 'theme-ui'
 
-// import { OverrideAppHeight } from 'components/Utils';
 import { type ThemeUiElement } from 'utils/types'
 import { Header, HeaderLink } from 'components'
 import Button from './Button'
@@ -9,7 +8,6 @@ import { Column } from 'components/Flexbox'
 const Signup: ThemeUiElement = () => {
   return (
     <Box data-testid="signup-page" bg="background">
-      {/* <OverrideAppHeight height={'300px'} /> */}
       <Column>
         <Header
           title="Sign up"

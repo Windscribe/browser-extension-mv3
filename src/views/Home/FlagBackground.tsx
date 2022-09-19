@@ -52,7 +52,7 @@ const GradientOverlay: ThemeUiElement<GradientOverlayProps> = ({ isTransparent, 
       position: 'absolute',
       top: '0px',
       zIndex: 1,
-      transition: 'opacity 1s ease',
+      transition: 'opacity 1s ease-in-out',
       opacity: isTransparent ? 0 : 1,
       backgroundImage: `linear-gradient(to bottom, ${color})`,
     }}

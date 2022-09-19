@@ -34,7 +34,7 @@ const LocationsListItemSummary: React.FC<LocationsListItemSummaryProps> = ({
       <Box
         sx={{
           transition: 'transform ease-in-out 0.2s',
-          transform: `rotate(${isExpanded ? '45deg' : '0'})`,
+          transform: isExpanded ? 'rotate(45deg)  translateX(2px)' : 'rotate(0)',
           'svg > path': {
             fill: `${isExpanded ? 'primaryText' : 'secondaryText'}`,
           },
