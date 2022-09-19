@@ -30,19 +30,19 @@ export const exampleSlice =
     name: 'example',
     initialState,
     reducers: {
-      increment(state) {
+      incrementCounter(state) {
         state.counter += 1
       },
-      decrement(state) {
+      decrementCounter(state) {
         state.counter -= 1
       },
-      set(state, action: PayloadAction<number>) {
+      setCounter(state, action: PayloadAction<number>) {
         state.counter = action.payload
       },
     },
   })
 
-export const { increment, decrement, set } = exampleSlice.actions
+export const { incrementCounter, decrementCounter, setCounter } = exampleSlice.actions
 export default exampleSlice.reducer
 ```
 
