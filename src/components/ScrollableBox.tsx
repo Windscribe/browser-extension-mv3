@@ -28,6 +28,7 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({ scrollTop = 0, chil
         height: '315px',
         overflowY: 'auto',
         overflowX: 'hidden',
+        scrollbarGutter: 'stable', // reserve space for the scrollbar
         /* For firefox */
         scrollbarColor: 'quarterwhite background',
         scrollbarWidth: 'thin',
