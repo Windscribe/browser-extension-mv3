@@ -17,7 +17,7 @@
     "jsxImportSource": "theme-ui",
     "baseUrl": "./src"
   },
-  "include": ["src"],
+  "include": ["src", "tests/responsesMocks"],
   "exclude": ["build", "node_modules"],
   "files": ["custom.d.ts"]
 }

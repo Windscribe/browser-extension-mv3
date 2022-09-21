@@ -1,27 +1,49 @@
-import { Box, Button, Flex, Text, useThemeUI } from 'theme-ui'
-import { type ThemeUiElement } from 'components/types'
+import { useState } from 'react'
+import { Box, Button, Flex, Text } from 'theme-ui'
+
+import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
+import FlagBackground from './FlagBackground'
+import { useGoTo } from 'services/navigation'
+import { useSelector } from 'state/hooks'
+import { footerHeight } from 'styles/constants'
+
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
 import Logo from 'assets/img/logo.svg'
 import WhitelistOff from 'assets/img/whitelistOff.svg'
-import Autopilot from 'assets/flags/autopilot.svg'
 import PowerButton from 'assets/img/powerButton.svg'
 import Globe from 'assets/img/globe.svg'
 import Shield from 'assets/img/shield.svg'
 import Blocker from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
+import Flags from 'assets/flags'
 
 const Home: ThemeUiElement = () => {
-  const { theme } = useThemeUI()
+  const gotToLocations = useGoTo('Locations')
+  const city = useSelector(s => s.servers.currentDataCenter?.city)
+  const nick = useSelector(s => s.servers.currentDataCenter?.nick)
+  const countryCode = useSelector(s => s.servers.currentDataCenter?.countryCode) || 'AUTO'
+  const FlagSvg = Flags[countryCode] || Flags['AUTO']
+  const [isPowerOn, setIsPowerOn] = useState<boolean>(false)
+
+  const handlePowerButtonClick = () => setIsPowerOn(!isPowerOn)
 
   return (
-    <Box sx={{ height: '208px', width: '100%' }}>
+    <Box
+      data-testid="home-page"
+      sx={{
+        height: '208px',
+        width: '100%',
+        backgroundColor: 'background',
+      }}
+    >
       <Box
         sx={{
           height: '160px',
           width: '100%',
-          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.lakeBlue}, rgba(0, 106, 255, 0))`,
+          zIndex: 2,
+          position: 'relative',
         }}
       >
         <Flex
@@ -31,10 +53,11 @@ const Home: ThemeUiElement = () => {
         >
           <Flex
             sx={{
-              alignItems: 'center',
               height: '56px',
               width: '186px',
-              backgroundColor: 'halfBlack',
+              alignItems: 'center',
+              transition: 'background-color  1s ease',
+              backgroundColor: isPowerOn ? 'halfBlack' : 'background',
             }}
           >
             <Button variant="simple">
@@ -44,10 +67,11 @@ const Home: ThemeUiElement = () => {
           </Flex>
           <HeaderBlade
             sx={{
+              mr: '4px',
               width: '46px',
               height: '56px',
-              fill: 'halfBlack',
-              mr: '4px',
+              transition: 'fill 1s ease',
+              fill: isPowerOn ? 'halfBlack' : 'background',
             }}
           />
           <Flex sx={{ gap: '8px' }}>
@@ -67,36 +91,51 @@ const Home: ThemeUiElement = () => {
             <Flex
               sx={{
                 alignItems: 'center',
-                mb: '10px',
+                mb: '12px',
               }}
             >
               <Text
                 sx={{
                   fontSize: '12px',
                   fontWeight: '600',
-                  color: 'white',
+                  color: isPowerOn ? 'neonGreen' : 'primaryText',
                   mr: '8px',
                 }}
               >
-                OFF
+                {isPowerOn ? 'ON' : 'OFF'}
               </Text>
               <Text
                 sx={{
                   fontSize: '12px',
-                  color: 'halfWhite',
+                  color: isPowerOn ? 'neonGreen' : 'secondaryText',
                 }}
               >
                 000.000.00.000
               </Text>
             </Flex>
-            <Text
-              sx={{
-                fontSize: '16px',
-                color: 'white',
-              }}
-            >
-              Autopilot
-            </Text>
+            <Box mb="8px">
+              <Text
+                data-testid="city"
+                sx={{
+                  fontSize: '16px',
+                  color: 'primaryText',
+                  fontWeight: 600,
+                }}
+              >
+                {city}
+              </Text>
+            </Box>
+            {nick && (
+              <Text
+                data-testid="nick"
+                sx={{
+                  fontSize: '14px',
+                  color: 'secondaryText',
+                }}
+              >
+                {nick}
+              </Text>
+            )}
           </Box>
           <Flex
             sx={{
@@ -105,6 +144,8 @@ const Home: ThemeUiElement = () => {
           >
             <Button
               variant="simple"
+              data-testid="globe-button"
+              onClick={gotToLocations}
               sx={{
                 mr: '8px',
                 ':hover': {
@@ -122,7 +163,7 @@ const Home: ThemeUiElement = () => {
               <Globe
                 sx={{
                   transition: '0.25s',
-                  fill: 'halfWhite',
+                  fill: 'secondaryText',
                   visibility: 'initial',
                 }}
               />
@@ -130,58 +171,62 @@ const Home: ThemeUiElement = () => {
                 sx={{
                   transition: '0.1s',
                   ml: '-8px',
-                  fill: 'halfWhite',
+                  fill: 'secondaryText',
                   visibility: 'hidden',
                 }}
               />
             </Button>
-            <Button
-              variant="simple"
+            <Box
               sx={{
-                display: 'flex',
-                width: '74px',
-                height: '74px',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: '50%',
-                border: 'solid 3px',
-                borderColor: 'neonGreen',
                 transition: '0.3s',
                 ':hover': {
                   fill: 'white',
                   transform: 'scale(1.1)',
                 },
+                ...(isPowerOn && {
+                  borderRadius: '50%',
+                  border: 'solid 3px',
+                  borderColor: 'neonGreen',
+                }), // TODO use separate absolute positioned element instead of border
               }}
             >
-              <PowerButton />
-            </Button>
+              <Button
+                variant="simple"
+                onClick={handlePowerButtonClick}
+                sx={{
+                  display: 'flex',
+                  width: '74px',
+                  height: '74px',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: '0.3s',
+                  transform: isPowerOn ? 'rotate(0deg)' : 'rotate(-180deg)',
+                }}
+              >
+                <PowerButton />
+              </Button>
+            </Box>
           </Flex>
         </Flex>
       </Box>
       <Flex
         sx={{
           alignItems: 'center',
-          height: '48px',
+          height: `${footerHeight}`,
           width: '100%',
           backgroundColor: 'background',
           px: '16px',
           justifyContent: 'space-between',
+          position: 'relative',
+          zIndex: 1,
         }}
       >
-        <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}>Windscribe.com</Text>
-        <WhitelistOff sx={{ fill: 'halfWhite' }} />
+        <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'secondaryText' }}>
+          Windscribe.com
+        </Text>
+        <WhitelistOff sx={{ fill: 'secondaryText' }} />
       </Flex>
-      <Box
-        sx={{
-          position: 'absolute',
-          opacity: '0.2',
-          top: '26px',
-          zIndex: '-1',
-          backgroundImage: `linear-gradient(to bottom, ${theme.colors?.softBlack}, rgba(2, 13, 28, 0))`,
-        }}
-      >
-        <Autopilot />
-      </Box>
+      <FlagBackground isPowerOn={isPowerOn} FlagSvg={FlagSvg} />
     </Box>
   )
 }

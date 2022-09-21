@@ -1,6 +1,6 @@
 import { Button, Flex, Text } from 'theme-ui'
 
-import { type ThemeUiElement } from 'components/types'
+import { type ThemeUiElement } from 'utils/types'
 import splashBackground from 'assets/img/splashBackground.png'
 import rotatingLogo from 'assets/img/rotatingLogo.gif'
 import { useGoTo } from 'services/navigation'
@@ -67,6 +67,7 @@ const SplashPage: ThemeUiElement = () => {
         Get Started
       </Button>
       <Button
+        data-testid="login-button"
         onClick={goToLogin}
         variant="simple"
         sx={{

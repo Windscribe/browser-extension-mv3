@@ -7,11 +7,11 @@ const getClientAuthHash = (time: string) => {
   return md5(`${CLIENT_AUTH_SECRET}${time}`).toString()
 }
 
-const prepareQueryString = (
+const prepareQueryString = <DataType>(
   Endpoint: Endpoint,
   method: Method,
   parameters: Parameters,
-): Promise<ApiResponse> => {
+): Promise<ApiResponse<DataType>> => {
   const time = Math.round(new Date().getTime() / 1000).toString()
   const clientAuthHash = getClientAuthHash(time)
 
@@ -20,7 +20,7 @@ const prepareQueryString = (
   Object.entries(parameters).forEach(([key, value]) => {
     queryString = queryString + `&${key}=${value}`
   })
-  return sendRequest(queryString, method)
+  return sendRequest<DataType>(queryString, method)
 }
 
 export default prepareQueryString

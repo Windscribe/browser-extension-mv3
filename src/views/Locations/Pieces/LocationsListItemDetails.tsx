@@ -1,0 +1,103 @@
+import { Box, Text, Flex, Button } from 'theme-ui'
+import { createSelector } from '@reduxjs/toolkit'
+
+import HeartIcon from 'assets/img/heart-outline.svg'
+import ArrowRightIcon from 'assets/img/arrowRight.svg'
+import CheckmarkIcon from 'assets/img/checkmark.svg'
+import { setCurrentDataCenterById } from 'state/slices/servers'
+import { useDispatch, useSelector } from 'state/hooks'
+import { useGoTo } from 'services/navigation'
+import { type RootState } from 'state'
+
+type LocationsListItemDetailsProps = {
+  dataCentersIds?: number[]
+}
+
+const selectDataCentersById = createSelector(
+  (state: RootState) => state.servers.dataCenters,
+  (_: RootState, dataCentersIds: number[]) => dataCentersIds,
+  (dataCenters, ids) => ids.map(id => dataCenters[id]),
+)
+
+const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
+  dataCentersIds = [],
+}) => {
+  const dispatch = useDispatch()
+  const goToHome = useGoTo('Home')
+  const currentDataCenterId = useSelector(s => s.servers.currentDataCenter?.id)
+  const dataCenters = useSelector(state => selectDataCentersById(state, dataCentersIds))
+
+  const handleClick: React.MouseEventHandler = e => {
+    const dataCenterId = +e.currentTarget.id
+    dispatch(setCurrentDataCenterById(dataCenterId))
+    goToHome()
+  }
+
+  return (
+    <>
+      {dataCenters.map(({ id, city, nick }) => (
+        <Box
+          id={`${id}`}
+          key={id}
+          as="li"
+          onClick={handleClick}
+          sx={{
+            height: '50px',
+            padding: '16px 16px 16px 0px',
+            color: `${currentDataCenterId === id ? 'primaryText' : 'secondaryText'}`,
+            borderBottomWidth: '2px',
+            borderBottomColor: 'border',
+            borderBottomStyle: 'solid',
+            transition: 'transform ease-in-out 0.2s',
+            listStyleType: 'none',
+            '&:hover': {
+              color: 'primaryText',
+              '& > svg': {
+                fill: 'primaryText',
+              },
+            },
+          }}
+        >
+          <Button
+            variant="simple"
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Flex>
+              <HeartIcon
+                sx={{
+                  marginRight: '16px',
+                  fill: 'secondaryText',
+                }}
+              />
+              <Text sx={{ fontWeight: '600' }}>{city}</Text>
+              &nbsp;
+              <Text sx={{ fontWeight: '400' }}>{nick}</Text>
+            </Flex>
+            {currentDataCenterId === id ? (
+              <CheckmarkIcon
+                data-testid="checkmark-icon"
+                sx={{
+                  fill: 'primaryText',
+                }}
+              />
+            ) : (
+              <ArrowRightIcon
+                data-testid="arrow-right-icon"
+                sx={{
+                  fill: 'secondaryText',
+                }}
+              />
+            )}
+          </Button>
+        </Box>
+      ))}
+    </>
+  )
+}
+
+export default LocationsListItemDetails
