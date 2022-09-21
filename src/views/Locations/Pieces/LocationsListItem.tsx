@@ -3,26 +3,20 @@ import type { AccordionSummaryPropsType, AccordionDetailsPropsType } from 'compo
 import LocationsListItemSummary from './LocationsListItemSummary'
 import LocationsListItemDetails from './LocationsListItemDetails'
 import { type CountryCodeType } from 'utils/types'
+import { type Location } from 'api/types'
 
 type LocationsListItemProps = {
-  name: string
-  countryCode: CountryCodeType
-  dataCentersIds?: number[]
+  location: Location
 }
 
-const LocationsListItem: React.FC<LocationsListItemProps> = ({
-  name,
-  dataCentersIds,
-  countryCode,
-}) => {
+const LocationsListItem: React.FC<LocationsListItemProps> = ({ location }) => {
   const Summary = (props: AccordionSummaryPropsType) => (
-    <LocationsListItemSummary name={name} countryCode={countryCode} {...props} />
+    <LocationsListItemSummary name={location.name} countryCode={location.country_code} {...props} />
   )
   const Details = (props: AccordionDetailsPropsType) => (
-    <LocationsListItemDetails dataCentersIds={dataCentersIds} {...props} />
+    <LocationsListItemDetails location={location} dataCenters={location.groups} {...props} />
   )
-
-  return <>{dataCentersIds?.length ? <Accordion Summary={Summary} Details={Details} /> : null}</>
+  return <Accordion Summary={Summary} Details={Details} />
 }
 
 export default LocationsListItem

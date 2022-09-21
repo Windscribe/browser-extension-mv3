@@ -1,11 +1,18 @@
 import { useState } from 'react'
 import { useDispatch } from 'state/hooks'
 import { Button, Flex, Text, Input, Label, Box, Link } from 'theme-ui'
-
-import { login } from '../../api/index'
+import { login, serverList as getServerList } from 'api/index'
+import getAutopilot from 'utils/getAutopilot'
+import { connectProxy } from 'utils/proxyConfig'
 import { setSession } from 'state/slices/session'
+import {
+  setServerList,
+  setCurrentLocation,
+  setCurrentDataCenter,
+  setIsConnected,
+  setAutopilot,
+} from 'state/slices/servers'
 import { useGoTo } from 'services/navigation'
-
 import { Header, HeaderLink } from 'components'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
@@ -31,6 +38,7 @@ const Login: ThemeUiElement = () => {
       password?.value,
       twoFa?.value,
     )
+
     if (errorMessage) {
       // Maybe we need to store these error codes as constants somewhere? We can discuss
       if (errorCode === 1340 || errorCode === 1341) {
@@ -40,8 +48,22 @@ const Login: ThemeUiElement = () => {
       }
       setError(errorMessage)
     }
-    if (data?.session_auth_hash) {
+    if (data?.session_auth_hash && data.loc_hash) {
       dispatch(setSession(data))
+      const serverList = await getServerList(data.loc_hash, data.is_premium)
+
+      if (serverList.data) {
+        dispatch(setServerList(serverList.data))
+        const autopilot = await getAutopilot(data.session_auth_hash, serverList.data)
+        if (autopilot) {
+          dispatch(setAutopilot(autopilot))
+          dispatch(setCurrentLocation(autopilot.location))
+          dispatch(setCurrentDataCenter(autopilot.dataCenter))
+          connectProxy(autopilot.dataCenter.hosts[0].hostname)
+          dispatch(setIsConnected(true))
+        }
+      }
+
       gotToHome()
     }
   }

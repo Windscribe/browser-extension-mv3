@@ -1,12 +1,11 @@
-import { useState } from 'react'
 import { Box, Button, Flex, Text } from 'theme-ui'
-
+import { useDispatch, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
-import { useSelector } from 'state/hooks'
 import { footerHeight } from 'styles/constants'
+import { setIsConnected } from 'state/slices/servers'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -19,15 +18,28 @@ import Blocker from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import Flags from 'assets/flags'
 
+import { connectProxy, disconnectProxy } from 'utils/proxyConfig'
+
 const Home: ThemeUiElement = () => {
   const gotToLocations = useGoTo('Locations')
-  const city = useSelector(s => s.servers.currentDataCenter?.city)
-  const nick = useSelector(s => s.servers.currentDataCenter?.nick)
-  const countryCode = useSelector(s => s.servers.currentDataCenter?.countryCode) || 'AUTO'
+  const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
+  const countryCode = useSelector(s => s.servers.currentLocation?.country_code) || 'AUTO'
+  const isConnected = useSelector(state => state.servers.isConnected)
   const FlagSvg = Flags[countryCode] || Flags['AUTO']
-  const [isPowerOn, setIsPowerOn] = useState<boolean>(false)
+  const dispatch = useDispatch()
 
-  const handlePowerButtonClick = () => setIsPowerOn(!isPowerOn)
+  const toggleProxy = () => {
+    // TODO: Move dispatch calls to connectProxy and disconnectProxy functions
+    if (currentDataCenter) {
+      if (isConnected) {
+        disconnectProxy()
+        dispatch(setIsConnected(false))
+      } else {
+        connectProxy(currentDataCenter.hosts[0].hostname)
+        dispatch(setIsConnected(true))
+      }
+    }
+  }
 
   return (
     <Box
@@ -57,7 +69,7 @@ const Home: ThemeUiElement = () => {
               width: '186px',
               alignItems: 'center',
               transition: 'background-color  1s ease',
-              backgroundColor: isPowerOn ? 'halfBlack' : 'background',
+              backgroundColor: isConnected ? 'halfBlack' : 'background',
             }}
           >
             <Button variant="simple">
@@ -71,12 +83,12 @@ const Home: ThemeUiElement = () => {
               width: '46px',
               height: '56px',
               transition: 'fill 1s ease',
-              fill: isPowerOn ? 'halfBlack' : 'background',
+              fill: isConnected ? 'halfBlack' : 'background',
             }}
           />
           <Flex sx={{ gap: '8px' }}>
-            <HeaderButton Icon={<Shield />} count={0} />
-            <HeaderButton Icon={<Blocker />} count={0} />
+            <HeaderButton Icon={<Shield />} isConnected={isConnected} count={0} />
+            <HeaderButton Icon={<Blocker />} isConnected={isConnected} count={0} />
           </Flex>
         </Flex>
         <Flex
@@ -98,16 +110,16 @@ const Home: ThemeUiElement = () => {
                 sx={{
                   fontSize: '12px',
                   fontWeight: '600',
-                  color: isPowerOn ? 'neonGreen' : 'primaryText',
+                  color: isConnected ? 'neonGreen' : 'primaryText',
                   mr: '8px',
                 }}
               >
-                {isPowerOn ? 'ON' : 'OFF'}
+                {isConnected ? 'ON' : 'OFF'}
               </Text>
               <Text
                 sx={{
                   fontSize: '12px',
-                  color: isPowerOn ? 'neonGreen' : 'secondaryText',
+                  color: isConnected ? 'neonGreen' : 'secondaryText',
                 }}
               >
                 000.000.00.000
@@ -122,10 +134,10 @@ const Home: ThemeUiElement = () => {
                   fontWeight: 600,
                 }}
               >
-                {city}
+                {currentDataCenter?.city}
               </Text>
             </Box>
-            {nick && (
+            {currentDataCenter?.nick && (
               <Text
                 data-testid="nick"
                 sx={{
@@ -133,7 +145,7 @@ const Home: ThemeUiElement = () => {
                   color: 'secondaryText',
                 }}
               >
-                {nick}
+                {currentDataCenter?.nick}
               </Text>
             )}
           </Box>
@@ -176,36 +188,28 @@ const Home: ThemeUiElement = () => {
                 }}
               />
             </Button>
-            <Box
+
+            <Button
+              variant="simple"
               sx={{
+                display: 'flex',
+                width: '74px',
+                height: '74px',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                border: 'solid 3px',
+                borderColor: `${isConnected ? 'neonGreen' : 'transparent'}`,
+                transform: `rotate(${isConnected ? '0' : '-180deg'})`,
                 transition: '0.3s',
                 ':hover': {
-                  fill: 'white',
-                  transform: 'scale(1.1)',
+                  transform: `scale(1.1) rotate(${isConnected ? '0' : '-180deg'})`,
                 },
-                ...(isPowerOn && {
-                  borderRadius: '50%',
-                  border: 'solid 3px',
-                  borderColor: 'neonGreen',
-                }), // TODO use separate absolute positioned element instead of border
               }}
+              onClick={() => toggleProxy()}
             >
-              <Button
-                variant="simple"
-                onClick={handlePowerButtonClick}
-                sx={{
-                  display: 'flex',
-                  width: '74px',
-                  height: '74px',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: '0.3s',
-                  transform: isPowerOn ? 'rotate(0deg)' : 'rotate(-180deg)',
-                }}
-              >
-                <PowerButton />
-              </Button>
-            </Box>
+              <PowerButton />
+            </Button>
           </Flex>
         </Flex>
       </Box>
@@ -226,7 +230,7 @@ const Home: ThemeUiElement = () => {
         </Text>
         <WhitelistOff sx={{ fill: 'secondaryText' }} />
       </Flex>
-      <FlagBackground isPowerOn={isPowerOn} FlagSvg={FlagSvg} />
+      <FlagBackground isConnected={isConnected} FlagSvg={FlagSvg} />
     </Box>
   )
 }

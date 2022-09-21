@@ -3,14 +3,12 @@ import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
 
 const LocationsList: React.FC = () => {
-  const countries = useSelector(s => s.servers.countries)
-  const countriesArray = Object.values(countries)
+  const serverList = useSelector(s => s.servers.serverList)
 
   return (
     <Column data-testid="locations-list">
-      {countriesArray.map(({ id, name, dataCentersIds, country_code: countryCode }) => (
-        <LocationsListItem key={id} {...{ name, dataCentersIds, countryCode }} />
-      ))}
+      {serverList &&
+        serverList.map(location => <LocationsListItem key={location.id} location={location} />)}
     </Column>
   )
 }

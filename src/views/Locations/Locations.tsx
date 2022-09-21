@@ -8,41 +8,9 @@ import Header from './Pieces/Header'
 import LocationsList from './Pieces/LocationsList'
 import { type ThemeUiElement } from 'utils/types'
 import type { DebouncedInputOnChangeHandler, Tab, SetTab } from './types'
-import { serverList } from 'api'
-import { setServers, type ServersState } from 'state/slices/servers'
 
 const Locations: ThemeUiElement = () => {
-  const dispatch = useDispatch()
-  const locHash = useSelector(s => s.session.loc_hash)
-  const isPro = useSelector(s => s.session.is_premium)
-
   const [currentTab, setCurrentTab] = useState<Tab>('locations')
-
-  useEffect(() => {
-    getServerList()
-  })
-
-  // TODO Consider to create adapter or hook between react and api
-  const getServerList = async () => {
-    if (locHash) {
-      const resp = await serverList(locHash, isPro)
-      if (resp && Array.isArray(resp.data)) {
-        const countries: ServersState['countries'] = {}
-        const dataCenters: ServersState['dataCenters'] = {}
-
-        resp.data.forEach(country => {
-          const dataCentersIds: number[] = []
-          country.groups?.forEach(dataCenter => {
-            dataCenters[dataCenter.id] = dataCenter
-            dataCentersIds.push(dataCenter.id)
-          })
-          countries[country.id] = { ...country, dataCentersIds }
-        })
-
-        dispatch(setServers({ countries, dataCenters }))
-      }
-    }
-  }
 
   // used to track the first key press to pass as initial input to search field
   const [focusInitKey, setFocusInitKey] = useState(null)
