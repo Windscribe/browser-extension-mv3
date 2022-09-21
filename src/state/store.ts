@@ -1,31 +1,24 @@
 import { configureStore } from '@reduxjs/toolkit'
-import exampleReducer, { create } from './slices/example'
-import viewReducer, { create as createView } from './slices/view'
-import sessionReducer, { create as createSession } from './slices/session'
-
-export function buildFrom(initialState?: RootState): StoreType {
-  // TODO  Make it iterate through all slices when we create more of them
-  const exampleReducer = create(initialState?.example).reducer
-  const viewReducer = createView(initialState?.view).reducer
-  const sessionReducer = createSession(initialState?.session).reducer
-
-  const reducer = {
-    example: exampleReducer,
-    view: viewReducer,
-    session: sessionReducer,
-  }
-  return configureStore({ reducer })
-}
+import viewReducer from './slices/view'
+import sessionReducer from './slices/session'
+import serversReducer from './slices/servers'
 
 const reducer = {
-  example: exampleReducer,
   view: viewReducer,
   session: sessionReducer,
+  servers: serversReducer,
 }
 
 const store = configureStore({
   reducer: reducer,
 })
+
+export function buildFrom(preloadedState?: RootState): StoreType {
+  return configureStore({
+    reducer,
+    preloadedState,
+  })
+}
 
 export type StoreType = typeof store
 export type RootState = ReturnType<typeof store.getState>

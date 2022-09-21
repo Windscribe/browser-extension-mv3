@@ -1,12 +1,12 @@
 import { useDispatch } from 'state/hooks'
 import { type PayloadAction } from '@reduxjs/toolkit'
-import { set, back, reset, type View } from 'state/slices/view'
+import { setView, back, resetView, type View } from 'state/slices/view'
 
 type RouteActionReturn = () => PayloadAction<View | undefined>
 
 export function useGoTo(route: View): RouteActionReturn {
   const dispatch = useDispatch()
-  return () => dispatch(set(route))
+  return () => dispatch(setView(route))
 }
 
 export function useGoBack(): RouteActionReturn {
@@ -16,5 +16,5 @@ export function useGoBack(): RouteActionReturn {
 
 export function useResetView(): RouteActionReturn {
   const dispatch = useDispatch()
-  return () => dispatch(reset())
+  return () => dispatch(resetView())
 }

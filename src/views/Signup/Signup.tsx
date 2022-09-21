@@ -1,30 +1,20 @@
-import { Box, Flex, Text } from 'theme-ui'
+import { Box, Text } from 'theme-ui'
 
-// import { OverrideAppHeight } from 'components/Utils';
-import { type ThemeUiElement } from 'components/types'
-import Header from 'components/Header'
-import HeaderLink from 'components/HeaderLink'
+import { type ThemeUiElement } from 'utils/types'
+import { Header, HeaderLink } from 'components'
 import Button from './Button'
+import { Column } from 'components/Flexbox'
 
 const Signup: ThemeUiElement = () => {
   return (
     <Box data-testid="signup-page" bg="background">
-      {/* <OverrideAppHeight height={'300px'} /> */}
-      <Flex
-        sx={{
-          flexDirection: 'column',
-        }}
-      >
+      <Column>
         <Header
           title="Sign up"
           RightSideComponent={<HeaderLink buttonRoute="Login" buttonText="Login" />}
         />
-      </Flex>
-      <Flex
-        sx={{
-          flexDirection: 'column',
-        }}
-      >
+      </Column>
+      <Column>
         <Text
           color="secondaryText"
           pt="24px"
@@ -54,7 +44,7 @@ const Signup: ThemeUiElement = () => {
             url="https://windscribe.com/upgrade?pcpid=upgrade_ext1"
           />
         </Box>
-      </Flex>
+      </Column>
     </Box>
   )
 }

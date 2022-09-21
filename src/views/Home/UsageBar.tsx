@@ -4,7 +4,6 @@ import bytes from 'bytes'
 
 import { useSelector } from 'state/hooks'
 import { SpaceBetween } from 'components/Flexbox'
-import Branch from 'components/Branch'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
 import { useGoTo } from 'services/navigation'
 
@@ -75,25 +74,21 @@ const UsageBar: React.FC<ButtonProps> = () => {
       >
         {/* <WithTooltip tip={`${'Reset Date'}: ${addOneMonthToDate(last_reset)}`}> */}
         <Flex>
-          <Branch
-            if={traffic_max === ACCOUNT_PLAN.UNLIMITED}
-            Then={<Text color="green">Unlimited</Text>}
-            Else={
-              <Text
-                sx={{
-                  color: getUsageColor(percentageUsed),
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                }}
-              >
-                <Branch
-                  if={parseFloat(remainingDataBytes) <= 0}
-                  Then="Out of data"
-                  Else={`${remainingDataBytes} ${'Left'}`}
-                />
-              </Text>
-            }
-          />
+          {traffic_max === ACCOUNT_PLAN.UNLIMITED ? (
+            <Text color="green">Unlimited</Text>
+          ) : (
+            <Text
+              sx={{
+                color: getUsageColor(percentageUsed),
+                fontSize: '12px',
+                fontWeight: 'bold',
+              }}
+            >
+              {parseFloat(remainingDataBytes) <= 0
+                ? 'Out of data'
+                : `${remainingDataBytes} ${'Left'}`}
+            </Text>
+          )}
         </Flex>
         {/* </WithTooltip> */}
         <Box>

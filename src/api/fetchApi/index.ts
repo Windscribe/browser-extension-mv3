@@ -22,11 +22,11 @@ const fetchApi = async (path: string, method: Method, useAssets: boolean, useBac
   })
 }
 
-const sendRequest = async (
+const sendRequest = async <DataType>(
   path: string,
   method: Method,
   useAssets = false,
-): Promise<ApiResponse> => {
+): Promise<ApiResponse<DataType>> => {
   return fetchApi(path, method, useAssets)
     .then(response => response.json())
     .catch(() =>

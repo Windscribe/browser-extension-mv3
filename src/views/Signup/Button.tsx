@@ -2,7 +2,7 @@ import { Button as ThemeUiButton, Flex, Text } from 'theme-ui'
 
 import ExternalLinkSvg from 'assets/img/externalLinkIcon.svg'
 import { type Colors } from 'styles'
-import { type ThemeUiElement } from 'components/types'
+import { type ThemeUiElement } from 'utils/types'
 
 type ButtonProps = {
   bg?: Colors
