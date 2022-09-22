@@ -72,11 +72,11 @@ export interface Autopilot {
   dataCenter: DataCenter
 }
 
-export type ServerList = [Location]
+export type ServerList = Location[]
 export interface Location {
   country_code: CountryCodeType
   force_expand: number
-  groups: [DataCenter]
+  groups: DataCenter[]
   id: number
   loc_type: string
   name: string

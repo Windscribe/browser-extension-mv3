@@ -11,7 +11,7 @@ import { connectProxy } from 'utils/proxyConfig'
 
 type LocationsListItemDetailsProps = {
   location: Location
-  dataCenters?: [DataCenter]
+  dataCenters?: DataCenter[]
 }
 
 const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({

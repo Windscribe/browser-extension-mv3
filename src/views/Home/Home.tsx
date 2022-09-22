@@ -206,7 +206,7 @@ const Home: ThemeUiElement = () => {
                   transform: `scale(1.1) rotate(${isConnected ? '0' : '-180deg'})`,
                 },
               }}
-              onClick={() => toggleProxy()}
+              onClick={toggleProxy}
             >
               <PowerButton />
             </Button>
