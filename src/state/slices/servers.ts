@@ -1,35 +1,49 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { Country, DataCenter, CurrentDataCenter } from 'api/types'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { type ServerList, Location, DataCenter, Autopilot } from 'api/types'
 
-export type ServersState = {
-  countries: { [key in Country['id']]: Country }
-  dataCenters: { [key in DataCenter['id']]: DataCenter }
-  currentDataCenter: CurrentDataCenter | null
+interface ServersState {
+  serverList?: ServerList
+  currentLocation?: Location
+  currentDataCenter?: DataCenter
+  isConnected: boolean
+  autopilot?: Autopilot
 }
 
 const initialState: ServersState = {
-  countries: {},
-  dataCenters: {},
-  currentDataCenter: null,
+  serverList: undefined,
+  currentLocation: undefined,
+  currentDataCenter: undefined,
+  isConnected: false,
+  autopilot: undefined,
 }
 
 export const serversSlice = createSlice({
   name: 'servers',
   initialState,
   reducers: {
-    // TODO test this action
-    setServers(state, action: PayloadAction<Omit<ServersState, 'currentDataCenter'>>) {
-      return { ...state, ...action.payload }
+    setServerList(state, action: PayloadAction<ServerList>) {
+      state.serverList = action.payload
     },
-    setCurrentDataCenterById(state, action: PayloadAction<number>) {
-      const id = action.payload
-      const countriesArray = Object.values(state.countries)
-      const country = countriesArray.find(country => country.dataCentersIds.includes(id))
-      const countryCode = country?.country_code || 'AUTO'
-      state.currentDataCenter = { ...state.dataCenters[id], ...{ countryCode } }
+    setCurrentLocation(state, action: PayloadAction<Location>) {
+      state.currentLocation = action.payload
+    },
+    setCurrentDataCenter(state, action: PayloadAction<DataCenter>) {
+      state.currentDataCenter = action.payload
+    },
+    setIsConnected(state, action: PayloadAction<boolean>) {
+      state.isConnected = action.payload
+    },
+    setAutopilot(state, action: PayloadAction<Autopilot>) {
+      state.autopilot = action.payload
     },
   },
 })
 
-export const { setServers, setCurrentDataCenterById } = serversSlice.actions
+export const {
+  setServerList,
+  setCurrentLocation,
+  setCurrentDataCenter,
+  setIsConnected,
+  setAutopilot,
+} = serversSlice.actions
 export default serversSlice.reducer

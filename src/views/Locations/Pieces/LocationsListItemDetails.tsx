@@ -1,50 +1,47 @@
 import { Box, Text, Flex, Button } from 'theme-ui'
-import { createSelector } from '@reduxjs/toolkit'
 
 import HeartIcon from 'assets/img/heart-outline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
-import { setCurrentDataCenterById } from 'state/slices/servers'
+import { setCurrentLocation, setCurrentDataCenter, setIsConnected } from 'state/slices/servers'
 import { useDispatch, useSelector } from 'state/hooks'
 import { useGoTo } from 'services/navigation'
-import { type RootState } from 'state'
+import { type DataCenter, Location } from 'api/types'
+import { connectProxy } from 'utils/proxyConfig'
 
 type LocationsListItemDetailsProps = {
-  dataCentersIds?: number[]
+  location: Location
+  dataCenters?: DataCenter[]
 }
 
-const selectDataCentersById = createSelector(
-  (state: RootState) => state.servers.dataCenters,
-  (_: RootState, dataCentersIds: number[]) => dataCentersIds,
-  (dataCenters, ids) => ids.map(id => dataCenters[id]),
-)
-
 const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
-  dataCentersIds = [],
+  location,
+  dataCenters = [],
 }) => {
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
-  const currentDataCenterId = useSelector(s => s.servers.currentDataCenter?.id)
-  const dataCenters = useSelector(state => selectDataCentersById(state, dataCentersIds))
+  const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
 
-  const handleClick: React.MouseEventHandler = e => {
-    const dataCenterId = +e.currentTarget.id
-    dispatch(setCurrentDataCenterById(dataCenterId))
+  const handleClick = (dataCenter: DataCenter) => {
+    dispatch(setCurrentLocation(location))
+    dispatch(setCurrentDataCenter(dataCenter))
+    connectProxy(dataCenter.hosts[0].hostname)
+    dispatch(setIsConnected(true))
     goToHome()
   }
 
   return (
     <>
-      {dataCenters.map(({ id, city, nick }) => (
+      {dataCenters.map(dataCenter => (
         <Box
-          id={`${id}`}
-          key={id}
+          id={`${dataCenter.id}`}
+          key={dataCenter.id}
           as="li"
-          onClick={handleClick}
+          onClick={() => handleClick(dataCenter)}
           sx={{
             height: '50px',
             padding: '16px 16px 16px 0px',
-            color: `${currentDataCenterId === id ? 'primaryText' : 'secondaryText'}`,
+            color: `${currentDataCenter?.id === dataCenter.id ? 'primaryText' : 'secondaryText'}`,
             borderBottomWidth: '2px',
             borderBottomColor: 'border',
             borderBottomStyle: 'solid',
@@ -74,11 +71,11 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
                   fill: 'secondaryText',
                 }}
               />
-              <Text sx={{ fontWeight: '600' }}>{city}</Text>
+              <Text sx={{ fontWeight: '600' }}>{dataCenter.city}</Text>
               &nbsp;
-              <Text sx={{ fontWeight: '400' }}>{nick}</Text>
+              <Text sx={{ fontWeight: '400' }}>{dataCenter.nick}</Text>
             </Flex>
-            {currentDataCenterId === id ? (
+            {currentDataCenter?.id === dataCenter.id ? (
               <CheckmarkIcon
                 data-testid="checkmark-icon"
                 sx={{

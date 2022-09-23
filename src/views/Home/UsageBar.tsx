@@ -23,7 +23,7 @@ const UsageBar: React.FC<ButtonProps> = () => {
   const handleClick: MouseEventHandler<HTMLButtonElement> = async () => {
     if (username) {
       //TODO Implement separate, browser-agnostic service. Get rid of hardcoded url.
-      const url = `${ENVS.PROD.ROOT_URL}/upgrade?pcpid=upgrade_ext1`
+      const url = `${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`
       await chrome.tabs.create({ url })
     } else {
       //ghost-mode

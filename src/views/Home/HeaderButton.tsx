@@ -3,15 +3,16 @@ import { type ThemeUiElement } from 'utils/types'
 
 type HeaderButtonProps = {
   Icon: React.ReactNode
+  isConnected: boolean
   count: number
 }
 
-const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, count = 0 }) => {
+const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, isConnected, count = 0 }) => {
   return (
     <Button
       variant="circle"
       sx={{
-        backgroundColor: 'halfBlack',
+        backgroundColor: isConnected ? 'halfBlack' : 'background',
         fill: 'halfWhite',
         transition: '0.3s',
         transform: 'scale(1)',

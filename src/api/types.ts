@@ -54,31 +54,38 @@ export interface SessionData {
   username?: string
 }
 
-export type ServerNodes = {
+export interface BestLocation {
+  city_name: string
+  country_code: string
+  dc_id: number
+  hostname: string
   ip: string
   ip2: string
   ip3: string
-  hostname: string
-  weight: number
-  group: string
+  location_name: string
+  server_id: number
+  short_name: string
 }
 
-export type ServerListDataItem = {
-  id: number
-  name: string
+export interface Autopilot {
+  location: Location
+  dataCenter: DataCenter
+}
+
+export type ServerList = Location[]
+export interface Location {
   country_code: CountryCodeType
-  status: 1 | 2
-  premium_only: 0 | 1
-  short_name: `${CountryCodeType}${string}` // todo check
-  p2p: 0 | 1
+  force_expand: number
+  groups: DataCenter[]
+  id: number
+  loc_type: string
+  name: string
+  p2p: number
+  premium_only: number
+  short_name: string
+  status: number
+  tz: string
   tz_offset: string
-  dns_hostname: string
-  groups?: DataCenter[]
-}
-export type ServerListData = ServerListDataItem[]
-
-export type Country = Omit<ServerListDataItem, 'groups'> & {
-  dataCentersIds: DataCenter['id'][]
 }
 
 export type DataCenter = {
@@ -92,10 +99,6 @@ export type DataCenter = {
   link_speed: string
   health: number
   hosts: Host[]
-}
-
-export type CurrentDataCenter = DataCenter & {
-  countryCode: CountryCodeType
 }
 
 export type Host = {

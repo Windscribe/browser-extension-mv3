@@ -6,18 +6,21 @@ import { footerHeight } from 'styles/constants'
 import FlagGradientMask from 'assets/img/flag-gradient-mask.svg'
 
 type FlagBackgroundProps = {
-  isPowerOn: boolean
+  isConnected: boolean
   FlagSvg: React.ElementType // Should be more specific - SVG element only. Don't know how to do it yet
 }
 
-const FlagBackground: ThemeUiElement<FlagBackgroundProps> = ({ isPowerOn, FlagSvg }) => {
+const FlagBackground: ThemeUiElement<FlagBackgroundProps> = ({ isConnected, FlagSvg }) => {
   const { theme } = useThemeUI()
   const { softBlack, softBlackTransparent, lakeBlue, lakeBlueTransparent } = theme.colors || {}
 
   return (
     <>
-      <GradientOverlay isTransparent={isPowerOn} color={`${softBlack}, ${softBlackTransparent}`} />
-      <GradientOverlay isTransparent={!isPowerOn} color={`${lakeBlue}, ${lakeBlueTransparent}`} />
+      <GradientOverlay
+        isTransparent={isConnected}
+        color={`${softBlack}, ${softBlackTransparent}`}
+      />
+      <GradientOverlay isTransparent={!isConnected} color={`${lakeBlue}, ${lakeBlueTransparent}`} />
       <Box
         sx={{
           width: '100%',
