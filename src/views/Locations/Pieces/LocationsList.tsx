@@ -3,7 +3,7 @@ import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
 
 const LocationsList: React.FC = () => {
-  const countries = useSelector(s => s.servers.countries)
+  const countries = useSelector(s => s.servers.countries) || {}
   const countriesArray = Object.values(countries)
 
   return (

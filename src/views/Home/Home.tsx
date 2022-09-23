@@ -4,9 +4,11 @@ import { Box, Button, Flex, Text } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
+import UsageBar from './UsageBar'
 import { useGoTo } from 'services/navigation'
 import { useSelector } from 'state/hooks'
 import { footerHeight } from 'styles/constants'
+import { ACCOUNT_PLAN } from 'utils/constants'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -24,10 +26,13 @@ const Home: ThemeUiElement = () => {
   const city = useSelector(s => s.servers.currentDataCenter?.city)
   const nick = useSelector(s => s.servers.currentDataCenter?.nick)
   const countryCode = useSelector(s => s.servers.currentDataCenter?.countryCode) || 'AUTO'
+  const isPremium = useSelector(s => s.session.is_premium)
+  const trafficMax = useSelector(s => s.session.traffic_max)
   const FlagSvg = Flags[countryCode] || Flags['AUTO']
   const [isPowerOn, setIsPowerOn] = useState<boolean>(false)
 
   const handlePowerButtonClick = () => setIsPowerOn(!isPowerOn)
+  const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
 
   return (
     <Box
@@ -226,6 +231,7 @@ const Home: ThemeUiElement = () => {
         </Text>
         <WhitelistOff sx={{ fill: 'secondaryText' }} />
       </Flex>
+      {!hideUsageBar && <UsageBar />}
       <FlagBackground isPowerOn={isPowerOn} FlagSvg={FlagSvg} />
     </Box>
   )
