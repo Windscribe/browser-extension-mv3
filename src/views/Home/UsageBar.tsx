@@ -8,9 +8,9 @@ import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
 import { useGoTo } from 'services/navigation'
 
 const getUsageColor = (percentage: number) => {
-  if (percentage < 50) return 'green'
-  if (percentage < 75) return 'yellow'
-  return 'red'
+  if (percentage < 50) return 'neonGreen'
+  if (percentage < 75) return 'lemonYellow'
+  return 'rubyRed'
 }
 
 const UsageBar: React.FC<ButtonProps> = () => {
@@ -40,6 +40,8 @@ const UsageBar: React.FC<ButtonProps> = () => {
       bg="black"
       sx={{
         width: '100%',
+        display: 'block',
+        borderRadius: 0,
         '&:hover': {
           '.upgrade': {
             color: 'white',
@@ -84,9 +86,7 @@ const UsageBar: React.FC<ButtonProps> = () => {
                 fontWeight: 'bold',
               }}
             >
-              {parseFloat(remainingDataBytes) <= 0
-                ? 'Out of data'
-                : `${remainingDataBytes} ${'Left'}`}
+              {`${remainingDataBytes} ${'Left'}`}
             </Text>
           )}
         </Flex>
