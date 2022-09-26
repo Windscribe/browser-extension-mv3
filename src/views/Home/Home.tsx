@@ -25,9 +25,10 @@ import { connectProxy, disconnectProxy } from 'utils/proxyConfig'
 const Home: ThemeUiElement = () => {
   const gotToLocations = useGoTo('Locations')
   const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
-  const countryCode = useSelector(s => s.servers.currentLocation?.country_code) || 'AUTO'
+  const currentLocation = useSelector(s => s.servers.currentLocation)
+  const autopilotSelected = useSelector(state => state.servers.autopilotSelected)
   const isConnected = useSelector(state => state.servers.isConnected)
-  const FlagSvg = Flags[countryCode] || Flags['AUTO']
+  const FlagSvg = Flags[autopilotSelected ? 'AUTO' : currentLocation?.country_code || 'AUTO']
   const dispatch = useDispatch()
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
@@ -46,6 +47,7 @@ const Home: ThemeUiElement = () => {
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
+
   return (
     <Box
       data-testid="home-page"
@@ -139,10 +141,10 @@ const Home: ThemeUiElement = () => {
                   fontWeight: 600,
                 }}
               >
-                {currentDataCenter?.city}
+                {autopilotSelected ? 'Autopilot' : currentDataCenter?.city}
               </Text>
             </Box>
-            {currentDataCenter?.nick && (
+            {!autopilotSelected && currentDataCenter?.nick && (
               <Text
                 data-testid="nick"
                 sx={{
@@ -164,10 +166,12 @@ const Home: ThemeUiElement = () => {
               data-testid="globe-button"
               onClick={gotToLocations}
               sx={{
-                mr: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                mr: '4px',
                 ':hover': {
                   'svg:nth-of-type(1)': {
-                    mr: '12.8px',
+                    mr: '8px',
                     fill: 'white',
                   },
                   'svg:nth-of-type(2)': {
@@ -190,6 +194,7 @@ const Home: ThemeUiElement = () => {
                   ml: '-8px',
                   fill: 'secondaryText',
                   visibility: 'hidden',
+                  transform: 'scale(0.9)',
                 }}
               />
             </Button>

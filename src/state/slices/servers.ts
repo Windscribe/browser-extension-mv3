@@ -7,6 +7,7 @@ interface ServersState {
   currentDataCenter?: DataCenter
   isConnected: boolean
   autopilot?: Autopilot
+  autopilotSelected: boolean
 }
 
 const initialState: ServersState = {
@@ -15,6 +16,7 @@ const initialState: ServersState = {
   currentDataCenter: undefined,
   isConnected: false,
   autopilot: undefined,
+  autopilotSelected: false,
 }
 
 export const serversSlice = createSlice({
@@ -36,6 +38,9 @@ export const serversSlice = createSlice({
     setAutopilot(state, action: PayloadAction<Autopilot>) {
       state.autopilot = action.payload
     },
+    setAutopilotSelected(state, action: PayloadAction<boolean>) {
+      state.autopilotSelected = action.payload
+    },
   },
 })
 
@@ -45,5 +50,6 @@ export const {
   setCurrentDataCenter,
   setIsConnected,
   setAutopilot,
+  setAutopilotSelected,
 } = serversSlice.actions
 export default serversSlice.reducer
