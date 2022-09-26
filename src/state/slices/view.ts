@@ -1,8 +1,7 @@
-import { createSlice, type PayloadAction, type ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import type * as Containers from 'views'
+import { type View } from 'utils/types'
 
-export type View = keyof typeof Containers
 export interface ViewState {
   previous: View[]
   current: View

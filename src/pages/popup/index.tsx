@@ -5,7 +5,7 @@ import { ThemeProvider } from 'theme-ui'
 import './index.css'
 import log from 'utils/log'
 import theme from 'styles'
-import { Router } from 'services/navigation'
+import Router from 'services/navigation/Router'
 import { ProxyStore } from 'state'
 import { REACT_APP_REDUX_PORT } from 'utils/constants'
 
@@ -36,6 +36,8 @@ proxyStore
   .catch((err: unknown): void => {
     log('Error while rendering UI: ', err, 'error')
   })
+
+export { proxyStore }
 
 /*
 	@link https://webpack.js.org/concepts/hot-module-replacement/

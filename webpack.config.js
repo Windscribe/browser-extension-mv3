@@ -7,6 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 const alias = {
   'react-dom': '@hot-loader/react-dom',
@@ -102,6 +103,13 @@ const options = {
   plugins: [
     new CleanWebpackPlugin({ verbose: false }),
     new Dotenv(),
+    new CircularDependencyPlugin({
+      exclude: /a\.js|node_modules/,
+      include: /src/,
+      failOnError: true,
+      allowAsyncCycles: false,
+      cwd: process.cwd(),
+    }),
     // TODO Review plugins. Probably they could be optimized
     new CopyWebpackPlugin({
       patterns: [

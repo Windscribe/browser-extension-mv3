@@ -1,6 +1,8 @@
-import { useDispatch } from 'state/hooks'
 import { type PayloadAction } from '@reduxjs/toolkit'
-import { setView, back, resetView, type View } from 'state/slices/view'
+
+import { useDispatch } from 'state/hooks'
+import { setView, back, resetView } from 'state/slices/view'
+import { type View } from 'utils/types'
 
 type RouteActionReturn = () => PayloadAction<View | undefined>
 
