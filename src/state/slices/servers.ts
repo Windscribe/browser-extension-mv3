@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { type ServerList, Location, DataCenter, Autopilot } from 'api/types'
+import { type ServerCredentials, ServerList, Location, DataCenter, Autopilot } from 'api/types'
 
 interface ServersState {
+  serverCredentials?: ServerCredentials
   serverList?: ServerList
   currentLocation?: Location
   currentDataCenter?: DataCenter
@@ -11,6 +12,7 @@ interface ServersState {
 }
 
 const initialState: ServersState = {
+  serverCredentials: undefined,
   serverList: undefined,
   currentLocation: undefined,
   currentDataCenter: undefined,
@@ -23,6 +25,9 @@ export const serversSlice = createSlice({
   name: 'servers',
   initialState,
   reducers: {
+    setServerCredetials(state, action: PayloadAction<ServerCredentials>) {
+      state.serverCredentials = action.payload
+    },
     setServerList(state, action: PayloadAction<ServerList>) {
       state.serverList = action.payload
     },
@@ -45,6 +50,7 @@ export const serversSlice = createSlice({
 })
 
 export const {
+  setServerCredetials,
   setServerList,
   setCurrentLocation,
   setCurrentDataCenter,

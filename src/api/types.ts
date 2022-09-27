@@ -106,3 +106,7 @@ export type Host = {
   weight: number
   health: number
 }
+export interface ServerCredentials {
+  username: string
+  password: string
+}
