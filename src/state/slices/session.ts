@@ -3,7 +3,6 @@ import { SessionData } from 'api/types'
 
 export interface SessionState extends SessionData {
   error?: number
-  workingApi?: string
 }
 
 const initialState: SessionState = {
@@ -22,7 +21,6 @@ const initialState: SessionState = {
   user_id: undefined,
   username: undefined,
   error: undefined,
-  workingApi: undefined,
 }
 
 export const sessionSlice = createSlice({
@@ -32,11 +30,8 @@ export const sessionSlice = createSlice({
     setSession(state, action: PayloadAction<SessionState>) {
       return { ...state, ...action.payload }
     },
-    setWorkingApi(state, action: PayloadAction<string | undefined>) {
-      state.workingApi = action.payload
-    },
   },
 })
 
-export const { setSession, setWorkingApi } = sessionSlice.actions
+export const { setSession } = sessionSlice.actions
 export default sessionSlice.reducer
