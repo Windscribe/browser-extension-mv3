@@ -14,21 +14,20 @@ const LocationsList: React.FC = () => {
           location={autopilot.location}
           dataCenter={autopilot.dataCenter}
           isAutopilot
-          currentlySelected={currentLocationId === autopilot?.location.id ? true : false}
+          currentlySelected={currentLocationId === autopilot?.location.id}
         />
       )}
-      {serverList &&
-        serverList.map(location => (
-          <LocationsListItem
-            key={location.id}
-            location={location}
-            currentlySelected={
-              currentLocationId === location.id && currentLocationId !== autopilot?.location.id
-                ? true
-                : false
-            }
-          />
-        ))}
+      {serverList?.map(location => (
+        <LocationsListItem
+          key={location.id}
+          location={location}
+          currentlySelected={
+            currentLocationId === location.id && currentLocationId !== autopilot?.location.id
+              ? true
+              : false
+          }
+        />
+      ))}
     </Column>
   )
 }

@@ -25,10 +25,10 @@ import { connectProxy, disconnectProxy } from 'utils/proxyConfig'
 const Home: ThemeUiElement = () => {
   const gotToLocations = useGoTo('Locations')
   const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
-  const currentLocation = useSelector(s => s.servers.currentLocation)
+  const countryCode = useSelector(s => s.servers.currentLocation?.country_code) || 'AUTO'
   const autopilotSelected = useSelector(state => state.servers.autopilotSelected)
   const isConnected = useSelector(state => state.servers.isConnected)
-  const FlagSvg = Flags[autopilotSelected ? 'AUTO' : currentLocation?.country_code || 'AUTO']
+  const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
   const dispatch = useDispatch()
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
