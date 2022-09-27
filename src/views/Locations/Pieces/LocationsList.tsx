@@ -23,8 +23,6 @@ const LocationsList: React.FC = () => {
           location={location}
           currentlySelected={
             currentLocationId === location.id && currentLocationId !== autopilot?.location.id
-              ? true
-              : false
           }
         />
       ))}
