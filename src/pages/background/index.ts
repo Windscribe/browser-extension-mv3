@@ -12,6 +12,7 @@ chrome.storage.local.get(null).then(storage => {
 
 chrome.storage.onChanged.addListener(function (changes) {
   if (
+    changes[1].newValue.servers &&
     changes[1].newValue.servers.isConnected &&
     JSON.stringify(changes[1].newValue.servers.serverCredentials) !==
       JSON.stringify(changes[1].oldValue.servers.serverCredentials)
