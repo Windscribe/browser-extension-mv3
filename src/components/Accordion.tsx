@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box } from 'theme-ui'
 
-import { Rectangle } from 'components'
+import Rectangle from './Rectangle'
 
 export type AccordionSummaryPropsType = {
   isExpanded: boolean
