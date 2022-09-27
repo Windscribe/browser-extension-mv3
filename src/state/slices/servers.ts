@@ -1,8 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { type ServerList, Location, DataCenter, Autopilot } from 'api/types'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+
+import type { ServerList, Location, DataCenter, Autopilot } from 'api/types'
+import { type LoadingState } from 'utils/types'
+import { getServerList } from 'api'
 
 interface ServersState {
   serverList?: ServerList
+  loading: LoadingState
   currentLocation?: Location
   currentDataCenter?: DataCenter
   isConnected: boolean
@@ -11,11 +15,23 @@ interface ServersState {
 
 const initialState: ServersState = {
   serverList: undefined,
+  loading: 'idle',
   currentLocation: undefined,
   currentDataCenter: undefined,
   isConnected: false,
   autopilot: undefined,
 }
+
+type SessionDetails = { locHash: string; isPro?: 0 | 1 }
+
+export const fetchServerList = createAsyncThunk(
+  'servers/fetchServerList',
+  async (sessionDetails: SessionDetails) => {
+    const { locHash, isPro } = sessionDetails
+    const response = await getServerList(locHash, isPro)
+    return response.data
+  },
+)
 
 export const serversSlice = createSlice({
   name: 'servers',
@@ -37,6 +53,20 @@ export const serversSlice = createSlice({
       state.autopilot = action.payload
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchServerList.pending, state => {
+        state.loading = 'pending'
+      })
+      .addCase(fetchServerList.fulfilled, (state, action) => {
+        state.loading = 'fulfilled'
+        state.serverList = action.payload
+      })
+      .addCase(fetchServerList.rejected, state => {
+        state.loading = 'rejected'
+        //state.error = action.error.message
+      })
+  },
 })
 
 export const {
@@ -46,4 +76,5 @@ export const {
   setIsConnected,
   setAutopilot,
 } = serversSlice.actions
+
 export default serversSlice.reducer
