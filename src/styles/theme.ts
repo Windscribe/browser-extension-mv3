@@ -97,4 +97,9 @@ export const theme: Theme = {
       },
     },
   },
+  text: {
+    error: {
+      color: 'rubyRed',
+    },
+  },
 }

@@ -1,7 +1,7 @@
-import { Spinner } from 'theme-ui'
 import { useEffect } from 'react'
 
 import { Column } from 'components/Flexbox'
+import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
 import { useSelector, useDispatch } from 'state/hooks'
 import { fetchServerList } from 'state/slices/servers'
@@ -19,20 +19,24 @@ const LocationsList: React.FC = () => {
     }
   }, [locHash, isPro, serversListLoading, dispatch])
 
-  let content
+  const ServerList = (
+    <>
+      {serverList?.map(location => (
+        <LocationsListItem key={location.id} location={location} />
+      ))}
+    </>
+  )
+  const ServerListWithSpinner = withSpinner(
+    ServerList,
+    serversListLoading,
+    'Error while fetching Locations',
+  )
 
-  if (serversListLoading === 'pending') {
-    content = <Spinner />
-  } else if (serversListLoading === 'fulfilled') {
-    content = serverList?.map(location => (
-      <LocationsListItem key={location.id} location={location} />
-    ))
-  } else if (serversListLoading === 'rejected') {
-    // TODO How we should handle error
-    content = <div>Error while fetching Locations</div>
-  }
-
-  return <Column data-testid="locations-list">{content}</Column>
+  return (
+    <Column data-testid="locations-list">
+      <ServerListWithSpinner />
+    </Column>
+  )
 }
 
 export default LocationsList
