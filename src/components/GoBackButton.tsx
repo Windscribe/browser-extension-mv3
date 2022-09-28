@@ -8,7 +8,14 @@ const GoBackButton: ThemeUiElement = () => {
   const { previous } = useSelector(s => s.view)
   const prevPage: View = previous[previous.length - 1] ?? ''
 
-  return <CircleButton Icon={ArrowLeft} onClick={useGoBack()} aria-label={`Back to ${prevPage}`} />
+  return (
+    <CircleButton
+      Icon={ArrowLeft}
+      onClick={useGoBack()}
+      aria-label={`Back to ${prevPage}`}
+      data-testid="go-back-button"
+    />
+  )
 }
 
 export default GoBackButton
