@@ -14,8 +14,6 @@ const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => (
       justifyContent: 'space-between',
       alignItems: 'center',
       px: '16px',
-      borderBottom: '1px solid',
-      borderColor: 'border',
     }}
   >
     <GoBackButton />
