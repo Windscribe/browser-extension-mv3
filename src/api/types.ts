@@ -1,12 +1,10 @@
 import { type CountryCodeType } from 'utils/types'
 
-// TODO rename Its not a general parameters but session specific
-export interface Parameters {
-  username?: string
-  password?: string
-  session_type_id?: 1 | 2 | 3 | 4
-  session_auth_hash?: string
-  platform?: 'chrome' | 'firefox'
+export type LoginParameters = {
+  username: string
+  password: string
+  session_type_id: 1 | 2 | 3 | 4
+  platform?: Platform
   '2fa_code'?: string
 }
 
@@ -36,6 +34,8 @@ export type Endpoint = 'Session' | 'BestLocation' | 'Notifications' | 'ServerCre
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
+export type Platform = 'chrome' | 'firefox'
+
 // todo review the interface
 export interface SessionData {
   billing_plan_id?: number
@@ -52,6 +52,18 @@ export interface SessionData {
   traffic_used?: number
   user_id?: string
   username?: string
+}
+
+export type GetBestLocationParameters = {
+  session_auth_hash: string
+  platform: Platform
+  // gps_lat?: string // Not sure it's actual
+  // gps_long?: string // Not sure it's actual
+}
+
+export type GetServerCredentialsParameters = {
+  session_auth_hash: string
+  platform: Platform
 }
 
 export interface BestLocation {

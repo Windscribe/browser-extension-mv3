@@ -1,8 +1,8 @@
 import prepareQueryString from 'api/prepareQueryString'
-import { type Parameters, ApiResponse, BestLocation } from 'api/types'
+import type { GetBestLocationParameters, ApiResponse, BestLocation } from 'api/types'
 
 const bestLocation = async (session_auth_hash: string): Promise<ApiResponse<BestLocation>> => {
-  const parameters: Parameters = {
+  const parameters: GetBestLocationParameters = {
     session_auth_hash,
     platform: 'chrome',
   }

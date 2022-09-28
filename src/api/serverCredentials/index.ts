@@ -1,10 +1,11 @@
 import prepareQueryString from 'api/prepareQueryString'
-import { type Parameters, ApiResponse } from 'api/types'
+import type { GetServerCredentialsParameters, ApiResponse } from 'api/types'
 
 const serverCredentials = async (session_auth_hash: string): Promise<ApiResponse> => {
-  const parameters: Parameters = {
+  const parameters: GetServerCredentialsParameters = {
     session_auth_hash,
-    platform: 'chrome',
+    platform: 'chrome', // According API docs here should be CREDENTIAL_TYPE
+    // TODO Check parameters
   }
 
   return await prepareQueryString('ServerCredentials', 'GET', parameters)
