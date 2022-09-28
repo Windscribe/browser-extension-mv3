@@ -1,5 +1,5 @@
 import md5 from 'crypto-js/md5'
-import { type Parameters, ApiResponse, Endpoint, Method } from 'api/types'
+import type { Parameters, ApiResponse, Endpoint, Method } from 'api/types'
 import sendRequest from 'api/fetchApi'
 import { CLIENT_AUTH_SECRET } from 'utils/constants'
 

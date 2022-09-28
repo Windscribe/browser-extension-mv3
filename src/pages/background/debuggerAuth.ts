@@ -1,8 +1,15 @@
 import { type ServerCredentials } from 'api/types'
+import { DEVTOOL_PROTOCOL } from 'utils/constants'
+
+type Debuggee = {
+  extensionId?: string
+  tabId?: number
+  targetId?: string
+}
 
 export default (serverCredentials: ServerCredentials): void => {
   const attachDebugger = (tabId: number) => {
-    chrome.debugger.attach({ tabId: tabId }, '1.3', () => {
+    chrome.debugger.attach({ tabId: tabId }, DEVTOOL_PROTOCOL, () => {
       if (!chrome.runtime.lastError) {
         chrome.debugger.sendCommand({ tabId: tabId }, 'Fetch.enable', {
           handleAuthRequests: true,
@@ -28,14 +35,14 @@ export default (serverCredentials: ServerCredentials): void => {
   chrome.debugger.onEvent.addListener(allEventHandler)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function allEventHandler(debuggeeId: any, message: string, params: any) {
+  function allEventHandler(debuggeeId: Debuggee, message: string, params?: any) {
     if (message === 'Fetch.requestPaused') {
       chrome.debugger.sendCommand({ tabId: debuggeeId.tabId }, 'Fetch.continueRequest', {
-        requestId: params.requestId,
+        requestId: params?.requestId,
       })
     } else if (message === 'Fetch.authRequired') {
       chrome.debugger.sendCommand({ tabId: debuggeeId.tabId }, 'Fetch.continueWithAuth', {
-        requestId: params.requestId,
+        requestId: params?.requestId,
         authChallengeResponse: {
           response: 'ProvideCredentials',
           username: atob(serverCredentials.username),
