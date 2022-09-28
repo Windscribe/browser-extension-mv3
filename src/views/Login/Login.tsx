@@ -11,6 +11,7 @@ import {
   setCurrentDataCenter,
   setIsConnected,
   setAutopilot,
+  setAutopilotSelected,
 } from 'state/slices/servers'
 import { useGoTo } from 'services/navigation'
 import { Header, HeaderLink } from 'components'
@@ -31,6 +32,7 @@ const Login: ThemeUiElement = () => {
 
   type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => Promise<void>
   const handleLogin: HandleLogin = async e => {
+    // TODO: move a lot of this logic into 'createInstance' function
     e.preventDefault()
     const { twoFa, username, password } = e.currentTarget
     const { errorMessage, errorCode, data } = await login(
@@ -59,6 +61,7 @@ const Login: ThemeUiElement = () => {
           dispatch(setAutopilot(autopilot))
           dispatch(setCurrentLocation(autopilot.location))
           dispatch(setCurrentDataCenter(autopilot.dataCenter))
+          dispatch(setAutopilotSelected(true))
           connectProxy(autopilot.dataCenter.hosts[0].hostname)
           dispatch(setIsConnected(true))
         }
