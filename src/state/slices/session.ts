@@ -37,8 +37,8 @@ type Credentials = {
 export const login = createAsyncThunk('session/login', async (credentials: Credentials) => {
   const { username, password, twoFa } = credentials
   const response = await loginRequest(username, password, twoFa)
-
-  return response.data
+  if (response.data) return response.data
+  if (response.errorMessage) return response
 })
 
 export const sessionSlice = createSlice({
@@ -48,10 +48,15 @@ export const sessionSlice = createSlice({
     setSession(state, action: PayloadAction<SessionState>) {
       return { ...state, ...action.payload }
     },
+    clearError() {
+      // TODO implement. Call before leave a page?
+    },
   },
-  extraReducers(builder) {
+  extraReducers: builder => {
     builder
       .addCase(login.pending, state => {
+        state.errorCode = undefined
+        state.errorMessage = undefined
         state.loading = 'pending'
       })
       .addCase(login.fulfilled, (_, action) => {

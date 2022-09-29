@@ -53,7 +53,7 @@ export const serversSlice = createSlice({
       state.autopilot = action.payload
     },
   },
-  extraReducers(builder) {
+  extraReducers: builder => {
     builder
       .addCase(fetchServerList.pending, state => {
         state.loading = 'pending'

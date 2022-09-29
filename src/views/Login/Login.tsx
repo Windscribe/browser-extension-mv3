@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button, Flex, Text, Input, Label, Box, Link } from 'theme-ui'
+import { Button, Flex, Text, Input, Label, Box, Link, Spinner } from 'theme-ui'
 
 import { login } from 'state/slices/session'
 import { useGoTo } from 'services/navigation'
@@ -16,25 +16,30 @@ const Login: ThemeUiElement = () => {
   const errorCode = useSelector(s => s.session.errorCode)
   const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
   const locHash = useSelector(s => s.session.loc_hash)
+  const loginStatus = useSelector(s => s.session.loading)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string | undefined>('')
   const [use2fa, setUse2fa] = useState(false)
-  const [error2fa, setError2fa] = useState('')
+  const [error2fa, setError2fa] = useState<string | undefined>('')
+
+  const isPending = loginStatus === 'pending'
 
   useEffect(() => {
-    if (errorMessage) {
-      // Maybe we need to store these error codes as constants somewhere? We can discuss
-      if (errorCode === 1340 || errorCode === 1341) {
-        setError2fa(errorMessage)
-        setUse2fa(true)
-        return
-      }
-      setError(errorMessage)
+    // Maybe we need to store these error codes as constants somewhere? We can discuss
+    if (errorCode === 1340 || errorCode === 1341) {
+      setError2fa(errorMessage)
+      setUse2fa(true)
+      return
     }
+    setError(errorMessage)
   }, [errorMessage, errorCode])
+
+  useEffect(() => {
+    setError('')
+  }, [username, password])
 
   useEffect(() => {
     // TODO Check the condition. Maybe if(session_auth_hash) enough?
@@ -187,8 +192,9 @@ const Login: ThemeUiElement = () => {
                 color: 'softBlack',
                 backgroundColor: !!username && !!password ? 'neonGreen' : 'foreground',
               }}
+              disabled={isPending}
             >
-              Login
+              {isPending ? <Spinner sx={{ width: '24px', height: '24px' }} /> : 'Login'}
             </Button>
           </Flex>
         </form>
