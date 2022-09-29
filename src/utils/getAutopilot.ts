@@ -7,6 +7,8 @@ export default async (
   serverList: ServerList = [],
 ): Promise<Autopilot | null> => {
   const bestLocation = await getBestLocation(sessionAuthHash)
+
+  // Remove from here
   const location = serverList.find(x => x.name === bestLocation?.data?.location_name)
   const dataCenter = location?.groups?.find(x => x.id === bestLocation?.data?.dc_id)
   if (location && dataCenter) {

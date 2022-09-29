@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { Box, Button, Flex, Text } from 'theme-ui'
+
 import { useDispatch, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
@@ -6,7 +8,7 @@ import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
 import { setIsConnected } from 'state/slices/servers'
-
+import { setupServers } from 'state/asyncThunks/setupServers'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -23,14 +25,18 @@ import Flags from 'assets/flags'
 import { connectProxy, disconnectProxy } from 'utils/proxyConfig'
 
 const Home: ThemeUiElement = () => {
+  const dispatch = useDispatch()
   const gotToLocations = useGoTo('Locations')
   const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
   const countryCode = useSelector(s => s.servers.currentLocation?.country_code) || 'AUTO'
   const isConnected = useSelector(state => state.servers.isConnected)
-  const FlagSvg = Flags[countryCode] || Flags['AUTO']
-  const dispatch = useDispatch()
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
+  const FlagSvg = Flags[countryCode] || Flags['AUTO']
+
+  useEffect(() => {
+    dispatch(setupServers())
+  }, [])
 
   const toggleProxy = () => {
     // TODO: Move dispatch calls to connectProxy and disconnectProxy functions
