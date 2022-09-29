@@ -1,8 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SessionData } from 'api/types'
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
+import { type SessionData } from 'api/types'
+import { login as loginRequest } from 'api'
+import { type LoadingState } from 'utils/types'
 export interface SessionState extends SessionData {
-  error?: number
+  errorCode?: number
+  errorMessage?: string
+  loading: LoadingState
 }
 
 const initialState: SessionState = {
@@ -20,8 +24,22 @@ const initialState: SessionState = {
   traffic_used: undefined,
   user_id: undefined,
   username: undefined,
-  error: undefined,
+  errorCode: undefined,
+  errorMessage: undefined,
+  loading: 'idle',
 }
+
+type Credentials = {
+  username: string
+  password: string
+  twoFa?: string
+}
+export const login = createAsyncThunk('session/login', async (credentials: Credentials) => {
+  const { username, password, twoFa } = credentials
+  const response = await loginRequest(username, password, twoFa)
+
+  return response.data
+})
 
 export const sessionSlice = createSlice({
   name: 'session',
@@ -30,6 +48,19 @@ export const sessionSlice = createSlice({
     setSession(state, action: PayloadAction<SessionState>) {
       return { ...state, ...action.payload }
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(login.pending, state => {
+        state.loading = 'pending'
+      })
+      .addCase(login.fulfilled, (_, action) => {
+        return { loading: 'fulfilled', ...action.payload }
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = 'rejected'
+        state.errorMessage = action.error.message
+      })
   },
 })
 

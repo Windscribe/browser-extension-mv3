@@ -54,6 +54,14 @@ export interface SessionData {
   username?: string
 }
 
+// TODO Check error signature
+export type LoginError = {
+  errorCode: number
+  errorMessage: string
+  errorDescription: string
+  logStatus: string | null
+}
+
 export type GetBestLocationParameters = {
   session_auth_hash: string
   platform: Platform

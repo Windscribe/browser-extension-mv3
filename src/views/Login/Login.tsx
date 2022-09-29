@@ -1,19 +1,10 @@
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'state/hooks'
+import { useEffect, useState } from 'react'
 import { Button, Flex, Text, Input, Label, Box, Link } from 'theme-ui'
-import { login } from 'api/index'
-import getAutopilot from 'utils/getAutopilot'
-import { connectProxy } from 'utils/proxyConfig'
-import { setSession } from 'state/slices/session'
-import {
-  setCurrentLocation,
-  setCurrentDataCenter,
-  setIsConnected,
-  setAutopilot,
-  fetchServerList,
-} from 'state/slices/servers'
+
+import { login } from 'state/slices/session'
 import { useGoTo } from 'services/navigation'
 import { Header, HeaderLink } from 'components'
+import { useDispatch, useSelector } from 'state/hooks'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 import { type ThemeUiElement } from 'utils/types'
@@ -21,8 +12,10 @@ import { type ThemeUiElement } from 'utils/types'
 const Login: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const gotToHome = useGoTo('Home')
-  const serversListLoading = useSelector(s => s.servers.loading)
-  const serversList = useSelector(s => s.servers.serverList)
+  const errorMessage = useSelector(s => s.session.errorMessage)
+  const errorCode = useSelector(s => s.session.errorCode)
+  const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
+  const locHash = useSelector(s => s.session.loc_hash)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -31,17 +24,7 @@ const Login: ThemeUiElement = () => {
   const [use2fa, setUse2fa] = useState(false)
   const [error2fa, setError2fa] = useState('')
 
-  type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => Promise<void>
-  const handleLogin: HandleLogin = async e => {
-    e.preventDefault()
-    const { twoFa, username, password } = e.currentTarget
-    // TODO Move to session async thunk
-    const { errorMessage, errorCode, data } = await login(
-      username?.value,
-      password?.value,
-      twoFa?.value,
-    )
-
+  useEffect(() => {
     if (errorMessage) {
       // Maybe we need to store these error codes as constants somewhere? We can discuss
       if (errorCode === 1340 || errorCode === 1341) {
@@ -51,29 +34,20 @@ const Login: ThemeUiElement = () => {
       }
       setError(errorMessage)
     }
+  }, [errorMessage, errorCode])
 
-    if (data?.session_auth_hash && data.loc_hash) {
-      dispatch(setSession(data))
-
-      if (serversListLoading === 'idle') {
-        dispatch(fetchServerList({ locHash: data.loc_hash, isPro: data.is_premium }))
-      }
-
-      if (serversListLoading === 'fulfilled') {
-        console.log('%c getAutopilot ', 'background: #383E49; color: #1ADEAE', getAutopilot)
-        const autopilot = await getAutopilot(data.session_auth_hash, serversList)
-        // TODO Move to async thunk
-        if (autopilot) {
-          dispatch(setAutopilot(autopilot))
-          dispatch(setCurrentLocation(autopilot.location))
-          dispatch(setCurrentDataCenter(autopilot.dataCenter))
-          connectProxy(autopilot.dataCenter.hosts[0].hostname)
-          dispatch(setIsConnected(true))
-        }
-      }
-
+  useEffect(() => {
+    // TODO Check the condition. Maybe if(session_auth_hash) enough?
+    if (sessionAuthHash && locHash) {
       gotToHome()
     }
+  }, [sessionAuthHash, locHash, gotToHome])
+
+  type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => Promise<void>
+  const handleLogin: HandleLogin = async e => {
+    e.preventDefault()
+    const { username, password, twoFa } = e.currentTarget
+    dispatch(login({ username: username?.value, password: password?.value, twoFa: twoFa?.value }))
   }
 
   return (
