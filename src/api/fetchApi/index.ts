@@ -1,4 +1,4 @@
-import { type ApiResponse, Method } from 'api/types'
+import type { ApiResponse, Method } from 'api/types'
 import { setWorkingApi } from 'state/slices/session'
 import store from 'state/store'
 import { ENVS } from 'utils/constants'

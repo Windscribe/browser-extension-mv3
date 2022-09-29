@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { useDispatch } from 'state/hooks'
 import { Button, Flex, Text, Input, Label, Box, Link } from 'theme-ui'
-import { login, serverList as getServerList } from 'api/index'
+import {
+  login,
+  serverCredentials as getServerCredentials,
+  serverList as getServerList,
+} from 'api/index'
 import getAutopilot from 'utils/getAutopilot'
 import { connectProxy } from 'utils/proxyConfig'
 import { setSession } from 'state/slices/session'
@@ -12,6 +16,7 @@ import {
   setIsConnected,
   setAutopilot,
   setAutopilotSelected,
+  setServerCredetials,
 } from 'state/slices/servers'
 import { useGoTo } from 'services/navigation'
 import { Header, HeaderLink } from 'components'
@@ -64,6 +69,10 @@ const Login: ThemeUiElement = () => {
           dispatch(setAutopilotSelected(true))
           connectProxy(autopilot.dataCenter.hosts[0].hostname)
           dispatch(setIsConnected(true))
+        }
+        const serverCredentials = await getServerCredentials(data.session_auth_hash)
+        if (serverCredentials.data) {
+          dispatch(setServerCredetials(serverCredentials.data))
         }
       }
 
