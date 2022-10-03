@@ -72,6 +72,27 @@ export const theme: Theme = {
         },
       },
     },
+    menu: {
+      cursor: 'pointer',
+      justifyContent: 'space-between',
+      backgroundColor: 'transparent',
+      padding: '0 16px 0 0',
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      height: '48px',
+      border: '2px',
+      borderBottomColor: 'border',
+      borderBottomStyle: 'solid',
+      fontWeight: 600,
+      color: 'secondaryText',
+      '&:hover': {
+        color: 'primaryText',
+        '& > svg': {
+          fill: 'primaryText',
+        },
+      },
+    },
   },
   forms: {
     label: {

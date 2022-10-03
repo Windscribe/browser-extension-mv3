@@ -15,15 +15,16 @@ import Logo from 'assets/img/logo.svg'
 import WhitelistOff from 'assets/img/whitelistOff.svg'
 import PowerButton from 'assets/img/powerButton.svg'
 import Globe from 'assets/img/globe.svg'
-import Shield from 'assets/img/shield.svg'
-import Blocker from 'assets/img/blocker.svg'
+import PrivacyIcon from 'assets/img/privacy.svg'
+import BlockerIcon from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import Flags from 'assets/flags'
-
 import { connectProxy, disconnectProxy } from 'utils/proxyConfig'
 
 const Home: ThemeUiElement = () => {
-  const gotToLocations = useGoTo('Locations')
+  const goToLocations = useGoTo('Locations')
+  const goToPreferences = useGoTo('Preferences')
+
   const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
   const countryCode = useSelector(s => s.servers.currentLocation?.country_code) || 'AUTO'
   const autopilotSelected = useSelector(state => state.servers.autopilotSelected)
@@ -79,8 +80,18 @@ const Home: ThemeUiElement = () => {
               backgroundColor: isConnected ? 'halfBlack' : 'background',
             }}
           >
-            <Button variant="simple">
-              <Menu sx={{ fill: 'white', opacity: '0.5', mx: '24px' }} />
+            <Button variant="simple" onClick={goToPreferences}>
+              <Menu
+                sx={{
+                  fill: 'white',
+                  opacity: '0.5',
+                  mx: '24px',
+                  transition: '0.3s',
+                  ':hover': {
+                    opacity: '1',
+                  },
+                }}
+              />
             </Button>
             <Logo sx={{ fill: 'white' }} />
           </Flex>
@@ -94,8 +105,8 @@ const Home: ThemeUiElement = () => {
             }}
           />
           <Flex sx={{ gap: '8px' }}>
-            <HeaderButton Icon={<Shield />} isConnected={isConnected} count={0} />
-            <HeaderButton Icon={<Blocker />} isConnected={isConnected} count={0} />
+            <HeaderButton Icon={PrivacyIcon} isConnected={isConnected} count={0} />
+            <HeaderButton Icon={BlockerIcon} isConnected={isConnected} count={0} />
           </Flex>
         </Flex>
         <Flex
@@ -164,7 +175,7 @@ const Home: ThemeUiElement = () => {
             <Button
               variant="simple"
               data-testid="globe-button"
-              onClick={gotToLocations}
+              onClick={goToLocations}
               sx={{
                 display: 'flex',
                 alignItems: 'center',

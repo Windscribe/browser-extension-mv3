@@ -26,7 +26,7 @@ import { type ThemeUiElement } from 'utils/types'
 
 const Login: ThemeUiElement = () => {
   const dispatch = useDispatch()
-  const gotToHome = useGoTo('Home')
+  const goToHome = useGoTo('Home')
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -75,8 +75,7 @@ const Login: ThemeUiElement = () => {
           dispatch(setServerCredetials(serverCredentials.data))
         }
       }
-
-      gotToHome()
+      goToHome()
     }
   }
 
