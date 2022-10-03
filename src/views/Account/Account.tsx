@@ -10,8 +10,6 @@ import { useSelector } from 'state/hooks'
 const Account: ThemeUiElement = () => {
   const session = useSelector(s => s.session)
 
-  console.log(session)
-
   return (
     <Box data-testid="account-page" bg="background">
       <Header
@@ -32,22 +30,25 @@ const Account: ThemeUiElement = () => {
       <Box sx={{ mx: '16px' }}>
         <AccountTitle title="INFO" />
         <RoundedBox sx={{ mb: '24px' }}>
-          <ListItem LeftSideComponent={'Username'} RightSideComponent={session.username} />
-          <ListItem LeftSideComponent={'Email'} RightSideComponent={session.email} noBorder />
+          <ListItem>
+            Username
+            <Box sx={{ fontWeight: '400' }}>{session.username}</Box>
+          </ListItem>
+          <ListItem noBorder>
+            Email
+            <Box sx={{ fontWeight: '400' }}>{session.email}</Box>
+          </ListItem>
         </RoundedBox>
         <AccountTitle title="PLAN" />
         <RoundedBox sx={{ mb: '24px' }}>
-          <ListItem
-            LeftSideComponent={`${
-              session.traffic_max === -1 ? 'Unlimited' : session.traffic_max
-            } GB`}
-            RightSideComponent={session.is_premium ? 'Pro' : 'Free'}
-          />
-          <ListItem
-            LeftSideComponent={'Expiry Date'}
-            RightSideComponent={session.premium_expiry_date}
-            noBorder
-          />
+          <ListItem>
+            {session.traffic_max === -1 ? 'Unlimited' : session.traffic_max} GB
+            <Box sx={{ fontWeight: '400' }}>{session.is_premium ? 'Pro' : 'Free'}</Box>
+          </ListItem>
+          <ListItem noBorder>
+            Expiry Date
+            <Box sx={{ fontWeight: '400' }}>{session.premium_expiry_date}</Box>
+          </ListItem>
         </RoundedBox>
       </Box>
     </Box>

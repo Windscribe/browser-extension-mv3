@@ -1,18 +1,11 @@
-import { Flex, FlexProps, Box } from 'theme-ui'
+import { Flex, FlexProps } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 
-type ListItemProps = FlexProps & {
-  LeftSideComponent?: React.ReactNode
-  RightSideComponent?: React.ReactNode
+type ListItemProps = React.PropsWithChildren<FlexProps> & {
   noBorder?: boolean
 }
 
-const ListItem: ThemeUiElement<ListItemProps> = ({
-  LeftSideComponent,
-  RightSideComponent,
-  noBorder = false,
-  ...restProps
-}) => {
+const ListItem: ThemeUiElement<ListItemProps> = ({ noBorder = false, children, ...restProps }) => {
   return (
     <Flex
       sx={{
@@ -31,8 +24,7 @@ const ListItem: ThemeUiElement<ListItemProps> = ({
       }}
       {...restProps}
     >
-      <Flex>{LeftSideComponent}</Flex>
-      <Box sx={{ fontWeight: '400' }}>{RightSideComponent}</Box>
+      {children}
     </Flex>
   )
 }

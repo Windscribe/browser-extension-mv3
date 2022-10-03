@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from 'theme-ui'
+import { Button, ButtonProps, Flex } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import ListItem from 'components/ListItem'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
@@ -26,25 +26,6 @@ const MenuButton: ThemeUiElement<MenuButtonProps> = ({
       {...restProps}
     >
       <ListItem
-        LeftSideComponent={
-          <>
-            <Icon
-              sx={{
-                marginRight: '16px',
-                fill: 'primaryText',
-              }}
-            />
-            {title}
-          </>
-        }
-        RightSideComponent={
-          <ArrowRightIcon
-            sx={{
-              transition: '0.3s',
-              fill: 'secondaryText',
-            }}
-          />
-        }
         noBorder={noBorder}
         sx={{
           color: 'secondaryText',
@@ -55,7 +36,23 @@ const MenuButton: ThemeUiElement<MenuButtonProps> = ({
             },
           },
         }}
-      />
+      >
+        <Flex>
+          <Icon
+            sx={{
+              marginRight: '16px',
+              fill: 'primaryText',
+            }}
+          />
+          {title}
+        </Flex>
+        <ArrowRightIcon
+          sx={{
+            transition: '0.3s',
+            fill: 'secondaryText',
+          }}
+        />
+      </ListItem>
     </Button>
   )
 }
