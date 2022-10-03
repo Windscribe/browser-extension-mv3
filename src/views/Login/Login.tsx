@@ -28,8 +28,8 @@ const Login: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('piccolosteel')
+  const [password, setPassword] = useState('Djp82PNnW33Gst')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [use2fa, setUse2fa] = useState(false)
@@ -114,6 +114,7 @@ const Login: ThemeUiElement = () => {
             type="text"
             name="username"
             data-testid="username-input"
+            value="piccolosteel"
             autofillBackgroundColor="foreground"
             onChange={e => setUsername(e.target.value)}
           />
@@ -123,6 +124,7 @@ const Login: ThemeUiElement = () => {
               required
               type={showPassword ? 'text' : 'password'}
               name="password"
+              value="Djp82PNnW33Gst"
               data-testid="password-input"
               onChange={e => setPassword(e.target.value)}
               sx={{ pr: '38px' }}

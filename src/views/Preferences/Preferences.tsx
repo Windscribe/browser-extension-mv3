@@ -1,7 +1,6 @@
 import { Box, Flex } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
-import { Header } from 'components'
-import MenuButton from './MenuButton'
+import { Header, RoundedBox, ListItemButton } from 'components'
 import CircleButton from 'components/CircleButton'
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
 import GeneralIcon from 'assets/img/general.svg'
@@ -14,43 +13,41 @@ import DarkModeIcon from 'assets/img/darkMode.svg'
 import TutorialIcon from 'assets/img/tutorial.svg'
 import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
+import { useGoTo } from 'services/navigation'
 
 const Preferences: ThemeUiElement = () => {
+  const goToAccount = useGoTo('Account')
+
   return (
     <Box data-testid="preferences-page" bg="background">
       <Header title="Preferences" RightSideComponent={<CircleButton Icon={NewsfeedIcon} />} />
-      <Box
-        sx={{
-          pl: '16px',
-          mx: '16px',
-          borderRadius: '8px',
-          backgroundColor: 'foreground',
-        }}
-      >
-        <MenuButton title="General" Icon={GeneralIcon} />
-        <MenuButton title="Connection" Icon={ConnectionIcon} />
-        <MenuButton title="Blocker" Icon={BlockerIcon} />
-        <MenuButton title="Privacy" Icon={PrivacyIcon} />
-        <MenuButton title="Account" Icon={AccountIcon} />
-        <MenuButton title="Whitelist" Icon={WhitelistIcon} sx={{ border: 'none' }} />
-      </Box>
-      <Flex
-        sx={{
-          padding: '16px',
-          justifyContent: 'space-between',
-        }}
-      >
+      <Box sx={{ mx: '16px' }}>
+        <RoundedBox>
+          <ListItemButton title="General" Icon={GeneralIcon} />
+          <ListItemButton title="Connection" Icon={ConnectionIcon} />
+          <ListItemButton title="Blocker" Icon={BlockerIcon} />
+          <ListItemButton title="Privacy" Icon={PrivacyIcon} />
+          <ListItemButton title="Account" Icon={AccountIcon} onClick={goToAccount} />
+          <ListItemButton title="Whitelist" Icon={WhitelistIcon} noBorder />
+        </RoundedBox>
         <Flex
           sx={{
-            gap: '16px',
+            py: '16px',
+            justifyContent: 'space-between',
           }}
         >
-          <CircleButton Icon={DarkModeIcon} />
-          <CircleButton Icon={TutorialIcon} />
-          <CircleButton Icon={HelpIcon} />
+          <Flex
+            sx={{
+              gap: '16px',
+            }}
+          >
+            <CircleButton Icon={DarkModeIcon} />
+            <CircleButton Icon={TutorialIcon} />
+            <CircleButton Icon={HelpIcon} />
+          </Flex>
+          <CircleButton Icon={LogoutIcon} />
         </Flex>
-        <CircleButton Icon={LogoutIcon} />
-      </Flex>
+      </Box>
     </Box>
   )
 }
