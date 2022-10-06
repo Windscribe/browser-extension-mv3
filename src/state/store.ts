@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import logger from 'redux-logger'
 
 import viewReducer from './slices/view'
 import sessionReducer from './slices/session'
@@ -18,6 +19,13 @@ export function buildFrom(preloadedState?: RootState): StoreType {
   return configureStore({
     reducer,
     preloadedState,
+    middleware: getDefaultMiddleware => {
+      const arr = [...getDefaultMiddleware()]
+      if (process.env.NODE_ENV === 'development') {
+        arr.push(logger)
+      }
+      return arr
+    },
   })
 }
 
