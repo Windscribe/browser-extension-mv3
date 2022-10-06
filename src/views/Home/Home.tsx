@@ -1,14 +1,13 @@
 import { useEffect } from 'react'
 import { Box, Button, Flex, Text } from 'theme-ui'
 
-import { useDispatch, useSelector } from 'state/hooks'
+import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
-import { setIsConnected } from 'state/slices/servers'
-import { setupServers } from 'state/asyncThunks/setupServers'
+import { setIsConnected, fetchServerList } from 'state/slices/servers'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -26,8 +25,11 @@ import { connectProxy, disconnectProxy } from 'utils/proxyConfig'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
+  const dispatchAlias = useDispatchAlias()
   const gotToLocations = useGoTo('Locations')
   const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
+  const serverListLoading = useSelector(s => s.servers.loading)
+  const bestLocationLoading = useSelector(s => s.bestLocation.loading)
   const countryCode = useSelector(s => s.servers.currentLocation?.country_code) || 'AUTO'
   const isConnected = useSelector(state => state.servers.isConnected)
   const isPremium = useSelector(s => s.session.is_premium)
@@ -35,8 +37,15 @@ const Home: ThemeUiElement = () => {
   const FlagSvg = Flags[countryCode] || Flags['AUTO']
 
   useEffect(() => {
-    dispatch(setupServers())
+    dispatch(fetchServerList())
   }, [])
+
+  useEffect(() => {
+    // TODO Review this condition
+    if (serverListLoading === 'fulfilled' && bestLocationLoading === 'idle') {
+      dispatchAlias('servers/setAutopilotAsCurrent')
+    }
+  }, [serverListLoading, bestLocationLoading])
 
   const toggleProxy = () => {
     // TODO: Move dispatch calls to connectProxy and disconnectProxy functions

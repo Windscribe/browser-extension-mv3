@@ -3,6 +3,9 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import type { ServerList, Location, DataCenter, Autopilot } from 'api/types'
 import { type LoadingState } from 'utils/types'
 import { getServerList } from 'api'
+import type { AppDispatch, RootState } from '../store'
+import { connectProxy } from 'utils/proxyConfig'
+import { fetchBestLocation } from './bestLocation'
 
 interface ServersState {
   serverList?: ServerList
@@ -22,16 +25,62 @@ const initialState: ServersState = {
   autopilot: undefined,
 }
 
-type SessionDetails = { locHash: string; isPro?: 0 | 1 }
+// TODO create generic type for async thunk
+export const fetchServerList = createAsyncThunk<
+  ServerList | undefined, // Return type of the payload creator
+  undefined, // argument to the payload creator
+  {
+    dispatch: AppDispatch
+    state: RootState
+  }
+>('servers/fetchServerList', async (_, { getState }) => {
+  let response
+  const store = getState()
+  const serversListLoading = store.servers.loading
+  const serverList = store.servers.serverList
+  const { loc_hash, is_premium } = store.session
 
-export const fetchServerList = createAsyncThunk(
-  'servers/fetchServerList',
-  async (sessionDetails: SessionDetails) => {
-    const { locHash, isPro } = sessionDetails
-    const response = await getServerList(locHash, isPro)
-    return response.data
-  },
-)
+  if (serversListLoading === 'fulfilled') return serverList
+
+  if (loc_hash && serversListLoading === 'idle') {
+    response = await getServerList(loc_hash, is_premium)
+  }
+  return response?.data // what should I return if condition is false
+})
+
+export const setAutopilotAsCurrent = createAsyncThunk<
+  ServerList | void, // Return type of the payload creator
+  undefined, // argument to the payload creator
+  {
+    dispatch: AppDispatch
+    state: RootState
+  }
+>('servers/setAutopilotAsCurrent', async (_, { getState, dispatch }) => {
+  const bestLocationLoading = getState().bestLocation.loading
+  if (bestLocationLoading === 'idle') {
+    await dispatch(fetchBestLocation())
+  }
+
+  const { location_name: bestLocationName, dc_id: bestDataCenterId } = getState().bestLocation
+  if (!bestLocationName || !bestDataCenterId) return
+  const location = selectLocationByName(getState(), bestLocationName)
+  if (!location) return
+  const dataCenter = selectDataCenterById(location, bestDataCenterId)
+  if (!dataCenter) return
+
+  dispatch(setAutopilot({ location, dataCenter }))
+  dispatch(setCurrentLocation(location))
+  dispatch(setCurrentDataCenter(dataCenter))
+  const hostname = getState().servers.autopilot?.dataCenter.hosts[0].hostname
+  if (!hostname) return
+  connectProxy(hostname)
+  dispatch(setIsConnected(true))
+})
+
+const selectLocationByName = (state: RootState, locationName: string): Location | undefined =>
+  state.servers.serverList?.find(server => server.name === locationName)
+const selectDataCenterById = (location: Location, dataCenterId: number): DataCenter | undefined =>
+  location?.groups?.find(dataCenter => dataCenter.id === dataCenterId)
 
 export const serversSlice = createSlice({
   name: 'servers',

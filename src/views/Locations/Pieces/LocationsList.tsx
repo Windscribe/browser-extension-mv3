@@ -15,7 +15,7 @@ const LocationsList: React.FC = () => {
 
   useEffect(() => {
     if (serversListLoading === 'idle' && locHash) {
-      dispatch(fetchServerList({ locHash, isPro }))
+      dispatch(fetchServerList())
     }
   }, [locHash, isPro, serversListLoading, dispatch])
 

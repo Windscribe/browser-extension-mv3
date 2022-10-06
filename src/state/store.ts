@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
+import { alias } from '@eduardoac-skimlinks/webext-redux'
 
 import viewReducer from './slices/view'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
 import bestLocationReducer from './slices/bestLocation'
+import aliases from './aliases'
 
 const reducer = {
   view: viewReducer,
@@ -22,7 +24,7 @@ export function buildFrom(preloadedState?: RootState): StoreType {
     reducer,
     preloadedState,
     middleware: getDefaultMiddleware => {
-      const arr = [...getDefaultMiddleware()]
+      const arr = [alias(aliases), ...getDefaultMiddleware()]
       if (process.env.NODE_ENV === 'development') {
         arr.push(logger)
       }
