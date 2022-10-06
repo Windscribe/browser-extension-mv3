@@ -1,3 +1,4 @@
+// MAke async thunk
 export const connectProxy = (host: string): void => {
   const config = {
     mode: 'fixed_servers',
