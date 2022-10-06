@@ -7,7 +7,7 @@ import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
-import { setIsConnected, fetchServerList } from 'state/slices/servers'
+import { setIsConnected, fetchServerList, SET_AUTOPILOT_AS_CURRENT } from 'state/slices/servers'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -43,7 +43,7 @@ const Home: ThemeUiElement = () => {
   useEffect(() => {
     // TODO Review this condition
     if (serverListLoading === 'fulfilled' && bestLocationLoading === 'idle') {
-      dispatchAlias('servers/setAutopilotAsCurrent')
+      dispatchAlias(SET_AUTOPILOT_AS_CURRENT)
     }
   }, [serverListLoading, bestLocationLoading])
 

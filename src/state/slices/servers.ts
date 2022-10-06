@@ -25,14 +25,10 @@ const initialState: ServersState = {
   autopilot: undefined,
 }
 
-// TODO create generic type for async thunk
 export const fetchServerList = createAsyncThunk<
   ServerList | undefined, // Return type of the payload creator
   undefined, // argument to the payload creator
-  {
-    dispatch: AppDispatch
-    state: RootState
-  }
+  { dispatch: AppDispatch; state: RootState }
 >('servers/fetchServerList', async (_, { getState }) => {
   let response
   const store = getState()
@@ -48,14 +44,12 @@ export const fetchServerList = createAsyncThunk<
   return response?.data // what should I return if condition is false
 })
 
+export const SET_AUTOPILOT_AS_CURRENT = 'servers/setAutopilotAsCurrent'
 export const setAutopilotAsCurrent = createAsyncThunk<
-  ServerList | void, // Return type of the payload creator
+  void, // Return type of the payload creator
   undefined, // argument to the payload creator
-  {
-    dispatch: AppDispatch
-    state: RootState
-  }
->('servers/setAutopilotAsCurrent', async (_, { getState, dispatch }) => {
+  { dispatch: AppDispatch; state: RootState }
+>(SET_AUTOPILOT_AS_CURRENT, async (_, { getState, dispatch }) => {
   const bestLocationLoading = getState().bestLocation.loading
   if (bestLocationLoading === 'idle') {
     await dispatch(fetchBestLocation())
