@@ -96,11 +96,6 @@ export const theme: Theme = {
   },
   forms: {
     label: {
-      fontWeight: '600',
-      color: 'primaryText',
-      mt: '16px',
-      mb: '8px',
-      mr: '16px',
       width: 'auto',
     },
     input: {

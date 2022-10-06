@@ -1,4 +1,4 @@
-import { Flex, Text } from 'theme-ui'
+import { Box, Flex, Text } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import GoBackButton from './GoBackButton'
 
@@ -27,7 +27,7 @@ const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => (
     >
       {title}
     </Text>
-    {RightSideComponent}
+    {RightSideComponent || <Box sx={{ width: '32px' }} />}
   </Flex>
 )
 

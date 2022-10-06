@@ -1,4 +1,5 @@
 export const connectProxy = (host: string): void => {
+  console.log(host)
   const config = {
     mode: 'fixed_servers',
     rules: {
