@@ -1,5 +1,4 @@
-// MAke async thunk
-export const connectProxy = (host: string): void => {
+export const connect = async (host: string): Promise<void> => {
   const config = {
     mode: 'fixed_servers',
     rules: {
@@ -10,14 +9,13 @@ export const connectProxy = (host: string): void => {
       //   bypassList: ['foobar.com'],
     },
   }
-  // TODO: Set 'isConnected' inside proxy.api callback instead of directly in components.
-  chrome.proxy.settings.set({ value: config, scope: 'regular' }, function () {})
+  return await chrome.proxy.settings.set({ value: config, scope: 'regular' })
 }
 
-export const disconnectProxy = (): void => {
+export const disconnect = async (): Promise<void> => {
   const config = {
     mode: 'direct',
     rules: {},
   }
-  chrome.proxy.settings.set({ value: config, scope: 'regular' }, function () {})
+  return await chrome.proxy.settings.set({ value: config, scope: 'regular' })
 }

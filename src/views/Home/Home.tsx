@@ -7,7 +7,8 @@ import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
-import { setIsConnected, FETCH_SERVER_LIST, SET_AUTOPILOT_AS_CURRENT } from 'state/slices/servers'
+import { FETCH_SERVER_LIST, SET_AUTOPILOT_AS_CURRENT } from 'state/slices/servers'
+import { connectProxy, disconnectProxy } from 'state/slices/proxy'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -21,8 +22,6 @@ import Blocker from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import Flags from 'assets/flags'
 
-import { connectProxy, disconnectProxy } from 'utils/proxyConfig'
-
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const dispatchAlias = useDispatchAlias()
@@ -31,7 +30,7 @@ const Home: ThemeUiElement = () => {
   const serverListLoading = useSelector(s => s.servers.loading)
   const bestLocationLoading = useSelector(s => s.bestLocation.loading)
   const countryCode = useSelector(s => s.servers.currentLocation?.country_code) || 'AUTO'
-  const isConnected = useSelector(state => state.servers.isConnected)
+  const isConnected = useSelector(state => state.proxy.isConnected)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
   const serversListLoading = useSelector(s => s.servers.loading)
@@ -49,17 +48,15 @@ const Home: ThemeUiElement = () => {
     if (serverListLoading === 'fulfilled' && bestLocationLoading === 'idle') {
       dispatchAlias(SET_AUTOPILOT_AS_CURRENT)
     }
-  }, [serverListLoading, bestLocationLoading])
+  }, [serverListLoading, bestLocationLoading, dispatchAlias])
 
-  const toggleProxy = () => {
-    // TODO: Move dispatch calls to connectProxy and disconnectProxy functions
+  const toggleProxy = async () => {
+    // TODO Review this condition
     if (currentDataCenter) {
       if (isConnected) {
-        disconnectProxy()
-        dispatch(setIsConnected(false))
+        await dispatch(disconnectProxy())
       } else {
-        connectProxy(currentDataCenter.hosts[0].hostname)
-        dispatch(setIsConnected(true))
+        await dispatch(connectProxy(currentDataCenter.hosts[0].hostname))
       }
     }
   }

@@ -3,11 +3,11 @@ import { Box, Text, Flex, Button } from 'theme-ui'
 import HeartIcon from 'assets/img/heart-outline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
-import { setCurrentLocation, setCurrentDataCenter, setIsConnected } from 'state/slices/servers'
+import { setCurrentLocation, setCurrentDataCenter } from 'state/slices/servers'
+import { connectProxy } from 'state/slices/proxy'
 import { useDispatch, useSelector } from 'state/hooks'
 import { useGoTo } from 'services/navigation'
 import { type DataCenter, Location } from 'api/types'
-import { connectProxy } from 'utils/proxyConfig'
 
 type LocationsListItemDetailsProps = {
   location: Location
@@ -25,8 +25,7 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
   const handleClick = (dataCenter: DataCenter) => {
     dispatch(setCurrentLocation(location))
     dispatch(setCurrentDataCenter(dataCenter))
-    connectProxy(dataCenter.hosts[0].hostname)
-    dispatch(setIsConnected(true))
+    dispatch(connectProxy(dataCenter.hosts[0].hostname))
     goToHome()
   }
 

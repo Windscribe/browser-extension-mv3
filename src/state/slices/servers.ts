@@ -4,7 +4,7 @@ import type { ServerList, Location, DataCenter, Autopilot } from 'api/types'
 import { type LoadingState } from 'utils/types'
 import { getServerList } from 'api'
 import type { AppDispatch, RootState } from '../store'
-import { connectProxy } from 'utils/proxyConfig'
+import { connectProxy } from './proxy'
 import { fetchBestLocation } from './bestLocation'
 
 interface ServersState {
@@ -12,7 +12,6 @@ interface ServersState {
   loading: LoadingState
   currentLocation?: Location
   currentDataCenter?: DataCenter
-  isConnected: boolean
   autopilot?: Autopilot
 }
 
@@ -21,7 +20,6 @@ const initialState: ServersState = {
   loading: 'idle',
   currentLocation: undefined,
   currentDataCenter: undefined,
-  isConnected: false,
   autopilot: undefined,
 }
 
@@ -47,6 +45,7 @@ export const fetchServerList = createAsyncThunk<
 })
 
 export const SET_AUTOPILOT_AS_CURRENT = 'servers/setAutopilotAsCurrent'
+
 export const setAutopilotAsCurrent = createAsyncThunk<
   void, // Return type of the payload creator
   undefined, // argument to the payload creator
@@ -67,10 +66,9 @@ export const setAutopilotAsCurrent = createAsyncThunk<
   dispatch(setAutopilot({ location, dataCenter }))
   dispatch(setCurrentLocation(location))
   dispatch(setCurrentDataCenter(dataCenter))
-  const hostname = getState().servers.autopilot?.dataCenter.hosts[0].hostname
+  const hostname = getState().servers.currentDataCenter?.hosts[0].hostname
   if (!hostname) return
-  connectProxy(hostname)
-  dispatch(setIsConnected(true))
+  await dispatch(connectProxy(hostname))
 })
 
 const selectLocationByName = (state: RootState, locationName: string): Location | undefined =>
@@ -90,9 +88,6 @@ export const serversSlice = createSlice({
     },
     setCurrentDataCenter(state, action: PayloadAction<DataCenter>) {
       state.currentDataCenter = action.payload
-    },
-    setIsConnected(state, action: PayloadAction<boolean>) {
-      state.isConnected = action.payload
     },
     setAutopilot(state, action: PayloadAction<Autopilot>) {
       state.autopilot = action.payload
@@ -114,12 +109,7 @@ export const serversSlice = createSlice({
   },
 })
 
-export const {
-  setServerList,
-  setCurrentLocation,
-  setCurrentDataCenter,
-  setIsConnected,
-  setAutopilot,
-} = serversSlice.actions
+export const { setServerList, setCurrentLocation, setCurrentDataCenter, setAutopilot } =
+  serversSlice.actions
 
 export default serversSlice.reducer

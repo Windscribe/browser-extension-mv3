@@ -3,6 +3,7 @@ import logger from 'redux-logger'
 import { alias } from '@eduardoac-skimlinks/webext-redux'
 
 import viewReducer from './slices/view'
+import proxyReducer from './slices/proxy'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
 import bestLocationReducer from './slices/bestLocation'
@@ -10,6 +11,7 @@ import aliases from './aliases'
 
 const reducer = {
   view: viewReducer,
+  proxy: proxyReducer,
   session: sessionReducer,
   servers: serversReducer,
   bestLocation: bestLocationReducer,
