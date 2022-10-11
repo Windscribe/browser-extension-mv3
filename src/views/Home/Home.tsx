@@ -7,7 +7,7 @@ import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
-import { setIsConnected, fetchServerList, SET_AUTOPILOT_AS_CURRENT } from 'state/slices/servers'
+import { setIsConnected, FETCH_SERVER_LIST, SET_AUTOPILOT_AS_CURRENT } from 'state/slices/servers'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -34,11 +34,15 @@ const Home: ThemeUiElement = () => {
   const isConnected = useSelector(state => state.servers.isConnected)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
+  const serversListLoading = useSelector(s => s.servers.loading)
+  const locHash = useSelector(s => s.session.loc_hash)
   const FlagSvg = Flags[countryCode] || Flags['AUTO']
 
   useEffect(() => {
-    dispatch(fetchServerList())
-  }, [])
+    if (serversListLoading === 'idle' && locHash) {
+      dispatchAlias(FETCH_SERVER_LIST)
+    }
+  }, [locHash, isPremium, serversListLoading, dispatchAlias])
 
   useEffect(() => {
     // TODO Review this condition

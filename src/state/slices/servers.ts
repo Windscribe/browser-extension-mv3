@@ -25,11 +25,13 @@ const initialState: ServersState = {
   autopilot: undefined,
 }
 
+export const FETCH_SERVER_LIST = 'servers/fetchServerList'
+
 export const fetchServerList = createAsyncThunk<
   ServerList | undefined, // Return type of the payload creator
   undefined, // argument to the payload creator
   { dispatch: AppDispatch; state: RootState }
->('servers/fetchServerList', async (_, { getState }) => {
+>(FETCH_SERVER_LIST, async (_, { getState }) => {
   let response
   const store = getState()
   const serversListLoading = store.servers.loading
@@ -38,7 +40,7 @@ export const fetchServerList = createAsyncThunk<
 
   if (serversListLoading === 'fulfilled') return serverList
 
-  if (loc_hash && serversListLoading === 'idle') {
+  if (loc_hash) {
     response = await getServerList(loc_hash, is_premium)
   }
   return response?.data // what should I return if condition is false
