@@ -6,20 +6,19 @@ import { getServerList } from 'api'
 import type { AppDispatch, RootState } from '../store'
 import { connectProxy } from './proxy'
 import { fetchBestLocation } from './bestLocation'
+import { setCurrentLocation } from './currentLocation'
+import { setCurrentDataCenter } from './currentDataCenter'
 
 interface ServersState {
   serverList?: ServerList
   loading: LoadingState
-  currentLocation?: Location
-  currentDataCenter?: DataCenter
+  // TODO Discuss. Maybe we don't need autopilot at all? Is currentLocation not enough?
   autopilot?: Autopilot
 }
 
 const initialState: ServersState = {
   serverList: undefined,
   loading: 'idle',
-  currentLocation: undefined,
-  currentDataCenter: undefined,
   autopilot: undefined,
 }
 
@@ -66,7 +65,7 @@ export const setAutopilotAsCurrent = createAsyncThunk<
   dispatch(setAutopilot({ location, dataCenter }))
   dispatch(setCurrentLocation(location))
   dispatch(setCurrentDataCenter(dataCenter))
-  const hostname = getState().servers.currentDataCenter?.hosts[0].hostname
+  const hostname = getState().currentDataCenter?.hosts?.[0].hostname
   if (!hostname) return
   await dispatch(connectProxy(hostname))
 })
@@ -82,12 +81,6 @@ export const serversSlice = createSlice({
   reducers: {
     setServerList(state, action: PayloadAction<ServerList>) {
       state.serverList = action.payload
-    },
-    setCurrentLocation(state, action: PayloadAction<Location>) {
-      state.currentLocation = action.payload
-    },
-    setCurrentDataCenter(state, action: PayloadAction<DataCenter>) {
-      state.currentDataCenter = action.payload
     },
     setAutopilot(state, action: PayloadAction<Autopilot>) {
       state.autopilot = action.payload
@@ -109,7 +102,6 @@ export const serversSlice = createSlice({
   },
 })
 
-export const { setServerList, setCurrentLocation, setCurrentDataCenter, setAutopilot } =
-  serversSlice.actions
+export const { setServerList, setAutopilot } = serversSlice.actions
 
 export default serversSlice.reducer

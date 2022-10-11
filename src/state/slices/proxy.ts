@@ -14,6 +14,7 @@ const initialState: ProxyState = {
 }
 
 export const CONNECT_PROXY = 'proxy/connectProxy'
+export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 
 export const connectProxy = createAsyncThunk<
   void,
@@ -28,7 +29,7 @@ export const disconnectProxy = createAsyncThunk<
   void,
   undefined,
   { dispatch: AppDispatch; state: RootState }
->(CONNECT_PROXY, async (_, { dispatch }) => {
+>(DISCONNECT_PROXY, async (_, { dispatch }) => {
   await disconnect()
   dispatch(resetProxy())
 })

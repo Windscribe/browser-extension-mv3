@@ -3,7 +3,8 @@ import { Box, Text, Flex, Button } from 'theme-ui'
 import HeartIcon from 'assets/img/heart-outline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
-import { setCurrentLocation, setCurrentDataCenter } from 'state/slices/servers'
+import { setCurrentLocation } from 'state/slices/currentLocation'
+import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectProxy } from 'state/slices/proxy'
 import { useDispatch, useSelector } from 'state/hooks'
 import { useGoTo } from 'services/navigation'
@@ -20,7 +21,7 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
 }) => {
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
-  const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
+  const currentDataCenter = useSelector(s => s.currentDataCenter)
 
   const handleClick = (dataCenter: DataCenter) => {
     dispatch(setCurrentLocation(location))

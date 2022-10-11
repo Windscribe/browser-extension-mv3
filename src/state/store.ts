@@ -7,6 +7,8 @@ import proxyReducer from './slices/proxy'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
 import bestLocationReducer from './slices/bestLocation'
+import currentLocationReducer from './slices/currentLocation'
+import currentDataCenterReducer from './slices/currentDataCenter'
 import aliases from './aliases'
 
 const reducer = {
@@ -15,6 +17,8 @@ const reducer = {
   session: sessionReducer,
   servers: serversReducer,
   bestLocation: bestLocationReducer,
+  currentLocation: currentLocationReducer,
+  currentDataCenter: currentDataCenterReducer,
 }
 
 const store = configureStore({

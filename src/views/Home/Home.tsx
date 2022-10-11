@@ -26,10 +26,10 @@ const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const dispatchAlias = useDispatchAlias()
   const gotToLocations = useGoTo('Locations')
-  const currentDataCenter = useSelector(s => s.servers.currentDataCenter)
+  const currentDataCenter = useSelector(s => s.currentDataCenter)
   const serverListLoading = useSelector(s => s.servers.loading)
   const bestLocationLoading = useSelector(s => s.bestLocation.loading)
-  const countryCode = useSelector(s => s.servers.currentLocation?.country_code) || 'AUTO'
+  const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
   const isConnected = useSelector(state => state.proxy.isConnected)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
@@ -52,7 +52,7 @@ const Home: ThemeUiElement = () => {
 
   const toggleProxy = async () => {
     // TODO Review this condition
-    if (currentDataCenter) {
+    if (currentDataCenter?.hosts?.[0]) {
       if (isConnected) {
         await dispatch(disconnectProxy())
       } else {
