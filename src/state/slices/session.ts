@@ -29,12 +29,13 @@ const initialState: SessionState = {
   loading: 'idle',
 }
 
-type Credentials = {
+export const LOGIN = 'session/login'
+export type Credentials = {
   username: string
   password: string
   twoFa?: string
 }
-export const login = createAsyncThunk('session/login', async (credentials: Credentials) => {
+export const login = createAsyncThunk(LOGIN, async (credentials: Credentials) => {
   const { username, password, twoFa } = credentials
   const response = await loginRequest(username, password, twoFa)
   if (response.data) return response.data

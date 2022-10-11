@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Button, Flex, Text, Input, Label, Box, Link, Spinner } from 'theme-ui'
 
-import { login } from 'state/slices/session'
+import { LOGIN } from 'state/slices/session'
 import { useGoTo } from 'services/navigation'
 import { Header, HeaderLink } from 'components'
-import { useDispatch, useSelector } from 'state/hooks'
+import { useDispatchAlias, useSelector } from 'state/hooks'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 import { type ThemeUiElement } from 'utils/types'
 
 const Login: ThemeUiElement = () => {
-  const dispatch = useDispatch()
+  const dispatchAlias = useDispatchAlias()
   const gotToHome = useGoTo('Home')
   const errorMessage = useSelector(s => s.session.errorMessage)
   const errorCode = useSelector(s => s.session.errorCode)
@@ -52,7 +52,11 @@ const Login: ThemeUiElement = () => {
   const handleLogin: HandleLogin = async e => {
     e.preventDefault()
     const { username, password, twoFa } = e.currentTarget
-    dispatch(login({ username: username?.value, password: password?.value, twoFa: twoFa?.value }))
+    await dispatchAlias(LOGIN, {
+      username: username?.value,
+      password: password?.value,
+      twoFa: twoFa?.value,
+    })
   }
 
   return (
