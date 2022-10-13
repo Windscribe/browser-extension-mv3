@@ -13,7 +13,7 @@ describe('Locations', () => {
     popupPage.on('request', interceptRequests)
   })
 
-  it('Loges in, navigates to Locations page, opens a country/region accordion and selects location', async () => {
+  it.skip('Loges in, navigates to Locations page, opens a country/region accordion and selects location', async () => {
     // Go to Login page
     const goLoginButton = await popupPage.$('[data-testid=login-button]')
     await goLoginButton.click()
