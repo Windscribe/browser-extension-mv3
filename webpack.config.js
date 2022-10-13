@@ -31,6 +31,7 @@ const options = {
     contentScript: path.join(__dirname, 'src', 'pages', 'content', 'index.js'),
     devtools: path.join(__dirname, 'src', 'pages', 'devtools', 'index.js'),
     panel: path.join(__dirname, 'src', 'pages', 'panel', 'index.jsx'),
+    debugLog: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.tsx'),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'contentScript', 'devtools'],
@@ -171,6 +172,12 @@ const options = {
       template: path.join(__dirname, 'src', 'pages', 'panel', 'index.html'),
       filename: 'panel.html',
       chunks: ['panel'],
+      cache: false,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.html'),
+      filename: 'debugLog.html',
+      chunks: ['debugLog'],
       cache: false,
     }),
     ...maybeProgressPlugin,

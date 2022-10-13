@@ -5,7 +5,7 @@ export const connectProxy = (host: string): void => {
     rules: {
       singleProxy: {
         scheme: 'https',
-        host,
+        host: host.includes('us-central') ? 'dassadsda.com' : host,
       },
       //   bypassList: ['foobar.com'],
     },

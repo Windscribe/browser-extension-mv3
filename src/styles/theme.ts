@@ -11,7 +11,7 @@ export const theme: Theme = {
       body: {
         fontSize: '14px',
       },
-      width: '324px',
+      // width: '324px',
       // minHeight: '298px',
       height: 'auto',
       backgroundColor: 'white',
@@ -91,6 +91,15 @@ export const theme: Theme = {
         '& > svg': {
           fill: 'primaryText',
         },
+      },
+    },
+    debug: {
+      cursor: 'pointer',
+      backgroundColor: 'lakeBlue',
+      color: 'primarytext',
+      ':hover': {
+        backgroundColor: 'white',
+        color: 'black',
       },
     },
   },

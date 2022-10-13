@@ -18,6 +18,7 @@ import {
   setAutopilotSelected,
   setServerCredetials,
 } from 'state/slices/servers'
+import { pushToDebugLog } from 'state/slices/debugLog'
 import { useGoTo } from 'services/navigation'
 import { Header, HeaderLink } from 'components'
 import ShowPassword from 'assets/img/showPassword.svg'
@@ -56,6 +57,9 @@ const Login: ThemeUiElement = () => {
       setError(errorMessage)
     }
     if (data?.session_auth_hash && data.loc_hash) {
+      pushToDebugLog(
+        '12 October;19:03:15.129 [background] [INFO ] [get_session         ] - Revision Hash changed ',
+      )
       dispatch(setSession(data))
       const serverList = await getServerList(data.loc_hash, data.is_premium)
 
@@ -94,7 +98,12 @@ const Login: ThemeUiElement = () => {
       <Box sx={{ mx: '16px' }}>
         <form onSubmit={handleLogin}>
           <Flex sx={{ justifyContent: 'space-between', gap: '16px' }}>
-            <Label htmlFor="username">Username</Label>
+            <Label
+              htmlFor="username"
+              sx={{ fontWeight: '600', color: 'primaryText', mt: '16px', mb: '8px', mr: '16px' }}
+            >
+              Username
+            </Label>
             {error && (
               <Text
                 sx={{
@@ -118,7 +127,12 @@ const Login: ThemeUiElement = () => {
             value="piccolosteel"
             onChange={e => setUsername(e.target.value)}
           />
-          <Label htmlFor="password">Password</Label>
+          <Label
+            htmlFor="password"
+            sx={{ fontWeight: '600', color: 'primaryText', mt: '16px', mb: '8px', mr: '16px' }}
+          >
+            Password
+          </Label>
           <Flex>
             <Input
               required

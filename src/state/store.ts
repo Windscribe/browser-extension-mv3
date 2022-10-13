@@ -3,12 +3,14 @@ import viewReducer from './slices/view'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
 import connectionReducer from './slices/connection'
+import debugLogReducer from './slices/debugLog'
 
 const reducer = {
   view: viewReducer,
   session: sessionReducer,
   servers: serversReducer,
   connection: connectionReducer,
+  debugLog: debugLogReducer,
 }
 
 const store = configureStore({
