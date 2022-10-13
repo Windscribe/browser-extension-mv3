@@ -35,7 +35,7 @@ declare module '@reduxjs/toolkit' {
   function createAsyncThunk<
     Returned,
     ThunkArg = void,
-    ThunkApiConfig extends AsyncThunkConfig = { state: RootState; dispatch: AppDispatch }, // here is the magic line
+    ThunkApiConfig extends AsyncThunkConfig = { state: RootState; dispatch: AppDispatch },
   >(
     typePrefix: string,
     payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, ThunkApiConfig>,
