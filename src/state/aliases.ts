@@ -1,10 +1,6 @@
-import {
-  setAutopilotAsCurrent,
-  fetchServerList,
-  FETCH_SERVER_LIST,
-  SET_AUTOPILOT_AS_CURRENT,
-} from './slices/servers'
+import { fetchServerList, FETCH_SERVER_LIST } from './slices/servers'
 import { login, LOGIN, type Credentials } from './slices/session'
+import { connectToBestLocation, CONNECT_TO_BEST_LOCATION } from './slices/bestLocation'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string
@@ -17,5 +13,5 @@ const _login: ActionCreator<Credentials, ReturnType<typeof login>> = ({ payload 
 export default {
   [`alias/${LOGIN}`]: _login,
   [`alias/${FETCH_SERVER_LIST}`]: fetchServerList,
-  [`alias/${SET_AUTOPILOT_AS_CURRENT}`]: setAutopilotAsCurrent,
+  [`alias/${CONNECT_TO_BEST_LOCATION}`]: connectToBestLocation,
 }

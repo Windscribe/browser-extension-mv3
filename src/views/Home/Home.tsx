@@ -7,7 +7,8 @@ import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
-import { FETCH_SERVER_LIST, SET_AUTOPILOT_AS_CURRENT } from 'state/slices/servers'
+import { FETCH_SERVER_LIST } from 'state/slices/servers'
+import { CONNECT_TO_BEST_LOCATION } from 'state/slices/bestLocation'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
@@ -44,19 +45,20 @@ const Home: ThemeUiElement = () => {
   }, [locHash, isPremium, serversListLoading, dispatchAlias])
 
   useEffect(() => {
-    // TODO Review this condition
+    // TODO Review this condition. Every time serverList updated we set best location as current
     if (serverListLoading === 'fulfilled' && bestLocationLoading === 'idle') {
-      dispatchAlias(SET_AUTOPILOT_AS_CURRENT)
+      dispatchAlias(CONNECT_TO_BEST_LOCATION)
     }
-  }, [serverListLoading, bestLocationLoading, dispatchAlias])
+  }, [serverListLoading, dispatchAlias])
 
   const toggleProxy = async () => {
-    // TODO Review this condition
-    if (currentDataCenter?.hosts?.[0]) {
-      if (isConnected) {
-        await dispatch(disconnectProxy())
-      } else {
+    if (isConnected) {
+      await dispatch(disconnectProxy())
+    } else {
+      if (currentDataCenter?.hosts?.[0]) {
         await dispatch(connectProxy(currentDataCenter.hosts[0].hostname))
+      } else {
+        dispatchAlias(CONNECT_TO_BEST_LOCATION)
       }
     }
   }

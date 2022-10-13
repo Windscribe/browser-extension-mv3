@@ -1,9 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { getBestLocation } from 'api'
-import { type BestLocation } from 'api/types'
+import type { BestLocation } from 'api/types'
 import { type LoadingState } from 'utils/types'
-import type { AppDispatch, RootState } from '../store'
+import { selectLocationByName, findDataCenterById } from '../selectors'
+import { connectProxy } from './proxy'
+import { setCurrentLocation } from './currentLocation'
+import { setCurrentDataCenter } from './currentDataCenter'
 
 interface BestLocationState extends Partial<BestLocation> {
   loading: LoadingState
@@ -35,7 +38,33 @@ export const fetchBestLocation = createAsyncThunk<
   if (!sessionAuthHash) return // TODO Decide how handle this
   const bestLocation = await getBestLocation(sessionAuthHash)
   return bestLocation.data
-})
+  },
+)
+
+export const CONNECT_TO_BEST_LOCATION = 'servers/connectToBestLocation'
+
+export const connectToBestLocation = createAsyncThunk(
+  CONNECT_TO_BEST_LOCATION,
+  async (_, { getState, dispatch }) => {
+    const bestLocationLoading = getState().bestLocation.loading
+    if (bestLocationLoading === 'idle') {
+      await dispatch(fetchBestLocation())
+    }
+
+    const { location_name: bestLocationName, dc_id: bestDataCenterId } = getState().bestLocation
+    if (!bestLocationName || !bestDataCenterId) return
+    const location = selectLocationByName(getState(), bestLocationName)
+    if (!location) return
+    const dataCenter = findDataCenterById(location, bestDataCenterId)
+    if (!dataCenter) return
+
+    dispatch(setCurrentLocation(location))
+    dispatch(setCurrentDataCenter(dataCenter))
+    const hostname = getState().currentDataCenter?.hosts?.[0].hostname
+    if (!hostname) return
+    await dispatch(connectProxy(hostname))
+  },
+)
 
 export const bestLocationSlice = createSlice({
   name: 'bestLocation',

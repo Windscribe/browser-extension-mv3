@@ -1,34 +1,22 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
-import type { ServerList, Location, DataCenter, Autopilot } from 'api/types'
+import type { ServerList } from 'api/types'
 import { type LoadingState } from 'utils/types'
 import { getServerList } from 'api'
-import type { AppDispatch, RootState } from '../store'
-import { connectProxy } from './proxy'
-import { fetchBestLocation } from './bestLocation'
-import { setCurrentLocation } from './currentLocation'
-import { setCurrentDataCenter } from './currentDataCenter'
 
 interface ServersState {
   serverList?: ServerList
   loading: LoadingState
-  // TODO Discuss. Maybe we don't need autopilot at all? Is currentLocation not enough?
-  autopilot?: Autopilot
 }
 
 const initialState: ServersState = {
   serverList: undefined,
   loading: 'idle',
-  autopilot: undefined,
 }
 
 export const FETCH_SERVER_LIST = 'servers/fetchServerList'
 
-export const fetchServerList = createAsyncThunk<
-  ServerList | undefined, // Return type of the payload creator
-  undefined, // argument to the payload creator
-  { dispatch: AppDispatch; state: RootState }
->(FETCH_SERVER_LIST, async (_, { getState }) => {
+export const fetchServerList = createAsyncThunk(FETCH_SERVER_LIST, async (_, { getState }) => {
   let response
   const store = getState()
   const serversListLoading = store.servers.loading
@@ -43,47 +31,12 @@ export const fetchServerList = createAsyncThunk<
   return response?.data // what should I return if condition is false
 })
 
-export const SET_AUTOPILOT_AS_CURRENT = 'servers/setAutopilotAsCurrent'
-
-export const setAutopilotAsCurrent = createAsyncThunk<
-  void, // Return type of the payload creator
-  undefined, // argument to the payload creator
-  { dispatch: AppDispatch; state: RootState }
->(SET_AUTOPILOT_AS_CURRENT, async (_, { getState, dispatch }) => {
-  const bestLocationLoading = getState().bestLocation.loading
-  if (bestLocationLoading === 'idle') {
-    await dispatch(fetchBestLocation())
-  }
-
-  const { location_name: bestLocationName, dc_id: bestDataCenterId } = getState().bestLocation
-  if (!bestLocationName || !bestDataCenterId) return
-  const location = selectLocationByName(getState(), bestLocationName)
-  if (!location) return
-  const dataCenter = selectDataCenterById(location, bestDataCenterId)
-  if (!dataCenter) return
-
-  dispatch(setAutopilot({ location, dataCenter }))
-  dispatch(setCurrentLocation(location))
-  dispatch(setCurrentDataCenter(dataCenter))
-  const hostname = getState().currentDataCenter?.hosts?.[0].hostname
-  if (!hostname) return
-  await dispatch(connectProxy(hostname))
-})
-
-const selectLocationByName = (state: RootState, locationName: string): Location | undefined =>
-  state.servers.serverList?.find(server => server.name === locationName)
-const selectDataCenterById = (location: Location, dataCenterId: number): DataCenter | undefined =>
-  location?.groups?.find(dataCenter => dataCenter.id === dataCenterId)
-
 export const serversSlice = createSlice({
   name: 'servers',
   initialState,
   reducers: {
     setServerList(state, action: PayloadAction<ServerList>) {
       state.serverList = action.payload
-    },
-    setAutopilot(state, action: PayloadAction<Autopilot>) {
-      state.autopilot = action.payload
     },
   },
   extraReducers: builder => {
@@ -102,6 +55,6 @@ export const serversSlice = createSlice({
   },
 })
 
-export const { setServerList, setAutopilot } = serversSlice.actions
+export const { setServerList } = serversSlice.actions
 
 export default serversSlice.reducer
