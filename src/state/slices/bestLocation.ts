@@ -26,18 +26,13 @@ const initialState: BestLocationState = {
   short_name: undefined,
 }
 
-export const fetchBestLocation = createAsyncThunk<
-  BestLocation | undefined, // Return type of the payload creator
-  undefined, // argument to the payload creator
-  {
-    dispatch: AppDispatch
-    state: RootState
-  }
->('bestLocation/fetchBestLocation', async (_, { getState }) => {
-  const sessionAuthHash = getState().session.session_auth_hash
-  if (!sessionAuthHash) return // TODO Decide how handle this
-  const bestLocation = await getBestLocation(sessionAuthHash)
-  return bestLocation.data
+export const fetchBestLocation = createAsyncThunk(
+  'bestLocation/fetchBestLocation',
+  async (_, { getState }) => {
+    const sessionAuthHash = getState().session.session_auth_hash
+    if (!sessionAuthHash) return // TODO Decide how handle this
+    const bestLocation = await getBestLocation(sessionAuthHash)
+    return bestLocation.data
   },
 )
 

@@ -1,7 +1,10 @@
+import type { AsyncThunkPayloadCreator, AsyncThunkOptions, AsyncThunk } from '@reduxjs/toolkit'
 import debounce from 'lodash.debounce'
 import { type ThemeUIJSX } from '@theme-ui/core'
+
 import type * as Containers from 'views'
 import flags from 'assets/flags'
+import type { AppDispatch, RootState } from 'state'
 
 export type ThemeUiElement<Props = Record<string, never>> = (props: Props) => ThemeUIJSX.Element
 
@@ -13,3 +16,29 @@ export type CountryCodeType = keyof typeof flags
 export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
 export type View = keyof typeof Containers
+
+/*
+  This module augments createAsyncThunk with our root state and app dispatch
+  so we don't need to pass them to every createAsyncThunk call as generic params
+  @link on Module Augmentation docs
+  https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+*/
+declare module '@reduxjs/toolkit' {
+  type AsyncThunkConfig = {
+    state?: unknown
+    dispatch?: AppDispatch
+    extra?: unknown
+    rejectValue?: unknown
+    serializedErrorType?: unknown
+  }
+
+  function createAsyncThunk<
+    Returned,
+    ThunkArg = void,
+    ThunkApiConfig extends AsyncThunkConfig = { state: RootState; dispatch: AppDispatch }, // here is the magic line
+  >(
+    typePrefix: string,
+    payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, ThunkApiConfig>,
+    options?: AsyncThunkOptions<ThunkArg, ThunkApiConfig>,
+  ): AsyncThunk<Returned, ThunkArg, ThunkApiConfig>
+}

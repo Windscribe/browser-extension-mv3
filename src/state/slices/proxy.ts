@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
 import { connect, disconnect } from 'utils/proxyConfig'
-import type { AppDispatch, RootState } from '../store'
 
 interface ProxyState {
   isConnected: boolean
@@ -16,20 +15,12 @@ const initialState: ProxyState = {
 export const CONNECT_PROXY = 'proxy/connectProxy'
 export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 
-export const connectProxy = createAsyncThunk<
-  void,
-  string,
-  { dispatch: AppDispatch; state: RootState }
->(CONNECT_PROXY, async (host, { dispatch }) => {
+export const connectProxy = createAsyncThunk(CONNECT_PROXY, async (host: string, { dispatch }) => {
   await connect(host)
   dispatch(setProxy(host))
 })
 
-export const disconnectProxy = createAsyncThunk<
-  void,
-  undefined,
-  { dispatch: AppDispatch; state: RootState }
->(DISCONNECT_PROXY, async (_, { dispatch }) => {
+export const disconnectProxy = createAsyncThunk(DISCONNECT_PROXY, async (_, { dispatch }) => {
   await disconnect()
   dispatch(resetProxy())
 })
@@ -55,6 +46,9 @@ export const proxySlice = createSlice({
         state.isConnected = true
       })
       .addCase(connectProxy.rejected, state => {
+        state.isConnected = false
+      })
+      .addCase(disconnectProxy.fulfilled, state => {
         state.isConnected = false
       })
   },
