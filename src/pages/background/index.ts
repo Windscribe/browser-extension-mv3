@@ -1,13 +1,13 @@
 import log from 'utils/log'
+import getErrorMessage from 'utils/getErrorMessage'
 import { initializeWrappedStore } from 'state'
+import { connectProxy, setConnectionError, connectToBestLocation } from 'state/slices/proxy'
+import browserApi from 'services/browserApi'
 import setDebuggerAuth from './debuggerAuth'
 
-initializeWrappedStore().then(() => {
+const bgStore = initializeWrappedStore().then(store => {
   log('bg store was initialized')
-})
-
-chrome.storage.local.get(null).then(storage => {
-  log('bg storage:', storage)
+  return store
 })
 
 chrome.storage.onChanged.addListener(function (changes) {
@@ -19,3 +19,27 @@ chrome.storage.onChanged.addListener(function (changes) {
     setDebuggerAuth(changes[1].newValue.servers.serverCredentials)
   }
 })
+
+browserApi.runtime.onStartup.addListener(onStartupCallback)
+
+async function onStartupCallback() {
+  let store
+  try {
+    store = await bgStore
+    const authHash = store.getState().session.session_auth_hash
+    if (!authHash) {
+      store.dispatch(setConnectionError('No session auth hash is available'))
+      return
+    }
+
+    const currentHostname = store.getState().currentDataCenter?.hosts?.[0].hostname
+    if (currentHostname) {
+      store.dispatch(connectProxy(currentHostname))
+    } else {
+      store.dispatch(connectToBestLocation())
+    }
+  } catch (err) {
+    const message = getErrorMessage(err)
+    store?.dispatch(setConnectionError(message))
+  }
+}

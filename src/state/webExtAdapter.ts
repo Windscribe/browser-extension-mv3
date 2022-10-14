@@ -8,7 +8,7 @@ import browserApi from 'services/browserApi'
 import { buildFrom, type StoreType } from './store'
 import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from 'utils/constants'
 
-export async function initializeWrappedStore(): Promise<void> {
+export async function initializeWrappedStore(): Promise<StoreType> {
   const stateFromStorage = await browserApi.getStateFromStorage()
   const lastStateFromStorage = stateFromStorage[STORAGE_CACHE_VERSION]
 
@@ -28,4 +28,5 @@ export async function initializeWrappedStore(): Promise<void> {
   store.subscribe(async () => {
     await browserApi.saveStateInStorage(store.getState())
   })
+  return store
 }

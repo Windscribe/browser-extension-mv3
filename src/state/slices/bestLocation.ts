@@ -10,6 +10,10 @@ import { setCurrentDataCenter } from './currentDataCenter'
 
 interface BestLocationState extends Partial<BestLocation> {
   loading: LoadingState
+  // errorCode: string
+  // errorMessage: string
+  // errorDescription: string
+  // logStatus: string
 }
 
 const initialState: BestLocationState = {
@@ -71,6 +75,7 @@ export const bestLocationSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(fetchBestLocation.fulfilled, (state, action) => {
+        if (!action.payload?.hostname) return { loading: 'fulfilled' }
         return { ...state, ...{ loading: 'fulfilled' }, ...action.payload }
       })
       .addCase(fetchBestLocation.rejected, (state, action) => {

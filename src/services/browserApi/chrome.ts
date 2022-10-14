@@ -31,6 +31,11 @@ const api = {
         chrome.runtime.onMessage.addListener(cb)
       },
     },
+    onStartup: {
+      addListener(cb: (a?: any) => void): void {
+        chrome.runtime.onStartup.addListener(cb)
+      },
+    },
   },
 }
 
