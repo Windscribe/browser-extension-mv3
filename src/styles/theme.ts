@@ -77,11 +77,11 @@ export const theme: Theme = {
     },
     menu: {
       cursor: 'pointer',
+      display: 'flex',
       justifyContent: 'space-between',
       backgroundColor: 'transparent',
       padding: '0 16px 0 0',
       width: '100%',
-      display: 'flex',
       alignItems: 'center',
       height: '48px',
       border: '2px',
