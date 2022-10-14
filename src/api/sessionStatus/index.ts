@@ -1,8 +1,8 @@
 import prepareQueryString from 'api/prepareQueryString'
-import type { Parameters, ApiResponse, SessionData } from 'api/types'
+import type { ApiResponse, SessionData } from 'api/types'
 
 const sessionStatus = async (session_auth_hash: string): Promise<ApiResponse<SessionData>> => {
-  const parameters: Parameters = {
+  const parameters = {
     session_auth_hash,
   }
 

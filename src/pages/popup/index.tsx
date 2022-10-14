@@ -5,13 +5,8 @@ import { ThemeProvider } from 'theme-ui'
 import './index.css'
 import log from 'utils/log'
 import theme from 'styles'
-import { Router } from 'services/navigation'
-import { ProxyStore } from 'state'
-import { REACT_APP_REDUX_PORT } from 'utils/constants'
-
-const proxyStore = new ProxyStore({
-  portName: REACT_APP_REDUX_PORT,
-})
+import Router from 'services/navigation/Router'
+import proxyStore from './proxyStore'
 
 proxyStore
   .ready()
@@ -28,7 +23,7 @@ proxyStore
   .then(() => {
     if (process.env.NODE_ENV === 'development') {
       type W = typeof window & {
-        store: ProxyStore
+        store: typeof proxyStore
       }
       ;(window as W).store = proxyStore
     }

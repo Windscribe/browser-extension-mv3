@@ -2,7 +2,7 @@
 	The place for webext-redux dependent logic.
 */
 
-import { Store, wrapStore } from '@eduardoac-skimlinks/webext-redux'
+import { wrapStore } from '@eduardoac-skimlinks/webext-redux'
 
 import browserApi from 'services/browserApi'
 import { buildFrom, type StoreType } from './store'
@@ -29,5 +29,3 @@ export async function initializeWrappedStore(): Promise<void> {
     await browserApi.saveStateInStorage(store.getState())
   })
 }
-
-export { Store as ProxyStore }

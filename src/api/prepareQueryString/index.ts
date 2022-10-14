@@ -1,5 +1,5 @@
 import md5 from 'crypto-js/md5'
-import type { Parameters, ApiResponse, Endpoint, Method } from 'api/types'
+import type { ApiResponse, Endpoint, Method } from 'api/types'
 import sendRequest from 'api/fetchApi'
 import { CLIENT_AUTH_SECRET } from 'utils/constants'
 
@@ -10,7 +10,7 @@ const getClientAuthHash = (time: string) => {
 const prepareQueryString = <DataType>(
   Endpoint: Endpoint,
   method: Method,
-  parameters: Parameters,
+  parameters: Record<string, string | number>,
 ): Promise<ApiResponse<DataType>> => {
   const time = Math.round(new Date().getTime() / 1000).toString()
   const clientAuthHash = getClientAuthHash(time)

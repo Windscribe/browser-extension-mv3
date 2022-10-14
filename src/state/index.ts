@@ -1,4 +1,4 @@
-import store, { type RootState } from './store'
-import { initializeWrappedStore, ProxyStore } from './webExtAdapter'
+import store, { type RootState, type AppDispatch } from './store'
+import { initializeWrappedStore } from './webExtAdapter'
 
-export { store, RootState, initializeWrappedStore, ProxyStore }
+export { store, type RootState, type AppDispatch, initializeWrappedStore }

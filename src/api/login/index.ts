@@ -1,12 +1,12 @@
 import prepareQueryString from 'api/prepareQueryString'
-import type { Parameters, ApiResponse, SessionData } from 'api/types'
+import type { LoginParameters, ApiResponse, SessionData, LoginError } from 'api/types'
 
 const login = async (
   username: string,
   password: string,
   twoFACode?: string,
-): Promise<ApiResponse<SessionData>> => {
-  const parameters: Parameters = {
+): Promise<ApiResponse<SessionData | LoginError>> => {
+  const parameters: LoginParameters = {
     username,
     password,
     session_type_id: 2,

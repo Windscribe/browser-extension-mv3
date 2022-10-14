@@ -7,17 +7,13 @@ import AirplaneIcon from 'assets/img/airplane.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import { useDispatch } from 'state/hooks'
 import { useGoTo } from 'services/navigation'
-import {
-  setCurrentLocation,
-  setCurrentDataCenter,
-  setAutopilotSelected,
-  setIsConnected,
-} from 'state/slices/servers'
+import { setAutopilotSelected } from 'state/slices/servers'
+import { setCurrentLocation } from 'state/slices/currentLocation'
+import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
+import { connectProxy } from 'state/slices/proxy'
 
 import LocationsListItemDetails from './LocationsListItemDetails'
 import { type Location, DataCenter } from 'api/types'
-
-import { connectProxy } from 'utils/proxyConfig'
 
 type LocationsListItemProps = {
   location: Location
@@ -40,12 +36,10 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
 
   const handleLocationItemClick = () => {
     if (isAutopilot && dataCenter) {
-      // TODO: move into connectProxy callback
-      dispatch(setCurrentLocation(location))
-      dispatch(setCurrentDataCenter(dataCenter))
+      dispatch(setCurrentLocation(location)) // ? todo check if it required
+      dispatch(setCurrentDataCenter(dataCenter)) // ? todo check if it required
       dispatch(setAutopilotSelected(true))
-      connectProxy(dataCenter.hosts[0].hostname)
-      dispatch(setIsConnected(true))
+      dispatch(connectProxy(dataCenter.hosts[0].hostname))
       goToHome()
     } else {
       setIsExpanded(!isExpanded)

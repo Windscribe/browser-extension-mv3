@@ -1,8 +1,7 @@
 import { Button } from 'theme-ui'
 
-import { type View } from 'state/slices/view'
 import { useGoTo } from 'services/navigation'
-import { type ThemeUiElement } from 'utils/types'
+import type { ThemeUiElement, View } from 'utils/types'
 
 type HeaderLinkProps = {
   buttonText: string

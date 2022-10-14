@@ -1,9 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SessionData } from 'api/types'
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
+import { type SessionData } from 'api/types'
+import { login as loginRequest } from 'api'
+import { type LoadingState } from 'utils/types'
 export interface SessionState extends SessionData {
-  error?: number
-  workingApi?: string
+  errorCode?: number
+  errorMessage?: string
+  loading: LoadingState
 }
 
 const initialState: SessionState = {
@@ -21,9 +24,23 @@ const initialState: SessionState = {
   traffic_used: undefined,
   user_id: undefined,
   username: undefined,
-  error: undefined,
-  workingApi: undefined,
+  errorCode: undefined,
+  errorMessage: undefined,
+  loading: 'idle',
 }
+
+export const LOGIN = 'session/login'
+export type Credentials = {
+  username: string
+  password: string
+  twoFa?: string
+}
+export const login = createAsyncThunk(LOGIN, async (credentials: Credentials) => {
+  const { username, password, twoFa } = credentials
+  const response = await loginRequest(username, password, twoFa)
+  if (response.data) return response.data
+  if (response.errorMessage) return response
+})
 
 export const sessionSlice = createSlice({
   name: 'session',
@@ -32,11 +49,26 @@ export const sessionSlice = createSlice({
     setSession(state, action: PayloadAction<SessionState>) {
       return { ...state, ...action.payload }
     },
-    setWorkingApi(state, action: PayloadAction<string | undefined>) {
-      state.workingApi = action.payload
+    clearError() {
+      // TODO implement. Call before leave a page?
     },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(login.pending, state => {
+        state.errorCode = undefined
+        state.errorMessage = undefined
+        state.loading = 'pending'
+      })
+      .addCase(login.fulfilled, (_, action) => {
+        return { loading: 'fulfilled', ...action.payload }
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = 'rejected'
+        state.errorMessage = action.error.message
+      })
   },
 })
 
-export const { setSession, setWorkingApi } = sessionSlice.actions
+export const { setSession } = sessionSlice.actions
 export default sessionSlice.reducer

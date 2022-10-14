@@ -1,61 +1,70 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { type ServerCredentials, ServerList, Location, DataCenter, Autopilot } from 'api/types'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+
+import type { ServerList, ServerCredentials } from 'api/types'
+import { type LoadingState } from 'utils/types'
+import { getServerList } from 'api'
 
 interface ServersState {
   serverCredentials?: ServerCredentials
   serverList?: ServerList
-  currentLocation?: Location
-  currentDataCenter?: DataCenter
-  isConnected: boolean
-  autopilot?: Autopilot
+  loading: LoadingState
   autopilotSelected: boolean
 }
 
 const initialState: ServersState = {
   serverCredentials: undefined,
   serverList: undefined,
-  currentLocation: undefined,
-  currentDataCenter: undefined,
-  isConnected: false,
-  autopilot: undefined,
   autopilotSelected: false,
+  loading: 'idle',
 }
+
+export const FETCH_SERVER_LIST = 'servers/fetchServerList'
+
+export const fetchServerList = createAsyncThunk(FETCH_SERVER_LIST, async (_, { getState }) => {
+  let response
+  const store = getState()
+  const serversListLoading = store.servers.loading
+  const serverList = store.servers.serverList
+  const { loc_hash, is_premium } = store.session
+
+  if (serversListLoading === 'fulfilled') return serverList
+
+  if (loc_hash) {
+    response = await getServerList(loc_hash, is_premium)
+  }
+  return response?.data // what should I return if condition is false
+})
 
 export const serversSlice = createSlice({
   name: 'servers',
   initialState,
   reducers: {
-    setServerCredetials(state, action: PayloadAction<ServerCredentials>) {
+    setServerCredentials(state, action: PayloadAction<ServerCredentials>) {
       state.serverCredentials = action.payload
     },
     setServerList(state, action: PayloadAction<ServerList>) {
       state.serverList = action.payload
     },
-    setCurrentLocation(state, action: PayloadAction<Location>) {
-      state.currentLocation = action.payload
-    },
-    setCurrentDataCenter(state, action: PayloadAction<DataCenter>) {
-      state.currentDataCenter = action.payload
-    },
-    setIsConnected(state, action: PayloadAction<boolean>) {
-      state.isConnected = action.payload
-    },
-    setAutopilot(state, action: PayloadAction<Autopilot>) {
-      state.autopilot = action.payload
-    },
     setAutopilotSelected(state, action: PayloadAction<boolean>) {
       state.autopilotSelected = action.payload
     },
   },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchServerList.pending, state => {
+        state.loading = 'pending'
+      })
+      .addCase(fetchServerList.fulfilled, (state, action) => {
+        state.loading = 'fulfilled'
+        state.serverList = action.payload
+      })
+      .addCase(fetchServerList.rejected, state => {
+        state.loading = 'rejected'
+        //state.error = action.error.message
+      })
+  },
 })
 
-export const {
-  setServerCredetials,
-  setServerList,
-  setCurrentLocation,
-  setCurrentDataCenter,
-  setIsConnected,
-  setAutopilot,
-  setAutopilotSelected,
-} = serversSlice.actions
+export const { setServerList, setServerCredentials, setAutopilotSelected } = serversSlice.actions
+
 export default serversSlice.reducer

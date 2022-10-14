@@ -1,82 +1,70 @@
-import { useState } from 'react'
-import { useDispatch } from 'state/hooks'
-import { Button, Flex, Text, Input, Label, Box, Link } from 'theme-ui'
-import {
-  login,
-  serverCredentials as getServerCredentials,
-  serverList as getServerList,
-} from 'api/index'
-import getAutopilot from 'utils/getAutopilot'
-import { connectProxy } from 'utils/proxyConfig'
-import { setSession } from 'state/slices/session'
-import {
-  setServerList,
-  setCurrentLocation,
-  setCurrentDataCenter,
-  setIsConnected,
-  setAutopilot,
-  setAutopilotSelected,
-  setServerCredetials,
-} from 'state/slices/servers'
+import { useEffect, useState } from 'react'
+import { Button, Flex, Text, Input, Label, Box, Link, Spinner } from 'theme-ui'
+
+import { LOGIN } from 'state/slices/session'
 import { useGoTo } from 'services/navigation'
+import { serverCredentials as getServerCredentials } from 'api/index'
+import { setServerCredentials } from 'state/slices/servers'
 import { Header, HeaderLink } from 'components'
+import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 import { type ThemeUiElement } from 'utils/types'
 
 const Login: ThemeUiElement = () => {
+  const dispatchAlias = useDispatchAlias()
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
+  const errorMessage = useSelector(s => s.session.errorMessage)
+  const errorCode = useSelector(s => s.session.errorCode)
+  const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
+  const loginStatus = useSelector(s => s.session.loading)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string | undefined>('')
   const [use2fa, setUse2fa] = useState(false)
-  const [error2fa, setError2fa] = useState('')
+  const [error2fa, setError2fa] = useState<string | undefined>('')
+
+  const isPending = loginStatus === 'pending'
+
+  useEffect(() => {
+    // Maybe we need to store these error codes as constants somewhere? We can discuss
+    if (errorCode === 1340 || errorCode === 1341) {
+      setError2fa(errorMessage)
+      setUse2fa(true)
+      return
+    }
+    setError(errorMessage)
+  }, [errorMessage, errorCode])
+
+  useEffect(() => {
+    setError('')
+  }, [username, password])
+
+  useEffect(() => {
+    if (sessionAuthHash) {
+      const cb = async () => {
+        const serverCredentials = await getServerCredentials(sessionAuthHash)
+        if (serverCredentials.data) {
+          dispatch(setServerCredentials(serverCredentials.data))
+        }
+      }
+      cb()
+      goToHome()
+    }
+  }, [sessionAuthHash, goToHome, dispatch])
 
   type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => Promise<void>
   const handleLogin: HandleLogin = async e => {
-    // TODO: move a lot of this logic into 'createInstance' function
     e.preventDefault()
-    const { twoFa, username, password } = e.currentTarget
-    const { errorMessage, errorCode, data } = await login(
-      username?.value,
-      password?.value,
-      twoFa?.value,
-    )
-
-    if (errorMessage) {
-      // Maybe we need to store these error codes as constants somewhere? We can discuss
-      if (errorCode === 1340 || errorCode === 1341) {
-        setError2fa(errorMessage)
-        setUse2fa(true)
-        return
-      }
-      setError(errorMessage)
-    }
-    if (data?.session_auth_hash && data.loc_hash) {
-      dispatch(setSession(data))
-      const serverList = await getServerList(data.loc_hash, data.is_premium)
-
-      if (serverList.data) {
-        dispatch(setServerList(serverList.data))
-        const autopilot = await getAutopilot(data.session_auth_hash, serverList.data)
-        if (autopilot) {
-          dispatch(setAutopilot(autopilot))
-          dispatch(setCurrentLocation(autopilot.location))
-          dispatch(setCurrentDataCenter(autopilot.dataCenter))
-          dispatch(setAutopilotSelected(true))
-          connectProxy(autopilot.dataCenter.hosts[0].hostname)
-          dispatch(setIsConnected(true))
-        }
-        const serverCredentials = await getServerCredentials(data.session_auth_hash)
-        if (serverCredentials.data) {
-          dispatch(setServerCredetials(serverCredentials.data))
-        }
-      }
-      goToHome()
-    }
+    const { username, password, twoFa } = e.currentTarget
+    await dispatchAlias(LOGIN, {
+      username: username?.value,
+      password: password?.value,
+      twoFa: twoFa?.value,
+    })
   }
 
   return (
@@ -216,8 +204,9 @@ const Login: ThemeUiElement = () => {
                 color: 'softBlack',
                 backgroundColor: !!username && !!password ? 'neonGreen' : 'foreground',
               }}
+              disabled={isPending}
             >
-              Login
+              {isPending ? <Spinner sx={{ width: '24px', height: '24px' }} /> : 'Login'}
             </Button>
           </Flex>
         </form>

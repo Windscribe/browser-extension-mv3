@@ -1,7 +1,7 @@
 import type { ApiResponse, Method } from 'api/types'
-import { setWorkingApi } from 'state/slices/session'
-import store from 'state/store'
 import { ENVS } from 'utils/constants'
+
+let workingApi: string | null = null
 
 const fetchTimeout = async (url: string, method = 'GET') => {
   const controller = new AbortController()
@@ -28,10 +28,8 @@ const fetchDoh = async () => {
 }
 
 const fetchApi = async (apiUrl: string, path: string, method: Method, useAssets: boolean) => {
-  const workingApi = store.getState().session.workingApi
-
   if (!workingApi) {
-    store.dispatch(setWorkingApi(apiUrl))
+    workingApi = apiUrl
   }
 
   const url = useAssets ? `assets.${apiUrl}` : `api.${apiUrl}`
@@ -44,18 +42,14 @@ const sendRequest = async <DataType>(
   method: Method,
   useAssets = false,
 ): Promise<ApiResponse<DataType>> => {
-  const workingApi = store.getState().session.workingApi
-
   return await fetchApi(workingApi || ENVS.API_URL, path, method, useAssets)
     .then(response => response.json())
     .catch(async () => {
-      store.dispatch(setWorkingApi(undefined))
-
+      workingApi = null
       return await fetchApi(ENVS.BACKUP_API_URL, path, method, useAssets)
         .then(response => response.json())
         .catch(async () => {
-          store.dispatch(setWorkingApi(undefined))
-
+          workingApi = null
           const dohUrl = await fetchDoh()
           return await fetchApi(dohUrl, path, method, useAssets)
             .then(response => response.json())

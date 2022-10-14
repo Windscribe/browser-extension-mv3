@@ -1,6 +1,6 @@
 export { default as login } from './login'
 export { default as sessionStatus } from './sessionStatus'
 export { default as notifications } from './notifications'
-export { default as bestLocation } from './bestLocation'
+export { getBestLocation } from './bestLocation'
 export { default as serverCredentials } from './serverCredentials'
-export { default as serverList } from './serverList'
+export { getServerList } from './serverList'

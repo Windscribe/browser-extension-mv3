@@ -1,5 +1,5 @@
 import { useSelector } from 'state/hooks'
-import { type View } from 'state/slices/view'
+import { type View } from 'utils/types'
 
 import * as Views from 'views'
 

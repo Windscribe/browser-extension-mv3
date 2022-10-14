@@ -1,8 +1,8 @@
 import prepareQueryString from 'api/prepareQueryString'
-import type { Parameters, ApiResponse } from 'api/types'
+import { type ApiResponse } from 'api/types'
 
 const notifications = async (session_auth_hash: string): Promise<ApiResponse> => {
-  const parameters: Parameters = {
+  const parameters = {
     session_auth_hash,
   }
 

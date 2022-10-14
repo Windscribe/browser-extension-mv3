@@ -49,6 +49,9 @@ export const theme: Theme = {
     rounded: {
       cursor: 'pointer',
       borderRadius: '20px',
+      '&:disabled': {
+        cursor: 'not-allowed',
+      },
     },
     rectangle: {
       cursor: 'pointer',
@@ -116,6 +119,11 @@ export const theme: Theme = {
       '&:-webkit-autofill': {
         WebkitTextFillColor: 'primaryText',
       },
+    },
+  },
+  text: {
+    error: {
+      color: 'rubyRed',
     },
   },
 }

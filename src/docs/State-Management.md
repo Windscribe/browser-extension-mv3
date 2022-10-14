@@ -125,6 +125,55 @@ const Example = () => {
 > Set your eyes on `await dispatch(increment())`
 Contrary to regular Redux, all dispatches are asynchronous and return a Promise. It is inevitable since proxy stores and the main store communicate via browser messaging, which is inherently asynchronous.
 
+### Aliases
+
+For data fetching or another complex asynchronous actions whose logic only happens in the background script we use `alias` middleware which can map actions that were kicked off from a UI Component with the async actions in the background page. [Docs link](https://github.com/tshaddix/webext-redux/wiki/Advanced-Usage). For example
+
+```tsx
+// Login.tsx
+import { useDispatchAlias } from 'state/hooks'
+
+const Login: ThemeUiElement = () => {
+  const dispatchAlias = useDispatchAlias()
+
+  const handleLogin: HandleLogin = async e => {
+    const { username, password, twoFa } = e.currentTarget
+    await dispatchAlias(LOGIN, {
+      username: username?.value,
+      password: password?.value,
+      twoFa: twoFa?.value,
+    })
+  }
+  return (some jsx code)
+}
+```
+
+```ts
+// aliases.ts
+import { login, LOGIN } from './slices/session' // login is created by createAsyncThunk()
+
+export default {
+  [`alias/${LOGIN}`]: (originalAction) => login(originalAction.payload), 
+}
+```
+
+Example for more complex actions:
+
+```ts
+// aliases.ts
+const example: ActionCreator<Payload, AsyncThunkAction> = originalAction => {
+  return async (dispatch, getState) => {
+    const hash = getState().session.session_auth_hash
+    await dispatch(getEntityByParam(hash, originalAction.payload))
+  }
+} 
+
+export default {
+  [`alias/${EXAMPLE}`]: example, 
+}
+```
+
+
 ### Routing
 
 To navigate between views in the Popup you can use hooks `useGoTo` and `useGoBack` from `src/services/navigation`
