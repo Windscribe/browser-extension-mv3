@@ -1,16 +1,20 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
-import type { ServerList } from 'api/types'
+import type { ServerList, ServerCredentials } from 'api/types'
 import { type LoadingState } from 'utils/types'
 import { getServerList } from 'api'
 
 interface ServersState {
+  serverCredentials?: ServerCredentials
   serverList?: ServerList
   loading: LoadingState
+  autopilotSelected: boolean
 }
 
 const initialState: ServersState = {
+  serverCredentials: undefined,
   serverList: undefined,
+  autopilotSelected: false,
   loading: 'idle',
 }
 
@@ -35,8 +39,14 @@ export const serversSlice = createSlice({
   name: 'servers',
   initialState,
   reducers: {
+    setServerCredentials(state, action: PayloadAction<ServerCredentials>) {
+      state.serverCredentials = action.payload
+    },
     setServerList(state, action: PayloadAction<ServerList>) {
       state.serverList = action.payload
+    },
+    setAutopilotSelected(state, action: PayloadAction<boolean>) {
+      state.autopilotSelected = action.payload
     },
   },
   extraReducers: builder => {
@@ -55,6 +65,6 @@ export const serversSlice = createSlice({
   },
 })
 
-export const { setServerList } = serversSlice.actions
+export const { setServerList, setServerCredentials, setAutopilotSelected } = serversSlice.actions
 
 export default serversSlice.reducer

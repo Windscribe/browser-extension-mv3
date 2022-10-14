@@ -21,3 +21,5 @@ export const ACCOUNT_PLAN = {
   PREMIUM: 1,
   UNLIMITED: -1,
 } as const
+
+export const DEVTOOL_PROTOCOL = '1.3'

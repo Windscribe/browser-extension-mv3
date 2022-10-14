@@ -2,7 +2,7 @@ import { Button, Box, Flex } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 
 type HeaderButtonProps = {
-  Icon: React.ReactNode
+  Icon: React.ElementType
   isConnected: boolean
   count: number
 }
@@ -17,12 +17,19 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, isConnected, co
         transition: '0.3s',
         transform: 'scale(1)',
         ':hover': {
-          fill: 'white',
           transform: 'scale(1.1)',
+          svg: {
+            fill: 'white',
+          },
         },
       }}
     >
-      {Icon}
+      <Icon
+        sx={{
+          transition: '0.3s',
+          fill: 'secondaryText',
+        }}
+      />
       <Flex
         sx={{
           position: 'absolute',

@@ -3,19 +3,21 @@ import { Button, Flex, Text, Input, Label, Box, Link, Spinner } from 'theme-ui'
 
 import { LOGIN } from 'state/slices/session'
 import { useGoTo } from 'services/navigation'
+import { serverCredentials as getServerCredentials } from 'api/index'
+import { setServerCredentials } from 'state/slices/servers'
 import { Header, HeaderLink } from 'components'
-import { useDispatchAlias, useSelector } from 'state/hooks'
+import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 import { type ThemeUiElement } from 'utils/types'
 
 const Login: ThemeUiElement = () => {
   const dispatchAlias = useDispatchAlias()
-  const gotToHome = useGoTo('Home')
+  const dispatch = useDispatch()
+  const goToHome = useGoTo('Home')
   const errorMessage = useSelector(s => s.session.errorMessage)
   const errorCode = useSelector(s => s.session.errorCode)
   const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
-  const locHash = useSelector(s => s.session.loc_hash)
   const loginStatus = useSelector(s => s.session.loading)
 
   const [username, setUsername] = useState('')
@@ -42,11 +44,17 @@ const Login: ThemeUiElement = () => {
   }, [username, password])
 
   useEffect(() => {
-    // TODO Check the condition. Maybe if(session_auth_hash) enough?
-    if (sessionAuthHash && locHash) {
-      gotToHome()
+    if (sessionAuthHash) {
+      const cb = async () => {
+        const serverCredentials = await getServerCredentials(sessionAuthHash)
+        if (serverCredentials.data) {
+          dispatch(setServerCredentials(serverCredentials.data))
+        }
+      }
+      cb()
+      goToHome()
     }
-  }, [sessionAuthHash, locHash, gotToHome])
+  }, [sessionAuthHash, goToHome, dispatch])
 
   type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => Promise<void>
   const handleLogin: HandleLogin = async e => {

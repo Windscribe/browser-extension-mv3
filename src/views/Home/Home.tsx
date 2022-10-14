@@ -18,31 +18,34 @@ import Logo from 'assets/img/logo.svg'
 import WhitelistOff from 'assets/img/whitelistOff.svg'
 import PowerButton from 'assets/img/powerButton.svg'
 import Globe from 'assets/img/globe.svg'
-import Shield from 'assets/img/shield.svg'
-import Blocker from 'assets/img/blocker.svg'
+import PrivacyIcon from 'assets/img/privacy.svg'
+import BlockerIcon from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import Flags from 'assets/flags'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const dispatchAlias = useDispatchAlias()
-  const gotToLocations = useGoTo('Locations')
+
+  const goToLocations = useGoTo('Locations')
+  const goToPreferences = useGoTo('Preferences')
+
   const currentDataCenter = useSelector(s => s.currentDataCenter)
-  const serverListLoading = useSelector(s => s.servers.loading)
   const bestLocationLoading = useSelector(s => s.bestLocation.loading)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
   const isConnected = useSelector(state => state.proxy.isConnected)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
-  const serversListLoading = useSelector(s => s.servers.loading)
   const locHash = useSelector(s => s.session.loc_hash)
-  const FlagSvg = Flags[countryCode] || Flags['AUTO']
+  const serverListLoading = useSelector(s => s.servers.loading)
+  const autopilotSelected = useSelector(state => state.servers.autopilotSelected)
+  const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
   useEffect(() => {
-    if (serversListLoading === 'idle' && locHash) {
+    if (serverListLoading === 'idle' && locHash) {
       dispatchAlias(FETCH_SERVER_LIST)
     }
-  }, [locHash, isPremium, serversListLoading, dispatchAlias])
+  }, [locHash, isPremium, serverListLoading, dispatchAlias])
 
   useEffect(() => {
     // TODO Review this condition. Every time serverList updated we set best location as current
@@ -64,6 +67,7 @@ const Home: ThemeUiElement = () => {
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
+
   return (
     <Box
       data-testid="home-page"
@@ -95,8 +99,18 @@ const Home: ThemeUiElement = () => {
               backgroundColor: isConnected ? 'halfBlack' : 'background',
             }}
           >
-            <Button variant="simple">
-              <Menu sx={{ fill: 'white', opacity: '0.5', mx: '24px' }} />
+            <Button variant="simple" onClick={goToPreferences}>
+              <Menu
+                sx={{
+                  fill: 'white',
+                  opacity: '0.5',
+                  mx: '24px',
+                  transition: '0.3s',
+                  ':hover': {
+                    opacity: '1',
+                  },
+                }}
+              />
             </Button>
             <Logo sx={{ fill: 'white' }} />
           </Flex>
@@ -110,8 +124,8 @@ const Home: ThemeUiElement = () => {
             }}
           />
           <Flex sx={{ gap: '8px' }}>
-            <HeaderButton Icon={<Shield />} isConnected={isConnected} count={0} />
-            <HeaderButton Icon={<Blocker />} isConnected={isConnected} count={0} />
+            <HeaderButton Icon={PrivacyIcon} isConnected={isConnected} count={0} />
+            <HeaderButton Icon={BlockerIcon} isConnected={isConnected} count={0} />
           </Flex>
         </Flex>
         <Flex
@@ -157,10 +171,10 @@ const Home: ThemeUiElement = () => {
                   fontWeight: 600,
                 }}
               >
-                {currentDataCenter?.city}
+                {autopilotSelected ? 'Autopilot' : currentDataCenter?.city}
               </Text>
             </Box>
-            {currentDataCenter?.nick && (
+            {!autopilotSelected && currentDataCenter?.nick && (
               <Text
                 data-testid="nick"
                 sx={{
@@ -180,12 +194,14 @@ const Home: ThemeUiElement = () => {
             <Button
               variant="simple"
               data-testid="globe-button"
-              onClick={gotToLocations}
+              onClick={goToLocations}
               sx={{
-                mr: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                mr: '4px',
                 ':hover': {
                   'svg:nth-of-type(1)': {
-                    mr: '12.8px',
+                    mr: '8px',
                     fill: 'white',
                   },
                   'svg:nth-of-type(2)': {
@@ -208,6 +224,7 @@ const Home: ThemeUiElement = () => {
                   ml: '-8px',
                   fill: 'secondaryText',
                   visibility: 'hidden',
+                  transform: 'scale(0.9)',
                 }}
               />
             </Button>

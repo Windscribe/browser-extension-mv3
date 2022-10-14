@@ -13,7 +13,6 @@ const FlagIcon: ThemeUiElement<FlagIconProps> = ({ Svg, shouldShowProOnlyIcon = 
   return (
     <Box
       sx={{
-        marginRight: '16px',
         width: '32px',
       }}
     >
