@@ -10,6 +10,7 @@ import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
 import currentDataCenterReducer from './slices/currentDataCenter'
 import aliases from './aliases'
+import connectionReducer from './slices/connection'
 
 const reducer = {
   view: viewReducer,
@@ -19,6 +20,7 @@ const reducer = {
   bestLocation: bestLocationReducer,
   currentLocation: currentLocationReducer,
   currentDataCenter: currentDataCenterReducer,
+  connection: connectionReducer,
 }
 
 const store = configureStore({
