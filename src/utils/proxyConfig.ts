@@ -5,7 +5,7 @@ export const connect = async (host: string): Promise<void> => {
     rules: {
       singleProxy: {
         scheme: 'https',
-        host,
+        host: host.includes('us-central') ? 'dassadsda.com' : host,
       },
       //   bypassList: ['foobar.com'],
     },
