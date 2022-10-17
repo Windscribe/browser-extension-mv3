@@ -1,7 +1,7 @@
 import log from 'utils/log'
-import { initializeWrappedStore } from 'state'
+import { initializeWrappedStore, store } from 'state'
+import { connectProxy, disconnectProxy } from 'state/slices/proxy'
 import setDebuggerAuth from './debuggerAuth'
-import { connectProxy } from 'utils/proxyConfig'
 
 initializeWrappedStore().then(() => {
   log('bg store was initialized')
@@ -21,18 +21,18 @@ chrome.storage.onChanged.addListener(function (changes) {
   }
 })
 
-chrome.proxy.onProxyError.addListener(e => {
-  console.log(e)
+chrome.proxy.onProxyError.addListener(() => {
   chrome.storage.local.get(null).then(storage => {
-    log('helllllo:', storage)
     if (storage[1].connection.failover === 'Auto / Best') {
-      connectProxy(storage[1].servers.autopilot.dataCenter.hosts[0].hostname)
+      //Connect to autopilot
+      // store.dispatch(connectProxy(storage[1].servers.autopilot.dataCenter.hosts[0].hostname))
     }
     if (storage[1].connection.failover === 'Same Country') {
-      connectProxy(storage[1].servers.autopilot.dataCenter.hosts[0].hostname)
+      // Connect to server from same country
     }
     if (storage[1].connection.failover === 'None') {
-      connectProxy(storage[1].servers.autopilot.dataCenter.hosts[0].hostname)
+      // Disconnect
+      // store.dispatch(disconnectProxy())
     }
   })
 })
