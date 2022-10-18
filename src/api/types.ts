@@ -55,6 +55,7 @@ export interface SessionData {
   last_reset?: string
   loc_hash?: string
   loc_rev?: number
+  premium_expiry_date?: string
   reg_date?: number
   session_auth_hash?: string
   status?: number
