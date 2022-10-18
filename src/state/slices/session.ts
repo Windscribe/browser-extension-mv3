@@ -3,6 +3,9 @@ import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/tool
 import { type SessionData } from 'api/types'
 import { login as loginRequest } from 'api'
 import type { LoadingState, ErrorState } from 'utils/types'
+import { disconnectProxy } from './proxy'
+import { RESET_STORE } from '../store'
+
 export interface SessionState extends SessionData {
   loading: LoadingState
   error?: ErrorState
@@ -28,6 +31,7 @@ const initialState: SessionState = {
 }
 
 export const LOGIN = 'session/login'
+export const LOGOUT = 'session/logout'
 export type Credentials = {
   username: string
   password: string
@@ -38,6 +42,12 @@ export const login = createAsyncThunk(LOGIN, async (credentials: Credentials) =>
   const response = await loginRequest(username, password, twoFa)
   if (response.data) return response.data
   if (response.errorMessage) return response
+})
+
+export const logout = createAsyncThunk(LOGOUT, async (_, { dispatch }) => {
+  await dispatch(disconnectProxy())
+  await dispatch({ type: RESET_STORE })
+  //TODO Implement userStashes to store user's settings preferences between sessions
 })
 
 export const sessionSlice = createSlice({
