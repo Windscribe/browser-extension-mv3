@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import { alias } from '@eduardoac-skimlinks/webext-redux'
 
 import viewReducer from './slices/view'
@@ -23,6 +23,10 @@ const reducer = {
 
 const store = configureStore({
   reducer: reducer,
+})
+
+const logger = createLogger({
+  collapsed: (getState, action, logEntry) => !logEntry?.error,
 })
 
 export function buildFrom(preloadedState?: RootState): StoreType {
