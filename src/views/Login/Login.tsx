@@ -20,8 +20,8 @@ const Login: ThemeUiElement = () => {
   const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
   const loginStatus = useSelector(s => s.session.loading)
 
-  const [username, setUsername] = useState('piccolosteel')
-  const [password, setPassword] = useState('Djp82PNnW33Gst')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | undefined>('')
   const [use2fa, setUse2fa] = useState(false)
@@ -113,7 +113,6 @@ const Login: ThemeUiElement = () => {
             name="username"
             data-testid="username-input"
             autofillBackgroundColor="foreground"
-            value="piccolosteel"
             onChange={e => setUsername(e.target.value)}
           />
           <Label
@@ -134,7 +133,6 @@ const Login: ThemeUiElement = () => {
               type={showPassword ? 'text' : 'password'}
               name="password"
               data-testid="password-input"
-              value="Djp82PNnW33Gst"
               onChange={e => setPassword(e.target.value)}
               sx={{ pr: '38px' }}
             />
