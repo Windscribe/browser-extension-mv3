@@ -4,7 +4,6 @@ import { type SessionData } from 'api/types'
 import { login as loginRequest } from 'api'
 import type { LoadingState, ErrorState } from 'utils/types'
 import { disconnectProxy } from './proxy'
-import { RESET_STORE } from '../store'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -46,7 +45,7 @@ export const login = createAsyncThunk(LOGIN, async (credentials: Credentials) =>
 
 export const logout = createAsyncThunk(LOGOUT, async (_, { dispatch }) => {
   await dispatch(disconnectProxy())
-  await dispatch({ type: RESET_STORE })
+  await dispatch({ type: 'global/resetStore' })
   //TODO Implement userStashes to store user's settings preferences between sessions
 })
 

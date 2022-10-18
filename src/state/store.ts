@@ -24,9 +24,8 @@ const reducers = {
 const combinedReducer = combineReducers(reducers)
 
 // Here is a place for logic that mutates all state entirely, not just one slice
-export const RESET_STORE = 'global/resetStore'
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
-  if (action.type === RESET_STORE) {
+  if (action.type === 'global/resetStore') {
     state = {} as RootState
   }
   return combinedReducer(state, action)
