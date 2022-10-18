@@ -1,19 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
 import { getBestLocation } from 'api'
-import type { BestLocation } from 'api/types'
-import { type LoadingState } from 'utils/types'
-import { selectLocationByName, findDataCenterById } from '../selectors'
-import { connectProxy } from './proxy'
-import { setCurrentLocation } from './currentLocation'
-import { setCurrentDataCenter } from './currentDataCenter'
+import type { BestLocation, ApiErrorResponse } from 'api/types'
+import type { LoadingState, Either, ErrorState } from 'utils/types'
 
 interface BestLocationState extends Partial<BestLocation> {
   loading: LoadingState
-  // errorCode: string
-  // errorMessage: string
-  // errorDescription: string
-  // logStatus: string
+  error?: ErrorState
 }
 
 const initialState: BestLocationState = {
@@ -28,61 +21,56 @@ const initialState: BestLocationState = {
   location_name: undefined,
   server_id: undefined,
   short_name: undefined,
+  error: undefined,
 }
 
-export const fetchBestLocation = createAsyncThunk(
+export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorResponse>>(
   'bestLocation/fetchBestLocation',
   async (_, { getState }) => {
     const sessionAuthHash = getState().session.session_auth_hash
-    if (!sessionAuthHash) return // TODO Decide how handle this
-    const bestLocation = await getBestLocation(sessionAuthHash)
-    return bestLocation.data
-  },
-)
-
-export const CONNECT_TO_BEST_LOCATION = 'servers/connectToBestLocation'
-
-export const connectToBestLocation = createAsyncThunk(
-  CONNECT_TO_BEST_LOCATION,
-  async (_, { getState, dispatch }) => {
-    const bestLocationLoading = getState().bestLocation.loading
-    if (bestLocationLoading === 'idle') {
-      await dispatch(fetchBestLocation())
+    if (!sessionAuthHash) {
+      throw Error('No session auth hash is available')
     }
 
-    const { location_name: bestLocationName, dc_id: bestDataCenterId } = getState().bestLocation
-    if (!bestLocationName || !bestDataCenterId) return
-    const location = selectLocationByName(getState(), bestLocationName)
-    if (!location) return
-    const dataCenter = findDataCenterById(location, bestDataCenterId)
-    if (!dataCenter) return
+    const response = await getBestLocation(sessionAuthHash)
+    if (response.errorCode) return response
+    if (response.data) return response?.data
 
-    dispatch(setCurrentLocation(location))
-    dispatch(setCurrentDataCenter(dataCenter))
-    const hostname = getState().currentDataCenter?.hosts?.[0].hostname
-    if (!hostname) return
-    await dispatch(connectProxy(hostname))
+    throw Error('Unknown response format from GET Best Location')
   },
 )
 
 export const bestLocationSlice = createSlice({
   name: 'bestLocation',
   initialState,
-  reducers: {},
+  reducers: {
+    resetBestLocation() {
+      return initialState
+    },
+    setBestLocationError(state, action: PayloadAction<string>) {
+      state.error = { errorMessage: action.payload }
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchBestLocation.pending, state => {
+        state.error = undefined
         state.loading = 'pending'
       })
       .addCase(fetchBestLocation.fulfilled, (state, action) => {
-        if (!action.payload?.hostname) return { loading: 'fulfilled' }
+        if (action.payload.errorCode) {
+          return { ...initialState, ...{ loading: 'idle' }, error: action.payload }
+        }
         return { ...state, ...{ loading: 'fulfilled' }, ...action.payload }
       })
       .addCase(fetchBestLocation.rejected, (state, action) => {
         state.loading = 'rejected'
-        // state.errorMessage = action.error.message
+        if (action.error.message) {
+          state.error = { errorMessage: action.error.message }
+        }
       })
   },
 })
 
+export const { resetBestLocation } = bestLocationSlice.actions
 export default bestLocationSlice.reducer

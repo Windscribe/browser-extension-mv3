@@ -15,7 +15,22 @@ export type CountryCodeType = keyof typeof flags
 
 export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
+export type ErrorState = {
+  errorCode?: number
+  errorMessage: string
+  errorDescription?: string
+  logStatus?: string | null
+}
+
 export type View = keyof typeof Containers
+
+type OnlyFirst<T, U> = {
+  [P in keyof T]: T[P]
+} & {
+  [P in keyof U]?: never
+}
+
+export type Either<T, U> = OnlyFirst<T, U> | OnlyFirst<U, T>
 
 /*
   This module augments createAsyncThunk with our root state and app dispatch

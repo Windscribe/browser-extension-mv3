@@ -2,11 +2,10 @@ import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/tool
 
 import { type SessionData } from 'api/types'
 import { login as loginRequest } from 'api'
-import { type LoadingState } from 'utils/types'
+import type { LoadingState, ErrorState } from 'utils/types'
 export interface SessionState extends SessionData {
-  errorCode?: number
-  errorMessage?: string
   loading: LoadingState
+  error?: ErrorState
 }
 
 const initialState: SessionState = {
@@ -24,8 +23,7 @@ const initialState: SessionState = {
   traffic_used: undefined,
   user_id: undefined,
   username: undefined,
-  errorCode: undefined,
-  errorMessage: undefined,
+  error: undefined,
   loading: 'idle',
 }
 
@@ -49,15 +47,11 @@ export const sessionSlice = createSlice({
     setSession(state, action: PayloadAction<SessionState>) {
       return { ...state, ...action.payload }
     },
-    clearError() {
-      // TODO implement. Call before leave a page?
-    },
   },
   extraReducers: builder => {
     builder
       .addCase(login.pending, state => {
-        state.errorCode = undefined
-        state.errorMessage = undefined
+        state.error = undefined
         state.loading = 'pending'
       })
       .addCase(login.fulfilled, (_, action) => {
@@ -65,7 +59,9 @@ export const sessionSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = 'rejected'
-        state.errorMessage = action.error.message
+        if (action.error.message) {
+          state.error = { errorMessage: action.error.message }
+        }
       })
   },
 })

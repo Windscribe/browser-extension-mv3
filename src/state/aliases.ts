@@ -1,6 +1,6 @@
 import { fetchServerList, FETCH_SERVER_LIST } from './slices/servers'
 import { login, LOGIN, type Credentials } from './slices/session'
-import { connectToBestLocation, CONNECT_TO_BEST_LOCATION } from './slices/bestLocation'
+import { connectToBestLocation, CONNECT_TO_BEST_LOCATION } from './slices/proxy'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string

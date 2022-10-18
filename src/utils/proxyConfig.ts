@@ -1,4 +1,4 @@
-// TODO COnsider to move this file to services/browserApi
+// TODO consider to move this file to services/browserApi
 export const connect = async (host: string): Promise<void> => {
   const config = {
     mode: 'fixed_servers',
