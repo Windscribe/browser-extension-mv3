@@ -82,7 +82,17 @@ const Login: ThemeUiElement = () => {
       <Box sx={{ mx: '16px' }}>
         <form onSubmit={handleLogin}>
           <Flex sx={{ justifyContent: 'space-between', gap: '16px' }}>
-            <Label htmlFor="username">Username</Label>
+            <Label
+              sx={{
+                fontWeight: '600',
+                color: 'primaryText',
+                mb: '8px',
+                mr: '16px',
+              }}
+              htmlFor="username"
+            >
+              Username
+            </Label>
             {error && (
               <Text
                 sx={{
@@ -105,7 +115,18 @@ const Login: ThemeUiElement = () => {
             autofillBackgroundColor="foreground"
             onChange={e => setUsername(e.target.value)}
           />
-          <Label htmlFor="password">Password</Label>
+          <Label
+            sx={{
+              fontWeight: '600',
+              color: 'primaryText',
+              mt: '16px',
+              mb: '8px',
+              mr: '16px',
+            }}
+            htmlFor="password"
+          >
+            Password
+          </Label>
           <Flex>
             <Input
               required

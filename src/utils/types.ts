@@ -15,6 +15,8 @@ export type CountryCodeType = keyof typeof flags
 
 export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
+export type FailoverOption = 'Auto / Best' | 'Same Country' | 'None'
+
 export type View = keyof typeof Containers
 
 /*
