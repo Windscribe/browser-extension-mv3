@@ -1,4 +1,5 @@
 import { Box } from 'theme-ui'
+
 import { type ThemeUiElement } from 'utils/types'
 import { useSelector } from 'state/hooks'
 import { Header, OptionBox, ToggleSwitch, DropDown } from 'components'
@@ -12,7 +13,7 @@ const Account: ThemeUiElement = () => {
   return (
     <Box data-testid="connection-page" bg="background">
       <Header title="Connection" />
-      <Box sx={{ mx: '16px' }}>
+      <Box mx="16px">
         <OptionBox
           Icon={SmokewallIcon}
           title="Smokewall"

@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { type FailoverOption } from 'utils/types'
+
 interface ConnectionState {
-  failover: string
+  failover: FailoverOption
 }
 
 const initialState: ConnectionState = {
@@ -12,7 +14,7 @@ export const connectionSlice = createSlice({
   name: 'connection',
   initialState,
   reducers: {
-    setFailover(state, action: PayloadAction<string>) {
+    setFailover(state, action: PayloadAction<FailoverOption>) {
       state.failover = action.payload
     },
   },

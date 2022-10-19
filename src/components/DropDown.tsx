@@ -1,17 +1,22 @@
 import { useState } from 'react'
-import { type ThemeUiElement } from 'utils/types'
 import { Box, Flex, Text } from 'theme-ui'
+import { type ThemeUIJSX } from '@theme-ui/core'
+import { type ActionCreatorWithPayload } from '@reduxjs/toolkit'
+
 import DoubleArrowIcon from 'assets/img/doubleArrow.svg'
 import DropDownItem from './DropDownItem'
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit/dist/createAction'
 
-type DropDownProps = {
-  current: string
-  items: string[]
-  setValue: ActionCreatorWithPayload<string, string>
+type DropDownProps<T> = {
+  current: T
+  items: T[]
+  setValue: ActionCreatorWithPayload<T>
 }
 
-const DropDown: ThemeUiElement<DropDownProps> = ({ current, items, setValue }) => {
+function DropDown<T extends string>({
+  current,
+  items,
+  setValue,
+}: DropDownProps<T>): ThemeUIJSX.Element {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
   return (
@@ -20,7 +25,7 @@ const DropDown: ThemeUiElement<DropDownProps> = ({ current, items, setValue }) =
         onMouseEnter={() => setIsDropDownOpen(true)}
         onMouseLeave={() => setIsDropDownOpen(false)}
         css={{
-          color: 'forground',
+          color: 'foreground',
           alignItems: 'center',
           fontSize: '14px',
           cursor: 'pointer',

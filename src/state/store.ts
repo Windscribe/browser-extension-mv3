@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import logger from 'redux-logger'
 import { alias } from '@eduardoac-skimlinks/webext-redux'
 
+import aliases from './aliases'
 import viewReducer from './slices/view'
 import proxyReducer from './slices/proxy'
 import sessionReducer from './slices/session'
@@ -9,7 +10,6 @@ import serversReducer from './slices/servers'
 import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
 import currentDataCenterReducer from './slices/currentDataCenter'
-import aliases from './aliases'
 import connectionReducer from './slices/connection'
 
 const reducer = {

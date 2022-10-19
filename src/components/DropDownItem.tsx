@@ -1,15 +1,20 @@
-import { type ThemeUiElement } from 'utils/types'
 import { Flex } from 'theme-ui'
-import { useDispatch } from 'state/hooks'
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit/dist/createAction'
+import { type ThemeUIJSX } from '@theme-ui/core'
+import { type ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
-type DropDownItemProps = {
+import { useDispatch } from 'state/hooks'
+
+type DropDownItemProps<T> = {
   current: boolean
-  value: string
-  setValue: ActionCreatorWithPayload<string, string>
+  value: T
+  setValue: ActionCreatorWithPayload<T>
 }
 
-const DropDownItem: ThemeUiElement<DropDownItemProps> = ({ current, value, setValue }) => {
+function DropDownItem<T extends string>({
+  current,
+  value,
+  setValue,
+}: DropDownItemProps<T>): ThemeUIJSX.Element {
   const dispatch = useDispatch()
 
   return (
