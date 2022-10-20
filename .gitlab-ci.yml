@@ -48,6 +48,8 @@ test:
   stage: test
   needs:
     - job: install
+  dependencies:
+    - install
   script:
     - printf "\nAPI_URL=staging.windscribe.com" >> ".env"
     - printf "\nBACKUP_API_URL=staging.windscribe.com" >> ".env"
@@ -60,7 +62,9 @@ test:
 build:extension:
   stage: build
   needs:
-    - job: install
+    - job: [install, eslint, test]
+  dependencies:
+    - install
   before_script:
     - echo "checking node version"
     - node -v
