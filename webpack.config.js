@@ -23,6 +23,10 @@ if (fileSystem.existsSync(secretsPath)) {
 
 const maybeProgressPlugin = env.NODE_ENV === 'development' ? [new webpack.ProgressPlugin()] : []
 
+console.log('WEBPACK process.env.TEST_USER_NAME: ', env.TEST_USER_NAME)
+console.log('WEBPACK process.env.TEST_USER_NAME: ', env.TEST_USER_PASSWORD)
+console.log('WEBPACK process.env.API_URL: ', env.API_URL)
+
 const options = {
   mode: env.NODE_ENV || 'development',
   entry: {

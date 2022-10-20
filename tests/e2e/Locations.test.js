@@ -25,9 +25,9 @@ describe('Locations', () => {
     expect(title).toEqual('Login')
 
     // Fill login forms
-    console.log('process.env.TEST_USER_NAME', process.env.TEST_USER_NAME)
-    console.log('process.env.TEST_USER_NAME', process.env.TEST_USER_PASSWORD)
-    console.log('process.env.API_URL', process.env.API_URL)
+    console.log('TEST process.env.TEST_USER_NAME: ', process.env.TEST_USER_NAME)
+    console.log('TEST process.env.TEST_USER_NAME: ', process.env.TEST_USER_PASSWORD)
+    console.log('TEST process.env.API_URL: ', process.env.API_URL)
     await popupPage.type('[data-testid=username-input]', process.env.TEST_USER_NAME)
     await popupPage.type('[data-testid=password-input]', process.env.TEST_USER_PASSWORD)
     popupPage.click('[data-testid=login-button]')
