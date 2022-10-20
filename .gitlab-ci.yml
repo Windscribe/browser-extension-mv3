@@ -61,8 +61,7 @@ test:
 
 build:extension:
   stage: build
-  needs:
-    - job: ["install", "eslint", "test"]
+  needs: ["install", "eslint", "test"]
   dependencies:
     - install
   before_script:
