@@ -13,7 +13,7 @@ describe('Locations', () => {
     popupPage.on('request', interceptRequests)
   })
 
-  it.skip('Loges in, navigates to Locations page, opens a country/region accordion and selects location', async () => {
+  it('Loges in, navigates to Locations page, opens a country/region accordion and selects location', async () => {
     // Go to Login page
     const goLoginButton = await popupPage.$('[data-testid=login-button]')
     await goLoginButton.click()
@@ -25,8 +25,10 @@ describe('Locations', () => {
     expect(title).toEqual('Login')
 
     // Fill login forms
-    await popupPage.type('[data-testid=username-input]', 'fakeUser')
-    await popupPage.type('[data-testid=password-input]', 'notRealPassword')
+    console.log('process.env.TEST_USER_NAME', process.env.TEST_USER_NAME)
+    console.log('process.env.TEST_USER_NAME', process.env.TEST_USER_PASSWORD)
+    await popupPage.type('[data-testid=username-input]', process.env.TEST_USER_NAME)
+    await popupPage.type('[data-testid=password-input]', process.env.TEST_USER_PASSWORD)
     popupPage.click('[data-testid=login-button]')
 
     // Ensure that we are on Home page and Go to Locations page

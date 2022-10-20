@@ -54,4 +54,6 @@ test:
     - job: build:extension
   script:
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
-    - yarn run test
+    - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env.ci"
+    - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env.ci"
+    - yarn run test:ci
