@@ -1,26 +1,11 @@
-import React from 'react'
 import { render } from 'react-dom'
-import { ThemeProvider } from 'theme-ui'
-import theme from 'styles'
-import DebugLog from './DebugLog'
 import { Provider } from 'react-redux'
-import { Router } from 'services/navigation'
-import { ProxyStore } from 'state'
-import { REACT_APP_REDUX_PORT } from 'utils/constants'
+import { ThemeProvider } from 'theme-ui'
+import DebugLog from './DebugLog'
+import './index.css'
 import log from 'utils/log'
-
-const proxyStore = new ProxyStore({
-  portName: REACT_APP_REDUX_PORT,
-})
-
-// render(
-//   <ThemeProvider theme={theme}>
-//     <Provider store={proxyStore}>
-//       <DebugLog />
-//     </Provider>
-//   </ThemeProvider>,
-//   window.document.querySelector('#app-container'),
-// )
+import theme from 'styles'
+import proxyStore from 'pages/proxyStore'
 
 proxyStore
   .ready()
@@ -37,7 +22,7 @@ proxyStore
   .then(() => {
     if (process.env.NODE_ENV === 'development') {
       type W = typeof window & {
-        store: ProxyStore
+        store: typeof proxyStore
       }
       ;(window as W).store = proxyStore
     }
@@ -46,4 +31,9 @@ proxyStore
     log('Error while rendering UI: ', err, 'error')
   })
 
+/*
+	@link https://webpack.js.org/concepts/hot-module-replacement/
+	@link https://webpack.js.org/guides/hot-module-replacement
+	Still don't understand do we really need it.
+*/
 // if (module.hot) module.hot.accept()

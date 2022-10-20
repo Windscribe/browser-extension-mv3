@@ -6,7 +6,7 @@ import './index.css'
 import log from 'utils/log'
 import theme from 'styles'
 import Router from 'services/navigation/Router'
-import proxyStore from './proxyStore'
+import proxyStore from 'pages/proxyStore'
 
 proxyStore
   .ready()
