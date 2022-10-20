@@ -3,12 +3,15 @@ image:
 
 variables:
   DOCKER_REPO: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3
+  #TEST_USER_NAME: "sample"         # Set in Gitlab variables
+  #TEST_USER_PASSWORD: "VhVvMiM3jD04c"  # Set in Gitlab variables
+
 
 stages:
   - prepare_environment
-  - lint
-  - build
+  - install_packages
   - test
+  - build
 
 build:image:
   image: docker
@@ -22,20 +25,43 @@ build:image:
     - docker build -t ${DOCKER_REPO}:master .
     - docker push ${DOCKER_REPO}:master
 
-eslint:
-  stage: lint
+install:
+  stage: install_packages
   script:
-  - yarn install --frozen-lockfile
-  - yarn run lint
+    - yarn install --frozen-lockfile
   artifacts:
     paths:
       - node_modules/
-    expire_in: 7 days
+
+eslint:
+  stage: test
+  needs:
+    - job: install
+  script:
+    - yarn run lint
+  # artifacts:
+  #   paths:
+  #     - node_modules/
+  #   expire_in: 7 days
+
+test:
+  stage: test
+  needs:
+    - job: install
+  script:
+    - printf "\nAPI_URL=staging.windscribe.com" >> ".env"
+    - printf "\nBACKUP_API_URL=staging.windscribe.com" >> ".env"
+    - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
+    - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
+    - yarn run build
+    - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
+    - yarn run test
+  artifacts: []
 
 build:extension:
   stage: build
   needs:
-    - job: eslint
+    - job: install
   before_script:
     - echo "checking node version"
     - node -v
@@ -48,14 +74,3 @@ build:extension:
     paths:
       - build/
     expire_in: 7 days
-
-test:
-  stage: test
-  needs:
-    - job: eslint
-    - job: build:extension
-  script:
-    - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
-    - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
-    - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
-    - yarn run test
