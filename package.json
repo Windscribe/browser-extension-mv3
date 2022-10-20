@@ -14,7 +14,6 @@
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "test": "jest  --runInBand --testTimeout=10000",
     "test:local": "DOTENV_CONFIG_PATH=./.env.local jest  --runInBand --testTimeout=10000",
-    "test:ci": "DOTENV_CONFIG_PATH=./.env.ci jest  --runInBand --testTimeout=10000",
     "lint": "eslint ./src",
     "prepare": "husky install"
   },

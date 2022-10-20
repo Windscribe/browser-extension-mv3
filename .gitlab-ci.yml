@@ -41,6 +41,8 @@ build:extension:
     - node -v
   script:
   - printf "\nNODE_ENV=CI" >> ".env"
+  - printf "\nAPI_URL=staging.windscribe.com" >> ".env"
+  - printf "\nBACKUP_API_URL=staging.windscribe.com" >> ".env"
   - yarn run build 
   artifacts:
     paths:
@@ -54,6 +56,6 @@ test:
     - job: build:extension
   script:
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
-    - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env.ci"
-    - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env.ci"
-    - yarn run test:ci
+    - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
+    - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
+    - yarn run test
