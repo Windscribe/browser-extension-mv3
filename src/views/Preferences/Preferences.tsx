@@ -16,6 +16,7 @@ import LogoutIcon from 'assets/img/logout.svg'
 import { useGoTo } from 'services/navigation'
 
 const Preferences: ThemeUiElement = () => {
+  const goToConnection = useGoTo('Connection')
   const goToAccount = useGoTo('Account')
 
   return (
@@ -24,7 +25,7 @@ const Preferences: ThemeUiElement = () => {
       <Box sx={{ mx: '16px' }}>
         <RoundedBox>
           <ListItemButton title="General" Icon={GeneralIcon} />
-          <ListItemButton title="Connection" Icon={ConnectionIcon} />
+          <ListItemButton title="Connection" Icon={ConnectionIcon} onClick={goToConnection} />
           <ListItemButton title="Blocker" Icon={BlockerIcon} />
           <ListItemButton title="Privacy" Icon={PrivacyIcon} />
           <ListItemButton title="Account" Icon={AccountIcon} onClick={goToAccount} />
