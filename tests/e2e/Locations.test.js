@@ -93,7 +93,7 @@ describe('Locations', () => {
     expect(arrowIcon).toBeNull()
   })
 
-  // afterAll(async () => {
-  //   await browser.close()
-  // })
+  afterAll(async () => {
+    await browser.close()
+  })
 })
