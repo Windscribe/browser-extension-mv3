@@ -108,10 +108,23 @@ ApiCall({ key: secrets.key })
 ---
 
 ## Test
-To run e2e tests run the command
 
+To run e2e tests locally you need:
+1. Got to https://www-staging.windscribe.com/signup and create your test user on staging environment
+2. Save your Username and Password
+3. Ask guys in qa or web-team channel to upgrade your test user to Pro
+4. Create `.env.local` file in a root of the project and paste environment variables in it:
 ```
-$ yarn run test
+REACT_APP_REDUX_PORT=WS_BROWSER_EXTENSION_STORE
+BROWSER=Chrome
+API_URL=staging.windscribe.com
+BACKUP_API_URL=staging.windscribe.com
+TEST_USER_NAME=your_username
+TEST_USER_PASSWORD=your_password
+```
+5. Run tests by
+```
+$ yarn run test:local
 ```
 
 It opens a browser window, makes stuff, and closes it automatically. Please, don't interrupt test scenarios by pressing keys or clicking or whatever.
