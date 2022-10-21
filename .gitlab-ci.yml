@@ -4,7 +4,7 @@ image:
 variables:
   DOCKER_REPO: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3
   #TEST_USER_NAME: "sample"         # Set in Gitlab variables
-  #TEST_USER_PASSWORD: "VhVvMiM3jD04c"  # Set in Gitlab variables
+  #TEST_USER_PASSWORD: "PaSsWoRd"  # Set in Gitlab variables
 
 
 stages:
@@ -39,10 +39,6 @@ eslint:
     - job: install
   script:
     - yarn run lint
-  # artifacts:
-  #   paths:
-  #     - node_modules/
-  #   expire_in: 7 days
 
 test:
   stage: test
