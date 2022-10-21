@@ -51,8 +51,8 @@ test:
   dependencies:
     - install
   script:
+    - printf "\nNODE_ENV=CI" >> ".env"
     - printf "\nAPI_URL=staging.windscribe.com" >> ".env"
-    - printf "\nBACKUP_API_URL=staging.windscribe.com" >> ".env"
     - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
     - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
     - yarn run build
@@ -68,9 +68,9 @@ build:extension:
     - echo "checking node version"
     - node -v
   script:
-  - printf "\nNODE_ENV=CI" >> ".env"
-  - printf "\nAPI_URL=staging.windscribe.com" >> ".env"
-  - printf "\nBACKUP_API_URL=staging.windscribe.com" >> ".env"
+  - printf "\nNODE_ENV=production" >> ".env"
+  - printf "\nAPI_URL=windscribe.com" >> ".env"
+  - printf "\nBACKUP_API_URL=totallyacdn.com" >> ".env"
   - yarn run build 
   artifacts:
     paths:
