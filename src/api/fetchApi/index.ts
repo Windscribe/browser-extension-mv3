@@ -38,8 +38,6 @@ const fetchApi = async (apiUrl: string, path: string, method: Method, useAssets:
   } else {
     url = useAssets ? `assets-${apiUrl}` : `api-${apiUrl}`
   }
-  console.log('url: ', url)
-  console.log('NODE_ENV: ', NODE_ENV)
 
   return fetchTimeout(`https://${url}/${path}`, method)
 }
@@ -49,8 +47,6 @@ const sendRequest = async <DataType>(
   method: Method,
   useAssets = false,
 ): Promise<ApiResponse<DataType>> => {
-  console.log('ENVS.API_URL: ', ENVS.API_URL)
-
   workingApi ??= ENVS.API_URL
 
   return await fetchApi(workingApi, path, method, useAssets)

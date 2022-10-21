@@ -118,7 +118,6 @@ To run e2e tests locally you need:
 REACT_APP_REDUX_PORT=WS_BROWSER_EXTENSION_STORE
 BROWSER=Chrome
 API_URL=staging.windscribe.com
-BACKUP_API_URL=staging.windscribe.com
 TEST_USER_NAME=your_username
 TEST_USER_PASSWORD=your_password
 ```
