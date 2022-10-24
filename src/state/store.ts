@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, combineReducers, type Reducer, type AnyAction } from '@reduxjs/toolkit'
 import { createLogger } from 'redux-logger'
 import { alias } from '@eduardoac-skimlinks/webext-redux'
 
@@ -11,7 +11,7 @@ import currentLocationReducer from './slices/currentLocation'
 import currentDataCenterReducer from './slices/currentDataCenter'
 import aliases from './aliases'
 
-const reducer = {
+const reducers = {
   view: viewReducer,
   proxy: proxyReducer,
   session: sessionReducer,
@@ -21,8 +21,18 @@ const reducer = {
   currentDataCenter: currentDataCenterReducer,
 }
 
+const combinedReducer = combineReducers(reducers)
+
+// Here is a place for logic that mutates all state entirely, not just one slice
+const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+  if (action.type === 'global/resetStore') {
+    state = {} as RootState
+  }
+  return combinedReducer(state, action)
+}
+
 const store = configureStore({
-  reducer: reducer,
+  reducer: rootReducer,
 })
 
 const logger = createLogger({
@@ -31,7 +41,7 @@ const logger = createLogger({
 
 export function buildFrom(preloadedState?: RootState): StoreType {
   return configureStore({
-    reducer,
+    reducer: rootReducer,
     preloadedState,
     middleware: getDefaultMiddleware => {
       const arr = [alias(aliases), ...getDefaultMiddleware()]
@@ -45,7 +55,7 @@ export function buildFrom(preloadedState?: RootState): StoreType {
 
 export type StoreType = typeof store
 export type GetState = typeof store.getState
-export type RootState = ReturnType<GetState>
+export type RootState = ReturnType<typeof combinedReducer>
 export type AppDispatch = typeof store.dispatch
 
 export default store
