@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Box, Button, Flex, Text } from 'theme-ui'
-
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import HeaderButton from './HeaderButton'
@@ -51,7 +50,7 @@ const Home: ThemeUiElement = () => {
     if (serverListLoading === 'fulfilled' && bestLocationLoading === 'idle') {
       dispatchAlias(CONNECT_TO_BEST_LOCATION)
     }
-  }, [serverListLoading, dispatchAlias])
+  }, [serverListLoading, dispatchAlias, bestLocationLoading])
 
   const toggleProxy = async () => {
     if (isConnected) {

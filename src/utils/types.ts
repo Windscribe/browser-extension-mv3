@@ -22,6 +22,8 @@ export type ErrorState = {
   logStatus?: string | null
 }
 
+export type FailoverOption = 'Auto / Best' | 'Same Country' | 'None'
+
 export type View = keyof typeof Containers
 
 type OnlyFirst<T, U> = {

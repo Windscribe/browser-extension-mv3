@@ -28,5 +28,6 @@ export async function initializeWrappedStore(): Promise<StoreType> {
   store.subscribe(async () => {
     await browserApi.saveStateInStorage(store.getState())
   })
+
   return store
 }
