@@ -2274,6 +2274,11 @@
   dependencies:
     csstype "^3.0.2"
 
+"@types/ua-parser-js@^0.7.36":
+  version "0.7.36"
+  resolved "https://registry.yarnpkg.com/@types/ua-parser-js/-/ua-parser-js-0.7.36.tgz#9bd0b47f26b5a3151be21ba4ce9f5fa457c5f190"
+  integrity sha512-N1rW+njavs70y2cApeIw1vLMYXRwfBy+7trgavGuuTfOd7j1Yh7QTRc/yqsPl6ncokt72ZXuxEU0PiCp9bSwNQ==
+
 "@types/ws@^8.5.1":
   version "8.5.3"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.3.tgz#7d25a1ffbecd3c4f2d35068d0b283c037003274d"
@@ -7547,6 +7552,11 @@ typescript@^4.5.5:
   version "4.7.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
+
+ua-parser-js@^1.0.32:
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-1.0.32.tgz#786bf17df97de159d5b1c9d5e8e9e89806f8a030"
+  integrity sha512-dXVsz3M4j+5tTiovFVyVqssXBu5HM47//YSOeZ9fQkdDKkfzv2v3PP1jmH6FUyPW+yCSn7aBVK1fGGKNhowdDA==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"

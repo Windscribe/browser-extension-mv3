@@ -19,6 +19,16 @@ export type FailoverOption = 'Auto / Best' | 'Same Country' | 'None'
 
 export type View = keyof typeof Containers
 
+export type LogInfo = {
+  tag?: LogTag
+  level?: LogLevel
+  message: string
+}
+
+type LogTag = 'popup' | 'background'
+
+type LogLevel = 'INFO' | 'ERROR' | 'WARN'
+
 /*
   This module augments createAsyncThunk with our root state and app dispatch
   so we don't need to pass them to every createAsyncThunk call as generic params
