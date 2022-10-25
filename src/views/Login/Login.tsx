@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Button, Flex, Text, Input, Label, Box, Link, Spinner } from 'theme-ui'
 
 import { LOGIN } from 'state/slices/session'
-import { pushToDebugLog } from 'state/slices/debugLog'
 import { useGoTo } from 'services/navigation'
 import { serverCredentials as getServerCredentials } from 'api/index'
 import { setServerCredentials } from 'state/slices/servers'
@@ -39,12 +38,6 @@ const Login: ThemeUiElement = () => {
     }
     setError(errorMessage)
   }, [errorMessage, errorCode])
-
-  // if (data?.session_auth_hash && data.loc_hash) {
-  //   pushToDebugLog(
-  //     '12 October;19:03:15.129 [background] [INFO ] [get_session         ] - Revision Hash changed ',
-  //   )
-  // }
 
   useEffect(() => {
     setError('')

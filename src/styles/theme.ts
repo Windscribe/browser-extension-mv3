@@ -11,8 +11,6 @@ export const theme: Theme = {
       body: {
         fontSize: '14px',
       },
-      // width: '324px',
-      // minHeight: '298px',
       height: 'auto',
       backgroundColor: 'white',
     },

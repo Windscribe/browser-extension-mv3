@@ -1,15 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LogInfo } from 'utils/types'
 
-interface ConnectionState {
+interface DebugLogState {
   log: string[]
 }
 
-const initialState: ConnectionState = {
+const initialState: DebugLogState = {
   log: [],
 }
-
-export const BUILD_LOG_ITEM = 'servers/buildLogItem'
 
 export const debugLogSlice = createSlice({
   name: 'debugLog',
