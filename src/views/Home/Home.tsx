@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Box, Button, Flex, Text } from 'theme-ui'
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
@@ -6,10 +5,9 @@ import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
-import { FETCH_SERVER_LIST } from 'state/slices/servers'
-import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
+import { useInitialDataFetching } from 'components/hooks'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -31,24 +29,14 @@ const Home: ThemeUiElement = () => {
   const goToPreferences = useGoTo('Preferences')
 
   const currentDataCenter = useSelector(s => s.currentDataCenter)
-  const bestLocationLoading = useSelector(s => s.bestLocation.loading)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
   const isConnected = useSelector(state => state.proxy.isConnected)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
-  const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
-  const serverListLoading = useSelector(s => s.servers.loading)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
-  useEffect(() => {
-    if (serverListLoading === 'idle' && sessionAuthHash) {
-      dispatchAlias(FETCH_SERVER_LIST)
-    }
-    if (bestLocationLoading === 'idle' && sessionAuthHash) {
-      dispatchAlias(FETCH_BEST_LOCATION)
-    }
-  }, [sessionAuthHash, isPremium, serverListLoading, bestLocationLoading, dispatchAlias])
+  useInitialDataFetching()
 
   const toggleProxy = async () => {
     if (isConnected) {
@@ -59,7 +47,7 @@ const Home: ThemeUiElement = () => {
       if (currentDataCenter?.hosts?.[0]) {
         await dispatch(connectProxy(currentDataCenter.hosts[0].hostname))
       } else {
-        dispatchAlias(CONNECT_TO_AUTOPILOT)
+        await dispatchAlias(CONNECT_TO_AUTOPILOT)
       }
     }
   }
