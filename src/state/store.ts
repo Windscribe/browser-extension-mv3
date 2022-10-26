@@ -30,7 +30,7 @@ const reducers = {
 const combinedReducer = combineReducers(reducers)
 
 // Here is a place for logic that mutates all state entirely, not just one slice
-const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === 'global/resetStore') {
     state = {} as RootState
   }
