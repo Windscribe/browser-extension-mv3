@@ -4,10 +4,12 @@ import { type FailoverOption } from 'utils/types'
 
 interface ConnectionState {
   failover: FailoverOption
+  autoConnect: boolean
 }
 
 const initialState: ConnectionState = {
   failover: 'Auto / Best',
+  autoConnect: false,
 }
 
 export const connectionSlice = createSlice({
@@ -17,8 +19,11 @@ export const connectionSlice = createSlice({
     setFailover(state, action: PayloadAction<FailoverOption>) {
       state.failover = action.payload
     },
+    setAutoConnect(state, action: PayloadAction<boolean>) {
+      state.autoConnect = action.payload
+    },
   },
 })
 
-export const { setFailover } = connectionSlice.actions
+export const { setFailover, setAutoConnect } = connectionSlice.actions
 export default connectionSlice.reducer
