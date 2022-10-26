@@ -1,5 +1,7 @@
 import { Box, Flex } from 'theme-ui'
+
 import { type ThemeUiElement } from 'utils/types'
+import { logout } from 'state/slices/session'
 import { Header, RoundedBox, ListItemButton } from 'components'
 import CircleButton from 'components/CircleButton'
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
@@ -14,10 +16,13 @@ import TutorialIcon from 'assets/img/tutorial.svg'
 import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
 import { useGoTo } from 'services/navigation'
+import { useDispatch } from 'state/hooks'
 
 const Preferences: ThemeUiElement = () => {
   const goToConnection = useGoTo('Connection')
+  const dispatch = useDispatch()
   const goToAccount = useGoTo('Account')
+  const handleLogoutClick = async () => await dispatch(logout())
 
   return (
     <Box data-testid="preferences-page" bg="background">
@@ -46,7 +51,7 @@ const Preferences: ThemeUiElement = () => {
             <CircleButton Icon={TutorialIcon} />
             <CircleButton Icon={HelpIcon} />
           </Flex>
-          <CircleButton Icon={LogoutIcon} />
+          <CircleButton onClick={handleLogoutClick} Icon={LogoutIcon} />
         </Flex>
       </Box>
     </Box>
