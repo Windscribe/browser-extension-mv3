@@ -4,6 +4,7 @@ import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
 
+// This function could be used as a periodical data-fetcher after small refactoring
 export const useInitialDataFetching: () => void = () => {
   const dispatch = useDispatch()
   const dispatchAlias = useDispatchAlias()

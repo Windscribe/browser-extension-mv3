@@ -36,6 +36,7 @@ export const proxySlice = createSlice({
   reducers: {
     setProxy(state, action: PayloadAction<string>) {
       state.host = action.payload
+      state.errorMessage = undefined
     },
     resetProxy(state) {
       state.host = undefined

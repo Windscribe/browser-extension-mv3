@@ -73,6 +73,7 @@ export const autopilotSlice = createSlice({
   reducers: {
     setAutopilotData(state, action: PayloadAction<Autopilot>) {
       state.autopilotData = action.payload
+      state.errorMessage = undefined
     },
     setAutopilotSelected(state, action: PayloadAction<boolean>) {
       state.autopilotSelected = action.payload
