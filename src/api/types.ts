@@ -89,7 +89,6 @@ export interface BestLocation {
   server_id: number
   short_name: string
 }
-
 export interface Autopilot {
   location: Location
   dataCenter: DataCenter

@@ -24,8 +24,10 @@ const initialState: BestLocationState = {
   error: undefined,
 }
 
+export const FETCH_BEST_LOCATION = 'bestLocation/fetchBestLocation'
+
 export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorResponse>>(
-  'bestLocation/fetchBestLocation',
+  FETCH_BEST_LOCATION,
   async (_, { getState }) => {
     const sessionAuthHash = getState().session.session_auth_hash
     if (!sessionAuthHash) {
@@ -33,6 +35,9 @@ export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorR
     }
 
     const response = await getBestLocation(sessionAuthHash)
+
+    // Back-end response with error object is treated as a valid response
+    // and fetchBestLocation() processed as successfully fulfilled.
     if (response.errorCode) return response
     if (response.data) return response?.data
 

@@ -7,7 +7,9 @@ import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
 import { FETCH_SERVER_LIST } from 'state/slices/servers'
-import { connectProxy, disconnectProxy, CONNECT_TO_BEST_LOCATION } from 'state/slices/proxy'
+import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
+import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
+import { connectProxy, disconnectProxy } from 'state/slices/proxy'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -34,32 +36,30 @@ const Home: ThemeUiElement = () => {
   const isConnected = useSelector(state => state.proxy.isConnected)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
-  const locHash = useSelector(s => s.session.loc_hash)
+  const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
   const serverListLoading = useSelector(s => s.servers.loading)
-  const autopilotSelected = useSelector(state => state.servers.autopilotSelected)
+  const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
   useEffect(() => {
-    if (serverListLoading === 'idle' && locHash) {
+    if (serverListLoading === 'idle' && sessionAuthHash) {
       dispatchAlias(FETCH_SERVER_LIST)
     }
-  }, [locHash, isPremium, serverListLoading, dispatchAlias])
-
-  useEffect(() => {
-    // TODO Review this condition. Every time serverList updated we set best location as current
-    if (serverListLoading === 'fulfilled' && bestLocationLoading === 'idle') {
-      dispatchAlias(CONNECT_TO_BEST_LOCATION)
+    if (bestLocationLoading === 'idle' && sessionAuthHash) {
+      dispatchAlias(FETCH_BEST_LOCATION)
     }
-  }, [serverListLoading, dispatchAlias, bestLocationLoading])
+  }, [sessionAuthHash, isPremium, serverListLoading, bestLocationLoading, dispatchAlias])
 
   const toggleProxy = async () => {
     if (isConnected) {
       await dispatch(disconnectProxy())
     } else {
+      // TODO refactor. Wrong condition
+      // if (autopilotSelected) {
       if (currentDataCenter?.hosts?.[0]) {
         await dispatch(connectProxy(currentDataCenter.hosts[0].hostname))
       } else {
-        dispatchAlias(CONNECT_TO_BEST_LOCATION)
+        dispatchAlias(CONNECT_TO_AUTOPILOT)
       }
     }
   }

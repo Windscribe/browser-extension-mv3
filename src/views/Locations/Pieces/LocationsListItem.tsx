@@ -5,41 +5,33 @@ import PlusIcon from 'assets/img/plus-icon.svg'
 import flags from 'assets/flags'
 import AirplaneIcon from 'assets/img/airplane.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
-import { useDispatch } from 'state/hooks'
+import { useDispatchAlias } from 'state/hooks'
 import { useGoTo } from 'services/navigation'
-import { setAutopilotSelected } from 'state/slices/servers'
-import { setCurrentLocation } from 'state/slices/currentLocation'
-import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
-import { connectProxy } from 'state/slices/proxy'
+import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 
 import LocationsListItemDetails from './LocationsListItemDetails'
-import { type Location, DataCenter } from 'api/types'
+import { type Location } from 'api/types'
 
 type LocationsListItemProps = {
   location: Location
-  dataCenter?: DataCenter
   isAutopilot?: boolean
   currentlySelected?: boolean
 }
 
 const LocationsListItem: React.FC<LocationsListItemProps> = ({
   location,
-  dataCenter,
   isAutopilot = false,
   currentlySelected = false,
 }) => {
   const [isExpanded, setIsExpanded] = useState(currentlySelected && !isAutopilot)
-  const dispatch = useDispatch()
+  const dispatchAlias = useDispatchAlias()
   const goToHome = useGoTo('Home')
 
   const Flag: React.ElementType = flags[isAutopilot ? 'AUTO' : location.country_code]
 
-  const handleLocationItemClick = () => {
-    if (isAutopilot && dataCenter) {
-      dispatch(setCurrentLocation(location)) // ? todo check if it required
-      dispatch(setCurrentDataCenter(dataCenter)) // ? todo check if it required
-      dispatch(setAutopilotSelected(true))
-      dispatch(connectProxy(dataCenter.hosts[0].hostname))
+  const handleLocationItemClick = async () => {
+    if (isAutopilot) {
+      await dispatchAlias(CONNECT_TO_AUTOPILOT)
       goToHome()
     } else {
       setIsExpanded(!isExpanded)

@@ -4,7 +4,7 @@ import HeartIcon from 'assets/img/heart-outline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
 import { setCurrentLocation } from 'state/slices/currentLocation'
-import { setAutopilotSelected } from 'state/slices/servers'
+import { setAutopilotSelected } from 'state/slices/autopilot'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectProxy } from 'state/slices/proxy'
 import { useDispatch, useSelector } from 'state/hooks'
@@ -25,7 +25,6 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
   const currentDataCenter = useSelector(s => s.currentDataCenter)
 
   const handleClick = (dataCenter: DataCenter) => {
-    // TODO: move into connectProxy callback
     dispatch(setCurrentLocation(location))
     dispatch(setCurrentDataCenter(dataCenter))
     dispatch(setAutopilotSelected(false))

@@ -1,15 +1,11 @@
 import log from 'utils/log'
 import getErrorMessage from 'utils/getErrorMessage'
 import { initializeWrappedStore } from 'state'
-import {
-  connectProxy,
-  disconnectProxy,
-  setConnectionError,
-  connectToBestLocation,
-} from 'state/slices/proxy'
+import { connectProxy, disconnectProxy, setConnectionError } from 'state/slices/proxy'
 import browserApi from 'services/browserApi'
 import setDebuggerAuth from './debuggerAuth'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
+import { connectToAutopilot } from 'state/slices/autopilot'
 
 const bgStore = initializeWrappedStore().then(store => {
   log('bg store was initialized')
@@ -41,7 +37,7 @@ async function onStartupCallback() {
     if (currentHostname) {
       store.dispatch(connectProxy(currentHostname))
     } else {
-      store.dispatch(connectToBestLocation())
+      store.dispatch(connectToAutopilot())
     }
   } catch (err) {
     const message = getErrorMessage(err)

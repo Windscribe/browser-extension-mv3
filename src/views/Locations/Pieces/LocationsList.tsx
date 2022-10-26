@@ -3,34 +3,36 @@ import { useEffect } from 'react'
 import { Column } from 'components/Flexbox'
 import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
-import { useSelector, useDispatchAlias } from 'state/hooks'
-import { selectAutopilot } from 'state/selectors'
+import { useSelector, useDispatchAlias, useDispatch } from 'state/hooks'
 import { FETCH_SERVER_LIST } from 'state/slices/servers'
+import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
 
 const LocationsList: React.FC = () => {
   const dispatchAlias = useDispatchAlias()
+  const dispatch = useDispatch()
   const serverList = useSelector(s => s.servers.serverList)
   const serversListLoading = useSelector(s => s.servers.loading)
   const locHash = useSelector(s => s.session.loc_hash)
   const isPremium = useSelector(s => s.session.is_premium)
   const currentLocationId = useSelector(s => s.currentLocation?.id)
-  // TODO Refactor. Consider create autopilot slice
-  const autopilot = useSelector(s => selectAutopilot(s))
+  const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
 
   useEffect(() => {
+    // TODO Discuss.
+    // serversList should be fetched already on Home page. Is this reassurance redundant?
     if (serversListLoading === 'idle' && locHash) {
       dispatchAlias(FETCH_SERVER_LIST)
+      dispatch(applyBestLocationAsAutopilot())
     }
-  }, [locHash, isPremium, serversListLoading, dispatchAlias])
+  }, [locHash, isPremium, serversListLoading, dispatch, dispatchAlias])
 
   const ServerList = (
     <>
-      {autopilot && (
+      {autopilotLocation && (
         <LocationsListItem
-          location={autopilot.location}
-          dataCenter={autopilot.dataCenter}
+          location={autopilotLocation}
           isAutopilot
-          currentlySelected={currentLocationId === autopilot?.location.id}
+          currentlySelected={currentLocationId === autopilotLocation.id}
         />
       )}
       {serverList?.map(location => (
