@@ -1,9 +1,14 @@
 import { type ThemeUiElement } from 'utils/types'
 import { Switch } from 'theme-ui'
 
-const ToggleSwitch: ThemeUiElement = () => {
+type ToggleSwitchProps = {
+  onClick?: () => void
+}
+
+const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({ onClick }) => {
   return (
     <Switch
+      onClick={onClick}
       sx={{
         m: 0,
         backgroundColor: 'white',

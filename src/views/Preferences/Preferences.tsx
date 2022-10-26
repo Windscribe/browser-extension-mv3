@@ -19,6 +19,7 @@ import { useGoTo } from 'services/navigation'
 import { useDispatch } from 'state/hooks'
 
 const Preferences: ThemeUiElement = () => {
+  const goToGeneral = useGoTo('General')
   const goToConnection = useGoTo('Connection')
   const dispatch = useDispatch()
   const goToAccount = useGoTo('Account')
@@ -29,7 +30,7 @@ const Preferences: ThemeUiElement = () => {
       <Header title="Preferences" RightSideComponent={<CircleButton Icon={NewsfeedIcon} />} />
       <Box sx={{ mx: '16px' }}>
         <RoundedBox>
-          <ListItemButton title="General" Icon={GeneralIcon} />
+          <ListItemButton title="General" Icon={GeneralIcon} onClick={goToGeneral} />
           <ListItemButton title="Connection" Icon={ConnectionIcon} onClick={goToConnection} />
           <ListItemButton title="Blocker" Icon={BlockerIcon} />
           <ListItemButton title="Privacy" Icon={PrivacyIcon} />

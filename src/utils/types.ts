@@ -31,8 +31,17 @@ type OnlyFirst<T, U> = {
 } & {
   [P in keyof U]?: never
 }
-
 export type Either<T, U> = OnlyFirst<T, U> | OnlyFirst<U, T>
+
+export type LogInfo = {
+  tag?: LogTag
+  level?: LogLevel
+  message: string
+}
+
+type LogTag = 'popup' | 'background'
+
+type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 
 /*
   This module augments createAsyncThunk with our root state and app dispatch

@@ -20,6 +20,7 @@ import PrivacyIcon from 'assets/img/privacy.svg'
 import BlockerIcon from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import Flags from 'assets/flags'
+import { pushToDebugLog } from 'state/slices/debugLog'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -39,6 +40,9 @@ const Home: ThemeUiElement = () => {
   useInitialDataFetching()
 
   const toggleProxy = async () => {
+    // This is example of how to use pushToDebugLog (will remove later)
+    dispatch(pushToDebugLog({ message: 'Proxy toggled ' + (isConnected ? 'off' : 'on') }))
+
     if (isConnected) {
       await dispatch(disconnectProxy())
       return

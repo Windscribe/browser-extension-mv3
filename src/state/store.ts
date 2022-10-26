@@ -7,6 +7,7 @@ import viewReducer from './slices/view'
 import proxyReducer from './slices/proxy'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
+import debugLogReducer from './slices/debugLog'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
 import bestLocationReducer from './slices/bestLocation'
@@ -19,6 +20,7 @@ const reducers = {
   connection: connectionReducer,
   currentDataCenter: currentDataCenterReducer,
   currentLocation: currentLocationReducer,
+  debugLog: debugLogReducer,
   proxy: proxyReducer,
   servers: serversReducer,
   session: sessionReducer,

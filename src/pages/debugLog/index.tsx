@@ -1,11 +1,9 @@
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'theme-ui'
-
-import './index.css'
+import DebugLog from './DebugLog'
 import log from 'utils/log'
 import theme from 'styles'
-import Router from 'services/navigation/Router'
 import proxyStore from 'pages/proxyStore'
 
 proxyStore
@@ -14,7 +12,7 @@ proxyStore
     render(
       <ThemeProvider theme={theme}>
         <Provider store={proxyStore}>
-          <Router />
+          <DebugLog />
         </Provider>
       </ThemeProvider>,
       window.document.querySelector('#app-container'),
