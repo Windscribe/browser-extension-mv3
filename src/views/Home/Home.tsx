@@ -41,15 +41,14 @@ const Home: ThemeUiElement = () => {
   const toggleProxy = async () => {
     if (isConnected) {
       await dispatch(disconnectProxy())
-    } else {
-      // TODO refactor. Wrong condition
-      // if (autopilotSelected) {
-      if (currentDataCenter?.hosts?.[0]) {
-        await dispatch(connectProxy(currentDataCenter.hosts[0].hostname))
-      } else {
-        await dispatchAlias(CONNECT_TO_AUTOPILOT)
-      }
+      return
     }
+    const hostname = currentDataCenter?.hosts?.[0].hostname
+    if (!autopilotSelected && hostname) {
+      await dispatch(connectProxy(hostname))
+      return
+    }
+    await dispatchAlias(CONNECT_TO_AUTOPILOT)
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED

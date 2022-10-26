@@ -2,6 +2,7 @@ import { Column } from 'components/Flexbox'
 import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
+import { useInitialDataFetching } from 'components/hooks'
 
 const LocationsList: React.FC = () => {
   const serverList = useSelector(s => s.servers.serverList)
@@ -10,8 +11,8 @@ const LocationsList: React.FC = () => {
   const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
 
   // TODO Discuss.
-  // serversList should be fetched already on Home page. Is this reassurance redundant?
-  // useInitialDataFetching()
+  // serversList and bestLocation should be fetched already on Home page. Is this reassurance redundant?
+  useInitialDataFetching()
 
   const ServerList = (
     <>
