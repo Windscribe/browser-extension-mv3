@@ -11,9 +11,6 @@ import { setAutoConnect } from 'state/slices/connection'
 const General: ThemeUiElement = () => {
   const autoConnect = useSelector(s => s.connection.autoConnect)
   const dispatch = useDispatch()
-  const handleClick: React.ChangeEventHandler<HTMLInputElement> = e => {
-    dispatch(setAutoConnect(!autoConnect))
-  }
 
   return (
     <Box data-testid="general-page" bg="background">
@@ -24,7 +21,10 @@ const General: ThemeUiElement = () => {
           title="Auto-Connect"
           subTitle="Automatically connect on browser start."
         >
-          <ToggleSwitch onChange={handleClick} checked={autoConnect} />
+          <ToggleSwitch
+            onChange={() => dispatch(setAutoConnect(!autoConnect))}
+            checked={autoConnect}
+          />
         </OptionBox>
         <Flex sx={{ justifyContent: 'center', mb: '16px' }}>
           <EllipseIcon />

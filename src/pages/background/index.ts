@@ -28,7 +28,10 @@ async function onStartupCallback() {
   try {
     store = await bgStore
 
-    if (!store.getState().connection.autoConnect) return
+    if (!store.getState().connection.autoConnect) {
+      store.dispatch(disconnectProxy())
+      return
+    }
 
     const authHash = store.getState().session.session_auth_hash
     if (!authHash) {
@@ -50,7 +53,10 @@ async function onStartupCallback() {
   }
 }
 
-chrome.proxy.onProxyError.addListener(async () => {
+chrome.proxy.onProxyError.addListener(async e => {
+  // TODO push error to debugLog
+  console.log('%c onProxyError ', 'background: #383E49; color: #1ADEAE', e)
+
   const store = await bgStore
   const failover = store.getState().connection.failover
   if (failover === 'Auto / Best') {
