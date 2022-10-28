@@ -1,11 +1,13 @@
 export const CLIENT_AUTH_SECRET = '952b4412f002315aa50751032fcaab03'
 
 export const ENVS = {
-  API_URL: process.env.API_URL || 'windscribe.com',
-  BACKUP_API_URL: process.env.BACKUP_API_URL || 'totallyacdn.com',
+  API_URL: process.env.API_URL || 'staging.windscribe.com',
+  BACKUP_API_URL: process.env.BACKUP_API_URL,
   DOH_URL: 'dynamic-api-host.windscribe.com',
   ROOT_URL: 'https://www.windscribe.com',
 }
+
+export const NODE_ENV = process.env.NODE_ENV
 
 export type BrowserName = 'Chrome' | 'Edge'
 export const BROWSER: BrowserName = (process.env.BROWSER as BrowserName) || 'Chrome'

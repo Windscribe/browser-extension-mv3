@@ -1,5 +1,4 @@
 const { setup } = require('./setup')
-const locationsMock = require('../responsesMocks/locationsMock')
 
 describe('Locations', () => {
   let popupPage, browser
@@ -8,12 +7,9 @@ describe('Locations', () => {
     const context = await setup()
     browser = context.browser
     popupPage = context.popupPage
-
-    await popupPage.setRequestInterception(true)
-    popupPage.on('request', interceptRequests)
   })
 
-  it.skip('Loges in, navigates to Locations page, opens a country/region accordion and selects location', async () => {
+  it('Loges in, navigates to Locations page, opens a country/region accordion and selects location', async () => {
     // Go to Login page
     const goLoginButton = await popupPage.$('[data-testid=login-button]')
     await goLoginButton.click()
@@ -25,8 +21,8 @@ describe('Locations', () => {
     expect(title).toEqual('Login')
 
     // Fill login forms
-    await popupPage.type('[data-testid=username-input]', 'fakeUser')
-    await popupPage.type('[data-testid=password-input]', 'notRealPassword')
+    await popupPage.type('[data-testid=username-input]', process.env.TEST_USER_NAME)
+    await popupPage.type('[data-testid=password-input]', process.env.TEST_USER_PASSWORD)
     popupPage.click('[data-testid=login-button]')
 
     // Ensure that we are on Home page and Go to Locations page
@@ -35,19 +31,28 @@ describe('Locations', () => {
 
     // Ensure that we are on Locations page
     await popupPage.waitForSelector('[data-testid=locations-page]')
-    let locationsListFirstItem = await popupPage.waitForSelector(
-      '[data-testid=locations-list] > div',
-    )
+
+    // TODO Ensure we have autopilot item
+    //await popupPage.waitForSelector('[data-testid=autopilot-list-item]')
 
     // Verify that only Summary section of Accordion is displayed
-    let accordionChildrenAmount = await locationsListFirstItem.evaluate(el => el.children.length)
+    let locationsListSecondItem = await popupPage.waitForSelector(
+      '[data-testid=locations-list] > div:nth-child(2)', //Choose second item in a list, because first is could be autopilot
+    )
+    let accordionChildrenAmount = await locationsListSecondItem.evaluate(el => el.children.length)
     expect(accordionChildrenAmount).toEqual(1)
 
-    // Click on first Accordion item
-    await locationsListFirstItem.click()
+    // Click on Accordion Summary element
+    const summary = await popupPage.waitForSelector(
+      '[data-testid=locations-list] > div:nth-child(2) > div',
+    )
+    await summary.click()
 
     // Verify that both Summary section and Details dropdown are displayed
-    accordionChildrenAmount = await locationsListFirstItem.evaluate(el => el.children.length)
+    locationsListSecondItem = await popupPage.$(
+      '[data-testid=locations-list] > div:nth-child(2)', //Choose second item in a list, because first is could be autopilot
+    )
+    accordionChildrenAmount = await locationsListSecondItem.evaluate(el => el.children.length)
     expect(accordionChildrenAmount).toEqual(2)
 
     // Choose a location
@@ -71,8 +76,13 @@ describe('Locations', () => {
     // Verify that svg icon changes after location has been selected
     popupPage.click('[data-testid=globe-button]')
     await popupPage.waitForSelector('[data-testid=locations-page]')
-    locationsListFirstItem = await popupPage.waitForSelector('[data-testid=locations-list] > div')
-    await locationsListFirstItem.click()
+    const locationsListSecondItemSummary = await popupPage.waitForSelector(
+      // Should be 2 instead of 3.
+      // The Problem is that when we open Locations list at first time we haven't have autopilot item yet.
+      // It should be fixed
+      '[data-testid=locations-list] > div:nth-child(3) > div',
+    )
+    await locationsListSecondItemSummary.click()
     locationsFirstItem = await popupPage.$('[data-testid=accordion-details-list] > li')
     const arrowIcon = await locationsFirstItem.$('[data-testid=arrow-right-icon]')
     const checkmarkIcon = await locationsFirstItem.$('[data-testid=checkmark-icon]')
@@ -84,31 +94,3 @@ describe('Locations', () => {
     await browser.close()
   })
 })
-
-const successfulLoginResponseMock = {
-  data: {
-    session_auth_hash: 'fake_session_auth_hash',
-    loc_hash: 'fake_loc_hash',
-    isPro: 1,
-  },
-}
-
-function interceptRequests(request) {
-  if (request.url().includes('/Session?')) {
-    return request.respond({
-      content: 'application/json',
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify(successfulLoginResponseMock),
-    })
-  }
-
-  if (request.url().includes('/serverlist/')) {
-    return request.respond({
-      content: 'application/json',
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify(locationsMock),
-    })
-  }
-
-  request.continue()
-}
