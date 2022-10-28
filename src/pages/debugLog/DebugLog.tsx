@@ -47,7 +47,7 @@ failover: ${failover}`
       >
         <Label sx={{ alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
           Toggle Autoscroll
-          <ToggleSwitch onClick={() => setIsAutoScroll(!isAutoScroll)} />
+          <ToggleSwitch onChange={() => setIsAutoScroll(!isAutoScroll)} />
         </Label>
         <Button variant="debug" onClick={() => dispatch(clearDebugLog())}>
           Clear Log
