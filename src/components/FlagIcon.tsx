@@ -16,25 +16,29 @@ const FlagIcon: ThemeUiElement<FlagIconProps> = ({ Svg, shouldShowProOnlyIcon = 
         width: '32px',
       }}
     >
-      <Svg
-        sx={{
-          height: '16px',
-          width: '32px',
-          boxShadow: `2px 2px 0px`,
-          color: 'halfWhite',
+      {Svg && (
+        <>
+          <Svg
+            sx={{
+              height: '16px',
+              width: '32px',
+              boxShadow: `2px 2px 0px`,
+              color: 'halfWhite',
 
-          left: '0px',
-          transition: 'box-shadow 0.2s',
-        }}
-      />
-      {shouldShowProOnlyIcon && (
-        <ProOnlyIcon
-          sx={{
-            position: 'absolute',
-            left: '-4px',
-            bottom: '6px',
-          }}
-        />
+              left: '0px',
+              transition: 'box-shadow 0.2s',
+            }}
+          />
+          {shouldShowProOnlyIcon && (
+            <ProOnlyIcon
+              sx={{
+                position: 'absolute',
+                left: '-4px',
+                bottom: '6px',
+              }}
+            />
+          )}
+        </>
       )}
     </Box>
   )

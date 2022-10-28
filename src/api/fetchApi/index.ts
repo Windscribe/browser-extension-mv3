@@ -1,5 +1,5 @@
 import type { ApiResponse, Method } from 'api/types'
-import { ENVS } from 'utils/constants'
+import { ENVS, NODE_ENV } from 'utils/constants'
 
 let workingApi: string | null = null
 
@@ -32,7 +32,12 @@ const fetchApi = async (apiUrl: string, path: string, method: Method, useAssets:
     workingApi = apiUrl
   }
 
-  const url = useAssets ? `assets.${apiUrl}` : `api.${apiUrl}`
+  let url: string
+  if (NODE_ENV === 'production') {
+    url = useAssets ? `assets.${apiUrl}` : `api.${apiUrl}`
+  } else {
+    url = useAssets ? `assets-${apiUrl}` : `api-${apiUrl}`
+  }
 
   return fetchTimeout(`https://${url}/${path}`, method)
 }
@@ -42,10 +47,15 @@ const sendRequest = async <DataType>(
   method: Method,
   useAssets = false,
 ): Promise<ApiResponse<DataType>> => {
-  return await fetchApi(workingApi || ENVS.API_URL, path, method, useAssets)
+  workingApi ??= ENVS.API_URL
+
+  return await fetchApi(workingApi, path, method, useAssets)
     .then(response => response.json())
     .catch(async () => {
       workingApi = null
+      if (!ENVS.BACKUP_API_URL) {
+        throw Error('API connectivity issues')
+      }
       return await fetchApi(ENVS.BACKUP_API_URL, path, method, useAssets)
         .then(response => response.json())
         .catch(async () => {
