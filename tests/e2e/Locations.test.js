@@ -37,7 +37,7 @@ describe('Locations', () => {
     await popupPage.waitForSelector('[data-testid=locations-page]')
 
     // Ensure we have spinner while locations are being downloading from BE
-    await popupPage.waitForSelector('[data-testid=spinner]')
+    // await popupPage.waitForSelector('[data-testid=spinner]')
     console.log('Step 4  PASS ############################################')
 
     // Ensure we have autopilot item
