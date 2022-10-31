@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Box, Button, Flex, Text } from 'theme-ui'
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
@@ -6,9 +5,9 @@ import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import { useGoTo } from 'services/navigation'
 import { footerHeight } from 'styles/constants'
-import { FETCH_SERVER_LIST } from 'state/slices/servers'
-import { CONNECT_TO_BEST_LOCATION } from 'state/slices/bestLocation'
+import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
+import { useInitialDataFetching } from 'components/hooks'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -31,28 +30,14 @@ const Home: ThemeUiElement = () => {
   const goToPreferences = useGoTo('Preferences')
 
   const currentDataCenter = useSelector(s => s.currentDataCenter)
-  const bestLocationLoading = useSelector(s => s.bestLocation.loading)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
   const isConnected = useSelector(state => state.proxy.isConnected)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
-  const locHash = useSelector(s => s.session.loc_hash)
-  const serverListLoading = useSelector(s => s.servers.loading)
-  const autopilotSelected = useSelector(state => state.servers.autopilotSelected)
+  const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
-  useEffect(() => {
-    if (serverListLoading === 'idle' && locHash) {
-      dispatchAlias(FETCH_SERVER_LIST)
-    }
-  }, [locHash, isPremium, serverListLoading, dispatchAlias])
-
-  useEffect(() => {
-    // TODO Review this condition. Every time serverList updated we set best location as current
-    if (serverListLoading === 'fulfilled' && bestLocationLoading === 'idle') {
-      dispatchAlias(CONNECT_TO_BEST_LOCATION)
-    }
-  }, [serverListLoading, dispatchAlias, bestLocationLoading])
+  useInitialDataFetching()
 
   const toggleProxy = async () => {
     // This is example of how to use pushToDebugLog (will remove later)
@@ -60,13 +45,14 @@ const Home: ThemeUiElement = () => {
 
     if (isConnected) {
       await dispatch(disconnectProxy())
-    } else {
-      if (currentDataCenter?.hosts?.[0]) {
-        await dispatch(connectProxy(currentDataCenter.hosts[0].hostname))
-      } else {
-        dispatchAlias(CONNECT_TO_BEST_LOCATION)
-      }
+      return
     }
+    const hostname = currentDataCenter?.hosts?.[0].hostname
+    if (!autopilotSelected && hostname) {
+      await dispatch(connectProxy(hostname))
+      return
+    }
+    await dispatchAlias(CONNECT_TO_AUTOPILOT)
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED

@@ -5,17 +5,22 @@ import { connect, disconnect } from 'utils/proxyConfig'
 interface ProxyState {
   isConnected: boolean
   host: string | undefined
+  errorMessage?: string
 }
 
 const initialState: ProxyState = {
   isConnected: false,
   host: undefined,
+  errorMessage: undefined,
 }
 
 export const CONNECT_PROXY = 'proxy/connectProxy'
 export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 
 export const connectProxy = createAsyncThunk(CONNECT_PROXY, async (host: string, { dispatch }) => {
+  if (!host) {
+    throw Error('Error while trying to connect to proxy. No hostname was provided.')
+  }
   await connect(host)
   dispatch(setProxy(host))
 })
@@ -31,10 +36,15 @@ export const proxySlice = createSlice({
   reducers: {
     setProxy(state, action: PayloadAction<string>) {
       state.host = action.payload
+      state.errorMessage = undefined
     },
     resetProxy(state) {
       state.host = undefined
       state.isConnected = false
+      state.errorMessage = undefined
+    },
+    setConnectionError(state, action: PayloadAction<string>) {
+      state.errorMessage = `Proxy connection error. ${action.payload}`
     },
   },
   extraReducers: builder => {
@@ -45,8 +55,11 @@ export const proxySlice = createSlice({
       .addCase(connectProxy.fulfilled, state => {
         state.isConnected = true
       })
-      .addCase(connectProxy.rejected, state => {
+      .addCase(connectProxy.rejected, (state, action) => {
         state.isConnected = false
+        if (action.error.message) {
+          state.errorMessage = action.error.message
+        }
       })
       .addCase(disconnectProxy.fulfilled, state => {
         state.isConnected = false
@@ -54,5 +67,5 @@ export const proxySlice = createSlice({
   },
 })
 
-export const { setProxy, resetProxy } = proxySlice.actions
+export const { setProxy, resetProxy, setConnectionError } = proxySlice.actions
 export default proxySlice.reducer

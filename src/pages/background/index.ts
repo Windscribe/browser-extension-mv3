@@ -1,16 +1,15 @@
 import log from 'utils/log'
+import getErrorMessage from 'utils/getErrorMessage'
 import { initializeWrappedStore } from 'state'
-import { connectProxy, disconnectProxy } from 'state/slices/proxy'
+import { connectProxy, disconnectProxy, setConnectionError } from 'state/slices/proxy'
+import browserApi from 'services/browserApi'
 import setDebuggerAuth from './debuggerAuth'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
+import { connectToAutopilot } from 'state/slices/autopilot'
 
 const bgStore = initializeWrappedStore().then(store => {
   log('bg store was initialized')
   return store
-})
-
-chrome.storage.local.get(null).then(storage => {
-  log('bg storage:', storage)
 })
 
 chrome.storage.onChanged.addListener(function (changes) {
@@ -22,12 +21,46 @@ chrome.storage.onChanged.addListener(function (changes) {
   }
 })
 
-chrome.proxy.onProxyError.addListener(async () => {
+browserApi.runtime.onStartup.addListener(onStartupCallback)
+
+async function onStartupCallback() {
+  let store
+  try {
+    store = await bgStore
+
+    if (!store.getState().connection.autoConnect) {
+      store.dispatch(disconnectProxy())
+      return
+    }
+
+    const authHash = store.getState().session.session_auth_hash
+    if (!authHash) {
+      store.dispatch(setConnectionError('No session auth hash is available'))
+      return
+    }
+
+    const currentHostname = store.getState().currentDataCenter?.hosts?.[0].hostname
+    const autopilotSelected = store.getState().autopilot.autopilotSelected
+    if (!autopilotSelected && currentHostname) {
+      await store.dispatch(connectProxy(currentHostname))
+      return
+    }
+
+    await store.dispatch(connectToAutopilot())
+  } catch (err) {
+    const message = getErrorMessage(err)
+    store?.dispatch(setConnectionError(message))
+  }
+}
+
+chrome.proxy.onProxyError.addListener(async e => {
+  // TODO push error to debugLog
+  console.log('%c onProxyError ', 'background: #383E49; color: #1ADEAE', e)
+
   const store = await bgStore
   const failover = store.getState().connection.failover
   if (failover === 'Auto / Best') {
-    // TO DO: Fix this after fixing auto pilot
-    // store.dispatch(connectProxy(storage[1].servers.autopilot.dataCenter.hosts[0].hostname))
+    await store.dispatch(connectToAutopilot())
   } else if (failover === 'Same Country') {
     const currentLocation = store.getState().currentLocation
     const currentDataCenter = store.getState().currentDataCenter

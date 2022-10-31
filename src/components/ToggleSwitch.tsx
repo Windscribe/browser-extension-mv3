@@ -2,13 +2,15 @@ import { type ThemeUiElement } from 'utils/types'
 import { Switch } from 'theme-ui'
 
 type ToggleSwitchProps = {
-  onClick?: () => void
+  checked?: boolean
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
 }
 
-const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({ onClick }) => {
+const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({ onChange, checked }) => {
   return (
     <Switch
-      onClick={onClick}
+      checked={checked}
+      onChange={onChange}
       sx={{
         m: 0,
         backgroundColor: 'white',

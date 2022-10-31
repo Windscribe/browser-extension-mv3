@@ -15,8 +15,8 @@ const Login: ThemeUiElement = () => {
   const dispatchAlias = useDispatchAlias()
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
-  const errorMessage = useSelector(s => s.session.errorMessage)
-  const errorCode = useSelector(s => s.session.errorCode)
+  const errorMessage = useSelector(s => s.session.error?.errorMessage)
+  const errorCode = useSelector(s => s.session.error?.errorCode)
   const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
   const loginStatus = useSelector(s => s.session.loading)
 
@@ -81,13 +81,20 @@ const Login: ThemeUiElement = () => {
       />
       <Box sx={{ mx: '16px' }}>
         <form onSubmit={handleLogin}>
-          <Flex sx={{ justifyContent: 'space-between', gap: '16px' }}>
+          <Flex
+            sx={{
+              justifyContent: 'space-between',
+              alignItems: 'baseline',
+              gap: '16px',
+            }}
+          >
             <Label
               sx={{
                 fontWeight: '600',
                 color: 'primaryText',
                 mb: '8px',
                 mr: '16px',
+                flexShrink: 0,
               }}
               htmlFor="username"
             >
@@ -98,9 +105,8 @@ const Login: ThemeUiElement = () => {
                 sx={{
                   width: 'auto',
                   fontSize: '12px',
-                  mt: '16px',
-                  mb: '8px',
                   color: 'bloodRed',
+                  marginBottom: '8px',
                 }}
               >
                 {error}

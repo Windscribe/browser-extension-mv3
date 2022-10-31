@@ -15,9 +15,23 @@ export type CountryCodeType = keyof typeof flags
 
 export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
+export type ErrorState = {
+  errorCode?: number
+  errorMessage: string
+  errorDescription?: string
+  logStatus?: string | null
+}
+
 export type FailoverOption = 'Auto / Best' | 'Same Country' | 'None'
 
 export type View = keyof typeof Containers
+
+type OnlyFirst<T, U> = {
+  [P in keyof T]: T[P]
+} & {
+  [P in keyof U]?: never
+}
+export type Either<T, U> = OnlyFirst<T, U> | OnlyFirst<U, T>
 
 export type LogInfo = {
   tag?: LogTag

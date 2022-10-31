@@ -1,4 +1,4 @@
-import { type CountryCodeType } from 'utils/types'
+import type { CountryCodeType, Either } from 'utils/types'
 
 export type LoginParameters = {
   username: string
@@ -22,13 +22,23 @@ export interface Info {
   changed: number
 }
 
-export interface ApiResponse<Data = unknown> {
-  data?: Data
+export interface ApiSuccessResponse<Data = unknown> {
+  data: Data
   info?: Info
   metadata?: MetaData
-  errorCode?: number
-  errorMessage?: string
 }
+
+export type ApiErrorResponse = {
+  errorCode: number
+  errorMessage: string
+  errorDescription: string
+  logStatus: string | null
+}
+
+export type ApiResponse<ExpectedData = unknown> = Either<
+  ApiErrorResponse,
+  ApiSuccessResponse<ExpectedData>
+>
 
 export type Endpoint = 'Session' | 'BestLocation' | 'Notifications' | 'ServerCredentials'
 
@@ -55,14 +65,6 @@ export interface SessionData {
   username?: string
 }
 
-// TODO Check error signature
-export type LoginError = {
-  errorCode: number
-  errorMessage: string
-  errorDescription: string
-  logStatus: string | null
-}
-
 export type GetBestLocationParameters = {
   session_auth_hash: string
   platform: Platform
@@ -87,7 +89,6 @@ export interface BestLocation {
   server_id: number
   short_name: string
 }
-
 export interface Autopilot {
   location: Location
   dataCenter: DataCenter

@@ -1,14 +1,31 @@
 import { Box, Button, Flex } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
-import { Header } from 'components'
+import { Header, OptionBox, ToggleSwitch } from 'components'
+
 import EllipseIcon from 'assets/img/ellipse.svg'
 import LinkIcon from 'assets/img/link.svg'
+import AutoConnectIcon from 'assets/img/autoconnecticon.svg'
+import { useDispatch, useSelector } from 'state/hooks'
+import { setAutoConnect } from 'state/slices/connection'
 
 const General: ThemeUiElement = () => {
+  const autoConnect = useSelector(s => s.connection.autoConnect)
+  const dispatch = useDispatch()
+
   return (
     <Box data-testid="general-page" bg="background">
       <Header title="General" />
       <Box mx="16px">
+        <OptionBox
+          Icon={AutoConnectIcon}
+          title="Auto-Connect"
+          subTitle="Automatically connect on browser start."
+        >
+          <ToggleSwitch
+            onChange={() => dispatch(setAutoConnect(!autoConnect))}
+            checked={autoConnect}
+          />
+        </OptionBox>
         <Flex sx={{ justifyContent: 'center', mb: '16px' }}>
           <EllipseIcon />
         </Flex>

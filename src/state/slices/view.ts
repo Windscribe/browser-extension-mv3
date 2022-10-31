@@ -26,7 +26,7 @@ export const viewSlice = createSlice({
       const { previous } = state
       state.current = previous.pop() ?? initialState.current
     },
-    resetView(_) {
+    resetView() {
       return initialState
     },
   },

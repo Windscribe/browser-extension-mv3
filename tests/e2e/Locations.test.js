@@ -32,27 +32,21 @@ describe('Locations', () => {
     // Ensure that we are on Locations page
     await popupPage.waitForSelector('[data-testid=locations-page]')
 
-    // TODO Ensure we have autopilot item
-    //await popupPage.waitForSelector('[data-testid=autopilot-list-item]')
+    // Ensure we have autopilot item
+    await popupPage.waitForSelector('[data-testid=autopilot-list-item]')
 
     // Verify that only Summary section of Accordion is displayed
-    let locationsListSecondItem = await popupPage.waitForSelector(
-      '[data-testid=locations-list] > div:nth-child(2)', //Choose second item in a list, because first is could be autopilot
+    let locationsListFirstItem = await popupPage.waitForSelector(
+      '[data-testid=locations-list-item-0]',
     )
-    let accordionChildrenAmount = await locationsListSecondItem.evaluate(el => el.children.length)
+    let accordionChildrenAmount = await locationsListFirstItem.evaluate(el => el.children.length)
     expect(accordionChildrenAmount).toEqual(1)
 
     // Click on Accordion Summary element
-    const summary = await popupPage.waitForSelector(
-      '[data-testid=locations-list] > div:nth-child(2) > div',
-    )
-    await summary.click()
+    await locationsListFirstItem.click()
 
     // Verify that both Summary section and Details dropdown are displayed
-    locationsListSecondItem = await popupPage.$(
-      '[data-testid=locations-list] > div:nth-child(2)', //Choose second item in a list, because first is could be autopilot
-    )
-    accordionChildrenAmount = await locationsListSecondItem.evaluate(el => el.children.length)
+    accordionChildrenAmount = await locationsListFirstItem.evaluate(el => el.children.length)
     expect(accordionChildrenAmount).toEqual(2)
 
     // Choose a location
@@ -76,13 +70,8 @@ describe('Locations', () => {
     // Verify that svg icon changes after location has been selected
     popupPage.click('[data-testid=globe-button]')
     await popupPage.waitForSelector('[data-testid=locations-page]')
-    const locationsListSecondItemSummary = await popupPage.waitForSelector(
-      // Should be 2 instead of 3.
-      // The Problem is that when we open Locations list at first time we haven't have autopilot item yet.
-      // It should be fixed
-      '[data-testid=locations-list] > div:nth-child(3) > div',
-    )
-    await locationsListSecondItemSummary.click()
+    locationsListFirstItem = await popupPage.waitForSelector('[data-testid=locations-list-item-0]')
+    await locationsListFirstItem.click()
     locationsFirstItem = await popupPage.$('[data-testid=accordion-details-list] > li')
     const arrowIcon = await locationsFirstItem.$('[data-testid=arrow-right-icon]')
     const checkmarkIcon = await locationsFirstItem.$('[data-testid=checkmark-icon]')

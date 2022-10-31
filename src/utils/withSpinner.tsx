@@ -24,6 +24,7 @@ export default function withSpinner<P extends object>(
           >
             <Spinner
               color="white"
+              data-testid="spinner"
               sx={{
                 position: 'absolute',
                 top: '50%',

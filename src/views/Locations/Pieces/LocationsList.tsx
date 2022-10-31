@@ -1,43 +1,39 @@
-import { useEffect } from 'react'
-
 import { Column } from 'components/Flexbox'
 import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
-import { useSelector, useDispatchAlias } from 'state/hooks'
-import { selectAutopilot } from 'state/selectors'
-import { FETCH_SERVER_LIST } from 'state/slices/servers'
+import { useSelector } from 'state/hooks'
+import { useInitialDataFetching } from 'components/hooks'
 
 const LocationsList: React.FC = () => {
-  const dispatchAlias = useDispatchAlias()
   const serverList = useSelector(s => s.servers.serverList)
   const serversListLoading = useSelector(s => s.servers.loading)
-  const locHash = useSelector(s => s.session.loc_hash)
-  const isPremium = useSelector(s => s.session.is_premium)
   const currentLocationId = useSelector(s => s.currentLocation?.id)
-  // TODO Refactor. Consider create autopilot slice
-  const autopilot = useSelector(s => selectAutopilot(s))
+  const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
 
-  useEffect(() => {
-    if (serversListLoading === 'idle' && locHash) {
-      dispatchAlias(FETCH_SERVER_LIST)
-    }
-  }, [locHash, isPremium, serversListLoading, dispatchAlias])
+  // TODO Discuss.
+  // serversList and bestLocation should be fetched already on Home page. Is this reassurance redundant?
+  useInitialDataFetching()
 
   const ServerList = (
     <>
-      {autopilot && (
+      {autopilotLocation && (
         <LocationsListItem
-          location={autopilot.location}
-          dataCenter={autopilot.dataCenter}
+          location={autopilotLocation}
+          data-testid="autopilot-list-item"
           isAutopilot
-          currentlySelected={currentLocationId === autopilot?.location.id}
+          currentlySelected={currentLocationId === autopilotLocation.id}
         />
       )}
-      {serverList?.map(location => (
-        <LocationsListItem key={location.id} location={location} />
+      {serverList?.map((location, i) => (
+        <LocationsListItem
+          data-testid={`locations-list-item-${i}`}
+          key={location.id}
+          location={location}
+        />
       ))}
     </>
   )
+
   const ServerListWithSpinner = withSpinner(
     ServerList,
     serversListLoading,
