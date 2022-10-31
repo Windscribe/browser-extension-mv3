@@ -19,15 +19,21 @@ const LocationsList: React.FC = () => {
       {autopilotLocation && (
         <LocationsListItem
           location={autopilotLocation}
+          data-testid="autopilot-list-item"
           isAutopilot
           currentlySelected={currentLocationId === autopilotLocation.id}
         />
       )}
-      {serverList?.map(location => (
-        <LocationsListItem key={location.id} location={location} />
+      {serverList?.map((location, i) => (
+        <LocationsListItem
+          data-testid={`locations-list-item-${i}`}
+          key={location.id}
+          location={location}
+        />
       ))}
     </>
   )
+
   const ServerListWithSpinner = withSpinner(
     ServerList,
     serversListLoading,

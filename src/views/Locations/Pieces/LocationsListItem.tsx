@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { Box, Text, Flex, type BoxProps } from 'theme-ui'
+
 import { FlagIcon, Rectangle } from 'components'
-import { Box, Text, Flex } from 'theme-ui'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import flags from 'assets/flags'
 import AirplaneIcon from 'assets/img/airplane.svg'
@@ -12,7 +13,7 @@ import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import LocationsListItemDetails from './LocationsListItemDetails'
 import { type Location } from 'api/types'
 
-type LocationsListItemProps = {
+type LocationsListItemProps = BoxProps & {
   location: Location
   isAutopilot?: boolean
   currentlySelected?: boolean
@@ -22,6 +23,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   location,
   isAutopilot = false,
   currentlySelected = false,
+  ...props
 }) => {
   const [isExpanded, setIsExpanded] = useState(currentlySelected && !isAutopilot)
   const dispatchAlias = useDispatchAlias()
@@ -39,7 +41,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   }
 
   return (
-    <Box>
+    <Box {...props}>
       <Rectangle
         onClick={handleLocationItemClick}
         sx={{
