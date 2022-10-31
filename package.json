@@ -12,7 +12,7 @@
     "build": "node scripts/build.js",
     "start": "node scripts/webserver.js",
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
-    "test": "jest  --runInBand --testTimeout=15000",
+    "test": "jest  --runInBand --testTimeout=25000",
     "test:local": "DOTENV_CONFIG_PATH=./.env.local jest  --runInBand --testTimeout=15000",
     "lint": "eslint ./src",
     "prepare": "husky install"
