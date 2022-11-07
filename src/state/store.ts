@@ -1,4 +1,4 @@
-import { configureStore, combineReducers, type Reducer, type AnyAction } from '@reduxjs/toolkit'
+import { configureStore, combineReducers, type AnyAction } from '@reduxjs/toolkit'
 import { createLogger } from 'redux-logger'
 import { alias } from '@eduardoac-skimlinks/webext-redux'
 
@@ -10,6 +10,7 @@ import serversReducer from './slices/servers'
 import debugLogReducer from './slices/debugLog'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
+import workingApiReducer from './slices/workingApi'
 import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
 import currentDataCenterReducer from './slices/currentDataCenter'
@@ -25,6 +26,7 @@ const reducers = {
   servers: serversReducer,
   session: sessionReducer,
   view: viewReducer,
+  workingApi: workingApiReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

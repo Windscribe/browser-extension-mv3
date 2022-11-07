@@ -1,12 +1,17 @@
-import prepareQueryString from 'api/prepareQueryString'
-import type { ApiResponse, SessionData } from 'api/types'
+import { makeApiCall } from 'api/utils'
+import type { ApiResponse, ApiCallFunction, SessionData } from 'api/types'
 
-const sessionStatus = async (session_auth_hash: string): Promise<ApiResponse<SessionData>> => {
+type GetSessionStatus = ApiCallFunction<SessionData, string>
+
+const getSessionStatus: GetSessionStatus = async (
+  session_auth_hash: string,
+  workingApi: string,
+): Promise<ApiResponse<SessionData>> => {
   const parameters = {
     session_auth_hash,
   }
 
-  return await prepareQueryString('Session', 'GET', parameters)
+  return await makeApiCall<SessionData>('Session', parameters, workingApi)
 }
 
-export default sessionStatus
+export default getSessionStatus

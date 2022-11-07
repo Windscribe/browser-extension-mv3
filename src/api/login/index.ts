@@ -1,20 +1,18 @@
-import prepareQueryString from 'api/prepareQueryString'
-import type { LoginParameters, ApiResponse, SessionData } from 'api/types'
+import { makeApiCall } from 'api/utils'
+import type { ApiCallFunction, Credentials, LoginParameters, SessionData } from 'api/types'
 
-const login = async (
-  username: string,
-  password: string,
-  twoFACode?: string,
-): Promise<ApiResponse<SessionData>> => {
+type Login = ApiCallFunction<SessionData, Credentials>
+
+const login: Login = async ({ username, password, twoFa }, workingApi) => {
   const parameters: LoginParameters = {
     username,
     password,
     session_type_id: 2,
     platform: 'chrome',
-    ...(twoFACode && { '2fa_code': twoFACode }),
+    ...(twoFa && { '2fa_code': twoFa }),
   }
 
-  return await prepareQueryString('Session', 'POST', parameters)
+  return await makeApiCall('Session', parameters, workingApi, 'POST')
 }
 
 export default login

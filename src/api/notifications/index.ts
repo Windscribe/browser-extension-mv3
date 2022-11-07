@@ -1,12 +1,17 @@
-import prepareQueryString from 'api/prepareQueryString'
-import { type ApiResponse } from 'api/types'
+import { makeApiCall } from 'api/utils'
+import type { ApiResponse, ApiCallFunction, NotificationsData } from 'api/types'
 
-const notifications = async (session_auth_hash: string): Promise<ApiResponse> => {
+type Notifications = ApiCallFunction<NotificationsData, string>
+
+const notifications: Notifications = async (
+  session_auth_hash: string,
+  workingApi: string,
+): Promise<ApiResponse<NotificationsData>> => {
   const parameters = {
     session_auth_hash,
   }
 
-  return await prepareQueryString('Notifications', 'GET', parameters)
+  return await makeApiCall<NotificationsData>('Notifications', parameters, workingApi)
 }
 
 export default notifications
