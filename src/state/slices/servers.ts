@@ -1,43 +1,52 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { ServerList, ServerListParameters } from 'api/types'
-import { type LoadingState } from 'utils/types'
+import type { ServerList, Location, ServerListParameters, ApiErrorResponse } from 'api/types'
+import type { LoadingState, ErrorState, Either } from 'utils/types'
 import { getServerList } from 'api'
 import applyWorkingApi from '../applyWorkingApi'
 
 interface ServersState {
-  serverList?: ServerList
+  serverList?: Location[] // ServerList
   loading: LoadingState
+  error?: ErrorState
 }
 
 const initialState: ServersState = {
   serverList: undefined,
   loading: 'idle',
+  error: undefined,
 }
 
 export const FETCH_SERVER_LIST = 'servers/fetchServerList'
-export const fetchServerList = createAsyncThunk(
+export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorResponse>>(
   FETCH_SERVER_LIST,
-  async (_, { getState, dispatch }) => {
-    let response
+  // Because serverList is an Array, we use rejectWithValue() fulfillWithValue() to avoid TS errors
+  async (_, { getState, dispatch, rejectWithValue, fulfillWithValue }) => {
     const store = getState()
     const serversListLoading = store.servers.loading
     const serverList = store.servers.serverList
     const workingApi = store.workingApi
     const { loc_hash, is_premium } = store.session
 
-    if (serversListLoading === 'fulfilled') return serverList
-
-    if (loc_hash) {
-      response = await applyWorkingApi<ServerList, ServerListParameters>(
-        getServerList,
-        { locHash: loc_hash, isPro: is_premium },
-        workingApi,
-        dispatch,
-      )
+    if (serversListLoading === 'fulfilled') {
+      fulfillWithValue(serverList)
     }
-    // TODO Add Error handling
-    return response?.data // what should I return if condition is false
+
+    if (!loc_hash) {
+      throw Error('No loc_hash is available. Try to sign in.')
+    }
+
+    const response = await applyWorkingApi<ServerList, ServerListParameters>(
+      getServerList,
+      { locHash: loc_hash, isPro: is_premium },
+      workingApi,
+      dispatch,
+    )
+
+    if (response?.errorCode) return rejectWithValue(response)
+    if (response?.data) return response.data
+
+    throw Error('Unknown response format from GET Servers List')
   },
 )
 
@@ -55,12 +64,19 @@ export const serversSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(fetchServerList.fulfilled, (state, action) => {
+        if (action.payload.errorCode) {
+          return { ...initialState, error: action.payload }
+        }
+
+        state.error = undefined
         state.loading = 'fulfilled'
-        state.serverList = action.payload
+        state.serverList = action.payload as ServerList
       })
-      .addCase(fetchServerList.rejected, state => {
+      .addCase(fetchServerList.rejected, (state, action) => {
         state.loading = 'rejected'
-        //state.error = action.error.message
+        if (action.error.message) {
+          state.error = { errorMessage: action.error.message }
+        }
       })
   },
 })

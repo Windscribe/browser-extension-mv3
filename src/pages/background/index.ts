@@ -13,11 +13,15 @@ const bgStore = initializeWrappedStore().then(store => {
 })
 
 chrome.storage.onChanged.addListener(function (changes) {
-  if (
-    JSON.stringify(changes[1].newValue.servers.serverCredentials) !==
-    JSON.stringify(changes[1].oldValue.servers.serverCredentials)
-  ) {
-    setDebuggerAuth(changes[1].newValue.servers.serverCredentials)
+  const { username: newUsername, password: newPassword } = changes[1].newValue.serverCredentials
+  const { username: oldUsername, password: oldPassword } = changes[1].oldValue.serverCredentials
+
+  if (newUsername !== oldUsername || newPassword !== oldPassword) {
+    const credentials = {
+      username: newUsername,
+      password: newPassword,
+    }
+    setDebuggerAuth(credentials)
   }
 })
 

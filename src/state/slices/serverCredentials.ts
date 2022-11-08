@@ -41,8 +41,8 @@ export const fetchServerCredentials = createAsyncThunk<Either<ServerCredentials,
 
     // Back-end response with error object is treated as a valid response
     // and getServerCredentials() processed as successfully fulfilled.
-    if (response.errorCode) return response
-    if (response.data) return response?.data
+    if (response?.errorCode) return response
+    if (response?.data) return response.data
 
     throw Error('Unknown response format from GET Server Credentials')
   },
@@ -63,13 +63,13 @@ export const serverCredentialsSlice = createSlice({
         state.error = undefined
         state.loading = 'pending'
       })
-
       .addCase(fetchServerCredentials.fulfilled, (state, action) => {
         if (action.payload.errorCode) {
-          return { ...initialState, ...{ loading: 'idle' }, error: action.payload }
+          return { ...initialState, error: action.payload }
         }
 
         state.loading = 'fulfilled'
+        state.error = undefined
         state.username = action.payload?.username
         state.password = action.payload?.password
       })
