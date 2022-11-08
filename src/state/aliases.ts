@@ -1,12 +1,8 @@
-import {
-  fetchServerList,
-  fetchServerCredentials,
-  FETCH_SERVER_LIST,
-  FETCH_SERVER_CREDENTIALS,
-} from './slices/servers'
+import { fetchServerList, FETCH_SERVER_LIST } from './slices/servers'
 import { login, LOGIN } from './slices/session'
 import { connectToAutopilot, CONNECT_TO_AUTOPILOT } from './slices/autopilot'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
+import { fetchServerCredentials, FETCH_SERVER_CREDENTIALS } from './slices/serverCredentials'
 import { type Credentials } from 'api/types'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {

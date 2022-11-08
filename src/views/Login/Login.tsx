@@ -3,7 +3,7 @@ import { Button, Flex, Text, Input, Label, Box, Link, Spinner } from 'theme-ui'
 
 import { LOGIN } from 'state/slices/session'
 import { useGoTo } from 'services/navigation'
-import { FETCH_SERVER_CREDENTIALS } from 'state/slices/servers'
+import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
 import { Header, HeaderLink } from 'components'
 import { useDispatchAlias, useSelector } from 'state/hooks'
 import ShowPassword from 'assets/img/showPassword.svg'

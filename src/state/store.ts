@@ -14,6 +14,7 @@ import workingApiReducer from './slices/workingApi'
 import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
 import currentDataCenterReducer from './slices/currentDataCenter'
+import serverCredentialsReducer from './slices/serverCredentials'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -24,6 +25,7 @@ const reducers = {
   debugLog: debugLogReducer,
   proxy: proxyReducer,
   servers: serversReducer,
+  serverCredentials: serverCredentialsReducer,
   session: sessionReducer,
   view: viewReducer,
   workingApi: workingApiReducer,
@@ -53,9 +55,9 @@ export function buildFrom(preloadedState?: RootState): StoreType {
     preloadedState,
     middleware: getDefaultMiddleware => {
       const arr = [alias(aliases), ...getDefaultMiddleware()]
-      if (process.env.NODE_ENV === 'development') {
-        arr.push(logger)
-      }
+      // if (process.env.NODE_ENV === 'development') {
+      arr.push(logger)
+      //}
       return arr
     },
   })
