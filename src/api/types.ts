@@ -30,7 +30,7 @@ export interface Info {
 
 export interface ApiSuccessResponse<Data = unknown> {
   data: Data
-  workingApi: string
+  workingApi?: string
   info?: Info
   metadata?: MetaData
 }

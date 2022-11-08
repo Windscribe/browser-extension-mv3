@@ -15,6 +15,7 @@ export default async function <
   const response = await apiCallMethod(parameters, workingApi)
   if (response?.workingApi && response.workingApi !== workingApi) {
     dispatch(setWorkingApi(response.workingApi))
+    delete response.workingApi
   }
 
   return response
