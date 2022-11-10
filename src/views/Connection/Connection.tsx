@@ -7,7 +7,7 @@ import { setFailover } from 'state/slices/connection'
 import FailoverIcon from 'assets/img/failover.svg'
 import SmokewallIcon from 'assets/img/smokewall.svg'
 
-const Account: ThemeUiElement = () => {
+const Connection: ThemeUiElement = () => {
   const failover = useSelector(s => s.connection.failover)
 
   return (
@@ -37,4 +37,4 @@ const Account: ThemeUiElement = () => {
   )
 }
 
-export default Account
+export default Connection

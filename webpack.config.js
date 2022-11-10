@@ -134,6 +134,24 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
+          from: 'ublock',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/backgroundScripts.js',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
           from: path.resolve(__dirname, 'src/pages/content/content.styles.css'),
           to: path.join(__dirname, 'build'),
           force: true,
