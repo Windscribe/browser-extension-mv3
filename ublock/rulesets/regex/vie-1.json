@@ -1,0 +1,38 @@
+[
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "giadinhonline.vn\\/files\\/qc"
+  },
+  "id": 9
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "storage.adpia.vn",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 312
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "tinhocdongthap.com\\/wp-content\\/plugins\\/wp-[\\w-]+\\/[\\w-]+\\.js",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 434
+ }
+]

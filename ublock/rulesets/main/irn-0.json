@@ -1,0 +1,5725 @@
+[
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "requestDomains": [
+    "24d.ir",
+    "a-ads.com",
+    "ad.technews-iran.com",
+    "adexo.ir",
+    "adivery.com",
+    "adnegah.net",
+    "adpulse.ir",
+    "adro.co",
+    "ads.alaatv.com",
+    "ads.farakav.com",
+    "ads.karzar.net",
+    "ads.safarme.ir",
+    "adsima.net",
+    "adskav.com",
+    "adtrace.io",
+    "advn.ir",
+    "adwised.azureedge.net",
+    "adwised.com",
+    "adwisedfs.com",
+    "affili.ir",
+    "affiliate.digikala.com",
+    "affiliate.malltina.com",
+    "affstat.adro.co",
+    "affstat.digikala.com",
+    "alexametrics.com",
+    "amarfa.ir",
+    "amaroid.net",
+    "analytic.magland.ir",
+    "analytics.aasaam.com",
+    "analytics.asiatech.ir",
+    "analytics.digikala.com",
+    "analytics.irancell.ir",
+    "analytics.nastooh.ir",
+    "analytics.zoomit.ir",
+    "apm.bama.ir",
+    "ayyaar.ir",
+    "backority.ir",
+    "behinava.com",
+    "cashback.takhfifan.com",
+    "cdn.onesignal.com",
+    "chabok.io",
+    "chavosh.org",
+    "ck.chavosh.org",
+    "click.digiato.com",
+    "clickaval.com",
+    "clickyab.com",
+    "cloudflareinsights.com",
+    "congoro.com",
+    "congoro.ir",
+    "counter.toolsir.com",
+    "customfingerprints.bablosoft.com",
+    "davedbux.ir",
+    "deema.agency",
+    "deemaagency.ir",
+    "deemanetwork.com",
+    "denutility.com",
+    "doubleclick.net",
+    "emenshowapp.xyz",
+    "epicgameads.com",
+    "error-tracking.arvancloud.com",
+    "facepop.org",
+    "farakav.com",
+    "farsbux.ir",
+    "fastclick.ir",
+    "fb-gw.bef.rest",
+    "geoip.imber.live",
+    "getclicky.com",
+    "hantana.org",
+    "imtokenwallet.biz",
+    "intrack.ir",
+    "ipsite.ir",
+    "ir.mihanstore.net",
+    "jetbux.ir",
+    "js-agent.newrelic.com",
+    "kajads.com",
+    "kaprila.com",
+    "l.24d.ir",
+    "landyab.com",
+    "linkfars.com",
+    "lnk.amaroid.net",
+    "magnetadservices.com",
+    "mc.yandex.ru",
+    "mediaad.org",
+    "merita.ir",
+    "metrix.behtarino.com",
+    "metrix.ir",
+    "mitrarank.ir",
+    "najva.com",
+    "netbina.com",
+    "new-sentry.digikala.com",
+    "news-view-api.varzesh3.com",
+    "newswidget.net",
+    "on-click.ir",
+    "pantatec.ae",
+    "partclick.ir",
+    "persianrank.ir",
+    "phoenixad.io",
+    "phonroid.com",
+    "popgozar.com",
+    "popina.ir",
+    "popland.info",
+    "popunder.ir",
+    "popupdl.ir",
+    "popupme.net",
+    "popupplus.ir",
+    "prchecker.info",
+    "publica.ir",
+    "pushe.co",
+    "radar.bayan.ir",
+    "rssbank.ir",
+    "s.infogram.com",
+    "sabavision.com",
+    "sanjagh.com",
+    "sanjagh.net",
+    "sendword.ir",
+    "sentry-new.divar.ir",
+    "sentry.cafebazaar.org",
+    "sentry.footballiapp.com",
+    "sentry.hamravesh.com",
+    "sentry.malltina.com",
+    "sentry.namava.ir",
+    "sentry.quera.org",
+    "stats.wp.com",
+    "statsfa.com",
+    "system-notify.app",
+    "tabligheirani.ir",
+    "talapop.ir",
+    "tapsell.ir",
+    "tavoos.net",
+    "tbli.ir",
+    "te1.ir",
+    "toppopup.com",
+    "track.mailerlite.com",
+    "tracker.digikala.com",
+    "tracker.farsnews.ir",
+    "trc.metrix.ir",
+    "triboon.net",
+    "usdtbang.com",
+    "usdtbbc.com",
+    "usdtcan.com",
+    "usdteng.com",
+    "userfriendly.ir",
+    "utop.ir",
+    "utopclick.com",
+    "vatanclick.ir",
+    "video-view-api.varzesh3.com",
+    "vidomusic.org",
+    "web.webpushs.com",
+    "websocket.eghtesadonline.com",
+    "wideads.com",
+    "yekbux.com",
+    "yektanet.com",
+    "yelloadwise.ir",
+    "zanboor.net",
+    "zarpop.com"
+   ]
+  },
+  "id": 1
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||asreasia.com/piwik"
+  },
+  "id": 2
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||analytics-*.aasaam.com^"
+  },
+  "id": 3
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1abzaar.ir/abzar/tools/no-rightclick.js"
+  },
+  "id": 4
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1abzaar.ir/abzar/tools/no-selects.js"
+  },
+  "id": 5
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1abzar.ir/abzar/tools/post-view/"
+  },
+  "id": 6
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1abzar.ir/abzar/tools/stat/"
+  },
+  "id": 7
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||backlink.behtarinseo.ir/ads"
+  },
+  "id": 8
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||blogfa.com/a^"
+  },
+  "id": 9
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||fa-tools.ir/code/rightclick/right-click1.js"
+  },
+  "id": 10
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||kilipo.com/themes/default/player/plugins/vast/ads"
+  },
+  "id": 11
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||kilipo.com/themes/default/player/plugins/ads"
+  },
+  "id": 12
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||k2cod.com/ip/show-ip"
+  },
+  "id": 13
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||k2cod.com/statistics/"
+  },
+  "id": 14
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||10.10.34."
+  },
+  "id": 15
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||parsiblog.com/ga.js"
+  },
+  "id": 16
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rizy.ir/js/ads.js"
+  },
+  "id": 17
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rozblog.com/include/rozblog_ads_js"
+  },
+  "id": 18
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "/include/rozblog_ads_js"
+  },
+  "id": 19
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||slideskin.ir/ads/pop.php^"
+  },
+  "id": 20
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||seyedrezabazyar.com/codetools/files/close-right-click.js"
+  },
+  "id": 21
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tamasha.com/et/play?ntt="
+  },
+  "id": 22
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tamasha.com/dist/*/contrib/player/js/videojs.ima.min.js"
+  },
+  "id": 23
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tamasha.com/dist/*/contrib/player/js/videojs-contrib.min.js"
+  },
+  "id": 24
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tamasha.com/dist/*/contrib/player/js/ima"
+  },
+  "id": 25
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tamasha.com/dist/*/js/ads_tracker.min.js"
+  },
+  "id": 26
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tamasha.com/dist/*/js/tracker.min.js"
+  },
+  "id": 27
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takskin.com/tools/online/"
+  },
+  "id": 28
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takskin.com/tools/show-ip/"
+  },
+  "id": 29
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takskin.com/abzar/norightclick/"
+  },
+  "id": 30
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tool.4tools.ir/tools/click-c/click-c.js"
+  },
+  "id": 31
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tool.4tools.ir/tools/click-l/click-l.js"
+  },
+  "id": 32
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||webgozar.com/c.aspx*&t=counter"
+  },
+  "id": 33
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||webgozar.ir/c.aspx*&t=counter"
+  },
+  "id": 34
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||toshare.io/dl/download.php?i="
+  },
+  "id": 35
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "airport.ir"
+   ],
+   "requestDomains": [
+    "192.168.10.113"
+   ]
+  },
+  "id": 36
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||arzcenter.com/static/plugin/gtag.js"
+  },
+  "id": 37
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||abadis.ir/libs/async/ads"
+  },
+  "id": 38
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||abadis.ir/ajaxcmd/adssetcacheok/"
+  },
+  "id": 39
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||abadis.ir/pages/ads/"
+  },
+  "id": 40
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||asriran.com/fa/generate/userid"
+  },
+  "id": 41
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||cdn.asriran.com/media/vendors/videojs/css/videojs.ads.css"
+  },
+  "id": 42
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||cdn.asriran.com/media/jwplayer//vast.js"
+  },
+  "id": 43
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "asriran.com"
+   ],
+   "requestDomains": [
+    "excoino.com"
+   ]
+  },
+  "id": 44
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||androidzoom.ir/wp-content/uploads/*/*.gif"
+  },
+  "id": 45
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||akharinnews.com/images/banners"
+  },
+  "id": 46
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||arga-mag.com/wp-content/plugins/meks-easy-ads"
+  },
+  "id": 47
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||androidina.net/images/asiatech"
+  },
+  "id": 48
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||androidina.net/images/baner"
+  },
+  "id": 49
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||androidina.net/analytics.js"
+  },
+  "id": 50
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||amazing.ir/wp-content/plugins/google-analytics"
+  },
+  "id": 51
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||alef.ir/files/advertise/"
+  },
+  "id": 52
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||alef.ir/news/visit"
+  },
+  "id": 53
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||blog.akhbarrasmi.com/wp-content/plugins/*/analytics/"
+  },
+  "id": 54
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||androidgozar.com/agahi/"
+  },
+  "id": 55
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dsp.aparat.com/*/dsp/bid?ads_type"
+  },
+  "id": 56
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||aparat.com/static/vendor/dox"
+  },
+  "id": 57
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||aparat.com/agf"
+  },
+  "id": 58
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||aparat.com/external/romeo^"
+  },
+  "id": 59
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||aftabir.com/uploads/banners^"
+  },
+  "id": 60
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||aftabyazdonline.ir/templates/aftabeyazd/images/ads"
+  },
+  "id": 61
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ads.akairan.com"
+  },
+  "id": 62
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ads.akaup.com"
+  },
+  "id": 63
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||abipic.com/ads/"
+  },
+  "id": 64
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1abzar.com/files/ads"
+  },
+  "id": 65
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||aftabnews.ir/files/adv/"
+  },
+  "id": 66
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||nodes.alaatv.com/upload/vast/xml/"
+  },
+  "id": 67
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||accpress.com/news/wp-content/plugins/better-adsmanager/"
+  },
+  "id": 68
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||static.accpress.com/baner/"
+  },
+  "id": 69
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||afkarnews.com/statics/"
+  },
+  "id": 70
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||static.bourse24.ir/images/ads^"
+  },
+  "id": 71
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||bama.ir/api/car/detail/visit^"
+  },
+  "id": 72
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||bama.ir/normaluser/scripts/pagejs/usertracking.js^"
+  },
+  "id": 73
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||behrah.com/tabligh.js"
+  },
+  "id": 74
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||b2n.ir/static/banners/advt.png"
+  },
+  "id": 75
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||b2n.ir/adv"
+  },
+  "id": 76
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||byst.ir/themesstore/ads"
+  },
+  "id": 77
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||byst.ir/visit/view"
+  },
+  "id": 78
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||behmusic.com/wp-content/*/behpopup.js"
+  },
+  "id": 79
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||bultannews.com/files/adv/"
+  },
+  "id": 80
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||boursenews.ir/files/adv/"
+  },
+  "id": 81
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||boursenews.ir/fa/generate/userid"
+  },
+  "id": 82
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||bartarinha.ir/statics/"
+  },
+  "id": 83
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||bartarinha.ir/servev*/*.gif"
+  },
+  "id": 84
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||barato.ir/wp-content/*/ad/"
+  },
+  "id": 85
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||barsadic.com/scripts/myjavascript.js"
+  },
+  "id": 86
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||barsadic.com/gif/*.gif"
+  },
+  "id": 87
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||b-amooz.com/wp-content/plugins/sticky-ad"
+  },
+  "id": 88
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||banki.ir/images/banners/"
+  },
+  "id": 89
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||bankemardom.ir/files/ads"
+  },
+  "id": 90
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||backtory.com/bucket/deepchart/deepchartanalytics.js"
+  },
+  "id": 91
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||beautyhome.ir/wp-content/plugins/meks-easy-ads"
+  },
+  "id": 92
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||beautyhome.ir/wp-content/plugins/ads"
+  },
+  "id": 93
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||beautyhome.ir/wp-content/plugins/sticky-ad"
+  },
+  "id": 94
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pic.beautyhome.ir/*.gif"
+  },
+  "id": 95
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||beytoote.com/ads/socket.io.js"
+  },
+  "id": 96
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||beytoote.com/html_ads/"
+  },
+  "id": 97
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||storage.beytoote.com/images/adsbeytoote/"
+  },
+  "id": 98
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ads.beytoote.com"
+  },
+  "id": 99
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||boyernews.com/wp-content/plugins/fadvertisement^"
+  },
+  "id": 100
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||chaapaar.ir/ads^"
+  },
+  "id": 101
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||charbzaban.com/wp-content/uploads/*.gif"
+  },
+  "id": 102
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||chetor.com/wp-content/uploads/*.gif"
+  },
+  "id": 103
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||coffeeapps.ir/cof-p.php^"
+  },
+  "id": 104
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||coffeeapps.ir/wp-content/plugins/wp-content-copy-protector^"
+  },
+  "id": 105
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||cooldl.net/raul/zula"
+  },
+  "id": 106
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||car.ir/najva"
+  },
+  "id": 107
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||citna.ir/?q=simpleads"
+  },
+  "id": 108
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||citna.ir/sites/default/files/googleanalytics/analytics"
+  },
+  "id": 109
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||citna.ir/sites/default/files/images/ad"
+  },
+  "id": 110
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||cannews.aero/images/banner"
+  },
+  "id": 111
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||campec.ir/code/popup"
+  },
+  "id": 112
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||click.ir/wp-content/plugins/mmt-ads/"
+  },
+  "id": 113
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||caffecinema.com/media/banners/"
+  },
+  "id": 114
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ta.dideo.ir/ad^"
+  },
+  "id": 115
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1da.ir/img/*.gif"
+  },
+  "id": 116
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1ea.ir/img/rep/ads"
+  },
+  "id": 117
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||download1music.ir/wp-content/themes/d1m/ads.jpg"
+  },
+  "id": 118
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digiro.ir/wp-content/plugins/better-adsmanager^"
+  },
+  "id": 119
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digiro.ir/wp-content/uploads/*.gif"
+  },
+  "id": 120
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dlfox.com/wp-admin/admin-ajax.php?action=adwised"
+  },
+  "id": 121
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||cdn.dlfox.com/wp-content/uploads/*.gif"
+  },
+  "id": 122
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tadv.didestan.net"
+  },
+  "id": 123
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||didestan.com/*/script/vast"
+  },
+  "id": 124
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||didestan.com/stats"
+  },
+  "id": 125
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||didestan.com/vast.js"
+  },
+  "id": 126
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||didestan.com/video/vastlink.js"
+  },
+  "id": 127
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dustaan.com/files/*/smio-push-notification"
+  },
+  "id": 128
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dustaan.com/files/*/tracking"
+  },
+  "id": 129
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||downloadkral.com/wp-content/cache/min/0/wp-content/plugins/wp-postviews"
+  },
+  "id": 130
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dlbook.net/wp-content/uploads/*/adv"
+  },
+  "id": 131
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dande6.com/wp-content/themes/dande6/css/videojs.ads"
+  },
+  "id": 132
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||doctorwp.com/wp-content/plugins/better-ads"
+  },
+  "id": 133
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||donya-e-eqtesad.com/servev*/*.gif"
+  },
+  "id": 134
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||downloadsoftware.ir/images/ads/"
+  },
+  "id": 135
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dunro.com/dist/najva-messaging-sw.js"
+  },
+  "id": 136
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||analytics.dunro.com"
+  },
+  "id": 137
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||api.dunro.com/api/*/geoip"
+  },
+  "id": 138
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||downloadly.ir/wp-content/plugins/blackswanlab-click-counter^"
+  },
+  "id": 139
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digiboy.ir/wp-content/img/sponsors^"
+  },
+  "id": 140
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digiboy.ir/wp-content/img/sidebar^"
+  },
+  "id": 141
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digiboy.ir/wp-content/img/header^"
+  },
+  "id": 142
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ads.dabi.ir"
+  },
+  "id": 143
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dabi.ir/images/page-ads"
+  },
+  "id": 144
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dabi.ir/upload/staticbanners"
+  },
+  "id": 145
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dabi.ir/upload/boors3pic/empty-"
+  },
+  "id": 146
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||dabi.ir/banner/banner"
+  },
+  "id": 147
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digiato.com/wp-content/plugins/duracelltomi-google-tag-manager/js/analytics-talk-content-tracking.js"
+  },
+  "id": 148
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digikala.com/sw.js"
+  },
+  "id": 149
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digikala.com/tracker^"
+  },
+  "id": 150
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||digistyle.com/tracker^"
+  },
+  "id": 151
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ammaar.delivery.zeerak.cloud"
+  },
+  "id": 152
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||doostihaa.com/wp-content/plugins/jw-player-7-for-wp-premium/jwplayer/gapro.js"
+  },
+  "id": 153
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||download.ir/api/geoip"
+  },
+  "id": 154
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||download.ir/wp-content/uploads/*/hostiran-ad.jpg"
+  },
+  "id": 155
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||etma.ir/fa/logsitevisit^"
+  },
+  "id": 156
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||eghtesadgardan.ir/files/adv^"
+  },
+  "id": 157
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "eghtesadepooya.ir"
+   ],
+   "requestDomains": [
+    "okcs.com"
+   ]
+  },
+  "id": 158
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||eghtesaad24.ir/files/adv^"
+  },
+  "id": 159
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ejiga.com/content/player/js/rmp-vast.js"
+  },
+  "id": 160
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ejiga.com/content/player/css/rmp-vast.css"
+  },
+  "id": 161
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ecoiran.com/servev*/*.gif"
+  },
+  "id": 162
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ezp30.com/wp-content/themes/ezp30/pjs"
+  },
+  "id": 163
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||farspatogh.ir/media/ads/"
+  },
+  "id": 164
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||forum.moshaver.co/images/ads/"
+  },
+  "id": 165
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||entekhab.ir/fa/generate/userid"
+  },
+  "id": 166
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||entekhab.ir/files/adv/"
+  },
+  "id": 167
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||eghtesadonline.com/servev2/*.gif"
+  },
+  "id": 168
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||emalls.ir/js/yektanet.js"
+  },
+  "id": 169
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||emalls.ir/files/da/"
+  },
+  "id": 170
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||esetupdate.ir/adv/"
+  },
+  "id": 171
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||api.enama.ir/ads/"
+  },
+  "id": 172
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||api.enama.ir/webfiles/_adsbanner/"
+  },
+  "id": 173
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||farachart.com/wp-content/plugins/google-analytics-for-wordpress^"
+  },
+  "id": 174
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||farachart.com/wp-content/plugins/ultimate-member/assets/js/um-gdpr"
+  },
+  "id": 175
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||farachart.com/wp-content/uploads/pum/pum-site-scripts"
+  },
+  "id": 176
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||farachart.com/wp-content/plugins/adrotate-pro^"
+  },
+  "id": 177
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||api.footballi.net/api/*/user/init^"
+  },
+  "id": 178
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||api.footballi.net/api/*/news/visit^"
+  },
+  "id": 179
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||footballi.net/assets/shared-application/scripts/analytics"
+  },
+  "id": 180
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||footballi.net/assets/shared-application/scripts/jwplayer/vast.js"
+  },
+  "id": 181
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||footballi.net/video/*/undefined/vast.js"
+  },
+  "id": 182
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||freedownload.ir/images/customer/"
+  },
+  "id": 183
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||faradeed.ir/fa/generate/userid"
+  },
+  "id": 184
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||fararu.com/fa/generate/userid"
+  },
+  "id": 185
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||fararu.com/files/adv/"
+  },
+  "id": 186
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||filcin.com/site/show-adv"
+  },
+  "id": 187
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||faaltarin.com/adv-load.asp"
+  },
+  "id": 188
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||farnet.io/wp-content/plugins/better-adsmanager^"
+  },
+  "id": 189
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||farnet.io/wp-content/plugins/better-post-views^"
+  },
+  "id": 190
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||analysis.faradars.org"
+  },
+  "id": 191
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||media.farsnews.ir/uploaded/files/documents/*.gif"
+  },
+  "id": 192
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||farsnews.ir/api/recordnewstextvisit?id="
+  },
+  "id": 193
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ghatar.com/wp-content/uploads/*.gif"
+  },
+  "id": 194
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||getandroid.ir/files/js/landinga.js"
+  },
+  "id": 195
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||gamesetup.ir/wp-content/uploads/*/ads"
+  },
+  "id": 196
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||gostaresh.news/statics/"
+  },
+  "id": 197
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||gamefa.com/wp-content/uploads/*/*.gif"
+  },
+  "id": 198
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||gamefa.com/wp-content/uploads/*/ad"
+  },
+  "id": 199
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||gamefa.com/wp-content/uploads/*/gamefabanner"
+  },
+  "id": 200
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||gamefa.com/wp-content/uploads/*/banner"
+  },
+  "id": 201
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ghatreh.com/ads^"
+  },
+  "id": 202
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ghatreh.com/skins/default/js/najva.js^"
+  },
+  "id": 203
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ghatreh.com/skins/default/najva.css^"
+  },
+  "id": 204
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||graphiran.com/wp-content/uploads/*/ads"
+  },
+  "id": 205
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||gadgetnews.net/wp-content/uploads/*.gif"
+  },
+  "id": 206
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||honarehzendegi.com/cdn-cgi/challenge-platform^"
+  },
+  "id": 207
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||hamtamovie.lol/gtag"
+  },
+  "id": 208
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||harfetaze.com/wp-content/uploads/ads/"
+  },
+  "id": 209
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||hadana.ir/wp-content/plugins/better-ads"
+  },
+  "id": 210
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||hamgardy.com/uploads/advertisment/"
+  },
+  "id": 211
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||hiads.hidoctor.ir/"
+  },
+  "id": 212
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||hidoctor.ir/hiads"
+  },
+  "id": 213
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||hamshahrionline.ir/rest/visit"
+  },
+  "id": 214
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||iraneconomist.com/files/adv^"
+  },
+  "id": 215
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||imna.ir/rest/visit^"
+  },
+  "id": 216
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||i-video.ir/ipop.js"
+  },
+  "id": 217
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||i-video.ir/ipop.php"
+  },
+  "id": 218
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ipinz.ir/wp-content/plugins/google-analytics"
+  },
+  "id": 219
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||iranart.news/statics"
+  },
+  "id": 220
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||itna.ir/images/advertise/"
+  },
+  "id": 221
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||icivil.ir/omran/wp-content/cache/min/*/omran/wp-content/plugins/adrotate"
+  },
+  "id": 222
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||icivil.ir/omran/wp-content/cache/busting/*/omran/wp-content/plugins/google-analytics"
+  },
+  "id": 223
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||iraniandog.com/iss"
+  },
+  "id": 224
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||iranjib.ir/js/analytics"
+  },
+  "id": 225
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||iranjib.ir/hitup.php"
+  },
+  "id": 226
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||irannaz.com/ax/"
+  },
+  "id": 227
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||itresan.com/wp-content/cache/busting^"
+  },
+  "id": 228
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||itresan.com/wp-content/plugins/better-adsmanager^"
+  },
+  "id": 229
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||itresan.com/wp-content/uploads/*.gif"
+  },
+  "id": 230
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ilna.ir/servev2/*.gif"
+  },
+  "id": 231
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||websocket.ilna.ir"
+  },
+  "id": 232
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||isna.ir/rest/visit"
+  },
+  "id": 233
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||irna.ir/rest/visit"
+  },
+  "id": 234
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||irlanguage.com/themes/mashhadteam-default/script/ga.js"
+  },
+  "id": 235
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "jahaneghtesad.com"
+   ],
+   "requestDomains": [
+    "dummyimage.com"
+   ]
+  },
+  "id": 236
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||jahaneghtesad.com/wp-content/plugins/top-10^"
+  },
+  "id": 237
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||jahaneghtesad.com/wp-content/uploads/matomo^"
+  },
+  "id": 238
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||jabeh.com/assets/videojs-contrib-ads"
+  },
+  "id": 239
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||jabeh.com/assets/videojs.ima.min.js"
+  },
+  "id": 240
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||jabeh.com/assets/videojs.ima.min.css"
+  },
+  "id": 241
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||jabeh.com/analytics^"
+  },
+  "id": 242
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||jahannews.com/images/advertise/"
+  },
+  "id": 243
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mhvllvgrefplg.com/v.js"
+  },
+  "id": 244
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ucxfdvhuqwpig.com/vvja.js"
+  },
+  "id": 245
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||javanmobile.com/wp-content/cache/min/*/wp-content/plugins/adrotate"
+  },
+  "id": 246
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||khaandaniha.ir/upload/public/advertisement^"
+  },
+  "id": 247
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||khabareazad.com/aec.min.js^"
+  },
+  "id": 248
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||konkur.in/image/ads/"
+  },
+  "id": 249
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||konkur.info/wp-content/uploads/*.gif"
+  },
+  "id": 250
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ads.khanoumi.com/api/services/app/adstrackingpanel^"
+  },
+  "id": 251
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||cdn.khodrobank.com/images/banners/"
+  },
+  "id": 252
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||kilipo.com/themes/default/js/fingerprintjs"
+  },
+  "id": 253
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||s1.khf.nz/sites/default/files/upload_banner/ads"
+  },
+  "id": 254
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||s1.khf.nz/sites/default/files/ads/"
+  },
+  "id": 255
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||karpishe.com/api/collect/job-click^"
+  },
+  "id": 256
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||kojaro.com/kojaro/ui/js/banner.js"
+  },
+  "id": 257
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||khabarpu.com/js/getscript.js^"
+  },
+  "id": 258
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||khabarpu.com/js/all_sc_without_yektanet.js^"
+  },
+  "id": 259
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||kalakamuz.ir/wp-content/uploads/ad"
+  },
+  "id": 260
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||lamtakam.com/img/ad"
+  },
+  "id": 261
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||lahzeakhar.com/showads"
+  },
+  "id": 262
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||magland.ir/banner_images^"
+  },
+  "id": 263
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mihand.ir/wp-content/uploads/*.gif"
+  },
+  "id": 264
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||moviemag.ir/media/com_rstbox/js/engagebox.js^"
+  },
+  "id": 265
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||moviemag.ir/media/com_rstbox/css/engagebox.css^"
+  },
+  "id": 266
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||modirnameh.ir/wp-content/uploads/*.gif"
+  },
+  "id": 267
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mipersia.com/wp-content/cache/caos-analytics"
+  },
+  "id": 268
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||meghdadit.com/api/subscriber/is-firsttime-user"
+  },
+  "id": 269
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||montiego.ir/dl/popmon.js"
+  },
+  "id": 270
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mybia4music.com/wp-content/plugins/wp-postviews/"
+  },
+  "id": 271
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||marzfun.com/wp-content/plugins/google-analytics"
+  },
+  "id": 272
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||my-film.pw/wp-content/uploads/*/ad"
+  },
+  "id": 273
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mer30download.com/wp-content/uploads/*/ad"
+  },
+  "id": 274
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mashreghnews.ir/rest/visit"
+  },
+  "id": 275
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mashreghnews.ir/d/*/*.gif"
+  },
+  "id": 276
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mihanscript.net/wp-json/wp-statistics/"
+  },
+  "id": 277
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mihandownload.com/sw.js"
+  },
+  "id": 278
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||mehrnews.com/rest/visit"
+  },
+  "id": 279
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||niniban.com/files/adv/*.gif"
+  },
+  "id": 280
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||netbarg.com/matomo.js"
+  },
+  "id": 281
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||namasha.com/visit?id="
+  },
+  "id": 282
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||static.namasha.com/content/player*/vast.js"
+  },
+  "id": 283
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||nex1.ir/p.js"
+  },
+  "id": 284
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||nex1.ir/p.php"
+  },
+  "id": 285
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||navatv.com/wp-admin/admin-ajax.php?action=adwised"
+  },
+  "id": 286
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||navatv.com/?wordfence"
+  },
+  "id": 287
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||netpaak.com/wp-content/uploads/*.gif"
+  },
+  "id": 288
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ninifile.com/content/js/ninivastadsjs"
+  },
+  "id": 289
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||stc.ninisite.com"
+  },
+  "id": 290
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||niksalehi.com/newspaper/wp-content/themes/new_niksalehi/counter_view.php"
+  },
+  "id": 291
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||nex1music.ir/bnr/"
+  },
+  "id": 292
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "nex1music.ir"
+   ],
+   "requestDomains": [
+    "via.placeholder.com"
+   ]
+  },
+  "id": 293
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||namakstan.net/wp-content/cache/busting/1/gtm-"
+  },
+  "id": 294
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||parsaspace.com/content/new/js/analytics.js^"
+  },
+  "id": 295
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pezeshket.com/wp-content/uploads/*.gif"
+  },
+  "id": 296
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pichak.net/nohe/amar.js"
+  },
+  "id": 297
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pichak.net/ads/"
+  },
+  "id": 298
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||p30konkor.com/wp-content/uploads/*.gif"
+  },
+  "id": 299
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||p30day.ir/images/tabligh"
+  },
+  "id": 300
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||parsiblog.com/adv/"
+  },
+  "id": 301
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||imencms.com/mobile/ptadv.jpg"
+  },
+  "id": 302
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||parsnaz.com/ads"
+  },
+  "id": 303
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||persiangfx.com/tab/banner/"
+  },
+  "id": 304
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||p30afzar.com/myjs/a.js"
+  },
+  "id": 305
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||p30download.ir/tabliq/"
+  },
+  "id": 306
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||p30download.ir/page/files/eset"
+  },
+  "id": 307
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||film.persianv.com/frontend/js/ads/"
+  },
+  "id": 308
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pishkhan.com/pishkhaanads/"
+  },
+  "id": 309
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pgnews.ir/uploads/*.gif"
+  },
+  "id": 310
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pedal.ir/wp-content/uploads/*.gif"
+  },
+  "id": 311
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||patoghu.com/analytics.js"
+  },
+  "id": 312
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||patoghu.com/n/d/n.js"
+  },
+  "id": 313
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||patoghu.com/n/d/w1.js"
+  },
+  "id": 314
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||paperhub.ir/images/*.gif"
+  },
+  "id": 315
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1pezeshk.com/wp-content/plugins/better-adsmanager"
+  },
+  "id": 316
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1pezeshk.com/wp-content/plugins/post-views-counter"
+  },
+  "id": 317
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rouydad24.ir/files/adv^"
+  },
+  "id": 318
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rizy.ir/img/*.gif"
+  },
+  "id": 319
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rozup.ir/theme/*/img/txtad.png"
+  },
+  "id": 320
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rokna.net/rss-files.php^"
+  },
+  "id": 321
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rouzegar.com/wp-content/plugins/better-adsmanager/"
+  },
+  "id": 322
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rooziato.com/wp-content/plugins/duracelltomi-google-tag-manager/js/analytics-talk-content-tracking"
+  },
+  "id": 323
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||roozno.com/files/adv/"
+  },
+  "id": 324
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rondbaz.com/js/analytics.js"
+  },
+  "id": 325
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rond.ir/content/simbannerfile/files/"
+  },
+  "id": 326
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rond.ir/content/images/homeimages/blank-loading.png"
+  },
+  "id": 327
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rajanews.com/sites/default/files/superadmin/*.gif"
+  },
+  "id": 328
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sid.ir/adv^"
+  },
+  "id": 329
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||salameno.com/rest/visit^"
+  },
+  "id": 330
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||media.salameno.com/d/*.gif"
+  },
+  "id": 331
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shmi.ir/wp-content/uploads/*gif"
+  },
+  "id": 332
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||setare.com/files/*.gif"
+  },
+  "id": 333
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||setare.com/wp-content/tags/yn_bnr"
+  },
+  "id": 334
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shomavaeghtesad.com/rss-rasa.php^"
+  },
+  "id": 335
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sheypoor.com/js/analytics-"
+  },
+  "id": 336
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||serveriran.net/wp-content/plugins/wccp-pro"
+  },
+  "id": 337
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sedayiran.com/files/adv/"
+  },
+  "id": 338
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||snappfood.ir/*/track^"
+  },
+  "id": 339
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shomanews.com/player/vastlink.js^"
+  },
+  "id": 340
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shomanews.com/player/vast.js^"
+  },
+  "id": 341
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shomanews.com/rss-rasa.php^"
+  },
+  "id": 342
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||stnews.ir/ads/"
+  },
+  "id": 343
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shirazsong.in/wp-content/plugins/google-analytics"
+  },
+  "id": 344
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||samatak.com/ads"
+  },
+  "id": 345
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shop-theme.ir/code/popup"
+  },
+  "id": 346
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||snn.ir/files/adv^"
+  },
+  "id": 347
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sourceiran.com/wp-content/plugins/layered-popups/js/ads"
+  },
+  "id": 348
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sakhtafzarmag.com/wp-content/uploads/ads/"
+  },
+  "id": 349
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||seemorgh.com/images/*/ads/"
+  },
+  "id": 350
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sarzamindownload.com/ppjs/"
+  },
+  "id": 351
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sarzamindownload.com/images/banners/"
+  },
+  "id": 352
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||softgozar.com/image/siteade/"
+  },
+  "id": 353
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "subf2m.ir"
+   ],
+   "requestDomains": [
+    "idna.news"
+   ]
+  },
+  "id": 354
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||softsaaz.ir/wp-content/plugins/affiliate-wp/assets/js/tracking.min.js"
+  },
+  "id": 355
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||softsaaz.ir/wp-content/uploads/*.gif"
+  },
+  "id": 356
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||up.skinak.ir/up/skinak/ads/"
+  },
+  "id": 357
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||simcart.com/upload/banner"
+  },
+  "id": 358
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shahrsakhtafzar.com/fa/images/banners/"
+  },
+  "id": 359
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sena.ir/rest/visit"
+  },
+  "id": 360
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||media.salamatnews.com/d/*.gif?"
+  },
+  "id": 361
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sakhtafzar.com/wp-json/wpstatistics/"
+  },
+  "id": 362
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sakhtafzar.com/wp-content/uploads/*.gif"
+  },
+  "id": 363
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||saednews.com/bnr-ad/"
+  },
+  "id": 364
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||saednews.com/res-ac/templates/saednews/banners/"
+  },
+  "id": 365
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||1000site.ir/asset/media/banner"
+  },
+  "id": 366
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||technews-iran.com/wp-content/cache/min/*/amp-ad-"
+  },
+  "id": 367
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takmili.com/wp-content/plugins/wccp-pro"
+  },
+  "id": 368
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takmili.com/wp-content/plugins/google-analytics"
+  },
+  "id": 369
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||technet24.ir/wp-content/plugins/better-ads"
+  },
+  "id": 370
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||titr.online/api/stats"
+  },
+  "id": 371
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||topseda.ir/wp-content/plugins/google-analytics"
+  },
+  "id": 372
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||technolife.ir/image/deema"
+  },
+  "id": 373
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||technolife.ir/image/najva"
+  },
+  "id": 374
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||technolife.ir/image/yekta"
+  },
+  "id": 375
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tabanmusic.com/p-pop/"
+  },
+  "id": 376
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tafrihi.com/wp-content/plugins/simple-ads"
+  },
+  "id": 377
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tigatravel.com/set_cookie_popup.php"
+  },
+  "id": 378
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takro.net/cdn-cgi/zaraz/"
+  },
+  "id": 379
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takro.net/cdn-cgi/apps/head"
+  },
+  "id": 380
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tabnak.ir/files/adv^"
+  },
+  "id": 381
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tabnakjavan.com/files/adv/"
+  },
+  "id": 382
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||adengine.telewebion.com"
+  },
+  "id": 383
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||rokhdad.telewebion.com"
+  },
+  "id": 384
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takhfifan.com/matomo.js^"
+  },
+  "id": 385
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takhfifan.com/mtc.js^"
+  },
+  "id": 386
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||toranji.ir/wp-content/uploads/*/*.gif"
+  },
+  "id": 387
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||toranji.ir/najva-messaging-sw.js^"
+  },
+  "id": 388
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||st-n.ads1-adnow.com/js/a.js"
+  },
+  "id": 389
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tiwall.com/api/adver/"
+  },
+  "id": 390
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tgju.org/cdn-cgi/apps/head"
+  },
+  "id": 391
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||static.accessban.com/advertisement/"
+  },
+  "id": 392
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||static.accessban.com/images/advertisement/"
+  },
+  "id": 393
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||api.accessban.com/v1/advertisement/"
+  },
+  "id": 394
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tebyan.net/base/userlog^"
+  },
+  "id": 395
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tebyan.net/home/userlog^"
+  },
+  "id": 396
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tebyan.net/home/visit^"
+  },
+  "id": 397
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tebyan.net/film/counter^"
+  },
+  "id": 398
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||film.tebyan.net/files/jwplayer//vast.js"
+  },
+  "id": 399
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||newsmedia.tasnimnews.com/tasnim/uploaded/ads/"
+  },
+  "id": 400
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tarafdari.com/advertise^"
+  },
+  "id": 401
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tarafdari.com/modules/statistics^"
+  },
+  "id": 402
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||upmusics.com/najva.js"
+  },
+  "id": 403
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||uptvs.com/wp-contents/plugins/viewstats"
+  },
+  "id": 404
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||uupload.ir/img/*.gif"
+  },
+  "id": 405
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||unp.ir/downloads/*/*.gif"
+  },
+  "id": 406
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||uploadboy.com/analytics.js^"
+  },
+  "id": 407
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||uploadboy.com/banner^"
+  },
+  "id": 408
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||vipofilm.com/wp-content/plugins/adwised/assets/adwisedpop.js"
+  },
+  "id": 409
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||vipofilm.com/wp-admin/admin-ajax.php?action=adwised"
+  },
+  "id": 410
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||vgdl.ir/wp-content/uploads/*/*.gif"
+  },
+  "id": 411
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||vazeh.com/cdn-cgi/apps/head"
+  },
+  "id": 412
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||vazeh.com/banners/"
+  },
+  "id": 413
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "vazeh.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sahandpress.ir/loader"
+  },
+  "id": 414
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||up.varoone.ir/view/*/adv"
+  },
+  "id": 415
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||up.varoone.ir/view/*/*.gif"
+  },
+  "id": 416
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||vajehyab.com/img/ads"
+  },
+  "id": 417
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||biz-cdn.varzesh3.com/banners^"
+  },
+  "id": 418
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||static.varzesh3.com/js/ads.js^"
+  },
+  "id": 419
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||biz.varzesh3.com/vast^"
+  },
+  "id": 420
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||biz.varzesh3.com/events/view^"
+  },
+  "id": 421
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||video-learn.ir/code/popup^"
+  },
+  "id": 422
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||vigiato.net/wp-content/plugins/duracelltomi-google-tag-manager^"
+  },
+  "id": 423
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||vista.ir/ads^"
+  },
+  "id": 424
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||wcity4.site/wp-json/wp-statistics^"
+  },
+  "id": 425
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||webii.ir/images/banner^"
+  },
+  "id": 426
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||webii.ir/images/loading.svg"
+  },
+  "id": 427
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||wikihoax.org/wp-content/plugins/eazy-ad-unblocker^"
+  },
+  "id": 428
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||wikihoax.org/wp-content/cache/busting/1/wp-content/plugins/eazy-ad-unblocker^"
+  },
+  "id": 429
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||wikihoax.org/wp-content/uploads/*/ads"
+  },
+  "id": 430
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||yektapress.com/files/adv^"
+  },
+  "id": 431
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||yektablog.net/js/adjs.php"
+  },
+  "id": 432
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||yun.ir/advertisement^"
+  },
+  "id": 433
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||zibamoon.com/files/ads^"
+  },
+  "id": 434
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||zoomg.ir/common/visitcount^"
+  },
+  "id": 435
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||zoomg.ir/themes/zoomg.ir/content/css/img/ad.svg"
+  },
+  "id": 436
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||zoomit.ir/common/visitcount/^"
+  },
+  "id": 437
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "excludedInitiatorDomains": [
+    "web.rubika.ir"
+   ],
+   "requestDomains": [
+    "rubika.ir"
+   ]
+  },
+  "id": 438
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||asandl.com/panel/"
+  },
+  "id": 439
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "androidsharp.com"
+   ],
+   "requestDomains": [
+    "iranroid.com"
+   ],
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 440
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||afkarnews.com/servev2/"
+  },
+  "id": 441
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "dlfox.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": ".gif^"
+  },
+  "id": 442
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||dabi.ir/int//"
+  },
+  "id": 443
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||p30afzar.com/ext_files/"
+  },
+  "id": 444
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "p30afzar.com"
+   ],
+   "requestDomains": [
+    "androidsharp.com"
+   ],
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 445
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "rouzegar.com"
+   ],
+   "requestDomains": [
+    "irancarpet.net"
+   ],
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 446
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "takskin.com"
+   ],
+   "requestDomains": [
+    "backlink.ir"
+   ],
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 447
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||vgdl.ir/wp-content/uploads/*/*-ad-"
+  },
+  "id": 448
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||abzarfa.com/services/minicounter^"
+  },
+  "id": 449
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||abzarfa.com/services/onlineusres^"
+  },
+  "id": 450
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||abzarfa.com/tools/ip^"
+  },
+  "id": 451
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||farsroid.com/js/?url="
+  },
+  "id": 452
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "requestDomains": [
+    "img.patoghu.com"
+   ],
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 453
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "/wp-admin/admin-ajax.php?postviews_id="
+  },
+  "id": 454
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "yun.ir"
+   ],
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 455
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "requestDomains": [
+    "24d.ir",
+    "ad.technews-iran.com",
+    "adexo.ir",
+    "adivery.com",
+    "adnegah.net",
+    "adpulse.ir",
+    "adro.co",
+    "ads.farakav.com",
+    "ads.karzar.net",
+    "ads.safarme.ir",
+    "adsima.net",
+    "adskav.com",
+    "adtrace.io",
+    "advn.ir",
+    "adwised.azureedge.net",
+    "adwised.com",
+    "adwisedfs.com",
+    "affili.ir",
+    "affiliate.digikala.com",
+    "affiliate.malltina.com",
+    "affstat.adro.co",
+    "affstat.digikala.com",
+    "ai.marketing",
+    "aitrades.com",
+    "amarfa.ir",
+    "amaroid.net",
+    "analytic.magland.ir",
+    "analytics.aasaam.com",
+    "analytics.asiatech.ir",
+    "analytics.digikala.com",
+    "analytics.nastooh.ir",
+    "analytics.zoomit.ir",
+    "apm.bama.ir",
+    "arongroups.co",
+    "artanlife.club",
+    "aryacoin.io",
+    "aryana.io",
+    "aryastake.io",
+    "asaccoin.com",
+    "axotrade.com",
+    "ayyaar.ir",
+    "backority.ir",
+    "bahatoken.site",
+    "behinava.com",
+    "behkamcoin.com",
+    "bemchain.io",
+    "bixb.exchange",
+    "bixbcoin.com",
+    "bnbmatrix.io",
+    "bridge.link",
+    "cashback.takhfifan.com",
+    "chabok.io",
+    "chavosh.org",
+    "ck.chavosh.org",
+    "click.digiato.com",
+    "clickaval.com",
+    "clickyab.com",
+    "coin-hash.com",
+    "coinohit.com",
+    "coinsmining.energy",
+    "coinwallet.biz",
+    "congoro.com",
+    "congoro.ir",
+    "counter.toolsir.com",
+    "cryptoland.com",
+    "dagcoin.org",
+    "davedbux.ir",
+    "deema.agency",
+    "deemaagency.ir",
+    "deemanetwork.com",
+    "defigroups.com",
+    "denutility.com",
+    "emenshowapp.xyz",
+    "emway.ir",
+    "error-tracking.arvancloud.com",
+    "excoino.com",
+    "facepop.org",
+    "farakav.com",
+    "farda.exchange",
+    "farsbux.ir",
+    "fastclick.ir",
+    "fb-gw.bef.rest",
+    "frzss.com",
+    "geoip.imber.live",
+    "gpm.ltd",
+    "guhtoken.org",
+    "hamyarminer.net",
+    "hantana.org",
+    "healour.com",
+    "icbroker.com",
+    "impero.solutions",
+    "imsmining.com",
+    "imtokenwallet.biz",
+    "intrack.ir",
+    "ipsite.ir",
+    "ir.mihanstore.net",
+    "irancloudmining.com",
+    "irancoinmine.com",
+    "jetbux.ir",
+    "kajads.com",
+    "kaprila.com",
+    "kingmoney.io",
+    "l.24d.ir",
+    "landyab.com",
+    "laqira.io",
+    "leumia.io",
+    "linkfars.com",
+    "liyamtoken.com",
+    "lnk.amaroid.net",
+    "magnetadservices.com",
+    "mediaad.org",
+    "merita.ir",
+    "metrix.behtarino.com",
+    "metrix.ir",
+    "minepi.com",
+    "mitrarank.ir",
+    "mrdigicoin.eu",
+    "mrdigicoin.io",
+    "mrdigicoin.org",
+    "mtabdil.com",
+    "mttcoin.com",
+    "najva.com",
+    "netbina.com",
+    "new-sentry.digikala.com",
+    "news-view-api.varzesh3.com",
+    "newswidget.net",
+    "nokontoken.com",
+    "on-click.ir",
+    "orbitnetwork.net",
+    "pantatec.ae",
+    "partclick.ir",
+    "pcoinglobal.com",
+    "persia.exchange",
+    "persianrank.ir",
+    "phoenixad.io",
+    "phonroid.com",
+    "popgozar.com",
+    "popina.ir",
+    "popland.info",
+    "popunder.ir",
+    "popupdl.ir",
+    "popupme.net",
+    "popupplus.ir",
+    "propertiq.io",
+    "publica.ir",
+    "pushe.co",
+    "quahl.com",
+    "radar.bayan.ir",
+    "rssbank.ir",
+    "sabavision.com",
+    "sanjagh.com",
+    "sanjagh.net",
+    "sendword.ir",
+    "sentry-new.divar.ir",
+    "sentry.cafebazaar.org",
+    "sentry.footballiapp.com",
+    "sentry.hamravesh.com",
+    "sentry.malltina.com",
+    "sentry.namava.ir",
+    "sentry.quera.org",
+    "shamining.com",
+    "smartgalaxy.finance",
+    "soodland.com",
+    "statsfa.com",
+    "synchrobit.io",
+    "tabligheirani.ir",
+    "talapop.ir",
+    "tapsell.ir",
+    "tastenfts.com",
+    "tavoos.net",
+    "tbli.ir",
+    "te1.ir",
+    "toppopup.com",
+    "tracker.digikala.com",
+    "traderbully.com",
+    "trc.metrix.ir",
+    "treenvest.com",
+    "triboon.net",
+    "unifunds.com",
+    "unique.finance",
+    "usdtbang.com",
+    "usdtbbc.com",
+    "usdtcan.com",
+    "usdteng.com",
+    "userfriendly.ir",
+    "utbyte.io",
+    "utop.ir",
+    "utopclick.com",
+    "vatanclick.ir",
+    "video-view-api.varzesh3.com",
+    "vidomusic.org",
+    "waykingroup.com",
+    "websocket.eghtesadonline.com",
+    "wideads.com",
+    "wintap.io",
+    "wiseling.com",
+    "yekbux.com",
+    "yektanet.com",
+    "yelloadwise.ir",
+    "yoozbit.com",
+    "zanboor.net",
+    "zarpop.com"
+   ],
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 456
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "||t.me/bitbod_trading_club^"
+  },
+  "id": 457
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||cdn.isna.ir/d/*.gif"
+  },
+  "id": 458
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "requestDomains": [
+    "aasaam.com",
+    "adtodate.net",
+    "akhbarrasmi.com",
+    "clarity.ms",
+    "clickweb.click",
+    "e-earn.ir",
+    "hamravesh.com",
+    "heatmap.it",
+    "histats.com",
+    "hotjar.com",
+    "icanhazip.com",
+    "instant.page",
+    "ipify.org",
+    "linksaz.net",
+    "linkyar.com",
+    "nastooh.ir",
+    "p30rank.ir",
+    "peyvandha.ir",
+    "rasaaa.com",
+    "rokhdad.news",
+    "sendpulse.com",
+    "shahrekhabar.com",
+    "sibautomation.com",
+    "speedcurve.com",
+    "statcounter.com",
+    "titr.online",
+    "uptrendsdata.com",
+    "useinsider.com",
+    "w3counter.com",
+    "webengage.com",
+    "webpu.sh",
+    "widget.fafait.net",
+    "xjs.lol"
+   ]
+  },
+  "id": 459
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||simple-counter.com/hit.php^"
+  },
+  "id": 460
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||shomanews.com/box.php^"
+  },
+  "id": 461
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "excludedInitiatorDomains": [
+    "soft98.ir"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||cdn.hostdl.com/img/*.gif"
+  },
+  "id": 462
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||image.asandl.com/panel/templates/sprit.png"
+  },
+  "id": 463
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||img.cdn.asandl.com/panel/templates/sprit.png"
+  },
+  "id": 464
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pezeshket.com/wp-content/uploads/2022/07/%d9%be%d8%b1%d8%b3%d8%b4-%d9%88-%d9%be%d8%a7%d8%b3%d8%ae.gif"
+  },
+  "id": 465
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||sourceiran.com/wp-content/uploads/300-250.jpg"
+  },
+  "id": 466
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||up.skinak.ir/up/skinak/upload/93/7/10/skinak-468x60.gif"
+  },
+  "id": 467
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||takhfifan.com/static/matomo.js"
+  },
+  "id": 468
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||tamin.ir/content/ads/"
+  },
+  "id": 469
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "stylesheet"
+   ],
+   "urlFilter": "||player.tavoos.net/tavoos-player.css"
+  },
+  "id": 470
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||player.tavoos.net/assets/"
+  },
+  "id": 471
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||player.tavoos.net/jwplayer.js"
+  },
+  "id": 472
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||player.tavoos.net/jwplayer.core.controls.html5.js"
+  },
+  "id": 473
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "sub_frame"
+   ],
+   "urlFilter": "||tamasha.com/embed^"
+  },
+  "id": 474
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "font"
+   ],
+   "urlFilter": "||player.tavoos.net/assets/fonts/"
+  },
+  "id": 475
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ads.beytoote.com/live_chat"
+  },
+  "id": 476
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||asandl.com/ads/img/"
+  },
+  "id": 477
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||blogfa.com/static/ads/"
+  },
+  "id": 478
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||beytoote.com/ads/images_"
+  },
+  "id": 479
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||boyernews.com/wp-content/plugins/fadvertisement/images/be7c40ce-baea-954a-b842-c98f3423eb1d.jpg"
+  },
+  "id": 480
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||boyernews.com/wp-content/plugins/fadvertisement/images/e77fb7b0-c797-40c2-d105-545084ee2e57.jpg"
+  },
+  "id": 481
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||chetor.com/wp-content/uploads/2016/04/instagram-banner.chetor-media2.gif"
+  },
+  "id": 482
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||chetor.com/wp-content/uploads/2021/07/book-banner.1250.240.2.gif"
+  },
+  "id": 483
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||caffecinema.com/media/banners/telegram-"
+  },
+  "id": 484
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||faaltarin.com/advertise-files/thumbnail"
+  },
+  "id": 485
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||iwo.ir/ads.jpg"
+  },
+  "id": 486
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||iwo.ir/data/home/ads.gif"
+  },
+  "id": 487
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||dl.konkur.in/image/ads/gold.png"
+  },
+  "id": 488
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||ads.khanoumi.com/storage/"
+  },
+  "id": 489
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||images.kojaro.com/assets/ad/advertise-"
+  },
+  "id": 490
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||meghdadit.com/files/ad/"
+  },
+  "id": 491
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||mag.meghdadit.com/wp-content/uploads/2022/05/advertising-in-telegram"
+  },
+  "id": 492
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||niksalehi.com/wp-content/uploads/*/adv"
+  },
+  "id": 493
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||nex1music.ir/upload/ads/"
+  },
+  "id": 494
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||parsiblog.com/adv/imgs/"
+  },
+  "id": 495
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||persianv.com/wp-content/uploads/*/adv-"
+  },
+  "id": 496
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||par30games.net/wp-content/uploads/*/advertise-plan"
+  },
+  "id": 497
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||sarzamindownload.com/images/ads_place.jpg"
+  },
+  "id": 498
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||1000site.ir/asset/images/images/adpage/"
+  },
+  "id": 499
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||1000site.ir/home/ads/asset/favicon.ico"
+  },
+  "id": 500
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||toranji.ir/wp-content/uploads/*/toranji-banner-ad-"
+  },
+  "id": 501
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||vgdl.ir/wp-content/uploads/*/how-to-fix-error-vgdl.ir_.gif"
+  },
+  "id": 502
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||webii.ir/upload/ads/"
+  },
+  "id": 503
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||cdn.zoomg.ir/banners/demo/advertise-"
+  },
+  "id": 504
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||zoomit.ir/assets/img/advertise-"
+  },
+  "id": 505
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||beytoote.com/ads/js/"
+  },
+  "id": 506
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||analytics.digikala.com/shopping/product-online-visitor/"
+  },
+  "id": 507
+ }
+]

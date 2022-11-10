@@ -1,0 +1,202 @@
+[
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "proengineer.internous.co.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/bnr_side_(kiso3|octopass)\\.jpg"
+  },
+  "id": 227
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^http:\\/\\/[0-9a-z]{1,4}\\.[a-z]{5}\\.com\\/chrome\\.apk$",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 609
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\.(?:cn|icu|pro)\\/Personal\\/member\\/Login\\/index\\.php\\?oneTimeAccessID=",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 611
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\.(?:bar|icu|id|rest|shop|top|xyz)\\/[0-9A-Za-z]{2,10}\\/page1\\.php$",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 622
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https:\\/\\/[a-z]{5,6}\\.[a-z]{7}\\.cn\\/recrea\\.php$",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 628
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "duckdns.org"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/[a-z]{10}\\.duckdns",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 635
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "jmd.co.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/bv\\.php\\?no=2(?:6[79]|7[37]|9[12])$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 636
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "englishhub.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/uploads\\/\\d{4}\\/\\d{2}\\/[0-9a-z]{6,}_[_A-Za-z]{0,15}ba?nn?e?r[_0-9a-z]{0,15}\\.?\\.(?:jp|pn)g$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 637
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "kbbs.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/Newcoronavirus_upld_(?:[12]\\d|5|6\\d?|7[1-4]?|8)\\.",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 639
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "khp.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/Nonwovenmask_upld_(?:[124]\\d|6|7|8|9)\\.",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 640
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "goonews.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/right\\/(?:[a-z]+([a-z_]+\\d{2})?|[0-9a-z_-]*(?:bnr|banner)[0-9a-z-_]*)\\.(?:gif|jpg|png)$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 642
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "logistics.jp"
+   ],
+   "regexFilter": "dcms_media\\/image\\/(?:bownow|[%_0-9A-Z]{30,})\\.(?:png|jpg)$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 643
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "2jigiri.net",
+    "pig109.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\.net\\/[-a-z]{2,6}0\\d{2}\\.html$",
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 649
+ }
+]
