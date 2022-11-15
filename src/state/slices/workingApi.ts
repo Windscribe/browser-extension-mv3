@@ -12,11 +12,8 @@ export const workingApiSlice = createSlice({
     setWorkingApi(state: WorkingApiState, action: PayloadAction<string>) {
       return action.payload
     },
-    resetWorkingApi(state: WorkingApiState) {
-      state = null // TODO or ENVS.API_URL ?
-    },
   },
 })
 
-export const { setWorkingApi, resetWorkingApi } = workingApiSlice.actions
+export const { setWorkingApi } = workingApiSlice.actions
 export default workingApiSlice.reducer

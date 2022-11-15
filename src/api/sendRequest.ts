@@ -79,10 +79,10 @@ const sendRequest = async <DataType>(
     return await tryDomain(workingApi, options)
   } catch (err) {
     try {
-      return tryBackupApi(options)
+      return await tryBackupApi(options)
     } catch (err) {
       try {
-        return tryDohUrl(options)
+        return await tryDohUrl(options)
       } catch (err: any) {
         return {
           errorMessage: 'API connectivity issues',
