@@ -22,7 +22,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
   isExpanded,
   handleItemClick,
 }) => {
-  const { colorMode } = useThemeUI()
+  const { colorMode, theme } = useThemeUI()
   const isDark = colorMode === 'dark'
 
   return (
@@ -88,11 +88,12 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
             color: 'secondaryText',
             paddingBottom: '16px',
             paddingLeft: '16px',
+            paddingRight: '16px',
             backgroundColor: 'foreground',
             borderBottomLeftRadius: '8px',
             borderBottomRightRadius: '8px',
           }}
-          css={getInnerHtmlStyles(isDark)}
+          css={getInnerHtmlStyles(isDark, theme?.colors)}
           dangerouslySetInnerHTML={{ __html: message }}
         />
       )}
