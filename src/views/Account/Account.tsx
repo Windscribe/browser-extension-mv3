@@ -24,6 +24,7 @@ const Account: ThemeUiElement = () => {
                 fill: 'primaryText',
               },
             }}
+            data-testid="edit-account-button"
           />
         }
       />
@@ -32,7 +33,9 @@ const Account: ThemeUiElement = () => {
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
             Username
-            <Box sx={{ fontWeight: '400' }}>{session.username}</Box>
+            <Box sx={{ fontWeight: '400' }} data-testid="account-username">
+              {session.username}
+            </Box>
           </ListItem>
           <ListItem noBorder>
             Email

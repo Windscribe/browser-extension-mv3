@@ -9,7 +9,7 @@ describe('Locations', () => {
     popupPage = context.popupPage
   })
 
-  it('Loges in, navigates to Locations page, opens a country/region accordion and selects location', async () => {
+  it('Succesfully logs in', async () => {
     // Go to Login page
     const goLoginButton = await popupPage.$('[data-testid=login-button]')
     await goLoginButton.click()
@@ -26,7 +26,12 @@ describe('Locations', () => {
     popupPage.click('[data-testid=login-button]')
 
     // Ensure that we are on Home page and Go to Locations page
-    await popupPage.waitForSelector('[data-testid=home-page]')
+    const homePage = await popupPage.waitForSelector('[data-testid=home-page]')
+
+    expect(homePage).toBeTruthy()
+  })
+
+  it('Navigates to Locations page, opens a country/region accordion and selects location', async () => {
     popupPage.click('[data-testid=globe-button]')
 
     // Ensure that we are on Locations page
@@ -77,6 +82,24 @@ describe('Locations', () => {
     const checkmarkIcon = await locationsFirstItem.$('[data-testid=checkmark-icon]')
     expect(checkmarkIcon).toBeTruthy()
     expect(arrowIcon).toBeNull()
+  })
+
+  it('Check if account page username matches TEST_USER_NAME', async () => {
+    popupPage.click('[data-testid=go-back-button]')
+
+    await popupPage.waitForSelector('[data-testid=home-page]')
+    popupPage.click('[data-testid=go-to-preferences]')
+    await popupPage.waitForSelector('[data-testid=preferences-page]')
+    popupPage.click('[data-testid=Account]')
+    await popupPage.waitForSelector('[data-testid=account-page]')
+
+    // await new Promise(r => setTimeout(r, 5000))
+
+    const usernameElement = await popupPage.$('[data-testid=account-username]')
+
+    const username = await usernameElement.evaluate(el => el.textContent)
+
+    expect(username).toEqual(process.env.TEST_USER_NAME)
   })
 
   afterAll(async () => {

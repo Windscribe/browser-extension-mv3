@@ -33,7 +33,7 @@ failover: ${failover}`
   }, [isAutoScroll, log])
 
   return (
-    <div className="container">
+    <Box data-testid="debug-page">
       <Flex
         sx={{
           height: '50px',
@@ -52,7 +52,11 @@ failover: ${failover}`
         <Button variant="debug" onClick={() => dispatch(clearDebugLog())}>
           Clear Log
         </Button>
-        <Button variant="debug" onClick={() => setIsShowUserInfo(!isShowUserInfo)}>
+        <Button
+          variant="debug"
+          data-testid="user-info-button"
+          onClick={() => setIsShowUserInfo(!isShowUserInfo)}
+        >
           Show User Info
         </Button>
       </Flex>
@@ -95,10 +99,11 @@ failover: ${failover}`
           transition: 'transform ease 0.3s',
           transform: isShowUserInfo ? 'translateX(0)' : 'translateX(110%)',
         }}
+        data-testid="user-info-panel"
       >
         {userInfo}
       </Box>
-    </div>
+    </Box>
   )
 }
 
