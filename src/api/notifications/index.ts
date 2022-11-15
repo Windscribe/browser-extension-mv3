@@ -1,7 +1,7 @@
 import prepareQueryString from 'api/prepareQueryString'
-import { type ApiResponse } from 'api/types'
+import type { ApiResponse, Notifications } from 'api/types'
 
-const notifications = async (session_auth_hash: string): Promise<ApiResponse> => {
+const getNotifications = async (session_auth_hash: string): Promise<ApiResponse<Notifications>> => {
   const parameters = {
     session_auth_hash,
   }
@@ -9,4 +9,4 @@ const notifications = async (session_auth_hash: string): Promise<ApiResponse> =>
   return await prepareQueryString('Notifications', 'GET', parameters)
 }
 
-export default notifications
+export { getNotifications }

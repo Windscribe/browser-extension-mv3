@@ -8,6 +8,7 @@ import { footerHeight } from 'styles/constants'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
 import { useInitialDataFetching } from 'components/hooks'
+import Badge from 'components/Badge'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import UsageBar from './UsageBar'
 import HeaderBlade from 'assets/img/headerBlade.svg'
@@ -28,6 +29,7 @@ const Home: ThemeUiElement = () => {
 
   const goToLocations = useGoTo('Locations')
   const goToPreferences = useGoTo('Preferences')
+  const goToNewsfeed = useGoTo('Newsfeed')
 
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
@@ -35,6 +37,9 @@ const Home: ThemeUiElement = () => {
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
+  const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
+  const notifications = useSelector(state => state.newsfeed.notifications)
+  const unreadNewsAmount = notifications.length - viewedNewsIds.length
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
   useInitialDataFetching()
@@ -101,7 +106,18 @@ const Home: ThemeUiElement = () => {
                 }}
               />
             </Button>
-            <Logo sx={{ fill: 'white' }} />
+            <Button
+              sx={{
+                position: 'relative',
+                transition: 'scale ease 0.3s',
+                ':hover': { scale: '1.03' },
+              }}
+              variant="simple"
+              onClick={goToNewsfeed}
+            >
+              <Logo sx={{ fill: 'white' }} />
+              <Badge count={unreadNewsAmount} sx={{ top: '-7px', right: '-14px' }} />
+            </Button>
           </Flex>
           <HeaderBlade
             sx={{

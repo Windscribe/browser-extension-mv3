@@ -2,6 +2,7 @@ import { fetchServerList, FETCH_SERVER_LIST } from './slices/servers'
 import { login, LOGIN, type Credentials } from './slices/session'
 import { connectToAutopilot, CONNECT_TO_AUTOPILOT } from './slices/autopilot'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
+import { fetchNotifications, FETCH_NOTIFICATIONS } from './slices/newsfeed'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string
@@ -16,4 +17,5 @@ export default {
   [`alias/${FETCH_SERVER_LIST}`]: fetchServerList,
   [`alias/${CONNECT_TO_AUTOPILOT}`]: connectToAutopilot,
   [`alias/${FETCH_BEST_LOCATION}`]: fetchBestLocation,
+  [`alias/${FETCH_NOTIFICATIONS}`]: fetchNotifications,
 }

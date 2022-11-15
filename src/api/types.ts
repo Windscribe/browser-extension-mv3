@@ -133,3 +133,17 @@ export interface ServerCredentials {
   username: string
   password: string
 }
+
+export interface Notification {
+  id: number
+  title: string
+  message: string
+  date: number
+  perm_free: 0 | 1
+  perm_pro: 0 | 1
+  popup: 0 | 1
+}
+
+export type Notifications = {
+  notifications: Notification[]
+}
