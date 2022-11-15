@@ -29,7 +29,11 @@ const General: ThemeUiElement = () => {
             checked={autoConnect}
           />
         </OptionBox>
-        <OptionBox Icon={DebugMenuIcon} title="Debug Context Menu" subTitle="Feature description.">
+        <OptionBox
+          Icon={DebugMenuIcon}
+          title="Debug Context Menu"
+          subTitle="Show the debug log in the context menu."
+        >
           <ToggleSwitch
             onChange={() => dispatch(showDebugContextMenu(!contextMenu))}
             checked={contextMenu}
