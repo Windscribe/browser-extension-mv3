@@ -1,6 +1,6 @@
 const { setup } = require('./setup')
 
-describe('Locations', () => {
+describe('User', () => {
   let popupPage, browser
 
   beforeAll(async () => {
@@ -93,13 +93,20 @@ describe('Locations', () => {
     popupPage.click('[data-testid=Account]')
     await popupPage.waitForSelector('[data-testid=account-page]')
 
-    // await new Promise(r => setTimeout(r, 5000))
-
     const usernameElement = await popupPage.$('[data-testid=account-username]')
-
     const username = await usernameElement.evaluate(el => el.textContent)
 
     expect(username).toEqual(process.env.TEST_USER_NAME)
+  })
+
+  it('Logout', async () => {
+    popupPage.click('[data-testid=go-back-button]')
+
+    await popupPage.waitForSelector('[data-testid=preferences-page]')
+    popupPage.click('[data-testid=logout-button]')
+    const splashPage = await popupPage.waitForSelector('[data-testid=splash-page]')
+
+    expect(splashPage).toBeTruthy()
   })
 
   afterAll(async () => {
