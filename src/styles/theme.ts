@@ -1,10 +1,19 @@
 import type { Theme } from 'theme-ui'
 
-import { rawColors } from './colors'
+import { colors } from './colors'
 import { zIndices } from './zIndices'
 
 export const theme: Theme = {
-  rawColors,
+  config: {
+    /*
+     We can't change a theme by changing initialColorModeName value here,
+     because color mode persists in local storage.
+     To change a theme we need to use a special hook, e.g.
+     const [colorMode, setColorMode] = useColorMode()
+    */
+    initialColorModeName: 'dark',
+  },
+  colors,
   zIndices,
   styles: {
     root: {
@@ -14,9 +23,6 @@ export const theme: Theme = {
       height: 'auto',
       backgroundColor: 'white',
     },
-  },
-  config: {
-    initialColorModeName: 'dark',
   },
   links: {
     primary: {
