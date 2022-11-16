@@ -3,6 +3,7 @@ import getErrorMessage from 'utils/getErrorMessage'
 import { initializeWrappedStore } from 'state'
 import { connectProxy, disconnectProxy, setConnectionError } from 'state/slices/proxy'
 import browserApi from 'services/browserApi'
+import { addContextMenuItem } from 'services/contextMenu'
 import setDebuggerAuth from './debuggerAuth'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectToAutopilot } from 'state/slices/autopilot'
@@ -77,3 +78,5 @@ chrome.proxy.onProxyError.addListener(async e => {
     store.dispatch(disconnectProxy())
   }
 })
+
+chrome.runtime.onInstalled.addListener(addContextMenuItem)
