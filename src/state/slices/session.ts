@@ -45,7 +45,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
       dispatch,
     )
 
-    if (response.errorCode) return response
+    if (response.errorMessage) return response
     if (response.data) return response.data
 
     throw Error('Unknown response format while trying to login')
@@ -73,7 +73,7 @@ export const sessionSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(login.fulfilled, (state, action) => {
-        if (action.payload.errorCode) {
+        if (action.payload.errorMessage) {
           return { ...initialState, ...{ loading: 'idle' }, error: action.payload }
         }
         return { ...state, ...{ loading: 'fulfilled' }, ...action.payload }

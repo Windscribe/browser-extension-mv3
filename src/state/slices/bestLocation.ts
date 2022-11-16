@@ -45,7 +45,7 @@ export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorR
 
     // Back-end response with error object is treated as a valid response
     // and fetchBestLocation() processed as successfully fulfilled.
-    if (response?.errorCode) return response
+    if (response?.errorMessage) return response
     if (response?.data) return response.data
 
     throw Error('Unknown response format from GET Best Location')
@@ -70,7 +70,7 @@ export const bestLocationSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(fetchBestLocation.fulfilled, (state, action) => {
-        if (action.payload.errorCode) {
+        if (action.payload.errorMessage) {
           return { ...initialState, error: action.payload }
         }
         return { ...state, error: undefined, ...{ loading: 'fulfilled' }, ...action.payload }

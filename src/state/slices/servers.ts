@@ -43,7 +43,7 @@ export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorRespo
       dispatch,
     )
 
-    if (response?.errorCode) return rejectWithValue(response)
+    if (response?.errorMessage) return rejectWithValue(response)
     if (response?.data) return response.data
 
     throw Error('Unknown response format from GET Servers List')
@@ -64,7 +64,7 @@ export const serversSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(fetchServerList.fulfilled, (state, action) => {
-        if (action.payload.errorCode) {
+        if (action.payload.errorMessage) {
           return { ...initialState, error: action.payload }
         }
 
