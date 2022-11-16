@@ -11,6 +11,7 @@ import debugLogReducer from './slices/debugLog'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
 import workingApiReducer from './slices/workingApi'
+import contextMenuReducer from './slices/contextMenu'
 import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
 import currentDataCenterReducer from './slices/currentDataCenter'
@@ -20,6 +21,7 @@ const reducers = {
   autopilot: autopilotReducer,
   bestLocation: bestLocationReducer,
   connection: connectionReducer,
+  contextMenu: contextMenuReducer,
   currentDataCenter: currentDataCenterReducer,
   currentLocation: currentLocationReducer,
   debugLog: debugLogReducer,
