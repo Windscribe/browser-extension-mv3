@@ -1,22 +1,22 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 interface BlockerState {
-  blocker: boolean
+  blockLists: string[]
 }
 
 const initialState: BlockerState = {
-  blocker: true,
+  blockLists: ['default'],
 }
 
 export const blockerSlice = createSlice({
-  name: 'boolean',
+  name: 'blocker',
   initialState,
   reducers: {
-    setBlocker(state, action: PayloadAction<boolean>) {
-      state.blocker = action.payload
+    setBlockLists(state, action: PayloadAction<string[]>) {
+      state.blockLists = action.payload
     },
   },
 })
 
-export const { setBlocker } = blockerSlice.actions
+export const { setBlockLists } = blockerSlice.actions
 export default blockerSlice.reducer
