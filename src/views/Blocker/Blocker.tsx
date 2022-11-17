@@ -18,7 +18,6 @@ const Blocker: ThemeUiElement = () => {
     }
     dispatch(setBlockLists(newBlocklist))
 
-    console.log(newBlocklist)
     chrome.runtime.sendMessage({
       what: 'applyRulesets',
       enabledRulesets: newBlocklist,
