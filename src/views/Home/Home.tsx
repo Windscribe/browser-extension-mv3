@@ -21,6 +21,8 @@ import BlockerIcon from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import Flags from 'assets/flags'
 import { pushToDebugLog } from 'state/slices/debugLog'
+import { useEffect, useState } from 'react'
+import checkIp from 'utils/checkIp'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -35,7 +37,15 @@ const Home: ThemeUiElement = () => {
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
+  const workingApi = useSelector(state => state.workingApi)
+
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
+
+  const [currentIp, setCurrentIp] = useState('')
+
+  useEffect(() => {
+    checkIp(workingApi).then(ip => setCurrentIp(ip))
+  }, [workingApi])
 
   useInitialDataFetching()
 
@@ -45,14 +55,15 @@ const Home: ThemeUiElement = () => {
 
     if (isConnected) {
       await dispatch(disconnectProxy())
-      return
+    } else {
+      const hostname = currentDataCenter?.hosts?.[0].hostname
+      if (!autopilotSelected && hostname) {
+        await dispatch(connectProxy(hostname))
+      } else {
+        await dispatchAlias(CONNECT_TO_AUTOPILOT)
+      }
     }
-    const hostname = currentDataCenter?.hosts?.[0].hostname
-    if (!autopilotSelected && hostname) {
-      await dispatch(connectProxy(hostname))
-      return
-    }
-    await dispatchAlias(CONNECT_TO_AUTOPILOT)
+    setCurrentIp(await checkIp(workingApi))
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
@@ -148,7 +159,7 @@ const Home: ThemeUiElement = () => {
                   color: isConnected ? 'neonGreen' : 'secondaryText',
                 }}
               >
-                000.000.00.000
+                {currentIp}
               </Text>
             </Flex>
             <Box mb="8px">
