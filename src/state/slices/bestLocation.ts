@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
 import { getBestLocation } from 'api'
+import applyWorkingApi from '../applyWorkingApi'
 import type { BestLocation, ApiErrorResponse } from 'api/types'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 
@@ -28,18 +29,24 @@ export const FETCH_BEST_LOCATION = 'bestLocation/fetchBestLocation'
 
 export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorResponse>>(
   FETCH_BEST_LOCATION,
-  async (_, { getState }) => {
+  async (_, { getState, dispatch }) => {
     const sessionAuthHash = getState().session.session_auth_hash
     if (!sessionAuthHash) {
       throw Error('No session auth hash is available')
     }
 
-    const response = await getBestLocation(sessionAuthHash)
+    const workingApi = getState().workingApi
+    const response = await applyWorkingApi<BestLocation, string>(
+      getBestLocation,
+      sessionAuthHash,
+      workingApi,
+      dispatch,
+    )
 
     // Back-end response with error object is treated as a valid response
     // and fetchBestLocation() processed as successfully fulfilled.
-    if (response.errorCode) return response
-    if (response.data) return response?.data
+    if (response?.errorMessage) return response
+    if (response?.data) return response.data
 
     throw Error('Unknown response format from GET Best Location')
   },
@@ -63,10 +70,10 @@ export const bestLocationSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(fetchBestLocation.fulfilled, (state, action) => {
-        if (action.payload.errorCode) {
-          return { ...initialState, ...{ loading: 'idle' }, error: action.payload }
+        if (action.payload.errorMessage) {
+          return { ...initialState, error: action.payload }
         }
-        return { ...state, ...{ loading: 'fulfilled' }, ...action.payload }
+        return { ...state, error: undefined, ...{ loading: 'fulfilled' }, ...action.payload }
       })
       .addCase(fetchBestLocation.rejected, (state, action) => {
         state.loading = 'rejected'

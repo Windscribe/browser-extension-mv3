@@ -5,7 +5,7 @@ import { IconButton } from 'components'
 import { SpaceBetween } from 'components/Flexbox'
 import AllLocationsIcon from 'assets/img/all-locations.svg'
 import FavLocationsIcon from 'assets/img/fav-locations.svg'
-import { type HeaderTabsProps } from '../types'
+import { type HeaderTabsProps } from './types'
 
 const HeaderTabs: React.FC<HeaderTabsProps> = ({
   currentTab,

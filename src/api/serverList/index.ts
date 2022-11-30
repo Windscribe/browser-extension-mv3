@@ -1,12 +1,14 @@
-import sendRequest from 'api/fetchApi'
-import type { ApiResponse, ServerList } from 'api/types'
+import sendRequest from 'api/sendRequest'
+import type { ApiResponse, ApiCallFunction, ServerList, ServerListParameters } from 'api/types'
 
-const getServerList = async (
-  locHash: string,
-  isPro: 0 | 1 = 0,
+type GetServerList = ApiCallFunction<ServerList, ServerListParameters>
+
+const getServerList: GetServerList = async (
+  { locHash, isPro = 0 },
+  workingApi,
 ): Promise<ApiResponse<ServerList>> => {
   const path = `serverlist/chrome/${isPro}/${locHash}`
-  return await sendRequest<ServerList>(path, 'GET', true)
+  return await sendRequest<ServerList>(path, 'GET', workingApi, true)
 }
 
 export { getServerList }

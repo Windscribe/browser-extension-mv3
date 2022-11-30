@@ -3,7 +3,7 @@ import { Flex } from 'theme-ui'
 import { SpaceBetween } from 'components/Flexbox'
 import { GoBackButton } from 'components'
 import SearchInput from './SearchInput'
-import { type HeaderActionsSectionProps } from '../types'
+import { type HeaderActionsSectionProps } from './types'
 
 const HeaderActionsSection: React.FC<HeaderActionsSectionProps> = ({
   showSearchInput,
