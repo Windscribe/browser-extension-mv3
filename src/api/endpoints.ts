@@ -1,9 +1,10 @@
 import type {
-  BestLocation,
-  SessionData,
   ApiResponse,
+  BestLocation,
+  Notifications,
   ServerCredentials,
   ServerList,
+  SessionData,
   WebSessionData,
 } from 'api/types'
 import { sendRequest } from 'api/sendRequest'
@@ -29,6 +30,17 @@ const getBestLocation = async (
   await sendRequest(
     'GET',
     buildQueryString('BestLocation', { session_auth_hash }),
+    workingApi,
+    undefined,
+  )
+
+const getNotifications = async (
+  session_auth_hash: string,
+  workingApi: string,
+): Promise<ApiResponse<Notifications>> =>
+  await sendRequest(
+    'GET',
+    buildQueryString('Notifications', { session_auth_hash }),
     workingApi,
     undefined,
   )
@@ -75,6 +87,7 @@ const getWebSession = async (
 export {
   login,
   getBestLocation,
+  getNotifications,
   getServerCredentials,
   getServerList,
   getSessionStatus,

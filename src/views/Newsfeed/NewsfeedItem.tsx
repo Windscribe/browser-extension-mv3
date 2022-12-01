@@ -40,10 +40,10 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
         sx={{
           position: 'relative',
           cursor: 'pointer',
-          height: 'auto',
           fill: isExpanded ? 'primaryText' : 'secondaryText',
           color: isExpanded ? 'primaryText' : 'secondaryText',
           ...(isExpanded && {
+            height: 'auto',
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
           }),

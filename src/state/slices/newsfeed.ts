@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import { getNotifications } from 'api'
-import type { ApiErrorResponse, Notification, Notifications } from 'api/types'
+import { getNotifications } from 'api/endpoints'
+import type { ApiErrorResponse, NotificationsData, Notifications } from 'api/types'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 
 interface NewsfeedState {
-  notifications: Notification[]
+  notifications: NotificationsData[]
   viewedNewsIds: number[]
   loading: LoadingState
   error?: ErrorState
@@ -28,7 +28,8 @@ export const fetchNotifications = createAsyncThunk<Either<Notifications, ApiErro
       throw Error('No session auth hash is available')
     }
 
-    const response = await getNotifications(sessionAuthHash)
+    const workingApi = getState().workingApi
+    const response = await getNotifications(sessionAuthHash, workingApi)
 
     if (response.errorCode) return response
     if (response.data) return response?.data
