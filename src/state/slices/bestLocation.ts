@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import { getBestLocation } from 'api'
 import applyWorkingApi from '../applyWorkingApi'
 import type { BestLocation, ApiErrorResponse } from 'api/types'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
+import { getBestLocation } from 'api/endpoints'
 
 interface BestLocationState extends Partial<BestLocation> {
   loading: LoadingState
@@ -36,12 +36,9 @@ export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorR
     }
 
     const workingApi = getState().workingApi
-    const response = await applyWorkingApi<BestLocation, string>(
-      getBestLocation,
-      sessionAuthHash,
-      workingApi,
-      dispatch,
-    )
+
+    const response = await getBestLocation(sessionAuthHash, workingApi)
+    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     // Back-end response with error object is treated as a valid response
     // and fetchBestLocation() processed as successfully fulfilled.
