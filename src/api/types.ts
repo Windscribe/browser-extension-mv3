@@ -53,6 +53,7 @@ export type Endpoint =
   | 'Notifications'
   | 'ServerCredentials'
   | 'serverlist'
+  | 'WebSession'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -85,6 +86,10 @@ export interface SessionData {
   traffic_used?: number
   user_id?: string
   username?: string
+}
+
+export interface WebSessionData {
+  temp_session: string
 }
 
 export type GetBestLocationParameters = {

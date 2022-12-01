@@ -4,6 +4,7 @@ import type {
   ApiResponse,
   ServerCredentials,
   ServerList,
+  WebSessionData,
 } from 'api/types'
 import { sendRequest } from 'api/sendRequest'
 import { buildQueryString } from 'api/utils'
@@ -61,4 +62,21 @@ const getServerList = async (
 ): Promise<ApiResponse<ServerList>> =>
   await sendRequest('GET', `serverlist/chrome/${isPro}/${locHash}`, workingApi, undefined, true)
 
-export { login, getBestLocation, getServerCredentials, getServerList, getSessionStatus }
+const getWebSession = async (
+  session_auth_hash: string,
+  workingApi: string,
+): Promise<ApiResponse<WebSessionData>> =>
+  await sendRequest('POST', buildQueryString('WebSession'), workingApi, {
+    session_auth_hash,
+    temp_session: 1,
+    session_type_id: 1,
+  })
+
+export {
+  login,
+  getBestLocation,
+  getServerCredentials,
+  getServerList,
+  getSessionStatus,
+  getWebSession,
+}

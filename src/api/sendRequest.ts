@@ -64,6 +64,7 @@ const sendRequest = async <DataType>(
       workingApi: domain,
     }
   }
+
   try {
     return await tryFetch(workingApi)
   } catch (err) {
