@@ -68,3 +68,5 @@ declare module '@reduxjs/toolkit' {
     options?: AsyncThunkOptions<ThunkArg, ThunkApiConfig>,
   ): AsyncThunk<Returned, ThunkArg, ThunkApiConfig>
 }
+
+export type InputChangeHandler = React.EventHandler<React.ChangeEvent<HTMLInputElement>>

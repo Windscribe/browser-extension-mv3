@@ -2,6 +2,13 @@ import { fetchServerList, FETCH_SERVER_LIST } from './slices/servers'
 import { login, LOGIN, type Credentials } from './slices/session'
 import { connectToAutopilot, CONNECT_TO_AUTOPILOT } from './slices/autopilot'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
+import {
+  addToWhitelist,
+  removeFromWhitelist,
+  ADD_TO_WHITELIST,
+  REMOVE_FROM_WHITELIST,
+  type WhitelistPayload,
+} from './slices/whitelist'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string
@@ -11,9 +18,17 @@ type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
 
 const _login: ActionCreator<Credentials, ReturnType<typeof login>> = ({ payload }) => login(payload)
 
+const _addToWhitelist: ActionCreator<WhitelistPayload, void> = ({ payload }) =>
+  addToWhitelist(payload)
+
+const _removeFromWhitelist: ActionCreator<{ domain: string }, void> = ({ payload }) =>
+  removeFromWhitelist(payload.domain)
+
 export default {
   [`alias/${LOGIN}`]: _login,
   [`alias/${FETCH_SERVER_LIST}`]: fetchServerList,
   [`alias/${CONNECT_TO_AUTOPILOT}`]: connectToAutopilot,
   [`alias/${FETCH_BEST_LOCATION}`]: fetchBestLocation,
+  [`alias/${ADD_TO_WHITELIST}`]: _addToWhitelist,
+  [`alias/${REMOVE_FROM_WHITELIST}`]: _removeFromWhitelist,
 }

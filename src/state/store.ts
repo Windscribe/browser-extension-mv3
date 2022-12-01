@@ -1,4 +1,4 @@
-import { configureStore, combineReducers, type Reducer, type AnyAction } from '@reduxjs/toolkit'
+import { configureStore, combineReducers, type AnyAction } from '@reduxjs/toolkit'
 import { createLogger } from 'redux-logger'
 import { alias } from '@eduardoac-skimlinks/webext-redux'
 
@@ -8,6 +8,7 @@ import proxyReducer from './slices/proxy'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
 import debugLogReducer from './slices/debugLog'
+import whitelistReducer from './slices/whitelist'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
 import contextMenuReducer from './slices/contextMenu'
@@ -27,6 +28,7 @@ const reducers = {
   servers: serversReducer,
   session: sessionReducer,
   view: viewReducer,
+  whitelist: whitelistReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

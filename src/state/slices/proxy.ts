@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
 import { connect, disconnect } from 'utils/proxyConfig'
+import { selectDomainsWithAllowedDirectConnections } from '../selectors'
 
 interface ProxyState {
   isConnected: boolean
@@ -17,13 +18,17 @@ const initialState: ProxyState = {
 export const CONNECT_PROXY = 'proxy/connectProxy'
 export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 
-export const connectProxy = createAsyncThunk(CONNECT_PROXY, async (host: string, { dispatch }) => {
-  if (!host) {
-    throw Error('Error while trying to connect to proxy. No hostname was provided.')
-  }
-  await connect(host)
-  dispatch(setProxy(host))
-})
+export const connectProxy = createAsyncThunk(
+  CONNECT_PROXY,
+  async (host: string, { dispatch, getState }) => {
+    if (!host) {
+      throw Error('Error while trying to connect to proxy. No hostname was provided.')
+    }
+    const bypassList = selectDomainsWithAllowedDirectConnections(getState())
+    await connect(host, bypassList)
+    dispatch(setProxy(host))
+  },
+)
 
 export const disconnectProxy = createAsyncThunk(DISCONNECT_PROXY, async (_, { dispatch }) => {
   await disconnect()

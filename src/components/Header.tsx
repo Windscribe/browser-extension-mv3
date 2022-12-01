@@ -7,6 +7,7 @@ interface HeaderProps {
   RightSideComponent?: React.ReactNode
 }
 
+// TODO Refactor. Use children instead RightSideComponent
 const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => (
   <Flex
     sx={{

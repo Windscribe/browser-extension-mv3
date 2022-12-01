@@ -5,7 +5,7 @@ import { SpaceBetween } from './Flexbox'
 
 type RectangleProps = React.PropsWithChildren<
   FlexProps & {
-    onClick: React.MouseEventHandler<HTMLDivElement>
+    onClick?: React.MouseEventHandler<HTMLDivElement>
   }
 >
 

@@ -1,8 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
+import { getCurrentTabHostname } from 'services/currentTab'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export const useInitialDataFetching: () => void = () => {
@@ -36,4 +38,18 @@ export const useInitialDataFetching: () => void = () => {
       dispatch(applyBestLocationAsAutopilot())
     }
   }, [autopilotData, bestLocationLoading, serverListLoading, dispatch])
+}
+
+export const useCurrentTabHostname: () => string = () => {
+  const [currentTabHostname, setCurrentTabHostname] = useState('')
+
+  useEffect(() => {
+    const defineCurrentTabHostname = async () => {
+      const url = await getCurrentTabHostname()
+      setCurrentTabHostname(url)
+    }
+    defineCurrentTabHostname()
+  }, [])
+
+  return currentTabHostname
 }

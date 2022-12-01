@@ -1,7 +1,7 @@
 import { Flex, FlexProps } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 
-type ListItemProps = React.PropsWithChildren<FlexProps> & {
+export type ListItemProps = React.PropsWithChildren<FlexProps> & {
   noBorder?: boolean
 }
 

@@ -127,5 +127,13 @@ export const theme: Theme = {
     error: {
       color: 'rubyRed',
     },
+    subheader: {
+      textTransform: 'uppercase',
+      fontSize: '12px',
+      fontWeight: 'bold',
+      color: 'secondaryText',
+      lineHeight: '1.33',
+      letterSpacing: '3px',
+    },
   },
 }
