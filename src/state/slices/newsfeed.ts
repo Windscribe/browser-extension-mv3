@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
 import { getNotifications } from 'api'
-import type { ApiErrorResponse, Notification } from 'api/types'
+import type { ApiErrorResponse, Notification, Notifications } from 'api/types'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 
 interface NewsfeedState {
@@ -19,10 +19,6 @@ const initialState: NewsfeedState = {
 }
 
 export const FETCH_NOTIFICATIONS = 'newsfeed/fetchNotifications'
-
-type Notifications = {
-  notifications: Notification[]
-}
 
 export const fetchNotifications = createAsyncThunk<Either<Notifications, ApiErrorResponse>>(
   FETCH_NOTIFICATIONS,

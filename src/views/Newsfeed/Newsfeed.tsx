@@ -28,13 +28,13 @@ const Newsfeed: ThemeUiElement = () => {
   return (
     <Box data-testid="newsfeed-page" bg="background">
       <Header title="News Feed" />
-      <ScrollableBox>
-        {notifications.map(({ id, title, message }) => (
+      <ScrollableBox sx={{ height: '320px' }}>
+        {notifications.map(({ id, date, title, message }) => (
           <NewsfeedItem
             key={id}
             isViewed={viewedNewsIds.includes(id)}
             isExpanded={expandedId === id}
-            {...{ id, title, message, handleItemClick }}
+            {...{ id, date, title, message, handleItemClick }}
           />
         ))}
       </ScrollableBox>

@@ -15,7 +15,7 @@ export const theme: Theme = {
     /*
     The useColorSchemeMediaQuery option initializes a color mode
     based on the prefers-color-scheme media query. 
-    I makes extension color theme be dependent on OS theme settings,
+    It makes extension color theme be dependent on OS theme settings,
     so we set this option to false.
     */
     useColorSchemeMediaQuery: false,

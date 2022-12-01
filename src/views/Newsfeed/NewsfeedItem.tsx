@@ -1,12 +1,14 @@
-import { Box, Text, useThemeUI } from 'theme-ui'
+import { Box, useThemeUI } from 'theme-ui'
 
 import { Rectangle } from 'components'
+import { Column } from 'components/Flexbox'
 import { unreadIconRadius } from 'styles/constants'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import getInnerHtmlStyles from './getInnerHtmlStyles'
 
 type NewsfeedItemProps = {
   id: number
+  date: number
   title: string
   message: string
   isViewed: boolean
@@ -16,6 +18,7 @@ type NewsfeedItemProps = {
 
 const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
   id,
+  date,
   title,
   message,
   isViewed,
@@ -25,6 +28,10 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
   const { colorMode, theme } = useThemeUI()
   const isDark = colorMode === 'dark'
 
+  const currentDate = new Date().toString()
+  const daysAgo = Math.floor((Date.parse(currentDate) / 1000 - date) / (3600 * 24)) | 0
+  const daysAgoText = daysAgo === 0 ? 'Today' : `${daysAgo} day${daysAgo === 1 ? '' : 's'} ago`
+
   return (
     <Box mb="16px">
       <Rectangle
@@ -33,6 +40,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
         sx={{
           position: 'relative',
           cursor: 'pointer',
+          height: 'auto',
           fill: isExpanded ? 'primaryText' : 'secondaryText',
           color: isExpanded ? 'primaryText' : 'secondaryText',
           ...(isExpanded && {
@@ -61,22 +69,31 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
             }}
           />
         )}
-        <Text
-          sx={{
-            fontWeight: '600',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {title}
-        </Text>
+        <Column>
+          <Box
+            sx={{
+              fontWeight: '600',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {title}
+          </Box>
+          {isExpanded && (
+            <Box mt="4px" color="secondaryText">
+              {daysAgoText}
+            </Box>
+          )}
+        </Column>
+
         <Box
           sx={{
             flexShrink: 0,
+            height: '16px',
             marginLeft: '16px',
             transition: 'transform ease-in-out 0.2s',
-            transform: isExpanded ? 'rotate(45deg)  translateX(2px)' : 'rotate(0)',
+            transform: isExpanded ? 'rotate(45deg)' : 'rotate(0)',
           }}
         >
           <PlusIcon />
