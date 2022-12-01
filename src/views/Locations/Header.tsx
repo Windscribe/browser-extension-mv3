@@ -1,7 +1,7 @@
 import { Column } from 'components/Flexbox'
 import HeaderTabs from './HeaderTabs'
 import HeaderActionsSection from './HeaderActionsSection'
-import { type HeaderProps } from '../types'
+import { type HeaderProps } from './types'
 
 const Header: React.FC<HeaderProps> = ({
   focusInitKey,

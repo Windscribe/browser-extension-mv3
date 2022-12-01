@@ -53,7 +53,7 @@ const Preferences: ThemeUiElement = () => {
             <CircleButton Icon={TutorialIcon} />
             <CircleButton Icon={HelpIcon} />
           </Flex>
-          <CircleButton onClick={handleLogoutClick} Icon={LogoutIcon} />
+          <CircleButton onClick={handleLogoutClick} Icon={LogoutIcon} data-testid="logout-button" />
         </Flex>
       </Box>
     </Box>

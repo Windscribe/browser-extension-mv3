@@ -45,8 +45,8 @@ export default (serverCredentials: ServerCredentials): void => {
         requestId: params?.requestId,
         authChallengeResponse: {
           response: 'ProvideCredentials',
-          username: atob(serverCredentials.username),
-          password: atob(serverCredentials.password),
+          username: atob(serverCredentials?.username),
+          password: atob(serverCredentials?.password),
         },
       })
     }

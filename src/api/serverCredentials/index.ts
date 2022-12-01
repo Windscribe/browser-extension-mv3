@@ -1,16 +1,23 @@
-import prepareQueryString from 'api/prepareQueryString'
-import type { GetServerCredentialsParameters, ApiResponse, ServerCredentials } from 'api/types'
+import { makeApiCall } from 'api/utils'
+import type {
+  ApiCallFunction,
+  GetServerCredentialsParameters,
+  ApiResponse,
+  ServerCredentials,
+} from 'api/types'
 
-const serverCredentials = async (
+type GetServerCredentials = ApiCallFunction<ServerCredentials, string>
+
+const getServerCredentials: GetServerCredentials = async (
   session_auth_hash: string,
+  workingApi: string,
 ): Promise<ApiResponse<ServerCredentials>> => {
   const parameters: GetServerCredentialsParameters = {
     session_auth_hash,
-    platform: 'chrome', // According API docs here should be CREDENTIAL_TYPE
-    // TODO Check parameters
+    platform: 'chrome',
   }
 
-  return await prepareQueryString<ServerCredentials>('ServerCredentials', 'GET', parameters)
+  return await makeApiCall<ServerCredentials>('ServerCredentials', parameters, workingApi)
 }
 
-export default serverCredentials
+export { getServerCredentials }

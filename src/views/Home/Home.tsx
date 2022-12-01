@@ -89,7 +89,7 @@ const Home: ThemeUiElement = () => {
               backgroundColor: isConnected ? 'halfBlack' : 'background',
             }}
           >
-            <Button variant="simple" onClick={goToPreferences}>
+            <Button variant="simple" data-testid="go-to-preferences" onClick={goToPreferences}>
               <Menu
                 sx={{
                   fill: 'white',
