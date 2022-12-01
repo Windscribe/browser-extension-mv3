@@ -1,7 +1,7 @@
 import type { AppDispatch } from './store'
 import { setWorkingApi } from './slices/workingApi'
 
-const applyWorkingApi: any = (responseApi: string, workingApi: string, dispatch: AppDispatch) => {
+const applyWorkingApi = (responseApi: string, workingApi: string, dispatch: AppDispatch): void => {
   if (responseApi !== workingApi) {
     dispatch(setWorkingApi(responseApi))
   }
