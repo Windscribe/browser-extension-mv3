@@ -6,9 +6,11 @@ import AccountTitle from './AccountTitle'
 import CircleButton from 'components/CircleButton'
 import EditIcon from 'assets/img/edit.svg'
 import { useSelector } from 'state/hooks'
+import { getWebSession } from 'api/endpoints'
 
 const Account: ThemeUiElement = () => {
   const session = useSelector(s => s.session)
+  const workingApi = useSelector(s => s.workingApi)
 
   return (
     <Box data-testid="account-page" bg="background">
@@ -17,7 +19,17 @@ const Account: ThemeUiElement = () => {
         RightSideComponent={
           <CircleButton
             Icon={EditIcon}
-            onClick={() => window.open(`${ENVS.ROOT_URL}/myaccount`)}
+            onClick={() => {
+              if (session.session_auth_hash) {
+                getWebSession(session.session_auth_hash, workingApi).then(
+                  response =>
+                    response?.data?.temp_session &&
+                    window.open(
+                      `${ENVS.ROOT_URL}/myaccount?temp_session=${response.data.temp_session}`,
+                    ),
+                )
+              }
+            }}
             sx={{
               backgroundColor: 'lakeBlue',
               svg: {
