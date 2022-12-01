@@ -1,46 +1,56 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { ServerList, ServerCredentials } from 'api/types'
-import { type LoadingState } from 'utils/types'
-import { getServerList } from 'api'
+import type { ServerList, Location, ApiErrorResponse } from 'api/types'
+import type { LoadingState, ErrorState, Either } from 'utils/types'
+// import { getServerList } from 'api'
+import applyWorkingApi from '../applyWorkingApi'
+import { getServerList } from 'api/endpoints'
 
 interface ServersState {
-  serverCredentials?: ServerCredentials
-  serverList?: ServerList
+  serverList?: Location[] // ServerList
   loading: LoadingState
+  error?: ErrorState
 }
 
 const initialState: ServersState = {
-  serverCredentials: undefined,
   serverList: undefined,
   loading: 'idle',
+  error: undefined,
 }
 
 export const FETCH_SERVER_LIST = 'servers/fetchServerList'
+export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorResponse>>(
+  FETCH_SERVER_LIST,
+  // Because serverList is an Array, we use rejectWithValue() fulfillWithValue() to avoid TS errors
+  async (_, { getState, dispatch, rejectWithValue, fulfillWithValue }) => {
+    const store = getState()
+    const serversListLoading = store.servers.loading
+    const serverList = store.servers.serverList
+    const workingApi = store.workingApi
+    const { loc_hash, is_premium } = store.session
 
-export const fetchServerList = createAsyncThunk(FETCH_SERVER_LIST, async (_, { getState }) => {
-  let response
-  const store = getState()
-  const serversListLoading = store.servers.loading
-  const serverList = store.servers.serverList
-  const { loc_hash, is_premium } = store.session
+    if (serversListLoading === 'fulfilled') {
+      fulfillWithValue(serverList)
+    }
 
-  if (serversListLoading === 'fulfilled') return serverList
+    if (!loc_hash) {
+      throw Error('No loc_hash is available. Try to sign in.')
+    }
 
-  if (loc_hash) {
-    response = await getServerList(loc_hash, is_premium)
-  }
-  // TODO Add Error handling
-  return response?.data // what should I return if condition is false
-})
+    const response = await getServerList(loc_hash, is_premium, workingApi)
+    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
+
+    if (response?.errorMessage) return rejectWithValue(response)
+    if (response?.data) return response.data
+
+    throw Error('Unknown response format from GET Servers List')
+  },
+)
 
 export const serversSlice = createSlice({
   name: 'servers',
   initialState,
   reducers: {
-    setServerCredentials(state, action: PayloadAction<ServerCredentials>) {
-      state.serverCredentials = action.payload
-    },
     setServerList(state, action: PayloadAction<ServerList>) {
       state.serverList = action.payload
     },
@@ -51,16 +61,23 @@ export const serversSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(fetchServerList.fulfilled, (state, action) => {
+        if (action.payload.errorMessage) {
+          return { ...initialState, error: action.payload }
+        }
+
+        state.error = undefined
         state.loading = 'fulfilled'
-        state.serverList = action.payload
+        state.serverList = action.payload as ServerList
       })
-      .addCase(fetchServerList.rejected, state => {
+      .addCase(fetchServerList.rejected, (state, action) => {
         state.loading = 'rejected'
-        //state.error = action.error.message
+        if (action.error.message) {
+          state.error = { errorMessage: action.error.message }
+        }
       })
   },
 })
 
-export const { setServerList, setServerCredentials } = serversSlice.actions
+export const { setServerList } = serversSlice.actions
 
 export default serversSlice.reducer

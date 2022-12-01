@@ -27,6 +27,7 @@ const SplashPage: ThemeUiElement = () => {
         backgroundRepeat: 'no-repeat',
         height: '298px',
       }}
+      data-testid="splash-page"
     >
       <img
         src={rotatingLogo}

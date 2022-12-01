@@ -3,6 +3,7 @@ import getErrorMessage from 'utils/getErrorMessage'
 import { initializeWrappedStore } from 'state'
 import { connectProxy, disconnectProxy, setConnectionError } from 'state/slices/proxy'
 import browserApi from 'services/browserApi'
+import { addContextMenuItem } from 'services/contextMenu'
 import setDebuggerAuth from './debuggerAuth'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectToAutopilot } from 'state/slices/autopilot'
@@ -13,11 +14,15 @@ const bgStore = initializeWrappedStore().then(store => {
 })
 
 chrome.storage.onChanged.addListener(function (changes) {
-  if (
-    JSON.stringify(changes[1].newValue.servers.serverCredentials) !==
-    JSON.stringify(changes[1].oldValue.servers.serverCredentials)
-  ) {
-    setDebuggerAuth(changes[1].newValue.servers.serverCredentials)
+  const { username: newUsername, password: newPassword } = changes[1].newValue.serverCredentials
+  const { username: oldUsername, password: oldPassword } = changes[1].oldValue.serverCredentials
+
+  if (newUsername !== oldUsername || newPassword !== oldPassword) {
+    const credentials = {
+      username: newUsername,
+      password: newPassword,
+    }
+    setDebuggerAuth(credentials)
   }
 })
 
@@ -77,3 +82,5 @@ chrome.proxy.onProxyError.addListener(async e => {
     store.dispatch(disconnectProxy())
   }
 })
+
+chrome.runtime.onInstalled.addListener(addContextMenuItem)

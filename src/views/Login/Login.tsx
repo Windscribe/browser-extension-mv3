@@ -3,17 +3,14 @@ import { Button, Flex, Text, Input, Label, Box, Link, Spinner } from 'theme-ui'
 
 import { LOGIN } from 'state/slices/session'
 import { useGoTo } from 'services/navigation'
-import { serverCredentials as getServerCredentials } from 'api/index'
-import { setServerCredentials } from 'state/slices/servers'
 import { Header, HeaderLink } from 'components'
-import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
+import { useDispatchAlias, useSelector } from 'state/hooks'
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 import { type ThemeUiElement } from 'utils/types'
 
 const Login: ThemeUiElement = () => {
   const dispatchAlias = useDispatchAlias()
-  const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
   const errorMessage = useSelector(s => s.session.error?.errorMessage)
   const errorCode = useSelector(s => s.session.error?.errorCode)
@@ -45,16 +42,9 @@ const Login: ThemeUiElement = () => {
 
   useEffect(() => {
     if (sessionAuthHash) {
-      const cb = async () => {
-        const serverCredentials = await getServerCredentials(sessionAuthHash)
-        if (serverCredentials.data) {
-          dispatch(setServerCredentials(serverCredentials.data))
-        }
-      }
-      cb()
       goToHome()
     }
-  }, [sessionAuthHash, goToHome, dispatch])
+  }, [sessionAuthHash, goToHome])
 
   type HandleLogin = (e: React.FormEvent<HTMLFormElement>) => Promise<void>
   const handleLogin: HandleLogin = async e => {

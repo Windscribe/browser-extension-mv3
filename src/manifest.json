@@ -8,8 +8,9 @@
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
   },
-  "permissions": ["storage", "proxy", "debugger"],
+  "permissions": ["storage", "proxy", "debugger", "contextMenus", "tabs"],
   "icons": {
+    "16": "icon-16.png",
     "128": "icon-128.png"
   },
   "content_scripts": [

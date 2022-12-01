@@ -3,7 +3,7 @@ import { Box, Input, Button } from 'theme-ui'
 
 import SearchIcon from 'assets/img/search.svg'
 import CloseIcon from 'assets/img/closeWhitelist.svg'
-import { type SearchInputProps, type EventHandler } from '../types'
+import { type SearchInputProps, type EventHandler } from './types'
 
 const SearchInput: React.FC<SearchInputProps> = memo(
   ({ onSearchInputChange, onSearchInputClose, focusInitKey }) => {
