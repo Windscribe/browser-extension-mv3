@@ -21,6 +21,7 @@ import { useDispatch } from 'state/hooks'
 const Preferences: ThemeUiElement = () => {
   const goToGeneral = useGoTo('General')
   const goToConnection = useGoTo('Connection')
+  const goToBlocker = useGoTo('Blocker')
   const dispatch = useDispatch()
   const goToAccount = useGoTo('Account')
   const handleLogoutClick = async () => await dispatch(logout())
@@ -32,7 +33,7 @@ const Preferences: ThemeUiElement = () => {
         <RoundedBox>
           <ListItemButton title="General" Icon={GeneralIcon} onClick={goToGeneral} />
           <ListItemButton title="Connection" Icon={ConnectionIcon} onClick={goToConnection} />
-          <ListItemButton title="Blocker" Icon={BlockerIcon} />
+          <ListItemButton title="Blocker" Icon={BlockerIcon} onClick={goToBlocker} />
           <ListItemButton title="Privacy" Icon={PrivacyIcon} />
           <ListItemButton title="Account" Icon={AccountIcon} onClick={goToAccount} />
           <ListItemButton title="Whitelist" Icon={WhitelistIcon} noBorder />

@@ -9,6 +9,9 @@ import UAParser from 'ua-parser-js'
 const DebugLog: React.FC = () => {
   const dispatch = useDispatch()
   const log = useSelector(s => s.debugLog.log)
+  const autoConnect = useSelector(s => s.connection.autoConnect)
+  const contextMenu = useSelector(s => s.contextMenu)
+
   const failover = useSelector(s => s.connection.failover)
   const [isAutoScroll, setIsAutoScroll] = useState(false)
   const [isShowUserInfo, setIsShowUserInfo] = useState(false)
@@ -24,7 +27,9 @@ const DebugLog: React.FC = () => {
 
 [User State]
 ------------------------------------------------------
-failover: ${failover}`
+Auto-connect: ${autoConnect}
+Debug Context Menu: ${contextMenu}
+Failover: ${failover}`
 
   useEffect(() => {
     if (isAutoScroll) {

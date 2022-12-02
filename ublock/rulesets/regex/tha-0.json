@@ -1,0 +1,57 @@
+[
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "khaosod.co.th",
+    "khaosodenglish.com",
+    "matichon.co.th",
+    "prachachat.net",
+    "sentangsedtee.com",
+    "silpa-mag.com",
+    "technologychaoban.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "plugin-pdpa"
+  },
+  "id": 8
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "compgamer.com",
+    "tgpl.in.th"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "plugins\\/add-to-any"
+  },
+  "id": 270
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "coregamerth.com",
+    "fmone1035.com",
+    "get1025.com",
+    "miru-anime.net",
+    "miruanime.net",
+    "shopspotapp.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "plugins\\/popups",
+   "resourceTypes": [
+    "script",
+    "stylesheet"
+   ]
+  },
+  "id": 306
+ }
+]

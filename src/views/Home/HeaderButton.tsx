@@ -7,11 +7,18 @@ type HeaderButtonProps = {
   Icon: React.ElementType
   isConnected: boolean
   count: number
+  onClick?: () => void
 }
 
-const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({ Icon, isConnected, count = 0 }) => {
+const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({
+  Icon,
+  isConnected,
+  count = 0,
+  onClick,
+}) => {
   return (
     <Button
+      onClick={onClick}
       variant="circle"
       sx={{
         backgroundColor: isConnected ? 'halfBlack' : 'background',

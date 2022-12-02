@@ -32,6 +32,7 @@ const Home: ThemeUiElement = () => {
   const goToLocations = useGoTo('Locations')
   const goToPreferences = useGoTo('Preferences')
   const goToNewsfeed = useGoTo('Newsfeed')
+  const goToBlocker = useGoTo('Blocker')
 
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
@@ -141,7 +142,12 @@ const Home: ThemeUiElement = () => {
           />
           <Flex sx={{ gap: '8px' }}>
             <HeaderButton Icon={PrivacyIcon} isConnected={isConnected} count={0} />
-            <HeaderButton Icon={BlockerIcon} isConnected={isConnected} count={0} />
+            <HeaderButton
+              Icon={BlockerIcon}
+              isConnected={isConnected}
+              count={0}
+              onClick={goToBlocker}
+            />
           </Flex>
         </Flex>
         <Flex

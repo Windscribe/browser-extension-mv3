@@ -1,0 +1,291 @@
+[
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||smrmembers-smr.smartmediarep.com/smc/smrmembers/"
+  },
+  "id": 824,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||news.mobfeed.co.kr/front/personal/coupang"
+  },
+  "id": 825,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/2x2.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||openimage.interpark.com/dia/images/"
+  },
+  "id": 826,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/2x2.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||bigkinds.or.kr/resources/files/banner/"
+  },
+  "id": 827,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/2x2.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||bigkinds.or.kr/assets/*/img/content/*banner"
+  },
+  "id": 828,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.html"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ds.11st.co.kr/netinsight/text/11st/11st_product/product@"
+  },
+  "id": 829,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 830,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "kakaotv.daum.net",
+    "play-tv.kakao.com",
+    "tv.kakao.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https:\\/\\/videoads\\.kakao\\.com\\/adserver\\/api\\/v[0-9]+\\/vmap"
+  },
+  "id": 831,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/2x2.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "kakaotv.daum.net",
+    "play-tv.kakao.com",
+    "tv.kakao.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "/embed/player/image/ads.png"
+  },
+  "id": 832,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/2x2.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "tv.nate.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||adimg.nate.com/img/*?n="
+  },
+  "id": 833,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "spotvnow.co.kr"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+  },
+  "id": 834,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "game.hotsharegames.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+  },
+  "id": 835,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "blackkiwi.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||www3.doubleclick.net/|"
+  },
+  "id": 836,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "mbn.co.kr"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ad.smartmediarep.com/netinsight/video/"
+  },
+  "id": 837,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/amazon_apstag.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||amazon-adsystem.com/aax2/apstag.js"
+  },
+  "id": 839,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googletagservices_gpt.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||googletagservices.com/tag/js/gpt.js"
+  },
+  "id": 840,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googletagservices_gpt.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
+  },
+  "id": 841,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||advod.sbs.co.kr/sbsad/"
+  },
+  "id": 842,
+  "priority": 1
+ }
+]

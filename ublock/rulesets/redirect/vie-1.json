@@ -1,0 +1,36 @@
+[
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "phimchat1.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||phimchat1.com/public/*.mp4"
+  },
+  "id": 568,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "xemphim365.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||xemphim365.net/public/*.mp4"
+  },
+  "id": 569,
+  "priority": 1
+ }
+]
