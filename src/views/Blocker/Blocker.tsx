@@ -2,11 +2,11 @@ import { Box } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { Header, OptionBox, ToggleSwitch } from 'components'
-import { setBlocker } from 'state/slices/blocker'
+import { setBlockLists } from 'state/slices/blocker'
 import SmokewallIcon from 'assets/img/smokewall.svg'
 
 const Blocker: ThemeUiElement = () => {
-  const blockLists = useSelector(s => s.blocker)
+  const blockLists = useSelector(s => s.blocker.blockLists)
   const dispatch = useDispatch()
 
   const handleBlockListToggle = (listName: string) => {
@@ -16,7 +16,7 @@ const Blocker: ThemeUiElement = () => {
     } else {
       newBlocklist = [...blockLists, listName]
     }
-    dispatch(setBlocker(newBlocklist))
+    dispatch(setBlockLists(newBlocklist))
 
     chrome.runtime.sendMessage({
       what: 'applyRulesets',
