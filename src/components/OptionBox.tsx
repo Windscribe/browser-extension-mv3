@@ -6,7 +6,7 @@ import RoundedBox from './RoundedBox'
 type OptionBoxProps = React.PropsWithChildren<BoxProps> & {
   Icon: React.ElementType
   title: string
-  subTitle: string
+  subTitle?: string
 }
 
 const OptionBox: ThemeUiElement<OptionBoxProps> = ({
@@ -38,7 +38,9 @@ const OptionBox: ThemeUiElement<OptionBoxProps> = ({
           {children}
         </ListItem>
       </RoundedBox>
-      <Box sx={{ p: '8px 16px', fontSize: '12px', color: 'secondaryText' }}>{subTitle}</Box>
+      {subTitle && (
+        <Box sx={{ p: '8px 16px', fontSize: '12px', color: 'secondaryText' }}>{subTitle}</Box>
+      )}
     </Box>
   )
 }
