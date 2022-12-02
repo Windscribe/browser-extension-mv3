@@ -1,0 +1,398 @@
+[
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "comick.top",
+    "syosetu.top"
+   ],
+   "requestDomains": [
+    "i.imgur.com"
+   ],
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 808,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||affiliate.dtiserv.com/image/dti/default128.jpg"
+  },
+  "id": 809,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "rocketnews24.com",
+    "youpouch.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/"
+  },
+  "id": 810,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "coolpan.net",
+    "freemen.jp",
+    "helpsupport.blog.fc2.com",
+    "playai.nu",
+    "realtime-chart.info",
+    "sekai-kabuka.com",
+    "tabtter.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 811,
+  "priority": 11
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "ap-siken.com",
+    "battlecats-db.com",
+    "db-siken.com",
+    "fe-siken.com",
+    "itpassportsiken.com",
+    "kakomonn.com",
+    "nw-siken.com",
+    "pm-siken.com",
+    "sc-siken.com",
+    "sg-siken.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 812,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "musenboya.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||ad-stir.com/js/adstir.js"
+  },
+  "id": 813,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "musenboya.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||i-mobile.co.jp/script/v1/spot.js"
+  },
+  "id": 814,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "musenboya.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||nend.net/js/nendadloader.js"
+  },
+  "id": 815,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "nihongo-pro.com",
+    "real-sports.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 816,
+  "priority": 11
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "xn--u9j5h1btf1ez99qnszei5c8ws.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||glssp.net/gl_ad/"
+  },
+  "id": 817,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "real-sports.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||fensi.plus/store-ad.js"
+  },
+  "id": 818,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||k-img.com/script/libs/kkkns.des/jack.js"
+  },
+  "id": 819,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "baseball.yahoo.co.jp",
+    "soccer.yahoo.co.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||yads.c.yimg.jp/uadf/yads_vimps.js"
+  },
+  "id": 820,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "baseball.yahoo.co.jp",
+    "soccer.yahoo.co.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||yimg.jp/images/advertising/common/js/iicon.min.js"
+  },
+  "id": 821,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "news.biglobe.ne.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||yads.c.yimg.jp/js/yads.js"
+  },
+  "id": 822,
+  "priority": 11
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "nissan.co.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||googleadservices.com/pagead/conversion.js"
+  },
+  "id": 823,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "nissan.co.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||img.ak.impact-ad.jp/sr/js/nissan_visitorapi_main.js"
+  },
+  "id": 824,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "nissan.co.jp"
+   ],
+   "requestDomains": [
+    "penta.a.one.impact-ad.jp"
+   ],
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 825,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "uploader.xzy.pw"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 826,
+  "priority": 11
+ }
+]

@@ -5,6 +5,7 @@ import { alias } from '@eduardoac-skimlinks/webext-redux'
 import aliases from './aliases'
 import viewReducer from './slices/view'
 import proxyReducer from './slices/proxy'
+import blockerReducer from './slices/blocker'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
 import debugLogReducer from './slices/debugLog'
@@ -30,6 +31,7 @@ const reducers = {
   serverCredentials: serverCredentialsReducer,
   session: sessionReducer,
   view: viewReducer,
+  blocker: blockerReducer,
   workingApi: workingApiReducer,
 }
 

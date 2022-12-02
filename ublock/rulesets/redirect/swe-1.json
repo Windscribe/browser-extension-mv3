@@ -1,0 +1,180 @@
+[
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/empty"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "pbswisstools.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||fast.fonts.net/*/1.css"
+  },
+  "id": 1140,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||mediacreeper.com/image"
+  },
+  "id": 1141,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||mediacreeper.se/image"
+  },
+  "id": 1142,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "fotbollskanalen.se",
+    "koket.se",
+    "tv4.se",
+    "tv4play.se"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "/aab/tv4play"
+  },
+  "id": 1143,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "tv2.no"
+   ],
+   "requestDomains": [
+    "k5a.io"
+   ],
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 1144,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/click2load.html"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "spelrum.net"
+   ],
+   "requestDomains": [
+    "discord.com"
+   ],
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 1148,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/click2load.html"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "nordiskradio.se"
+   ],
+   "requestDomains": [
+    "peertube.se"
+   ],
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 1149,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/click2load.html"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "breakit.se"
+   ],
+   "requestDomains": [
+    "player.vimeo.com"
+   ],
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 1150,
+  "priority": 1
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "gamereactor.se"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "/prerolls"
+  },
+  "id": 1153,
+  "priority": 1
+ }
+]
