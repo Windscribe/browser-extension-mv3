@@ -1,13 +1,13 @@
 // TODO consider to move this file to services/browserApi
-export const connect = async (host: string): Promise<void> => {
-  const config = {
+export const connect = async (host: string, bypassList: string[]): Promise<void> => {
+  const config: chrome.proxy.ProxyConfig = {
     mode: 'fixed_servers',
     rules: {
       singleProxy: {
         scheme: 'https',
         host,
       },
-      //   bypassList: ['foobar.com'],
+      bypassList,
     },
   }
   return await chrome.proxy.settings.set({ value: config, scope: 'regular' })

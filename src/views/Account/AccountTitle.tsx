@@ -5,6 +5,7 @@ type AccountTitleProps = {
   title: string
 }
 
+// TODO move to components
 const AccountTitle: ThemeUiElement<AccountTitleProps> = ({ title }) => {
   return (
     <Box

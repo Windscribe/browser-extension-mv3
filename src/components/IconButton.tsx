@@ -1,13 +1,17 @@
-import { Button } from 'theme-ui'
+import { Button, type ButtonProps } from 'theme-ui'
+
 import { type ThemeUiElement } from 'utils/types'
 
-type IconButtonProps = {
-  active: boolean
+export type IconButtonProps = ButtonProps & {
+  active?: boolean
+  onClick: React.MouseEventHandler
   children: React.ReactElement // Should be more specific - SVG element only. Don't know how to do it yet
 }
-const IconButton: ThemeUiElement<
-  IconButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ active = false, children, ...restProps }) => (
+const IconButton: ThemeUiElement<IconButtonProps> = ({
+  active = false,
+  children,
+  ...restProps
+}) => (
   <Button
     variant="simple"
     sx={{

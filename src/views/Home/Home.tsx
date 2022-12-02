@@ -1,29 +1,30 @@
 import { Box, Button, Flex, Text } from 'theme-ui'
+import { useEffect, useState } from 'react'
+
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
-import { type ThemeUiElement } from 'utils/types'
+import Badge from 'components/Badge'
+import UsageBar from './UsageBar'
 import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
+import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
-import { footerHeight } from 'styles/constants'
+import { pushToDebugLog } from 'state/slices/debugLog'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
 import { useInitialDataFetching } from 'components/hooks'
-import Badge from 'components/Badge'
+import checkIp from 'utils/checkIp'
 import { ACCOUNT_PLAN } from 'utils/constants'
-import UsageBar from './UsageBar'
+import { type ThemeUiElement } from 'utils/types'
+import Flags from 'assets/flags'
+
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
 import Logo from 'assets/img/logo.svg'
-import WhitelistOff from 'assets/img/whitelistOff.svg'
 import PowerButton from 'assets/img/powerButton.svg'
 import Globe from 'assets/img/globe.svg'
 import PrivacyIcon from 'assets/img/privacy.svg'
 import BlockerIcon from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
-import Flags from 'assets/flags'
-import { pushToDebugLog } from 'state/slices/debugLog'
-import { useEffect, useState } from 'react'
-import checkIp from 'utils/checkIp'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -275,23 +276,7 @@ const Home: ThemeUiElement = () => {
           </Flex>
         </Flex>
       </Box>
-      <Flex
-        sx={{
-          alignItems: 'center',
-          height: `${footerHeight}`,
-          width: '100%',
-          backgroundColor: 'background',
-          px: '16px',
-          justifyContent: 'space-between',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'secondaryText' }}>
-          Windscribe.com
-        </Text>
-        <WhitelistOff sx={{ fill: 'secondaryText' }} />
-      </Flex>
+      <DomainControlBar />
       <FlagBackground isConnected={isConnected} FlagSvg={FlagSvg} />
       {!hideUsageBar && <UsageBar />}
     </Box>

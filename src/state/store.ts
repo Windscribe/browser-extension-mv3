@@ -10,6 +10,7 @@ import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
 import newsfeedReducer from './slices/newsfeed'
 import debugLogReducer from './slices/debugLog'
+import whitelistReducer from './slices/whitelist'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
 import workingApiReducer from './slices/workingApi'
@@ -22,6 +23,7 @@ import serverCredentialsReducer from './slices/serverCredentials'
 const reducers = {
   autopilot: autopilotReducer,
   bestLocation: bestLocationReducer,
+  blocker: blockerReducer,
   connection: connectionReducer,
   contextMenu: contextMenuReducer,
   currentDataCenter: currentDataCenterReducer,
@@ -33,7 +35,7 @@ const reducers = {
   serverCredentials: serverCredentialsReducer,
   session: sessionReducer,
   view: viewReducer,
-  blocker: blockerReducer,
+  whitelist: whitelistReducer,
   workingApi: workingApiReducer,
 }
 

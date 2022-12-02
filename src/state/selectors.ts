@@ -18,3 +18,12 @@ export const findDataCenterById = (
   location: Location,
   dataCenterId: number,
 ): DataCenter | undefined => location?.groups?.find(dataCenter => dataCenter.id === dataCenterId)
+
+export const selectDomainsWithAllowedDirectConnections = (state: RootState): string[] => {
+  const result: string[] = []
+  const whitelist = state.whitelist
+  Object.keys(whitelist).forEach(domain => {
+    if (whitelist[domain]?.allowDirectConnections) result.push(domain)
+  })
+  return result
+}
