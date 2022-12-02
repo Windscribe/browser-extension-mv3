@@ -2,6 +2,7 @@ import { fetchServerList, FETCH_SERVER_LIST } from './slices/servers'
 import { login, LOGIN } from './slices/session'
 import { connectToAutopilot, CONNECT_TO_AUTOPILOT } from './slices/autopilot'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
+import { fetchNotifications, FETCH_NOTIFICATIONS } from './slices/newsfeed'
 import { fetchServerCredentials, FETCH_SERVER_CREDENTIALS } from './slices/serverCredentials'
 import { type Credentials } from 'api/types'
 
@@ -19,4 +20,5 @@ export default {
   [`alias/${FETCH_SERVER_CREDENTIALS}`]: fetchServerCredentials,
   [`alias/${CONNECT_TO_AUTOPILOT}`]: connectToAutopilot,
   [`alias/${FETCH_BEST_LOCATION}`]: fetchBestLocation,
+  [`alias/${FETCH_NOTIFICATIONS}`]: fetchNotifications,
 }

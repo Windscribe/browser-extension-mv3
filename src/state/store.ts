@@ -8,6 +8,7 @@ import proxyReducer from './slices/proxy'
 import blockerReducer from './slices/blocker'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
+import newsfeedReducer from './slices/newsfeed'
 import debugLogReducer from './slices/debugLog'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
@@ -26,6 +27,7 @@ const reducers = {
   currentDataCenter: currentDataCenterReducer,
   currentLocation: currentLocationReducer,
   debugLog: debugLogReducer,
+  newsfeed: newsfeedReducer,
   proxy: proxyReducer,
   servers: serversReducer,
   serverCredentials: serverCredentialsReducer,

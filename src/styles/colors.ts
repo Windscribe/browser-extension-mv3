@@ -1,4 +1,4 @@
-export const rawColors = {
+export const colors = {
   softBlack: '#020d1c',
   softBlackTransparent: 'rgba(2, 13, 28, 0)',
   quarterSoftBlack: 'rgba(2, 13, 28, 0.25)',
@@ -34,4 +34,4 @@ export const rawColors = {
   },
 }
 
-export type Colors = Exclude<keyof typeof rawColors, 'modes'>
+export type Colors = Exclude<keyof typeof colors, 'modes'>

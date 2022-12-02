@@ -181,4 +181,9 @@ export interface NotificationsData {
   date: number
   perm_free: 0 | 1
   perm_pro: 0 | 1
+  popup: 0 | 1
+}
+
+export type Notifications = {
+  notifications: NotificationsData[]
 }
