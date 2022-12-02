@@ -1,0 +1,50 @@
+[
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "io-tech.fi"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "io-tech\\.fi\\/.*\\/[0-9a-f]{32}\\.",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 49
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "telsu.fi"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "telsu\\.fi\\/[\\w!.,:;\\-*%%C3%A5%C3%A4%C3%B6${@%E2%82%AC|]{20,}$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 51
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "telsu.fi"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "telsu\\.fi\\/s\\/[\\w\\d]{30,40}$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 52
+ }
+]

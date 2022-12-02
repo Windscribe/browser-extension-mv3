@@ -9,6 +9,7 @@ import {
   REMOVE_FROM_WHITELIST,
   type WhitelistPayload,
 } from './slices/whitelist'
+import { fetchNotifications, FETCH_NOTIFICATIONS } from './slices/newsfeed'
 import { fetchServerCredentials, FETCH_SERVER_CREDENTIALS } from './slices/serverCredentials'
 import { type Credentials } from 'api/types'
 
@@ -34,4 +35,5 @@ export default {
   [`alias/${FETCH_BEST_LOCATION}`]: fetchBestLocation,
   [`alias/${ADD_TO_WHITELIST}`]: _addToWhitelist,
   [`alias/${REMOVE_FROM_WHITELIST}`]: _removeFromWhitelist,
+  [`alias/${FETCH_NOTIFICATIONS}`]: fetchNotifications,
 }

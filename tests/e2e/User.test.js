@@ -59,6 +59,11 @@ describe('User', () => {
     const spans = await locationsFirstItem.$$('span')
     const expectedCity = await spans[0].evaluate(el => el.textContent)
     const expectedNick = await spans[1].evaluate(el => el.textContent)
+
+    console.log('expectedCity', expectedCity)
+    console.log('expectedNick', expectedNick)
+    console.log('locationsFirstItem', locationsFirstItem)
+
     await locationsFirstItem.click()
 
     // Verify that we were redirected on Home page after a location was chosen

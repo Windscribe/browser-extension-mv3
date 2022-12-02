@@ -1,18 +1,21 @@
 import { Box, Button, Flex, Text } from 'theme-ui'
+import { useEffect, useState } from 'react'
 
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
-import { type ThemeUiElement } from 'utils/types'
+import Badge from 'components/Badge'
+import UsageBar from './UsageBar'
 import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
+import { pushToDebugLog } from 'state/slices/debugLog'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
 import { useInitialDataFetching } from 'components/hooks'
+import checkIp from 'utils/checkIp'
 import { ACCOUNT_PLAN } from 'utils/constants'
-import UsageBar from './UsageBar'
+import { type ThemeUiElement } from 'utils/types'
 import Flags from 'assets/flags'
-import { pushToDebugLog } from 'state/slices/debugLog'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -29,6 +32,8 @@ const Home: ThemeUiElement = () => {
 
   const goToLocations = useGoTo('Locations')
   const goToPreferences = useGoTo('Preferences')
+  const goToNewsfeed = useGoTo('Newsfeed')
+  const goToBlocker = useGoTo('Blocker')
 
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
@@ -36,7 +41,18 @@ const Home: ThemeUiElement = () => {
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
+  const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
+  const notifications = useSelector(state => state.newsfeed.notifications)
+  const unreadNewsAmount = notifications.length - viewedNewsIds.length
+  const workingApi = useSelector(state => state.workingApi)
+
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
+
+  const [currentIp, setCurrentIp] = useState('')
+
+  useEffect(() => {
+    checkIp(workingApi).then(ip => setCurrentIp(ip))
+  }, [workingApi])
 
   useInitialDataFetching()
 
@@ -46,14 +62,15 @@ const Home: ThemeUiElement = () => {
 
     if (isConnected) {
       await dispatch(disconnectProxy())
-      return
+    } else {
+      const hostname = currentDataCenter?.hosts?.[0].hostname
+      if (!autopilotSelected && hostname) {
+        await dispatch(connectProxy(hostname))
+      } else {
+        await dispatchAlias(CONNECT_TO_AUTOPILOT)
+      }
     }
-    const hostname = currentDataCenter?.hosts?.[0].hostname
-    if (!autopilotSelected && hostname) {
-      await dispatch(connectProxy(hostname))
-      return
-    }
-    await dispatchAlias(CONNECT_TO_AUTOPILOT)
+    setCurrentIp(await checkIp(workingApi))
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
@@ -102,7 +119,18 @@ const Home: ThemeUiElement = () => {
                 }}
               />
             </Button>
-            <Logo sx={{ fill: 'white' }} />
+            <Button
+              sx={{
+                position: 'relative',
+                transition: 'scale ease 0.3s',
+                ':hover': { scale: '1.03' },
+              }}
+              variant="simple"
+              onClick={goToNewsfeed}
+            >
+              <Logo sx={{ fill: 'white' }} />
+              <Badge count={unreadNewsAmount} sx={{ top: '-7px', right: '-14px' }} />
+            </Button>
           </Flex>
           <HeaderBlade
             sx={{
@@ -115,7 +143,12 @@ const Home: ThemeUiElement = () => {
           />
           <Flex sx={{ gap: '8px' }}>
             <HeaderButton Icon={PrivacyIcon} isConnected={isConnected} count={0} />
-            <HeaderButton Icon={BlockerIcon} isConnected={isConnected} count={0} />
+            <HeaderButton
+              Icon={BlockerIcon}
+              isConnected={isConnected}
+              count={0}
+              onClick={goToBlocker}
+            />
           </Flex>
         </Flex>
         <Flex
@@ -149,7 +182,7 @@ const Home: ThemeUiElement = () => {
                   color: isConnected ? 'neonGreen' : 'secondaryText',
                 }}
               >
-                000.000.00.000
+                {currentIp}
               </Text>
             </Flex>
             <Box mb="8px">

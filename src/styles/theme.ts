@@ -1,10 +1,26 @@
 import type { Theme } from 'theme-ui'
 
-import { rawColors } from './colors'
+import { colors } from './colors'
 import { zIndices } from './zIndices'
 
 export const theme: Theme = {
-  rawColors,
+  config: {
+    /*
+     We can't change a theme by changing initialColorModeName value here,
+     because color mode persists in local storage.
+     To change a theme we need to use a special hook, e.g.
+     const [colorMode, setColorMode] = useColorMode()
+    */
+    initialColorModeName: 'dark',
+    /*
+    The useColorSchemeMediaQuery option initializes a color mode
+    based on the prefers-color-scheme media query. 
+    It makes extension color theme be dependent on OS theme settings,
+    so we set this option to false.
+    */
+    useColorSchemeMediaQuery: false,
+  },
+  colors,
   zIndices,
   styles: {
     root: {
@@ -14,9 +30,6 @@ export const theme: Theme = {
       height: 'auto',
       backgroundColor: 'white',
     },
-  },
-  config: {
-    initialColorModeName: 'dark',
   },
   links: {
     primary: {
@@ -101,6 +114,15 @@ export const theme: Theme = {
       ':hover': {
         backgroundColor: 'white',
         color: 'black',
+      },
+    },
+    option: {
+      cursor: 'pointer',
+      backgroundColor: 'transparent',
+      padding: 0,
+      color: 'secondaryText',
+      ':hover': {
+        color: 'primaryText',
       },
     },
   },

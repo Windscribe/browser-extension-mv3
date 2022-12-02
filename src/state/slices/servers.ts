@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { ServerList, Location, ServerListParameters, ApiErrorResponse } from 'api/types'
+import type { ServerList, Location, ApiErrorResponse } from 'api/types'
 import type { LoadingState, ErrorState, Either } from 'utils/types'
-import { getServerList } from 'api'
+// import { getServerList } from 'api'
 import applyWorkingApi from '../applyWorkingApi'
+import { getServerList } from 'api/endpoints'
 
 interface ServersState {
   serverList?: Location[] // ServerList
@@ -36,12 +37,8 @@ export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorRespo
       throw Error('No loc_hash is available. Try to sign in.')
     }
 
-    const response = await applyWorkingApi<ServerList, ServerListParameters>(
-      getServerList,
-      { locHash: loc_hash, isPro: is_premium },
-      workingApi,
-      dispatch,
-    )
+    const response = await getServerList(loc_hash, is_premium, workingApi)
+    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     if (response?.errorMessage) return rejectWithValue(response)
     if (response?.data) return response.data

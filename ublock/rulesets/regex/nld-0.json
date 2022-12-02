@@ -1,0 +1,41 @@
+[
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https\\:\\/\\/dutchitchannel\\.nl\\/media\\/\\d{6}\\/\\d{10}\\.jpg$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 266
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https\\:\\/\\/executive-people\\.nl\\/media\\/[\\d]{6}\\/[\\d]+\\.jpg$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 323
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/statics\\.(?:ad|bd|bndestem|destentor|ed|gelderlander|hln|tubantia|pzc)\\.(?:nl|be)\\/js\\/advertising-[\\w]+\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 489
+ }
+]

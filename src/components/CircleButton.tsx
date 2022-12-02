@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from 'theme-ui'
+import { Button, type ButtonProps } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 
 type MenuButtonProps = ButtonProps & {

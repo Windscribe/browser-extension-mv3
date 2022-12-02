@@ -53,6 +53,8 @@ export type Endpoint =
   | 'Notifications'
   | 'ServerCredentials'
   | 'serverlist'
+  | 'WebSession'
+  | 'Report/applog'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -85,6 +87,14 @@ export interface SessionData {
   traffic_used?: number
   user_id?: string
   username?: string
+}
+
+export interface WebSessionData {
+  temp_session: string
+}
+
+export interface ReportAppLogData {
+  success: number
 }
 
 export type GetBestLocationParameters = {
@@ -171,4 +181,9 @@ export interface NotificationsData {
   date: number
   perm_free: 0 | 1
   perm_pro: 0 | 1
+  popup: 0 | 1
+}
+
+export type Notifications = {
+  notifications: NotificationsData[]
 }

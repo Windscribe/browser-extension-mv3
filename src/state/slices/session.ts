@@ -1,10 +1,9 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-
-import { login as loginRequest } from 'api'
 import applyWorkingApi from '../applyWorkingApi'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
+import { login as loginRequest } from 'api/endpoints'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -37,13 +36,9 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
   LOGIN,
   async ({ username, password, twoFa }, { getState, dispatch }) => {
     const workingApi = getState().workingApi
-    const parameters = { username, password, ...(twoFa && { twoFa }) }
-    const response = await applyWorkingApi<SessionData, Credentials>(
-      loginRequest,
-      parameters,
-      workingApi,
-      dispatch,
-    )
+
+    const response = await loginRequest(username, password, workingApi, twoFa)
+    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     if (response.errorMessage) return response
     if (response.data) return response.data

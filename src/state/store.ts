@@ -5,8 +5,10 @@ import { alias } from '@eduardoac-skimlinks/webext-redux'
 import aliases from './aliases'
 import viewReducer from './slices/view'
 import proxyReducer from './slices/proxy'
+import blockerReducer from './slices/blocker'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
+import newsfeedReducer from './slices/newsfeed'
 import debugLogReducer from './slices/debugLog'
 import whitelistReducer from './slices/whitelist'
 import autopilotReducer from './slices/autopilot'
@@ -21,11 +23,13 @@ import serverCredentialsReducer from './slices/serverCredentials'
 const reducers = {
   autopilot: autopilotReducer,
   bestLocation: bestLocationReducer,
+  blocker: blockerReducer,
   connection: connectionReducer,
   contextMenu: contextMenuReducer,
   currentDataCenter: currentDataCenterReducer,
   currentLocation: currentLocationReducer,
   debugLog: debugLogReducer,
+  newsfeed: newsfeedReducer,
   proxy: proxyReducer,
   servers: serversReducer,
   serverCredentials: serverCredentialsReducer,

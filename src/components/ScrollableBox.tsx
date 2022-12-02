@@ -1,5 +1,6 @@
 import { Box, type BoxProps } from 'theme-ui'
 import { useEffect, useRef } from 'react'
+
 import { ThemeUiElement } from 'utils/types'
 
 type ScrollableBoxProps = React.PropsWithChildren<
@@ -11,7 +12,7 @@ type ScrollableBoxProps = React.PropsWithChildren<
 const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
   scrollTop = 0,
   children,
-  ...props
+  ...restProps
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
@@ -53,7 +54,7 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
         },
       }}
       ref={scrollContainerRef}
-      {...props}
+      {...restProps}
     >
       {children}
     </Box>
