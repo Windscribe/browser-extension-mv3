@@ -54,6 +54,7 @@ export type Endpoint =
   | 'ServerCredentials'
   | 'serverlist'
   | 'WebSession'
+  | 'Report/applog'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -90,6 +91,10 @@ export interface SessionData {
 
 export interface WebSessionData {
   temp_session: string
+}
+
+export interface ReportAppLogData {
+  success: number
 }
 
 export type GetBestLocationParameters = {

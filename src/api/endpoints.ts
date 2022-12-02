@@ -5,6 +5,7 @@ import type {
   ServerCredentials,
   ServerList,
   WebSessionData,
+  ReportAppLogData,
 } from 'api/types'
 import { sendRequest } from 'api/sendRequest'
 import { buildQueryString } from 'api/utils'
@@ -72,6 +73,18 @@ const getWebSession = async (
     session_type_id: 1,
   })
 
+const reportAppLog = async (
+  session_auth_hash: string,
+  username: string,
+  logfile: string,
+  workingApi: string,
+): Promise<ApiResponse<ReportAppLogData>> =>
+  await sendRequest('POST', buildQueryString('Report/applog'), workingApi, {
+    session_auth_hash,
+    username,
+    logfile,
+  })
+
 export {
   login,
   getBestLocation,
@@ -79,4 +92,5 @@ export {
   getServerList,
   getSessionStatus,
   getWebSession,
+  reportAppLog,
 }
