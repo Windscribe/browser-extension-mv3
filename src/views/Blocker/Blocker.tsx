@@ -1,9 +1,10 @@
-import { Box } from 'theme-ui'
+import { Box, Button } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { Header, OptionBox, ToggleSwitch } from 'components'
 import { setBlockLists } from 'state/slices/blocker'
 import SmokewallIcon from 'assets/img/smokewall.svg'
+import LinkIcon from 'assets/img/link.svg'
 
 const Blocker: ThemeUiElement = () => {
   const blockLists = useSelector(s => s.blocker.blockLists)
@@ -72,6 +73,36 @@ const Blocker: ThemeUiElement = () => {
             checked={blockLists.includes('stevenblack-hosts')}
           />
         </OptionBox>
+        <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
+          <Button
+            onClick={() => window.open(chrome.runtime.getURL('dashboard.html'))}
+            variant="simple"
+            sx={{
+              display: 'flex',
+              borderRadius: '8px',
+              border: '1px',
+              borderColor: 'foreground',
+              borderStyle: 'solid',
+              width: '100%',
+              color: 'secondaryText',
+              fontSize: '14px',
+              alignItems: 'center',
+              px: '16px',
+              fontWeight: 'bold',
+              height: '48px',
+              justifyContent: 'space-between',
+              ':hover': {
+                color: 'primaryText',
+              },
+              '&:hover > svg > path': {
+                fill: 'primaryText',
+              },
+            }}
+          >
+            uBlock Settings
+            <LinkIcon sx={{ fill: 'secondaryText' }} />
+          </Button>
+        </Box>
       </Box>
     </Box>
   )
