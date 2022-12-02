@@ -38,6 +38,7 @@ const setup = async () => {
   await popupPage.goto(popupUrl, { waitUntil: 'load' })
 
   return {
+    extensionId,
     browser,
     popupPage,
   }

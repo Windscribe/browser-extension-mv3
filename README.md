@@ -95,7 +95,6 @@ _./src/popup.js_
 
 ```js
 import secrets from 'secrets'
-ApiCall({ key: secrets.key })
 ```
 
 :point_right: The files with name `secrets.*.js` already are ignored on the repository.

@@ -103,6 +103,15 @@ export const theme: Theme = {
         color: 'black',
       },
     },
+    option: {
+      cursor: 'pointer',
+      backgroundColor: 'transparent',
+      padding: 0,
+      color: 'secondaryText',
+      ':hover': {
+        color: 'primaryText',
+      },
+    },
   },
   forms: {
     label: {

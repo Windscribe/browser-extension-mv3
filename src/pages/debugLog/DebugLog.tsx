@@ -9,6 +9,9 @@ import UAParser from 'ua-parser-js'
 const DebugLog: React.FC = () => {
   const dispatch = useDispatch()
   const log = useSelector(s => s.debugLog.log)
+  const autoConnect = useSelector(s => s.connection.autoConnect)
+  const contextMenu = useSelector(s => s.contextMenu)
+
   const failover = useSelector(s => s.connection.failover)
   const [isAutoScroll, setIsAutoScroll] = useState(false)
   const [isShowUserInfo, setIsShowUserInfo] = useState(false)
@@ -24,7 +27,9 @@ const DebugLog: React.FC = () => {
 
 [User State]
 ------------------------------------------------------
-failover: ${failover}`
+Auto-connect: ${autoConnect}
+Debug Context Menu: ${contextMenu}
+Failover: ${failover}`
 
   useEffect(() => {
     if (isAutoScroll) {
@@ -33,7 +38,7 @@ failover: ${failover}`
   }, [isAutoScroll, log])
 
   return (
-    <div className="container">
+    <Box data-testid="debug-page">
       <Flex
         sx={{
           height: '50px',
@@ -52,7 +57,11 @@ failover: ${failover}`
         <Button variant="debug" onClick={() => dispatch(clearDebugLog())}>
           Clear Log
         </Button>
-        <Button variant="debug" onClick={() => setIsShowUserInfo(!isShowUserInfo)}>
+        <Button
+          variant="debug"
+          data-testid="user-info-button"
+          onClick={() => setIsShowUserInfo(!isShowUserInfo)}
+        >
           Show User Info
         </Button>
       </Flex>
@@ -95,10 +104,11 @@ failover: ${failover}`
           transition: 'transform ease 0.3s',
           transform: isShowUserInfo ? 'translateX(0)' : 'translateX(110%)',
         }}
+        data-testid="user-info-panel"
       >
         {userInfo}
       </Box>
-    </div>
+    </Box>
   )
 }
 

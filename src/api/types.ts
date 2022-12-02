@@ -8,6 +8,12 @@ export type LoginParameters = {
   '2fa_code'?: string
 }
 
+export type Credentials = {
+  username: string
+  password: string
+  twoFa?: string
+}
+
 export interface MetaData {
   serviceRequestId?: string
   hostName?: string
@@ -24,6 +30,7 @@ export interface Info {
 
 export interface ApiSuccessResponse<Data = unknown> {
   data: Data
+  workingApi?: string
   info?: Info
   metadata?: MetaData
 }
@@ -40,11 +47,28 @@ export type ApiResponse<ExpectedData = unknown> = Either<
   ApiSuccessResponse<ExpectedData>
 >
 
-export type Endpoint = 'Session' | 'BestLocation' | 'Notifications' | 'ServerCredentials'
+export type Endpoint =
+  | 'Session'
+  | 'BestLocation'
+  | 'Notifications'
+  | 'ServerCredentials'
+  | 'serverlist'
+  | 'WebSession'
+  | 'Report/applog'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 export type Platform = 'chrome' | 'firefox'
+
+export type ApiCallParameters = Record<string, string | number>
+export type ObjectOrStringOrNumber = ApiCallParameters | string | number
+
+// type EventHandler = (...a: any[]) => void
+// TODO Consider to set P to any or (...a: any[])
+export type ApiCallFunction<T extends object, P extends ObjectOrStringOrNumber> = (
+  parameters: P,
+  workingApi: string,
+) => Promise<ApiResponse<T>>
 
 // todo review the interface
 export interface SessionData {
@@ -65,6 +89,14 @@ export interface SessionData {
   username?: string
 }
 
+export interface WebSessionData {
+  temp_session: string
+}
+
+export interface ReportAppLogData {
+  success: number
+}
+
 export type GetBestLocationParameters = {
   session_auth_hash: string
   platform: Platform
@@ -75,7 +107,10 @@ export type GetBestLocationParameters = {
 export type GetServerCredentialsParameters = {
   session_auth_hash: string
   platform: Platform
+  type?: CredentialType
 }
+
+type CredentialType = 'squid' | 'openvpn' | 'ikev2' | 'socks'
 
 export interface BestLocation {
   city_name: string
@@ -132,4 +167,18 @@ export type Host = {
 export interface ServerCredentials {
   username: string
   password: string
+}
+
+export type ServerListParameters = {
+  locHash: string
+  isPro?: 0 | 1
+}
+
+export interface NotificationsData {
+  id: number
+  title: string
+  message: string
+  date: number
+  perm_free: 0 | 1
+  perm_pro: 0 | 1
 }

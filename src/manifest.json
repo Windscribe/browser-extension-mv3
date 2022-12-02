@@ -17,7 +17,9 @@
     "scripting"
   ],
   "host_permissions": ["<all_urls>"],
+  "permissions": ["storage", "proxy", "debugger", "contextMenus", "tabs"],
   "icons": {
+    "16": "icon-16.png",
     "128": "icon-128.png"
   },
   "content_scripts": [

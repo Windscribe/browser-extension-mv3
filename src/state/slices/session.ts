@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-
-import { login as loginRequest } from 'api'
+import applyWorkingApi from '../applyWorkingApi'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
-import type { ApiErrorResponse, SessionData } from 'api/types'
+import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
+import { login as loginRequest } from 'api/endpoints'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -31,19 +31,16 @@ const initialState: SessionState = {
 
 export const LOGIN = 'session/login'
 export const LOGOUT = 'session/logout'
-export type Credentials = {
-  username: string
-  password: string
-  twoFa?: string
-}
 
 export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Credentials>(
   LOGIN,
-  async credentials => {
-    const { username, password, twoFa } = credentials
-    const response = await loginRequest(username, password, twoFa)
+  async ({ username, password, twoFa }, { getState, dispatch }) => {
+    const workingApi = getState().workingApi
 
-    if (response.errorCode) return response
+    const response = await loginRequest(username, password, workingApi, twoFa)
+    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
+
+    if (response.errorMessage) return response
     if (response.data) return response.data
 
     throw Error('Unknown response format while trying to login')
@@ -71,7 +68,7 @@ export const sessionSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(login.fulfilled, (state, action) => {
-        if (action.payload.errorCode) {
+        if (action.payload.errorMessage) {
           return { ...initialState, ...{ loading: 'idle' }, error: action.payload }
         }
         return { ...state, ...{ loading: 'fulfilled' }, ...action.payload }
