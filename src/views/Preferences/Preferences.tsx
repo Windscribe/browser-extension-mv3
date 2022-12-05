@@ -39,7 +39,12 @@ const Preferences: ThemeUiElement = () => {
       <Header
         title="Preferences"
         RightSideComponent={
-          <CircleButton onClick={goToNewsfeed} Icon={NewsfeedIcon} sx={{ position: 'relative' }}>
+          <CircleButton
+            data-testid="go-to-newsfeed-button"
+            onClick={goToNewsfeed}
+            Icon={NewsfeedIcon}
+            sx={{ position: 'relative' }}
+          >
             <Badge count={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
           </CircleButton>
         }

@@ -36,6 +36,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
     <Box mb="16px">
       <Rectangle
         data-id={id}
+        data-testid={`newsfeed-item-${id}`}
         onClick={handleItemClick}
         sx={{
           position: 'relative',
@@ -110,6 +111,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
             borderBottomLeftRadius: '8px',
             borderBottomRightRadius: '8px',
           }}
+          data-testid={`newsfeed-item-message`}
           css={getInnerHtmlStyles(isDark, theme?.colors)}
           dangerouslySetInnerHTML={{ __html: message }}
         />
