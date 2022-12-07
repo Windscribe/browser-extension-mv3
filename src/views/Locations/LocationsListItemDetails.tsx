@@ -83,11 +83,19 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
               }}
             />
             <Text sx={{ fontWeight: '600' }}>
-              <Highlighter searchWords={[searchText]} textToHighlight={dataCenter.city} />
+              <Highlighter
+                data-testid="data-center-city"
+                searchWords={[searchText]}
+                textToHighlight={dataCenter.city}
+              />
             </Text>
             &nbsp;
             <Text sx={{ fontWeight: '400' }}>
-              <Highlighter searchWords={[searchText]} textToHighlight={dataCenter.nick} />
+              <Highlighter
+                data-testid="data-center-nick"
+                searchWords={[searchText]}
+                textToHighlight={dataCenter.nick}
+              />
             </Text>
           </Flex>
           {currentDataCenter?.id === dataCenter.id ? (
