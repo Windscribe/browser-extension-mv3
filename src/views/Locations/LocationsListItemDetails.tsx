@@ -1,4 +1,5 @@
 import { Text, Flex, Button, Box } from 'theme-ui'
+import Highlighter from 'react-highlight-words'
 
 import HeartIcon from 'assets/img/heart-outline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
@@ -13,11 +14,13 @@ import { type DataCenter, Location } from 'api/types'
 
 type LocationsListItemDetailsProps = {
   location: Location
+  searchText?: string
   dataCenters?: DataCenter[]
 }
 
 const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
   location,
+  searchText = '',
   dataCenters = [],
 }) => {
   const dispatch = useDispatch()
@@ -79,9 +82,13 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
                 fill: 'secondaryText',
               }}
             />
-            <Text sx={{ fontWeight: '600' }}>{dataCenter.city}</Text>
+            <Text sx={{ fontWeight: '600' }}>
+              <Highlighter searchWords={[searchText]} textToHighlight={dataCenter.city} />
+            </Text>
             &nbsp;
-            <Text sx={{ fontWeight: '400' }}>{dataCenter.nick}</Text>
+            <Text sx={{ fontWeight: '400' }}>
+              <Highlighter searchWords={[searchText]} textToHighlight={dataCenter.nick} />
+            </Text>
           </Flex>
           {currentDataCenter?.id === dataCenter.id ? (
             <CheckmarkIcon

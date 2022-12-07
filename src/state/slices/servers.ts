@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { ServerList, Location, ApiErrorResponse } from 'api/types'
+import type { ServerList, Location, ApiErrorResponse, DataCenter } from 'api/types'
 import type { LoadingState, ErrorState, Either } from 'utils/types'
-// import { getServerList } from 'api'
 import applyWorkingApi from '../applyWorkingApi'
 import { getServerList } from 'api/endpoints'
+import type { RootState } from '../store'
 
 interface ServersState {
   serverList?: Location[] // ServerList
@@ -77,6 +77,25 @@ export const serversSlice = createSlice({
       })
   },
 })
+
+export const selectLocationBySearchText = (
+  state: RootState,
+  searchText: string,
+): Location[] | undefined => {
+  const isFoundIn = (str: string) => str.toLowerCase().includes(searchText)
+
+  return state.servers?.serverList?.reduce<Location[]>((accumulator, location) => {
+    const groupsThatMatch = location.groups.reduce<DataCenter[]>((accumulator, dataCenter) => {
+      if (isFoundIn(dataCenter.city) || isFoundIn(dataCenter.nick)) accumulator.push(dataCenter)
+      return accumulator
+    }, [])
+
+    if (groupsThatMatch.length || isFoundIn(location.name)) {
+      accumulator.push({ ...location, ...{ groups: groupsThatMatch } })
+    }
+    return accumulator
+  }, [])
+}
 
 export const { setServerList } = serversSlice.actions
 

@@ -12,21 +12,21 @@ const Locations: ThemeUiElement = () => {
 
   // used to track the first key press to pass as initial input to search field
   const [focusInitKey, setFocusInitKey] = useState(null)
+  const [searchText, setSearchText] = useState<string>('')
 
   // debounce to prevent lagginess from spamming searches on every keypress
   const debouncedSetSearchText: DebouncedInputOnChangeHandler = debounce(event => {
-    const searchText = event.target?.value
-    // dispatch action, will be implemented later
+    setSearchText(event.target?.value)
   }, 250)
 
   const handleInputClose: () => void = () => {
     setFocusInitKey(null)
-    // dispatch setSearchText, will be implemented later
+    setSearchText('')
   }
 
   const handleTabSwitch: SetTab = (tab: Tab) => setCurrentTab(tab)
 
-  const isSearching = false // locationsListState?.searchText?.length > 0
+  const isSearching = !!searchText.length
   const locationSorting = 'geography' // Mock
 
   return (
@@ -45,7 +45,7 @@ const Locations: ThemeUiElement = () => {
       <ScrollableBox>
         {
           {
-            locations: <LocationsList />,
+            locations: <LocationsList searchText={searchText} />,
             favourites: null, // will be implemented later
           }[currentTab]
         }
