@@ -4,9 +4,12 @@ export default async function checkIp(workingApi: string): Promise<string> {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 3000)
 
-    const res = await fetch(`https://checkip.${workingApi}`, {
-      signal: controller.signal,
-    })
+    const res = await fetch(
+      `https://checkip.${workingApi.includes('staging') ? 'windscribe.com' : workingApi}`,
+      {
+        signal: controller.signal,
+      },
+    )
       .then(r => r.text())
       .catch(() => noIp)
 
