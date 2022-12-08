@@ -4,7 +4,7 @@ import { type ThemeUiElement } from 'utils/types'
 type MenuButtonProps = ButtonProps & {
   Icon: React.ElementType
 }
-const CircleButton: ThemeUiElement<MenuButtonProps> = ({ Icon, ...restProps }) => {
+const CircleButton: ThemeUiElement<MenuButtonProps> = ({ Icon, children, ...restProps }) => {
   return (
     <Button
       variant="circle"
@@ -22,6 +22,7 @@ const CircleButton: ThemeUiElement<MenuButtonProps> = ({ Icon, ...restProps }) =
       {...restProps}
     >
       <Icon sx={{ transition: '0.3s' }} />
+      {children}
     </Button>
   )
 }

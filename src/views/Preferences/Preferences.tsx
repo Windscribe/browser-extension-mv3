@@ -4,6 +4,10 @@ import { type ThemeUiElement } from 'utils/types'
 import { logout } from 'state/slices/session'
 import { Header, RoundedBox, ListItemButton } from 'components'
 import CircleButton from 'components/CircleButton'
+import Badge from 'components/Badge'
+import { useGoTo } from 'services/navigation'
+import { useDispatch, useSelector } from 'state/hooks'
+
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
 import GeneralIcon from 'assets/img/general.svg'
 import ConnectionIcon from 'assets/img/connection.svg'
@@ -15,8 +19,6 @@ import DarkModeIcon from 'assets/img/darkMode.svg'
 import TutorialIcon from 'assets/img/tutorial.svg'
 import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
-import { useGoTo } from 'services/navigation'
-import { useDispatch } from 'state/hooks'
 
 const Preferences: ThemeUiElement = () => {
   const goToGeneral = useGoTo('General')
@@ -24,12 +26,29 @@ const Preferences: ThemeUiElement = () => {
   const goToBlocker = useGoTo('Blocker')
   const goToAccount = useGoTo('Account')
   const goToWhitelist = useGoTo('Whitelist')
+  const goToNewsfeed = useGoTo('Newsfeed')
   const dispatch = useDispatch()
   const handleLogoutClick = async () => await dispatch(logout())
 
+  const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
+  const notifications = useSelector(state => state.newsfeed.notifications)
+  const unreadNewsAmount = notifications.length - viewedNewsIds.length
+
   return (
     <Box data-testid="preferences-page" bg="background">
-      <Header title="Preferences" RightSideComponent={<CircleButton Icon={NewsfeedIcon} />} />
+      <Header
+        title="Preferences"
+        RightSideComponent={
+          <CircleButton
+            data-testid="go-to-newsfeed-button"
+            onClick={goToNewsfeed}
+            Icon={NewsfeedIcon}
+            sx={{ position: 'relative' }}
+          >
+            <Badge count={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
+          </CircleButton>
+        }
+      />
       <Box sx={{ mx: '16px' }}>
         <RoundedBox>
           <ListItemButton title="General" Icon={GeneralIcon} onClick={goToGeneral} />
