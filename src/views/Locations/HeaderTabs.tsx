@@ -7,12 +7,7 @@ import AllLocationsIcon from 'assets/img/all-locations.svg'
 import FavLocationsIcon from 'assets/img/fav-locations.svg'
 import { type HeaderTabsProps } from './types'
 
-const HeaderTabs: React.FC<HeaderTabsProps> = ({
-  currentTab,
-  isSearching,
-  locationSorting,
-  setTab,
-}) => (
+const HeaderTabs: React.FC<HeaderTabsProps> = ({ currentTab, isSearching, setTab }) => (
   <SpaceBetween
     mb="14px"
     sx={{
@@ -39,15 +34,7 @@ const HeaderTabs: React.FC<HeaderTabsProps> = ({
         </IconButton>
       )}
     </Box>
-    {currentTab === 'locations' && !isSearching && (
-      <SortButton
-        sortBy={locationSorting}
-        onClick={() => {
-          // use Redux dispatch to store our sort order preference,
-          //  will be implemented later
-        }}
-      />
-    )}
+    {currentTab === 'locations' && !isSearching && <SortButton />}
   </SpaceBetween>
 )
 

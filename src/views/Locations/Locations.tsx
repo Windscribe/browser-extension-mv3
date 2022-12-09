@@ -4,12 +4,11 @@ import { Column } from 'components/Flexbox'
 import { ScrollableBox } from 'components'
 import Header from './Header'
 import LocationsList from './LocationsList'
-import { type ThemeUiElement } from 'utils/types'
+import type { ThemeUiElement } from 'utils/types'
 import type { DebouncedInputOnChangeHandler, Tab, SetTab } from './types'
 
 const Locations: ThemeUiElement = () => {
   const [currentTab, setCurrentTab] = useState<Tab>('locations')
-
   // used to track the first key press to pass as initial input to search field
   const [focusInitKey, setFocusInitKey] = useState(null)
   const [searchText, setSearchText] = useState<string>('')
@@ -27,7 +26,6 @@ const Locations: ThemeUiElement = () => {
   const handleTabSwitch: SetTab = (tab: Tab) => setCurrentTab(tab)
 
   const isSearching = !!searchText.length
-  const locationSorting = 'geography' // Mock
 
   return (
     <Column data-testid="locations-page" bg="background">
@@ -36,7 +34,6 @@ const Locations: ThemeUiElement = () => {
         setTab={handleTabSwitch}
         currentTab={currentTab}
         isSearching={isSearching}
-        locationSorting={locationSorting}
         showSearchInput={currentTab === 'locations'}
         focusInitKey={focusInitKey}
         onSearchInputChange={debouncedSetSearchText}

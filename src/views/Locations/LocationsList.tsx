@@ -1,23 +1,42 @@
+import { useEffect, useState } from 'react'
+
 import { Column } from 'components/Flexbox'
 import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
 import { useInitialDataFetching } from 'components/hooks'
-import { selectLocationBySearchText } from 'state/slices/servers'
+import type { ServerList } from 'api/types'
+
+import { selectLocationBySearchText, selectSortedLocation } from 'state/slices/servers'
 
 const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
-  const serverList = useSelector(state => selectLocationBySearchText(state, searchText))
+  const serverListSorted = useSelector(selectSortedLocation)
+  const serverListFiltered = useSelector(s => selectLocationBySearchText(s, searchText))
   const serversListLoading = useSelector(s => s.servers.loading)
   const currentLocationId = useSelector(s => s.currentLocation?.id)
   const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
+
+  const [serverList, setServerList] = useState<ServerList>(serverListSorted)
+
+  useEffect(() => {
+    const newServerList = searchText ? serverListFiltered : serverListSorted
+    setServerList(newServerList)
+  }, [searchText, serverListFiltered, serverListSorted])
 
   // TODO Discuss.
   // serversList and bestLocation should be fetched already on Home page. Is this reassurance redundant?
   useInitialDataFetching()
 
+  /*
+   * Creating components inside render function of another component is an anti-pattern
+   * because on every LocationsList re-render React will re-mount ServerList,
+   * which is going to be much slower than a normal re-render.
+   *
+   * TODO Refactor
+   */
   const ServerList = (
     <>
-      {searchText && !serverList?.length ? (
+      {searchText && !serverList.length ? (
         <Column
           sx={{
             height: '100%',
@@ -39,7 +58,7 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
               currentlySelected={currentLocationId === autopilotLocation.id}
             />
           )}
-          {serverList?.map((location, i) => (
+          {serverList.map((location, i) => (
             <LocationsListItem
               data-testid={`locations-list-item-${i}`}
               key={location.id}

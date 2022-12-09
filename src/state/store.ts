@@ -17,6 +17,7 @@ import workingApiReducer from './slices/workingApi'
 import contextMenuReducer from './slices/contextMenu'
 import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
+import locationSortingReducer from './slices/locationSorting'
 import currentDataCenterReducer from './slices/currentDataCenter'
 import serverCredentialsReducer from './slices/serverCredentials'
 
@@ -30,6 +31,7 @@ const reducers = {
   currentLocation: currentLocationReducer,
   debugLog: debugLogReducer,
   newsfeed: newsfeedReducer,
+  locationSorting: locationSortingReducer,
   proxy: proxyReducer,
   servers: serversReducer,
   serverCredentials: serverCredentialsReducer,

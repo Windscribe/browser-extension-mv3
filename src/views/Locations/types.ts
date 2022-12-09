@@ -24,13 +24,11 @@ export type HeaderActionsSectionProps = SearchInputProps & {
 }
 
 export type Tab = 'locations' | 'favourites'
-export type LocationSorting = 'alphabet' | 'geography'
 export type SetTab = (tab: Tab) => void
 
 export type HeaderTabsProps = {
   currentTab: Tab
   isSearching: boolean
-  locationSorting: LocationSorting
   setTab: SetTab
 }
 
