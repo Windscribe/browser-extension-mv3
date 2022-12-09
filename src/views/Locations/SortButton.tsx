@@ -24,7 +24,12 @@ const SortButton: ThemeUiElement = () => {
 
   return (
     <InlineBlock>
-      <IconButton active={false} role="tab" onClick={handleClick}>
+      <IconButton
+        data-testid="sort-locations-button"
+        active={false}
+        role="tab"
+        onClick={handleClick}
+      >
         <Box
           aria-label={`Sort by ${sortBy}`}
           ml="auto"

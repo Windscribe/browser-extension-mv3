@@ -92,6 +92,34 @@ describe('User', () => {
     // Reset input field value
     await popupPage.$eval('[data-testid=location-search-input]', el => (el.value = ''))
     await popupPage.click('[data-testid=locations-list]')
+    await popupPage.waitForTimeout(1000)
+  })
+
+  it('Should sort countries by alphabet or by geography ', async () => {
+    // Ensure that we are on Locations page
+    await popupPage.waitForSelector('[data-testid=locations-page]')
+
+    // Ensure that locations with sorted by geography
+    let locationsList = await popupPage.$('[data-testid=locations-list]')
+    let expectedLocation = await locationsList.evaluate(el => el.textContent)
+    expect(expectedLocation).toEqual('AutopilotCanada EastUnited StatesThe Best Korea')
+
+    await popupPage.click('[data-testid=sort-locations-button]')
+    await popupPage.waitForTimeout(500)
+
+    // Ensure that locations with sorted by alphabet
+    locationsList = await popupPage.$('[data-testid=locations-list]')
+    expectedLocation = await locationsList.evaluate(el => el.textContent)
+    expect(expectedLocation).toEqual('AutopilotCanada EastThe Best KoreaUnited States')
+
+    await popupPage.click('[data-testid=sort-locations-button]')
+    await popupPage.waitForTimeout(500)
+
+    // Ensure that locations with sorted by geography again
+    locationsList = await popupPage.$('[data-testid=locations-list]')
+    expectedLocation = await locationsList.evaluate(el => el.textContent)
+    expect(expectedLocation).toEqual('AutopilotCanada EastUnited StatesThe Best Korea')
+    await popupPage.waitForTimeout(1000)
   })
 
   it('Navigates to Locations page, opens a country/region accordion and selects location', async () => {
@@ -172,7 +200,7 @@ describe('User', () => {
     expect(splashPage).toBeTruthy()
   })
 
-  afterAll(async () => {
-    await browser.close()
-  })
+  // afterAll(async () => {
+  //   await browser.close()
+  // })
 })
