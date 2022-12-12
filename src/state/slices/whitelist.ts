@@ -26,8 +26,8 @@ export const addToWhitelist = createAsyncThunk(
   ADD_TO_WHITELIST,
   async (domainWithSettings: WhitelistPayload, { dispatch, getState }) => {
     dispatch(addDomain(domainWithSettings))
-    const host = getState().proxy.host
-    if (host) await dispatch(connectProxy(host))
+    const hosts = getState().proxy.hosts
+    if (hosts) await dispatch(connectProxy(hosts))
   },
 )
 
@@ -35,8 +35,8 @@ export const removeFromWhitelist = createAsyncThunk(
   REMOVE_FROM_WHITELIST,
   async (domain: string, { dispatch, getState }) => {
     await dispatch(removeDomain(domain))
-    const host = getState().proxy.host
-    if (host) await dispatch(connectProxy(host))
+    const hosts = getState().proxy.hosts
+    if (hosts) await dispatch(connectProxy(hosts))
   },
 )
 

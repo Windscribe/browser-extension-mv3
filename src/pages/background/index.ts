@@ -44,10 +44,10 @@ async function onStartupCallback() {
       return
     }
 
-    const currentHostname = store.getState().currentDataCenter?.hosts?.[0].hostname
+    const currentHosts = store.getState().currentDataCenter?.hosts
     const autopilotSelected = store.getState().autopilot.autopilotSelected
-    if (!autopilotSelected && currentHostname) {
-      await store.dispatch(connectProxy(currentHostname))
+    if (!autopilotSelected && currentHosts) {
+      await store.dispatch(connectProxy(currentHosts))
       return
     }
 
@@ -76,7 +76,7 @@ chrome.proxy.onProxyError.addListener(async e => {
 
     if (newDatacenter) {
       store.dispatch(setCurrentDataCenter(newDatacenter))
-      store.dispatch(connectProxy(newDatacenter.hosts[0].hostname))
+      store.dispatch(connectProxy(newDatacenter.hosts))
     }
   } else if (failover === 'None') {
     store.dispatch(disconnectProxy())
