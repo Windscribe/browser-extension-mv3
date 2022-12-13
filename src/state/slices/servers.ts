@@ -112,6 +112,16 @@ export const selectSortedLocation = createSelector(
   },
 )
 
+export const selectLocationByDataCenterId = createSelector(
+  (state: RootState) => state.servers.serverList,
+  (_: RootState, dataCenterId: number) => dataCenterId,
+  (serverList, dataCenterId): Location | undefined => {
+    return serverList.find(location =>
+      location.groups.some(dataCenter => dataCenter.id === dataCenterId),
+    )
+  },
+)
+
 export const { setServerList } = serversSlice.actions
 
 export default serversSlice.reducer

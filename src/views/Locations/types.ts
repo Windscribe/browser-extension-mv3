@@ -1,4 +1,4 @@
-import type { DebouncedFunction, CountryCodeType } from 'utils/types'
+import type { DebouncedFunction } from 'utils/types'
 
 export type HeaderType = React.FC<HeaderProps & React.HTMLAttributes<HTMLDivElement>>
 
@@ -35,16 +35,3 @@ export type HeaderTabsProps = {
 export type HeaderProps = HeaderTabsProps &
   HeaderActionsSectionProps &
   React.HTMLAttributes<HTMLDivElement>
-
-export type DataCenter = {
-  id: number
-  city: string
-  nick: string
-}
-
-export type Location = {
-  id: number
-  name: string
-  country_code: CountryCodeType
-  groups: DataCenter[]
-}

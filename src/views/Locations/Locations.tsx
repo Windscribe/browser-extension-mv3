@@ -4,6 +4,7 @@ import { Column } from 'components/Flexbox'
 import { ScrollableBox } from 'components'
 import Header from './Header'
 import LocationsList from './LocationsList'
+import FavouritesList from './FavouritesList'
 import type { ThemeUiElement } from 'utils/types'
 import type { DebouncedInputOnChangeHandler, Tab, SetTab } from './types'
 
@@ -43,7 +44,7 @@ const Locations: ThemeUiElement = () => {
         {
           {
             locations: <LocationsList searchText={searchText} />,
-            favourites: null, // will be implemented later
+            favourites: <FavouritesList />,
           }[currentTab]
         }
       </ScrollableBox>

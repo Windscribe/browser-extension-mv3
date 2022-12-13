@@ -20,6 +20,7 @@ import currentLocationReducer from './slices/currentLocation'
 import locationSortingReducer from './slices/locationSorting'
 import currentDataCenterReducer from './slices/currentDataCenter'
 import serverCredentialsReducer from './slices/serverCredentials'
+import favoriteLocationsReducer from './slices/favoriteLocations'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -30,11 +31,12 @@ const reducers = {
   currentDataCenter: currentDataCenterReducer,
   currentLocation: currentLocationReducer,
   debugLog: debugLogReducer,
-  newsfeed: newsfeedReducer,
+  favoriteLocations: favoriteLocationsReducer,
   locationSorting: locationSortingReducer,
+  newsfeed: newsfeedReducer,
   proxy: proxyReducer,
-  servers: serversReducer,
   serverCredentials: serverCredentialsReducer,
+  servers: serversReducer,
   session: sessionReducer,
   view: viewReducer,
   whitelist: whitelistReducer,
