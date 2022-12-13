@@ -6,12 +6,8 @@ const FavoritesList: React.FC = () => {
 
   return (
     <>
-      {favorites.map((dataCenter, i) => (
-        <DataCenterItem
-          data-testid={`favorites-locations-list-item-${i}`} // TODO Check if using
-          key={dataCenter.id}
-          dataCenter={dataCenter}
-        />
+      {favorites.map(dataCenter => (
+        <DataCenterItem key={dataCenter.id} dataCenter={dataCenter} />
       ))}
     </>
   )
