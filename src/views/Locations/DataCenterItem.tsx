@@ -75,6 +75,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
       }}
     >
       <IconButton
+        data-testid="heart-icon-button"
         onClick={handleHeartIconClick}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

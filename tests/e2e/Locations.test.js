@@ -122,6 +122,34 @@ describe('Locations', () => {
     await popupPage.waitForTimeout(1000)
   })
 
+  it('Should add location to favorite by clicking on heart button ', async () => {
+    // Ensure that we are on Locations page
+    await popupPage.waitForSelector('[data-testid=locations-page]')
+
+    // Click on Accordion Summary element
+    const locationsListFirstItem = await popupPage.waitForSelector(
+      '[data-testid=locations-list-item-0]',
+    )
+    await locationsListFirstItem.click()
+
+    // Choose a location
+    const cityElement = await locationsListFirstItem.$('[data-testid=data-center-city]')
+    const heartButton = await locationsListFirstItem.$('[data-testid=heart-icon-button]')
+    const expectedCity = await cityElement.evaluate(el => el.textContent)
+    await heartButton.click()
+
+    // Go to Favorites
+    const favoritesTabButton = await popupPage.$('[data-testid="favorites-tab"]')
+    await favoritesTabButton.click()
+    const cityInFavorite = await popupPage.$('[data-testid=data-center-city]')
+    const cityInFavoriteName = await cityInFavorite.evaluate(el => el.textContent)
+    expect(cityInFavoriteName).toEqual(expectedCity)
+
+    //Go back to Home page
+    await popupPage.waitForTimeout(1000)
+    await popupPage.click('[data-testid=locations-tab]')
+  })
+
   it('Navigates to Locations page, opens a country/region accordion and selects location', async () => {
     // Ensure that we are on Locations page
     await popupPage.waitForSelector('[data-testid=locations-page]')
@@ -150,7 +178,7 @@ describe('Locations', () => {
     const expectedCity = await cityElement.evaluate(el => el.textContent)
     const expectedNick = await nickElement.evaluate(el => el.textContent)
 
-    await locationsFirstItem.click()
+    await cityElement.click()
 
     // Verify that we were redirected on Home page after a location was chosen
     await popupPage.waitForSelector('[data-testid=home-page]')

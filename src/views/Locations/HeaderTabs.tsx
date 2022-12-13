@@ -17,6 +17,7 @@ const HeaderTabs: React.FC<HeaderTabsProps> = ({ currentTab, isSearching, setTab
     <Box>
       <IconButton
         role="tab"
+        data-testid="locations-tab"
         aria-selected={currentTab === 'locations'}
         active={currentTab === 'locations'}
         onClick={() => setTab('locations')}
@@ -26,6 +27,7 @@ const HeaderTabs: React.FC<HeaderTabsProps> = ({ currentTab, isSearching, setTab
       {!isSearching && (
         <IconButton
           role="tab"
+          data-testid="favorites-tab"
           aria-selected={currentTab === 'favorites'}
           active={currentTab === 'favorites'}
           onClick={() => setTab('favorites')}
