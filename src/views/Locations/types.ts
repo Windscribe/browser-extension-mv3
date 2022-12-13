@@ -23,7 +23,7 @@ export type HeaderActionsSectionProps = SearchInputProps & {
   showSearchInput: boolean
 }
 
-export type Tab = 'locations' | 'favourites'
+export type Tab = 'locations' | 'favorites'
 export type SetTab = (tab: Tab) => void
 
 export type HeaderTabsProps = {

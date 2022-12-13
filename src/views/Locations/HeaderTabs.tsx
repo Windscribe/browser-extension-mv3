@@ -26,9 +26,9 @@ const HeaderTabs: React.FC<HeaderTabsProps> = ({ currentTab, isSearching, setTab
       {!isSearching && (
         <IconButton
           role="tab"
-          aria-selected={currentTab === 'favourites'}
-          active={currentTab === 'favourites'}
-          onClick={() => setTab('favourites')}
+          aria-selected={currentTab === 'favorites'}
+          active={currentTab === 'favorites'}
+          onClick={() => setTab('favorites')}
         >
           <FavLocationsIcon />
         </IconButton>
