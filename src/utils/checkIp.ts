@@ -5,7 +5,7 @@ export default async function checkIp(workingApi: string): Promise<string> {
     const timeoutId = setTimeout(() => controller.abort(), 3000)
 
     const res = await fetch(
-      `https://checkip.${workingApi.includes('staging') ? 'windscribe.com' : workingApi}`,
+      `https://checkip.${process.env.NODE_ENV !== 'production' ? 'windscribe.com' : workingApi}`,
       {
         signal: controller.signal,
       },
