@@ -63,9 +63,9 @@ const Home: ThemeUiElement = () => {
     if (isConnected) {
       await dispatch(disconnectProxy())
     } else {
-      const hostname = currentDataCenter?.hosts?.[0].hostname
-      if (!autopilotSelected && hostname) {
-        await dispatch(connectProxy(hostname))
+      const hosts = currentDataCenter?.hosts
+      if (!autopilotSelected && hosts) {
+        await dispatch(connectProxy(hosts))
       } else {
         await dispatchAlias(CONNECT_TO_AUTOPILOT)
       }
@@ -125,11 +125,16 @@ const Home: ThemeUiElement = () => {
                 transition: 'scale ease 0.3s',
                 ':hover': { scale: '1.03' },
               }}
+              data-testid="go-to-newsfeed-button"
               variant="simple"
               onClick={goToNewsfeed}
             >
               <Logo sx={{ fill: 'white' }} />
-              <Badge count={unreadNewsAmount} sx={{ top: '-7px', right: '-14px' }} />
+              <Badge
+                data-testid="newsfeed-badge"
+                count={unreadNewsAmount}
+                sx={{ top: '-7px', right: '-14px' }}
+              />
             </Button>
           </Flex>
           <HeaderBlade

@@ -28,7 +28,7 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
     dispatch(setCurrentLocation(location))
     dispatch(setCurrentDataCenter(dataCenter))
     dispatch(setAutopilotSelected(false))
-    dispatch(connectProxy(dataCenter.hosts[0].hostname))
+    dispatch(connectProxy(dataCenter.hosts))
     goToHome()
   }
 

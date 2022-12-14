@@ -1,17 +1,18 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
+import { Host } from 'api/types'
 
 import { connect, disconnect } from 'utils/proxyConfig'
 import { createBypassList } from 'utils/createBypassList'
 
 interface ProxyState {
   isConnected: boolean
-  host: string | undefined
+  hosts: Host[] | undefined
   errorMessage?: string
 }
 
 const initialState: ProxyState = {
   isConnected: false,
-  host: undefined,
+  hosts: undefined,
   errorMessage: undefined,
 }
 
@@ -20,8 +21,8 @@ export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 
 export const connectProxy = createAsyncThunk(
   CONNECT_PROXY,
-  async (host: string, { dispatch, getState }) => {
-    if (!host) {
+  async (hosts: Host[], { dispatch, getState }) => {
+    if (hosts.length === 0) {
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }
 
@@ -40,12 +41,12 @@ export const proxySlice = createSlice({
   name: 'proxy',
   initialState,
   reducers: {
-    setProxy(state, action: PayloadAction<string>) {
-      state.host = action.payload
+    setProxy(state, action: PayloadAction<Host[]>) {
+      state.hosts = action.payload
       state.errorMessage = undefined
     },
     resetProxy(state) {
-      state.host = undefined
+      state.hosts = undefined
       state.isConnected = false
       state.errorMessage = undefined
     },
