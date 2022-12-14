@@ -1,6 +1,7 @@
 import type { RootState } from './store'
 import type { Autopilot, Location, DataCenter } from 'api/types'
 
+// TODO Consider to move selectors to slices
 export const selectAutopilot = (state: RootState): Autopilot | null => {
   if (!state.currentLocation.id || !state.currentDataCenter.id) return null
   return {

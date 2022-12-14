@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Highlighter from 'react-highlight-words'
 import { Box, Text, Flex, type BoxProps } from 'theme-ui'
 
 import { FlagIcon, Rectangle } from 'components'
@@ -15,12 +16,14 @@ import { type Location } from 'api/types'
 
 type LocationsListItemProps = BoxProps & {
   location: Location
+  searchText?: string
   isAutopilot?: boolean
   currentlySelected?: boolean
 }
 
 const LocationsListItem: React.FC<LocationsListItemProps> = ({
   location,
+  searchText = '',
   isAutopilot = false,
   currentlySelected = false,
   ...props
@@ -28,6 +31,10 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   const [isExpanded, setIsExpanded] = useState(currentlySelected && !isAutopilot)
   const dispatchAlias = useDispatchAlias()
   const goToHome = useGoTo('Home')
+
+  useEffect(() => {
+    if (searchText && location.groups.length) setIsExpanded(true)
+  }, [searchText, location.groups.length])
 
   const Flag: React.ElementType = flags[isAutopilot ? 'AUTO' : location.country_code]
 
@@ -71,7 +78,11 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
               marginLeft: '16px',
             }}
           >
-            {isAutopilot ? 'Autopilot' : location?.name}
+            {isAutopilot ? (
+              'Autopilot'
+            ) : (
+              <Highlighter searchWords={[searchText]} textToHighlight={location?.name} />
+            )}
           </Text>
         </Flex>
         <Box
@@ -83,7 +94,13 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
           {isAutopilot ? <ArrowRightIcon /> : <PlusIcon />}
         </Box>
       </Rectangle>
-      {isExpanded && <LocationsListItemDetails location={location} dataCenters={location.groups} />}
+      {isExpanded && (
+        <LocationsListItemDetails
+          location={location}
+          dataCenters={location.groups}
+          searchText={searchText}
+        />
+      )}
     </Box>
   )
 }

@@ -27,6 +27,10 @@ export const theme: Theme = {
       body: {
         fontSize: '14px',
       },
+      mark: {
+        backgroundColor: 'warmGrey',
+        color: 'primaryText',
+      },
       height: 'auto',
       backgroundColor: 'white',
     },

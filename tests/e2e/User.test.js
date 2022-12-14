@@ -31,9 +31,70 @@ describe('User', () => {
     expect(homePage).toBeTruthy()
   })
 
-  it('Navigates to Locations page, opens a country/region accordion and selects location', async () => {
+  it('Should show countries and cities that match search string', async () => {
+    // Ensure that we are on Locations page
     popupPage.click('[data-testid=globe-button]')
+    await popupPage.waitForSelector('[data-testid=locations-page]')
+    await popupPage.waitForTimeout(3000)
 
+    // Ensure we have 3 location + autopilot
+    let locationsList = await popupPage.$('[data-testid=locations-list]')
+    let children = await locationsList.evaluate(el => el.children.length)
+    expect(children).toEqual(4)
+
+    // Type text to search
+    await popupPage.click('[data-testid=location-search-button]')
+    await popupPage.type('[data-testid=location-search-input]', 'ca')
+    await popupPage.waitForTimeout(500)
+
+    // Ensure we have only 1 location with 'ca' substring included - "Canada  East"
+    locationsList = await popupPage.$('[data-testid=locations-list]')
+    children = await locationsList.evaluate(el => el.children.length)
+    expect(children).toEqual(1)
+    let expectedLocation = await locationsList.evaluate(el => el.textContent)
+    expect(expectedLocation).toEqual('Canada East')
+
+    // Reset input field value
+    await popupPage.focus('[data-testid=location-search-input]')
+    await popupPage.keyboard.down('Backspace')
+    await popupPage.keyboard.down('Backspace')
+
+    // Type new text to search
+    await popupPage.type('[data-testid=location-search-input]', 'on')
+    await popupPage.waitForTimeout(500)
+
+    // Ensure we found 3 cities with 'on' substring included
+    locationsList = await popupPage.$('[data-testid=locations-list]')
+    children = await locationsList.evaluate(el => el.children.length)
+    expect(children).toEqual(3)
+    const dataCentersList = await locationsList.$$('[data-testid=accordion-details-list]')
+    const dataCentersNames = await Promise.all(
+      dataCentersList.map(dataCenter => dataCenter.evaluate(el => el.textContent)),
+    )
+    expect(dataCentersNames.toString()).toEqual(
+      'Toronto Skydome,Boston The Wahlberg,Pyongyang Hennessey',
+    )
+
+    // Reset input field value
+    await popupPage.focus('[data-testid=location-search-input]')
+    await popupPage.keyboard.down('Backspace')
+    await popupPage.keyboard.down('Backspace')
+
+    // Type new text to search
+    await popupPage.type('[data-testid=location-search-input]', 'Terra Incognita')
+    await popupPage.waitForTimeout(500)
+
+    // Ensure we show a message if no match was found
+    locationsList = await popupPage.$('[data-testid=locations-list]')
+    const expectedMessage = await locationsList.evaluate(el => el.textContent)
+    expect(expectedMessage).toEqual('No Results :(')
+
+    // Reset input field value
+    await popupPage.$eval('[data-testid=location-search-input]', el => (el.value = ''))
+    await popupPage.click('[data-testid=locations-list]')
+  })
+
+  it('Navigates to Locations page, opens a country/region accordion and selects location', async () => {
     // Ensure that we are on Locations page
     await popupPage.waitForSelector('[data-testid=locations-page]')
 
@@ -56,13 +117,10 @@ describe('User', () => {
 
     // Choose a location
     let locationsFirstItem = await popupPage.$('[data-testid=accordion-details-list] > li')
-    const spans = await locationsFirstItem.$$('span')
-    const expectedCity = await spans[0].evaluate(el => el.textContent)
-    const expectedNick = await spans[1].evaluate(el => el.textContent)
-
-    console.log('expectedCity', expectedCity)
-    console.log('expectedNick', expectedNick)
-    console.log('locationsFirstItem', locationsFirstItem)
+    let cityElement = await locationsFirstItem.$('[data-testid=data-center-city]')
+    let nickElement = await locationsFirstItem.$('[data-testid=data-center-nick]')
+    const expectedCity = await cityElement.evaluate(el => el.textContent)
+    const expectedNick = await nickElement.evaluate(el => el.textContent)
 
     await locationsFirstItem.click()
 
@@ -70,10 +128,10 @@ describe('User', () => {
     await popupPage.waitForSelector('[data-testid=home-page]')
 
     // Verify that location is equal to chosen
-    const cityElement = await popupPage.$('[data-testid=city]')
+    cityElement = await popupPage.$('[data-testid=city]')
     const city = await cityElement.evaluate(el => el.textContent)
     expect(city).toEqual(expectedCity)
-    const nickElement = await popupPage.$('[data-testid=nick]')
+    nickElement = await popupPage.$('[data-testid=nick]')
     const nick = await nickElement.evaluate(el => el.textContent)
     expect(nick).toEqual(expectedNick)
 
