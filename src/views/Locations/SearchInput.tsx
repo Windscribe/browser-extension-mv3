@@ -86,6 +86,7 @@ const SearchInput: React.FC<SearchInputProps> = memo(
           />
           <Input
             ref={inputRef}
+            data-testid="location-search-input"
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={onSearchInputChange}
@@ -109,6 +110,7 @@ const SearchInput: React.FC<SearchInputProps> = memo(
           />
           <Button
             variant="circle"
+            data-testid="location-search-button"
             onClick={handleIconClick}
             sx={{
               transition: 'all 0.3s ease 0s',
