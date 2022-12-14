@@ -27,8 +27,8 @@ export const connectProxy = createAsyncThunk(
     }
 
     const bypassList = createBypassList(getState())
-    await connect(host, bypassList)
-    dispatch(setProxy(host))
+    await connect(hosts, bypassList)
+    dispatch(setProxy(hosts))
   },
 )
 
