@@ -16,7 +16,7 @@ const getProxyList = (hosts: Host[]) => {
 }
 
 const createFindProxyForURLFunction = (hosts: Host[], whitelist: string[]) => {
-  const pac = `
+  return `
   function FindProxyForURL (url, host) {
     function shouldNotProxy(url, host, userWhitelist) {
       let lanIps = /(^(127|10)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$)|(^192\\.168\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.1[6-9]\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.2[0-9]\\.\\d{1,3}\.\\d{1,3}$)|(^172\\.3[0-1]\\.\\d{1,3}\\.\\d{1,3}$)/
@@ -46,7 +46,6 @@ const createFindProxyForURLFunction = (hosts: Host[], whitelist: string[]) => {
     return '${getProxyList(hosts)}'
   }
 `
-  return pac
 }
 
 export const connect = async (hosts: Host[], whitelist: string[]): Promise<void> => {
