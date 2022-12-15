@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import { Host } from 'api/types'
 
 import { connect, disconnect } from 'utils/proxyConfig'
-import { createWhitelist } from 'utils/createWhitelist'
+import { reduceWhitelist } from 'utils/reduceWhitelist'
 
 interface ProxyState {
   isConnected: boolean
@@ -26,7 +26,7 @@ export const connectProxy = createAsyncThunk(
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }
 
-    const whitelist = createWhitelist(getState())
+    const whitelist = reduceWhitelist(getState())
     await connect(hosts, whitelist)
     dispatch(setProxy(hosts))
   },
