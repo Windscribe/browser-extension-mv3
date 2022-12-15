@@ -16,37 +16,35 @@ const getProxyList = (hosts: Host[]) => {
 }
 
 const createFindProxyForURLFunction = (hosts: Host[], whitelist: string[]) => {
-  const pac = `
+  return `
   function FindProxyForURL (url, host) {
-    function shouldNotProxy(url, host, userWhitelist) {
-      let lanIps = /(^(127|10)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$)|(^192\\.168\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.1[6-9]\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.2[0-9]\\.\\d{1,3}\.\\d{1,3}$)|(^172\\.3[0-1]\\.\\d{1,3}\\.\\d{1,3}$)/
+    const userWhitelist = ${JSON.stringify(whitelist)}
+    const lanIps = /(^(127|10)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$)|(^192\\.168\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.1[6-9]\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.2[0-9]\\.\\d{1,3}\.\\d{1,3}$)|(^172\\.3[0-1]\\.\\d{1,3}\\.\\d{1,3}$)/
+    const whitelist = [
+      '*://api.windscribe.com/*',
+      '*://assets.windscribe.com/*',
+      '*://*.staticnetcontent.com/*',
+      '*://api.totallyacdn.com/*',
+      '*://assets.totallyacdn.com/*',
+      'https://windscribe.com/installed/*',
+    ].concat(userWhitelist)
 
-      let whitelist = [
-        '*://api.windscribe.com/*',
-        '*://assets.windscribe.com/*',
-        '*://*.staticnetcontent.com/*',
-        '*://api.totallyacdn.com/*',
-        '*://assets.totallyacdn.com/*',
-        'https://windscribe.com/installed/*',
-      ].concat(userWhitelist)
+    const shouldNotProxy = [
+      // if it is NOT an allowed protocol then go direct
+      // TODO: how to test local protocols?
+      ['http', 'ftp', 'ws'].every(protocol => !url.startsWith(protocol)),
+      isPlainHostName(host),
+      lanIps.test(host),
+      whitelist.some(pattern =>  shExpMatch(url, pattern)),
+    ].some(_ => _)
 
-      return [
-        isPlainHostName(host),
-        // if it is NOT an allowed protocol then go direct
-        // TODO: how to test local protocols?
-        ['http', 'ftp', 'ws'].every(protocol => !url.startsWith(protocol)),
-        lanIps.test(host),
-        whitelist.some(pattern => shExpMatch(url, pattern)),
-      ].some(_ => _)
-    }
-    let whitelist = ${JSON.stringify(whitelist)}
-    if (shouldNotProxy(url, host, whitelist)) {
+    if (shouldNotProxy) {
       return 'DIRECT'
     }
+
     return '${getProxyList(hosts)}'
   }
 `
-  return pac
 }
 
 export const connect = async (hosts: Host[], whitelist: string[]): Promise<void> => {
@@ -54,8 +52,10 @@ export const connect = async (hosts: Host[], whitelist: string[]): Promise<void>
     mode: 'pac_script',
     pacScript: {
       data: createFindProxyForURLFunction(hosts, whitelist),
+      mandatory: true,
     },
   }
+
   return chrome.proxy.settings.set({ value: config, scope: 'regular' }, function () {})
 }
 
