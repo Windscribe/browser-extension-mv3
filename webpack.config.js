@@ -30,12 +30,10 @@ const options = {
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
     background: path.join(__dirname, 'src', 'pages', 'background', 'index.ts'),
     contentScript: path.join(__dirname, 'src', 'pages', 'content', 'index.js'),
-    devtools: path.join(__dirname, 'src', 'pages', 'devtools', 'index.js'),
-    panel: path.join(__dirname, 'src', 'pages', 'panel', 'index.jsx'),
     debugLog: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.tsx'),
   },
   chromeExtensionBoilerplate: {
-    notHotReload: ['background', 'contentScript', 'devtools'],
+    notHotReload: ['background', 'contentScript', 'popup'], // TODO check
   },
   output: {
     filename: '[name].bundle.js',
@@ -195,18 +193,6 @@ const options = {
       template: path.join(__dirname, 'src', 'pages', 'popup', 'index.html'),
       filename: 'popup.html',
       chunks: ['popup'],
-      cache: false,
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'devtools', 'index.html'),
-      filename: 'devtools.html',
-      chunks: ['devtools'],
-      cache: false,
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'panel', 'index.html'),
-      filename: 'panel.html',
-      chunks: ['panel'],
       cache: false,
     }),
     new HtmlWebpackPlugin({

@@ -30,7 +30,6 @@
       "css": ["content.styles.css"]
     }
   ],
-  "devtools_page": "devtools.html",
   "default_locale": "en",
   "web_accessible_resources": [
     {
