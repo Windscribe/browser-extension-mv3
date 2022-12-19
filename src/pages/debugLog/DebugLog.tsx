@@ -1,14 +1,15 @@
+import UAParser from 'ua-parser-js'
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Flex, Label } from 'theme-ui'
+
 import { ToggleSwitch } from 'components'
 import { useSelector, useDispatch } from 'state/hooks'
 import { clearDebugLog } from 'state/slices/debugLog'
 import './DebugLog.css'
-import UAParser from 'ua-parser-js'
 
 const DebugLog: React.FC = () => {
   const dispatch = useDispatch()
-  const log = useSelector(s => s.debugLog.log)
+  const log = useSelector(s => s.debugLog)
   const autoConnect = useSelector(s => s.connection.autoConnect)
   const contextMenu = useSelector(s => s.contextMenu)
 
@@ -37,6 +38,7 @@ Failover: ${failover}`
     }
   }, [isAutoScroll, log])
 
+  // TODO Add filtering by tag, by level, by time
   return (
     <Box data-testid="debug-page">
       <Flex

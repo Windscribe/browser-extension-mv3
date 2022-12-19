@@ -1,14 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LogItem } from 'utils/types'
 
-interface DebugLogState {
-  log: string[]
-}
+type DebugLogState = string[]
 
-// TODO refactor and remove log
-const initialState: DebugLogState = {
-  log: [],
-}
+const initialState: DebugLogState = []
 
 export const debugLogSlice = createSlice({
   name: 'debugLog',
@@ -26,10 +21,10 @@ export const debugLogSlice = createSlice({
       }
       logItem += '\n'
 
-      state.log = [...state.log, logItem]
+      return [...state, logItem]
     },
-    clearDebugLog(state) {
-      state.log = []
+    clearDebugLog() {
+      return []
     },
   },
 })
