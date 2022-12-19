@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { LogInfo } from 'utils/types'
+import { LogItem } from 'utils/types'
 
 interface DebugLogState {
   log: string[]
 }
 
+// TODO refactor and remove log
 const initialState: DebugLogState = {
   log: [],
 }
@@ -13,10 +14,17 @@ export const debugLogSlice = createSlice({
   name: 'debugLog',
   initialState,
   reducers: {
-    pushToDebugLog(state, action: PayloadAction<LogInfo>) {
-      const logItem = `${new Date().toLocaleString()} [${action.payload.tag || 'popup'}] [${
-        action.payload.level || 'INFO'
-      }] ${action.payload.message}\n`
+    pushToDebugLog(state, action: PayloadAction<LogItem>) {
+      const { tag, level, message, data } = action.payload
+
+      let logItem = `${new Date().toLocaleString()} [${tag || 'popup'}] [${
+        level || 'INFO'
+      }] ${message}.`
+
+      if (action.payload.hasOwnProperty('data')) {
+        logItem += ` [Data]: ${JSON.stringify(data)}`
+      }
+      logItem += '\n'
 
       state.log = [...state.log, logItem]
     },

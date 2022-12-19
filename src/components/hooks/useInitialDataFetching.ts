@@ -20,11 +20,6 @@ export default (): void => {
   const newsfeedLoading = useSelector(state => state.newsfeed.loading)
 
   useEffect(() => {
-    console.log(
-      '%c useEffect FETCH_SERVER_CREDENTIALS',
-      'background: #383E49; color: #1ADEAE',
-      sessionAuthHash,
-    )
     // TODO  Despite serverCredentials was not changed it could FETCH_SERVER_CREDENTIALS every time user navigates on Home
     // it need to be fixed
     if (sessionAuthHash) {

@@ -33,13 +33,24 @@ type OnlyFirst<T, U> = {
 }
 export type Either<T, U> = OnlyFirst<T, U> | OnlyFirst<U, T>
 
-export type LogInfo = {
+type NotFunction =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | bigint
+  | readonly any[]
+  | { apply?: never; [k: string]: any }
+
+export type LogItem = {
   tag?: LogTag
   level?: LogLevel
+  data?: NotFunction
   message: string
 }
 
-type LogTag = 'popup' | 'background'
+export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript'
 
 type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 
