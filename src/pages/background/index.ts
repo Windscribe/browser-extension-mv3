@@ -9,7 +9,7 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectToAutopilot } from 'state/slices/autopilot'
 
 const bgStore = initializeWrappedStore().then(store => {
-  store.dispatch(pushToDebugLog({ message: 'Bg store was initialized' }))
+  store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
   return store
 })
 
@@ -68,6 +68,7 @@ chrome.proxy.onProxyError.addListener(async e => {
     pushToDebugLog({
       level: 'ERROR',
       message: 'onProxyError',
+      tag: 'background',
       data: e,
     }),
   )

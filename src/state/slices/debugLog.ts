@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { LogItem } from 'utils/types'
 
-type DebugLogState = string[]
+type DebugLogState = LogItem[]
 
 const initialState: DebugLogState = []
 
@@ -10,24 +10,29 @@ export const debugLogSlice = createSlice({
   initialState,
   reducers: {
     pushToDebugLog(state, action: PayloadAction<LogItem>) {
-      const { tag, level, message, data } = action.payload
+      const { tag = 'popup', level = 'INFO', message, data } = action.payload
 
-      let logItem = `${new Date().toLocaleString()} [${tag || 'popup'}] [${
-        level || 'INFO'
-      }] ${message}.`
-
-      if (action.payload.hasOwnProperty('data')) {
-        logItem += ` [Data]: ${JSON.stringify(data)}`
+      const logItem = {
+        date: new Date().toLocaleString(),
+        tag,
+        level,
+        message,
+        data,
       }
-      logItem += '\n'
-
-      return [...state, logItem]
+      state.push(logItem)
     },
     clearDebugLog() {
       return []
     },
   },
 })
+
+export function parseLogToStrings(log: LogItem[]): string[] {
+  return log.map(logItem => {
+    const { date, tag, level, message, data } = logItem
+    return `${date} [${tag}] [${level}] ${message}. [Data]: ${JSON.stringify(data)} \n`
+  })
+}
 
 export const { pushToDebugLog, clearDebugLog } = debugLogSlice.actions
 export default debugLogSlice.reducer

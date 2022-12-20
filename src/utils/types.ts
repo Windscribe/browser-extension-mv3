@@ -44,6 +44,7 @@ type NotFunction =
   | { apply?: never; [k: string]: any }
 
 export type LogItem = {
+  date?: string
   tag?: LogTag
   level?: LogLevel
   data?: NotFunction
@@ -52,7 +53,7 @@ export type LogItem = {
 
 export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript'
 
-type LogLevel = 'INFO' | 'ERROR' | 'WARN'
+export type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 
 /*
   This module augments createAsyncThunk with our root state and app dispatch
