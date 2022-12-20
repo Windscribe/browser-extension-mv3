@@ -1,6 +1,6 @@
 import getErrorMessage from 'utils/getErrorMessage'
 import { initializeWrappedStore } from 'state'
-import { connectProxy, disconnectProxy, setConnectionError } from 'state/slices/proxy'
+import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
 import { pushToDebugLog } from 'state/slices/debugLog'
 import browserApi from 'services/browserApi'
 import { addContextMenuItem } from 'services/contextMenu'
@@ -42,8 +42,7 @@ async function onStartupCallback() {
 
     const authHash = store.getState().session.session_auth_hash
     if (!authHash) {
-      // TODO Here and below rename to handleConnection error. create function that logs and set an error
-      store.dispatch(setConnectionError('No session auth hash is available'))
+      store.dispatch(handleConnectionError('No session auth hash is available'))
       return
     }
 
@@ -57,7 +56,7 @@ async function onStartupCallback() {
     await store.dispatch(connectToAutopilot())
   } catch (err) {
     const message = getErrorMessage(err)
-    store?.dispatch(setConnectionError(message))
+    store?.dispatch(handleConnectionError(message))
   }
 }
 

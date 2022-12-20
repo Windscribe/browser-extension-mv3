@@ -1,8 +1,10 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
-import { Host } from 'api/types'
+import { createSlice, createAsyncThunk, type PayloadAction, type Dispatch } from '@reduxjs/toolkit'
 
+import type { Host } from 'api/types'
 import { connect, disconnect } from 'utils/proxyConfig'
 import { reduceWhitelist } from 'utils/reduceWhitelist'
+import type { SyncThunkCreator } from 'utils/types'
+import { pushToDebugLog } from './debugLog'
 
 interface ProxyState {
   isConnected: boolean
@@ -36,6 +38,16 @@ export const disconnectProxy = createAsyncThunk(DISCONNECT_PROXY, async (_, { di
   await disconnect()
   dispatch(resetProxy())
 })
+
+export const handleConnectionError: SyncThunkCreator<string> = errorMessage => {
+  const action = (dispatch: Dispatch) => {
+    dispatch(pushToDebugLog({ message: errorMessage, level: 'ERROR' }))
+    dispatch(setConnectionError(errorMessage))
+  }
+  // Add type manually to view this action in a debugLog
+  action.type = 'proxy/handleConnectionError'
+  return action
+}
 
 export const proxySlice = createSlice({
   name: 'proxy',

@@ -16,7 +16,6 @@ import blockerReducer from './slices/blocker'
 import sessionReducer from './slices/session'
 import serversReducer from './slices/servers'
 import newsfeedReducer from './slices/newsfeed'
-import debugLogReducer, { pushToDebugLog } from './slices/debugLog'
 import whitelistReducer from './slices/whitelist'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
@@ -26,6 +25,7 @@ import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
 import currentDataCenterReducer from './slices/currentDataCenter'
 import serverCredentialsReducer from './slices/serverCredentials'
+import debugLogReducer, { pushToDebugLog } from './slices/debugLog'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -76,6 +76,7 @@ const debugLogMiddleware: Middleware<Dispatch, RootState> = store => next => act
 
     const logItem: LogItem = { message, tag }
     if (action.payload) logItem.data = action.payload
+    if (action.type.includes('/rejected')) logItem.level = 'WARN' // Or should it be ERROR ?
     store.dispatch(pushToDebugLog(logItem))
   }
   return next(action)

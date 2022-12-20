@@ -1,4 +1,9 @@
-import type { AsyncThunkPayloadCreator, AsyncThunkOptions, AsyncThunk } from '@reduxjs/toolkit'
+import type {
+  AsyncThunkPayloadCreator,
+  AsyncThunkOptions,
+  AsyncThunk,
+  Dispatch,
+} from '@reduxjs/toolkit'
 import debounce from 'lodash.debounce'
 import { type ThemeUIJSX } from '@theme-ui/core'
 
@@ -80,5 +85,7 @@ declare module '@reduxjs/toolkit' {
     options?: AsyncThunkOptions<ThunkArg, ThunkApiConfig>,
   ): AsyncThunk<Returned, ThunkArg, ThunkApiConfig>
 }
+
+export type SyncThunkCreator<PayloadType> = (p: PayloadType) => (d: Dispatch) => void
 
 export type InputChangeHandler = React.EventHandler<React.ChangeEvent<HTMLInputElement>>

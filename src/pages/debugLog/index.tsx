@@ -3,7 +3,6 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from 'theme-ui'
 
 import theme from 'styles'
-import log from 'utils/log'
 import DebugLog from './DebugLog'
 import proxyStore from 'pages/proxyStore'
 import { pushToDebugLog } from 'state/slices/debugLog'
@@ -36,7 +35,6 @@ proxyStore
         data: err,
       }),
     )
-    log('Error while rendering UI: ', err, 'error')
   })
 
 /*
