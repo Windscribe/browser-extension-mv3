@@ -9,7 +9,7 @@ import { clearDebugLog, parseLogToStrings } from 'state/slices/debugLog'
 import type { LogItem, LogLevel, LogTag } from 'utils/types'
 import './DebugLog.css'
 
-type OrNone<T> = T | 'none'
+type OrAny<T> = T | 'any'
 
 const DebugLog: React.FC = () => {
   const dispatch = useDispatch()
@@ -20,8 +20,8 @@ const DebugLog: React.FC = () => {
   const failover = useSelector(s => s.connection.failover)
   const [isAutoScroll, setIsAutoScroll] = useState(false)
   const [isShowUserInfo, setIsShowUserInfo] = useState(false)
-  const [tagOption, setTagOption] = useState<OrNone<LogTag>>('none')
-  const [levelOption, setLevelOption] = useState<OrNone<LogLevel>>('none')
+  const [tagOption, setTagOption] = useState<OrAny<LogTag>>('any')
+  const [levelOption, setLevelOption] = useState<OrAny<LogLevel>>('any')
   const [parsedLog, setParsedLog] = useState<string[]>([])
 
   const parser = new UAParser(navigator.userAgent)
@@ -47,10 +47,10 @@ Failover: ${failover}`
 
   useEffect(() => {
     let filteredLog: LogItem[] = log
-    if (tagOption != 'none') {
+    if (tagOption != 'any') {
       filteredLog = filteredLog.filter(logItem => logItem.tag === tagOption)
     }
-    if (levelOption != 'none') {
+    if (levelOption != 'any') {
       filteredLog = filteredLog.filter(logItem => logItem.level === levelOption)
     }
     setParsedLog(parseLogToStrings(filteredLog))
@@ -133,7 +133,7 @@ Failover: ${failover}`
                 value={tagOption}
                 onChange={handleTagFilterChange}
               >
-                <option value="none">none</option>
+                <option value="any">any</option>
                 <option value="popup">popup</option>
                 <option value="background">background</option>
                 <option value="debugLog">debugLog</option>
@@ -153,7 +153,7 @@ Failover: ${failover}`
                 value={levelOption}
                 onChange={handleLevelFilterChange}
               >
-                <option value="none">none</option>
+                <option value="any">any</option>
                 <option value="INFO">info</option>
                 <option value="WARN">warn</option>
                 <option value="ERROR">error</option>
