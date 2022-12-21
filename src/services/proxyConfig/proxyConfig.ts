@@ -1,5 +1,3 @@
-// TODO consider to move this file to services/browserApi
-
 import { Host } from 'api/types'
 
 // get array of hosts if exists (used for fallbacks)

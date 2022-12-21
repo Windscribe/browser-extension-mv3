@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { Box, Button, Flex } from 'theme-ui'
+
+import { sendDebugLog } from 'services'
 import { type ThemeUiElement } from 'utils/types'
-import { Header, OptionBox, ToggleSwitch } from 'components'
-import EllipseIcon from 'assets/img/ellipse.svg'
-import LinkIcon from 'assets/img/link.svg'
-import AutoConnectIcon from 'assets/img/autoconnecticon.svg'
-import DebugMenuIcon from 'assets/img/debugMenu.svg'
-import DebugLogIcon from 'assets/img/debugLog.svg'
 import { useDispatch, useSelector } from 'state/hooks'
 import { setAutoConnect } from 'state/slices/connection'
+import { Header, OptionBox, ToggleSwitch } from 'components'
 import { showDebugContextMenu } from 'state/slices/contextMenu'
-import sendDebugLog from 'utils/sendDebugLog'
+
+import LinkIcon from 'assets/img/link.svg'
+import EllipseIcon from 'assets/img/ellipse.svg'
+import DebugLogIcon from 'assets/img/debugLog.svg'
+import DebugMenuIcon from 'assets/img/debugMenu.svg'
+import AutoConnectIcon from 'assets/img/autoconnecticon.svg'
 
 const General: ThemeUiElement = () => {
   const [sentDebugLog, setSentDebugLog] = useState<string | undefined>(undefined)
