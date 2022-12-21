@@ -2,13 +2,11 @@ import { Box, Flex, Text } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import GoBackButton from './GoBackButton'
 
-interface HeaderProps {
+type HeaderProps = React.PropsWithChildren<{
   title: string
-  RightSideComponent?: React.ReactNode
-}
+}>
 
-// TODO Refactor. Use children instead RightSideComponent
-const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => (
+const Header: ThemeUiElement<HeaderProps> = ({ title, children }) => (
   <Flex
     sx={{
       height: '64px',
@@ -28,7 +26,7 @@ const Header: ThemeUiElement<HeaderProps> = ({ title, RightSideComponent }) => (
     >
       {title}
     </Text>
-    {RightSideComponent || <Box sx={{ width: '32px' }} />}
+    {children || <Box sx={{ width: '32px' }} />}
   </Flex>
 )
 
