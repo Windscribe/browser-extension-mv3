@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
 import type { Autopilot } from 'api/types'
-import { selectLocationByName, findDataCenterById } from '../selectors'
+import type { RootState } from '../store'
+import { selectLocationByName, findDataCenterById } from './servers'
 import { FETCH_BEST_LOCATION } from './bestLocation'
 import { setCurrentLocation } from './currentLocation'
 import { setCurrentDataCenter } from './currentDataCenter'

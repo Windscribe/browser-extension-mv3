@@ -7,7 +7,7 @@ import { getServerList } from 'api/endpoints'
 import type { RootState } from '../store'
 
 interface ServersState {
-  serverList?: Location[] // ServerList
+  serverList?: ServerList
   loading: LoadingState
   error?: ErrorState
 }
@@ -81,10 +81,10 @@ export const serversSlice = createSlice({
 export const selectLocationBySearchText = (
   state: RootState,
   searchText: string,
-): Location[] | undefined => {
+): ServerList | undefined => {
   const isFoundIn = (str: string) => str.toLowerCase().includes(searchText)
 
-  return state.servers?.serverList?.reduce<Location[]>((accumulator, location) => {
+  return state.servers?.serverList?.reduce<ServerList>((accumulator, location) => {
     const groupsThatMatch = location.groups.reduce<DataCenter[]>((accumulator, dataCenter) => {
       if (isFoundIn(dataCenter.city) || isFoundIn(dataCenter.nick)) accumulator.push(dataCenter)
       return accumulator
@@ -96,6 +96,16 @@ export const selectLocationBySearchText = (
     return accumulator
   }, [])
 }
+
+export const selectLocationByName = (
+  state: RootState,
+  locationName: string,
+): Location | undefined => state.servers.serverList?.find(server => server.name === locationName)
+
+export const findDataCenterById = (
+  location: Location,
+  dataCenterId: number,
+): DataCenter | undefined => location?.groups?.find(dataCenter => dataCenter.id === dataCenterId)
 
 export const { setServerList } = serversSlice.actions
 
