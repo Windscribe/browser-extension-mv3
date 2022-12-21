@@ -63,7 +63,12 @@ chrome.proxy.onProxyError.addListener(async e => {
   console.log('%c onProxyError ', 'background: #383E49; color: #1ADEAE', e)
 
   const store = await bgStore
-  const failover = store.getState().connection.failover
+  const { smokeWall, failover } = store.getState().connection
+
+  if (smokeWall) {
+    store.dispatch(disconnectProxy())
+  }
+
   if (failover === 'Auto / Best') {
     await store.dispatch(connectToAutopilot())
   } else if (failover === 'Same Country') {
@@ -78,8 +83,6 @@ chrome.proxy.onProxyError.addListener(async e => {
       store.dispatch(setCurrentDataCenter(newDatacenter))
       store.dispatch(connectProxy(newDatacenter.hosts))
     }
-  } else if (failover === 'None') {
-    store.dispatch(disconnectProxy())
   }
 })
 
