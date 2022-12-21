@@ -83,11 +83,9 @@ export const autopilotSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(applyBestLocationAsAutopilot.rejected, (state, action) => {
       state.errorMessage = `${action.error.name}. ${action.error.message}`
-      // TODO push error Message to debugLog
     })
     builder.addCase(connectToAutopilot.rejected, (state, action) => {
       state.errorMessage = `${action.error.name}. ${action.error.message}`
-      // TODO push error Message to debugLog
     })
   },
 })

@@ -1,8 +1,7 @@
 import { Box } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { ENVS } from 'utils/constants'
-import { Header, RoundedBox, ListItem } from 'components'
-import AccountTitle from './AccountTitle'
+import { Header, RoundedBox, ListItem, Subheader } from 'components'
 import CircleButton from 'components/CircleButton'
 import EditIcon from 'assets/img/edit.svg'
 import { useSelector } from 'state/hooks'
@@ -36,7 +35,7 @@ const Account: ThemeUiElement = () => {
         />
       </Header>
       <Box sx={{ mx: '16px' }}>
-        <AccountTitle title="INFO" />
+        <Subheader>info</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
             Username
@@ -49,7 +48,7 @@ const Account: ThemeUiElement = () => {
             <Box sx={{ fontWeight: '400' }}>{session.email}</Box>
           </ListItem>
         </RoundedBox>
-        <AccountTitle title="PLAN" />
+        <Subheader>plan</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
             {session.traffic_max === -1 ? 'Unlimited' : session.traffic_max} GB
