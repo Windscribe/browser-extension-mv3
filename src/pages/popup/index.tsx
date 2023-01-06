@@ -3,10 +3,10 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from 'theme-ui'
 
 import './index.css'
-import log from 'utils/log'
 import theme from 'styles'
 import Router from 'services/navigation/Router'
 import proxyStore from 'pages/proxyStore'
+import { pushToDebugLog } from 'state/slices/debugLog'
 
 proxyStore
   .ready()
@@ -28,8 +28,14 @@ proxyStore
       ;(window as W).store = proxyStore
     }
   })
-  .catch((err: unknown): void => {
-    log('Error while rendering UI: ', err, 'error')
+  .catch((err: object): void => {
+    proxyStore.dispatch(
+      pushToDebugLog({
+        level: 'ERROR',
+        message: 'Error while rendering Popup',
+        data: err,
+      }),
+    )
   })
 
 /*

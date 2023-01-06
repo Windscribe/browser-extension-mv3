@@ -1,4 +1,9 @@
-import type { AsyncThunkPayloadCreator, AsyncThunkOptions, AsyncThunk } from '@reduxjs/toolkit'
+import type {
+  AsyncThunkPayloadCreator,
+  AsyncThunkOptions,
+  AsyncThunk,
+  Dispatch,
+} from '@reduxjs/toolkit'
 import debounce from 'lodash.debounce'
 import { type ThemeUIJSX } from '@theme-ui/core'
 
@@ -35,15 +40,27 @@ type OnlyFirst<T, U> = {
 }
 export type Either<T, U> = OnlyFirst<T, U> | OnlyFirst<U, T>
 
-export type LogInfo = {
+type NotFunction =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | bigint
+  | readonly any[]
+  | { apply?: never; [k: string]: any }
+
+export type LogItem = {
+  date?: string
   tag?: LogTag
   level?: LogLevel
+  data?: NotFunction
   message: string
 }
 
-type LogTag = 'popup' | 'background'
+export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript'
 
-type LogLevel = 'INFO' | 'ERROR' | 'WARN'
+export type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 
 /*
   This module augments createAsyncThunk with our root state and app dispatch
@@ -70,5 +87,7 @@ declare module '@reduxjs/toolkit' {
     options?: AsyncThunkOptions<ThunkArg, ThunkApiConfig>,
   ): AsyncThunk<Returned, ThunkArg, ThunkApiConfig>
 }
+
+export type SyncThunkCreator<PayloadType> = (p: PayloadType) => (d: Dispatch) => void
 
 export type InputChangeHandler = React.EventHandler<React.ChangeEvent<HTMLInputElement>>

@@ -19,7 +19,7 @@ const General: ThemeUiElement = () => {
   const contextMenu = useSelector(s => s.contextMenu)
   const workingApi = useSelector(s => s.workingApi)
   const session = useSelector(s => s.session)
-  const debugLog = useSelector(s => s.debugLog.log)
+  const debugLog = useSelector(s => s.debugLog)
   const dispatch = useDispatch()
 
   return (

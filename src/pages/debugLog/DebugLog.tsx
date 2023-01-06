@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Button, Flex, Label } from 'theme-ui'
-import { ToggleSwitch } from 'components'
-import { useSelector, useDispatch } from 'state/hooks'
-import { clearDebugLog } from 'state/slices/debugLog'
-import './DebugLog.css'
 import UAParser from 'ua-parser-js'
+import React, { useEffect, useState } from 'react'
+import { Box, Button, Label, Select, Text } from 'theme-ui'
+
+import { ToggleSwitch } from 'components'
+import { AlignItemsCenter } from 'components/Flexbox'
+import { useSelector, useDispatch } from 'state/hooks'
+import { clearDebugLog, parseLogToStrings } from 'state/slices/debugLog'
+import type { LogItem, LogLevel, LogTag } from 'utils/types'
+import './DebugLog.css'
+
+type OrAny<T> = T | 'any'
 
 const DebugLog: React.FC = () => {
   const dispatch = useDispatch()
-  const log = useSelector(s => s.debugLog.log)
+  const log = useSelector(s => s.debugLog)
   const autoConnect = useSelector(s => s.connection.autoConnect)
   const contextMenu = useSelector(s => s.contextMenu)
 
   const failover = useSelector(s => s.connection.failover)
   const [isAutoScroll, setIsAutoScroll] = useState(false)
   const [isShowUserInfo, setIsShowUserInfo] = useState(false)
+  const [tagOption, setTagOption] = useState<OrAny<LogTag>>('any')
+  const [levelOption, setLevelOption] = useState<OrAny<LogLevel>>('any')
+  const [parsedLog, setParsedLog] = useState<string[]>([])
 
   const parser = new UAParser(navigator.userAgent)
 
@@ -37,16 +45,34 @@ Failover: ${failover}`
     }
   }, [isAutoScroll, log])
 
+  useEffect(() => {
+    let filteredLog: LogItem[] = log
+    if (tagOption != 'any') {
+      filteredLog = filteredLog.filter(logItem => logItem.tag === tagOption)
+    }
+    if (levelOption != 'any') {
+      filteredLog = filteredLog.filter(logItem => logItem.level === levelOption)
+    }
+    setParsedLog(parseLogToStrings(filteredLog))
+  }, [log, tagOption, levelOption])
+
+  const handleTagFilterChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
+    setTagOption(e.target.value as LogTag)
+  }
+
+  const handleLevelFilterChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
+    setLevelOption(e.target.value as LogLevel)
+  }
+
   return (
     <Box data-testid="debug-page">
-      <Flex
+      <AlignItemsCenter
         sx={{
           height: '50px',
           backgroundColor: 'background',
           color: 'primaryText',
           width: '100%',
           px: '10px',
-          alignItems: 'center',
           gap: '24px',
         }}
       >
@@ -64,7 +90,7 @@ Failover: ${failover}`
         >
           Show User Info
         </Button>
-      </Flex>
+      </AlignItemsCenter>
       <Button
         sx={{
           cursor: 'pointer',
@@ -85,8 +111,58 @@ Failover: ${failover}`
       </Button>
       <Box sx={{ whiteSpace: 'pre', p: '18px', fontSize: '16px', lineHeight: '30px' }}>
         {userInfo}
+        <Box mt="24px">
+          <h3>Filtered by</h3>
+          <AlignItemsCenter
+            sx={{
+              svg: {
+                marginLeft: '-32px',
+              },
+            }}
+          >
+            <AlignItemsCenter mr="32px">
+              <Text>Tag:</Text>
+              <Select
+                sx={{
+                  mx: '12px',
+                  height: '40px',
+                  py: '4px',
+                  px: '8px',
+                  backgroundColor: 'rgba(2, 13, 28, 0.1)',
+                }}
+                value={tagOption}
+                onChange={handleTagFilterChange}
+              >
+                <option value="any">any</option>
+                <option value="popup">popup</option>
+                <option value="background">background</option>
+                <option value="debugLog">debugLog</option>
+                <option value="contentScript">contentScript</option>
+              </Select>
+            </AlignItemsCenter>
+            <AlignItemsCenter>
+              <Text>Level:</Text>
+              <Select
+                sx={{
+                  mx: '12px',
+                  height: '40px',
+                  py: '4px',
+                  px: '8px',
+                  backgroundColor: 'rgba(2, 13, 28, 0.1)',
+                }}
+                value={levelOption}
+                onChange={handleLevelFilterChange}
+              >
+                <option value="any">any</option>
+                <option value="INFO">info</option>
+                <option value="WARN">warn</option>
+                <option value="ERROR">error</option>
+              </Select>
+            </AlignItemsCenter>
+          </AlignItemsCenter>
+        </Box>
         {`\n\n[Start of log]\n------------------------------------------------------\n`}
-        {log}
+        {parsedLog}
       </Box>
       <Box
         sx={{

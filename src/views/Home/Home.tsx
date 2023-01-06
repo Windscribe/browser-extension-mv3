@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
+import log from 'utils/log'
 import UsageBar from './UsageBar'
 import HeaderButton from './HeaderButton'
 import FlagBackground from './FlagBackground'
 import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
-import { pushToDebugLog } from 'state/slices/debugLog'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
 import { useInitialDataFetching } from 'components/hooks'
@@ -57,8 +57,8 @@ const Home: ThemeUiElement = () => {
   useInitialDataFetching()
 
   const toggleProxy = async () => {
-    // This is example of how to use pushToDebugLog (will remove later)
-    dispatch(pushToDebugLog({ message: 'Proxy toggled ' + (isConnected ? 'off' : 'on') }))
+    // This is example of how to use logger in React components
+    log('Proxy toggled ' + (isConnected ? 'off' : 'on'))
 
     if (isConnected) {
       await dispatch(disconnectProxy())

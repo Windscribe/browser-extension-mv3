@@ -1,7 +1,7 @@
-import log from 'utils/log'
 import getErrorMessage from 'utils/getErrorMessage'
 import { initializeWrappedStore } from 'state'
-import { connectProxy, disconnectProxy, setConnectionError } from 'state/slices/proxy'
+import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
+import { pushToDebugLog } from 'state/slices/debugLog'
 import browserApi from 'services/browserApi'
 import { addContextMenuItem } from 'services/contextMenu'
 import setDebuggerAuth from './debuggerAuth'
@@ -9,11 +9,13 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectToAutopilot } from 'state/slices/autopilot'
 
 const bgStore = initializeWrappedStore().then(store => {
-  log('bg store was initialized')
+  store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
   return store
 })
 
 chrome.storage.onChanged.addListener(function (changes) {
+  if (!changes[1].newValue || !changes[1].oldValue) return
+
   const { username: newUsername, password: newPassword } = changes[1].newValue.serverCredentials
   const { username: oldUsername, password: oldPassword } = changes[1].oldValue.serverCredentials
 
@@ -42,7 +44,7 @@ async function onStartupCallback() {
 
     const authHash = store.getState().session.session_auth_hash
     if (!authHash) {
-      store.dispatch(setConnectionError('No session auth hash is available'))
+      store.dispatch(handleConnectionError('No session auth hash is available'))
       return
     }
 
@@ -56,15 +58,22 @@ async function onStartupCallback() {
     await store.dispatch(connectToAutopilot())
   } catch (err) {
     const message = getErrorMessage(err)
-    store?.dispatch(setConnectionError(message))
+    store?.dispatch(handleConnectionError(message))
   }
 }
 
 chrome.proxy.onProxyError.addListener(async e => {
-  // TODO push error to debugLog
-  console.log('%c onProxyError ', 'background: #383E49; color: #1ADEAE', e)
-
   const store = await bgStore
+
+  store.dispatch(
+    pushToDebugLog({
+      level: 'ERROR',
+      message: 'onProxyError',
+      tag: 'background',
+      data: e,
+    }),
+  )
+
   const failover = store.getState().connection.failover
   if (failover === 'Auto / Best') {
     await store.dispatch(connectToAutopilot())

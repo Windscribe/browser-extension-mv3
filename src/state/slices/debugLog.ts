@@ -1,30 +1,42 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { LogInfo } from 'utils/types'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { LogItem } from 'utils/types'
 
-interface DebugLogState {
-  log: string[]
-}
+type DebugLogState = LogItem[]
 
-const initialState: DebugLogState = {
-  log: [],
-}
+const initialState: DebugLogState = []
 
 export const debugLogSlice = createSlice({
   name: 'debugLog',
   initialState,
   reducers: {
-    pushToDebugLog(state, action: PayloadAction<LogInfo>) {
-      const logItem = `${new Date().toLocaleString()} [${action.payload.tag || 'popup'}] [${
-        action.payload.level || 'INFO'
-      }] ${action.payload.message}\n`
+    pushToDebugLog(state, action: PayloadAction<LogItem>) {
+      const { tag = 'popup', level = 'INFO', message, data } = action.payload
 
-      state.log = [...state.log, logItem]
+      const logItem = {
+        // TODO Consider refactoring. Using Date is a side effect.
+        // Having a side effect inside a reducer is an antipattern
+        date: new Date().toLocaleString(),
+        tag,
+        level,
+        message,
+        data,
+      }
+      state.push(logItem)
     },
-    clearDebugLog(state) {
-      state.log = []
+    clearDebugLog() {
+      return []
     },
   },
 })
+
+export function parseLogToStrings(log: LogItem[]): string[] {
+  return log.map(logItem => {
+    const { date, tag, level, message, data } = logItem
+    let s = `${date} [${tag}] [${level}] ${message}.\n`
+    if (data) s = s.replace('\n', ` [Data]: ${JSON.stringify(data)}. \n`)
+    return s
+  })
+}
 
 export const { pushToDebugLog, clearDebugLog } = debugLogSlice.actions
 export default debugLogSlice.reducer

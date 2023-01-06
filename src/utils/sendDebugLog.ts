@@ -1,15 +1,18 @@
 import { reportAppLog } from 'api/endpoints'
 
+import { parseLogToStrings } from 'state/slices/debugLog'
+import type { LogItem } from 'utils/types'
+
 const sendDebugLog = async (
   session_auth_hash: string,
   username: string,
-  debugLog: string[],
+  debugLog: LogItem[],
   workingApi: string,
 ): Promise<number | undefined> => {
   const response = await reportAppLog(
     session_auth_hash,
     username,
-    btoa(debugLog.toString()),
+    btoa(parseLogToStrings(debugLog).toString()),
     workingApi,
   )
 
