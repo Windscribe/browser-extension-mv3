@@ -13,7 +13,7 @@ import aliases from './aliases'
 import viewReducer from './slices/view'
 import proxyReducer from './slices/proxy'
 import blockerReducer from './slices/blocker'
-import sessionReducer from './slices/session'
+import sessionReducer, { login } from './slices/session'
 import serversReducer from './slices/servers'
 import newsfeedReducer from './slices/newsfeed'
 import whitelistReducer from './slices/whitelist'
@@ -75,8 +75,9 @@ const debugLogMiddleware: Middleware<Dispatch, RootState> = store => next => act
     // Need a check if(contentScript) When contentScript will be added
 
     const logItem: LogItem = { message, tag }
-    if (action.payload) logItem.data = action.payload
-    if (action.type.includes('/rejected')) logItem.level = 'WARN' // Or should it be ERROR ?
+    // We don't want to put in debug log user's credentials:
+    if (action.payload && !action.type.endsWith(login.typePrefix)) logItem.data = action.payload
+    if (action.type.includes('/rejected')) logItem.level = 'WARN'
     store.dispatch(pushToDebugLog(logItem))
   }
   return next(action)
