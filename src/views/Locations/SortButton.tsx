@@ -1,28 +1,35 @@
 import { Box } from 'theme-ui'
 
-import { IconButton, InlineBlock } from 'components'
-import SortGeography from 'assets/img/sort-geography.svg'
-import SortAlphabet from 'assets/img/sort-alphabet.svg'
+import { useSelector, useDispatch } from 'state/hooks'
+
 import { type ThemeUiElement } from 'utils/types'
+import { IconButton, InlineBlock } from 'components'
+import { setLocationSorting } from 'state/slices/locationSorting'
+import SortAlphabet from 'assets/img/sort-alphabet.svg'
+import SortGeography from 'assets/img/sort-geography.svg'
 
 const Icons = {
   geography: <SortGeography />,
   alphabet: <SortAlphabet />,
 }
 
-type SortButtonProps = {
-  sortBy: 'geography' | 'alphabet'
-  onClick: () => void
-}
+const SortButton: ThemeUiElement = () => {
+  const dispatch = useDispatch()
+  const sortBy = useSelector(s => s.locationSorting)
 
-const SortButton: ThemeUiElement<SortButtonProps> = ({ sortBy, onClick }) => {
-  if (!['geography', 'alphabet'].includes(sortBy)) {
-    throw new Error('invalid `sortBy` parameter: "' + sortBy + '"')
+  const handleClick = async () => {
+    const locationSorting = sortBy === 'geography' ? 'alphabet' : 'geography'
+    await dispatch(setLocationSorting(locationSorting))
   }
 
   return (
     <InlineBlock>
-      <IconButton active={false} role="tab" onClick={onClick}>
+      <IconButton
+        data-testid="sort-locations-button"
+        active={false}
+        role="tab"
+        onClick={handleClick}
+      >
         <Box
           aria-label={`Sort by ${sortBy}`}
           ml="auto"

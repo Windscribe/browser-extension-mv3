@@ -10,7 +10,6 @@ const Header: React.FC<HeaderProps> = ({
   onSearchInputChange,
   currentTab,
   isSearching,
-  locationSorting,
   setTab,
   ...restProps
 }) => {
@@ -19,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({
       <HeaderActionsSection
         {...{ focusInitKey, showSearchInput, onSearchInputClose, onSearchInputChange }}
       />
-      <HeaderTabs {...{ setTab, currentTab, isSearching, locationSorting }} />
+      <HeaderTabs {...{ setTab, currentTab, isSearching }} />
     </Column>
   )
 }
