@@ -31,6 +31,7 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
     dispatch(setCurrentLocation(location))
     dispatch(setCurrentDataCenter(dataCenter))
     dispatch(setAutopilotSelected(false))
+    // TODO dataCenter could not has hosts, maybe should use ovpn_x509 instead?
     dispatch(connectProxy(dataCenter.hosts))
     goToHome()
   }
