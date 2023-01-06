@@ -20,6 +20,8 @@ export type CountryCodeType = keyof typeof flags
 
 export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
+export type LocationSorting = 'alphabet' | 'geography'
+
 export type ErrorState = {
   errorCode?: number
   errorMessage: string
