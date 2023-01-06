@@ -22,7 +22,7 @@ export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 export const connectProxy = createAsyncThunk(
   CONNECT_PROXY,
   async (hosts: Host[], { dispatch, getState }) => {
-    if (hosts.length === 0) {
+    if (!hosts || hosts?.length === 0) {
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }
 

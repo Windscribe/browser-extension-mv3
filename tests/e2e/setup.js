@@ -6,7 +6,7 @@ const extPath = path.resolve(__dirname, '../../build')
 const launchBrowser = async () =>
   await puppeteer.launch({
     headless: false,
-    devtools: false,
+    devtools: true,
     dumpio: true,
     product: 'chrome',
     slowMo: false,
