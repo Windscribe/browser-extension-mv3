@@ -3,6 +3,7 @@ import applyWorkingApi from '../applyWorkingApi'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
+import { resetNotificationBlocker } from './notificationBlockerEnabled'
 import { login as loginRequest } from 'api/endpoints'
 
 export interface SessionState extends SessionData {
@@ -49,6 +50,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 
 export const logout = createAsyncThunk(LOGOUT, async (_, { dispatch }) => {
   await dispatch(disconnectProxy())
+  await dispatch(resetNotificationBlocker())
   await dispatch({ type: 'global/resetStore' })
   //TODO Implement userStashes to store user's settings preferences between sessions
 })
