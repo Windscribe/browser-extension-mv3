@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import { resetWebRtcSettings, blockWebRtc } from 'services/privacy/network'
+import { pushToDebugLog } from './debugLog'
+import { resetWebRtcSettings, blockWebRtc, getWebRtcSettings } from 'services/privacy/network'
 
 type WebRtcEnabledState = boolean
 const initialState: WebRtcEnabledState = false
@@ -8,6 +9,8 @@ const initialState: WebRtcEnabledState = false
 export const toggleWebRtcBlocker = createAsyncThunk(
   'webRtcEnabled/toggle',
   async (_, { dispatch, getState }) => {
+    const webRtcSettings = await getWebRtcSettings()
+    await dispatch(pushToDebugLog({ message: 'Current web RTC settings: ', data: webRtcSettings }))
     const isEnabled = getState().webRtcEnabled
     if (isEnabled) {
       await dispatch(resetWebRtcBlocker())
