@@ -27,6 +27,7 @@ const Preferences: ThemeUiElement = () => {
   const goToAccount = useGoTo('Account')
   const goToWhitelist = useGoTo('Whitelist')
   const goToNewsfeed = useGoTo('Newsfeed')
+  const goToPrivacy = useGoTo('Privacy')
   const dispatch = useDispatch()
   const handleLogoutClick = async () => await dispatch(logout())
 
@@ -54,7 +55,7 @@ const Preferences: ThemeUiElement = () => {
           <ListItemButton title="General" Icon={GeneralIcon} onClick={goToGeneral} />
           <ListItemButton title="Connection" Icon={ConnectionIcon} onClick={goToConnection} />
           <ListItemButton title="Blocker" Icon={BlockerIcon} onClick={goToBlocker} />
-          <ListItemButton title="Privacy" Icon={PrivacyIcon} />
+          <ListItemButton title="Privacy" Icon={PrivacyIcon} onClick={goToPrivacy} />
           <ListItemButton title="Account" Icon={AccountIcon} onClick={goToAccount} />
           <ListItemButton title="Whitelist" Icon={WhitelistIcon} onClick={goToWhitelist} noBorder />
         </RoundedBox>

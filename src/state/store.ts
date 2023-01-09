@@ -28,6 +28,7 @@ import currentDataCenterReducer from './slices/currentDataCenter'
 import serverCredentialsReducer from './slices/serverCredentials'
 import debugLogReducer, { pushToDebugLog } from './slices/debugLog'
 import favoriteLocationsReducer from './slices/favoriteLocations'
+import notificationBlockerEnabledReducer from './slices/notificationBlockerEnabled'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -41,6 +42,7 @@ const reducers = {
   favoriteLocations: favoriteLocationsReducer,
   locationSorting: locationSortingReducer,
   newsfeed: newsfeedReducer,
+  notificationBlockerEnabled: notificationBlockerEnabledReducer,
   proxy: proxyReducer,
   serverCredentials: serverCredentialsReducer,
   servers: serversReducer,

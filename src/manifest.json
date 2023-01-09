@@ -9,13 +9,14 @@
     "default_icon": "icon-34.png"
   },
   "permissions": [
-    "storage",
-    "proxy",
-    "debugger",
     "activeTab",
-    "declarativeNetRequest",
-    "scripting",
+    "contentSettings",
     "contextMenus",
+    "debugger",
+    "declarativeNetRequest",
+    "proxy",
+    "scripting",
+    "storage",
     "tabs"
   ],
   "host_permissions": ["<all_urls>"],
