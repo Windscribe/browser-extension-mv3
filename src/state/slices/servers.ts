@@ -93,9 +93,14 @@ export const selectLocationBySearchText = createSelector(
     return serverList.reduce<ServerList>((accumulator, location) => {
       const dataCentersThatMatch = findDataCenters(location)
 
-      if (dataCentersThatMatch.length || isFoundIn(location.name)) {
+      if (dataCentersThatMatch.length) {
         accumulator.push({ ...location, ...{ groups: dataCentersThatMatch } })
       }
+
+      if (isFoundIn(location.name)) {
+        accumulator.push({ ...location })
+      }
+
       return accumulator
     }, [])
   },
