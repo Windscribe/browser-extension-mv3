@@ -3,7 +3,7 @@ import applyWorkingApi from '../applyWorkingApi'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
-import { login as loginRequest } from 'api/endpoints'
+import { login as loginRequest, logout as logoutRequest } from 'api/endpoints'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -47,8 +47,14 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
   },
 )
 
-export const logout = createAsyncThunk(LOGOUT, async (_, { dispatch }) => {
+export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch }) => {
+  const session = getState().session
+  const workingApi = getState().workingApi
+
   await dispatch(disconnectProxy())
+
+  session.session_auth_hash && logoutRequest(session.session_auth_hash, workingApi)
+
   await dispatch({ type: 'global/resetStore' })
   //TODO Implement userStashes to store user's settings preferences between sessions
 })
