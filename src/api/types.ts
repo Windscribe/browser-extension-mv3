@@ -63,23 +63,21 @@ export type Platform = 'chrome' | 'firefox'
 export type ApiCallParameters = Record<string, string | number>
 export type ObjectOrStringOrNumber = ApiCallParameters | string | number
 
-// type EventHandler = (...a: any[]) => void
-// TODO Consider to set P to any or (...a: any[])
 export type ApiCallFunction<T extends object, P extends ObjectOrStringOrNumber> = (
   parameters: P,
   workingApi: string,
 ) => Promise<ApiResponse<T>>
 
-// todo review the interface
 export interface SessionData {
   billing_plan_id?: number
   email?: string
-  email_status?: number
+  email_status?: 0 | 1
   is_premium?: 0 | 1
   last_reset?: string
   loc_hash?: string
   loc_rev?: number
   premium_expiry_date?: string
+  rebill?: 0 | 1
   reg_date?: number
   session_auth_hash?: string
   status?: number
@@ -95,13 +93,6 @@ export interface WebSessionData {
 
 export interface ReportAppLogData {
   success: number
-}
-
-export type GetBestLocationParameters = {
-  session_auth_hash: string
-  platform: Platform
-  // gps_lat?: string // Not sure it's actual
-  // gps_long?: string // Not sure it's actual
 }
 
 export type GetServerCredentialsParameters = {

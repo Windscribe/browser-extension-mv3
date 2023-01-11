@@ -122,6 +122,16 @@ export const selectLocationByDataCenterId = createSelector(
   },
 )
 
+export const selectLocationByName = (
+  state: RootState,
+  locationName: string,
+): Location | undefined => state.servers.serverList?.find(server => server.name === locationName)
+
+export const findDataCenterById = (
+  location: Location,
+  dataCenterId: number,
+): DataCenter | undefined => location?.groups?.find(dataCenter => dataCenter.id === dataCenterId)
+
 export const { setServerList } = serversSlice.actions
 
 export default serversSlice.reducer

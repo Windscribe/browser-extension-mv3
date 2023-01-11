@@ -41,21 +41,18 @@ const Whitelist: ThemeUiElement = () => {
 
   return (
     <Column data-testid="whitelist-page" bg="background">
-      <Header
-        title="Whitelist"
-        RightSideComponent={
-          <CircleButton
-            Icon={PlusIcon}
-            onClick={() => openSettingsFor('')}
-            sx={{
-              backgroundColor: 'lakeBlue',
-              svg: {
-                fill: 'primaryText',
-              },
-            }}
-          />
-        }
-      />
+      <Header title="Whitelist">
+        <CircleButton
+          Icon={PlusIcon}
+          onClick={() => openSettingsFor('')}
+          sx={{
+            backgroundColor: 'lakeBlue',
+            svg: {
+              fill: 'primaryText',
+            },
+          }}
+        />
+      </Header>
       <Box
         sx={{
           height: 'auto',

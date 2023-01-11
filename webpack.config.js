@@ -132,6 +132,7 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
+          //TODO Consider not to fetch everything from ublock
           from: 'ublock',
           to: path.join(__dirname, 'build'),
           force: true,
@@ -150,7 +151,7 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/pages/content/content.styles.css'),
+          from: 'src/pages/content/content.styles.css',
           to: path.join(__dirname, 'build'),
           force: true,
         },
@@ -159,8 +160,8 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/assets/img/icon-128.png',
-          to: path.join(__dirname, 'build'),
+          from: 'src/assets/img/*.png',
+          to: '[name].[ext]',
           force: true,
         },
       ],
@@ -168,17 +169,8 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/assets/img/icon-34.png',
-          to: path.join(__dirname, 'build'),
-          force: true,
-        },
-      ],
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'src/assets/img/icon-16.png',
-          to: path.join(__dirname, 'build'),
+          from: 'src/assets/fonts',
+          to: path.join(__dirname, 'build/fonts'),
           force: true,
         },
       ],
