@@ -18,14 +18,15 @@ export default (): void => {
   const serverListLoading = useSelector(s => s.servers.loading)
   const autopilotData = useSelector(state => state.autopilot.autopilotData)
   const newsfeedLoading = useSelector(state => state.newsfeed.loading)
+  const username = useSelector(state => state.serverCredentials.username)
+  const password = useSelector(state => state.serverCredentials.password)
+  const serverCredentialsLoading = useSelector(state => state.serverCredentials.loading)
 
   useEffect(() => {
-    // TODO  Despite serverCredentials was not changed it could FETCH_SERVER_CREDENTIALS every time user navigates on Home
-    // it need to be fixed
-    if (sessionAuthHash) {
+    if (sessionAuthHash && !(username && password) && serverCredentialsLoading !== 'pending') {
       dispatchAlias(FETCH_SERVER_CREDENTIALS)
     }
-  }, [sessionAuthHash])
+  }, [sessionAuthHash, password, username, serverCredentialsLoading])
 
   useEffect(() => {
     if (serverListLoading === 'idle' && sessionAuthHash) {

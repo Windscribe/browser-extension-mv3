@@ -19,6 +19,8 @@ chrome.storage.onChanged.addListener(function (changes) {
   const { username: newUsername, password: newPassword } = changes[1].newValue.serverCredentials
   const { username: oldUsername, password: oldPassword } = changes[1].oldValue.serverCredentials
 
+  if (!newUsername || !newPassword) return
+
   if (newUsername !== oldUsername || newPassword !== oldPassword) {
     const credentials = {
       username: newUsername,

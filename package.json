@@ -15,7 +15,8 @@
     "test": "jest  --runInBand --testTimeout=25000",
     "test:local": "DOTENV_CONFIG_PATH=./.env.local jest  --runInBand --testTimeout=25000",
     "lint": "eslint ./src",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "slice": "node scripts/addSlice.mjs"
   },
   "dependencies": {
     "@eduardoac-skimlinks/webext-redux": "^3.0.1-release-candidate",
@@ -82,6 +83,7 @@
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.0",
+    "inquirer": "^9.1.4",
     "jest-puppeteer": "^6.1.0",
     "prettier": "^2.5.1",
     "source-map-loader": "^3.0.1",

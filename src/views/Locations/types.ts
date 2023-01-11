@@ -1,4 +1,4 @@
-import type { DebouncedFunction, CountryCodeType } from 'utils/types'
+import type { DebouncedFunction } from 'utils/types'
 
 export type HeaderType = React.FC<HeaderProps & React.HTMLAttributes<HTMLDivElement>>
 
@@ -23,30 +23,15 @@ export type HeaderActionsSectionProps = SearchInputProps & {
   showSearchInput: boolean
 }
 
-export type Tab = 'locations' | 'favourites'
-export type LocationSorting = 'alphabet' | 'geography'
+export type Tab = 'locations' | 'favorites'
 export type SetTab = (tab: Tab) => void
 
 export type HeaderTabsProps = {
   currentTab: Tab
   isSearching: boolean
-  locationSorting: LocationSorting
   setTab: SetTab
 }
 
 export type HeaderProps = HeaderTabsProps &
   HeaderActionsSectionProps &
   React.HTMLAttributes<HTMLDivElement>
-
-export type DataCenter = {
-  id: number
-  city: string
-  nick: string
-}
-
-export type Location = {
-  id: number
-  name: string
-  country_code: CountryCodeType
-  groups: DataCenter[]
-}

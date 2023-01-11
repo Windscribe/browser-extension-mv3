@@ -95,11 +95,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
         </Box>
       </Rectangle>
       {isExpanded && (
-        <LocationsListItemDetails
-          location={location}
-          dataCenters={location.groups}
-          searchText={searchText}
-        />
+        <LocationsListItemDetails dataCenters={location.groups} searchText={searchText} />
       )}
     </Box>
   )
