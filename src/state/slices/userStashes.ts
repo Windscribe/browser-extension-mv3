@@ -1,20 +1,27 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 type UserStashesState = {
-  [key: string]: object
+  store: { [key: string]: object }
+  username: string
 }
 
-const initialState: UserStashesState = {}
+const initialState: UserStashesState = {
+  store: {},
+  username: '',
+}
 
 export const userStashesSlice = createSlice({
   name: 'userStashes',
   initialState,
   reducers: {
     setUserStashes(state, action: PayloadAction<{ [key: string]: object }>) {
-      return { ...state, ...action.payload }
+      state.store = { ...state.store, ...action.payload }
+    },
+    setUsername(state, action: PayloadAction<string>) {
+      state.username = action.payload
     },
   },
 })
 
-export const { setUserStashes } = userStashesSlice.actions
+export const { setUserStashes, setUsername } = userStashesSlice.actions
 export default userStashesSlice.reducer

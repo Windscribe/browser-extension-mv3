@@ -48,8 +48,8 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
     if (response.data) {
       const userNameHash = md5(response.data.username || '').toString()
 
-      if (userStashes[userNameHash]) {
-        await dispatch({ type: 'global/applyUserStash', payload: userStashes[userNameHash] })
+      if (userStashes.store[userNameHash]) {
+        await dispatch({ type: 'global/applyUserStash', payload: userStashes.store[userNameHash] })
       }
       return response.data
     }
