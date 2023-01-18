@@ -30,6 +30,7 @@ import debugLogReducer, { pushToDebugLog } from './slices/debugLog'
 import favoriteLocationsReducer from './slices/favoriteLocations'
 import notificationBlockerEnabledReducer from './slices/notificationBlockerEnabled'
 import webRtcEnabledReducer from './slices/webRtcEnabled'
+import locationWarpReducer from './slices/locationWarp'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -42,6 +43,7 @@ const reducers = {
   debugLog: debugLogReducer,
   favoriteLocations: favoriteLocationsReducer,
   locationSorting: locationSortingReducer,
+  locationWarp: locationWarpReducer,
   newsfeed: newsfeedReducer,
   notificationBlockerEnabled: notificationBlockerEnabledReducer,
   proxy: proxyReducer,
