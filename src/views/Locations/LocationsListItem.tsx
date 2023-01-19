@@ -3,16 +3,16 @@ import Highlighter from 'react-highlight-words'
 import { Box, Text, Flex, type BoxProps } from 'theme-ui'
 
 import { FlagIcon, Rectangle } from 'components'
-import PlusIcon from 'assets/img/plus-icon.svg'
 import flags from 'assets/flags'
+import { useGoTo } from 'services/navigation'
+import { useDispatchAlias } from 'state/hooks'
+import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
+import LocationsListItemDetails from './LocationsListItemDetails'
+import type { Location, DataCenter } from 'api/types'
+
+import PlusIcon from 'assets/img/plus-icon.svg'
 import AirplaneIcon from 'assets/img/airplane.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
-import { useDispatchAlias } from 'state/hooks'
-import { useGoTo } from 'services/navigation'
-import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
-
-import LocationsListItemDetails from './LocationsListItemDetails'
-import { type Location } from 'api/types'
 
 type LocationsListItemProps = BoxProps & {
   location: Location
@@ -33,8 +33,13 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   const goToHome = useGoTo('Home')
 
   useEffect(() => {
-    if (searchText && location.groups.length) setIsExpanded(true)
-  }, [searchText, location.groups.length])
+    const isFoundIn = (str: string) => str.toLowerCase().includes(searchText)
+
+    const hasSearchTextInName = (dataCenter: DataCenter) =>
+      isFoundIn(dataCenter.city) || isFoundIn(dataCenter.nick)
+
+    if (searchText && location.groups.some(hasSearchTextInName)) setIsExpanded(true)
+  }, [searchText, location.groups])
 
   const Flag: React.ElementType = flags[isAutopilot ? 'AUTO' : location.country_code]
 
