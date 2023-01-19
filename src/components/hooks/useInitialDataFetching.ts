@@ -6,6 +6,7 @@ import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
 import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
+import { setOriginalUserAgent, FETCH_USER_AGENTS_LIST } from 'state/slices/userAgent'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -21,6 +22,14 @@ export default (): void => {
   const username = useSelector(state => state.serverCredentials.username)
   const password = useSelector(state => state.serverCredentials.password)
   const serverCredentialsLoading = useSelector(state => state.serverCredentials.loading)
+  const userAgentLoading = useSelector(state => state.userAgent.loading)
+  const userAgentOriginal = useSelector(state => state.userAgent.original)
+
+  useEffect(() => {
+    if (!userAgentOriginal) {
+      dispatch(setOriginalUserAgent(navigator.userAgent))
+    }
+  }, [userAgentOriginal, dispatch])
 
   useEffect(() => {
     if (sessionAuthHash && !(username && password) && serverCredentialsLoading !== 'pending') {
@@ -55,4 +64,11 @@ export default (): void => {
       dispatch(applyBestLocationAsAutopilot())
     }
   }, [autopilotData, bestLocationLoading, serverListLoading, dispatch])
+
+  useEffect(() => {
+    if (sessionAuthHash && ['idle', 'rejected'].includes(userAgentLoading)) {
+      dispatchAlias(FETCH_USER_AGENTS_LIST)
+    }
+    // Do NOT add dispatchAlias to Dependency array. It leads to double network requests. Don't know why.
+  }, [sessionAuthHash, userAgentLoading])
 }

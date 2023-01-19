@@ -11,6 +11,7 @@ import {
 } from './slices/whitelist'
 import { fetchNotifications, FETCH_NOTIFICATIONS } from './slices/newsfeed'
 import { fetchServerCredentials, FETCH_SERVER_CREDENTIALS } from './slices/serverCredentials'
+import { fetchUserAgentsList, FETCH_USER_AGENTS_LIST } from './slices/userAgent'
 import { type Credentials } from 'api/types'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
@@ -36,4 +37,5 @@ export default {
   [`alias/${ADD_TO_WHITELIST}`]: _addToWhitelist,
   [`alias/${REMOVE_FROM_WHITELIST}`]: _removeFromWhitelist,
   [`alias/${FETCH_NOTIFICATIONS}`]: fetchNotifications,
+  [`alias/${FETCH_USER_AGENTS_LIST}`]: fetchUserAgentsList,
 }

@@ -25,3 +25,6 @@ export const ACCOUNT_PLAN = {
 } as const
 
 export const DEVTOOL_PROTOCOL = '1.3'
+
+// used for user agent setting (do not want user to assume different platform)
+export const platforms = ['Windows', 'Macintosh', 'Linux']
