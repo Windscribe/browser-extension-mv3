@@ -48,12 +48,12 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 )
 
 export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch }) => {
-  const session = getState().session
+  const sessionAuthHash = getState().session.session_auth_hash
   const workingApi = getState().workingApi
 
   await dispatch(disconnectProxy())
 
-  session.session_auth_hash && logoutRequest(session.session_auth_hash, workingApi)
+  sessionAuthHash && (await logoutRequest(sessionAuthHash, workingApi))
 
   await dispatch({ type: 'global/resetStore' })
   //TODO Implement userStashes to store user's settings preferences between sessions
