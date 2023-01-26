@@ -13,12 +13,26 @@ export const toggleNotificationBlocker = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     const isEnabled = getState().notificationBlockerEnabled
     if (isEnabled) {
-      await resetNotificationSettings()
+      await dispatch(resetNotificationBlocker())
     } else {
-      await blockNotifications()
+      await dispatch(enableBlockNotifications())
     }
+  },
+)
 
-    dispatch(setNotificationBlockerEnabled(!isEnabled))
+export const resetNotificationBlocker = createAsyncThunk(
+  'notificationBlockerEnabled/reset',
+  async (_, { dispatch }) => {
+    await resetNotificationSettings()
+    dispatch(setNotificationBlockerEnabled(false))
+  },
+)
+
+export const enableBlockNotifications = createAsyncThunk(
+  'notificationBlockerEnabled/enableBlock',
+  async (_, { dispatch }) => {
+    await blockNotifications()
+    dispatch(setNotificationBlockerEnabled(true))
   },
 )
 

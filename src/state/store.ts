@@ -29,6 +29,7 @@ import serverCredentialsReducer from './slices/serverCredentials'
 import debugLogReducer, { pushToDebugLog } from './slices/debugLog'
 import favoriteLocationsReducer from './slices/favoriteLocations'
 import notificationBlockerEnabledReducer from './slices/notificationBlockerEnabled'
+import webRtcEnabledReducer from './slices/webRtcEnabled'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -48,6 +49,7 @@ const reducers = {
   servers: serversReducer,
   session: sessionReducer,
   view: viewReducer,
+  webRtcEnabled: webRtcEnabledReducer,
   whitelist: whitelistReducer,
   workingApi: workingApiReducer,
 }
