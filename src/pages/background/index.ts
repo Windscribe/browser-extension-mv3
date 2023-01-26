@@ -73,8 +73,12 @@ chrome.proxy.onProxyError.addListener(async e => {
       data: e,
     }),
   )
+  const { smokeWall, failover } = store.getState().connection
 
-  const failover = store.getState().connection.failover
+  if (smokeWall) {
+    store.dispatch(disconnectProxy())
+  }
+
   if (failover === 'Auto / Best') {
     await store.dispatch(connectToAutopilot())
   } else if (failover === 'Same Country') {
@@ -89,8 +93,6 @@ chrome.proxy.onProxyError.addListener(async e => {
       store.dispatch(setCurrentDataCenter(newDatacenter))
       store.dispatch(connectProxy(newDatacenter.hosts))
     }
-  } else if (failover === 'None') {
-    store.dispatch(disconnectProxy())
   }
 })
 
