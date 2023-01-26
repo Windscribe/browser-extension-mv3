@@ -5,7 +5,7 @@ import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
 import { resetWebRtcBlocker } from './webRtcEnabled'
-import { login as loginRequest } from 'api/endpoints'
+import { login as loginRequest, logout as logoutRequest } from 'api/endpoints'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
