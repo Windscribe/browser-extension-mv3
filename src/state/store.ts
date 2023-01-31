@@ -32,6 +32,7 @@ import notificationBlockerEnabledReducer from './slices/notificationBlockerEnabl
 import webRtcEnabledReducer from './slices/webRtcEnabled'
 import splitPersonalityEnabledReducer from './slices/splitPersonalityEnabled'
 import userAgentReducer from './slices/userAgent'
+import languageWarpEnabledReducer from './slices/languageWarpEnabled'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -43,6 +44,7 @@ const reducers = {
   currentLocation: currentLocationReducer,
   debugLog: debugLogReducer,
   favoriteLocations: favoriteLocationsReducer,
+  languageWarpEnabled: languageWarpEnabledReducer,
   locationSorting: locationSortingReducer,
   newsfeed: newsfeedReducer,
   notificationBlockerEnabled: notificationBlockerEnabledReducer,
@@ -89,7 +91,7 @@ const debugLogMiddleware: Middleware<Dispatch, RootState> = store => next => act
     const logItem: LogItem = { message, tag }
     // We don't want to put in debug log user's credentials:
     if (action.payload && !action.type.endsWith(login.typePrefix)) logItem.data = action.payload
-    if (action.type.includes('/rejected')) logItem.level = 'WARN'
+    if (action.type?.includes('/rejected')) logItem.level = 'WARN'
     store.dispatch(pushToDebugLog(logItem))
   }
   return next(action)

@@ -57,8 +57,9 @@ const Home: ThemeUiElement = () => {
   useInitialDataFetching()
 
   const toggleProxy = async () => {
+    // TODO Rewrite. this hook is wrong. log uses useDispatch(). it breaks hook rules.
     // This is example of how to use logger in React components
-    log('Proxy toggled ' + (isConnected ? 'off' : 'on'))
+    // log('Proxy toggled ' + (isConnected ? 'off' : 'on'))
 
     if (isConnected) {
       await dispatch(disconnectProxy())

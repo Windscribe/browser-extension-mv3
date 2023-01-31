@@ -20,7 +20,8 @@
     "proxy",
     "scripting",
     "storage",
-    "tabs"
+    "tabs",
+    "webNavigation"
   ],
   "host_permissions": ["<all_urls>"],
   "icons": {

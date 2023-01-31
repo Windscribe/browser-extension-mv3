@@ -1,12 +1,14 @@
+import locales from 'utils/locales'
 import getErrorMessage from 'utils/getErrorMessage'
-import { initializeWrappedStore } from 'state'
-import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
-import { pushToDebugLog } from 'state/slices/debugLog'
 import browserApi from 'services/browserApi'
 import { addContextMenuItem } from 'services/contextMenu'
 import setDebuggerAuth from './debuggerAuth'
-import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
+import spoofLanguage from './executingScripts/spoofLanguage'
+import { initializeWrappedStore } from 'state'
+import { pushToDebugLog } from 'state/slices/debugLog'
 import { connectToAutopilot } from 'state/slices/autopilot'
+import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
+import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
@@ -63,6 +65,10 @@ async function onStartupCallback() {
 }
 
 chrome.proxy.onProxyError.addListener(async e => {
+  // TODO Implement counter. If 3 unsuccesfull attempts to connect stop it
+  if (process.env.NODE_ENV === 'development') {
+    console.log('%c onProxyError ', 'background: #d8dEd9; color: #EA222E', e)
+  }
   const store = await bgStore
 
   store.dispatch(
@@ -95,3 +101,23 @@ chrome.proxy.onProxyError.addListener(async e => {
 })
 
 chrome.runtime.onInstalled.addListener(addContextMenuItem)
+chrome.webNavigation.onCommitted.addListener(injectLanguageWarp)
+
+type OnCommittedHandlerParam = chrome.webNavigation.WebNavigationCallbackDetails
+
+async function injectLanguageWarp(details: OnCommittedHandlerParam): Promise<void> {
+  const store = await bgStore
+
+  if (!store.getState().languageWarpEnabled) return
+  if (!store.getState().proxy.isConnected) return
+
+  const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
+  const spoofedLocaleCode = locales[currentCountryCode].locale || 'Esperanto'
+
+  chrome.scripting.executeScript({
+    target: { tabId: details.tabId, allFrames: true },
+    world: 'MAIN',
+    func: spoofLanguage,
+    args: [spoofedLocaleCode],
+  })
+}
