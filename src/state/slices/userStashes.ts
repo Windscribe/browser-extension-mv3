@@ -1,4 +1,5 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import md5 from 'crypto-js/md5'
 
 type UserStashesState = {
   store: { [key: string]: object }
@@ -9,6 +10,44 @@ const initialState: UserStashesState = {
   store: {},
   username: '',
 }
+
+export const CHECK_USER_STASH = 'userStashes/checkUserStash'
+export const SAVE_USER_STASH = 'userStashes/saveUserStash'
+
+export const checkUserStash = createAsyncThunk(
+  CHECK_USER_STASH,
+  async (username: string, { getState, dispatch }) => {
+    const userNameHash = md5(username || '').toString()
+    const userStash = getState().userStashes.store[userNameHash]
+    userStash && (await dispatch({ type: 'global/applyUserStash', payload: userStash }))
+  },
+)
+
+export const saveUserStash = createAsyncThunk(
+  SAVE_USER_STASH,
+  async (_, { getState, dispatch }) => {
+    const state = getState()
+
+    const userNameHash = md5(state.session.username || '').toString()
+
+    const doNotStash = [
+      'currentDataCenter',
+      'currentLocation',
+      'workingApi',
+      'proxy',
+      'debugLog',
+      'session',
+      'servers',
+      'serverCredentials',
+      'view',
+    ] as Array<keyof typeof state>
+
+    const toStash = Object.assign({}, state)
+    for (const slice of doNotStash) delete toStash[slice]
+
+    dispatch(setUserStashes({ [userNameHash]: { state } }))
+  },
+)
 
 export const userStashesSlice = createSlice({
   name: 'userStashes',

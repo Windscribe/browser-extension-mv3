@@ -4,9 +4,7 @@ import type { LoadingState, Either, ErrorState } from 'utils/types'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
 import { login as loginRequest } from 'api/endpoints'
-import { setUserStashes } from 'state/slices/userStashes'
-
-import md5 from 'crypto-js/md5'
+import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -39,18 +37,13 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
   LOGIN,
   async ({ username, password, twoFa }, { getState, dispatch }) => {
     const workingApi = getState().workingApi
-    const userStashes = getState().userStashes
 
     const response = await loginRequest(username, password, workingApi, twoFa)
     response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     if (response.errorMessage) return response
-    if (response.data) {
-      const userNameHash = md5(response.data.username || '').toString()
-
-      if (userStashes.store[userNameHash]) {
-        await dispatch({ type: 'global/applyUserStash', payload: userStashes.store[userNameHash] })
-      }
+    if (response.data && response.data.username) {
+      await dispatch(checkUserStash(response.data.username))
       return response.data
     }
 
@@ -58,27 +51,10 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
   },
 )
 
-export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch }) => {
+export const logout = createAsyncThunk(LOGOUT, async (_, { dispatch }) => {
   await dispatch(disconnectProxy())
-  const state = getState()
 
-  const userNameHash = md5(state.session.username || '').toString()
-
-  const doNotStash = [
-    'currentDataCenter',
-    'currentLocation',
-    'workingApi',
-    'proxy',
-    'debugLog',
-    'session',
-    'servers',
-    'serverCredentials',
-    'view',
-  ]
-
-  doNotStash.forEach(prop => delete state[prop as keyof typeof state])
-
-  dispatch(setUserStashes({ [userNameHash]: { state } }))
+  await dispatch(saveUserStash())
 
   await dispatch({ type: 'global/resetStore' })
   //TODO Implement userStashes to store user's settings preferences between sessions
