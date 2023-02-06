@@ -79,14 +79,15 @@ const debugLogMiddleware: Middleware<Dispatch, RootState> = store => next => act
     const message = `Redux action: ${action.type}`
 
     let tag: LogTag = 'background'
-    if (action._sender?.url.includes('popup.html')) tag = 'popup'
-    if (action._sender?.url.includes('debugLog.html')) tag = 'debugLog'
+    if (action._sender?.url?.includes('popup.html')) tag = 'popup'
+    if (action._sender?.url?.includes('debugLog.html')) tag = 'debugLog'
+
     // Need a check if(contentScript) When contentScript will be added
 
     const logItem: LogItem = { message, tag }
     // We don't want to put in debug log user's credentials:
     if (action.payload && !action.type.endsWith(login.typePrefix)) logItem.data = action.payload
-    if (action.type.includes('/rejected')) logItem.level = 'WARN'
+    if (action.type?.includes('/rejected')) logItem.level = 'WARN'
     store.dispatch(pushToDebugLog(logItem))
   }
   return next(action)
