@@ -101,23 +101,58 @@ chrome.proxy.onProxyError.addListener(async e => {
 })
 
 chrome.runtime.onInstalled.addListener(addContextMenuItem)
-chrome.webNavigation.onCommitted.addListener(injectLanguageWarp)
+// chrome.webNavigation.onCommitted.addListener(injectLanguageWarp)
 
-type OnCommittedHandlerParam = chrome.webNavigation.WebNavigationCallbackDetails
+// type OnCommittedHandlerParam = chrome.webNavigation.WebNavigationCallbackDetails
 
-async function injectLanguageWarp(details: OnCommittedHandlerParam): Promise<void> {
+// async function injectLanguageWarp(details: OnCommittedHandlerParam): Promise<void> {
+//   const store = await bgStore
+
+//   if (!store.getState().languageWarpEnabled) return
+//   // if (!store.getState().proxy.isConnected) return
+
+//   const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
+//   const spoofedLocaleCode = locales[currentCountryCode].locale || 'Esperanto'
+
+//   chrome.scripting.executeScript({
+//     target: { tabId: details.tabId, allFrames: true },
+//     world: 'MAIN',
+//     func: spoofLanguage,
+//     args: [spoofedLocaleCode],
+//   })
+// }
+
+declare global {
+  interface Window {
+    spoofedLocaleCode: string
+  }
+}
+
+const injectLanguageWarp = async (e: any) => {
   const store = await bgStore
 
   if (!store.getState().languageWarpEnabled) return
-  if (!store.getState().proxy.isConnected) return
 
   const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
-  const spoofedLocaleCode = locales[currentCountryCode].locale || 'Esperanto'
+  const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
 
-  chrome.scripting.executeScript({
-    target: { tabId: details.tabId, allFrames: true },
-    world: 'MAIN',
-    func: spoofLanguage,
-    args: [spoofedLocaleCode],
-  })
+  chrome.scripting.executeScript(
+    {
+      args: [JSON.stringify(spoofedLocaleCode)],
+      target: { tabId: e.tabId, allFrames: true },
+      world: 'MAIN',
+      injectImmediately: true,
+      func: spoofedLocaleCode => (window.spoofedLocaleCode = spoofedLocaleCode),
+    },
+    () => {
+      chrome.scripting.executeScript({
+        target: { tabId: e.tabId, allFrames: true },
+        world: 'MAIN',
+        injectImmediately: true,
+        files: ['/content/languageWarp.js'],
+      })
+    },
+  )
 }
+
+chrome.webNavigation.onCommitted.addListener(injectLanguageWarp)

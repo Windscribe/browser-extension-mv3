@@ -1,10 +1,12 @@
-export default function (spoofedLocaleCode: string): void {
+{
+  const locale = JSON.parse(spoofedLocaleCode)
+
   Object.defineProperty(window.navigator, 'language', {
-    value: spoofedLocaleCode,
+    value: locale,
     configurable: true,
   })
   Object.defineProperty(window.navigator, 'languages', {
-    value: [spoofedLocaleCode],
+    value: [locale],
     configurable: true,
   })
 
@@ -12,7 +14,7 @@ export default function (spoofedLocaleCode: string): void {
 
   Intl.DateTimeFormat.prototype.resolvedOptions = function (...args) {
     const res = resolvedOptions.apply(this, args)
-    res.locale = spoofedLocaleCode
+    res.locale = locale
     return res
   }
 }
