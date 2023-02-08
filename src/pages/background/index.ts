@@ -94,12 +94,6 @@ chrome.proxy.onProxyError.addListener(async e => {
   }
 })
 
-declare global {
-  interface Window {
-    locationWarpInfo: string
-  }
-}
-
 const injectLocationWarp = async (e: any) => {
   const store = await bgStore
 
