@@ -1,2 +1,13 @@
+import { keyframes } from '@emotion/react'
+
 export const footerHeight = '48px'
 export const unreadIconRadius = 4
+
+export const SpinAnim = keyframes`
+from {
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+}
+`

@@ -7,6 +7,7 @@ import { addContextMenuItem } from 'services/contextMenu'
 import setDebuggerAuth from './debuggerAuth'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectToAutopilot } from 'state/slices/autopilot'
+import { setReconnectionAttempts } from 'state/slices/connection'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
@@ -61,8 +62,15 @@ async function onStartupCallback() {
     store?.dispatch(handleConnectionError(message))
   }
 }
-
+/* TODO
+Consider should we implement different recovery strategies: 
+change location, change DC, check if Internet connection exist, re-fetch credentials. 
+*/
 chrome.proxy.onProxyError.addListener(async e => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log('%c onProxyError ', 'background: #d8dEd9; color: #EA222E', e)
+  }
+
   const store = await bgStore
 
   store.dispatch(
@@ -73,13 +81,28 @@ chrome.proxy.onProxyError.addListener(async e => {
       data: e,
     }),
   )
-  const { smokeWall, failover } = store.getState().connection
+  const { smokeWall, failover, reconnectionAttempts } = store.getState().connection
 
   if (smokeWall) {
     store.dispatch(disconnectProxy())
   }
+  const RECONNECTION_ATTEMPTS_LIMIT = 3
+  if (reconnectionAttempts >= RECONNECTION_ATTEMPTS_LIMIT) {
+    store.dispatch(
+      pushToDebugLog({
+        level: 'ERROR',
+        message: 'reconnection_attempts_limit reached',
+        tag: 'background',
+        data: reconnectionAttempts,
+      }),
+    )
+    // TODO Consider to open Modal window with error message
+    // to explain to the user what's going on.
+    return
+  }
 
   if (failover === 'Auto / Best') {
+    store.dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
     await store.dispatch(connectToAutopilot())
   } else if (failover === 'Same Country') {
     const currentLocation = store.getState().currentLocation
@@ -90,8 +113,9 @@ chrome.proxy.onProxyError.addListener(async e => {
     )
 
     if (newDatacenter) {
+      store.dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
       store.dispatch(setCurrentDataCenter(newDatacenter))
-      store.dispatch(connectProxy(newDatacenter.hosts))
+      await store.dispatch(connectProxy(newDatacenter.hosts))
     }
   }
 })
