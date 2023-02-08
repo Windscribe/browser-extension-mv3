@@ -101,26 +101,6 @@ chrome.proxy.onProxyError.addListener(async e => {
 })
 
 chrome.runtime.onInstalled.addListener(addContextMenuItem)
-// chrome.webNavigation.onCommitted.addListener(injectLanguageWarp)
-
-// type OnCommittedHandlerParam = chrome.webNavigation.WebNavigationCallbackDetails
-
-// async function injectLanguageWarp(details: OnCommittedHandlerParam): Promise<void> {
-//   const store = await bgStore
-
-//   if (!store.getState().languageWarpEnabled) return
-//   // if (!store.getState().proxy.isConnected) return
-
-//   const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
-//   const spoofedLocaleCode = locales[currentCountryCode].locale || 'Esperanto'
-
-//   chrome.scripting.executeScript({
-//     target: { tabId: details.tabId, allFrames: true },
-//     world: 'MAIN',
-//     func: spoofLanguage,
-//     args: [spoofedLocaleCode],
-//   })
-// }
 
 declare global {
   interface Window {
