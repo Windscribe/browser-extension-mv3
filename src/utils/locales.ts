@@ -1,5 +1,5 @@
 export default {
-  AUTO: { locale: 'Esperanto' },
+  AUTO: { locale: 'en' },
   AD: { locale: 'ca-AD' },
   AE: { locale: 'ar-AE' },
   AF: { locale: 'fa-AF' },

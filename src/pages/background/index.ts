@@ -3,7 +3,6 @@ import getErrorMessage from 'utils/getErrorMessage'
 import browserApi from 'services/browserApi'
 import { addContextMenuItem } from 'services/contextMenu'
 import setDebuggerAuth from './debuggerAuth'
-import spoofLanguage from './executingScripts/spoofLanguage'
 import { initializeWrappedStore } from 'state'
 import { pushToDebugLog } from 'state/slices/debugLog'
 import { connectToAutopilot } from 'state/slices/autopilot'
@@ -105,34 +104,60 @@ chrome.runtime.onInstalled.addListener(addContextMenuItem)
 declare global {
   interface Window {
     spoofedLocaleCode: string
+    spoofedUserAgent: string
   }
 }
 
-const injectLanguageWarp = async (e: any) => {
-  const store = await bgStore
-
-  if (!store.getState().languageWarpEnabled) return
-
-  const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
-  const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
-
+const executeScript = async (
+  tabId: number,
+  data: string,
+  fileName: string,
+  func: (data: string) => string,
+) => {
   chrome.scripting.executeScript(
     {
-      args: [JSON.stringify(spoofedLocaleCode)],
-      target: { tabId: e.tabId, allFrames: true },
+      args: [JSON.stringify(data)],
+      target: { tabId: tabId, allFrames: true },
       world: 'MAIN',
       injectImmediately: true,
-      func: spoofedLocaleCode => (window.spoofedLocaleCode = spoofedLocaleCode),
+      func: func,
     },
     () => {
       chrome.scripting.executeScript({
-        target: { tabId: e.tabId, allFrames: true },
+        target: { tabId: tabId, allFrames: true },
         world: 'MAIN',
         injectImmediately: true,
-        files: ['/content/languageWarp.js'],
+        files: ['/content/' + fileName + '.js'],
       })
     },
   )
 }
 
-chrome.webNavigation.onCommitted.addListener(injectLanguageWarp)
+const injectWarps = async (e: any) => {
+  const store = await bgStore
+
+  if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
+    const spoofedUserAgent = store.getState().userAgent.spoofed
+
+    executeScript(
+      e.tabId,
+      spoofedUserAgent,
+      'splitPersonality',
+      spoofedUserAgent => (window.spoofedUserAgent = spoofedUserAgent),
+    )
+  }
+
+  if (store.getState().languageWarpEnabled) {
+    const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
+    const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
+
+    executeScript(
+      e.tabId,
+      spoofedLocaleCode,
+      'languageWarp',
+      spoofedLocaleCode => (window.spoofedLocaleCode = spoofedLocaleCode),
+    )
+  }
+}
+
+chrome.webNavigation.onCommitted.addListener(injectWarps)
