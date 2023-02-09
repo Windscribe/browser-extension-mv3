@@ -99,6 +99,40 @@ chrome.proxy.onProxyError.addListener(async e => {
   }
 })
 
+const injectLocationWarp = async (e: any) => {
+  const store = await bgStore
+
+  if (!store.getState().locationWarp) return
+
+  const coords = store.getState().currentDataCenter?.gps?.split(',')
+
+  if (!coords) return
+
+  const locationWarpInfo = {
+    latitude: coords[0],
+    longitude: coords[1],
+  }
+
+  chrome.scripting.executeScript(
+    {
+      args: [JSON.stringify(locationWarpInfo)],
+      target: { tabId: e.tabId, allFrames: true },
+      world: 'MAIN',
+      injectImmediately: true,
+      func: locationWarpInfo => (window.locationWarpInfo = locationWarpInfo),
+    },
+    () => {
+      chrome.scripting.executeScript({
+        target: { tabId: e.tabId, allFrames: true },
+        world: 'MAIN',
+        injectImmediately: true,
+        files: ['/content/locationWarp.js'],
+      })
+    },
+  )
+}
+
+chrome.webNavigation.onCommitted.addListener(injectLocationWarp)
 chrome.runtime.onInstalled.addListener(addContextMenuItem)
 
 declare global {

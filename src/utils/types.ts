@@ -91,3 +91,9 @@ declare module '@reduxjs/toolkit' {
 export type SyncThunkCreator<PayloadType> = (p: PayloadType) => (d: Dispatch) => void
 
 export type InputChangeHandler = React.EventHandler<React.ChangeEvent<HTMLInputElement>>
+
+declare global {
+  interface Window {
+    locationWarpInfo: string
+  }
+}

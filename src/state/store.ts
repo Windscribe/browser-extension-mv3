@@ -33,6 +33,7 @@ import webRtcEnabledReducer from './slices/webRtcEnabled'
 import splitPersonalityEnabledReducer from './slices/splitPersonalityEnabled'
 import userAgentReducer from './slices/userAgent'
 import languageWarpEnabledReducer from './slices/languageWarpEnabled'
+import locationWarpReducer from './slices/locationWarp'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -46,6 +47,7 @@ const reducers = {
   favoriteLocations: favoriteLocationsReducer,
   languageWarpEnabled: languageWarpEnabledReducer,
   locationSorting: locationSortingReducer,
+  locationWarp: locationWarpReducer,
   newsfeed: newsfeedReducer,
   notificationBlockerEnabled: notificationBlockerEnabledReducer,
   proxy: proxyReducer,
