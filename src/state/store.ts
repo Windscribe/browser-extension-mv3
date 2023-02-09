@@ -37,6 +37,7 @@ import languageWarpEnabledReducer from './slices/languageWarpEnabled'
 import locationWarpReducer from './slices/locationWarp'
 import allowSystemNotificationsReducer from './slices/allowSystemNotifications'
 import proxyPortReducer from './slices/proxyPort'
+import workerBlockReducer from './slices/workerBlock'
 
 const reducers = {
   allowSystemNotifications: allowSystemNotificationsReducer,
@@ -64,6 +65,7 @@ const reducers = {
   view: viewReducer,
   webRtcEnabled: webRtcEnabledReducer,
   whitelist: whitelistReducer,
+  workerBlock: workerBlockReducer,
   workingApi: workingApiReducer,
   userStashes: userStashesReducer,
 }

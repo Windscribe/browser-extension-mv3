@@ -13,6 +13,7 @@ import {
 } from 'state/slices/splitPersonalityEnabled'
 
 import { setLocationWarp } from 'state/slices/locationWarp'
+import { setWorkerBlock } from 'state/slices/workerBlock'
 import DoNotDisturbIcon from 'assets/img/doNotDisturb.svg'
 import WebRtcLeakIcon from 'assets/img/webRtcLeak.svg'
 import SplitPersonalityIcon from 'assets/img/splitPersonality.svg'
@@ -27,6 +28,7 @@ const Privacy: ThemeUiElement = () => {
   const locationWarp = useSelector(s => s.locationWarp)
   const languageWarpEnabled = useSelector(s => s.languageWarpEnabled)
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const workerBlockEnabled = useSelector(s => s.workerBlock)
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
   return (
@@ -88,8 +90,6 @@ const Privacy: ThemeUiElement = () => {
             />
           </Flex>
         </OptionBox>
-      </Box>
-      <Box mx="16px">
         <OptionBox
           Icon={LocationWarpIcon}
           path={'features/location-warp'}
@@ -99,6 +99,16 @@ const Privacy: ThemeUiElement = () => {
           <ToggleSwitch
             onChange={() => dispatch(setLocationWarp(!locationWarp))}
             checked={locationWarp}
+          />
+        </OptionBox>
+        <OptionBox
+          Icon={LocationWarpIcon}
+          title="Worker Block"
+          subTitle="Blocks web workers from running in the background."
+        >
+          <ToggleSwitch
+            onChange={() => dispatch(setWorkerBlock(!workerBlockEnabled))}
+            checked={workerBlockEnabled}
           />
         </OptionBox>
       </Box>

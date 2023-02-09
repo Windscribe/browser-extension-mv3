@@ -8,7 +8,7 @@ import { pushToDebugLog } from 'state/slices/debugLog'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { setReconnectionAttempts } from 'state/slices/connection'
 import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
-import { locationWarp, languageWarp, splitPersonality } from '../content'
+import { locationWarp, languageWarp, splitPersonality, workerBlock } from '../content'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
@@ -104,17 +104,19 @@ chrome.proxy.onProxyError.addListener(async e => {
   }
 })
 
-const executeScript = async <Args extends string | Coords>(
+type Coords = { latitude: string; longitude: string }
+
+const executeScript = async <Data extends string | Coords>(
   tabId: number,
-  args: Args,
-  func: (args: Args) => void,
+  func: (data?: any) => void,
+  data?: Data,
 ) => {
   chrome.scripting.executeScript({
-    args: [args],
     target: { tabId: tabId, allFrames: true },
     world: 'MAIN',
     injectImmediately: true,
     func: func,
+    ...(data && { args: [data] }),
   })
 }
 
@@ -122,6 +124,10 @@ type WebNavDetails = chrome.webNavigation.WebNavigationTransitionCallbackDetails
 
 const injectWarps = async (details: WebNavDetails) => {
   const store = await bgStore
+
+  if (store.getState().workerBlock) {
+    executeScript(details.tabId, workerBlock)
+  }
 
   const coords = store.getState().currentDataCenter?.gps?.split(',')
 
@@ -131,20 +137,20 @@ const injectWarps = async (details: WebNavDetails) => {
       longitude: coords[1],
     }
 
-    executeScript(details.tabId, locationWarpInfo, locationWarp)
+    executeScript(details.tabId, locationWarp, locationWarpInfo)
   }
 
   if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
     const spoofedUserAgent = store.getState().userAgent.spoofed
 
-    executeScript(details.tabId, spoofedUserAgent, splitPersonality)
+    executeScript(details.tabId, splitPersonality, spoofedUserAgent)
   }
 
   if (store.getState().languageWarpEnabled) {
     const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
     const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
 
-    executeScript(details.tabId, spoofedLocaleCode, languageWarp)
+    executeScript(details.tabId, languageWarp, spoofedLocaleCode)
   }
 }
 

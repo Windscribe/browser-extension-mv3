@@ -1,3 +1,4 @@
 export { default as languageWarp } from './languageWarp'
 export { default as locationWarp } from './locationWarp'
 export { default as splitPersonality } from './splitPersonality'
+export { default as workerBlock } from './workerBlock'
