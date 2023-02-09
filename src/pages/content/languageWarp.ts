@@ -1,6 +1,4 @@
 export default function languageWarp(locale: string): void {
-  //const locale = JSON.parse(spoofedLocaleCode)
-
   Object.defineProperty(window.navigator, 'language', {
     value: locale,
     configurable: true,

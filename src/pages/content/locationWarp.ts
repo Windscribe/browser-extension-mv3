@@ -1,9 +1,10 @@
-// I'll rewrite it on typescript if you'll accept my proposal
-export default function locationWarp(options) {
+import type { Coords } from 'utils/types'
+
+export default function locationWarp(options: Coords): void {
   const handler = {
-    apply(target, self, args) {
+    apply(target: any, self: any, args: any) {
       const funcCopy = args[0]
-      args[0] = function (position) {
+      args[0] = function (position: any) {
         if ('timestamp' in position) {
           Object.defineProperty(position, 'timestamp', {
             value: Date.now(),
@@ -39,13 +40,12 @@ export default function locationWarp(options) {
   }
 
   if (navigator && navigator.geolocation) {
-    navigator.geolocation.__proto__.getCurrentPosition = new Proxy(
-      navigator.geolocation.__proto__.getCurrentPosition,
+    // Need to test with Object.getPrototypeOf(navigator.geolocation)
+    ;(navigator.geolocation as any).__proto__.getCurrentPosition = new Proxy(
+      (navigator.geolocation as any).__proto__.getCurrentPosition,
       handler,
-    )
-
-    navigator.geolocation.__proto__.watchPosition = new Proxy(
-      navigator.geolocation.__proto__.watchPosition,
+    )(navigator.geolocation as any).__proto__.watchPosition = new Proxy(
+      (navigator.geolocation as any).__proto__.watchPosition,
       handler,
     )
   }

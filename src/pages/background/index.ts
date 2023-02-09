@@ -1,4 +1,5 @@
 import locales from 'utils/locales'
+import type { Coords } from 'utils/types'
 import getErrorMessage from 'utils/getErrorMessage'
 import browserApi from 'services/browserApi'
 import { addContextMenuItem } from 'services/contextMenu'
@@ -100,14 +101,13 @@ chrome.proxy.onProxyError.addListener(async e => {
   }
 })
 
-type Coords = { latitude: string; longitude: string }
-const executeScript = async <Data extends string | Coords>(
+const executeScript = async <Args extends string | Coords>(
   tabId: number,
-  data: Data,
-  func: (data: Data) => void,
+  args: Args,
+  func: (args: Args) => void,
 ) => {
   chrome.scripting.executeScript({
-    args: [data],
+    args: [args],
     target: { tabId: tabId, allFrames: true },
     world: 'MAIN',
     injectImmediately: true,
