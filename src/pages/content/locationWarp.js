@@ -1,6 +1,5 @@
-{
-  const options = JSON.parse(locationWarpInfo)
-
+// I'll rewrite it on typescript if you'll accept my proposal
+export default function locationWarp(options) {
   const handler = {
     apply(target, self, args) {
       const funcCopy = args[0]

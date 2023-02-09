@@ -8,6 +8,7 @@ import { pushToDebugLog } from 'state/slices/debugLog'
 import { connectToAutopilot } from 'state/slices/autopilot'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
+import { locationWarp, languageWarp, splitPersonality } from '../content'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
@@ -99,29 +100,19 @@ chrome.proxy.onProxyError.addListener(async e => {
   }
 })
 
-const executeScript = async (
+type Coords = { latitude: string; longitude: string }
+const executeScript = async <Data extends string | Coords>(
   tabId: number,
-  data: string | object,
-  fileName: string,
-  func: (data: string) => string,
+  data: Data,
+  func: (data: Data) => void,
 ) => {
-  chrome.scripting.executeScript(
-    {
-      args: [JSON.stringify(data)],
-      target: { tabId: tabId, allFrames: true },
-      world: 'MAIN',
-      injectImmediately: true,
-      func: func,
-    },
-    () => {
-      chrome.scripting.executeScript({
-        target: { tabId: tabId, allFrames: true },
-        world: 'MAIN',
-        injectImmediately: true,
-        files: ['/content/' + fileName + '.js'],
-      })
-    },
-  )
+  chrome.scripting.executeScript({
+    args: [data],
+    target: { tabId: tabId, allFrames: true },
+    world: 'MAIN',
+    injectImmediately: true,
+    func: func,
+  })
 }
 
 type WebNavDetails = chrome.webNavigation.WebNavigationTransitionCallbackDetails
@@ -132,40 +123,25 @@ const injectWarps = async (details: WebNavDetails) => {
   const coords = store.getState().currentDataCenter?.gps?.split(',')
 
   if (store.getState().locationWarp && coords) {
-    const locationWarpInfo = {
+    const locationWarpInfo: Coords = {
       latitude: coords[0],
       longitude: coords[1],
     }
 
-    executeScript(
-      details.tabId,
-      locationWarpInfo,
-      'locationWarp',
-      locationWarpInfo => (window.locationWarpInfo = locationWarpInfo),
-    )
+    executeScript(details.tabId, locationWarpInfo, locationWarp)
   }
 
   if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
     const spoofedUserAgent = store.getState().userAgent.spoofed
 
-    executeScript(
-      details.tabId,
-      spoofedUserAgent,
-      'splitPersonality',
-      spoofedUserAgent => (window.spoofedUserAgent = spoofedUserAgent),
-    )
+    executeScript(details.tabId, spoofedUserAgent, splitPersonality)
   }
 
   if (store.getState().languageWarpEnabled) {
     const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
     const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
 
-    executeScript(
-      details.tabId,
-      spoofedLocaleCode,
-      'languageWarp',
-      spoofedLocaleCode => (window.spoofedLocaleCode = spoofedLocaleCode),
-    )
+    executeScript(details.tabId, spoofedLocaleCode, languageWarp)
   }
 }
 
