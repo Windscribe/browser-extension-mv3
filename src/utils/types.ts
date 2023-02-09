@@ -95,5 +95,7 @@ export type InputChangeHandler = React.EventHandler<React.ChangeEvent<HTMLInputE
 declare global {
   interface Window {
     locationWarpInfo: string
+    spoofedLocaleCode: string
+    spoofedUserAgent: string
   }
 }
