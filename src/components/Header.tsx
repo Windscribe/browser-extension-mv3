@@ -1,33 +1,67 @@
 import { Box, Flex, Text } from 'theme-ui'
+
 import { type ThemeUiElement } from 'utils/types'
 import GoBackButton from './GoBackButton'
+import RefreshButton from './RefreshButton'
+import { reloadCurrentTab } from 'services/currentTab'
 
-type HeaderProps = React.PropsWithChildren<{
+type MandatoryProps = {
   title: string
-}>
+}
 
-const Header: ThemeUiElement<HeaderProps> = ({ title, children }) => (
-  <Flex
-    sx={{
-      height: '64px',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      px: '16px',
-    }}
-  >
-    <GoBackButton />
-    <Text
-      data-testid="header-title"
+// Header can be used without shouldShowReloadAlert but if shouldShowReloadAlert is passed than showReloadAlert is required
+type OptionalProps =
+  | { shouldShowReloadAlert?: undefined; showReloadAlert?: never }
+  | { shouldShowReloadAlert: boolean; showReloadAlert: (flag: boolean) => void }
+
+type HeaderProps = React.PropsWithChildren<MandatoryProps & OptionalProps>
+
+const Header: ThemeUiElement<HeaderProps> = ({
+  title,
+  showReloadAlert,
+  shouldShowReloadAlert,
+  children,
+}) => {
+  const handleClick = async () => {
+    await reloadCurrentTab()
+    // TODO Consider Should we reload all opened tabs instead just current one?
+    showReloadAlert?.(false)
+  }
+
+  return (
+    <Flex
       sx={{
-        fontSize: '24px',
-        color: 'primaryText',
-        fontWeight: '600',
+        position: 'relative',
+        height: '64px',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        px: '16px',
       }}
     >
-      {title}
-    </Text>
-    {children || <Box sx={{ width: '32px' }} />}
-  </Flex>
-)
+      <GoBackButton />
+      <RefreshButton
+        onClick={handleClick}
+        sx={{
+          display: shouldShowReloadAlert ? 'block' : 'none',
+          position: 'absolute',
+          transform: 'translate(-50%, -50%)',
+          top: '100%',
+          left: '50%',
+        }}
+      />
+      <Text
+        data-testid="header-title"
+        sx={{
+          fontSize: '24px',
+          color: 'primaryText',
+          fontWeight: '600',
+        }}
+      >
+        {title}
+      </Text>
+      {children || <Box sx={{ width: '32px' }} />}
+    </Flex>
+  )
+}
 
 export default Header
