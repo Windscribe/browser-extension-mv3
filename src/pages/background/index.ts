@@ -124,7 +124,9 @@ const executeScript = async (
   )
 }
 
-const injectWarps = async (e: any) => {
+type WebNavDetails = chrome.webNavigation.WebNavigationTransitionCallbackDetails
+
+const injectWarps = async (details: WebNavDetails) => {
   const store = await bgStore
 
   const coords = store.getState().currentDataCenter?.gps?.split(',')
@@ -136,7 +138,7 @@ const injectWarps = async (e: any) => {
     }
 
     executeScript(
-      e.tabId,
+      details.tabId,
       locationWarpInfo,
       'locationWarp',
       locationWarpInfo => (window.locationWarpInfo = locationWarpInfo),
@@ -147,7 +149,7 @@ const injectWarps = async (e: any) => {
     const spoofedUserAgent = store.getState().userAgent.spoofed
 
     executeScript(
-      e.tabId,
+      details.tabId,
       spoofedUserAgent,
       'splitPersonality',
       spoofedUserAgent => (window.spoofedUserAgent = spoofedUserAgent),
@@ -159,7 +161,7 @@ const injectWarps = async (e: any) => {
     const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
 
     executeScript(
-      e.tabId,
+      details.tabId,
       spoofedLocaleCode,
       'languageWarp',
       spoofedLocaleCode => (window.spoofedLocaleCode = spoofedLocaleCode),
