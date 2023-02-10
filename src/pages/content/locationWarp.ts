@@ -1,51 +1,67 @@
 import type { Coords } from 'utils/types'
 
+type GetCurrentPosition = typeof navigator.geolocation.getCurrentPosition
+type GetCurrentPositionParameters = Parameters<GetCurrentPosition>
+type WatchPosition = typeof navigator.geolocation.watchPosition
+
 export default function locationWarp(options: Coords): void {
   const handler = {
-    apply(target: any, self: any, args: any) {
-      const funcCopy = args[0]
-      args[0] = function (position: any) {
+    apply(
+      target: GetCurrentPosition | WatchPosition,
+      thisArg: Geolocation,
+      argumentsList: GetCurrentPositionParameters,
+    ) {
+      const funcCopy: PositionCallback = argumentsList[0]
+
+      argumentsList[0] = function (position: GeolocationPosition) {
+        const spoofCoordinatesFor = (obj: GeolocationCoordinates): void => {
+          Object.defineProperty(obj, 'latitude', {
+            value: options.latitude ? +options.latitude : null,
+          })
+          Object.defineProperty(obj, 'longitude', {
+            value: options.longitude ? +options.longitude : null,
+          })
+          Object.defineProperty(obj, 'speed', {
+            value: null,
+          })
+          Object.defineProperty(obj, 'heading', {
+            value: null,
+          })
+          Object.defineProperty(obj, 'accuracy', {
+            value: 20000,
+          })
+          Object.defineProperty(obj, 'altitude', {
+            value: null,
+          })
+          Object.defineProperty(obj, 'altitudeAccuracy', {
+            value: null,
+          })
+        }
+
         if ('timestamp' in position) {
           Object.defineProperty(position, 'timestamp', {
             value: Date.now(),
           })
         }
+
         if ('coords' in position) {
-          Object.defineProperty(position.coords, 'latitude', {
-            value: options.latitude ? options.latitude : null,
-          })
-          Object.defineProperty(position.coords, 'longitude', {
-            value: options.longitude ? options.longitude : null,
-          })
-          Object.defineProperty(position.coords, 'speed', {
-            value: null,
-          })
-          Object.defineProperty(position.coords, 'heading', {
-            value: null,
-          })
-          Object.defineProperty(position.coords, 'accuracy', {
-            value: 20000,
-          })
-          Object.defineProperty(position.coords, 'altitude', {
-            value: null,
-          })
-          Object.defineProperty(position.coords, 'altitudeAccuracy', {
-            value: null,
-          })
+          spoofCoordinatesFor(position.coords)
+          spoofCoordinatesFor(GeolocationCoordinates.prototype)
         }
+
         funcCopy(position)
       }
-      return target.apply(self, args)
+      return target.apply(thisArg, argumentsList)
     },
   }
 
-  if (navigator && navigator.geolocation) {
-    // Need to test with Object.getPrototypeOf(navigator.geolocation)
-    ;(navigator.geolocation as any).__proto__.getCurrentPosition = new Proxy(
-      (navigator.geolocation as any).__proto__.getCurrentPosition,
+  if (window.navigator?.geolocation) {
+    Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = new Proxy(
+      Object.getPrototypeOf(navigator.geolocation).getCurrentPosition,
       handler,
-    )(navigator.geolocation as any).__proto__.watchPosition = new Proxy(
-      (navigator.geolocation as any).__proto__.watchPosition,
+    )
+    Object.getPrototypeOf(navigator.geolocation).watchPosition = new Proxy(
+      Object.getPrototypeOf(navigator.geolocation).watchPosition,
       handler,
     )
   }
