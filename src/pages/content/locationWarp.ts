@@ -1,15 +1,14 @@
 import type { Coords } from 'utils/types'
 
-type GetCurrentPosition = typeof navigator.geolocation.getCurrentPosition
-type GetCurrentPositionParameters = Parameters<GetCurrentPosition>
-type WatchPosition = typeof navigator.geolocation.watchPosition
+type GeolocationMethod = typeof navigator.geolocation.getCurrentPosition
+type GeolocationMethodParameters = Parameters<GeolocationMethod>
 
 export default function locationWarp(options: Coords): void {
   const handler = {
     apply(
-      target: GetCurrentPosition | WatchPosition,
+      target: GeolocationMethod,
       thisArg: Geolocation,
-      argumentsList: GetCurrentPositionParameters,
+      argumentsList: GeolocationMethodParameters,
     ) {
       const funcCopy: PositionCallback = argumentsList[0]
 
