@@ -33,6 +33,7 @@ const Privacy: ThemeUiElement = () => {
       <Box mx="16px">
         <OptionBox
           Icon={DoNotDisturbIcon}
+          path={'features/dnd'}
           title="Do Not Disturb"
           subTitle="Block all sites from spamming you with notifications."
         >
@@ -43,6 +44,7 @@ const Privacy: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={WebRtcLeakIcon}
+          path={'features/webrtc-slayer'}
           title="WebRTC Slayer"
           subTitle="Limits WebRTC requests to prevent leaks. This may break some applications."
         >
@@ -50,6 +52,7 @@ const Privacy: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={LanguageWarpIcon}
+          path={'features/languagewarp'}
           title="Language Warp"
           subTitle="Sets your language and locale settings to match the connected proxy."
         >
@@ -60,6 +63,7 @@ const Privacy: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={SplitPersonalityIcon}
+          path={'features/split-personality'}
           title="Split Personality"
           subTitle="Randomly rotates your user agent."
         >
@@ -77,6 +81,7 @@ const Privacy: ThemeUiElement = () => {
       <Box mx="16px">
         <OptionBox
           Icon={LocationWarpIcon}
+          path={'features/location-warp'}
           title="Location Warp"
           subTitle="Fakes your GPS location to match the connected proxy."
         >

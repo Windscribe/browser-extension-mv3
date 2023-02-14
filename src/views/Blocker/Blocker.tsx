@@ -1,5 +1,6 @@
 import { Box, Button } from 'theme-ui'
-import { type ThemeUiElement } from 'utils/types'
+
+import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { Header, OptionBox, ToggleSwitch } from 'components'
 import { setBlockLists } from 'state/slices/blocker'
