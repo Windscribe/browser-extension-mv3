@@ -29,7 +29,8 @@ export const connectProxy = createAsyncThunk(
     }
 
     const whitelist = reduceWhitelist(getState())
-    await connect(hosts, whitelist)
+    const proxyPort = getState().proxyPort
+    await connect(hosts, whitelist, proxyPort)
     dispatch(setProxy(hosts))
   },
 )

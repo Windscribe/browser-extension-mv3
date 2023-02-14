@@ -33,6 +33,8 @@ export type ErrorState = {
 
 export type FailoverOption = 'Auto / Best' | 'Same Country' | 'None'
 
+export type ProxyPort = 443 | 9443
+
 export type View = keyof typeof Containers
 
 type OnlyFirst<T, U> = {
