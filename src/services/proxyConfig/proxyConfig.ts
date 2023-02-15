@@ -54,7 +54,7 @@ export const connect = async (hosts: Host[], whitelist: string[]): Promise<void>
     },
   }
 
-  return chrome.proxy.settings.set({ value: config, scope: 'regular' }, function () {})
+  return chrome.proxy.settings.set({ value: config, scope: 'regular' })
 }
 
 export const disconnect = async (): Promise<void> => {

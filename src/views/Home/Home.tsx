@@ -16,6 +16,7 @@ import { useInitialDataFetching } from 'components/hooks'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import { type ThemeUiElement } from 'utils/types'
 import Flags from 'assets/flags'
+import { SpinAnim } from 'styles/constants'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -25,6 +26,7 @@ import Globe from 'assets/img/globe.svg'
 import PrivacyIcon from 'assets/img/privacy.svg'
 import BlockerIcon from 'assets/img/blocker.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
+import ConnectingRing from 'assets/img/connectingRing.svg'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -38,6 +40,7 @@ const Home: ThemeUiElement = () => {
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
   const isConnected = useSelector(state => state.proxy.isConnected)
+  const isPending = useSelector(state => state.proxy.isPending)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
@@ -58,7 +61,7 @@ const Home: ThemeUiElement = () => {
 
   const toggleProxy = async () => {
     // This is example of how to use logger in React components
-    log('Proxy toggled ' + (isConnected ? 'off' : 'on'))
+    // log('Proxy toggled ' + (isConnected ? 'off' : 'on'))
 
     if (isConnected) {
       await dispatch(disconnectProxy())
@@ -268,15 +271,26 @@ const Home: ThemeUiElement = () => {
                 borderRadius: '50%',
                 border: 'solid 3px',
                 borderColor: `${isConnected ? 'neonGreen' : 'transparent'}`,
-                transform: `rotate(${isConnected ? '0' : '-180deg'})`,
+                transform: `rotate(${isPending || isConnected ? '0' : '-180deg'})`,
                 transition: '0.3s',
                 ':hover': {
-                  transform: `scale(1.1) rotate(${isConnected ? '0' : '-180deg'})`,
+                  transform: `scale(1.1) rotate(${isPending || isConnected ? '0' : '-180deg'})`,
                 },
               }}
               onClick={toggleProxy}
             >
               <PowerButton />
+              {isPending && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    zIndex: 12,
+                    height: '72px',
+                  }}
+                >
+                  <ConnectingRing sx={{ animation: `${SpinAnim} 1s linear infinite` }} />
+                </Box>
+              )}
             </Button>
           </Flex>
         </Flex>
