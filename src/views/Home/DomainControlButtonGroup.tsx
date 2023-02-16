@@ -5,7 +5,7 @@ import IconButton, { type IconButtonProps } from 'components/IconButton'
 import { type ThemeUiElement } from 'utils/types'
 import { useDispatchAlias, useSelector } from 'state/hooks'
 import { ADD_TO_WHITELIST } from 'state/slices/whitelist'
-import { getCurrentTabId } from 'services/currentTab'
+import { reloadCurrentTab } from 'services/currentTab'
 
 import AdsDeselected from 'assets/img/adsDeselected.svg'
 import AdsSelected from 'assets/img/adsSelected.svg'
@@ -59,9 +59,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         allowCookies: isCookiesAllowed,
         allowDirectConnections: isDirectConnectionsAllowed,
       })
-
-      const tabId = await getCurrentTabId()
-      if (tabId) await chrome.tabs.reload(tabId)
+      await reloadCurrentTab()
     }
     setIsDomainSettingsOpen(false)
   }
