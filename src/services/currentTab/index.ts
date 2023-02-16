@@ -1,1 +1,1 @@
-export { getCurrentTabHostname, getCurrentTabId } from './currentTab'
+export { getCurrentTabHostname, getCurrentTabId, reloadCurrentTab } from './currentTab'

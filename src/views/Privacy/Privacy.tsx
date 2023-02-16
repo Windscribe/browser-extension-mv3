@@ -1,4 +1,5 @@
 import { Box } from 'theme-ui'
+import { useState } from 'react'
 
 import { type ThemeUiElement } from 'utils/types'
 import { Header, OptionBox, ToggleSwitch } from 'components'
@@ -12,10 +13,11 @@ const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const notificationBlockerEnabled = useSelector(s => s.notificationBlockerEnabled)
   const webRtcEnabled = useSelector(s => s.webRtcEnabled)
+  const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
   return (
     <Box data-testid="privacy-page" bg="background">
-      <Header title="Privacy" />
+      <Header title="Privacy" {...{ shouldShowReloadAlert, showReloadAlert }} />
       <Box mx="16px">
         <OptionBox
           Icon={DoNotDisturbIcon}
@@ -23,7 +25,10 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Block all sites from spamming you with notifications."
         >
           <ToggleSwitch
-            onChange={() => dispatch(toggleNotificationBlocker())}
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(toggleNotificationBlocker())
+            }}
             checked={notificationBlockerEnabled}
           />
         </OptionBox>
@@ -34,7 +39,13 @@ const Privacy: ThemeUiElement = () => {
           title="WebRTC Slayer"
           subTitle="Limits WebRTC requests to prevent leaks. This may break some applications."
         >
-          <ToggleSwitch onChange={() => dispatch(toggleWebRtcBlocker())} checked={webRtcEnabled} />
+          <ToggleSwitch
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(toggleWebRtcBlocker())
+            }}
+            checked={webRtcEnabled}
+          />
         </OptionBox>
       </Box>
     </Box>

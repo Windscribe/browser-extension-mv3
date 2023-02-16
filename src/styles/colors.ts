@@ -14,6 +14,7 @@ export const colors = {
   lemonYellow: '#ffef02',
   bloodRed: '#ff3b3b',
   rubyRed: '#f94c43',
+  orange: '#ff8e00',
   warmGrey: '#777',
   lowWhite: 'rgba(255, 255, 255, 0.1)',
 
