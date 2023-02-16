@@ -29,11 +29,10 @@ const options = {
     options: path.join(__dirname, 'src', 'pages', 'options', 'index.jsx'),
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
     background: path.join(__dirname, 'src', 'pages', 'background', 'index.ts'),
-    contentScript: path.join(__dirname, 'src', 'pages', 'content', 'index.js'),
     debugLog: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.tsx'),
   },
   chromeExtensionBoilerplate: {
-    notHotReload: ['background', 'contentScript', 'popup'], // TODO check
+    notHotReload: ['background', 'popup'], // TODO check
   },
   output: {
     filename: '[name].bundle.js',
@@ -151,8 +150,8 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/pages/content/content.styles.css',
-          to: path.join(__dirname, 'build'),
+          from: path.resolve(__dirname, 'src/pages/content'),
+          to: path.join(__dirname, 'build/content'),
           force: true,
         },
       ],

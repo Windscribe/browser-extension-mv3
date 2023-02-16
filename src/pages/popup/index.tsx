@@ -22,10 +22,7 @@ proxyStore
   })
   .then(() => {
     if (process.env.NODE_ENV === 'development') {
-      type W = typeof window & {
-        store: typeof proxyStore
-      }
-      ;(window as W).store = proxyStore
+      window.store = proxyStore
     }
   })
   .catch((err: object): void => {

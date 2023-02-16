@@ -30,6 +30,10 @@ import debugLogReducer, { pushToDebugLog } from './slices/debugLog'
 import favoriteLocationsReducer from './slices/favoriteLocations'
 import notificationBlockerEnabledReducer from './slices/notificationBlockerEnabled'
 import webRtcEnabledReducer from './slices/webRtcEnabled'
+import splitPersonalityEnabledReducer from './slices/splitPersonalityEnabled'
+import userAgentReducer from './slices/userAgent'
+import languageWarpEnabledReducer from './slices/languageWarpEnabled'
+import locationWarpReducer from './slices/locationWarp'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -41,13 +45,17 @@ const reducers = {
   currentLocation: currentLocationReducer,
   debugLog: debugLogReducer,
   favoriteLocations: favoriteLocationsReducer,
+  languageWarpEnabled: languageWarpEnabledReducer,
   locationSorting: locationSortingReducer,
+  locationWarp: locationWarpReducer,
   newsfeed: newsfeedReducer,
   notificationBlockerEnabled: notificationBlockerEnabledReducer,
   proxy: proxyReducer,
   serverCredentials: serverCredentialsReducer,
   servers: serversReducer,
   session: sessionReducer,
+  splitPersonalityEnabled: splitPersonalityEnabledReducer,
+  userAgent: userAgentReducer,
   view: viewReducer,
   webRtcEnabled: webRtcEnabledReducer,
   whitelist: whitelistReducer,

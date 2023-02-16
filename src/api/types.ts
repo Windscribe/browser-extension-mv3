@@ -55,6 +55,7 @@ export type Endpoint =
   | 'serverlist'
   | 'WebSession'
   | 'Report/applog'
+  | 'ExtBlocklists'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -93,6 +94,22 @@ export interface WebSessionData {
 
 export interface ReportAppLogData {
   success: number
+}
+export interface BlocklistsData {
+  blocklists: Blocklist[]
+  useragents: string
+}
+
+interface Blocklist {
+  default: boolean
+  description: string
+  label: string
+  link: string
+  option: string
+  lists: {
+    title: string
+    url: string
+  }[]
 }
 
 export type GetServerCredentialsParameters = {

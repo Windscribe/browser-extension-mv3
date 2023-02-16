@@ -1,13 +1,17 @@
+import locales from 'utils/locales'
+import type { Coords } from 'utils/types'
 import getErrorMessage from 'utils/getErrorMessage'
-import { initializeWrappedStore } from 'state'
-import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
-import { pushToDebugLog } from 'state/slices/debugLog'
 import browserApi from 'services/browserApi'
 import { addContextMenuItem } from 'services/contextMenu'
 import setDebuggerAuth from './debuggerAuth'
+import { initializeWrappedStore } from 'state'
+import { pushToDebugLog } from 'state/slices/debugLog'
+import { connectToAutopilot } from 'state/slices/autopilot'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { connectToAutopilot } from 'state/slices/autopilot'
 import { setReconnectionAttempts } from 'state/slices/connection'
+import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
+import { locationWarp, languageWarp, splitPersonality } from '../content'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
@@ -120,4 +124,49 @@ chrome.proxy.onProxyError.addListener(async e => {
   }
 })
 
+const executeScript = async <Args extends string | Coords>(
+  tabId: number,
+  args: Args,
+  func: (args: Args) => void,
+) => {
+  chrome.scripting.executeScript({
+    args: [args],
+    target: { tabId: tabId, allFrames: true },
+    world: 'MAIN',
+    injectImmediately: true,
+    func: func,
+  })
+}
+
+type WebNavDetails = chrome.webNavigation.WebNavigationTransitionCallbackDetails
+
+const injectWarps = async (details: WebNavDetails) => {
+  const store = await bgStore
+
+  const coords = store.getState().currentDataCenter?.gps?.split(',')
+
+  if (store.getState().locationWarp && coords) {
+    const locationWarpInfo: Coords = {
+      latitude: coords[0],
+      longitude: coords[1],
+    }
+
+    executeScript(details.tabId, locationWarpInfo, locationWarp)
+  }
+
+  if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
+    const spoofedUserAgent = store.getState().userAgent.spoofed
+
+    executeScript(details.tabId, spoofedUserAgent, splitPersonality)
+  }
+
+  if (store.getState().languageWarpEnabled) {
+    const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
+    const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
+
+    executeScript(details.tabId, spoofedLocaleCode, languageWarp)
+  }
+}
+
+chrome.webNavigation.onCommitted.addListener(injectWarps)
 chrome.runtime.onInstalled.addListener(addContextMenuItem)

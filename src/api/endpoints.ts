@@ -1,6 +1,7 @@
 import type {
   ApiResponse,
   BestLocation,
+  BlocklistsData,
   Notifications,
   ServerCredentials,
   ServerList,
@@ -105,14 +106,37 @@ const reportAppLog = async (
     logfile,
   })
 
+const getBlocklists = async (
+  session_auth_hash: string,
+  workingApi: string,
+): Promise<ApiResponse<BlocklistsData>> =>
+  await sendRequest(
+    'GET',
+    buildQueryString('ExtBlocklists', { session_auth_hash, version: 3 }),
+    workingApi,
+  )
+
+const getUserAgents = async (url: string): Promise<string> => {
+  try {
+    const response = await fetch(url)
+    return await response.text()
+  } catch (err) {
+    throw new Error('Error while trying to fetch list of fake user agents.', {
+      cause: err as Error,
+    })
+  }
+}
+
 export {
   login,
   logout,
   getBestLocation,
+  getBlocklists,
   getNotifications,
   getServerCredentials,
   getServerList,
   getSessionStatus,
   getWebSession,
+  getUserAgents,
   reportAppLog,
 }

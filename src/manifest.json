@@ -1,5 +1,6 @@
 {
   "manifest_version": 3,
+  "minimum_chrome_version": "96",
   "name": "Windscribe - Free Proxy and Ad Blocker",
   "description": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
   "options_page": "options.html",
@@ -14,29 +15,23 @@
     "contextMenus",
     "debugger",
     "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
     "privacy",
     "proxy",
     "scripting",
     "storage",
-    "tabs"
+    "tabs",
+    "webNavigation"
   ],
   "host_permissions": ["<all_urls>"],
   "icons": {
     "16": "icon-16.png",
     "128": "icon-128.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*", "<all_urls>"],
-      "js": ["contentScript.bundle.js"],
-      "css": ["content.styles.css"]
-    }
-  ],
   "default_locale": "en",
   "web_accessible_resources": [
     {
       "resources": [
-        "content.styles.css",
         "icon-128.png",
         "icon-34.png",
         "/web_accessible_resources/empty",

@@ -9,7 +9,7 @@ import { type ThemeUIJSX } from '@theme-ui/core'
 
 import type * as Containers from 'views'
 import flags from 'assets/flags'
-import type { AppDispatch, RootState } from 'state'
+import type { AppDispatch, RootState, StoreType } from 'state'
 
 export type ThemeUiElement<Props = Record<string, never>> = (props: Props) => ThemeUIJSX.Element
 
@@ -17,6 +17,8 @@ export type ThemeUiElement<Props = Record<string, never>> = (props: Props) => Th
 export type DebouncedFunction<Func extends (...any: any) => any> = ReturnType<typeof debounce<Func>>
 
 export type CountryCodeType = keyof typeof flags
+
+export type Coords = { latitude: string; longitude: string }
 
 export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
@@ -91,3 +93,9 @@ declare module '@reduxjs/toolkit' {
 export type SyncThunkCreator<PayloadType> = (p: PayloadType) => (d: Dispatch) => void
 
 export type InputChangeHandler = React.EventHandler<React.ChangeEvent<HTMLInputElement>>
+
+declare global {
+  interface Window {
+    store: StoreType
+  }
+}
