@@ -25,6 +25,14 @@ const login = async (
     ...(twoFa && { '2fa_code': twoFa }),
   })
 
+const logout = async (
+  session_auth_hash: string,
+  workingApi: string,
+): Promise<ApiResponse<SessionData>> =>
+  await sendRequest('Delete', buildQueryString('Session', { session_auth_hash }), workingApi, {
+    session_type_id: 2,
+  })
+
 const getBestLocation = async (
   session_auth_hash: string,
   workingApi: string,
@@ -121,6 +129,7 @@ const getUserAgents = async (url: string): Promise<string> => {
 
 export {
   login,
+  logout,
   getBestLocation,
   getBlocklists,
   getNotifications,

@@ -65,10 +65,9 @@ const Login: ThemeUiElement = () => {
         flexDirection: 'column',
       }}
     >
-      <Header
-        title="Login"
-        RightSideComponent={<HeaderLink buttonRoute="Signup" buttonText="Sign up" />}
-      />
+      <Header title="Login">
+        <HeaderLink buttonRoute="Signup" buttonText="Sign up" />
+      </Header>
       <Box sx={{ mx: '16px' }}>
         <form onSubmit={handleLogin}>
           <Flex

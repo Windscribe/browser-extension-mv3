@@ -12,4 +12,9 @@ const getCurrentTabId: () => Promise<number | undefined> = async () => {
   return tabId
 }
 
-export { getCurrentTabHostname, getCurrentTabId }
+const reloadCurrentTab: () => Promise<void> = async () => {
+  const tabId = await getCurrentTabId()
+  if (tabId) await chrome.tabs.reload(tabId)
+}
+
+export { getCurrentTabHostname, getCurrentTabId, reloadCurrentTab }

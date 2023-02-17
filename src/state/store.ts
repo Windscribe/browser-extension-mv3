@@ -88,8 +88,8 @@ const debugLogMiddleware: Middleware<Dispatch, RootState> = store => next => act
     const message = `Redux action: ${action.type}`
 
     let tag: LogTag = 'background'
-    if (action._sender?.url.includes('popup.html')) tag = 'popup'
-    if (action._sender?.url.includes('debugLog.html')) tag = 'debugLog'
+    if (action._sender?.url?.includes('popup.html')) tag = 'popup'
+    if (action._sender?.url?.includes('debugLog.html')) tag = 'debugLog'
     // Need a check if(contentScript) When contentScript will be added
 
     const logItem: LogItem = { message, tag }

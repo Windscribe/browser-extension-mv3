@@ -1,19 +1,23 @@
 import { createSlice, createAsyncThunk, type PayloadAction, type Dispatch } from '@reduxjs/toolkit'
 
 import type { Host } from 'api/types'
-import { connect, disconnect } from 'utils/proxyConfig'
+import { connect, disconnect } from 'services/proxyConfig'
 import { reduceWhitelist } from 'utils/reduceWhitelist'
 import type { SyncThunkCreator } from 'utils/types'
 import { pushToDebugLog } from './debugLog'
+import { setReconnectionAttempts } from './connection'
+import { checkIp } from 'services'
 
 interface ProxyState {
   isConnected: boolean
+  isPending: boolean
   hosts: Host[] | undefined
   errorMessage?: string
 }
 
 const initialState: ProxyState = {
   isConnected: false,
+  isPending: false,
   hosts: undefined,
   errorMessage: undefined,
 }
@@ -32,6 +36,12 @@ export const connectProxy = createAsyncThunk(
     const proxyPort = getState().proxyPort
     await connect(hosts, whitelist, proxyPort)
     dispatch(setProxy(hosts))
+    const ip = await checkIp(getState().workingApi)
+    if (ip === '---.---.---.---') {
+      throw Error('Failed to connect to proxy')
+    } else {
+      dispatch(setReconnectionAttempts(0))
+    }
   },
 )
 
@@ -71,12 +81,15 @@ export const proxySlice = createSlice({
     builder
       .addCase(connectProxy.pending, state => {
         state.isConnected = false
+        state.isPending = true
       })
       .addCase(connectProxy.fulfilled, state => {
         state.isConnected = true
+        state.isPending = false
       })
       .addCase(connectProxy.rejected, (state, action) => {
         state.isConnected = false
+        state.isPending = false
         if (action.error.message) {
           state.errorMessage = action.error.message
         }

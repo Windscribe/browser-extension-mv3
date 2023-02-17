@@ -1,4 +1,3 @@
-// TODO consider to move this file to services/browserApi
 import { Host } from 'api/types'
 import type { ProxyPort } from 'utils/types'
 
@@ -64,7 +63,7 @@ export const connect = async (
     },
   }
 
-  return chrome.proxy.settings.set({ value: config, scope: 'regular' }, function () {})
+  return chrome.proxy.settings.set({ value: config, scope: 'regular' })
 }
 
 export const disconnect = async (): Promise<void> => {
