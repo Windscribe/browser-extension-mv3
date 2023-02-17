@@ -12,6 +12,12 @@ import {
 import { fetchNotifications, FETCH_NOTIFICATIONS } from './slices/newsfeed'
 import { fetchServerCredentials, FETCH_SERVER_CREDENTIALS } from './slices/serverCredentials'
 import { fetchUserAgentsList, FETCH_USER_AGENTS_LIST } from './slices/userAgent'
+import {
+  activateSplitPersonality,
+  ACTIVATE_SPLIT_PERSONALITY,
+  toggleSplitPersonality,
+  TOGGLE_SPLIT_PERSONALITY,
+} from './slices/splitPersonalityEnabled'
 import { type Credentials } from 'api/types'
 import {
   checkUserStash,
@@ -46,4 +52,6 @@ export default {
   [`alias/${SAVE_USER_STASH}`]: saveUserStash,
   [`alias/${CHECK_USER_STASH}`]: checkUserStash,
   [`alias/${FETCH_USER_AGENTS_LIST}`]: fetchUserAgentsList,
+  [`alias/${ACTIVATE_SPLIT_PERSONALITY}`]: activateSplitPersonality,
+  [`alias/${TOGGLE_SPLIT_PERSONALITY}`]: toggleSplitPersonality,
 }

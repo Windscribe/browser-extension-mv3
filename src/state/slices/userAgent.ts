@@ -5,6 +5,7 @@ import { platforms } from 'utils/constants'
 import type { LoadingState, ErrorState } from 'utils/types'
 import { pushToDebugLog } from './debugLog'
 import { getRandomIntInclusive } from 'utils/getRandomNumber'
+import type { AppDispatch, GetState } from 'state'
 
 type UserAgentState = {
   list: string[]
@@ -62,14 +63,16 @@ export const fetchUserAgentsList = createAsyncThunk(
   },
 )
 
-export const setRandomSpoofedUserAgent = createAsyncThunk(
-  'userAgent/setRandomSpoofedUserAgent',
-  (_, { getState, dispatch }) => {
-    const userAgentList = getState().userAgent.list
-    const randomizedUserAgent = userAgentList[getRandomIntInclusive(0, userAgentList.length - 1)]
-    dispatch(setSpoofedUserAgent(randomizedUserAgent))
-  },
-)
+export const setRandomSpoofedUserAgent = (dispatch: AppDispatch, getState: GetState): void => {
+  const userAgentList = getState().userAgent.list
+  const spoofedUserAgent = getState().userAgent.spoofed
+  let randomizedUserAgent: string | null = null
+  do {
+    randomizedUserAgent = userAgentList[getRandomIntInclusive(0, userAgentList.length - 1)]
+    //  if new random UA equals to the one currently spoofed than get a new random UA
+  } while (randomizedUserAgent === spoofedUserAgent)
+  dispatch(setSpoofedUserAgent(randomizedUserAgent))
+}
 
 export const userAgentSlice = createSlice({
   name: 'userAgent',
