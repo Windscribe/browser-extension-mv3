@@ -39,7 +39,7 @@ const Home: ThemeUiElement = () => {
 
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
-  const isConnected = useSelector(state => state.proxy.isConnected)
+  const isConnected = useSelector(state => state.proxy?.isConnected)
   const isPending = useSelector(state => state.proxy.isPending)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
