@@ -11,8 +11,9 @@ import {
 type SplitPersonalityEnabledState = boolean
 const initialState: SplitPersonalityEnabledState = false
 
+export const TOGGLE_SPLIT_PERSONALITY = 'splitPersonalityEnabled/toggle'
 export const toggleSplitPersonality = createAsyncThunk(
-  'splitPersonalityEnabled/toggle',
+  TOGGLE_SPLIT_PERSONALITY,
   async (_, { dispatch, getState }) => {
     const isEnabled = getState().splitPersonalityEnabled
     if (isEnabled) {
@@ -38,17 +39,13 @@ export const deactivateSplitPersonality = createAsyncThunk(
   },
 )
 
+export const ACTIVATE_SPLIT_PERSONALITY = 'splitPersonalityEnabled/activate'
 export const activateSplitPersonality = createAsyncThunk(
-  'splitPersonalityEnabled/activate',
+  ACTIVATE_SPLIT_PERSONALITY,
   async (_, { dispatch, getState }) => {
     try {
-      let spoofedUserAgent = getState().userAgent.spoofed
-
-      if (!spoofedUserAgent) {
-        dispatch(setRandomSpoofedUserAgent())
-        spoofedUserAgent = getState().userAgent.spoofed
-      }
-
+      dispatch(setRandomSpoofedUserAgent)
+      const spoofedUserAgent = getState().userAgent.spoofed
       addTabEventsHandler(spoofedUserAgent)
       await spoofUserAgentHeader(spoofedUserAgent)
       dispatch(setSplitPersonalityEnabled(true))
