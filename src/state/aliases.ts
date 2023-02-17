@@ -19,6 +19,12 @@ import {
   TOGGLE_SPLIT_PERSONALITY,
 } from './slices/splitPersonalityEnabled'
 import { type Credentials } from 'api/types'
+import {
+  checkUserStash,
+  CHECK_USER_STASH,
+  saveUserStash,
+  SAVE_USER_STASH,
+} from './slices/userStashes'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string
@@ -43,6 +49,8 @@ export default {
   [`alias/${ADD_TO_WHITELIST}`]: _addToWhitelist,
   [`alias/${REMOVE_FROM_WHITELIST}`]: _removeFromWhitelist,
   [`alias/${FETCH_NOTIFICATIONS}`]: fetchNotifications,
+  [`alias/${SAVE_USER_STASH}`]: saveUserStash,
+  [`alias/${CHECK_USER_STASH}`]: checkUserStash,
   [`alias/${FETCH_USER_AGENTS_LIST}`]: fetchUserAgentsList,
   [`alias/${ACTIVATE_SPLIT_PERSONALITY}`]: activateSplitPersonality,
   [`alias/${TOGGLE_SPLIT_PERSONALITY}`]: toggleSplitPersonality,

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Box, Button, Flex } from 'theme-ui'
 
 import { ENVS } from 'utils/constants'
-import sendDebugLog from 'utils/sendDebugLog'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { setAutoConnect } from 'state/slices/connection'

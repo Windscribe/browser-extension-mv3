@@ -9,10 +9,9 @@ const Signup: ThemeUiElement = () => {
   return (
     <Box data-testid="signup-page" bg="background">
       <Column>
-        <Header
-          title="Sign up"
-          RightSideComponent={<HeaderLink buttonRoute="Login" buttonText="Login" />}
-        />
+        <Header title="Sign up">
+          <HeaderLink buttonRoute="Login" buttonText="Login" />
+        </Header>
       </Column>
       <Column>
         <Text

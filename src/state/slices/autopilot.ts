@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
 import type { Autopilot } from 'api/types'
-import { selectLocationByName, findDataCenterById } from '../selectors'
+import type { RootState } from '../store'
+import { selectLocationByName, findDataCenterById } from './servers'
 import { FETCH_BEST_LOCATION } from './bestLocation'
 import { setCurrentLocation } from './currentLocation'
 import { setCurrentDataCenter } from './currentDataCenter'
@@ -82,11 +83,9 @@ export const autopilotSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(applyBestLocationAsAutopilot.rejected, (state, action) => {
       state.errorMessage = `${action.error.name}. ${action.error.message}`
-      // TODO push error Message to debugLog
     })
     builder.addCase(connectToAutopilot.rejected, (state, action) => {
       state.errorMessage = `${action.error.name}. ${action.error.message}`
-      // TODO push error Message to debugLog
     })
   },
 })

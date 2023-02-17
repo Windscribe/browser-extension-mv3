@@ -1,5 +1,3 @@
-// TODO consider to move this file to services/browserApi
-
 import { Host } from 'api/types'
 
 // get array of hosts if exists (used for fallbacks)
@@ -56,7 +54,7 @@ export const connect = async (hosts: Host[], whitelist: string[]): Promise<void>
     },
   }
 
-  return chrome.proxy.settings.set({ value: config, scope: 'regular' }, function () {})
+  return chrome.proxy.settings.set({ value: config, scope: 'regular' })
 }
 
 export const disconnect = async (): Promise<void> => {

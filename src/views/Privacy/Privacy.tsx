@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Box, Flex } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
@@ -26,10 +27,11 @@ const Privacy: ThemeUiElement = () => {
   const locationWarp = useSelector(s => s.locationWarp)
   const languageWarpEnabled = useSelector(s => s.languageWarpEnabled)
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
   return (
     <Box data-testid="privacy-page" bg="background">
-      <Header title="Privacy" />
+      <Header title="Privacy" {...{ shouldShowReloadAlert, showReloadAlert }} />
       <Box mx="16px">
         <OptionBox
           Icon={DoNotDisturbIcon}
@@ -38,7 +40,10 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Block all sites from spamming you with notifications."
         >
           <ToggleSwitch
-            onChange={() => dispatch(toggleNotificationBlocker())}
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(toggleNotificationBlocker())
+            }}
             checked={notificationBlockerEnabled}
           />
         </OptionBox>
@@ -48,7 +53,13 @@ const Privacy: ThemeUiElement = () => {
           title="WebRTC Slayer"
           subTitle="Limits WebRTC requests to prevent leaks. This may break some applications."
         >
-          <ToggleSwitch onChange={() => dispatch(toggleWebRtcBlocker())} checked={webRtcEnabled} />
+          <ToggleSwitch
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(toggleWebRtcBlocker())
+            }}
+            checked={webRtcEnabled}
+          />
         </OptionBox>
         <OptionBox
           Icon={LanguageWarpIcon}

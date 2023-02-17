@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Box, Button } from 'theme-ui'
 
 import type { ThemeUiElement } from 'utils/types'
@@ -10,8 +11,10 @@ import LinkIcon from 'assets/img/link.svg'
 const Blocker: ThemeUiElement = () => {
   const blockLists = useSelector(s => s.blocker.blockLists)
   const dispatch = useDispatch()
+  const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
   const handleBlockListToggle = (listName: string) => {
+    showReloadAlert(true)
     let newBlocklist
     if (blockLists.includes(listName)) {
       newBlocklist = blockLists.filter(list => list !== listName)
@@ -28,7 +31,7 @@ const Blocker: ThemeUiElement = () => {
 
   return (
     <Box data-testid="blocker-page" bg="background">
-      <Header title="Blocker" />
+      <Header title="Blocker" {...{ shouldShowReloadAlert, showReloadAlert }} />
       <Box mx="16px">
         <OptionBox Icon={SmokewallIcon} title="Default" subTitle="Ads, Trackers, Miners, And More">
           <ToggleSwitch

@@ -7,10 +7,10 @@ import FlagGradientMask from 'assets/img/flag-gradient-mask.svg'
 
 type FlagBackgroundProps = {
   isConnected: boolean
-  FlagSvg: React.ElementType // Should be more specific - SVG element only. Don't know how to do it yet
+  FlagSvg?: React.ElementType // Should be more specific - SVG element only. Don't know how to do it yet
 }
 
-const FlagBackground: ThemeUiElement<FlagBackgroundProps> = ({ isConnected, FlagSvg }) => {
+const FlagBackground: ThemeUiElement<FlagBackgroundProps> = ({ isConnected, FlagSvg = null }) => {
   const { theme } = useThemeUI()
   const { softBlack, softBlackTransparent, lakeBlue, lakeBlueTransparent } = theme.colors || {}
 
@@ -36,7 +36,7 @@ const FlagBackground: ThemeUiElement<FlagBackgroundProps> = ({ isConnected, Flag
             zIndex: 1,
           }}
         />
-        <FlagSvg />
+        {FlagSvg && <FlagSvg />}
       </Box>
     </>
   )

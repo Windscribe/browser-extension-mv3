@@ -4,18 +4,22 @@ import { Button, Flex, Text, Input, Label, Box, Link, Spinner } from 'theme-ui'
 import { LOGIN } from 'state/slices/session'
 import { useGoTo } from 'services/navigation'
 import { Header, HeaderLink } from 'components'
-import { useDispatchAlias, useSelector } from 'state/hooks'
+import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
+import { setUsername as saveUsername } from 'state/slices/userStashes'
+
 import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 import { type ThemeUiElement } from 'utils/types'
 
 const Login: ThemeUiElement = () => {
+  const dispatch = useDispatch()
   const dispatchAlias = useDispatchAlias()
   const goToHome = useGoTo('Home')
   const errorMessage = useSelector(s => s.session.error?.errorMessage)
   const errorCode = useSelector(s => s.session.error?.errorCode)
   const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
   const loginStatus = useSelector(s => s.session.loading)
+  const savedUsername = useSelector(s => s.userStashes.username)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -25,6 +29,10 @@ const Login: ThemeUiElement = () => {
   const [error2fa, setError2fa] = useState<string | undefined>('')
 
   const isPending = loginStatus === 'pending'
+
+  useEffect(() => {
+    savedUsername && setUsername(savedUsername)
+  }, [savedUsername])
 
   useEffect(() => {
     // Maybe we need to store these error codes as constants somewhere? We can discuss
@@ -65,10 +73,9 @@ const Login: ThemeUiElement = () => {
         flexDirection: 'column',
       }}
     >
-      <Header
-        title="Login"
-        RightSideComponent={<HeaderLink buttonRoute="Signup" buttonText="Sign up" />}
-      />
+      <Header title="Login">
+        <HeaderLink buttonRoute="Signup" buttonText="Sign up" />
+      </Header>
       <Box sx={{ mx: '16px' }}>
         <form onSubmit={handleLogin}>
           <Flex
@@ -109,7 +116,11 @@ const Login: ThemeUiElement = () => {
             name="username"
             data-testid="username-input"
             autofillBackgroundColor="foreground"
-            onChange={e => setUsername(e.target.value)}
+            value={username}
+            onChange={e => {
+              setUsername(e.target.value)
+              dispatch(saveUsername(e.target.value))
+            }}
           />
           <Label
             sx={{

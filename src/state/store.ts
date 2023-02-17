@@ -20,6 +20,7 @@ import whitelistReducer from './slices/whitelist'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
 import workingApiReducer from './slices/workingApi'
+import userStashesReducer from './slices/userStashes'
 import contextMenuReducer from './slices/contextMenu'
 import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
@@ -60,6 +61,7 @@ const reducers = {
   webRtcEnabled: webRtcEnabledReducer,
   whitelist: whitelistReducer,
   workingApi: workingApiReducer,
+  userStashes: userStashesReducer,
 }
 
 const combinedReducer = combineReducers(reducers)
@@ -67,8 +69,11 @@ const combinedReducer = combineReducers(reducers)
 // Here is a place for logic that mutates all state entirely, not just one slice
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === 'global/resetStore') {
-    state = {} as RootState
+    state = { userStashes: state?.userStashes } as RootState
+  } else if (action.type === 'global/applyUserStash') {
+    state = { ...state, ...action.payload.state } as RootState
   }
+
   return combinedReducer(state, action)
 }
 
@@ -86,8 +91,8 @@ const debugLogMiddleware: Middleware<Dispatch, RootState> = store => next => act
     const message = `Redux action: ${action.type}`
 
     let tag: LogTag = 'background'
-    if (action._sender?.url.includes('popup.html')) tag = 'popup'
-    if (action._sender?.url.includes('debugLog.html')) tag = 'debugLog'
+    if (action._sender?.url?.includes('popup.html')) tag = 'popup'
+    if (action._sender?.url?.includes('debugLog.html')) tag = 'debugLog'
     // Need a check if(contentScript) When contentScript will be added
 
     const logItem: LogItem = { message, tag }

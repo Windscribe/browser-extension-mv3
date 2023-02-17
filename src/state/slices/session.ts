@@ -3,9 +3,10 @@ import applyWorkingApi from '../applyWorkingApi'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
+import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
+import { login as loginRequest, logout as logoutRequest } from 'api/endpoints'
 import { resetWebRtcBlocker } from './webRtcEnabled'
-import { login as loginRequest } from 'api/endpoints'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -43,16 +44,26 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
     response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     if (response.errorMessage) return response
-    if (response.data) return response.data
+    if (response.data && response.data.username) {
+      await dispatch(checkUserStash(response.data.username))
+      return response.data
+    }
 
     throw Error('Unknown response format while trying to login')
   },
 )
 
-export const logout = createAsyncThunk(LOGOUT, async (_, { dispatch }) => {
+export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch }) => {
+  const sessionAuthHash = getState().session.session_auth_hash
+  const workingApi = getState().workingApi
+
   await dispatch(disconnectProxy())
   await dispatch(resetNotificationBlocker())
   await dispatch(resetWebRtcBlocker())
+  sessionAuthHash && (await logoutRequest(sessionAuthHash, workingApi))
+
+  await dispatch(saveUserStash())
+
   await dispatch({ type: 'global/resetStore' })
   //TODO Implement userStashes to store user's settings preferences between sessions
 })
