@@ -6,7 +6,9 @@ import { reduceWhitelist } from 'utils/reduceWhitelist'
 import type { SyncThunkCreator } from 'utils/types'
 import { pushToDebugLog } from './debugLog'
 import { setReconnectionAttempts } from './connection'
-import { checkIp } from 'services'
+import { checkIp, createNotification } from 'services'
+import proxyOffIcon from 'assets/img/proxyOff.png'
+import proxyOnIcon from 'assets/img/proxyOn.png'
 
 interface ProxyState {
   isConnected: boolean
@@ -41,13 +43,33 @@ export const connectProxy = createAsyncThunk(
     } else {
       dispatch(setReconnectionAttempts(0))
     }
+
+    if (getState().allowSystemNotifications) {
+      const autopilotSelected = getState().autopilot.autopilotSelected
+      const { city = '', nick = '' } = getState().currentDataCenter
+      const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
+      createNotification({
+        iconUrl: proxyOnIcon,
+        message: `You are now connected to Windscribe (${locationInfo})`,
+      })
+    }
   },
 )
 
-export const disconnectProxy = createAsyncThunk(DISCONNECT_PROXY, async (_, { dispatch }) => {
-  await disconnect()
-  dispatch(resetProxy())
-})
+export const disconnectProxy = createAsyncThunk(
+  DISCONNECT_PROXY,
+  async (_, { getState, dispatch }) => {
+    await disconnect()
+    dispatch(resetProxy())
+
+    if (getState().allowSystemNotifications) {
+      createNotification({
+        iconUrl: proxyOffIcon,
+        message: 'Connection to Windscribe has been terminated',
+      })
+    }
+  },
+)
 
 export const handleConnectionError: SyncThunkCreator<string> = errorMessage => {
   const action = (dispatch: Dispatch) => {

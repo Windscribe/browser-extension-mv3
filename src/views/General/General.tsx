@@ -7,22 +7,26 @@ import { useDispatch, useSelector } from 'state/hooks'
 import { setAutoConnect } from 'state/slices/connection'
 import { Header, OptionBox, ToggleSwitch } from 'components'
 import { showDebugContextMenu } from 'state/slices/contextMenu'
+import { setAllowSystemNotifications } from 'state/slices/allowSystemNotifications'
 
 import LinkIcon from 'assets/img/link.svg'
 import EllipseIcon from 'assets/img/ellipse.svg'
 import DebugLogIcon from 'assets/img/debugLog.svg'
 import DebugMenuIcon from 'assets/img/debugMenu.svg'
 import AutoConnectIcon from 'assets/img/autoconnecticon.svg'
+import NotificationsIcon from 'assets/img/notifications.svg'
 
 const General: ThemeUiElement = () => {
-  const [sentDebugLog, setSentDebugLog] = useState<string | undefined>(undefined)
+  const dispatch = useDispatch()
 
   const autoConnect = useSelector(s => s.connection.autoConnect)
   const contextMenu = useSelector(s => s.contextMenu)
   const workingApi = useSelector(s => s.workingApi)
   const session = useSelector(s => s.session)
   const debugLog = useSelector(s => s.debugLog)
-  const dispatch = useDispatch()
+  const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
+
+  const [sentDebugLog, setSentDebugLog] = useState<string | undefined>(undefined)
 
   return (
     <Box data-testid="general-page" bg="background">
@@ -36,6 +40,16 @@ const General: ThemeUiElement = () => {
           <ToggleSwitch
             onChange={() => dispatch(setAutoConnect(!autoConnect))}
             checked={autoConnect}
+          />
+        </OptionBox>
+        <OptionBox
+          Icon={NotificationsIcon}
+          title="Notifications"
+          subTitle="Show connect/disconnect OS notifications."
+        >
+          <ToggleSwitch
+            onChange={() => dispatch(setAllowSystemNotifications(!allowSystemNotifications))}
+            checked={allowSystemNotifications}
           />
         </OptionBox>
         <OptionBox

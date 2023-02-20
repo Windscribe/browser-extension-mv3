@@ -18,6 +18,7 @@
     "declarativeNetRequestWithHostAccess",
     "privacy",
     "proxy",
+    "notifications",
     "scripting",
     "storage",
     "tabs",
