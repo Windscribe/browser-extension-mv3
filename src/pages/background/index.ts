@@ -3,7 +3,6 @@ import type { Coords } from 'utils/types'
 import getErrorMessage from 'utils/getErrorMessage'
 import browserApi from 'services/browserApi'
 import { addContextMenuItem } from 'services/contextMenu'
-import setDebuggerAuth from './debuggerAuth'
 import { initializeWrappedStore } from 'state'
 import { pushToDebugLog } from 'state/slices/debugLog'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
@@ -14,23 +13,6 @@ import { locationWarp, languageWarp, splitPersonality } from '../content'
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
   return store
-})
-
-chrome.storage.onChanged.addListener(function (changes) {
-  if (!changes[1].newValue || !changes[1].oldValue) return
-
-  const { username: newUsername, password: newPassword } = changes[1].newValue.serverCredentials
-  const { username: oldUsername, password: oldPassword } = changes[1].oldValue.serverCredentials
-
-  if (!newUsername || !newPassword) return
-
-  if (newUsername !== oldUsername || newPassword !== oldPassword) {
-    const credentials = {
-      username: newUsername,
-      password: newPassword,
-    }
-    setDebuggerAuth(credentials)
-  }
 })
 
 browserApi.runtime.onStartup.addListener(onStartupCallback)
@@ -168,3 +150,20 @@ const injectWarps = async (details: WebNavDetails) => {
 
 chrome.webNavigation.onCommitted.addListener(injectWarps)
 chrome.runtime.onInstalled.addListener(addContextMenuItem)
+
+chrome.webRequest.onAuthRequired.addListener(
+  async function (details, callback?: (response: chrome.webRequest.BlockingResponse) => void) {
+    const store = await bgStore
+
+    const { username, password } = store.getState().serverCredentials
+
+    if (!username || !password) return
+
+    callback &&
+      callback({
+        authCredentials: { username: atob(username), password: atob(password) },
+      })
+  },
+  { urls: ['<all_urls>'] },
+  ['asyncBlocking'],
+)

@@ -22,7 +22,9 @@
     "scripting",
     "storage",
     "tabs",
-    "webNavigation"
+    "webNavigation",
+    "webRequest",
+    "webRequestAuthProvider"
   ],
   "host_permissions": ["<all_urls>"],
   "icons": {
