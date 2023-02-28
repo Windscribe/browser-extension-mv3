@@ -30,9 +30,9 @@ const Login: ThemeUiElement = () => {
 
   const isPending = loginStatus === 'pending'
 
-  useEffect(() => {
-    savedUsername && setUsername(savedUsername)
-  }, [savedUsername])
+  // useEffect(() => {
+  //   savedUsername && setUsername(savedUsername)
+  // }, [savedUsername])
 
   useEffect(() => {
     // Maybe we need to store these error codes as constants somewhere? We can discuss

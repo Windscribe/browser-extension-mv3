@@ -9,6 +9,16 @@ describe('Signup', () => {
     popupPage = context.popupPage
   })
 
+  it('Logout', async () => {
+    popupPage.click('[data-testid=go-to-preferences]')
+
+    await popupPage.waitForSelector('[data-testid=preferences-page]')
+    popupPage.click('[data-testid=logout-button]')
+    const splashPage = await popupPage.waitForSelector('[data-testid=splash-page]')
+
+    expect(splashPage).toBeTruthy()
+  })
+
   it('navigate to Signup page and open windscribe website', async () => {
     // Go to Singup page
     const getStartedButton = await popupPage.waitForSelector('[data-testid=get-started-button]')
