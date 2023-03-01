@@ -3,8 +3,10 @@ import { Box, Flex, Text } from 'theme-ui'
 import { type ThemeUIJSX } from '@theme-ui/core'
 import { type ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
-import DoubleArrowIcon from 'assets/img/doubleArrow.svg'
 import DropDownItem from './DropDownItem'
+import { useDispatch } from 'state/hooks'
+
+import DoubleArrowIcon from 'assets/img/doubleArrow.svg'
 
 type DropDownProps<T> = {
   current: T
@@ -12,11 +14,12 @@ type DropDownProps<T> = {
   setValue: ActionCreatorWithPayload<T>
 }
 
-function DropDown<T extends string>({
+function DropDown<T extends string | number>({
   current,
   items,
   setValue,
 }: DropDownProps<T>): ThemeUIJSX.Element {
+  const dispatch = useDispatch()
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
   return (
@@ -68,7 +71,12 @@ function DropDown<T extends string>({
           }}
         >
           {items.map(item => (
-            <DropDownItem key={item} value={item} current={current === item} setValue={setValue} />
+            <DropDownItem
+              key={item}
+              value={item}
+              current={current === item}
+              handleClick={value => dispatch(setValue(value))}
+            />
           ))}
         </Box>
       </Box>

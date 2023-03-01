@@ -1,11 +1,12 @@
 import { Host } from 'api/types'
+import type { ProxyPort } from 'utils/types'
 
 // get array of hosts if exists (used for fallbacks)
-const getProxyList = (hosts: Host[]) => {
+const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
   if (hosts?.length > 0) {
     return hosts.reduce((proxyList: string, host: Host) => {
       //convert each into proxy list format
-      proxyList += `HTTPS ${host.hostname}:443;`
+      proxyList += `HTTPS ${host.hostname}:${proxyPort};`
       return proxyList
     }, '')
   } else {
@@ -13,7 +14,11 @@ const getProxyList = (hosts: Host[]) => {
   }
 }
 
-const createFindProxyForURLFunction = (hosts: Host[], whitelist: string[]) => {
+const createFindProxyForURLFunction = (
+  hosts: Host[],
+  whitelist: string[],
+  proxyPort: ProxyPort,
+) => {
   return `
   function FindProxyForURL (url, host) {
     const userWhitelist = ${JSON.stringify(whitelist)}
@@ -40,16 +45,20 @@ const createFindProxyForURLFunction = (hosts: Host[], whitelist: string[]) => {
       return 'DIRECT'
     }
 
-    return '${getProxyList(hosts)}'
+    return '${getProxyList(hosts, proxyPort)}'
   }
 `
 }
 
-export const connect = async (hosts: Host[], whitelist: string[]): Promise<void> => {
+export const connect = async (
+  hosts: Host[],
+  whitelist: string[],
+  proxyPort: ProxyPort,
+): Promise<void> => {
   const config = {
     mode: 'pac_script',
     pacScript: {
-      data: createFindProxyForURLFunction(hosts, whitelist),
+      data: createFindProxyForURLFunction(hosts, whitelist, proxyPort),
       mandatory: true,
     },
   }

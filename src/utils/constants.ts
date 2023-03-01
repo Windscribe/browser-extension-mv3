@@ -28,3 +28,5 @@ export const DEVTOOL_PROTOCOL = '1.3'
 
 // used for user agent setting (do not want user to assume different platform)
 export const platforms = ['Windows', 'Macintosh', 'Linux']
+
+export const PROXY_PORT = Number(process.env.PROXY_PORT) || 443

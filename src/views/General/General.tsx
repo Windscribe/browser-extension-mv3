@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Box, Button, Flex } from 'theme-ui'
 
+import { ENVS } from 'utils/constants'
 import { sendDebugLog } from 'services'
-import { type ThemeUiElement } from 'utils/types'
+import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { setAutoConnect } from 'state/slices/connection'
 import { Header, OptionBox, ToggleSwitch } from 'components'
@@ -102,7 +103,7 @@ const General: ThemeUiElement = () => {
         </Flex>
         <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
           <Button
-            onClick={() => window.open('https://windscribe.com/terms/oss')}
+            onClick={() => window.open(`${ENVS.ROOT_URL}/terms/oss`)}
             variant="simple"
             sx={{
               display: 'flex',

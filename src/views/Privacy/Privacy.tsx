@@ -1,13 +1,16 @@
-import { Box } from 'theme-ui'
 import { useState } from 'react'
+import { Box, Flex } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
-import { Header, OptionBox, ToggleSwitch } from 'components'
-import { useDispatch, useSelector } from 'state/hooks'
+import { GetNewButton, Header, OptionBox, ToggleSwitch } from 'components'
+import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { toggleNotificationBlocker } from 'state/slices/notificationBlockerEnabled'
 import { toggleWebRtcBlocker } from 'state/slices/webRtcEnabled'
 import { setLanguageWarpEnabled } from 'state/slices/languageWarpEnabled'
-import { toggleSplitPersonality } from 'state/slices/splitPersonalityEnabled'
+import {
+  ACTIVATE_SPLIT_PERSONALITY,
+  TOGGLE_SPLIT_PERSONALITY,
+} from 'state/slices/splitPersonalityEnabled'
 
 import { setLocationWarp } from 'state/slices/locationWarp'
 import DoNotDisturbIcon from 'assets/img/doNotDisturb.svg'
@@ -18,6 +21,7 @@ import LocationWarpIcon from 'assets/img/locationWarp.svg'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
+  const dispatchAlias = useDispatchAlias()
   const notificationBlockerEnabled = useSelector(s => s.notificationBlockerEnabled)
   const webRtcEnabled = useSelector(s => s.webRtcEnabled)
   const locationWarp = useSelector(s => s.locationWarp)
@@ -31,6 +35,7 @@ const Privacy: ThemeUiElement = () => {
       <Box mx="16px">
         <OptionBox
           Icon={DoNotDisturbIcon}
+          path={'features/dnd'}
           title="Do Not Disturb"
           subTitle="Block all sites from spamming you with notifications."
         >
@@ -44,6 +49,7 @@ const Privacy: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={WebRtcLeakIcon}
+          path={'features/webrtc-slayer'}
           title="WebRTC Slayer"
           subTitle="Limits WebRTC requests to prevent leaks. This may break some applications."
         >
@@ -57,6 +63,7 @@ const Privacy: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={LanguageWarpIcon}
+          path={'features/languagewarp'}
           title="Language Warp"
           subTitle="Sets your language and locale settings to match the connected proxy."
         >
@@ -67,18 +74,25 @@ const Privacy: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={SplitPersonalityIcon}
+          path={'features/split-personality'}
           title="Split Personality"
           subTitle="Randomly rotates your user agent."
         >
-          <ToggleSwitch
-            onChange={() => dispatch(toggleSplitPersonality())}
-            checked={splitPersonalityEnabled}
-          />
+          <Flex>
+            {splitPersonalityEnabled && (
+              <GetNewButton onClick={() => dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)} />
+            )}
+            <ToggleSwitch
+              onChange={() => dispatchAlias(TOGGLE_SPLIT_PERSONALITY)}
+              checked={splitPersonalityEnabled}
+            />
+          </Flex>
         </OptionBox>
       </Box>
       <Box mx="16px">
         <OptionBox
           Icon={LocationWarpIcon}
+          path={'features/location-warp'}
           title="Location Warp"
           subTitle="Fakes your GPS location to match the connected proxy."
         >

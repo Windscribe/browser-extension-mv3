@@ -1,26 +1,21 @@
 import { Flex } from 'theme-ui'
 import { type ThemeUIJSX } from '@theme-ui/core'
-import { type ActionCreatorWithPayload } from '@reduxjs/toolkit'
-
-import { useDispatch } from 'state/hooks'
 
 type DropDownItemProps<T> = {
   current: boolean
   value: T
-  setValue: ActionCreatorWithPayload<T>
+  handleClick: (value: T) => void
 }
 
-function DropDownItem<T extends string>({
+function DropDownItem<T extends string | number>({
   current,
   value,
-  setValue,
+  handleClick,
 }: DropDownItemProps<T>): ThemeUIJSX.Element {
-  const dispatch = useDispatch()
-
   return (
     <Flex
-      onClick={() => dispatch(setValue(value))}
-      aria-label={value}
+      onClick={() => handleClick(value)}
+      aria-label={`${value}`}
       sx={{
         color: current ? 'lakeBlue' : 'halfBlack',
         fontWeight: '700',
