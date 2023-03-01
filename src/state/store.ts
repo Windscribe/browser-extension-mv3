@@ -35,6 +35,7 @@ import splitPersonalityEnabledReducer from './slices/splitPersonalityEnabled'
 import userAgentReducer from './slices/userAgent'
 import languageWarpEnabledReducer from './slices/languageWarpEnabled'
 import locationWarpReducer from './slices/locationWarp'
+import proxyPortReducer from './slices/proxyPort'
 
 const reducers = {
   autopilot: autopilotReducer,
@@ -52,6 +53,7 @@ const reducers = {
   newsfeed: newsfeedReducer,
   notificationBlockerEnabled: notificationBlockerEnabledReducer,
   proxy: proxyReducer,
+  proxyPort: proxyPortReducer,
   serverCredentials: serverCredentialsReducer,
   servers: serversReducer,
   session: sessionReducer,
