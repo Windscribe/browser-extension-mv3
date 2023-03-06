@@ -1,12 +1,13 @@
 import locales from 'utils/locales'
-import type { Coords } from 'utils/types'
 import getErrorMessage from 'utils/getErrorMessage'
 import browserApi from 'services/browserApi'
+import { Coords } from 'utils/types'
 import { addContextMenuItem } from 'services/contextMenu'
 import { initializeWrappedStore } from 'state'
 import { pushToDebugLog } from 'state/slices/debugLog'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { setReconnectionAttempts } from 'state/slices/connection'
+import { connectToAutopilot } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
 import { locationWarp, languageWarp, splitPersonality, workerBlock } from '../content'
 
@@ -104,19 +105,17 @@ chrome.proxy.onProxyError.addListener(async e => {
   }
 })
 
-type Coords = { latitude: string; longitude: string }
-
 const executeScript = async <Data extends string | Coords>(
   tabId: number,
-  func: (data?: any) => void,
-  data?: Data,
+  func: (data: Data) => void,
+  data: Data,
 ) => {
   chrome.scripting.executeScript({
     target: { tabId: tabId, allFrames: true },
     world: 'MAIN',
     injectImmediately: true,
     func: func,
-    ...(data && { args: [data] }),
+    args: [data],
   })
 }
 
@@ -126,7 +125,7 @@ const injectWarps = async (details: WebNavDetails) => {
   const store = await bgStore
 
   if (store.getState().workerBlock) {
-    executeScript(details.tabId, workerBlock)
+    executeScript(details.tabId, workerBlock, '')
   }
 
   const coords = store.getState().currentDataCenter?.gps?.split(',')

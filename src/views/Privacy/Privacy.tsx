@@ -19,6 +19,7 @@ import WebRtcLeakIcon from 'assets/img/webRtcLeak.svg'
 import SplitPersonalityIcon from 'assets/img/splitPersonality.svg'
 import LanguageWarpIcon from 'assets/img/languageWarp.svg'
 import LocationWarpIcon from 'assets/img/locationWarp.svg'
+import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -102,12 +103,16 @@ const Privacy: ThemeUiElement = () => {
           />
         </OptionBox>
         <OptionBox
-          Icon={LocationWarpIcon}
+          Icon={WorkerBlockIcon}
+          path={'features/worker-block'}
           title="Worker Block"
           subTitle="Blocks web workers from running in the background."
         >
           <ToggleSwitch
-            onChange={() => dispatch(setWorkerBlock(!workerBlockEnabled))}
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(setWorkerBlock(!workerBlockEnabled))
+            }}
             checked={workerBlockEnabled}
           />
         </OptionBox>

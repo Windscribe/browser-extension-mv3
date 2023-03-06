@@ -40,6 +40,11 @@ const options = {
     clean: true,
     publicPath: env.ASSET_PATH,
   },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
   module: {
     rules: [
       {
