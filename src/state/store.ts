@@ -38,6 +38,7 @@ import locationWarpReducer from './slices/locationWarp'
 import allowSystemNotificationsReducer from './slices/allowSystemNotifications'
 import proxyPortReducer from './slices/proxyPort'
 import workerBlockReducer from './slices/workerBlock'
+import locationLoadReducer from './slices/locationLoad'
 
 const reducers = {
   allowSystemNotifications: allowSystemNotificationsReducer,
@@ -51,6 +52,7 @@ const reducers = {
   debugLog: debugLogReducer,
   favoriteLocations: favoriteLocationsReducer,
   languageWarpEnabled: languageWarpEnabledReducer,
+  locationLoad: locationLoadReducer,
   locationSorting: locationSortingReducer,
   locationWarp: locationWarpReducer,
   newsfeed: newsfeedReducer,
@@ -62,12 +64,12 @@ const reducers = {
   session: sessionReducer,
   splitPersonalityEnabled: splitPersonalityEnabledReducer,
   userAgent: userAgentReducer,
+  userStashes: userStashesReducer,
   view: viewReducer,
   webRtcEnabled: webRtcEnabledReducer,
   whitelist: whitelistReducer,
   workerBlock: workerBlockReducer,
   workingApi: workingApiReducer,
-  userStashes: userStashesReducer,
 }
 
 const combinedReducer = combineReducers(reducers)
