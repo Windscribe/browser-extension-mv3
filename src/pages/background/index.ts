@@ -9,7 +9,9 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { setReconnectionAttempts } from 'state/slices/connection'
 import { connectToAutopilot } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
+import { setIsOnline } from 'state/slices/isOnline'
 import { locationWarp, languageWarp, splitPersonality, workerBlock } from '../content'
+import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
@@ -172,3 +174,16 @@ chrome.webRequest.onAuthRequired.addListener(
   { urls: ['<all_urls>'] },
   ['asyncBlocking'],
 )
+
+const connectionChangedHandler = async (e: Event) => {
+  const isOnline = self?.navigator?.onLine
+  if (typeof isOnline !== 'boolean') return
+  const store = await bgStore
+  store.dispatch(setIsOnline(isOnline))
+}
+
+// This is experimental feature and currently nor supported by FF
+// @link https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/change_event
+declare const self: ServiceWorkerGlobalScope
+const _navigator = self.navigator as WorkerNavigatorWithConnection
+_navigator?.connection?.addEventListener('change', connectionChangedHandler)
