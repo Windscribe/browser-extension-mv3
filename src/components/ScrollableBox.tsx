@@ -22,7 +22,7 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
     }
   }, [scrollTop])
 
-  const scrollbarWidth = 10
+  const scrollbarWidth = 7
 
   return (
     <Box

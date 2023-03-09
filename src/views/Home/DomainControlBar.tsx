@@ -54,7 +54,7 @@ const SiteControlBar: React.FC = () => {
               }
             : {
                 '&:hover svg > path': {
-                  opacity: 1,
+                  fill: 'white',
                 },
               }),
         }}

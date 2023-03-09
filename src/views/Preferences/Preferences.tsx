@@ -15,6 +15,7 @@ import PrivacyIcon from 'assets/img/privacy.svg'
 import AccountIcon from 'assets/img/account.svg'
 import WhitelistIcon from 'assets/img/whitelist.svg'
 import DarkModeIcon from 'assets/img/darkMode.svg'
+import LightModeIcon from 'assets/img/lightMode.svg'
 import TutorialIcon from 'assets/img/tutorial.svg'
 import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
@@ -68,7 +69,7 @@ const Preferences: ThemeUiElement = () => {
             }}
           >
             <CircleButton
-              Icon={DarkModeIcon}
+              Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
             <CircleButton Icon={TutorialIcon} />

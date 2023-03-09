@@ -76,7 +76,13 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
         }}
       >
         <Flex>
-          {isAutopilot ? <AirplaneIcon /> : <FlagIcon Svg={Flag} />}
+          {isAutopilot ? (
+            <AirplaneIcon
+              sx={{ fill: currentlySelected || isExpanded ? 'primaryText' : 'secondaryText' }}
+            />
+          ) : (
+            <FlagIcon Svg={Flag} />
+          )}
           <Text
             sx={{
               fontWeight: '600',

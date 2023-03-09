@@ -139,7 +139,18 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 type StyledIconButtonProps = React.PropsWithChildren<IconButtonProps>
 export const StyledIconButton: React.FC<StyledIconButtonProps> = ({ children, ...props }) => {
   return (
-    <IconButton sx={{ p: 0, mr: '16px', height: '24px', width: '24px' }} {...props}>
+    <IconButton
+      sx={{
+        p: 0,
+        mr: '16px',
+        height: '24px',
+        width: '24px',
+        '&:hover svg > path': {
+          fill: 'white',
+        },
+      }}
+      {...props}
+    >
       {children}
     </IconButton>
   )
