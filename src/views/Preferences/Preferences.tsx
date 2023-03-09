@@ -1,5 +1,4 @@
-import { Box, Flex } from 'theme-ui'
-
+import { Box, Flex, useColorMode } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { logout } from 'state/slices/session'
 import { Header, RoundedBox, ListItemButton } from 'components'
@@ -21,6 +20,7 @@ import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
 
 const Preferences: ThemeUiElement = () => {
+  const [colorMode, setColorMode] = useColorMode()
   const goToGeneral = useGoTo('General')
   const goToConnection = useGoTo('Connection')
   const goToBlocker = useGoTo('Blocker')
@@ -67,7 +67,10 @@ const Preferences: ThemeUiElement = () => {
               gap: '16px',
             }}
           >
-            <CircleButton Icon={DarkModeIcon} />
+            <CircleButton
+              Icon={DarkModeIcon}
+              onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
+            />
             <CircleButton Icon={TutorialIcon} />
             <CircleButton Icon={HelpIcon} />
           </Flex>

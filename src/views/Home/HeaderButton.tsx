@@ -21,7 +21,7 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({
       onClick={onClick}
       variant="circle"
       sx={{
-        backgroundColor: isConnected ? 'halfBlack' : 'background',
+        backgroundColor: isConnected ? 'halfBlack' : 'darkBackground',
         fill: 'halfWhite',
         transition: '0.3s',
         transform: 'scale(1)',
@@ -36,7 +36,7 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({
       <Icon
         sx={{
           transition: '0.3s',
-          fill: 'secondaryText',
+          fill: 'halfWhite',
         }}
       />
       <Badge count={count} sx={{ right: '-4px', bottom: '-2px' }} />

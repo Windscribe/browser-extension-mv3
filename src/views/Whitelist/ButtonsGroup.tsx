@@ -28,6 +28,7 @@ const ButtonsGroup: React.FC<ButtonsGroupProps> = ({
           borderWidth: '2px',
           borderColor: 'secondaryText',
           borderStyle: 'solid',
+          color: 'secondaryText',
         }}
       >
         Cancel

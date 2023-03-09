@@ -1,4 +1,5 @@
 export const colors = {
+  darkBackground: '#1a2432',
   softBlack: '#020d1c',
   softBlackTransparent: 'rgba(2, 13, 28, 0)',
   quarterSoftBlack: 'rgba(2, 13, 28, 0.25)',
@@ -17,7 +18,6 @@ export const colors = {
   orange: '#ff8e00',
   warmGrey: '#777',
   lowWhite: 'rgba(255, 255, 255, 0.1)',
-
   background: '#1a2432',
   foreground: 'rgba(216, 216, 216, 0.1)',
   primaryText: '#fff',
@@ -25,11 +25,12 @@ export const colors = {
   border: 'rgba(255, 255, 255, 0.05)',
   iconBgSolid: '#323a47',
   disabledButtonText: '#020d1c',
+
   modes: {
     light: {
       background: '#fff',
       foreground: 'rgba(2, 13, 28, 0.1)',
-      primaryText: 'softBlack',
+      primaryText: '#020d1c',
       secondaryText: 'rgba(2, 13, 28, 0.5)',
       softText: 'white',
       disabledButtonText: 'rgba(2, 13, 28, 0.5)',

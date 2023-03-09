@@ -48,7 +48,7 @@ const Whitelist: ThemeUiElement = () => {
           sx={{
             backgroundColor: 'lakeBlue',
             svg: {
-              fill: 'primaryText',
+              fill: 'white',
             },
           }}
         />
