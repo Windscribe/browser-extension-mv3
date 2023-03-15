@@ -74,7 +74,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         alignItems: 'center',
         transition: 'transform 0.4s ease',
         transform: `translateX(${isDomainSettingsOpen ? 0 : 100}%)`,
-        backgroundColor: 'background',
+        backgroundColor: 'darkBackground',
       }}
     >
       <Flex
@@ -83,7 +83,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           maskImage: 'linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
           position: 'absolute',
           zIndex: 10000,
-          backgroundColor: 'background',
+          backgroundColor: 'darkBackground',
           height: '50px',
           transform: 'rotate(180deg) translateX(100%)',
           width: '100px',
@@ -99,9 +99,9 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           }}
         >
           {isDirectConnectionsAllowed ? (
-            <ConnectionSelected sx={{ fill: 'primaryText' }} />
+            <ConnectionSelected sx={{ fill: 'white' }} />
           ) : (
-            <ConnectionDeselected sx={{ fill: 'secondaryText' }} />
+            <ConnectionDeselected sx={{ fill: 'halfWhite' }} />
           )}
         </StyledIconButton>
         <StyledIconButton
@@ -111,9 +111,9 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           }}
         >
           {isAdsAllowed ? (
-            <AdsSelected sx={{ fill: 'primaryText' }} />
+            <AdsSelected sx={{ fill: 'white' }} />
           ) : (
-            <AdsDeselected sx={{ fill: 'secondaryText' }} />
+            <AdsDeselected sx={{ fill: 'halfWhite' }} />
           )}
         </StyledIconButton>
         <StyledIconButton
@@ -123,13 +123,13 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           }}
         >
           {isCookiesAllowed ? (
-            <CookiesSelected sx={{ fill: 'primaryText' }} />
+            <CookiesSelected sx={{ fill: 'white' }} />
           ) : (
-            <CookiesDeselected sx={{ fill: 'secondaryText' }} />
+            <CookiesDeselected sx={{ fill: 'halfWhite' }} />
           )}
         </StyledIconButton>
         <StyledIconButton onClick={handleClose}>
-          {wasSettingsUpdated ? <Refresh /> : <CloseWhitelist sx={{ fill: 'secondaryText' }} />}
+          {wasSettingsUpdated ? <Refresh /> : <CloseWhitelist sx={{ fill: 'halfWhite' }} />}
         </StyledIconButton>
       </Flex>
     </Flex>
@@ -139,7 +139,18 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 type StyledIconButtonProps = React.PropsWithChildren<IconButtonProps>
 export const StyledIconButton: React.FC<StyledIconButtonProps> = ({ children, ...props }) => {
   return (
-    <IconButton sx={{ p: 0, mr: '16px', height: '24px', width: '24px' }} {...props}>
+    <IconButton
+      sx={{
+        p: 0,
+        mr: '16px',
+        height: '24px',
+        width: '24px',
+        '&:hover svg > path': {
+          fill: 'white',
+        },
+      }}
+      {...props}
+    >
       {children}
     </IconButton>
   )

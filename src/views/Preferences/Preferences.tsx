@@ -1,5 +1,4 @@
-import { Box, Flex } from 'theme-ui'
-
+import { Box, Flex, useColorMode } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { logout } from 'state/slices/session'
 import { Header, RoundedBox, ListItemButton } from 'components'
@@ -16,11 +15,13 @@ import PrivacyIcon from 'assets/img/privacy.svg'
 import AccountIcon from 'assets/img/account.svg'
 import WhitelistIcon from 'assets/img/whitelist.svg'
 import DarkModeIcon from 'assets/img/darkMode.svg'
+import LightModeIcon from 'assets/img/lightMode.svg'
 import TutorialIcon from 'assets/img/tutorial.svg'
 import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
 
 const Preferences: ThemeUiElement = () => {
+  const [colorMode, setColorMode] = useColorMode()
   const goToGeneral = useGoTo('General')
   const goToConnection = useGoTo('Connection')
   const goToBlocker = useGoTo('Blocker')
@@ -67,11 +68,29 @@ const Preferences: ThemeUiElement = () => {
               gap: '16px',
             }}
           >
-            <CircleButton Icon={DarkModeIcon} />
+            <CircleButton
+              Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
+              onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
+            />
             <CircleButton Icon={TutorialIcon} />
             <CircleButton Icon={HelpIcon} />
           </Flex>
-          <CircleButton onClick={handleLogoutClick} Icon={LogoutIcon} data-testid="logout-button" />
+          <CircleButton
+            onClick={handleLogoutClick}
+            Icon={LogoutIcon}
+            data-testid="logout-button"
+            sx={{
+              svg: {
+                fill: 'bloodRed',
+              },
+              ':hover': {
+                background: 'linear-gradient(0deg, rgb(0 0 0 / 20%), rgb(0 0 0 / 20%)), #FF3B3B',
+                svg: {
+                  fill: 'white',
+                },
+              },
+            }}
+          />
         </Flex>
       </Box>
     </Box>

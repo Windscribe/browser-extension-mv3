@@ -39,7 +39,7 @@ const OptionBox: ThemeUiElement<OptionBoxProps> = ({
       <RoundedBox>
         <ListItem noBorder>
           <Flex sx={{ gap: '16px' }}>
-            <Icon />
+            <Icon sx={{ fill: 'primaryText' }} />
             {title}
           </Flex>
           {children}

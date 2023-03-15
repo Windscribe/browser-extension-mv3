@@ -29,7 +29,7 @@ const SiteControlBar: React.FC = () => {
         alignItems: 'center',
         height: `${footerHeight}`,
         width: '100%',
-        backgroundColor: 'background',
+        backgroundColor: 'darkBackground',
         px: '16px',
         justifyContent: 'space-between',
         position: 'relative',
@@ -37,7 +37,7 @@ const SiteControlBar: React.FC = () => {
         overflow: 'hidden',
       }}
     >
-      <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'secondaryText' }}>
+      <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}>
         {currentTabHostname}
       </Text>
       <IconButton
@@ -49,12 +49,12 @@ const SiteControlBar: React.FC = () => {
             ? {
                 cursor: 'not-allowed',
                 '&:hover svg': {
-                  fill: 'secondaryText',
+                  fill: 'halfWhite',
                 },
               }
             : {
                 '&:hover svg > path': {
-                  opacity: 1,
+                  fill: 'white',
                 },
               }),
         }}
@@ -64,7 +64,7 @@ const SiteControlBar: React.FC = () => {
         {whitelist[currentTabHostname] ? (
           <WhitelistOn />
         ) : (
-          <WhitelistOff sx={{ fill: 'secondaryText' }} />
+          <WhitelistOff sx={{ fill: 'halfWhite' }} />
         )}
       </IconButton>
       <DomainControlButtonGroup

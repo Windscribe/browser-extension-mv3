@@ -83,7 +83,7 @@ const Home: ThemeUiElement = () => {
       sx={{
         height: '208px',
         width: '100%',
-        backgroundColor: 'background',
+        backgroundColor: 'darkBackground',
       }}
     >
       <Box
@@ -105,7 +105,7 @@ const Home: ThemeUiElement = () => {
               width: '186px',
               alignItems: 'center',
               transition: 'background-color  1s ease',
-              backgroundColor: isConnected ? 'halfBlack' : 'background',
+              backgroundColor: isConnected ? 'halfBlack' : 'darkBackground',
             }}
           >
             <Button variant="simple" data-testid="go-to-preferences" onClick={goToPreferences}>
@@ -145,7 +145,7 @@ const Home: ThemeUiElement = () => {
               width: '46px',
               height: '56px',
               transition: 'fill 1s ease',
-              fill: isConnected ? 'halfBlack' : 'background',
+              fill: isConnected ? 'halfBlack' : 'darkBackground',
             }}
           />
           <Flex sx={{ gap: '8px' }}>
@@ -172,7 +172,7 @@ const Home: ThemeUiElement = () => {
                 sx={{
                   fontSize: '12px',
                   fontWeight: '600',
-                  color: isConnected ? 'neonGreen' : 'primaryText',
+                  color: isConnected ? 'neonGreen' : 'white',
                   mr: '8px',
                 }}
               >
@@ -181,7 +181,7 @@ const Home: ThemeUiElement = () => {
               <Text
                 sx={{
                   fontSize: '12px',
-                  color: isConnected ? 'neonGreen' : 'secondaryText',
+                  color: isConnected ? 'neonGreen' : 'halfWhite',
                 }}
               >
                 {currentIp}
@@ -192,7 +192,7 @@ const Home: ThemeUiElement = () => {
                 data-testid="city"
                 sx={{
                   fontSize: '16px',
-                  color: 'primaryText',
+                  color: 'white',
                   fontWeight: 600,
                 }}
               >
@@ -204,7 +204,7 @@ const Home: ThemeUiElement = () => {
                 data-testid="nick"
                 sx={{
                   fontSize: '14px',
-                  color: 'secondaryText',
+                  color: 'halfWhite',
                 }}
               >
                 {currentDataCenter?.nick}
@@ -239,7 +239,7 @@ const Home: ThemeUiElement = () => {
               <Globe
                 sx={{
                   transition: '0.25s',
-                  fill: 'secondaryText',
+                  fill: 'halfWhite',
                   visibility: 'initial',
                 }}
               />
@@ -247,7 +247,7 @@ const Home: ThemeUiElement = () => {
                 sx={{
                   transition: '0.1s',
                   ml: '-8px',
-                  fill: 'secondaryText',
+                  fill: 'halfWhite',
                   visibility: 'hidden',
                   transform: 'scale(0.9)',
                 }}

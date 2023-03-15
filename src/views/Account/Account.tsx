@@ -27,9 +27,15 @@ const Account: ThemeUiElement = () => {
           Icon={EditIcon}
           onClick={handleButtonClick}
           sx={{
-            backgroundColor: 'lakeBlue',
+            background: 'lakeBlue',
             svg: {
-              fill: 'primaryText',
+              fill: 'white',
+            },
+            ':hover': {
+              background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #006AFF',
+              svg: {
+                fill: 'white',
+              },
             },
           }}
         />
