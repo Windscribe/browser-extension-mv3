@@ -38,6 +38,7 @@ import locationWarpReducer from './slices/locationWarp'
 import allowSystemNotificationsReducer from './slices/allowSystemNotifications'
 import proxyPortReducer from './slices/proxyPort'
 import workerBlockReducer from './slices/workerBlock'
+import locationLoadReducer from './slices/locationLoad'
 import isOnlineReducer from './slices/isOnline'
 
 const reducers = {
@@ -53,6 +54,7 @@ const reducers = {
   favoriteLocations: favoriteLocationsReducer,
   isOnline: isOnlineReducer,
   languageWarpEnabled: languageWarpEnabledReducer,
+  locationLoad: locationLoadReducer,
   locationSorting: locationSortingReducer,
   locationWarp: locationWarpReducer,
   newsfeed: newsfeedReducer,

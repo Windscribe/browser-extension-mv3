@@ -9,6 +9,7 @@ import { setAutoConnect } from 'state/slices/connection'
 import { Header, OptionBox, ToggleSwitch } from 'components'
 import { showDebugContextMenu } from 'state/slices/contextMenu'
 import { setAllowSystemNotifications } from 'state/slices/allowSystemNotifications'
+import { setLocationLoad } from 'state/slices/locationLoad'
 
 import LinkIcon from 'assets/img/link.svg'
 import EllipseIcon from 'assets/img/ellipse.svg'
@@ -16,6 +17,7 @@ import DebugLogIcon from 'assets/img/debugLog.svg'
 import DebugMenuIcon from 'assets/img/debugMenu.svg'
 import AutoConnectIcon from 'assets/img/autoconnecticon.svg'
 import NotificationsIcon from 'assets/img/notifications.svg'
+import LocationLoadIcon from 'assets/img/locationLoad.svg'
 
 const General: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -26,6 +28,7 @@ const General: ThemeUiElement = () => {
   const session = useSelector(s => s.session)
   const debugLog = useSelector(s => s.debugLog)
   const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
+  const locationLoad = useSelector(s => s.locationLoad)
 
   const [sentDebugLog, setSentDebugLog] = useState<string | undefined>(undefined)
 
@@ -51,6 +54,16 @@ const General: ThemeUiElement = () => {
           <ToggleSwitch
             onChange={() => dispatch(setAllowSystemNotifications(!allowSystemNotifications))}
             checked={allowSystemNotifications}
+          />
+        </OptionBox>
+        <OptionBox
+          Icon={LocationLoadIcon}
+          title="Show Location Load"
+          subTitle="Show Location Load of each data center."
+        >
+          <ToggleSwitch
+            onChange={() => dispatch(setLocationLoad(!locationLoad))}
+            checked={locationLoad}
           />
         </OptionBox>
         <OptionBox
