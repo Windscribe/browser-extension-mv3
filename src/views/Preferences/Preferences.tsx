@@ -75,7 +75,22 @@ const Preferences: ThemeUiElement = () => {
             <CircleButton Icon={TutorialIcon} />
             <CircleButton Icon={HelpIcon} />
           </Flex>
-          <CircleButton onClick={handleLogoutClick} Icon={LogoutIcon} data-testid="logout-button" />
+          <CircleButton
+            onClick={handleLogoutClick}
+            Icon={LogoutIcon}
+            data-testid="logout-button"
+            sx={{
+              svg: {
+                fill: 'bloodRed',
+              },
+              ':hover': {
+                background: 'linear-gradient(0deg, rgb(0 0 0 / 20%), rgb(0 0 0 / 20%)), #FF3B3B',
+                svg: {
+                  fill: 'white',
+                },
+              },
+            }}
+          />
         </Flex>
       </Box>
     </Box>

@@ -10,6 +10,7 @@ const CircleButton: ThemeUiElement<MenuButtonProps> = ({ Icon, children, ...rest
       variant="circle"
       sx={{
         backgroundColor: 'foreground',
+        transition: '0.3s',
         svg: {
           fill: 'secondaryText',
         },
