@@ -95,6 +95,10 @@ const Blocker: ThemeUiElement = () => {
               fontWeight: 'bold',
               height: '48px',
               justifyContent: 'space-between',
+              transition: '0.3s',
+              'svg > path': {
+                transition: '0.3s',
+              },
               ':hover': {
                 color: 'primaryText',
               },

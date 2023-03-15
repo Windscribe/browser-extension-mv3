@@ -87,6 +87,7 @@ const General: ThemeUiElement = () => {
                 variant="option"
                 data-testid="view-debug-log"
                 onClick={() => window.open(chrome.runtime.getURL('debugLog.html'))}
+                sx={{ transition: '0.3s' }}
               >
                 View
               </Button>
@@ -105,6 +106,7 @@ const General: ThemeUiElement = () => {
                     })
                   }
                 }}
+                sx={{ transition: '0.3s' }}
               >
                 Send
               </Button>
@@ -132,6 +134,10 @@ const General: ThemeUiElement = () => {
               fontWeight: 'bold',
               height: '48px',
               justifyContent: 'space-between',
+              transition: '0.3s',
+              'svg > path': {
+                transition: '0.3s',
+              },
               ':hover': {
                 color: 'primaryText',
               },
