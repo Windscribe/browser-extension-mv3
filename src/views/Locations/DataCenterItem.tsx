@@ -30,7 +30,6 @@ type DataCenterItem = ButtonProps & {
 }
 
 const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText = '' }) => {
-  console.log('DataCenterItem', dataCenter)
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
   const currentDataCenter = useSelector(s => s.currentDataCenter)
@@ -153,7 +152,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
           display: locationLoad ? 'none' : 'block',
         }}
         bg={getUsageColor(dataCenter.health)}
-        opacity=".25"
+        opacity="0.5"
       />
     </>
   )
