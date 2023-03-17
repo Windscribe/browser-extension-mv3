@@ -25,7 +25,7 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({
       onClick={handleClick}
       sx={{
         cursor: 'pointer',
-        transition: 'scale ease 0.3s',
+        transition: 'all ease 0.3s',
         '&:hover': {
           span: {
             color: 'primaryText',
