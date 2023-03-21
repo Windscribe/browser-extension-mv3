@@ -24,6 +24,8 @@ export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
 export type LocationSorting = 'alphabet' | 'geography'
 
+export type OverlayTemplate = 'welcome' | 'somethingWeird'
+
 export type ErrorState = {
   errorCode?: number
   errorMessage: string
