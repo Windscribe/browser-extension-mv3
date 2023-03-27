@@ -8,7 +8,7 @@ type OverlayState = {
 }
 const initialState: OverlayState = {
   isOpen: false,
-  template: 'somethingWeird',
+  template: 'welcome',
 }
 
 export const overlaySlice = createSlice({

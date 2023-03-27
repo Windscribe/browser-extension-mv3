@@ -9,7 +9,7 @@ const FullSizeOverlay: React.FC = () => {
   return (
     <Flex
       sx={{
-        position: 'absolute',
+        position: isOpen ? 'relative' : 'absolute',
         bottom: 0,
         width: '100%',
         height: 'auto',
@@ -18,6 +18,8 @@ const FullSizeOverlay: React.FC = () => {
         backgroundColor: 'background',
         overflow: 'hidden',
         transition: 'max-height ease-in-out 0.2s',
+        zIndex: 3,
+        visibility: isOpen ? 'visible' : 'hidden',
       }}
     >
       <OverlayTemplate />

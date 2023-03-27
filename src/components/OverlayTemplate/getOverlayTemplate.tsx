@@ -1,6 +1,7 @@
 import type { OverlayTemplate } from 'utils/types'
 import { useDispatch } from 'state/hooks'
 import { setOverlay } from 'state/slices/overlay'
+import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import CancelButton from './CancelButton'
 import ConfirmButton from './ConfirmButton'
 
@@ -36,14 +37,14 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
 
 function Welcome() {
   const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+  const close = () => dispatch(setOverlay({ isOpen: false, template: 'somethingWeird' }))
 
   return (
     <>
       <ConfirmButton
         onClick={() => {
           close()
-          //startOnboarding()
+          dispatch(setShouldShowOnboarding(true))
         }}
       >
         Start Tutorial
