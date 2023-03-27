@@ -10,7 +10,7 @@ const steps: Step[] = [
   {
     target: '.joyride-element-proxy-button',
     content: <p>{'Turn on the proxy'}</p>,
-    placement: 'left',
+    placement: 'auto',
     disableBeacon: true,
   },
   {
