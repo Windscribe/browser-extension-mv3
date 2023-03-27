@@ -1,6 +1,7 @@
 import { Box, Flex, useColorMode } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { logout } from 'state/slices/session'
+import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import { setOverlay } from 'state/slices/overlay'
 import { Header, RoundedBox, ListItemButton } from 'components'
 import CircleButton from 'components/CircleButton'
@@ -30,9 +31,15 @@ const Preferences: ThemeUiElement = () => {
   const goToWhitelist = useGoTo('Whitelist')
   const goToNewsfeed = useGoTo('Newsfeed')
   const goToPrivacy = useGoTo('Privacy')
+  const goToHome = useGoTo('Home')
   const dispatch = useDispatch()
+
+  const runTutorial = () => {
+    goToHome()
+    dispatch(setShouldShowOnboarding(true))
+  }
+
   const handleLogoutClick = async () => await dispatch(logout())
-  const runTutorial = async () => await dispatch(setOverlay({ isOpen: true, template: 'welcome' }))
 
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
@@ -74,10 +81,7 @@ const Preferences: ThemeUiElement = () => {
               Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
-            <CircleButton
-              Icon={TutorialIcon}
-              onClick={runTutorial} // TODO Change. For test purposes only
-            />
+            <CircleButton Icon={TutorialIcon} onClick={runTutorial} />
             <CircleButton Icon={HelpIcon} />
           </Flex>
           <CircleButton

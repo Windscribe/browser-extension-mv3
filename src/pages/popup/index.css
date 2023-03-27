@@ -30,3 +30,24 @@ body {
 
   width: 324px;
 }
+
+.__floater .__floater__body {
+  font-size: 13px;
+  min-width: 130px;
+}
+
+.__floater .__floater__body  p {
+    margin: 0px;
+    color: black;
+  }
+
+#react-joyride-step-1
+  .__floater
+  .__floater__body:first-of-type {
+  margin-bottom: -30px;
+          
+}
+
+#react-joyride-step-1 .__floater__arrow  span {
+  margin: 12px 0;
+}    

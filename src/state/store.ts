@@ -41,6 +41,7 @@ import workerBlockReducer from './slices/workerBlock'
 import locationLoadReducer from './slices/locationLoad'
 import isOnlineReducer from './slices/isOnline'
 import overlayReducer from './slices/overlay'
+import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
 
 const reducers = {
   allowSystemNotifications: allowSystemNotificationsReducer,
@@ -66,6 +67,7 @@ const reducers = {
   serverCredentials: serverCredentialsReducer,
   servers: serversReducer,
   session: sessionReducer,
+  shouldShowOnboarding: shouldShowOnboardingReducer,
   splitPersonalityEnabled: splitPersonalityEnabledReducer,
   userAgent: userAgentReducer,
   userStashes: userStashesReducer,
