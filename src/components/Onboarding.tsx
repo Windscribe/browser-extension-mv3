@@ -1,4 +1,3 @@
-// import { useEffect, useState } from 'react'
 import Joyride, { type Step, type CallBackProps } from 'react-joyride'
 
 import { useDispatch, useSelector } from 'state/hooks'
@@ -67,9 +66,7 @@ const Onboarding: ThemeUiElement = () => {
 
   const showOnboarding = useSelector(s => s.shouldShowOnboarding)
 
-  const handleJoyrideCallback: (props: CallBackProps) => void = props => {
-    console.log('%c props ', 'background: #383E49; color: #1ADEAE', props)
-    const { status } = props
+  const handleJoyrideCallback: (props: CallBackProps) => void = ({ status }) => {
     if (status === 'finished' || status === 'skipped') {
       dispatch(setShouldShowOnboarding(false))
     }
@@ -84,11 +81,6 @@ const Onboarding: ThemeUiElement = () => {
       tooltipComponent={JoyrideTooltip}
       callback={handleJoyrideCallback}
       floaterProps={{
-        debug: true,
-        getPopper: async (popper: any, origin: any) => {
-          console.log('%c popper ', 'background: #383E49; color: #1ADEAE', origin, popper)
-          popper.instance.scheduleUpdate()
-        },
         styles: {
           arrow: {
             spread: 16,
