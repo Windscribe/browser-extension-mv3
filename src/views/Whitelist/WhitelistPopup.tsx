@@ -129,7 +129,7 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
         <Box mt="24px">
           <RoundedBox>
             <ListItem>
-              <Text>Apply to all subdomains</Text>
+              <Text sx={{ fontWeight: 'bold' }}>Apply to all subdomains</Text>
               <ToggleSwitch
                 onChange={e => setIsAllSubdomainsIncluded(e.target.checked)}
                 checked={isAllSubdomainsIncluded}
