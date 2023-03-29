@@ -8,6 +8,7 @@ import { useGoTo } from 'services/navigation'
 import { useDispatch, useSelector } from 'state/hooks'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
 import bytes from 'bytes'
+import { SpaceBetween } from 'components/Flexbox'
 
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
 import GeneralIcon from 'assets/img/general.svg'
@@ -58,7 +59,7 @@ const Preferences: ThemeUiElement = () => {
 
       <Box sx={{ mx: '16px' }}>
         {is_premium || traffic_max === ACCOUNT_PLAN.UNLIMITED ? null : (
-          <Flex sx={{ justifyContent: 'space-between', mb: '16px' }}>
+          <SpaceBetween mb="16px">
             <Text sx={{ color: 'primaryText', fontWeight: '600' }}>{remainingDataBytes} Left</Text>
             <Link
               sx={{ textDecoration: 'none', color: 'lakeBlue' }}
@@ -67,7 +68,7 @@ const Preferences: ThemeUiElement = () => {
             >
               Upgrade
             </Link>
-          </Flex>
+          </SpaceBetween>
         )}
         <RoundedBox>
           <ListItemButton title="General" Icon={GeneralIcon} onClick={goToGeneral} />
