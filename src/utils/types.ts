@@ -24,7 +24,7 @@ export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
 export type LocationSorting = 'alphabet' | 'geography'
 
-export type OverlayTemplate = 'welcome' | 'somethingWeird'
+export type OverlayTemplate = 'welcome' | 'somethingWeird' | 'ublockDetected' | 'uninstallUblock'
 
 export type ErrorState = {
   errorCode?: number

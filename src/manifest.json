@@ -24,7 +24,8 @@
     "tabs",
     "webNavigation",
     "webRequest",
-    "webRequestAuthProvider"
+    "webRequestAuthProvider",
+    "management"
   ],
   "host_permissions": ["<all_urls>"],
   "icons": {

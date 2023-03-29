@@ -7,6 +7,9 @@ import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
 import { login as loginRequest, logout as logoutRequest } from 'api/endpoints'
 import { resetWebRtcBlocker } from './webRtcEnabled'
+import { setOverlay } from 'state/slices/overlay'
+import { setView } from 'state/slices/view'
+import detectUblock from 'services/detectUblock'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -46,6 +49,9 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
       await dispatch(checkUserStash(response.data.username))
+      dispatch(setView('Home'))
+      const isUblockInstalled = await detectUblock()
+      isUblockInstalled && dispatch(setOverlay({ isOpen: true, template: 'ublockDetected' }))
       return response.data
     }
 

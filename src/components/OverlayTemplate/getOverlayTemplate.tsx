@@ -7,6 +7,7 @@ import ConfirmButton from './ConfirmButton'
 
 import teacherGarry from 'assets/img/garry/garryWithApple.png'
 import constructionGarry from 'assets/img/garry/garryConstruction.png'
+import cautionGarry from 'assets/img/garry/garryCaution.png'
 
 type OverlayTemplateContent = {
   title: string
@@ -31,6 +32,22 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
           'Connection could not be established, please try a different location or contact support',
         img: constructionGarry,
         ActionsBlock: SomethingWeird,
+      }
+    case 'ublockDetected':
+      return {
+        title: 'uBlock Already Installed',
+        message:
+          "Windscribe ad-blocker is powered by uBlock, which you already have installed. You shouldn't use both at the same time.",
+        img: cautionGarry,
+        ActionsBlock: UblockDetected,
+      }
+    case 'uninstallUblock':
+      return {
+        title: 'How To Disable uBlock',
+        message:
+          'Navigate to the extension page (chrome://extensions). Locate the uBlock extension and toggle the blue switch.',
+        img: cautionGarry,
+        ActionsBlock: UninstallUblock,
       }
   }
 }
@@ -62,4 +79,26 @@ function SomethingWeird() {
       <CancelButton onClick={close}>Got it</CancelButton>
     </>
   )
+}
+
+function UblockDetected() {
+  const dispatch = useDispatch()
+  const open = () => {
+    dispatch(setOverlay({ isOpen: true, template: 'uninstallUblock' }))
+  }
+  const close = () => dispatch(setOverlay({ isOpen: false }))
+
+  return (
+    <>
+      <ConfirmButton onClick={open}>Use Built In Adblock</ConfirmButton>
+      <CancelButton onClick={close}>Keep Using uBlock</CancelButton>
+    </>
+  )
+}
+
+function UninstallUblock() {
+  const dispatch = useDispatch()
+  const close = () => dispatch(setOverlay({ isOpen: false }))
+
+  return <CancelButton onClick={close}>Ok</CancelButton>
 }
