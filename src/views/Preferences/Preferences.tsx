@@ -1,14 +1,16 @@
 import { Box, Flex, Text, Link, useColorMode } from 'theme-ui'
-import { type ThemeUiElement } from 'utils/types'
+import { useState } from 'react'
+import bytes from 'bytes'
+
 import { logout } from 'state/slices/session'
-import { Header, RoundedBox, ListItemButton } from 'components'
-import CircleButton from 'components/CircleButton'
-import Badge from 'components/Badge'
+import { pushToDebugLog } from 'state/slices/debugLog'
+import { Badge, CircleButton, Header, RoundedBox, ListItemButton } from 'components'
+import { SpaceBetween } from 'components/Flexbox'
 import { useGoTo } from 'services/navigation'
 import { useDispatch, useSelector } from 'state/hooks'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
-import bytes from 'bytes'
-import { SpaceBetween } from 'components/Flexbox'
+import { type ThemeUiElement } from 'utils/types'
+import { getWebSession } from 'api/endpoints'
 
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
 import GeneralIcon from 'assets/img/general.svg'
@@ -37,12 +39,34 @@ const Preferences: ThemeUiElement = () => {
 
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
+  const sessionAuthHash = useSelector(state => state.session.session_auth_hash)
+  const workingApi = useSelector(s => s.workingApi)
+
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
 
   const data = useSelector(s => s.session)
 
   const { traffic_max = 0, traffic_used = 0, is_premium } = data
   const remainingDataBytes = bytes(traffic_max - traffic_used)
+  const [isWebSessionPending, setIsWebSessionPending] = useState(false)
+
+  const openKnowledgeBase = async () => {
+    setIsWebSessionPending(true)
+    if (sessionAuthHash) {
+      const response = await getWebSession(sessionAuthHash, workingApi)
+      const tempSession = response?.data?.temp_session
+      if (tempSession) window.open(`${ENVS.ROOT_URL}/knowledge-base?temp_session=${tempSession}`)
+    } else {
+      dispatch(
+        pushToDebugLog({
+          message:
+            'Failed trying to fetch temp_session token, because session_auth_hash was not exist',
+          level: 'ERROR',
+        }),
+      )
+    }
+    setIsWebSessionPending(false)
+  }
 
   return (
     <Box data-testid="preferences-page" bg="background">
@@ -94,7 +118,11 @@ const Preferences: ThemeUiElement = () => {
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
             <CircleButton Icon={TutorialIcon} />
-            <CircleButton Icon={HelpIcon} />
+            <CircleButton
+              isPending={isWebSessionPending}
+              Icon={HelpIcon}
+              onClick={openKnowledgeBase}
+            />
           </Flex>
           <CircleButton
             onClick={handleLogoutClick}
