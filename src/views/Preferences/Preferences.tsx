@@ -1,6 +1,4 @@
 import { Box, Flex, useColorMode } from 'theme-ui'
-import { useState } from 'react'
-
 import { type ThemeUiElement } from 'utils/types'
 import { logout } from 'state/slices/session'
 import { Header, RoundedBox, ListItemButton } from 'components'
@@ -8,9 +6,6 @@ import CircleButton from 'components/CircleButton'
 import Badge from 'components/Badge'
 import { useGoTo } from 'services/navigation'
 import { useDispatch, useSelector } from 'state/hooks'
-import { ENVS } from 'utils/constants'
-import { getWebSession } from 'api/endpoints'
-import { pushToDebugLog } from 'state/slices/debugLog'
 
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
 import GeneralIcon from 'assets/img/general.svg'
@@ -39,30 +34,7 @@ const Preferences: ThemeUiElement = () => {
 
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
-  const sessionAuthHash = useSelector(state => state.session.session_auth_hash)
-  const workingApi = useSelector(s => s.workingApi)
-
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
-
-  const [isWebSessionPending, setIsWebSessionPending] = useState(false)
-
-  const openKnowledgeBase = async () => {
-    setIsWebSessionPending(true)
-    if (sessionAuthHash) {
-      const response = await getWebSession(sessionAuthHash, workingApi)
-      const tempSession = response?.data?.temp_session
-      if (tempSession) window.open(`${ENVS.ROOT_URL}/knowledge-base?temp_session=${tempSession}`)
-    } else {
-      dispatch(
-        pushToDebugLog({
-          message:
-            'Failed trying to fetch temp_session token, because session_auth_hash was not exist',
-          level: 'ERROR',
-        }),
-      )
-    }
-    setIsWebSessionPending(false)
-  }
 
   return (
     <Box data-testid="preferences-page" bg="background">
@@ -101,11 +73,7 @@ const Preferences: ThemeUiElement = () => {
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
             <CircleButton Icon={TutorialIcon} />
-            <CircleButton
-              isPending={isWebSessionPending}
-              Icon={HelpIcon}
-              onClick={openKnowledgeBase}
-            />
+            <CircleButton Icon={HelpIcon} />
           </Flex>
           <CircleButton
             onClick={handleLogoutClick}
