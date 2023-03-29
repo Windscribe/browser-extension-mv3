@@ -11,6 +11,7 @@ import {
   ACTIVATE_SPLIT_PERSONALITY,
   TOGGLE_SPLIT_PERSONALITY,
 } from 'state/slices/splitPersonalityEnabled'
+import { setTimeWarpEnabled } from 'state/slices/timeWarpEnabled'
 
 import { setLocationWarp } from 'state/slices/locationWarp'
 import { setWorkerBlock } from 'state/slices/workerBlock'
@@ -20,6 +21,7 @@ import SplitPersonalityIcon from 'assets/img/splitPersonality.svg'
 import LanguageWarpIcon from 'assets/img/languageWarp.svg'
 import LocationWarpIcon from 'assets/img/locationWarp.svg'
 import WorkerBlockIcon from 'assets/img/workerBlock.svg'
+import TimeWarpIcon from 'assets/img/timeWarp.svg'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -28,6 +30,7 @@ const Privacy: ThemeUiElement = () => {
   const webRtcEnabled = useSelector(s => s.webRtcEnabled)
   const locationWarp = useSelector(s => s.locationWarp)
   const languageWarpEnabled = useSelector(s => s.languageWarpEnabled)
+  const timeWarpEnabled = useSelector(s => s.timeWarpEnabled)
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
@@ -65,6 +68,27 @@ const Privacy: ThemeUiElement = () => {
           />
         </OptionBox>
         <OptionBox
+          Icon={LocationWarpIcon}
+          path={'features/location-warp'}
+          title="Location Warp"
+          subTitle="Fakes your GPS location to match the connected proxy."
+        >
+          <ToggleSwitch
+            onChange={() => dispatch(setLocationWarp(!locationWarp))}
+            checked={locationWarp}
+          />
+        </OptionBox>
+        <OptionBox
+          Icon={TimeWarpIcon}
+          title="Time Warp"
+          subTitle="Sets your browser time to match the connected proxy."
+        >
+          <ToggleSwitch
+            onChange={() => dispatch(setTimeWarpEnabled(!timeWarpEnabled))}
+            checked={timeWarpEnabled}
+          />
+        </OptionBox>
+        <OptionBox
           Icon={LanguageWarpIcon}
           path={'features/languagewarp'}
           title="Language Warp"
@@ -90,17 +114,6 @@ const Privacy: ThemeUiElement = () => {
               checked={splitPersonalityEnabled}
             />
           </Flex>
-        </OptionBox>
-        <OptionBox
-          Icon={LocationWarpIcon}
-          path={'features/location-warp'}
-          title="Location Warp"
-          subTitle="Fakes your GPS location to match the connected proxy."
-        >
-          <ToggleSwitch
-            onChange={() => dispatch(setLocationWarp(!locationWarp))}
-            checked={locationWarp}
-          />
         </OptionBox>
         <OptionBox
           Icon={WorkerBlockIcon}

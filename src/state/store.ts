@@ -40,6 +40,7 @@ import proxyPortReducer from './slices/proxyPort'
 import workerBlockReducer from './slices/workerBlock'
 import locationLoadReducer from './slices/locationLoad'
 import isOnlineReducer from './slices/isOnline'
+import timeWarpEnabledReducer from './slices/timeWarpEnabled'
 
 const reducers = {
   allowSystemNotifications: allowSystemNotificationsReducer,
@@ -65,6 +66,7 @@ const reducers = {
   servers: serversReducer,
   session: sessionReducer,
   splitPersonalityEnabled: splitPersonalityEnabledReducer,
+  timeWarpEnabled: timeWarpEnabledReducer,
   userAgent: userAgentReducer,
   userStashes: userStashesReducer,
   view: viewReducer,
