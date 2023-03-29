@@ -1,4 +1,4 @@
-import { Text } from 'theme-ui'
+import { Label } from 'theme-ui'
 
 import { ListItem, Checkbox } from 'components'
 import { type ListItemProps } from 'components/ListItem'
@@ -27,7 +27,7 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({
         cursor: 'pointer',
         transition: 'all ease 0.3s',
         '&:hover': {
-          span: {
+          '& label': {
             color: 'primaryText',
           },
           svg: {
@@ -38,9 +38,9 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({
       }}
       {...props}
     >
-      <label>
-        <Text color="secondaryText">{children}</Text>
-      </label>
+      <Label color="secondaryText" sx={{ cursor: 'pointer', fontWeight: 'bold' }}>
+        {children}
+      </Label>
       <Checkbox isChecked={isChecked} />
     </ListItem>
   )
