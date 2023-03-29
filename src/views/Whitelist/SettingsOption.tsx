@@ -27,7 +27,7 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({
         cursor: 'pointer',
         transition: 'all ease 0.3s',
         '&:hover': {
-          span: {
+          '& label': {
             color: 'primaryText',
           },
           svg: {
