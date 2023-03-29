@@ -21,7 +21,23 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({
   }
 
   return (
-    <ListItem onClick={handleClick} sx={{ cursor: 'pointer' }} {...props}>
+    <ListItem
+      onClick={handleClick}
+      sx={{
+        cursor: 'pointer',
+        transition: 'all ease 0.3s',
+        '&:hover': {
+          span: {
+            color: 'primaryText',
+          },
+          svg: {
+            transform: 'scale(1.1)',
+            fill: isChecked ? 'lakeBlue' : 'primaryText',
+          },
+        },
+      }}
+      {...props}
+    >
       <Label color="secondaryText" sx={{ cursor: 'pointer', fontWeight: 'bold' }}>
         {children}
       </Label>
