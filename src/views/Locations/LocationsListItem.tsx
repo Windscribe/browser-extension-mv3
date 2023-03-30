@@ -53,7 +53,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   }
 
   return (
-    <Box {...props}>
+    <Box {...props} pb="16px">
       <Rectangle
         onClick={handleLocationItemClick}
         sx={{
