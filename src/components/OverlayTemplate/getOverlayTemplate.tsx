@@ -8,6 +8,8 @@ import ConfirmButton from './ConfirmButton'
 import teacherGarry from 'assets/img/garry/garryWithApple.png'
 import constructionGarry from 'assets/img/garry/garryConstruction.png'
 import cautionGarry from 'assets/img/garry/garryCaution.png'
+import noDataGarry from 'assets/img/garry/garryNoData.png'
+import { ENVS } from 'utils/constants'
 
 type OverlayTemplateContent = {
   title: string
@@ -48,6 +50,13 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
           'Navigate to the extension page (chrome://extensions). Locate the uBlock extension and toggle the blue switch.',
         img: cautionGarry,
         ActionsBlock: UninstallUblock,
+      }
+    case 'noData':
+      return {
+        title: "You're out of Data",
+        message: 'Please upgrade to stay protected',
+        img: noDataGarry,
+        ActionsBlock: NoData,
       }
   }
 }
@@ -101,4 +110,19 @@ function UninstallUblock() {
   const close = () => dispatch(setOverlay({ isOpen: false }))
 
   return <CancelButton onClick={close}>Ok</CancelButton>
+}
+
+const NoData = () => {
+  const dispatch = useDispatch()
+  const close = () => dispatch(setOverlay({ isOpen: false }))
+
+  return (
+    <>
+      <ConfirmButton onClick={() => window.open(`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`)}>
+        Upgrade
+      </ConfirmButton>
+
+      <CancelButton onClick={close}>Maybe Later</CancelButton>
+    </>
+  )
 }

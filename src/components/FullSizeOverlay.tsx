@@ -1,4 +1,4 @@
-import { Flex } from 'theme-ui'
+import { Box } from 'theme-ui'
 
 import { useSelector } from 'state/hooks'
 import { OverlayTemplate } from './OverlayTemplate'
@@ -7,7 +7,7 @@ const FullSizeOverlay: React.FC = () => {
   const { isOpen } = useSelector(s => s.overlay)
 
   return (
-    <Flex
+    <Box
       sx={{
         position: isOpen ? 'relative' : 'absolute',
         bottom: 0,
@@ -23,7 +23,7 @@ const FullSizeOverlay: React.FC = () => {
       }}
     >
       <OverlayTemplate />
-    </Flex>
+    </Box>
   )
 }
 

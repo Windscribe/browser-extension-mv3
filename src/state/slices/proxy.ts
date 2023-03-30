@@ -7,6 +7,9 @@ import type { SyncThunkCreator } from 'utils/types'
 import { pushToDebugLog } from './debugLog'
 import { setReconnectionAttempts } from './connection'
 import { checkIp, createNotification } from 'services'
+import { setOverlay } from 'state/slices/overlay'
+import { ACCOUNT_STATES } from 'utils/constants'
+
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
 
@@ -30,6 +33,17 @@ export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 export const connectProxy = createAsyncThunk(
   CONNECT_PROXY,
   async (hosts: Host[], { dispatch, getState }) => {
+    const { traffic_max, traffic_used } = getState().session
+
+    if (!traffic_max || !traffic_used) {
+      throw Error('No session info.')
+    }
+
+    if (traffic_max - traffic_used === 0) {
+      dispatch(setOverlay({ isOpen: true, template: 'noData' }))
+      throw Error('Out of data.')
+    }
+
     if (!hosts || hosts?.length === 0) {
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }
