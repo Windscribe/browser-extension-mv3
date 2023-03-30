@@ -121,6 +121,7 @@ const Login: ThemeUiElement = () => {
               setUsername(e.target.value)
               dispatch(saveUsername(e.target.value))
             }}
+            sx={{ borderColor: error ? 'bloodRed' : 'transparent' }}
           />
           <Label
             sx={{
@@ -141,7 +142,7 @@ const Login: ThemeUiElement = () => {
               name="password"
               data-testid="password-input"
               onChange={e => setPassword(e.target.value)}
-              sx={{ pr: '38px' }}
+              sx={{ pr: '38px', borderColor: error ? 'bloodRed' : 'transparent' }}
             />
             <Box
               sx={{
