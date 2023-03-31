@@ -30,6 +30,7 @@ export type OverlayTemplate =
   | 'ublockDetected'
   | 'uninstallUblock'
   | 'noData'
+  | 'extensionConflict'
 
 export type ErrorState = {
   errorCode?: number

@@ -44,6 +44,17 @@ export const connectProxy = createAsyncThunk(
       throw Error('Out of data.')
     }
 
+    const proxySetting = await new Promise(resolve => {
+      chrome.proxy.settings.get({}, function (details) {
+        resolve(details.levelOfControl)
+      })
+    })
+
+    if (proxySetting === 'controlled_by_other_extensions') {
+      dispatch(setOverlay({ isOpen: true, template: 'extensionConflict' }))
+      throw Error('Proxy is controlled by another extension.')
+    }
+
     if (!hosts || hosts?.length === 0) {
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }

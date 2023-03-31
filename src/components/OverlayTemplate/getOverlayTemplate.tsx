@@ -58,6 +58,14 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         img: noDataGarry,
         ActionsBlock: NoData,
       }
+    case 'extensionConflict':
+      return {
+        title: 'Extension Conflict',
+        message:
+          'Your proxy settings are being controlled by another extension. Please disable the conflicting extension to use Windscribe.',
+        img: cautionGarry,
+        ActionsBlock: ExtensionConflict,
+      }
   }
 }
 
@@ -125,4 +133,11 @@ const NoData = () => {
       <CancelButton onClick={close}>Maybe Later</CancelButton>
     </>
   )
+}
+
+const ExtensionConflict = () => {
+  const dispatch = useDispatch()
+  const close = () => dispatch(setOverlay({ isOpen: false }))
+
+  return <CancelButton onClick={close}>Got it</CancelButton>
 }
