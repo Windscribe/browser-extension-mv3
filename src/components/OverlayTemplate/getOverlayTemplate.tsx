@@ -66,6 +66,13 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         img: cautionGarry,
         ActionsBlock: ExtensionConflict,
       }
+    case 'locationDown':
+      return {
+        title: 'This location is under maintenance',
+        message: 'Please try again later or go to the status page for more info.',
+        img: constructionGarry,
+        ActionsBlock: LocationDown,
+      }
   }
 }
 
@@ -140,4 +147,18 @@ const ExtensionConflict = () => {
   const close = () => dispatch(setOverlay({ isOpen: false }))
 
   return <CancelButton onClick={close}>Got it</CancelButton>
+}
+
+const LocationDown = () => {
+  const dispatch = useDispatch()
+  const close = () => dispatch(setOverlay({ isOpen: false }))
+
+  return (
+    <>
+      <ConfirmButton onClick={() => window.open(`${ENVS.ROOT_URL}/status`)}>
+        Check Status
+      </ConfirmButton>
+      <CancelButton onClick={close}>Back</CancelButton>
+    </>
+  )
 }

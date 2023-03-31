@@ -8,7 +8,6 @@ import { pushToDebugLog } from './debugLog'
 import { setReconnectionAttempts } from './connection'
 import { checkIp, createNotification } from 'services'
 import { setOverlay } from 'state/slices/overlay'
-import { ACCOUNT_STATES } from 'utils/constants'
 
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
