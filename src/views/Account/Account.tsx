@@ -1,7 +1,7 @@
 import { Box } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { ENVS } from 'utils/constants'
-import { Header, RoundedBox, ListItem, Subheader } from 'components'
+import { ScrollableBox, Header, RoundedBox, ListItem, Subheader } from 'components'
 import CircleButton from 'components/CircleButton'
 import EditIcon from 'assets/img/edit.svg'
 import { useSelector } from 'state/hooks'
@@ -40,7 +40,7 @@ const Account: ThemeUiElement = () => {
           }}
         />
       </Header>
-      <Box sx={{ mx: '16px' }}>
+      <ScrollableBox>
         <Subheader>info</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
@@ -65,7 +65,7 @@ const Account: ThemeUiElement = () => {
             <Box sx={{ fontWeight: '400' }}>{session.premium_expiry_date}</Box>
           </ListItem>
         </RoundedBox>
-      </Box>
+      </ScrollableBox>
     </Box>
   )
 }

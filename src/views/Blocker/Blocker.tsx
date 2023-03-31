@@ -3,7 +3,7 @@ import { Box, Button } from 'theme-ui'
 
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
-import { Header, OptionBox, ToggleSwitch } from 'components'
+import { ScrollableBox, Header, OptionBox, ToggleSwitch } from 'components'
 import { setBlockLists } from 'state/slices/blocker'
 import SmokewallIcon from 'assets/img/smokewall.svg'
 import LinkIcon from 'assets/img/link.svg'
@@ -32,7 +32,7 @@ const Blocker: ThemeUiElement = () => {
   return (
     <Box data-testid="blocker-page" bg="background">
       <Header title="Blocker" {...{ shouldShowReloadAlert, showReloadAlert }} />
-      <Box mx="16px">
+      <ScrollableBox>
         <OptionBox Icon={SmokewallIcon} title="Default" subTitle="Ads, Trackers, Miners, And More">
           <ToggleSwitch
             onChange={() => {
@@ -111,7 +111,7 @@ const Blocker: ThemeUiElement = () => {
             <LinkIcon sx={{ fill: 'secondaryText' }} />
           </Button>
         </Box>
-      </Box>
+      </ScrollableBox>
     </Box>
   )
 }
