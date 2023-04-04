@@ -32,6 +32,8 @@ export type OverlayTemplate =
   | 'noData'
   | 'extensionConflict'
   | 'locationDown'
+  | 'proPlanExpired'
+  | 'banned'
 
 export type ErrorState = {
   errorCode?: number

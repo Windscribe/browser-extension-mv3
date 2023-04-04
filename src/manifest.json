@@ -25,7 +25,8 @@
     "webNavigation",
     "webRequest",
     "webRequestAuthProvider",
-    "management"
+    "management",
+    "alarms"
   ],
   "host_permissions": ["<all_urls>"],
   "icons": {

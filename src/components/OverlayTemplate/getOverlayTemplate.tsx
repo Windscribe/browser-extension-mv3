@@ -4,12 +4,14 @@ import { setOverlay } from 'state/slices/overlay'
 import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import CancelButton from './CancelButton'
 import ConfirmButton from './ConfirmButton'
+import { ENVS } from 'utils/constants'
 
 import teacherGarry from 'assets/img/garry/garryWithApple.png'
 import constructionGarry from 'assets/img/garry/garryConstruction.png'
 import cautionGarry from 'assets/img/garry/garryCaution.png'
 import noDataGarry from 'assets/img/garry/garryNoData.png'
-import { ENVS } from 'utils/constants'
+import sadGarry from 'assets/img/garry/garrySad.png'
+import angryGarry from 'assets/img/garry/garryAngry.png'
 
 type OverlayTemplateContent = {
   title: string
@@ -31,7 +33,7 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
       return {
         title: 'Something went wrong',
         message:
-          'Connection could not be established, please try a different location or contact support',
+          'Connection could not be established, please try a different location or contact support.',
         img: constructionGarry,
         ActionsBlock: SomethingWeird,
       }
@@ -54,9 +56,23 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
     case 'noData':
       return {
         title: "You're out of Data",
-        message: 'Please upgrade to stay protected',
+        message: 'Please upgrade to stay protected.',
         img: noDataGarry,
         ActionsBlock: NoData,
+      }
+    case 'proPlanExpired':
+      return {
+        title: 'Your Pro Plan Has Expired!',
+        message: 'You lost access to premium locations and unlimited data.',
+        img: sadGarry,
+        ActionsBlock: ProPlanExpired,
+      }
+    case 'banned':
+      return {
+        title: "You've been banned",
+        message: 'Your account has been disabled for violating our terms of service',
+        img: angryGarry,
+        ActionsBlock: Banned,
       }
     case 'extensionConflict':
       return {
@@ -139,6 +155,35 @@ const NoData = () => {
 
       <CancelButton onClick={close}>Maybe Later</CancelButton>
     </>
+  )
+}
+
+const ProPlanExpired = () => {
+  const dispatch = useDispatch()
+  const close = () => dispatch(setOverlay({ isOpen: false }))
+
+  return (
+    <>
+      <ConfirmButton onClick={() => window.open(`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`)}>
+        Renew Plan
+      </ConfirmButton>
+      <CancelButton onClick={close}>Ignore</CancelButton>
+    </>
+  )
+}
+
+const Banned = () => {
+  const dispatch = useDispatch()
+  const close = () => dispatch(setOverlay({ isOpen: false }))
+  return (
+    <CancelButton
+      onClick={() => {
+        close()
+        window.open(`${ENVS.ROOT_URL}/terms`)
+      }}
+    >
+      Learn More
+    </CancelButton>
   )
 }
 
