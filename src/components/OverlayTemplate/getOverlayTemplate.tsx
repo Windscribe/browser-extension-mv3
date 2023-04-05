@@ -149,10 +149,14 @@ const NoData = () => {
 
   return (
     <>
-      <ConfirmButton onClick={() => window.open(`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`)}>
+      <ConfirmButton
+        onClick={() => {
+          close()
+          window.open(`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`)
+        }}
+      >
         Upgrade
       </ConfirmButton>
-
       <CancelButton onClick={close}>Maybe Later</CancelButton>
     </>
   )
@@ -164,7 +168,12 @@ const ProPlanExpired = () => {
 
   return (
     <>
-      <ConfirmButton onClick={() => window.open(`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`)}>
+      <ConfirmButton
+        onClick={() => {
+          close()
+          window.open(`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`)
+        }}
+      >
         Renew Plan
       </ConfirmButton>
       <CancelButton onClick={close}>Ignore</CancelButton>

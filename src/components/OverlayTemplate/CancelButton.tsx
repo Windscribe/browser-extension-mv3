@@ -14,7 +14,7 @@ const CancelButton: ThemeUiElement<ButtonProps> = ({ children, ...props }) => (
       borderColor: 'secondaryText',
       borderStyle: 'solid',
       color: 'secondaryText',
-      transition: '0.3s',
+      transition: 'color 0.3s, background-color 0.3s',
       '&:hover': {
         color: 'softBlack',
         backgroundColor: 'white',

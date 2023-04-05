@@ -12,7 +12,7 @@ const ConfirmButton: ThemeUiElement<ButtonProps> = ({ children, ...props }) => (
       p: 0,
       backgroundColor: 'neonGreen',
       color: 'softBlack',
-      transition: '0.3s',
+      transition: 'background-color 0.3s',
       '&:hover': {
         backgroundColor: 'white',
       },

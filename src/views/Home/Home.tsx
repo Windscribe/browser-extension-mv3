@@ -88,7 +88,6 @@ const Home: ThemeUiElement = () => {
     <Box
       data-testid="home-page"
       sx={{
-        height: '208px',
         width: '100%',
         backgroundColor: 'darkBackground',
       }}

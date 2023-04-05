@@ -1,11 +1,9 @@
 import { MouseEventHandler } from 'react'
 import { Box, Button, Flex, Text, type ButtonProps } from 'theme-ui'
 import bytes from 'bytes'
-
 import { useSelector } from 'state/hooks'
 import { SpaceBetween } from 'components/Flexbox'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
-import { useGoTo } from 'services/navigation'
 
 const getUsageColor = (percentage: number) => {
   if (percentage < 50) return 'neonGreen'
@@ -14,21 +12,15 @@ const getUsageColor = (percentage: number) => {
 }
 
 const UsageBar: React.FC<ButtonProps> = () => {
-  const goToSignup = useGoTo('Signup')
   const data = useSelector(s => s.session)
   const { traffic_max = 0, traffic_used = 0, username } = data
   const percentageUsed = (traffic_used / traffic_max) * 100
   const remainingDataBytes = bytes(traffic_max - traffic_used)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async () => {
-    if (username) {
-      //TODO Implement separate, browser-agnostic service. Get rid of hardcoded url.
-      const url = `${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`
-      await chrome.tabs.create({ url })
-    } else {
-      //ghost-mode
-      goToSignup()
-    }
+    //TODO Implement separate, browser-agnostic service. Get rid of hardcoded url.
+    const url = `${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`
+    await chrome.tabs.create({ url })
   }
 
   return (
