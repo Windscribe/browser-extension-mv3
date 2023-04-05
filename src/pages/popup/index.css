@@ -1,25 +1,28 @@
 @font-face {
   font-family: 'IBMPlexSans';
-  src: local('IBMPlexSans-Regular'), url('../../assets/fonts/IBMPlexSans-Regular.ttf') format("truetype");
+  src: local('IBMPlexSans-Regular'),
+    url('../../assets/fonts/IBMPlexSans-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'IBMPlexSans';
-  src: local('IBMPlexSans-SemiBold'), url('../../assets/fonts/IBMPlexSans-SemiBold.ttf') format("truetype");
+  src: local('IBMPlexSans-SemiBold'),
+    url('../../assets/fonts/IBMPlexSans-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-stretch: normal;
 }
 @font-face {
   font-family: 'IBMPlexSans';
-  src: local('IBMPlexSans-Bold'), url('../../assets/fonts/IBMPlexSans-Bold.ttf') format("truetype");
+  src: local('IBMPlexSans-Bold'), url('../../assets/fonts/IBMPlexSans-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-stretch: normal;
 }
 
+html,
 body {
   margin: 0;
   font-family: 'IBMPlexSans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -27,6 +30,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   position: relative;
-
+  overflow: hidden;
   width: 324px;
+  max-height: 442px;
 }

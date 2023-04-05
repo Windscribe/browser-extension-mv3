@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { Box, Flex } from 'theme-ui'
-
 import { type ThemeUiElement } from 'utils/types'
-import { GetNewButton, Header, OptionBox, ToggleSwitch } from 'components'
+import { GetNewButton, OptionBox, ToggleSwitch, Header, ScrollableBox } from 'components'
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { toggleNotificationBlocker } from 'state/slices/notificationBlockerEnabled'
 import { toggleWebRtcBlocker } from 'state/slices/webRtcEnabled'
@@ -11,9 +10,9 @@ import {
   ACTIVATE_SPLIT_PERSONALITY,
   TOGGLE_SPLIT_PERSONALITY,
 } from 'state/slices/splitPersonalityEnabled'
-
 import { setLocationWarp } from 'state/slices/locationWarp'
 import { setWorkerBlock } from 'state/slices/workerBlock'
+
 import DoNotDisturbIcon from 'assets/img/doNotDisturb.svg'
 import WebRtcLeakIcon from 'assets/img/webRtcLeak.svg'
 import SplitPersonalityIcon from 'assets/img/splitPersonality.svg'
@@ -33,9 +32,9 @@ const Privacy: ThemeUiElement = () => {
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
   return (
-    <Box data-testid="privacy-page" bg="background">
+    <Box data-testid={'privacy-page'} bg="background">
       <Header title="Privacy" {...{ shouldShowReloadAlert, showReloadAlert }} />
-      <Box mx="16px">
+      <ScrollableBox>
         <OptionBox
           Icon={DoNotDisturbIcon}
           path={'features/dnd'}
@@ -116,7 +115,7 @@ const Privacy: ThemeUiElement = () => {
             checked={workerBlockEnabled}
           />
         </OptionBox>
-      </Box>
+      </ScrollableBox>
     </Box>
   )
 }

@@ -6,7 +6,7 @@ import { sendDebugLog } from 'services'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { setAutoConnect } from 'state/slices/connection'
-import { Header, OptionBox, ToggleSwitch } from 'components'
+import { Header, OptionBox, ToggleSwitch, ScrollableBox } from 'components'
 import { showDebugContextMenu } from 'state/slices/contextMenu'
 import { setAllowSystemNotifications } from 'state/slices/allowSystemNotifications'
 import { setLocationLoad } from 'state/slices/locationLoad'
@@ -35,7 +35,7 @@ const General: ThemeUiElement = () => {
   return (
     <Box data-testid="general-page" bg="background">
       <Header title="General" />
-      <Box mx="16px">
+      <ScrollableBox>
         <OptionBox
           Icon={AutoConnectIcon}
           title="Auto-Connect"
@@ -150,7 +150,7 @@ const General: ThemeUiElement = () => {
             <LinkIcon sx={{ fill: 'secondaryText' }} />
           </Button>
         </Box>
-      </Box>
+      </ScrollableBox>
     </Box>
   )
 }
