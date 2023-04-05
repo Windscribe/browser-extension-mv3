@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Box, Button } from 'theme-ui'
-
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { ScrollableBox, Header, OptionBox, ToggleSwitch } from 'components'

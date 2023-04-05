@@ -48,7 +48,6 @@ const Home: ThemeUiElement = () => {
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
   const workingApi = useSelector(state => state.workingApi)
-  const isOverlayOpen = useSelector(state => state.overlay.isOpen)
   const overlayTemplate = useSelector(state => state.overlay.template)
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
@@ -61,7 +60,7 @@ const Home: ThemeUiElement = () => {
 
   useEffect(() => {
     if (overlayTemplate === 'welcome') dispatch(setOverlay({ isOpen: true }))
-  }, [])
+  }, [dispatch, overlayTemplate])
 
   useInitialDataFetching()
 
@@ -89,7 +88,6 @@ const Home: ThemeUiElement = () => {
     <Box
       data-testid="home-page"
       sx={{
-        position: isOverlayOpen ? 'absolute' : 'static',
         height: '208px',
         width: '100%',
         backgroundColor: 'darkBackground',
