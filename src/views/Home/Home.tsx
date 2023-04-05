@@ -13,7 +13,9 @@ import { checkIp } from 'services'
 import { useGoTo } from 'services/navigation'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
+import { setOverlay } from 'state/slices/overlay'
 import { useInitialDataFetching } from 'components/hooks'
+import Onboarding from 'components/Onboarding'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import { type ThemeUiElement } from 'utils/types'
 import Flags from 'assets/flags'
@@ -46,6 +48,8 @@ const Home: ThemeUiElement = () => {
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
   const workingApi = useSelector(state => state.workingApi)
+  const isOverlayOpen = useSelector(state => state.overlay.isOpen)
+  const overlayTemplate = useSelector(state => state.overlay.template)
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
@@ -54,6 +58,10 @@ const Home: ThemeUiElement = () => {
   useEffect(() => {
     checkIp(workingApi).then(ip => setCurrentIp(ip))
   }, [workingApi])
+
+  useEffect(() => {
+    if (overlayTemplate === 'welcome') dispatch(setOverlay({ isOpen: true }))
+  }, [])
 
   useInitialDataFetching()
 
@@ -81,6 +89,7 @@ const Home: ThemeUiElement = () => {
     <Box
       data-testid="home-page"
       sx={{
+        position: isOverlayOpen ? 'absolute' : 'static',
         height: '208px',
         width: '100%',
         backgroundColor: 'darkBackground',
@@ -110,6 +119,7 @@ const Home: ThemeUiElement = () => {
           >
             <Button variant="simple" data-testid="go-to-preferences" onClick={goToPreferences}>
               <Menu
+                className="joyride-element-opt-out"
                 sx={{
                   fill: 'white',
                   opacity: '0.5',
@@ -218,6 +228,7 @@ const Home: ThemeUiElement = () => {
           >
             <Button
               variant="simple"
+              className="joyride-element-change-location"
               data-testid="globe-button"
               onClick={goToLocations}
               sx={{
@@ -255,6 +266,7 @@ const Home: ThemeUiElement = () => {
             </Button>
 
             <Button
+              className="joyride-element-proxy-button"
               variant="simple"
               sx={{
                 display: 'flex',
@@ -292,6 +304,7 @@ const Home: ThemeUiElement = () => {
       <DomainControlBar />
       <FlagBackground isConnected={isConnected} FlagSvg={FlagSvg} />
       {!hideUsageBar && <UsageBar />}
+      <Onboarding />
     </Box>
   )
 }

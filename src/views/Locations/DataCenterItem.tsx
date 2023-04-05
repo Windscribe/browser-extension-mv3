@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import { Text, Flex, Button, Box, type ButtonProps } from 'theme-ui'
 import Highlighter from 'react-highlight-words'
-
 import { selectLocationByDataCenterId } from 'state/slices/servers'
 import { setCurrentLocation } from 'state/slices/currentLocation'
 import { setAutopilotSelected } from 'state/slices/autopilot'
@@ -16,13 +16,13 @@ import { useGoTo } from 'services/navigation'
 import { type DataCenter } from 'api/types'
 import { type ThemeUiElement } from 'utils/types'
 import { IconButton } from 'components'
+import { setOverlay } from 'state/slices/overlay'
 
 import HeartIcon from 'assets/img/heart.svg'
 import HeartBreakIcon from 'assets/img/heartBreak.svg'
 import HeartOutlineIcon from 'assets/img/heartOutline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
-import { useState } from 'react'
 
 type DataCenterItem = ButtonProps & {
   dataCenter: DataCenter
@@ -39,12 +39,15 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
   const [showBrokenHeart, setShowBrokenHeart] = useState(false)
 
   const handleClick = (dataCenter: DataCenter) => {
-    location && dispatch(setCurrentLocation(location))
-    dispatch(setCurrentDataCenter(dataCenter))
-    dispatch(setAutopilotSelected(false))
-    // TODO dataCenter could not has hosts, maybe should use ovpn_x509 instead?
-    dispatch(connectProxy(dataCenter.hosts))
-    goToHome()
+    if (!dataCenter.hosts || dataCenter.hosts.length === 0) {
+      dispatch(setOverlay({ isOpen: true, template: 'locationDown' }))
+    } else {
+      location && dispatch(setCurrentLocation(location))
+      dispatch(setCurrentDataCenter(dataCenter))
+      dispatch(setAutopilotSelected(false))
+      dispatch(connectProxy(dataCenter.hosts))
+      goToHome()
+    }
   }
 
   const handleHeartIconClick: React.MouseEventHandler = async e => {

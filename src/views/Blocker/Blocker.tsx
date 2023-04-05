@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Box, Button } from 'theme-ui'
 
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { ScrollableBox, Header, OptionBox, ToggleSwitch } from 'components'
 import { setBlockLists } from 'state/slices/blocker'
+import { setOverlay } from 'state/slices/overlay'
+import detectUblock from 'services/detectUblock'
 import SmokewallIcon from 'assets/img/smokewall.svg'
 import LinkIcon from 'assets/img/link.svg'
 
@@ -12,6 +14,13 @@ const Blocker: ThemeUiElement = () => {
   const blockLists = useSelector(s => s.blocker.blockLists)
   const dispatch = useDispatch()
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
+
+  useEffect(() => {
+    detectUblock().then(
+      isUblockInstalled =>
+        isUblockInstalled && dispatch(setOverlay({ isOpen: true, template: 'ublockDetected' })),
+    )
+  }, [dispatch])
 
   const handleBlockListToggle = (listName: string) => {
     showReloadAlert(true)

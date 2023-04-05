@@ -23,7 +23,9 @@
     "tabs",
     "webNavigation",
     "webRequest",
-    "webRequestAuthProvider"
+    "webRequestAuthProvider",
+    "management",
+    "alarms"
   ],
   "host_permissions": ["<all_urls>"],
   "icons": {

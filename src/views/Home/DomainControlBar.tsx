@@ -25,6 +25,7 @@ const SiteControlBar: React.FC = () => {
 
   return (
     <Flex
+      className="joyride-element-whitelist"
       sx={{
         alignItems: 'center',
         height: `${footerHeight}`,
