@@ -152,7 +152,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
           mt: '-2px',
           height: '2px',
           width: `${dataCenter.health}%`,
-          display: locationLoad ? 'none' : 'block',
+          display: locationLoad ? 'block' : 'none',
         }}
         bg={getUsageColor(dataCenter.health)}
         opacity="0.5"
