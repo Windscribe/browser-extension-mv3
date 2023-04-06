@@ -10,13 +10,10 @@ const handleSessionChanges = async (store: StoreType): Promise<void> => {
   const workingApi = store.getState().workingApi
   const currentSession = store.getState().session
 
-  console.log(isConnected, currentSession?.session_auth_hash)
-
   // poll only when connected and we have a session_auth_hash
   if (currentSession?.session_auth_hash) {
     const updatedSession = await getSessionStatus(currentSession?.session_auth_hash, workingApi)
     if (updatedSession.data) {
-      console.log(updatedSession.data)
       if (
         isConnected &&
         !updatedSession.data.is_premium &&
