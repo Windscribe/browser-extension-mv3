@@ -138,10 +138,11 @@ export const theme: Theme = {
       height: '40px',
       backgroundColor: 'foreground',
       color: 'primaryText',
-      border: '0',
+      border: '1px solid transparent',
       px: '16px',
       '&:focus': {
-        borderColor: 'primary',
+        border: '1px solid',
+        borderColor: 'border',
         outline: 'none',
       },
       '&:-webkit-autofill': {

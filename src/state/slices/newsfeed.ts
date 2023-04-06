@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
-
 import { getNotifications } from 'api/endpoints'
 import type { ApiErrorResponse, NotificationsData, Notifications } from 'api/types'
 import type { LoadingState, Either, ErrorState } from 'utils/types'

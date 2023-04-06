@@ -1,11 +1,15 @@
-import { Box, Flex, useColorMode } from 'theme-ui'
+import { Box, Flex, Text, Link, useColorMode } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { logout } from 'state/slices/session'
+import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import { Header, RoundedBox, ListItemButton } from 'components'
 import CircleButton from 'components/CircleButton'
 import Badge from 'components/Badge'
 import { useGoTo } from 'services/navigation'
 import { useDispatch, useSelector } from 'state/hooks'
+import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
+import bytes from 'bytes'
+import { SpaceBetween } from 'components/Flexbox'
 
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
 import GeneralIcon from 'assets/img/general.svg'
@@ -29,12 +33,24 @@ const Preferences: ThemeUiElement = () => {
   const goToWhitelist = useGoTo('Whitelist')
   const goToNewsfeed = useGoTo('Newsfeed')
   const goToPrivacy = useGoTo('Privacy')
+  const goToHome = useGoTo('Home')
   const dispatch = useDispatch()
+
+  const runTutorial = () => {
+    goToHome()
+    dispatch(setShouldShowOnboarding(true))
+  }
+
   const handleLogoutClick = async () => await dispatch(logout())
 
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
+
+  const data = useSelector(s => s.session)
+
+  const { traffic_max = 0, traffic_used = 0, is_premium } = data
+  const remainingDataBytes = bytes(traffic_max - traffic_used)
 
   return (
     <Box data-testid="preferences-page" bg="background">
@@ -48,7 +64,20 @@ const Preferences: ThemeUiElement = () => {
           <Badge count={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
         </CircleButton>
       </Header>
+
       <Box sx={{ mx: '16px' }}>
+        {is_premium || traffic_max === ACCOUNT_PLAN.UNLIMITED ? null : (
+          <SpaceBetween mb="16px">
+            <Text sx={{ color: 'primaryText', fontWeight: '600' }}>{remainingDataBytes} Left</Text>
+            <Link
+              sx={{ textDecoration: 'none', color: 'lakeBlue' }}
+              href={`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`}
+              target="_blank"
+            >
+              Upgrade
+            </Link>
+          </SpaceBetween>
+        )}
         <RoundedBox>
           <ListItemButton title="General" Icon={GeneralIcon} onClick={goToGeneral} />
           <ListItemButton title="Connection" Icon={ConnectionIcon} onClick={goToConnection} />
@@ -72,7 +101,7 @@ const Preferences: ThemeUiElement = () => {
               Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
-            <CircleButton Icon={TutorialIcon} />
+            <CircleButton Icon={TutorialIcon} onClick={runTutorial} />
             <CircleButton Icon={HelpIcon} />
           </Flex>
           <CircleButton

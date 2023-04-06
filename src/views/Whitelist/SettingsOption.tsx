@@ -1,4 +1,4 @@
-import { Text } from 'theme-ui'
+import { Label } from 'theme-ui'
 
 import { ListItem, Checkbox } from 'components'
 import { type ListItemProps } from 'components/ListItem'
@@ -21,10 +21,26 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({
   }
 
   return (
-    <ListItem onClick={handleClick} sx={{ cursor: 'pointer' }} {...props}>
-      <label>
-        <Text color="secondaryText">{children}</Text>
-      </label>
+    <ListItem
+      onClick={handleClick}
+      sx={{
+        cursor: 'pointer',
+        transition: 'all ease 0.3s',
+        '&:hover': {
+          '& label': {
+            color: 'primaryText',
+          },
+          svg: {
+            transform: 'scale(1.1)',
+            fill: isChecked ? 'lakeBlue' : 'primaryText',
+          },
+        },
+      }}
+      {...props}
+    >
+      <Label color="secondaryText" sx={{ cursor: 'pointer', fontWeight: 'bold' }}>
+        {children}
+      </Label>
       <Checkbox isChecked={isChecked} />
     </ListItem>
   )

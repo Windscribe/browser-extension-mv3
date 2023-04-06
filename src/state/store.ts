@@ -41,6 +41,8 @@ import workerBlockReducer from './slices/workerBlock'
 import locationLoadReducer from './slices/locationLoad'
 import isOnlineReducer from './slices/isOnline'
 import timeWarpEnabledReducer from './slices/timeWarpEnabled'
+import overlayReducer from './slices/overlay'
+import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
 
 const reducers = {
   allowSystemNotifications: allowSystemNotificationsReducer,
@@ -60,11 +62,13 @@ const reducers = {
   locationWarp: locationWarpReducer,
   newsfeed: newsfeedReducer,
   notificationBlockerEnabled: notificationBlockerEnabledReducer,
+  overlay: overlayReducer,
   proxy: proxyReducer,
   proxyPort: proxyPortReducer,
   serverCredentials: serverCredentialsReducer,
   servers: serversReducer,
   session: sessionReducer,
+  shouldShowOnboarding: shouldShowOnboardingReducer,
   splitPersonalityEnabled: splitPersonalityEnabledReducer,
   timeWarpEnabled: timeWarpEnabledReducer,
   userAgent: userAgentReducer,

@@ -24,6 +24,12 @@ export const ACCOUNT_PLAN = {
   UNLIMITED: -1,
 } as const
 
+export const ACCOUNT_STATES = {
+  ACTIVE: 1,
+  EXPIRED: 2,
+  BANNED: 3,
+}
+
 export const DEVTOOL_PROTOCOL = '1.3'
 
 // used for user agent setting (do not want user to assume different platform)

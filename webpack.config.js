@@ -26,7 +26,6 @@ const maybeProgressPlugin = env.NODE_ENV === 'development' ? [new webpack.Progre
 const options = {
   mode: env.NODE_ENV || 'development',
   entry: {
-    options: path.join(__dirname, 'src', 'pages', 'options', 'index.jsx'),
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
     background: path.join(__dirname, 'src', 'pages', 'background', 'index.ts'),
     debugLog: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.tsx'),
@@ -178,12 +177,6 @@ const options = {
           force: true,
         },
       ],
-    }),
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'options', 'index.html'),
-      filename: 'options.html',
-      chunks: ['options'],
-      cache: false,
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'pages', 'popup', 'index.html'),

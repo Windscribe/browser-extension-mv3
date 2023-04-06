@@ -78,7 +78,7 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
   )
 
   return (
-    <Column data-testid="locations-list" sx={{ gap: '16px', height: '100%' }}>
+    <Column data-testid="locations-list" sx={{ height: '100%' }}>
       <ServerListWithSpinner />
     </Column>
   )

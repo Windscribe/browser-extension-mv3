@@ -13,6 +13,7 @@ import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slic
 import { setIsOnline } from 'state/slices/isOnline'
 import { locationWarp, languageWarp, splitPersonality, timeWarp, workerBlock } from '../content'
 import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
+import handleSessionChanges from './handleSessionChanges'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
@@ -50,6 +51,16 @@ async function onStartupCallback() {
     store?.dispatch(handleConnectionError(message))
   }
 }
+
+chrome.alarms.create('sessionPoller', { periodInMinutes: 1 })
+
+chrome.alarms.onAlarm.addListener(async alarm => {
+  if (alarm.name === 'sessionPoller') {
+    const store = await bgStore
+    handleSessionChanges(store)
+  }
+})
+
 /* TODO
 Consider should we implement different recovery strategies: 
 change location, change DC, check if Internet connection exist, re-fetch credentials. 

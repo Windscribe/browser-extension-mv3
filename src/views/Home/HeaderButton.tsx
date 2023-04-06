@@ -1,9 +1,9 @@
-import { Button, Flex } from 'theme-ui'
+import { Button, type ButtonProps } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 import Badge from 'components/Badge'
 
-type HeaderButtonProps = {
+type HeaderButtonProps = ButtonProps & {
   Icon: React.ElementType
   isConnected: boolean
   count: number
@@ -15,6 +15,7 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({
   isConnected,
   count = 0,
   onClick,
+  ...props
 }) => {
   return (
     <Button
@@ -32,6 +33,7 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({
           },
         },
       }}
+      {...props}
     >
       <Icon
         sx={{
