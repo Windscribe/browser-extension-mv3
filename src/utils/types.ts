@@ -69,6 +69,7 @@ export type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 declare global {
   interface Window {
     store: StoreType
+    OriginalDateConstructor: DateConstructor
   }
 }
 
