@@ -145,8 +145,9 @@ const injectWarps = async (details: WebNavDetails) => {
   }
 
   const coords = store.getState().currentDataCenter?.gps?.split(',')
+  const isConnected = store.getState().proxy.isConnected
 
-  if (store.getState().locationWarp && coords) {
+  if (store.getState().locationWarp && isConnected && coords) {
     const locationWarpInfo: Coords = {
       latitude: coords[0],
       longitude: coords[1],
@@ -161,7 +162,7 @@ const injectWarps = async (details: WebNavDetails) => {
     executeScript(details.tabId, splitPersonality, spoofedUserAgent)
   }
 
-  if (store.getState().languageWarpEnabled) {
+  if (store.getState().languageWarpEnabled && isConnected) {
     const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
     const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
 

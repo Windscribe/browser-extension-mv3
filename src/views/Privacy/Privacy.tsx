@@ -70,7 +70,10 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Sets your language and locale settings to match the connected proxy."
         >
           <ToggleSwitch
-            onChange={() => dispatch(setLanguageWarpEnabled(!languageWarpEnabled))}
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(setLanguageWarpEnabled(!languageWarpEnabled))
+            }}
             checked={languageWarpEnabled}
           />
         </OptionBox>
@@ -82,10 +85,18 @@ const Privacy: ThemeUiElement = () => {
         >
           <Flex>
             {splitPersonalityEnabled && (
-              <GetNewButton onClick={() => dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)} />
+              <GetNewButton
+                onClick={() => {
+                  showReloadAlert(true)
+                  dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)
+                }}
+              />
             )}
             <ToggleSwitch
-              onChange={() => dispatchAlias(TOGGLE_SPLIT_PERSONALITY)}
+              onChange={() => {
+                showReloadAlert(true)
+                dispatchAlias(TOGGLE_SPLIT_PERSONALITY)
+              }}
               checked={splitPersonalityEnabled}
             />
           </Flex>
@@ -97,7 +108,10 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Fakes your GPS location to match the connected proxy."
         >
           <ToggleSwitch
-            onChange={() => dispatch(setLocationWarp(!locationWarp))}
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(setLocationWarp(!locationWarp))
+            }}
             checked={locationWarp}
           />
         </OptionBox>
