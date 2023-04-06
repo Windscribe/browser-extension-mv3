@@ -6,6 +6,7 @@ import { logout } from 'state/slices/session'
 import { pushToDebugLog } from 'state/slices/debugLog'
 import { Badge, CircleButton, Header, RoundedBox, ListItemButton } from 'components'
 import { SpaceBetween } from 'components/Flexbox'
+import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import { useGoTo } from 'services/navigation'
 import { useDispatch, useSelector } from 'state/hooks'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
@@ -34,7 +35,14 @@ const Preferences: ThemeUiElement = () => {
   const goToWhitelist = useGoTo('Whitelist')
   const goToNewsfeed = useGoTo('Newsfeed')
   const goToPrivacy = useGoTo('Privacy')
+  const goToHome = useGoTo('Home')
   const dispatch = useDispatch()
+
+  const runTutorial = () => {
+    goToHome()
+    dispatch(setShouldShowOnboarding(true))
+  }
+
   const handleLogoutClick = async () => await dispatch(logout())
 
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
@@ -117,7 +125,7 @@ const Preferences: ThemeUiElement = () => {
               Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
-            <CircleButton Icon={TutorialIcon} />
+            <CircleButton Icon={TutorialIcon} onClick={runTutorial} />
             <CircleButton
               isPending={isWebSessionPending}
               Icon={HelpIcon}

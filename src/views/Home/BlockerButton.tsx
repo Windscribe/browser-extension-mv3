@@ -9,7 +9,13 @@ const BlockerButton: ThemeUiElement = () => {
   const isConnected = useSelector(s => s.proxy?.isConnected)
 
   return (
-    <HeaderButton Icon={BlockerIcon} isConnected={isConnected} count={0} onClick={goToBlocker} />
+    <HeaderButton
+      className="joyride-element-blocker"
+      Icon={BlockerIcon}
+      isConnected={isConnected}
+      count={0}
+      onClick={goToBlocker}
+    />
   )
 }
 

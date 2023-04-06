@@ -40,7 +40,7 @@ const Locations: ThemeUiElement = () => {
         onSearchInputChange={debouncedSetSearchText}
         onSearchInputClose={handleInputClose}
       />
-      <ScrollableBox>
+      <ScrollableBox sx={{ height: '343px' }}>
         {
           {
             locations: <LocationsList searchText={searchText} />,

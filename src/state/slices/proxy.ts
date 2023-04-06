@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, type PayloadAction, type Dispatch } from '@reduxjs/toolkit'
-
 import type { Host } from 'api/types'
 import { connect, disconnect } from 'services/proxyConfig'
 import { reduceWhitelist } from 'utils/reduceWhitelist'
@@ -7,6 +6,9 @@ import type { SyncThunkCreator } from 'utils/types'
 import { pushToDebugLog } from './debugLog'
 import { setReconnectionAttempts } from './connection'
 import { checkIp, createNotification } from 'services'
+import { setOverlay } from 'state/slices/overlay'
+import { ACCOUNT_PLAN } from 'utils/constants'
+
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
 
@@ -30,6 +32,28 @@ export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 export const connectProxy = createAsyncThunk(
   CONNECT_PROXY,
   async (hosts: Host[], { dispatch, getState }) => {
+    const { traffic_max, traffic_used, is_premium } = getState().session
+
+    if (traffic_max === undefined || traffic_used === undefined) {
+      throw Error('No session info.')
+    }
+
+    if (!is_premium && traffic_max !== ACCOUNT_PLAN.UNLIMITED && traffic_max - traffic_used <= 0) {
+      dispatch(setOverlay({ isOpen: true, template: 'noData' }))
+      throw Error('Out of data.')
+    }
+
+    const proxySetting = await new Promise(resolve => {
+      chrome.proxy.settings.get({}, function (details) {
+        resolve(details.levelOfControl)
+      })
+    })
+
+    if (proxySetting === 'controlled_by_other_extensions') {
+      dispatch(setOverlay({ isOpen: true, template: 'extensionConflict' }))
+      throw Error('Proxy is controlled by another extension.')
+    }
+
     if (!hosts || hosts?.length === 0) {
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }
@@ -39,6 +63,7 @@ export const connectProxy = createAsyncThunk(
     await connect(hosts, whitelist, proxyPort)
     dispatch(setProxy(hosts))
     const ip = await checkIp(getState().workingApi)
+
     if (ip === '---.---.---.---') {
       throw Error('Failed to connect to proxy')
     } else {
