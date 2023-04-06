@@ -24,6 +24,17 @@ export type LoadingState = 'idle' | 'pending' | 'fulfilled' | 'rejected'
 
 export type LocationSorting = 'alphabet' | 'geography'
 
+export type OverlayTemplate =
+  | 'welcome'
+  | 'somethingWeird'
+  | 'ublockDetected'
+  | 'uninstallUblock'
+  | 'noData'
+  | 'extensionConflict'
+  | 'locationDown'
+  | 'proPlanExpired'
+  | 'banned'
+
 export type ErrorState = {
   errorCode?: number
   errorMessage: string

@@ -32,6 +32,7 @@ const PrivacyButton: ThemeUiElement = () => {
 
   return (
     <HeaderButton
+      className="joyride-element-privacy"
       Icon={PrivacyIcon}
       isConnected={isConnected}
       count={count}

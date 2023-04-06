@@ -19,7 +19,7 @@ const Login: ThemeUiElement = () => {
   const errorCode = useSelector(s => s.session.error?.errorCode)
   const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
   const loginStatus = useSelector(s => s.session.loading)
-  const savedUsername = useSelector(s => s.userStashes.username)
+  // const savedUsername = useSelector(s => s.userStashes.username)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
