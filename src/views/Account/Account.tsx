@@ -4,15 +4,16 @@ import { ENVS } from 'utils/constants'
 import { ScrollableBox, Header, RoundedBox, ListItem, Subheader } from 'components'
 import CircleButton from 'components/CircleButton'
 import EditIcon from 'assets/img/edit.svg'
-import { useSelector } from 'state/hooks'
+import { useDispatch, useSelector } from 'state/hooks'
 import { getWebSession } from 'api/endpoints'
 
 const Account: ThemeUiElement = () => {
+  const dispatch = useDispatch()
   const session = useSelector(s => s.session)
 
   const handleButtonClick = async () => {
     if (session.session_auth_hash) {
-      const response = await getWebSession(session.session_auth_hash)
+      const response = await getWebSession(dispatch, session.session_auth_hash)
       const tempSession = response?.data?.temp_session
       if (tempSession) window.open(`${ENVS.ROOT_URL}/myaccount?temp_session=${tempSession}`)
     }

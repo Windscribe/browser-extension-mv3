@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, createSelector, type PayloadAction } fro
 
 import type { ServerList, Location, ApiErrorResponse, DataCenter } from 'api/types'
 import type { LoadingState, ErrorState, Either } from 'utils/types'
-import applyWorkingApi from '../applyWorkingApi'
 import { getServerList } from 'api/endpoints'
 import type { RootState } from '../store'
 
@@ -26,7 +25,6 @@ export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorRespo
     const store = getState()
     const serversListLoading = store.servers.loading
     const serverList = store.servers.serverList
-    const workingApi = store.workingApi
     const { loc_hash, is_premium } = store.session
 
     if (serversListLoading === 'fulfilled') {
@@ -37,8 +35,7 @@ export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorRespo
       throw Error('No loc_hash is available. Try to sign in.')
     }
 
-    const response = await getServerList(loc_hash, is_premium)
-    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
+    const response = await getServerList(dispatch, loc_hash, is_premium)
 
     if (response?.errorMessage) return rejectWithValue(response)
     if (response?.data) return response.data

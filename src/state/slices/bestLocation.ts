@@ -1,6 +1,4 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
-
-import applyWorkingApi from '../applyWorkingApi'
 import type { BestLocation, ApiErrorResponse } from 'api/types'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 import { getBestLocation } from 'api/endpoints'
@@ -35,10 +33,7 @@ export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorR
       throw Error('No session auth hash is available')
     }
 
-    const workingApi = getState().workingApi
-
-    const response = await getBestLocation(sessionAuthHash)
-    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
+    const response = await getBestLocation(dispatch, sessionAuthHash)
 
     // Back-end response with error object is treated as a valid response
     // and fetchBestLocation() processed as successfully fulfilled.

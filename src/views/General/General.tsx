@@ -95,11 +95,14 @@ const General: ThemeUiElement = () => {
                 data-testid="send-debug-log"
                 onClick={() => {
                   if (session.session_auth_hash && session.username) {
-                    sendDebugLog(session.session_auth_hash, session.username, debugLog).then(
-                      response => {
-                        setSentDebugLog(response ? 'Sent!' : 'Error')
-                      },
-                    )
+                    sendDebugLog(
+                      dispatch,
+                      session.session_auth_hash,
+                      session.username,
+                      debugLog,
+                    ).then(response => {
+                      setSentDebugLog(response ? 'Sent!' : 'Error')
+                    })
                   }
                 }}
                 sx={{ transition: '0.3s' }}

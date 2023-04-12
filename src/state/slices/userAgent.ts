@@ -33,7 +33,7 @@ export const fetchUserAgentsList = createAsyncThunk(
         throw Error('No session auth hash is available')
       }
 
-      const blocklists = await getBlocklists(sessionAuthHash)
+      const blocklists = await getBlocklists(dispatch, sessionAuthHash)
       const userAgentsUrl = blocklists?.data?.useragents
       let userAgents = ''
       if (userAgentsUrl) {

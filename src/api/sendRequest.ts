@@ -1,6 +1,8 @@
 import { ENVS, NODE_ENV } from 'utils/constants'
 import { ApiResponse } from './types'
 import browserApi from 'services/browserApi'
+import type { AppDispatch } from 'state/store'
+import { setWorkingApi } from 'state/slices/workingApi'
 
 const fetchDoh = async () => {
   const res = await fetch(`https://1.1.1.1/dns-query?name=${ENVS.DOH_URL}&type=TXT`, {
@@ -48,6 +50,7 @@ const fetchApi = async (
 }
 
 const sendRequest = async <DataType>(
+  dispatch: AppDispatch,
   method: string,
   path: string,
   body?: Record<string, unknown>,
@@ -62,6 +65,9 @@ const sendRequest = async <DataType>(
     }
     const response = await fetchApi(domain, path, method, body, useAssets)
     const json = await response.json()
+    if (domain !== workingApi) {
+      dispatch(setWorkingApi(domain))
+    }
     return {
       ...json,
       workingApi: domain,
