@@ -7,12 +7,11 @@ import { disconnectProxy } from 'state/slices/proxy'
 
 const handleSessionChanges = async (store: StoreType): Promise<void> => {
   const { isConnected } = store.getState().proxy
-  const workingApi = store.getState().workingApi
   const currentSession = store.getState().session
 
   // poll only when connected and we have a session_auth_hash
   if (currentSession?.session_auth_hash) {
-    const updatedSession = await getSessionStatus(currentSession?.session_auth_hash, workingApi)
+    const updatedSession = await getSessionStatus(currentSession?.session_auth_hash)
     if (updatedSession.data) {
       if (
         isConnected &&

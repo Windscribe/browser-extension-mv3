@@ -9,11 +9,10 @@ import { getWebSession } from 'api/endpoints'
 
 const Account: ThemeUiElement = () => {
   const session = useSelector(s => s.session)
-  const workingApi = useSelector(s => s.workingApi)
 
   const handleButtonClick = async () => {
     if (session.session_auth_hash) {
-      const response = await getWebSession(session.session_auth_hash, workingApi)
+      const response = await getWebSession(session.session_auth_hash)
       const tempSession = response?.data?.temp_session
       if (tempSession) window.open(`${ENVS.ROOT_URL}/myaccount?temp_session=${tempSession}`)
     }

@@ -37,7 +37,7 @@ export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorRespo
       throw Error('No loc_hash is available. Try to sign in.')
     }
 
-    const response = await getServerList(loc_hash, is_premium, workingApi)
+    const response = await getServerList(loc_hash, is_premium)
     response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     if (response?.errorMessage) return rejectWithValue(response)

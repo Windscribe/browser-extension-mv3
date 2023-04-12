@@ -27,8 +27,7 @@ export const fetchNotifications = createAsyncThunk<Either<Notifications, ApiErro
       throw Error('No session auth hash is available')
     }
 
-    const workingApi = getState().workingApi
-    const response = await getNotifications(sessionAuthHash, workingApi)
+    const response = await getNotifications(sessionAuthHash)
 
     if (response.errorCode) return response
     if (response.data) return response?.data

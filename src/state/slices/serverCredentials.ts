@@ -32,7 +32,7 @@ export const fetchServerCredentials = createAsyncThunk<Either<ServerCredentials,
       throw Error('No session auth hash is available')
     }
 
-    const response = await getServerCredentials(sessionAuthHash, workingApi)
+    const response = await getServerCredentials(sessionAuthHash)
     response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     // Back-end response with error object is treated as a valid response

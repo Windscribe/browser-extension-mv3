@@ -37,7 +37,7 @@ export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorR
 
     const workingApi = getState().workingApi
 
-    const response = await getBestLocation(sessionAuthHash, workingApi)
+    const response = await getBestLocation(sessionAuthHash)
     response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     // Back-end response with error object is treated as a valid response

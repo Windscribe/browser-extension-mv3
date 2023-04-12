@@ -43,7 +43,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
   async ({ username, password, twoFa }, { getState, dispatch }) => {
     const workingApi = getState().workingApi
 
-    const response = await loginRequest(username, password, workingApi, twoFa)
+    const response = await loginRequest(username, password, twoFa)
     response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
 
     if (response.errorMessage) return response
@@ -61,12 +61,11 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 
 export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch }) => {
   const sessionAuthHash = getState().session.session_auth_hash
-  const workingApi = getState().workingApi
 
   await dispatch(disconnectProxy())
   await dispatch(resetNotificationBlocker())
   await dispatch(resetWebRtcBlocker())
-  sessionAuthHash && (await logoutRequest(sessionAuthHash, workingApi))
+  sessionAuthHash && (await logoutRequest(sessionAuthHash))
 
   await dispatch(saveUserStash())
 

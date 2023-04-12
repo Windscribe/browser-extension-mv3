@@ -1,5 +1,6 @@
 import { ENVS, NODE_ENV } from 'utils/constants'
 import { ApiResponse } from './types'
+import browserApi from 'services/browserApi'
 
 const fetchDoh = async () => {
   const res = await fetch(`https://1.1.1.1/dns-query?name=${ENVS.DOH_URL}&type=TXT`, {
@@ -49,10 +50,12 @@ const fetchApi = async (
 const sendRequest = async <DataType>(
   method: string,
   path: string,
-  workingApi: string,
   body?: Record<string, unknown>,
   useAssets = false,
 ): Promise<ApiResponse<DataType>> => {
+  const state = await browserApi.getStateFromStorage()
+  const workingApi = state[1].workingApi
+
   const tryFetch = async (domain?: string) => {
     if (!domain) {
       throw Error('No API domain was provided')
