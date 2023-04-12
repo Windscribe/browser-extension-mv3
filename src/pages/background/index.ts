@@ -81,9 +81,6 @@ chrome.proxy.onProxyError.addListener(async e => {
   )
   const { smokeWall, failover, reconnectionAttempts } = store.getState().connection
 
-  if (smokeWall) {
-    store.dispatch(disconnectProxy())
-  }
   const RECONNECTION_ATTEMPTS_LIMIT = 3
   if (reconnectionAttempts >= RECONNECTION_ATTEMPTS_LIMIT) {
     store.dispatch(
@@ -115,6 +112,12 @@ chrome.proxy.onProxyError.addListener(async e => {
       store.dispatch(setCurrentDataCenter(newDatacenter))
       await store.dispatch(connectProxy(newDatacenter.hosts))
     }
+  }
+
+  if (smokeWall) {
+    store.dispatch(handleConnectionError('Proxy error'))
+  } else {
+    store.dispatch(disconnectProxy())
   }
 })
 
