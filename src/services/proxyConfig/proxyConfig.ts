@@ -65,6 +65,8 @@ export const connect = async (
     },
   }
 
+  throw Error('Fake Fake Fake')
+
   return chrome.proxy.settings.set({ value: config, scope: 'regular' })
 }
 
