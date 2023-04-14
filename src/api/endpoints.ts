@@ -8,6 +8,7 @@ import type {
   SessionData,
   WebSessionData,
   ReportAppLogData,
+  CruiseControlDomains,
 } from 'api/types'
 import { sendRequest } from 'api/sendRequest'
 import { buildQueryString } from 'api/utils'
@@ -112,6 +113,16 @@ const getBlocklists = async (
     buildQueryString('ExtBlocklists', { session_auth_hash, version: 3 }),
   )
 
+const getCruiseControlDomains = async (
+  dispatch: AppDispatch,
+  session_auth_hash: string | undefined,
+): Promise<ApiResponse<CruiseControlDomains>> =>
+  await sendRequest(
+    dispatch,
+    'GET',
+    buildQueryString('CruiseControlDomains', { session_auth_hash }),
+  )
+
 const getUserAgents = async (url: string): Promise<string> => {
   try {
     const response = await fetch(url)
@@ -133,6 +144,7 @@ export {
   getServerList,
   getSessionStatus,
   getWebSession,
+  getCruiseControlDomains,
   getUserAgents,
   reportAppLog,
 }

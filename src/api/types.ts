@@ -56,6 +56,7 @@ export type Endpoint =
   | 'WebSession'
   | 'Report/applog'
   | 'ExtBlocklists'
+  | 'CruiseControlDomains'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -194,4 +195,12 @@ export interface NotificationsData {
 
 export type Notifications = {
   notifications: NotificationsData[]
+}
+
+export type CruiseControlDomains = {
+  domains: CruiseControlDomainsData
+}
+
+export interface CruiseControlDomainsData {
+  [key: string]: string[]
 }
