@@ -1,13 +1,10 @@
-// import { flatten } from 'lodash'
-// import pickHosts from './pickHosts'
-// import { store } from 'state'
-import { ServerList, CruiseControlDomainsData } from 'api/types'
+import { ServerList, CruiseControlDomainsData, CruiseControlItem } from 'api/types'
 
 export default (
   serverlist: ServerList,
   isPremium = 0,
   cruiseControlDomains: CruiseControlDomainsData,
-): any => {
+): CruiseControlItem[] => {
   //we only care about servers we can actually access
   const filteredServerList = serverlist
     .filter(location => location.premium_only <= isPremium)
@@ -19,11 +16,10 @@ export default (
     })
 
   return filteredServerList
-    .filter(loc => Object.keys(cruiseControlDomains).includes(loc.short_name))
-    .map(loc => ({
-      ...loc,
-      domains: cruiseControlDomains[loc.short_name],
-      hosts: Object.values(loc.groups)
+    .filter(location => Object.keys(cruiseControlDomains).includes(location.short_name))
+    .map(location => ({
+      domains: cruiseControlDomains[location.short_name],
+      hosts: Object.values(location.groups)
         ?.map(group => group.hosts)
         .filter(Boolean)
         .flat(),

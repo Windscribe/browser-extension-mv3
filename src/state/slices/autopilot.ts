@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { Autopilot } from 'api/types'
+import type { Autopilot, CruiseControlItem } from 'api/types'
 import { selectLocationByName, findDataCenterById } from './servers'
 import { FETCH_BEST_LOCATION } from './bestLocation'
 import { setCurrentLocation } from './currentLocation'
@@ -12,13 +12,14 @@ import createCruiseControlList from 'services/cruiseControl/createCruiseControlL
 interface AutopilotState {
   autopilotData?: Autopilot
   autopilotSelected: boolean
-  cruiseControlList?: any
+  cruiseControlList?: CruiseControlItem[]
   errorMessage?: string
 }
 
 const initialState: AutopilotState = {
   autopilotData: undefined,
   autopilotSelected: true,
+  cruiseControlList: undefined,
   errorMessage: undefined,
 }
 
@@ -97,7 +98,7 @@ export const autopilotSlice = createSlice({
     setAutopilotSelected(state, action: PayloadAction<boolean>) {
       state.autopilotSelected = action.payload
     },
-    setCruiseControlList(state, action: PayloadAction<boolean>) {
+    setCruiseControlList(state, action: PayloadAction<CruiseControlItem[]>) {
       state.cruiseControlList = action.payload
     },
   },

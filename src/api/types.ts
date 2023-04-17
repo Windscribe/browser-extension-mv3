@@ -204,3 +204,8 @@ export type CruiseControlDomains = {
 export interface CruiseControlDomainsData {
   [key: string]: string[]
 }
+
+export type CruiseControlItem = {
+  domains: string[]
+  hosts: Host[]
+}
