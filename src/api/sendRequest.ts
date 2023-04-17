@@ -83,6 +83,7 @@ const sendRequest = async <DataType>(
       try {
         const dohUrl = await fetchDoh()
         return await tryFetch(dohUrl)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         return {
           errorMessage: 'API connectivity issues',
