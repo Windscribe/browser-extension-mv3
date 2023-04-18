@@ -77,6 +77,14 @@ export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript'
 
 export type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 
+export type IconVariant =
+  | 'proxyOn'
+  | 'proxyOff'
+  | 'proxyFailure'
+  | 'proxyDesktopOn'
+  | 'proxyOnDouble'
+  | 'proxyNoConnection'
+
 /*
   This module augments createAsyncThunk with our root state and app dispatch
   so we don't need to pass them to every createAsyncThunk call as generic params

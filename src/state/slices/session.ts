@@ -24,6 +24,10 @@ const initialState: SessionState = {
   last_reset: undefined,
   loc_hash: undefined,
   loc_rev: undefined,
+  our_addr: undefined,
+  our_dc: undefined,
+  our_ip: 0,
+  our_location: undefined,
   reg_date: undefined,
   session_auth_hash: '',
   status: undefined,
@@ -79,7 +83,7 @@ export const sessionSlice = createSlice({
   initialState,
   reducers: {
     setSession(state, action: PayloadAction<SessionData>) {
-      return { ...state, ...action.payload }
+      return { ...state, our_ip: 0, ...action.payload }
     },
   },
   extraReducers: builder => {

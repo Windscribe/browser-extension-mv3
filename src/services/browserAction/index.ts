@@ -1,1 +1,1 @@
-export { setIcon } from './browserAction'
+export { setIcon, setTitleByIconVariant, getIconVariant } from './browserAction'
