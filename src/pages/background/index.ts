@@ -13,9 +13,11 @@ import { setIsOnline } from 'state/slices/isOnline'
 import { locationWarp, languageWarp, splitPersonality, workerBlock } from '../content'
 import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 import handleSessionChanges from './handleSessionChanges'
+import { chooseIcon } from 'state/slices/iconVariant'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
+  store.dispatch(chooseIcon())
   return store
 })
 
@@ -197,6 +199,7 @@ const connectionChangedHandler = async (e: Event) => {
 }
 
 // This is experimental feature and currently nor supported by FF
+// Also it might not work in Brave browser
 // @link https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/change_event
 declare const self: ServiceWorkerGlobalScope
 const _navigator = self.navigator as WorkerNavigatorWithConnection

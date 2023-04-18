@@ -9,6 +9,7 @@ import { createLogger } from 'redux-logger'
 import { alias } from '@eduardoac-skimlinks/webext-redux'
 
 import { LogTag, LogItem } from 'utils/types'
+import { listenerMiddleware } from './listenerMiddleware'
 import aliases from './aliases'
 import viewReducer from './slices/view'
 import proxyReducer from './slices/proxy'
@@ -42,6 +43,7 @@ import locationLoadReducer from './slices/locationLoad'
 import isOnlineReducer from './slices/isOnline'
 import overlayReducer from './slices/overlay'
 import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
+import iconVariantReducer from './slices/iconVariant'
 
 const reducers = {
   allowSystemNotifications: allowSystemNotificationsReducer,
@@ -54,6 +56,7 @@ const reducers = {
   currentLocation: currentLocationReducer,
   debugLog: debugLogReducer,
   favoriteLocations: favoriteLocationsReducer,
+  iconVariant: iconVariantReducer,
   isOnline: isOnlineReducer,
   languageWarpEnabled: languageWarpEnabledReducer,
   locationLoad: locationLoadReducer,
@@ -123,7 +126,12 @@ export function buildFrom(preloadedState?: RootState): StoreType {
     reducer: rootReducer,
     preloadedState,
     middleware: getDefaultMiddleware => {
-      const arr = [debugLogMiddleware, alias(aliases), ...getDefaultMiddleware()]
+      const arr = [
+        listenerMiddleware.middleware,
+        debugLogMiddleware,
+        alias(aliases),
+        ...getDefaultMiddleware(),
+      ]
       if (process.env.NODE_ENV === 'development') {
         arr.push(consoleLogger)
       }
