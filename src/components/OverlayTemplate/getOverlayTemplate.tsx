@@ -106,7 +106,9 @@ function Welcome() {
       >
         Start Tutorial
       </ConfirmButton>
-      <CancelButton onClick={close}>Skip</CancelButton>
+      <CancelButton onClick={close} data-testid="skip-tutorial">
+        Skip
+      </CancelButton>
     </>
   )
 }
