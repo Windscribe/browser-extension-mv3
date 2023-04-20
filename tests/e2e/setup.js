@@ -3,8 +3,9 @@ const path = require('path')
 
 const extPath = path.resolve(__dirname, '../../build')
 
-const launchBrowser = async () =>
-  await puppeteer.launch({
+const launchBrowser = async () => {
+  await puppeteer.createBrowserFetcher().download(puppeteer.PUPPETEER_REVISIONS.chromium)
+  return await puppeteer.launch({
     headless: false,
     devtools: true,
     dumpio: true,
@@ -17,6 +18,7 @@ const launchBrowser = async () =>
       '--disable-setuid-sandbox',
     ],
   })
+}
 
 const setup = async () => {
   const browser = await launchBrowser()
