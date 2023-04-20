@@ -30,25 +30,26 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
   const [isDomainValid, setIsDomainValid] = useState(true)
   const [domainValue, setDomainValue] = useState(domain)
   const [isAdsAllowed, setIsAdsAllowed] = useState(false)
-  const [isCookiesAllowed, setIsCookiesAllowed] = useState(false)
+  const [isPrivacyFeaturesAllowed, setIsPrivacyFeaturesAllowed] = useState(false)
   const [isDirectConnectionsAllowed, setIsDirectConnectionsAllowed] = useState(false)
   const [isAllSubdomainsIncluded, setIsAllSubdomainsIncluded] = useState(false)
 
   const isAnyOptionAllowed = useCallback(
-    () => [isAdsAllowed, isCookiesAllowed, isDirectConnectionsAllowed].some(option => option),
-    [isAdsAllowed, isCookiesAllowed, isDirectConnectionsAllowed],
+    () =>
+      [isAdsAllowed, isPrivacyFeaturesAllowed, isDirectConnectionsAllowed].some(option => option),
+    [isAdsAllowed, isPrivacyFeaturesAllowed, isDirectConnectionsAllowed],
   )
 
   const initializeDomainSettings = useCallback(() => {
     const settings = whitelist[domain]
 
     const allowAds = settings?.allowAds || false
-    const allowCookies = settings?.allowCookies || false
+    const allowPrivacyFeatures = settings?.allowPrivacyFeatures || false
     const allowDirectConnections = settings?.allowDirectConnections || false
     const includeAllSubdomains = settings?.includeAllSubdomains || false
 
     setIsAdsAllowed(allowAds)
-    setIsCookiesAllowed(allowCookies)
+    setIsPrivacyFeaturesAllowed(allowPrivacyFeatures)
     setIsDirectConnectionsAllowed(allowDirectConnections)
     setIsAllSubdomainsIncluded(includeAllSubdomains)
   }, [whitelist, domain])
@@ -89,7 +90,7 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
     await dispatchAlias(ADD_TO_WHITELIST, {
       domain: domainValue,
       allowAds: isAdsAllowed,
-      allowCookies: isCookiesAllowed,
+      allowPrivacyFeatures: isPrivacyFeaturesAllowed,
       allowDirectConnections: isDirectConnectionsAllowed,
       includeAllSubdomains: isAllSubdomainsIncluded,
     })
@@ -144,8 +145,12 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
             <SettingsOption isChecked={isAdsAllowed} toggleState={setIsAdsAllowed}>
               Allow Ads
             </SettingsOption>
-            <SettingsOption isChecked={isCookiesAllowed} noBorder toggleState={setIsCookiesAllowed}>
-              Allow Cookies
+            <SettingsOption
+              isChecked={isPrivacyFeaturesAllowed}
+              noBorder
+              toggleState={setIsPrivacyFeaturesAllowed}
+            >
+              Allow Privacy Features
             </SettingsOption>
           </RoundedBox>
         </Box>

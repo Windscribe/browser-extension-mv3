@@ -31,7 +31,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   const whitelist = useSelector(s => s.whitelist)
 
   const [isAdsAllowed, setIsAdsAllowed] = useState(false)
-  const [isCookiesAllowed, setIsCookiesAllowed] = useState(false)
+  const [isPrivacyFeaturesAllowed, setIsPrivacyFeaturesAllowed] = useState(false)
   const [isDirectConnectionsAllowed, setIsDirectConnectionsAllowed] = useState(false)
   const [wasSettingsUpdated, setWasSettingsUpdated] = useState(false)
 
@@ -39,11 +39,11 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     const settings = whitelist[currentTabHostname]
 
     const allowAds = settings?.allowAds || false
-    const allowCookies = settings?.allowCookies || false
+    const allowPrivacyFeatures = settings?.allowPrivacyFeatures || false
     const allowDirectConnections = settings?.allowDirectConnections || false
 
     setIsAdsAllowed(allowAds)
-    setIsCookiesAllowed(allowCookies)
+    setIsPrivacyFeaturesAllowed(allowPrivacyFeatures)
     setIsDirectConnectionsAllowed(allowDirectConnections)
   }, [whitelist, currentTabHostname])
 
@@ -56,7 +56,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
       await dispatchAlias(ADD_TO_WHITELIST, {
         domain: currentTabHostname,
         allowAds: isAdsAllowed,
-        allowCookies: isCookiesAllowed,
+        allowPrivacyFeatures: isPrivacyFeaturesAllowed,
         allowDirectConnections: isDirectConnectionsAllowed,
       })
       await reloadCurrentTab()
@@ -118,11 +118,11 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         </StyledIconButton>
         <StyledIconButton
           onClick={() => {
-            setIsCookiesAllowed(!isCookiesAllowed)
+            setIsPrivacyFeaturesAllowed(!isPrivacyFeaturesAllowed)
             setWasSettingsUpdated(true)
           }}
         >
-          {isCookiesAllowed ? (
+          {isPrivacyFeaturesAllowed ? (
             <CookiesSelected sx={{ fill: 'white' }} />
           ) : (
             <CookiesDeselected sx={{ fill: 'halfWhite' }} />

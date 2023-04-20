@@ -23,7 +23,7 @@ const steps: Step[] = [
       <p>
         {'Whitelist a site to bypass our proxy,'}
         <br />
-        {'allow ads, or enable cookie storage'}
+        {'allow ads, or switch off privacy features'}
       </p>
     ),
     placement: 'top',

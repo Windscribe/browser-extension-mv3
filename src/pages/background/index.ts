@@ -136,9 +136,16 @@ const executeScript = async <Data extends string | Coords | TimeWarp>(
 type WebNavDetails = chrome.webNavigation.WebNavigationTransitionCallbackDetails
 
 const injectWarps = async (details: WebNavDetails) => {
+  if (details.frameId > 0) return
+
   const store = await bgStore
 
   if (!store.getState().proxy.isConnected) return
+
+  const { hostname } = new URL(details.url)
+  const whitelistItem = store.getState().whitelist[hostname]
+
+  if (whitelistItem?.allowPrivacyFeatures) return
 
   if (store.getState().workerBlock) {
     executeScript(details.tabId, workerBlock, '')

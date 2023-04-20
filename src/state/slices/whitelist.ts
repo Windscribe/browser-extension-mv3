@@ -4,7 +4,7 @@ import { connectProxy } from './proxy'
 
 interface WhitelistItemSettings {
   allowAds: boolean
-  allowCookies: boolean
+  allowPrivacyFeatures: boolean
   allowDirectConnections: boolean
   includeAllSubdomains: boolean
 }
