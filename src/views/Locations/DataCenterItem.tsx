@@ -36,6 +36,8 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
   const isInFavorite = useSelector(s => selectIsInFavorite(s, dataCenter.id))
   const location = useSelector(s => selectLocationByDataCenterId(s, dataCenter.id))
   const locationLoad = useSelector(s => s.locationLoad)
+  const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
+
   const [showBrokenHeart, setShowBrokenHeart] = useState(false)
 
   const handleClick = (dataCenter: DataCenter) => {
@@ -66,6 +68,8 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
     if (percentage < 75) return 'lemonYellow'
     return 'rubyRed'
   }
+
+  const currentlySelected = currentDataCenter?.id === dataCenter.id && !autopilotSelected
 
   return (
     <>
@@ -103,7 +107,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
             display: 'flex',
             width: '100%',
             justifyContent: 'space-between',
-            color: currentDataCenter?.id === dataCenter.id ? 'primaryText' : 'secondaryText',
+            color: currentlySelected ? 'primaryText' : 'secondaryText',
             transition: 'transform ease-in-out 0.2s',
             '&:hover': {
               color: 'primaryText',
@@ -130,7 +134,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
               />
             </Text>
           </Box>
-          {currentDataCenter?.id === dataCenter.id ? (
+          {currentlySelected ? (
             <CheckmarkIcon
               data-testid="checkmark-icon"
               sx={{
