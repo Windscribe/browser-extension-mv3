@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 
 import type { ServerCredentials, ApiErrorResponse } from 'api/types'
 import type { LoadingState, ErrorState, Either } from 'utils/types'
-import applyWorkingApi from '../applyWorkingApi'
 import { getServerCredentials } from 'api/endpoints'
 
 interface ServerCredentialsState {
@@ -25,15 +24,13 @@ export const fetchServerCredentials = createAsyncThunk<Either<ServerCredentials,
   FETCH_SERVER_CREDENTIALS,
   async (_, { getState, dispatch }) => {
     const store = getState()
-    const workingApi = store.workingApi
     const sessionAuthHash = store.session.session_auth_hash
 
     if (!sessionAuthHash) {
       throw Error('No session auth hash is available')
     }
 
-    const response = await getServerCredentials(sessionAuthHash, workingApi)
-    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
+    const response = await getServerCredentials(dispatch, sessionAuthHash)
 
     // Back-end response with error object is treated as a valid response
     // and getServerCredentials() processed as successfully fulfilled.

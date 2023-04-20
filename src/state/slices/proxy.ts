@@ -60,7 +60,10 @@ export const connectProxy = createAsyncThunk(
 
     const whitelist = reduceWhitelist(getState())
     const proxyPort = getState().proxyPort
-    await connect(hosts, whitelist, proxyPort)
+    const autopilotSelected = getState().autopilot.autopilotSelected
+    const cruiseControlList = getState().autopilot.cruiseControlList
+
+    await connect(hosts, whitelist, proxyPort, autopilotSelected ? cruiseControlList : undefined)
     dispatch(setProxy(hosts))
     const ip = await checkIp(getState().workingApi)
 
@@ -71,7 +74,6 @@ export const connectProxy = createAsyncThunk(
     }
 
     if (getState().allowSystemNotifications) {
-      const autopilotSelected = getState().autopilot.autopilotSelected
       const { city = '', nick = '' } = getState().currentDataCenter
       const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
       createNotification({

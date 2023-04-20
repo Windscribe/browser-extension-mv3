@@ -24,7 +24,6 @@ const General: ThemeUiElement = () => {
 
   const autoConnect = useSelector(s => s.connection.autoConnect)
   const contextMenu = useSelector(s => s.contextMenu)
-  const workingApi = useSelector(s => s.workingApi)
   const session = useSelector(s => s.session)
   const debugLog = useSelector(s => s.debugLog)
   const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
@@ -97,10 +96,10 @@ const General: ThemeUiElement = () => {
                 onClick={() => {
                   if (session.session_auth_hash && session.username) {
                     sendDebugLog(
+                      dispatch,
                       session.session_auth_hash,
                       session.username,
                       debugLog,
-                      workingApi,
                     ).then(response => {
                       setSentDebugLog(response ? 'Sent!' : 'Error')
                     })

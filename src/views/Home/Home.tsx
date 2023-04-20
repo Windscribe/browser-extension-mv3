@@ -1,9 +1,7 @@
 import { Box, Button, Flex, Text } from 'theme-ui'
 import { useEffect, useState } from 'react'
-
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
-import log from 'utils/log'
 import UsageBar from './UsageBar'
 import PrivacyButton from './PrivacyButton'
 import BlockerButton from './BlockerButton'

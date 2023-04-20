@@ -16,7 +16,7 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({
   children,
   ...props
 }) => {
-  const handleClick: React.MouseEventHandler = e => {
+  const handleClick: React.MouseEventHandler = () => {
     toggleState(!isChecked)
   }
 

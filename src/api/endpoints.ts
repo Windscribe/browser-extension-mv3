@@ -8,17 +8,19 @@ import type {
   SessionData,
   WebSessionData,
   ReportAppLogData,
+  CruiseControlDomains,
 } from 'api/types'
 import { sendRequest } from 'api/sendRequest'
 import { buildQueryString } from 'api/utils'
+import type { AppDispatch } from 'state/store'
 
 const login = async (
+  dispatch: AppDispatch,
   username: string,
   password: string,
-  workingApi: string,
   twoFa?: string,
 ): Promise<ApiResponse<SessionData>> =>
-  await sendRequest('POST', buildQueryString('Session'), workingApi, {
+  await sendRequest(dispatch, 'POST', buildQueryString('Session'), {
     username,
     password,
     session_type_id: 2,
@@ -26,94 +28,99 @@ const login = async (
   })
 
 const logout = async (
+  dispatch: AppDispatch,
   session_auth_hash: string,
-  workingApi: string,
 ): Promise<ApiResponse<SessionData>> =>
-  await sendRequest('Delete', buildQueryString('Session', { session_auth_hash }), workingApi, {
+  await sendRequest(dispatch, 'Delete', buildQueryString('Session', { session_auth_hash }), {
     session_type_id: 2,
   })
 
 const getBestLocation = async (
+  dispatch: AppDispatch,
   session_auth_hash: string,
-  workingApi: string,
 ): Promise<ApiResponse<BestLocation>> =>
   await sendRequest(
+    dispatch,
     'GET',
     buildQueryString('BestLocation', { session_auth_hash }),
-    workingApi,
     undefined,
   )
 
 const getNotifications = async (
+  dispatch: AppDispatch,
   session_auth_hash: string,
-  workingApi: string,
 ): Promise<ApiResponse<Notifications>> =>
   await sendRequest(
+    dispatch,
     'GET',
     buildQueryString('Notifications', { session_auth_hash }),
-    workingApi,
     undefined,
   )
 
 const getServerCredentials = async (
+  dispatch: AppDispatch,
   session_auth_hash: string,
-  workingApi: string,
 ): Promise<ApiResponse<ServerCredentials>> =>
   await sendRequest(
+    dispatch,
     'GET',
     buildQueryString('ServerCredentials', { session_auth_hash }),
-    workingApi,
     undefined,
   )
 
 const getSessionStatus = async (
+  dispatch: AppDispatch,
   session_auth_hash: string,
-  workingApi: string,
 ): Promise<ApiResponse<SessionData>> =>
-  await sendRequest(
-    'GET',
-    buildQueryString('Session', { session_auth_hash }),
-    workingApi,
-    undefined,
-  )
+  await sendRequest(dispatch, 'GET', buildQueryString('Session', { session_auth_hash }), undefined)
 
 const getServerList = async (
+  dispatch: AppDispatch,
   locHash: string,
   isPro = 0,
-  workingApi: string,
 ): Promise<ApiResponse<ServerList>> =>
-  await sendRequest('GET', `serverlist/chrome/${isPro}/${locHash}`, workingApi, undefined, true)
+  await sendRequest(dispatch, 'GET', `serverlist/chrome/${isPro}/${locHash}`, undefined, true)
 
 const getWebSession = async (
+  dispatch: AppDispatch,
   session_auth_hash: string,
-  workingApi: string,
 ): Promise<ApiResponse<WebSessionData>> =>
-  await sendRequest('POST', buildQueryString('WebSession'), workingApi, {
+  await sendRequest(dispatch, 'POST', buildQueryString('WebSession'), {
     session_auth_hash,
     temp_session: 1,
     session_type_id: 1,
   })
 
 const reportAppLog = async (
+  dispatch: AppDispatch,
   session_auth_hash: string,
   username: string,
   logfile: string,
-  workingApi: string,
 ): Promise<ApiResponse<ReportAppLogData>> =>
-  await sendRequest('POST', buildQueryString('Report/applog'), workingApi, {
+  await sendRequest(dispatch, 'POST', buildQueryString('Report/applog'), {
     session_auth_hash,
     username,
     logfile,
   })
 
 const getBlocklists = async (
+  dispatch: AppDispatch,
   session_auth_hash: string,
-  workingApi: string,
 ): Promise<ApiResponse<BlocklistsData>> =>
   await sendRequest(
+    dispatch,
     'GET',
     buildQueryString('ExtBlocklists', { session_auth_hash, version: 3 }),
-    workingApi,
+  )
+
+const getCruiseControlDomains = async (
+  dispatch: AppDispatch,
+  session_auth_hash: string | undefined,
+): Promise<ApiResponse<CruiseControlDomains>> =>
+  await sendRequest(
+    dispatch,
+    'GET',
+    buildQueryString('CruiseControlDomains', { session_auth_hash }),
   )
 
 const getUserAgents = async (url: string): Promise<string> => {
@@ -137,6 +144,7 @@ export {
   getServerList,
   getSessionStatus,
   getWebSession,
+  getCruiseControlDomains,
   getUserAgents,
   reportAppLog,
 }

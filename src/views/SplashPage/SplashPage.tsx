@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from 'theme-ui'
+import { Button, Flex, Text, Image } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 import splashBackground from 'assets/img/splashBackground.png'
@@ -29,7 +29,7 @@ const SplashPage: ThemeUiElement = () => {
       }}
       data-testid="splash-page"
     >
-      <img
+      <Image
         src={rotatingLogo}
         alt="logo"
         sx={{
