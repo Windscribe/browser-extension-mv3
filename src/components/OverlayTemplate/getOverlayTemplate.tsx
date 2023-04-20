@@ -103,12 +103,11 @@ function Welcome() {
           close()
           dispatch(setShouldShowOnboarding(true))
         }}
+        data-testid="start-tutorial-button"
       >
         Start Tutorial
       </ConfirmButton>
-      <CancelButton onClick={close} data-testid="skip-tutorial">
-        Skip
-      </CancelButton>
+      <CancelButton onClick={close}>Skip</CancelButton>
     </>
   )
 }

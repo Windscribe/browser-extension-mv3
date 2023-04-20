@@ -101,7 +101,7 @@ const Preferences: ThemeUiElement = () => {
               Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
               onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
             />
-            <CircleButton Icon={TutorialIcon} onClick={runTutorial} />
+            <CircleButton Icon={TutorialIcon} onClick={runTutorial} data-testid="start-tutorial" />
             <CircleButton Icon={HelpIcon} />
           </Flex>
           <CircleButton
