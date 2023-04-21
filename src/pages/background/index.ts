@@ -145,28 +145,30 @@ const injectScripts = async (details: WebNavDetails) => {
     executeScript(details.tabId, workerBlock, '')
   }
 
-  const coords = store.getState().currentDataCenter?.gps?.split(',')
+  if (!store.getState().autopilot.autopilotSelected) {
+    const coords = store.getState().currentDataCenter?.gps?.split(',')
 
-  if (store.getState().locationWarp && coords) {
-    const locationWarpInfo: Coords = {
-      latitude: coords[0],
-      longitude: coords[1],
+    if (store.getState().locationWarp && coords) {
+      const locationWarpInfo: Coords = {
+        latitude: coords[0],
+        longitude: coords[1],
+      }
+
+      executeScript(details.tabId, locationWarp, locationWarpInfo)
     }
 
-    executeScript(details.tabId, locationWarp, locationWarpInfo)
-  }
+    if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
+      const spoofedUserAgent = store.getState().userAgent.spoofed
 
-  if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
-    const spoofedUserAgent = store.getState().userAgent.spoofed
+      executeScript(details.tabId, splitPersonality, spoofedUserAgent)
+    }
 
-    executeScript(details.tabId, splitPersonality, spoofedUserAgent)
-  }
+    if (store.getState().languageWarpEnabled) {
+      const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
+      const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
 
-  if (store.getState().languageWarpEnabled) {
-    const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
-    const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
-
-    executeScript(details.tabId, languageWarp, spoofedLocaleCode)
+      executeScript(details.tabId, languageWarp, spoofedLocaleCode)
+    }
   }
 }
 
