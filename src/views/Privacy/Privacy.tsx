@@ -32,6 +32,8 @@ const Privacy: ThemeUiElement = () => {
   const timeWarpEnabled = useSelector(s => s.timeWarpEnabled)
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
+  const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
+
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
   return (
@@ -100,6 +102,8 @@ const Privacy: ThemeUiElement = () => {
               dispatch(setLanguageWarpEnabled(!languageWarpEnabled))
             }}
             checked={languageWarpEnabled}
+            disabled={autopilotSelected}
+            data-testid="language-warp-toggle"
           />
         </OptionBox>
         <OptionBox
@@ -138,6 +142,8 @@ const Privacy: ThemeUiElement = () => {
               dispatch(setLocationWarp(!locationWarp))
             }}
             checked={locationWarp}
+            disabled={autopilotSelected}
+            data-testid="location-warp-toggle"
           />
         </OptionBox>
         <OptionBox
