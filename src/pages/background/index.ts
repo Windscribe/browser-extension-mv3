@@ -66,6 +66,7 @@ change location, change DC, check if Internet connection exist, re-fetch credent
 */
 chrome.proxy.onProxyError.addListener(async e => {
   if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
     console.log('%c onProxyError ', 'background: #d8dEd9; color: #EA222E', e)
   }
 
@@ -81,9 +82,6 @@ chrome.proxy.onProxyError.addListener(async e => {
   )
   const { smokeWall, failover, reconnectionAttempts } = store.getState().connection
 
-  if (smokeWall) {
-    store.dispatch(disconnectProxy())
-  }
   const RECONNECTION_ATTEMPTS_LIMIT = 3
   if (reconnectionAttempts >= RECONNECTION_ATTEMPTS_LIMIT) {
     store.dispatch(
@@ -116,6 +114,12 @@ chrome.proxy.onProxyError.addListener(async e => {
       await store.dispatch(connectProxy(newDatacenter.hosts))
     }
   }
+
+  if (smokeWall) {
+    store.dispatch(handleConnectionError('Proxy error'))
+  } else {
+    store.dispatch(disconnectProxy())
+  }
 })
 
 const executeScript = async <Data extends string | Coords>(
@@ -134,7 +138,7 @@ const executeScript = async <Data extends string | Coords>(
 
 type WebNavDetails = chrome.webNavigation.WebNavigationTransitionCallbackDetails
 
-const injectWarps = async (details: WebNavDetails) => {
+const injectScripts = async (details: WebNavDetails) => {
   const store = await bgStore
 
   if (store.getState().workerBlock) {
@@ -166,7 +170,7 @@ const injectWarps = async (details: WebNavDetails) => {
   }
 }
 
-chrome.webNavigation.onCommitted.addListener(injectWarps)
+chrome.webNavigation.onCommitted.addListener(injectScripts)
 chrome.runtime.onInstalled.addListener(addContextMenuItem)
 
 chrome.webRequest.onAuthRequired.addListener(
@@ -186,7 +190,7 @@ chrome.webRequest.onAuthRequired.addListener(
   ['asyncBlocking'],
 )
 
-const connectionChangedHandler = async (e: Event) => {
+const connectionChangedHandler = async () => {
   const isOnline = self?.navigator?.onLine
   if (typeof isOnline !== 'boolean') return
   const store = await bgStore

@@ -21,14 +21,13 @@ export const FETCH_NOTIFICATIONS = 'newsfeed/fetchNotifications'
 
 export const fetchNotifications = createAsyncThunk<Either<Notifications, ApiErrorResponse>>(
   FETCH_NOTIFICATIONS,
-  async (_, { getState }) => {
+  async (_, { getState, dispatch }) => {
     const sessionAuthHash = getState().session.session_auth_hash
     if (!sessionAuthHash) {
       throw Error('No session auth hash is available')
     }
 
-    const workingApi = getState().workingApi
-    const response = await getNotifications(sessionAuthHash, workingApi)
+    const response = await getNotifications(dispatch, sessionAuthHash)
 
     if (response.errorCode) return response
     if (response.data) return response?.data

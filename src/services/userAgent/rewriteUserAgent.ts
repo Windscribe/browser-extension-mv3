@@ -71,6 +71,7 @@ export function removeTabEventsHandler(): void {
 
 type TabEvent = 'onCreated' | 'onActivated' | 'onUpdated'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function addListenerIfNotAdded(event: TabEvent, listener: (...arg: any[]) => void): void {
   if (chrome.tabs[event].hasListener(listener)) return
   chrome.tabs[event].addListener(listener)

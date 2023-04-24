@@ -7,11 +7,10 @@ export default (): { openWindowUsingTempSession: (route: string) => Promise<void
   const dispatch = useDispatch()
 
   const sessionAuthHash = useSelector(state => state.session.session_auth_hash)
-  const workingApi = useSelector(state => state.workingApi)
 
   const openWindowUsingTempSession = async (route: string) => {
     if (sessionAuthHash) {
-      const response = await getWebSession(sessionAuthHash, workingApi)
+      const response = await getWebSession(dispatch, sessionAuthHash)
       const tempSession = response?.data?.temp_session
       if (tempSession) window.open(`${ENVS.ROOT_URL}/${route}?temp_session=${tempSession}`)
     } else {

@@ -77,6 +77,7 @@ const JoyrideTooltip: React.FC<TooltipRenderProps> = ({
             />
           </Button>
           <Button
+            data-testid="tutorial-next-button"
             variant="simple"
             sx={{
               width: '50px',
