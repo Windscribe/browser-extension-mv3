@@ -1,4 +1,4 @@
-import { Host } from 'api/types'
+import { Host, CruiseControlItem } from 'api/types'
 import type { ProxyPort } from 'utils/types'
 
 // get array of hosts if exists (used for fallbacks)
@@ -18,6 +18,7 @@ const createFindProxyForURLFunction = (
   hosts: Host[],
   whitelist: string[],
   proxyPort: ProxyPort,
+  cruiseControlList?: CruiseControlItem[],
 ) => {
   return `
   function FindProxyForURL (url, host) {
@@ -47,6 +48,8 @@ const createFindProxyForURLFunction = (
       return 'DIRECT'
     }
 
+    ${cruiseControlList ? stringifyCruiseControlList(cruiseControlList, proxyPort) : ''}
+
     return '${getProxyList(hosts, proxyPort)}'
   }
 `
@@ -56,11 +59,12 @@ export const connect = async (
   hosts: Host[],
   whitelist: string[],
   proxyPort: ProxyPort,
+  cruiseControlList?: CruiseControlItem[],
 ): Promise<void> => {
   const config = {
     mode: 'pac_script',
     pacScript: {
-      data: createFindProxyForURLFunction(hosts, whitelist, proxyPort),
+      data: createFindProxyForURLFunction(hosts, whitelist, proxyPort, cruiseControlList),
       mandatory: true,
     },
   }
@@ -74,4 +78,20 @@ export const disconnect = async (): Promise<void> => {
     rules: {},
   }
   return chrome.proxy.settings.set({ value: config, scope: 'regular' })
+}
+
+const stringifyCruiseControlList = (
+  cruiseControlList: CruiseControlItem[],
+  proxyPort: ProxyPort,
+): string => {
+  return cruiseControlList
+    .map(
+      location =>
+        `if ([${location.domains
+          .map(domain => [`'*://${domain}/*'`, `'*.${domain}/*'`])
+          .flat()}].some(d => shExpMatch(url, d))) {
+      return '${location.hosts.map(host => `HTTPS ${host.hostname}:${proxyPort}`).join('; ')}'
+    }`,
+    )
+    .join('\n')
 }

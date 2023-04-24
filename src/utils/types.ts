@@ -62,7 +62,9 @@ type NotFunction =
   | null
   | undefined
   | bigint
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | readonly any[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | { apply?: never; [k: string]: any }
 
 export type LogItem = {
