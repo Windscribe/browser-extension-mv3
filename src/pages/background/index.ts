@@ -149,8 +149,6 @@ const injectScripts = async (details: WebNavDetails) => {
   if (!store.getState().proxy.isConnected) return
   if (!store.getState().autopilot.autopilotSelected) return
 
-  const coords = store.getState().currentDataCenter?.gps?.split(',')
-
   if (store.getState().locationWarp) {
     const coords = store.getState().currentDataCenter?.gps?.split(',')
 
