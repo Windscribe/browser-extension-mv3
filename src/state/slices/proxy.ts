@@ -61,9 +61,10 @@ export const connectProxy = createAsyncThunk(
     const whitelist = reduceWhitelist(getState())
     const proxyPort = getState().proxyPort
     const autopilotSelected = getState().autopilot.autopilotSelected
-    const cruiseControlList = getState().autopilot.cruiseControlList
+    const cruiseControlList = autopilotSelected ? getState().autopilot.cruiseControlList : undefined
 
-    await connect(hosts, whitelist, proxyPort, autopilotSelected ? cruiseControlList : undefined)
+    await connect(hosts, whitelist, proxyPort, cruiseControlList)
+
     dispatch(setProxy(hosts))
     const ip = await checkIp(getState().workingApi)
 
