@@ -9,6 +9,7 @@ import { useCurrentTabHostname } from 'components/hooks'
 import { IconButton } from 'components'
 import WhitelistOff from 'assets/img/whitelistOff.svg'
 import WhitelistOn from 'assets/img/whitelistOn.svg'
+import ToolTip from 'components/ToolTip'
 
 const SiteControlBar: React.FC = () => {
   const whitelist = useSelector(s => s.whitelist)
@@ -41,33 +42,35 @@ const SiteControlBar: React.FC = () => {
       <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}>
         {currentTabHostname}
       </Text>
-      <IconButton
-        sx={{
-          p: 0,
-          height: '24px',
-          width: '24px',
-          ...(!isDomainValid
-            ? {
-                cursor: 'not-allowed',
-                '&:hover svg': {
-                  fill: 'halfWhite',
-                },
-              }
-            : {
-                '&:hover svg > path': {
-                  fill: 'white',
-                },
-              }),
-        }}
-        disabled={!isDomainValid}
-        onClick={() => setIsDomainSettingsOpen(true)}
-      >
-        {whitelist[currentTabHostname] ? (
-          <WhitelistOn />
-        ) : (
-          <WhitelistOff sx={{ fill: 'halfWhite' }} />
-        )}
-      </IconButton>
+      <ToolTip message="Allowlist Settings">
+        <IconButton
+          sx={{
+            p: 0,
+            height: '24px',
+            width: '24px',
+            ...(!isDomainValid
+              ? {
+                  cursor: 'not-allowed',
+                  '&:hover svg': {
+                    fill: 'halfWhite',
+                  },
+                }
+              : {
+                  '&:hover svg > path': {
+                    fill: 'white',
+                  },
+                }),
+          }}
+          disabled={!isDomainValid}
+          onClick={() => setIsDomainSettingsOpen(true)}
+        >
+          {whitelist[currentTabHostname] ? (
+            <WhitelistOn />
+          ) : (
+            <WhitelistOff sx={{ fill: 'halfWhite' }} />
+          )}
+        </IconButton>
+      </ToolTip>
       <DomainControlButtonGroup
         {...{ currentTabHostname, isDomainSettingsOpen, setIsDomainSettingsOpen }}
       />

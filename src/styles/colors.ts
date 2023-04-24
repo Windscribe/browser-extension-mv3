@@ -20,6 +20,7 @@ export const colors = {
   lowWhite: 'rgba(255, 255, 255, 0.1)',
   background: '#1a2432',
   foreground: 'rgba(216, 216, 216, 0.1)',
+  foregroundSolid: '#313a46',
   primaryText: '#fff',
   secondaryText: 'rgba(255, 255, 255, 0.5)',
   border: 'rgba(255, 255, 255, 0.05)',
@@ -30,6 +31,7 @@ export const colors = {
     light: {
       background: '#fff',
       foreground: 'rgba(2, 13, 28, 0.1)',
+      foregroundSolid: '#e5e6e8',
       primaryText: '#020d1c',
       secondaryText: 'rgba(2, 13, 28, 0.5)',
       softText: 'white',
