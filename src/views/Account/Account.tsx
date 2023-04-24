@@ -1,22 +1,17 @@
 import { Box } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
-import { ENVS } from 'utils/constants'
 import { ScrollableBox, Header, RoundedBox, ListItem, Subheader } from 'components'
 import CircleButton from 'components/CircleButton'
 import EditIcon from 'assets/img/edit.svg'
-import { useDispatch, useSelector } from 'state/hooks'
-import { getWebSession } from 'api/endpoints'
+import { useSelector } from 'state/hooks'
+import { useWindowOpening } from 'components/hooks'
 
 const Account: ThemeUiElement = () => {
-  const dispatch = useDispatch()
   const session = useSelector(s => s.session)
+  const { openWindowUsingTempSession } = useWindowOpening()
 
   const handleButtonClick = async () => {
-    if (session.session_auth_hash) {
-      const response = await getWebSession(dispatch, session.session_auth_hash)
-      const tempSession = response?.data?.temp_session
-      if (tempSession) window.open(`${ENVS.ROOT_URL}/myaccount?temp_session=${tempSession}`)
-    }
+    await openWindowUsingTempSession('myaccount')
   }
 
   return (
