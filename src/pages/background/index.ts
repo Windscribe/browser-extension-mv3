@@ -148,7 +148,14 @@ const injectScripts = async (details: WebNavDetails) => {
     executeScript(details.tabId, workerBlock, '')
   }
 
+  if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
+    const spoofedUserAgent = store.getState().userAgent.spoofed
+
+    executeScript(details.tabId, splitPersonality, spoofedUserAgent)
+  }
+
   if (!store.getState().proxy.isConnected) return
+  if (store.getState().autopilot.autopilotSelected) return
 
   if (store.getState().locationWarp) {
     const coords = store.getState().currentDataCenter?.gps?.split(',')
@@ -161,12 +168,6 @@ const injectScripts = async (details: WebNavDetails) => {
     }
 
     executeScript(details.tabId, locationWarp, locationWarpInfo)
-  }
-
-  if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
-    const spoofedUserAgent = store.getState().userAgent.spoofed
-
-    executeScript(details.tabId, splitPersonality, spoofedUserAgent)
   }
 
   if (store.getState().languageWarpEnabled) {

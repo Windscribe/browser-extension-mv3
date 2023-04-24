@@ -76,8 +76,10 @@ const Whitelist: ThemeUiElement = () => {
             </IconButton>
           </Rectangle>
         </Box>
-        <ScrollableBox sx={{ mt: '20px', maxHeight: '278px' }}>
-          <Subheader>whitelisted</Subheader>
+        <Subheader mt="20px" pl="16px">
+          whitelisted
+        </Subheader>
+        <ScrollableBox sx={{ maxHeight: '212px' }}>
           {whitelistedDomains.map(domain => (
             <Rectangle key={domain} sx={{ mb: '12px' }}>
               <Hostname>{domain}</Hostname>

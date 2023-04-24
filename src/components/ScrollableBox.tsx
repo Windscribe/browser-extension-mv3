@@ -32,6 +32,7 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
       pl="16px"
       pr={`${16 - scrollbarWidth}px`}
       sx={{
+        position: 'relative',
         height: 'auto',
         maxHeight: '378px',
         overflowY: 'auto',
