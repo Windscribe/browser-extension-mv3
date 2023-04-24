@@ -22,7 +22,7 @@ function analyze(timezone: TimezoneName): { offset: number; dst: string } {
   timezoneOffsetItem.msg.daylight ??= `${country} Daylight Time`
 
   const dst =
-    // I've copied this assignment/condition from old extension, but don't understand why we use it
+    // Determine if the current location is using day light savings time or not.
     offset !== timezoneOffsetItem.offset
       ? timezoneOffsetItem.msg.daylight
       : timezoneOffsetItem.msg.standard

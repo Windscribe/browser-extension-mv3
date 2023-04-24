@@ -138,11 +138,11 @@ type WebNavDetails = chrome.webNavigation.WebNavigationTransitionCallbackDetails
 const injectWarps = async (details: WebNavDetails) => {
   const store = await bgStore
 
-  if (!store.getState().proxy.isConnected) return
-
   if (store.getState().workerBlock) {
     executeScript(details.tabId, workerBlock, '')
   }
+
+  if (!store.getState().proxy.isConnected) return
 
   if (store.getState().locationWarp) {
     const coords = store.getState().currentDataCenter?.gps?.split(',')

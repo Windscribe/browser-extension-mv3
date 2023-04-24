@@ -79,6 +79,7 @@ const Privacy: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={TimeWarpIcon}
+          path={'features/timezone-spoofing'}
           title="Time Warp"
           subTitle="Sets your browser time to match the connected proxy."
         >
