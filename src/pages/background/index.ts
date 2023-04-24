@@ -1,7 +1,8 @@
 import locales from 'utils/locales'
+import getTimeWarp from 'utils/getTimeWarp'
 import getErrorMessage from 'utils/getErrorMessage'
+import type { Coords, TimeWarp } from 'utils/types'
 import browserApi from 'services/browserApi'
-import { Coords } from 'utils/types'
 import { addContextMenuItem } from 'services/contextMenu'
 import { initializeWrappedStore } from 'state'
 import { pushToDebugLog } from 'state/slices/debugLog'
@@ -10,7 +11,7 @@ import { setReconnectionAttempts } from 'state/slices/connection'
 import { connectToAutopilot } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
 import { setIsOnline } from 'state/slices/isOnline'
-import { locationWarp, languageWarp, splitPersonality, workerBlock } from '../content'
+import { locationWarp, languageWarp, splitPersonality, timeWarp, workerBlock } from '../content'
 import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 import handleSessionChanges from './handleSessionChanges'
 
@@ -122,7 +123,7 @@ chrome.proxy.onProxyError.addListener(async e => {
   }
 })
 
-const executeScript = async <Data extends string | Coords>(
+const executeScript = async <Data extends string | Coords | TimeWarp>(
   tabId: number,
   func: (data: Data) => void,
   data: Data,
@@ -145,9 +146,13 @@ const injectScripts = async (details: WebNavDetails) => {
     executeScript(details.tabId, workerBlock, '')
   }
 
-  const coords = store.getState().currentDataCenter?.gps?.split(',')
+  if (!store.getState().proxy.isConnected) return
 
-  if (store.getState().locationWarp && coords) {
+  if (store.getState().locationWarp) {
+    const coords = store.getState().currentDataCenter?.gps?.split(',')
+
+    if (!coords) return
+
     const locationWarpInfo: Coords = {
       latitude: coords[0],
       longitude: coords[1],
@@ -168,11 +173,19 @@ const injectScripts = async (details: WebNavDetails) => {
 
     executeScript(details.tabId, languageWarp, spoofedLocaleCode)
   }
+
+  if (store.getState().timeWarpEnabled) {
+    const currentLocationTimezone = store.getState().currentLocation.tz
+    const spoofedTime = getTimeWarp(currentLocationTimezone)
+
+    if (!spoofedTime) return
+
+    executeScript(details.tabId, timeWarp, spoofedTime)
+  }
 }
 
 chrome.webNavigation.onCommitted.addListener(injectScripts)
 chrome.runtime.onInstalled.addListener(addContextMenuItem)
-
 chrome.webRequest.onAuthRequired.addListener(
   async function (details, callback?: (response: chrome.webRequest.BlockingResponse) => void) {
     const store = await bgStore

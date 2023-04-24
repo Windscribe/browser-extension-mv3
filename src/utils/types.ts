@@ -79,6 +79,13 @@ export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript'
 
 export type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 
+declare global {
+  interface Window {
+    store: StoreType
+    OriginalDateConstructor: DateConstructor
+  }
+}
+
 /*
   This module augments createAsyncThunk with our root state and app dispatch
   so we don't need to pass them to every createAsyncThunk call as generic params
@@ -109,8 +116,13 @@ export type SyncThunkCreator<PayloadType> = (p: PayloadType) => (d: Dispatch) =>
 
 export type InputChangeHandler = React.EventHandler<React.ChangeEvent<HTMLInputElement>>
 
-declare global {
-  interface Window {
-    store: StoreType
-  }
+export type TimeWarp = {
+  desiredTimezone: string
+  offset: number // 240
+  defaultOffset: number // -180
+  dst: string
+}
+
+export type Mutable<T> = {
+  -readonly [P in keyof T]: T[P]
 }
