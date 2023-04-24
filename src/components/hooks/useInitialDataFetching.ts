@@ -35,7 +35,7 @@ export default (): void => {
     if (sessionAuthHash && !(username && password) && serverCredentialsLoading !== 'pending') {
       dispatchAlias(FETCH_SERVER_CREDENTIALS)
     }
-  }, [sessionAuthHash, password, username, serverCredentialsLoading])
+  }, [sessionAuthHash, password, username, serverCredentialsLoading, dispatchAlias])
 
   useEffect(() => {
     if (serverListLoading === 'idle' && sessionAuthHash) {
@@ -70,5 +70,6 @@ export default (): void => {
       dispatchAlias(FETCH_USER_AGENTS_LIST)
     }
     // Do NOT add dispatchAlias to Dependency array. It leads to double network requests. Don't know why.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionAuthHash, userAgentLoading])
 }

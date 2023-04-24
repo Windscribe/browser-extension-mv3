@@ -41,6 +41,7 @@ import proxyPortReducer from './slices/proxyPort'
 import workerBlockReducer from './slices/workerBlock'
 import locationLoadReducer from './slices/locationLoad'
 import isOnlineReducer from './slices/isOnline'
+import timeWarpEnabledReducer from './slices/timeWarpEnabled'
 import overlayReducer from './slices/overlay'
 import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
 import iconVariantReducer from './slices/iconVariant'
@@ -72,6 +73,7 @@ const reducers = {
   session: sessionReducer,
   shouldShowOnboarding: shouldShowOnboardingReducer,
   splitPersonalityEnabled: splitPersonalityEnabledReducer,
+  timeWarpEnabled: timeWarpEnabledReducer,
   userAgent: userAgentReducer,
   userStashes: userStashesReducer,
   view: viewReducer,

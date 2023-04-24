@@ -1,22 +1,25 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import type { Autopilot } from 'api/types'
-import type { RootState } from '../store'
+import type { Autopilot, CruiseControlItem } from 'api/types'
 import { selectLocationByName, findDataCenterById } from './servers'
 import { FETCH_BEST_LOCATION } from './bestLocation'
 import { setCurrentLocation } from './currentLocation'
 import { setCurrentDataCenter } from './currentDataCenter'
 import { connectProxy } from './proxy'
+import { getCruiseControlDomains } from 'api/endpoints'
+import createCruiseControlList from 'services/cruiseControl/createCruiseControlList'
 
 interface AutopilotState {
   autopilotData?: Autopilot
   autopilotSelected: boolean
+  cruiseControlList?: CruiseControlItem[]
   errorMessage?: string
 }
 
 const initialState: AutopilotState = {
   autopilotData: undefined,
   autopilotSelected: true,
+  cruiseControlList: undefined,
   errorMessage: undefined,
 }
 
@@ -42,6 +45,22 @@ export const applyBestLocationAsAutopilot = createAsyncThunk(
       throw new AutopilotConnectionError(`No data center with id ${bestDataCenterId} was found`)
 
     dispatch(setAutopilotData({ location, dataCenter }))
+
+    const { session_auth_hash, is_premium } = getState().session
+    const serverList = getState().servers.serverList
+    const cruiseControlDomainsResponse = await getCruiseControlDomains(dispatch, session_auth_hash)
+    if (cruiseControlDomainsResponse.errorMessage)
+      throw new Error('Failed to fetch cruise control domains found')
+    if (!cruiseControlDomainsResponse.data || !cruiseControlDomainsResponse.data.domains)
+      throw new Error('No cruise control domains found')
+
+    const cruiseControlList = createCruiseControlList(
+      serverList,
+      is_premium,
+      cruiseControlDomainsResponse.data.domains,
+    )
+
+    dispatch(setCruiseControlList(cruiseControlList))
   },
 )
 
@@ -79,6 +98,9 @@ export const autopilotSlice = createSlice({
     setAutopilotSelected(state, action: PayloadAction<boolean>) {
       state.autopilotSelected = action.payload
     },
+    setCruiseControlList(state, action: PayloadAction<CruiseControlItem[]>) {
+      state.cruiseControlList = action.payload
+    },
   },
   extraReducers: builder => {
     builder.addCase(applyBestLocationAsAutopilot.rejected, (state, action) => {
@@ -90,7 +112,8 @@ export const autopilotSlice = createSlice({
   },
 })
 
-export const { setAutopilotData, setAutopilotSelected } = autopilotSlice.actions
+export const { setAutopilotData, setAutopilotSelected, setCruiseControlList } =
+  autopilotSlice.actions
 export default autopilotSlice.reducer
 
 class AutopilotConnectionError {

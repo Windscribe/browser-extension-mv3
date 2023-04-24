@@ -103,6 +103,7 @@ function Welcome() {
           close()
           dispatch(setShouldShowOnboarding(true))
         }}
+        data-testid="start-tutorial-button"
       >
         Start Tutorial
       </ConfirmButton>

@@ -62,7 +62,9 @@ type NotFunction =
   | null
   | undefined
   | bigint
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | readonly any[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | { apply?: never; [k: string]: any }
 
 export type LogItem = {
@@ -84,6 +86,13 @@ export type IconVariant =
   | 'proxyDesktopOn'
   | 'proxyOnDouble'
   | 'proxyNoConnection'
+
+declare global {
+  interface Window {
+    store: StoreType
+    OriginalDateConstructor: DateConstructor
+  }
+}
 
 /*
   This module augments createAsyncThunk with our root state and app dispatch
@@ -115,8 +124,13 @@ export type SyncThunkCreator<PayloadType> = (p: PayloadType) => (d: Dispatch) =>
 
 export type InputChangeHandler = React.EventHandler<React.ChangeEvent<HTMLInputElement>>
 
-declare global {
-  interface Window {
-    store: StoreType
-  }
+export type TimeWarp = {
+  desiredTimezone: string
+  offset: number // 240
+  defaultOffset: number // -180
+  dst: string
+}
+
+export type Mutable<T> = {
+  -readonly [P in keyof T]: T[P]
 }

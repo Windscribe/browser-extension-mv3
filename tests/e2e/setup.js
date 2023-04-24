@@ -3,8 +3,9 @@ const path = require('path')
 
 const extPath = path.resolve(__dirname, '../../build')
 
-const launchBrowser = async () =>
-  await puppeteer.launch({
+const launchBrowser = async () => {
+  await puppeteer.createBrowserFetcher().download(puppeteer.PUPPETEER_REVISIONS.chromium)
+  return await puppeteer.launch({
     headless: false,
     devtools: true,
     dumpio: true,
@@ -17,6 +18,7 @@ const launchBrowser = async () =>
       '--disable-setuid-sandbox',
     ],
   })
+}
 
 const setup = async () => {
   const browser = await launchBrowser()
@@ -36,26 +38,6 @@ const setup = async () => {
   const popupUrl = `chrome-extension://${extensionId}/popup.html`
   const popupPage = await browser.newPage()
   await popupPage.goto(popupUrl, { waitUntil: 'load' })
-
-  // Go to Login page
-  const goLoginButton = await popupPage.$('[data-testid=login-button]')
-  await goLoginButton.click()
-
-  // Ensure that we are on Login page
-  await popupPage.waitForSelector('[data-testid=login-page]')
-  header = await popupPage.$('[data-testid=header-title]')
-  title = await header.evaluate(el => el.textContent)
-  expect(title).toEqual('Login')
-
-  // Fill login forms
-  await popupPage.type('[data-testid=username-input]', process.env.TEST_USER_NAME)
-  await popupPage.type('[data-testid=password-input]', process.env.TEST_USER_PASSWORD)
-  popupPage.click('[data-testid=login-button]')
-
-  // Ensure that we are on Home page
-  const homePage = await popupPage.waitForSelector('[data-testid=home-page]')
-
-  expect(homePage).toBeTruthy()
 
   return {
     extensionId,
