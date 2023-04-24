@@ -10,6 +10,7 @@ const handleSessionChanges = async (store: StoreType): Promise<void> => {
   const currentSession = store.getState().session
 
   // poll only when connected and we have a session_auth_hash
+  // TODO Consider to push user on Login page if we don't have session_auth_hash (pretty rare case tho, or even impossible)
   if (currentSession?.session_auth_hash) {
     const updatedSession = await getSessionStatus(store.dispatch, currentSession?.session_auth_hash)
     if (updatedSession.data) {
