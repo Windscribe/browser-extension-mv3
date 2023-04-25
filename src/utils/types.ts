@@ -79,6 +79,14 @@ export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript'
 
 export type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 
+export type IconVariant =
+  | 'proxyOn'
+  | 'proxyOff'
+  | 'proxyFailure'
+  | 'proxyDesktopOn'
+  | 'proxyOnDouble'
+  | 'proxyNoConnection'
+
 declare global {
   interface Window {
     store: StoreType

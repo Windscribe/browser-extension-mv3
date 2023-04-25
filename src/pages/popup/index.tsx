@@ -7,7 +7,7 @@ import theme from 'styles'
 import Router from 'services/navigation/Router'
 import proxyStore from 'pages/proxyStore'
 import { pushToDebugLog } from 'state/slices/debugLog'
-import { FullSizeOverlay } from 'components'
+import { FullSizeOverlay, SessionStatusChecker } from 'components'
 
 proxyStore
   .ready()
@@ -17,6 +17,7 @@ proxyStore
         <Provider store={proxyStore}>
           <Router />
           <FullSizeOverlay />
+          <SessionStatusChecker />
         </Provider>
       </ThemeProvider>,
       window.document.querySelector('#app-container'),

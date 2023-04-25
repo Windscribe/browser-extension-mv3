@@ -32,55 +32,69 @@ export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 export const connectProxy = createAsyncThunk(
   CONNECT_PROXY,
   async (hosts: Host[], { dispatch, getState }) => {
-    const { traffic_max, traffic_used, is_premium } = getState().session
+    try {
+      const { traffic_max, traffic_used, is_premium } = getState().session
 
-    if (traffic_max === undefined || traffic_used === undefined) {
-      throw Error('No session info.')
-    }
+      if (traffic_max === undefined || traffic_used === undefined) {
+        throw Error('No session info.')
+      }
 
-    if (!is_premium && traffic_max !== ACCOUNT_PLAN.UNLIMITED && traffic_max - traffic_used <= 0) {
-      dispatch(setOverlay({ isOpen: true, template: 'noData' }))
-      throw Error('Out of data.')
-    }
+      if (
+        !is_premium &&
+        traffic_max !== ACCOUNT_PLAN.UNLIMITED &&
+        traffic_max - traffic_used <= 0
+      ) {
+        dispatch(setOverlay({ isOpen: true, template: 'noData' }))
+        throw Error('Out of data.')
+      }
 
-    const proxySetting = await new Promise(resolve => {
-      chrome.proxy.settings.get({}, function (details) {
-        resolve(details.levelOfControl)
+      const proxySetting = await new Promise(resolve => {
+        chrome.proxy.settings.get({}, function (details) {
+          resolve(details.levelOfControl)
+        })
       })
-    })
 
-    if (proxySetting === 'controlled_by_other_extensions') {
-      dispatch(setOverlay({ isOpen: true, template: 'extensionConflict' }))
-      throw Error('Proxy is controlled by another extension.')
-    }
+      if (proxySetting === 'controlled_by_other_extensions') {
+        dispatch(setOverlay({ isOpen: true, template: 'extensionConflict' }))
+        throw Error('Proxy is controlled by another extension.')
+      }
 
-    if (!hosts || hosts?.length === 0) {
-      throw Error('Error while trying to connect to proxy. No hostname was provided.')
-    }
+      if (!hosts || hosts?.length === 0) {
+        throw Error('Error while trying to connect to proxy. No hostname was provided.')
+      }
 
-    const whitelist = reduceWhitelist(getState())
-    const proxyPort = getState().proxyPort
-    const autopilotSelected = getState().autopilot.autopilotSelected
-    const cruiseControlList = autopilotSelected ? getState().autopilot.cruiseControlList : undefined
+      const whitelist = reduceWhitelist(getState())
+      const proxyPort = getState().proxyPort
+      const autopilotSelected = getState().autopilot.autopilotSelected
+      const cruiseControlList = autopilotSelected
+        ? getState().autopilot.cruiseControlList
+        : undefined
 
-    await connect(hosts, whitelist, proxyPort, cruiseControlList)
+      await connect(hosts, whitelist, proxyPort, cruiseControlList)
+      dispatch(setProxy(hosts))
+      const ip = await checkIp(getState().workingApi)
 
-    dispatch(setProxy(hosts))
-    const ip = await checkIp(getState().workingApi)
+      if (ip === '---.---.---.---') {
+        throw Error('Failed to connect to proxy')
+      } else {
+        dispatch(setReconnectionAttempts(0))
+      }
 
-    if (ip === '---.---.---.---') {
-      throw Error('Failed to connect to proxy')
-    } else {
-      dispatch(setReconnectionAttempts(0))
-    }
-
-    if (getState().allowSystemNotifications) {
-      const { city = '', nick = '' } = getState().currentDataCenter
-      const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
-      createNotification({
-        iconUrl: proxyOnIcon,
-        message: `You are now connected to Windscribe (${locationInfo})`,
-      })
+      if (getState().allowSystemNotifications) {
+        const autopilotSelected = getState().autopilot.autopilotSelected
+        const { city = '', nick = '' } = getState().currentDataCenter
+        const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
+        createNotification({
+          iconUrl: proxyOnIcon,
+          message: `You are now connected to Windscribe (${locationInfo})`,
+        })
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        throw Error(err.message)
+      } else {
+        throw Error('Unexpected error, while trying to connect to proxy.')
+      }
     }
   },
 )
@@ -97,6 +111,7 @@ export const disconnectProxy = createAsyncThunk(
         message: 'Connection to Windscribe has been terminated',
       })
     }
+    dispatch(setIsConnected(false))
   },
 )
 
@@ -126,6 +141,9 @@ export const proxySlice = createSlice({
     setConnectionError(state, action: PayloadAction<string>) {
       state.errorMessage = `Proxy connection error. ${action.payload}`
     },
+    setIsConnected(state, action: PayloadAction<boolean>) {
+      state.isConnected = action.payload
+    },
   },
   extraReducers: builder => {
     builder
@@ -144,11 +162,8 @@ export const proxySlice = createSlice({
           state.errorMessage = action.error.message
         }
       })
-      .addCase(disconnectProxy.fulfilled, state => {
-        state.isConnected = false
-      })
   },
 })
 
-export const { setProxy, resetProxy, setConnectionError } = proxySlice.actions
+export const { setProxy, resetProxy, setConnectionError, setIsConnected } = proxySlice.actions
 export default proxySlice.reducer
