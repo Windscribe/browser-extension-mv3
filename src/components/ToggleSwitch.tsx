@@ -15,7 +15,7 @@ const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({
   ...restProps
 }) => {
   return (
-    <ToolTip message="Not available in Autopilot" sx={{ display: disabled ? 'block' : 'none' }}>
+    <ToolTip message="Not Available in Autopilot" sx={{ display: disabled ? 'block' : 'none' }}>
       <Switch
         checked={checked}
         onChange={disabled ? undefined : onChange}

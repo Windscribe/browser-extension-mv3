@@ -17,7 +17,7 @@ const ToolTip: ThemeUiElement<ToolTipProps> = ({ message, children, ...props }) 
       wordBreak: 'break-all',
       fontWeight: '600',
       fontSize: '12px',
-      mb: '4px',
+      my: '4px',
       '.tippy-content': {
         p: '3px 6px',
       },
