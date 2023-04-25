@@ -92,7 +92,7 @@ const SearchInput: React.FC<SearchInputProps> = memo(
             onChange={onSearchInputChange}
             onTransitionEnd={handleTransitionEnd}
             sx={{
-              width: 0,
+              width: '32px',
               right: 0,
               padding: 0,
               height: '32px',
@@ -101,10 +101,12 @@ const SearchInput: React.FC<SearchInputProps> = memo(
               fontWeight: 100,
               fontSize: '14px',
               backgroundColor: 'iconBgSolid',
+              zIndex: -1,
               transition: '275ms ease',
               ...(focused && {
                 width: '244px',
                 padding: '0 32px',
+                zIndex: 0,
               }),
             }}
           />

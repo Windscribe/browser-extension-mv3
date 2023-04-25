@@ -32,6 +32,8 @@ const Privacy: ThemeUiElement = () => {
   const timeWarpEnabled = useSelector(s => s.timeWarpEnabled)
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
+  const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
+
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
   return (
@@ -79,6 +81,7 @@ const Privacy: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={TimeWarpIcon}
+          path={'features/timezone-spoofing'}
           title="Time Warp"
           subTitle="Sets your browser time to match the connected proxy."
         >
@@ -94,8 +97,13 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Sets your language and locale settings to match the connected proxy."
         >
           <ToggleSwitch
-            onChange={() => dispatch(setLanguageWarpEnabled(!languageWarpEnabled))}
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(setLanguageWarpEnabled(!languageWarpEnabled))
+            }}
             checked={languageWarpEnabled}
+            disabled={autopilotSelected}
+            data-testid="language-warp-toggle"
           />
         </OptionBox>
         <OptionBox
@@ -106,13 +114,37 @@ const Privacy: ThemeUiElement = () => {
         >
           <Flex>
             {splitPersonalityEnabled && (
-              <GetNewButton onClick={() => dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)} />
+              <GetNewButton
+                onClick={() => {
+                  showReloadAlert(true)
+                  dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)
+                }}
+              />
             )}
             <ToggleSwitch
-              onChange={() => dispatchAlias(TOGGLE_SPLIT_PERSONALITY)}
+              onChange={() => {
+                showReloadAlert(true)
+                dispatchAlias(TOGGLE_SPLIT_PERSONALITY)
+              }}
               checked={splitPersonalityEnabled}
             />
           </Flex>
+        </OptionBox>
+        <OptionBox
+          Icon={LocationWarpIcon}
+          path={'features/location-warp'}
+          title="Location Warp"
+          subTitle="Fakes your GPS location to match the connected proxy."
+        >
+          <ToggleSwitch
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(setLocationWarp(!locationWarp))
+            }}
+            checked={locationWarp}
+            disabled={autopilotSelected}
+            data-testid="location-warp-toggle"
+          />
         </OptionBox>
         <OptionBox
           Icon={WorkerBlockIcon}

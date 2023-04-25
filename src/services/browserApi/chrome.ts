@@ -32,7 +32,7 @@ const api = {
       },
     },
     onStartup: {
-      addListener(cb: (a?: any) => void): void {
+      addListener(cb: (a?: unknown) => void): void {
         chrome.runtime.onStartup.addListener(cb)
       },
     },

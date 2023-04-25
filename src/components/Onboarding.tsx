@@ -74,6 +74,7 @@ const Onboarding: ThemeUiElement = () => {
 
   return (
     <Joyride
+      data-testid={'tutorial-overlay'}
       steps={steps}
       run={showOnboarding}
       continuous

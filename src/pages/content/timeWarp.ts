@@ -1,9 +1,6 @@
-import type { Mutable, TimeWarp } from 'utils/types'
+import type { TimeWarp } from 'utils/types'
 
-export default function (
-  this: Window,
-  { offset, defaultOffset, dst, desiredTimezone }: TimeWarp,
-): void {
+export default function (this: Window, { offset, defaultOffset, desiredTimezone }: TimeWarp): void {
   if (!this.OriginalDateConstructor) {
     this.OriginalDateConstructor = Date
   }

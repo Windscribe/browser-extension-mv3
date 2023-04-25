@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import applyWorkingApi from '../applyWorkingApi'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
@@ -40,11 +39,8 @@ export const LOGOUT = 'session/logout'
 
 export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Credentials>(
   LOGIN,
-  async ({ username, password, twoFa }, { getState, dispatch }) => {
-    const workingApi = getState().workingApi
-
-    const response = await loginRequest(username, password, workingApi, twoFa)
-    response.workingApi && applyWorkingApi(response.workingApi, workingApi, dispatch)
+  async ({ username, password, twoFa }, { dispatch }) => {
+    const response = await loginRequest(dispatch, username, password, twoFa)
 
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
@@ -61,12 +57,12 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 
 export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch }) => {
   const sessionAuthHash = getState().session.session_auth_hash
-  const workingApi = getState().workingApi
 
   await dispatch(disconnectProxy())
   await dispatch(resetNotificationBlocker())
   await dispatch(resetWebRtcBlocker())
-  sessionAuthHash && (await logoutRequest(sessionAuthHash, workingApi))
+  await dispatch(disconnectProxy())
+  sessionAuthHash && (await logoutRequest(dispatch, sessionAuthHash))
 
   await dispatch(saveUserStash())
 

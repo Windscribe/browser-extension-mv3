@@ -10,6 +10,7 @@ const RefreshButton: ThemeUiElement<ButtonProps> = ({ ...restProps }) => {
         width: '160px',
         fontSize: '12px',
         backgroundColor: 'orange',
+        zIndex: 1,
         filter: 'brightness(0.9)',
         ':hover': {
           filter: 'brightness(1)',
