@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 
 import { pushToDebugLog } from './debugLog'
 import { setRandomSpoofedUserAgent } from './userAgent'
-import { addTabEventsHandler, removeTabEventsHandler } from 'services/userAgent/rewriteUserAgent'
 import {
   spoofUserAgentHeader,
   resetSpoofUserAgentHeader,
@@ -28,7 +27,6 @@ export const deactivateSplitPersonality = createAsyncThunk(
   'splitPersonalityEnabled/deactivate',
   async (_, { dispatch }) => {
     try {
-      removeTabEventsHandler()
       await resetSpoofUserAgentHeader()
       dispatch(setSplitPersonalityEnabled(false))
     } catch (err) {
@@ -46,7 +44,6 @@ export const activateSplitPersonality = createAsyncThunk(
     try {
       dispatch(setRandomSpoofedUserAgent)
       const spoofedUserAgent = getState().userAgent.spoofed
-      addTabEventsHandler(spoofedUserAgent)
       await spoofUserAgentHeader(spoofedUserAgent)
       dispatch(setSplitPersonalityEnabled(true))
     } catch (err) {
