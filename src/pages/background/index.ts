@@ -13,7 +13,7 @@ import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slic
 import { setIsOnline } from 'state/slices/isOnline'
 import { locationWarp, languageWarp, splitPersonality, timeWarp, workerBlock } from '../content'
 import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
-import handleSessionChanges from './handleSessionChanges'
+import { checkSessionStatus } from 'state/slices/session'
 import { chooseIcon } from 'state/slices/iconVariant'
 
 const bgStore = initializeWrappedStore().then(store => {
@@ -59,7 +59,7 @@ chrome.alarms.create('sessionPoller', { periodInMinutes: 1 })
 chrome.alarms.onAlarm.addListener(async alarm => {
   if (alarm.name === 'sessionPoller') {
     const store = await bgStore
-    handleSessionChanges(store)
+    store.dispatch(checkSessionStatus())
   }
 })
 

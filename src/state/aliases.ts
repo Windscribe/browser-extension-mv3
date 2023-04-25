@@ -1,5 +1,5 @@
 import { fetchServerList, FETCH_SERVER_LIST } from './slices/servers'
-import { login, LOGIN } from './slices/session'
+import { login, LOGIN, checkSessionStatus, CHECK_SESSION_STATUS } from './slices/session'
 import { connectToAutopilot, CONNECT_TO_AUTOPILOT } from './slices/autopilot'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
 import {
@@ -56,4 +56,5 @@ export default {
   [`alias/${ACTIVATE_SPLIT_PERSONALITY}`]: activateSplitPersonality,
   [`alias/${TOGGLE_SPLIT_PERSONALITY}`]: toggleSplitPersonality,
   [`alias/${CHOOSE_ICON}`]: chooseIcon,
+  [`alias/${CHECK_SESSION_STATUS}`]: checkSessionStatus,
 }
