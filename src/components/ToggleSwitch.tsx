@@ -25,8 +25,12 @@ const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({
           backgroundColor: 'white',
           cursor: disabled ? 'not-allowed' : 'pointer',
           opacity: disabled ? '0.3' : '1',
+          width: '36px',
+          height: '20px',
           '& > div': {
             backgroundColor: 'black',
+            width: '16px',
+            height: '16px',
           },
           'input:checked ~ &': {
             backgroundColor: 'lakeBlue',
