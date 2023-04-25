@@ -33,6 +33,15 @@ body {
   overflow: hidden;
   width: 324px;
   max-height: 442px;
+  min-height: 208px;
+  background-color: #1a2432;
+}
+
+body {
+  background-image: url(/src/assets/img/spinningLogo.gif);
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .__floater .__floater__body {
@@ -40,18 +49,15 @@ body {
   min-width: 130px;
 }
 
-.__floater .__floater__body  p {
-    margin: 0px;
-    color: black;
-  }
-
-#react-joyride-step-1
-  .__floater
-  .__floater__body:first-of-type {
-  margin-bottom: -30px;
-          
+.__floater .__floater__body p {
+  margin: 0px;
+  color: black;
 }
 
-#react-joyride-step-1 .__floater__arrow  span {
+#react-joyride-step-1 .__floater .__floater__body:first-of-type {
+  margin-bottom: -30px;
+}
+
+#react-joyride-step-1 .__floater__arrow span {
   margin: 12px 0;
-}    
+}
