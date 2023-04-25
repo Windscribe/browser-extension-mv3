@@ -88,6 +88,7 @@ const Privacy: ThemeUiElement = () => {
           <ToggleSwitch
             onChange={() => dispatch(setTimeWarpEnabled(!timeWarpEnabled))}
             checked={timeWarpEnabled}
+            disabled={autopilotSelected}
           />
         </OptionBox>
         <OptionBox
