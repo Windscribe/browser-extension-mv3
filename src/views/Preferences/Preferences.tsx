@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'state/hooks'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
 import bytes from 'bytes'
 import { SpaceBetween } from 'components/Flexbox'
+import ToolTip from 'components/ToolTip'
 
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
 import GeneralIcon from 'assets/img/general.svg'
@@ -97,29 +98,41 @@ const Preferences: ThemeUiElement = () => {
               gap: '16px',
             }}
           >
-            <CircleButton
-              Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
-              onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
-            />
-            <CircleButton Icon={TutorialIcon} onClick={runTutorial} data-testid="start-tutorial" />
-            <CircleButton Icon={HelpIcon} />
+            <ToolTip message="Change Theme">
+              <CircleButton
+                Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
+                onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
+              />
+            </ToolTip>
+            <ToolTip message="Restart Onboarding">
+              <CircleButton
+                Icon={TutorialIcon}
+                onClick={runTutorial}
+                data-testid="start-tutorial"
+              />
+            </ToolTip>
+            <ToolTip message="Get Support">
+              <CircleButton Icon={HelpIcon} />
+            </ToolTip>
           </Flex>
-          <CircleButton
-            onClick={handleLogoutClick}
-            Icon={LogoutIcon}
-            data-testid="logout-button"
-            sx={{
-              svg: {
-                fill: 'bloodRed',
-              },
-              ':hover': {
-                background: 'linear-gradient(0deg, rgb(0 0 0 / 20%), rgb(0 0 0 / 20%)), #FF3B3B',
+          <ToolTip message="Logout">
+            <CircleButton
+              onClick={handleLogoutClick}
+              Icon={LogoutIcon}
+              data-testid="logout-button"
+              sx={{
                 svg: {
-                  fill: 'white',
+                  fill: 'bloodRed',
                 },
-              },
-            }}
-          />
+                ':hover': {
+                  background: 'linear-gradient(0deg, rgb(0 0 0 / 20%), rgb(0 0 0 / 20%)), #FF3B3B',
+                  svg: {
+                    fill: 'white',
+                  },
+                },
+              }}
+            />
+          </ToolTip>
         </Flex>
       </Box>
     </Box>
