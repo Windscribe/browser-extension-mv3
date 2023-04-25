@@ -8,25 +8,15 @@ import proxyOnDoubleIcon from 'assets/img/proxyOnDouble.png'
 import proxyNoConnectionIcon from 'assets/img/proxyNoConnection.png'
 
 export async function setIcon(iconVariant: IconVariant): Promise<void> {
-  let path = proxyOffIcon
-  if (iconVariant === 'proxyOn') {
-    path = proxyOnIcon
+  const iconMap: Record<IconVariant, string> = {
+    proxyOn: proxyOnIcon,
+    proxyOff: proxyOffIcon,
+    proxyFailure: proxyFailureIcon,
+    proxyDesktopOn: proxyDesktopOnIcon,
+    proxyOnDouble: proxyOnDoubleIcon,
+    proxyNoConnection: proxyNoConnectionIcon,
   }
-  if (iconVariant === 'proxyOff') {
-    path = proxyOffIcon
-  }
-  if (iconVariant === 'proxyFailure') {
-    path = proxyFailureIcon
-  }
-  if (iconVariant === 'proxyDesktopOn') {
-    path = proxyDesktopOnIcon
-  }
-  if (iconVariant === 'proxyOnDouble') {
-    path = proxyOnDoubleIcon
-  }
-  if (iconVariant === 'proxyNoConnection') {
-    path = proxyNoConnectionIcon
-  }
+  const path = iconMap[iconVariant] || proxyOffIcon
   await chrome.action.setIcon({ path })
 }
 
