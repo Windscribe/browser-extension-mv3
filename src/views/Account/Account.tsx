@@ -5,6 +5,7 @@ import CircleButton from 'components/CircleButton'
 import EditIcon from 'assets/img/edit.svg'
 import { useSelector } from 'state/hooks'
 import { useWindowOpening } from 'components/hooks'
+import ToolTip from 'components/ToolTip'
 
 const Account: ThemeUiElement = () => {
   const session = useSelector(s => s.session)
@@ -17,23 +18,26 @@ const Account: ThemeUiElement = () => {
   return (
     <Box data-testid="account-page" bg="background">
       <Header title="Account">
-        <CircleButton
-          data-testid="edit-account-button"
-          Icon={EditIcon}
-          onClick={handleButtonClick}
-          sx={{
-            background: 'lakeBlue',
-            svg: {
-              fill: 'white',
-            },
-            ':hover': {
-              background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #006AFF',
+        <ToolTip message="My Account">
+          <CircleButton
+            data-testid="edit-account-button"
+            Icon={EditIcon}
+            onClick={handleButtonClick}
+            sx={{
+              background: 'lakeBlue',
               svg: {
                 fill: 'white',
               },
-            },
-          }}
-        />
+              ':hover': {
+                background:
+                  'linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #006AFF',
+                svg: {
+                  fill: 'white',
+                },
+              },
+            }}
+          />
+        </ToolTip>
       </Header>
       <ScrollableBox>
         <Subheader>info</Subheader>

@@ -65,14 +65,16 @@ const Preferences: ThemeUiElement = () => {
   return (
     <Box data-testid="preferences-page" bg="background">
       <Header title="Preferences">
-        <CircleButton
-          data-testid="go-to-newsfeed-button"
-          onClick={goToNewsfeed}
-          Icon={NewsfeedIcon}
-          sx={{ position: 'relative' }}
-        >
-          <Badge count={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
-        </CircleButton>
+        <ToolTip message="Newsfeed">
+          <CircleButton
+            data-testid="go-to-newsfeed-button"
+            onClick={goToNewsfeed}
+            Icon={NewsfeedIcon}
+            sx={{ position: 'relative' }}
+          >
+            <Badge count={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
+          </CircleButton>
+        </ToolTip>
       </Header>
 
       <Box sx={{ mx: '16px' }}>
