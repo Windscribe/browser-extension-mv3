@@ -45,15 +45,22 @@ const whitelist = async (popupPage, browser) => {
       // Open popup with whitelist settings
       popupPage.click('[data-testid=add-to-whitelist-button]')
       await popupPage.waitForSelector('[data-testid=whitelist-settings-popup]')
+      await popupPage.waitForSelector('[data-testid=whitelist-domain-input]')
 
       // Fill input and Allow Privacy Features for test page
       // There is a bug with Page.type()
       // Details by link https://github.com/puppeteer/puppeteer/issues/1648
-      const input = await popupPage.$('[data-testid=whitelist-domain-input]')
-      await input.press('Backspace')
-      await input.type('www.google.com')
+      await popupPage.click('[data-testid=whitelist-domain-input]', { delay: 100 })
+      await popupPage.keyboard.press('Backspace')
+      await popupPage.type('[data-testid=whitelist-domain-input]', 'www.google.com', {
+        delay: 50,
+      })
+
       await popupPage.waitForTimeout(500)
+
+      await popupPage.waitForSelector('[data-testid=allow-privacy-features-checkbox]')
       popupPage.click('[data-testid=allow-privacy-features-checkbox]')
+
       await popupPage.waitForSelector('[data-testid=whitelist-popup-submit-button]')
       popupPage.click('[data-testid=whitelist-popup-submit-button]')
 
@@ -100,8 +107,9 @@ const whitelist = async (popupPage, browser) => {
       expect(appVersionSpoofed).not.to.equal(appVersionOriginal)
       expect(userAgentData).not.to.equal(undefined)
     })
-    afterAll(async function () {
-      appPage.close()
+    after(async function () {
+      testPage.close()
+      popupPage.bringToFront()
     })
   })
 }
