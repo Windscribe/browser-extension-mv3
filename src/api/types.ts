@@ -78,6 +78,10 @@ export interface SessionData {
   last_reset?: string
   loc_hash?: string
   loc_rev?: number
+  our_addr?: string
+  our_dc?: number
+  our_ip?: 0 | 1
+  our_location?: string
   premium_expiry_date?: string
   rebill?: 0 | 1
   reg_date?: number

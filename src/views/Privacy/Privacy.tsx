@@ -21,6 +21,7 @@ import LanguageWarpIcon from 'assets/img/languageWarp.svg'
 import LocationWarpIcon from 'assets/img/locationWarp.svg'
 import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
+import ToolTip from 'components/ToolTip'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -88,6 +89,7 @@ const Privacy: ThemeUiElement = () => {
           <ToggleSwitch
             onChange={() => dispatch(setTimeWarpEnabled(!timeWarpEnabled))}
             checked={timeWarpEnabled}
+            disabled={autopilotSelected}
           />
         </OptionBox>
         <OptionBox
@@ -114,12 +116,14 @@ const Privacy: ThemeUiElement = () => {
         >
           <Flex>
             {splitPersonalityEnabled && (
-              <GetNewButton
-                onClick={() => {
-                  showReloadAlert(true)
-                  dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)
-                }}
-              />
+              <ToolTip message="Rotate User Agent">
+                <GetNewButton
+                  onClick={() => {
+                    showReloadAlert(true)
+                    dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)
+                  }}
+                />
+              </ToolTip>
             )}
             <ToggleSwitch
               onChange={() => {

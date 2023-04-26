@@ -26,6 +26,7 @@ import PowerButton from 'assets/img/powerButton.svg'
 import Globe from 'assets/img/globe.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import ConnectingRing from 'assets/img/connectingRing.svg'
+import ToolTip from 'components/ToolTip'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -221,44 +222,51 @@ const Home: ThemeUiElement = () => {
               alignItems: 'center',
             }}
           >
-            <Button
-              variant="simple"
-              className="joyride-element-change-location"
-              data-testid="globe-button"
-              onClick={goToLocations}
+            <ToolTip
+              message="Locations Menu"
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                mr: '4px',
-                ':hover': {
-                  'svg:nth-of-type(1)': {
-                    mr: '8px',
-                    fill: 'white',
-                  },
-                  'svg:nth-of-type(2)': {
-                    visibility: 'initial',
-                    fill: 'white',
-                  },
-                },
+                mr: '30px',
               }}
             >
-              <Globe
+              <Button
+                variant="simple"
+                className="joyride-element-change-location"
+                data-testid="globe-button"
+                onClick={goToLocations}
                 sx={{
-                  transition: '0.25s',
-                  fill: 'halfWhite',
-                  visibility: 'initial',
+                  display: 'flex',
+                  alignItems: 'center',
+                  mr: '4px',
+                  ':hover': {
+                    'svg:nth-of-type(1)': {
+                      mr: '8px',
+                      fill: 'white',
+                    },
+                    'svg:nth-of-type(2)': {
+                      visibility: 'initial',
+                      fill: 'white',
+                    },
+                  },
                 }}
-              />
-              <ArrowRight
-                sx={{
-                  transition: '0.1s',
-                  ml: '-8px',
-                  fill: 'halfWhite',
-                  visibility: 'hidden',
-                  transform: 'scale(0.9)',
-                }}
-              />
-            </Button>
+              >
+                <Globe
+                  sx={{
+                    transition: '0.25s',
+                    fill: 'halfWhite',
+                    visibility: 'initial',
+                  }}
+                />
+                <ArrowRight
+                  sx={{
+                    transition: '0.1s',
+                    ml: '-8px',
+                    fill: 'halfWhite',
+                    visibility: 'hidden',
+                    transform: 'scale(0.9)',
+                  }}
+                />
+              </Button>
+            </ToolTip>
 
             <Button
               className="joyride-element-proxy-button"

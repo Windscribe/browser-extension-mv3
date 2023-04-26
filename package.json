@@ -25,6 +25,7 @@
     "@mdx-js/react": "^2.1.2",
     "@reduxjs/toolkit": "^1.8.3",
     "@svgr/webpack": "^6.3.0",
+    "@tippyjs/react": "^4.2.6",
     "@types/ua-parser-js": "^0.7.36",
     "bytes": "^3.1.2",
     "chai": "^4.3.7",

@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
+
 import type { LoadingState, Either, ErrorState } from 'utils/types'
+import { ACCOUNT_STATES, ACCOUNT_PLAN } from 'utils/constants'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { disconnectProxy } from './proxy'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
-import { login as loginRequest, logout as logoutRequest } from 'api/endpoints'
+import { login as loginRequest, logout as logoutRequest, getSessionStatus } from 'api/endpoints'
 import { resetWebRtcBlocker } from './webRtcEnabled'
 import { setOverlay } from 'state/slices/overlay'
 import { setView } from 'state/slices/view'
@@ -23,6 +25,10 @@ const initialState: SessionState = {
   last_reset: undefined,
   loc_hash: undefined,
   loc_rev: undefined,
+  our_addr: undefined,
+  our_dc: undefined,
+  our_ip: 0,
+  our_location: undefined,
   reg_date: undefined,
   session_auth_hash: '',
   status: undefined,
@@ -36,6 +42,7 @@ const initialState: SessionState = {
 
 export const LOGIN = 'session/login'
 export const LOGOUT = 'session/logout'
+export const CHECK_SESSION_STATUS = 'session/checkSessionStatus'
 
 export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Credentials>(
   LOGIN,
@@ -70,12 +77,51 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
   //TODO Implement userStashes to store user's settings preferences between sessions
 })
 
+export const checkSessionStatus = createAsyncThunk(
+  CHECK_SESSION_STATUS,
+  async (_, { getState, dispatch }) => {
+    const { isConnected } = getState().proxy
+    const currentSession = getState().session
+
+    // poll only when connected and we have a session_auth_hash
+    // TODO Consider to push user on Login page if we don't have session_auth_hash (pretty rare case tho, or even impossible)
+    if (currentSession?.session_auth_hash) {
+      const updatedSession = await getSessionStatus(dispatch, currentSession?.session_auth_hash)
+      if (updatedSession.data) {
+        if (
+          isConnected &&
+          !updatedSession.data.is_premium &&
+          updatedSession.data.traffic_max !== ACCOUNT_PLAN.UNLIMITED &&
+          updatedSession.data.traffic_max !== undefined &&
+          updatedSession.data.traffic_used !== undefined &&
+          updatedSession.data.traffic_max - updatedSession.data.traffic_used <= 0
+        ) {
+          dispatch(setOverlay({ isOpen: true, template: 'noData' }))
+          dispatch(disconnectProxy())
+        }
+        if (updatedSession.data.status === ACCOUNT_STATES.BANNED) {
+          await dispatch(logout())
+          dispatch(setOverlay({ isOpen: true, template: 'banned' }))
+        }
+
+        if (
+          currentSession.is_premium === ACCOUNT_PLAN.PREMIUM &&
+          updatedSession.data.is_premium === ACCOUNT_PLAN.FREE
+        ) {
+          dispatch(setOverlay({ isOpen: true, template: 'proPlanExpired' }))
+        }
+        dispatch(setSession(updatedSession.data))
+      }
+    }
+  },
+)
+
 export const sessionSlice = createSlice({
   name: 'session',
   initialState,
   reducers: {
     setSession(state, action: PayloadAction<SessionData>) {
-      return { ...state, ...action.payload }
+      return { ...state, our_ip: 0, ...action.payload }
     },
   },
   extraReducers: builder => {

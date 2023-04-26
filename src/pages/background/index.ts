@@ -13,10 +13,12 @@ import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slic
 import { setIsOnline } from 'state/slices/isOnline'
 import { locationWarp, languageWarp, splitPersonality, timeWarp, workerBlock } from '../content'
 import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
-import handleSessionChanges from './handleSessionChanges'
+import { checkSessionStatus } from 'state/slices/session'
+import { chooseIcon } from 'state/slices/iconVariant'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
+  store.dispatch(chooseIcon())
   return store
 })
 
@@ -57,7 +59,7 @@ chrome.alarms.create('sessionPoller', { periodInMinutes: 1 })
 chrome.alarms.onAlarm.addListener(async alarm => {
   if (alarm.name === 'sessionPoller') {
     const store = await bgStore
-    handleSessionChanges(store)
+    store.dispatch(checkSessionStatus())
   }
 })
 
@@ -221,6 +223,7 @@ const connectionChangedHandler = async () => {
 }
 
 // This is experimental feature and currently nor supported by FF
+// Also it might not work in Brave browser
 // @link https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/change_event
 declare const self: ServiceWorkerGlobalScope
 const _navigator = self.navigator as WorkerNavigatorWithConnection
