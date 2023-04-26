@@ -43,6 +43,7 @@ const Whitelist: ThemeUiElement = () => {
     <Column data-testid="whitelist-page" bg="background">
       <Header title="Whitelist">
         <CircleButton
+          data-testid="add-to-whitelist-button"
           Icon={PlusIcon}
           onClick={() => openSettingsFor('')}
           sx={{
@@ -79,7 +80,7 @@ const Whitelist: ThemeUiElement = () => {
         <Subheader mt="20px" pl="16px">
           whitelisted
         </Subheader>
-        <ScrollableBox sx={{ maxHeight: '212px' }}>
+        <ScrollableBox data-testid="whitelist-items-list" sx={{ maxHeight: '212px' }}>
           {whitelistedDomains.map(domain => (
             <Rectangle key={domain} sx={{ mb: '12px' }}>
               <Hostname>{domain}</Hostname>

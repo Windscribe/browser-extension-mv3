@@ -110,7 +110,7 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
   }
 
   return (
-    <Popup isOpen={isOpen}>
+    <Popup data-testid="whitelist-settings-popup" isOpen={isOpen}>
       <Box bg="background" py="24px" px="16px" sx={{ height: '100%' }}>
         {isDomainValid ? (
           <Subheader>{isEditMode ? 'edit' : 'add new'}</Subheader>
@@ -121,6 +121,7 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
           <ExternalLinkButton url={domainValue} />
         ) : (
           <Input
+            data-testid="whitelist-domain-input"
             placeholder={'Enter domain to whitelist'}
             value={domainValue}
             onChange={handleChange}
@@ -146,6 +147,7 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
               Allow Ads
             </SettingsOption>
             <SettingsOption
+              data-testid="allow-privacy-features-checkbox"
               isChecked={isPrivacyFeaturesAllowed}
               noBorder
               toggleState={setIsPrivacyFeaturesAllowed}

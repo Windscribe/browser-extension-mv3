@@ -38,10 +38,14 @@ const SiteControlBar: React.FC = () => {
         overflow: 'hidden',
       }}
     >
-      <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}>
+      <Text
+        data-testid="current-tab-hostname"
+        sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}
+      >
         {currentTabHostname}
       </Text>
       <IconButton
+        data-testid="open-whitelist-button"
         sx={{
           p: 0,
           height: '24px',

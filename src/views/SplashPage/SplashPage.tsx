@@ -68,7 +68,7 @@ const SplashPage: ThemeUiElement = () => {
         Get Started
       </Button>
       <Button
-        data-testid="login-button"
+        data-testid="go-to-login-button"
         onClick={goToLogin}
         variant="simple"
         sx={{

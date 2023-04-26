@@ -117,6 +117,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           )}
         </StyledIconButton>
         <StyledIconButton
+          data-testid="whitelist-security-features-button"
           onClick={() => {
             setIsPrivacyFeaturesAllowed(!isPrivacyFeaturesAllowed)
             setWasSettingsUpdated(true)
@@ -128,7 +129,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
             <CookiesDeselected sx={{ fill: 'halfWhite' }} />
           )}
         </StyledIconButton>
-        <StyledIconButton onClick={handleClose}>
+        <StyledIconButton data-testid="domain-control-close-button" onClick={handleClose}>
           {wasSettingsUpdated ? <Refresh /> : <CloseWhitelist sx={{ fill: 'halfWhite' }} />}
         </StyledIconButton>
       </Flex>

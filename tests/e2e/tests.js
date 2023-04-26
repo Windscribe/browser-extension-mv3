@@ -10,12 +10,17 @@ const { autopilot } = require('./autopilot')
 const { locations } = require('./locations')
 const { debugLog } = require('./debugLog')
 const { privacyOptions } = require('./privacyOptions')
+const { whitelist } = require('./whitelist')
 const { account } = require('./account')
 const { logout } = require('./logout')
 
 let popupPage, browser
 describe('Tests', () => {
   before(async function () {
+    console.log('process.env.API_URL: ', process.env.API_URL)
+    console.log('process.env.TEST_USER_NAME: ', process.env.TEST_USER_NAME)
+    console.log('process.env.TEST_USER_PASSWORD: ', process.env.TEST_USER_PASSWORD)
+
     const context = await setup()
     browser = context.browser
     popupPage = context.popupPage
@@ -29,6 +34,7 @@ describe('Tests', () => {
     locations(popupPage)
     debugLog(popupPage, browser)
     privacyOptions(popupPage, browser)
+    whitelist(popupPage, browser)
     account(popupPage)
     logout(popupPage)
   })

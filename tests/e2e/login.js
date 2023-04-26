@@ -4,7 +4,7 @@ const login = async popupPage => {
   describe('Login', async () => {
     it('Go to login page and enter creds', async () => {
       // Go to Login page
-      const goLoginButton = await popupPage.$('[data-testid=login-button]')
+      const goLoginButton = await popupPage.$('[data-testid=go-to-login-button]')
       await goLoginButton.click()
 
       // Ensure that we are on Login page
