@@ -40,7 +40,7 @@ function DropDown<T extends string | number>({
         }}
       >
         <Text sx={{ mr: '8px', fontWeight: '400', color: 'secondaryText' }}>{current}</Text>
-        <DoubleArrowIcon />
+        <DoubleArrowIcon sx={{ fill: 'secondaryText' }} />
       </Flex>
       <Box
         css={{
@@ -63,11 +63,11 @@ function DropDown<T extends string | number>({
             right: 0,
             top: '50%',
             transform: 'translateY(-50%)',
-            border: 'solid 1px black',
+            border: 'solid 1px rgba(0, 0, 0, 0.15)',
             width: 'auto',
             minWidth: '60px',
             whiteSpace: 'nowrap',
-            boxShadow: '0 2px 4px 0 black',
+            boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.15)',
           }}
         >
           {items.map(item => (

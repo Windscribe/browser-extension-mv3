@@ -18,6 +18,7 @@ const ToolTip: ThemeUiElement<ToolTipProps> = ({ message, children, ...props }) 
       fontWeight: '600',
       fontSize: '12px',
       my: '4px',
+      boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.10)',
       '.tippy-content': {
         p: '3px 6px',
       },
