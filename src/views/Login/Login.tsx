@@ -112,7 +112,7 @@ const Login: ThemeUiElement = () => {
             name="username"
             data-testid="username-input"
             autofillBackgroundColor="foreground"
-            spellcheck="false"
+            spellCheck="false"
             value={username}
             onChange={e => {
               setUsername(e.target.value)
