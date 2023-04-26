@@ -19,9 +19,9 @@ const Login: ThemeUiElement = () => {
   const errorCode = useSelector(s => s.session.error?.errorCode)
   const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
   const loginStatus = useSelector(s => s.session.loading)
-  // const savedUsername = useSelector(s => s.userStashes.username)
+  const savedUsername = useSelector(s => s.userStashes.username)
 
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState(savedUsername)
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | undefined>('')
@@ -29,10 +29,6 @@ const Login: ThemeUiElement = () => {
   const [error2fa, setError2fa] = useState<string | undefined>('')
 
   const isPending = loginStatus === 'pending'
-
-  // useEffect(() => {
-  //   savedUsername && setUsername(savedUsername)
-  // }, [savedUsername])
 
   useEffect(() => {
     // Maybe we need to store these error codes as constants somewhere? We can discuss
@@ -116,6 +112,7 @@ const Login: ThemeUiElement = () => {
             name="username"
             data-testid="username-input"
             autofillBackgroundColor="foreground"
+            spellCheck="false"
             value={username}
             onChange={e => {
               setUsername(e.target.value)
