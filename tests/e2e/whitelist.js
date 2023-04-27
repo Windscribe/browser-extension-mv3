@@ -56,7 +56,7 @@ const whitelist = async (popupPage, browser) => {
         delay: 50,
       })
 
-      await popupPage.waitForTimeout(500)
+      await popupPage.waitForTimeout(800)
 
       await popupPage.waitForSelector('[data-testid=allow-privacy-features-checkbox]')
       popupPage.click('[data-testid=allow-privacy-features-checkbox]')
@@ -66,7 +66,7 @@ const whitelist = async (popupPage, browser) => {
 
       // Verify domain appeared on whitelist-page
       await popupPage.waitForSelector('[data-testid=whitelist-items-list]')
-      await popupPage.waitForTimeout(500)
+      await popupPage.waitForTimeout(800)
       const hasTestPage = await popupPage.evaluate(() => {
         return [
           ...document.querySelectorAll("div[data-testid='whitelist-items-list'] > div > span"),
