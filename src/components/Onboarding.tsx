@@ -18,10 +18,10 @@ const steps: Step[] = [
     placement: 'left',
   },
   {
-    target: '.joyride-element-whitelist',
+    target: '.joyride-element-allowlist',
     content: (
       <p>
-        {'Whitelist a site to bypass our proxy,'}
+        {'Allowlist a site to bypass our proxy,'}
         <br />
         {'allow ads, or switch off privacy features'}
       </p>

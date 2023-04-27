@@ -4,12 +4,12 @@ import { Flex } from 'theme-ui'
 import IconButton, { type IconButtonProps } from 'components/IconButton'
 import { type ThemeUiElement } from 'utils/types'
 import { useDispatchAlias, useSelector } from 'state/hooks'
-import { ADD_TO_WHITELIST } from 'state/slices/whitelist'
+import { ADD_TO_ALLOWLIST } from 'state/slices/allowlist'
 import { reloadCurrentTab } from 'services/currentTab'
 
 import AdsDeselected from 'assets/img/adsDeselected.svg'
 import AdsSelected from 'assets/img/adsSelected.svg'
-import CloseWhitelist from 'assets/img/closeWhitelist.svg'
+import CloseAllowlist from 'assets/img/closeAllowlist.svg'
 import ConnectionDeselected from 'assets/img/connectionDeselected.svg'
 import ConnectionSelected from 'assets/img/connectionSelected.svg'
 import CookiesSelected from 'assets/img/cookiesSelected.svg'
@@ -28,7 +28,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   setIsDomainSettingsOpen,
 }) => {
   const dispatchAlias = useDispatchAlias()
-  const whitelist = useSelector(s => s.whitelist)
+  const allowlist = useSelector(s => s.allowlist)
 
   const [isAdsAllowed, setIsAdsAllowed] = useState(false)
   const [isPrivacyFeaturesAllowed, setIsPrivacyFeaturesAllowed] = useState(false)
@@ -36,7 +36,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   const [wasSettingsUpdated, setWasSettingsUpdated] = useState(false)
 
   const initializeDomainSettings = useCallback(() => {
-    const settings = whitelist[currentTabHostname]
+    const settings = allowlist[currentTabHostname]
 
     const allowAds = settings?.allowAds || false
     const allowPrivacyFeatures = settings?.allowPrivacyFeatures || false
@@ -45,7 +45,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     setIsAdsAllowed(allowAds)
     setIsPrivacyFeaturesAllowed(allowPrivacyFeatures)
     setIsDirectConnectionsAllowed(allowDirectConnections)
-  }, [whitelist, currentTabHostname])
+  }, [allowlist, currentTabHostname])
 
   useEffect(() => {
     initializeDomainSettings()
@@ -53,7 +53,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
   const handleClose = async () => {
     if (wasSettingsUpdated) {
-      await dispatchAlias(ADD_TO_WHITELIST, {
+      await dispatchAlias(ADD_TO_ALLOWLIST, {
         domain: currentTabHostname,
         allowAds: isAdsAllowed,
         allowPrivacyFeatures: isPrivacyFeaturesAllowed,
@@ -117,7 +117,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           )}
         </StyledIconButton>
         <StyledIconButton
-          data-testid="whitelist-security-features-button"
+          data-testid="allowlist-security-features-button"
           onClick={() => {
             setIsPrivacyFeaturesAllowed(!isPrivacyFeaturesAllowed)
             setWasSettingsUpdated(true)
@@ -130,7 +130,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           )}
         </StyledIconButton>
         <StyledIconButton data-testid="domain-control-close-button" onClick={handleClose}>
-          {wasSettingsUpdated ? <Refresh /> : <CloseWhitelist sx={{ fill: 'halfWhite' }} />}
+          {wasSettingsUpdated ? <Refresh /> : <CloseAllowlist sx={{ fill: 'halfWhite' }} />}
         </StyledIconButton>
       </Flex>
     </Flex>

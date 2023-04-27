@@ -3,12 +3,12 @@ import { login, LOGIN, checkSessionStatus, CHECK_SESSION_STATUS } from './slices
 import { connectToAutopilot, CONNECT_TO_AUTOPILOT } from './slices/autopilot'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
 import {
-  addToWhitelist,
-  removeFromWhitelist,
-  ADD_TO_WHITELIST,
-  REMOVE_FROM_WHITELIST,
-  type WhitelistPayload,
-} from './slices/whitelist'
+  addToAllowlist,
+  removeFromAllowlist,
+  ADD_TO_ALLOWLIST,
+  REMOVE_FROM_ALLOWLIST,
+  type AllowlistPayload,
+} from './slices/allowlist'
 import { fetchNotifications, FETCH_NOTIFICATIONS } from './slices/newsfeed'
 import { fetchServerCredentials, FETCH_SERVER_CREDENTIALS } from './slices/serverCredentials'
 import { fetchUserAgentsList, FETCH_USER_AGENTS_LIST } from './slices/userAgent'
@@ -35,11 +35,11 @@ type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
 
 const _login: ActionCreator<Credentials, ReturnType<typeof login>> = ({ payload }) => login(payload)
 
-const _addToWhitelist: ActionCreator<WhitelistPayload, void> = ({ payload }) =>
-  addToWhitelist(payload)
+const _addToAllowlist: ActionCreator<AllowlistPayload, void> = ({ payload }) =>
+  addToAllowlist(payload)
 
-const _removeFromWhitelist: ActionCreator<{ domain: string }, void> = ({ payload }) =>
-  removeFromWhitelist(payload.domain)
+const _removeFromAllowlist: ActionCreator<{ domain: string }, void> = ({ payload }) =>
+  removeFromAllowlist(payload.domain)
 
 export default {
   [`alias/${LOGIN}`]: _login,
@@ -47,8 +47,8 @@ export default {
   [`alias/${FETCH_SERVER_CREDENTIALS}`]: fetchServerCredentials,
   [`alias/${CONNECT_TO_AUTOPILOT}`]: connectToAutopilot,
   [`alias/${FETCH_BEST_LOCATION}`]: fetchBestLocation,
-  [`alias/${ADD_TO_WHITELIST}`]: _addToWhitelist,
-  [`alias/${REMOVE_FROM_WHITELIST}`]: _removeFromWhitelist,
+  [`alias/${ADD_TO_ALLOWLIST}`]: _addToAllowlist,
+  [`alias/${REMOVE_FROM_ALLOWLIST}`]: _removeFromAllowlist,
   [`alias/${FETCH_NOTIFICATIONS}`]: fetchNotifications,
   [`alias/${SAVE_USER_STASH}`]: saveUserStash,
   [`alias/${CHECK_USER_STASH}`]: checkUserStash,
