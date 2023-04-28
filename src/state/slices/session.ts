@@ -8,7 +8,7 @@ import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
 import { login as loginRequest, logout as logoutRequest, getSessionStatus } from 'api/endpoints'
 import { resetWebRtcBlocker } from './webRtcEnabled'
-import { setOverlay } from 'state/slices/overlay'
+import { addOverlay } from 'state/slices/overlay'
 import { setView } from 'state/slices/view'
 import detectUblock from 'services/detectUblock'
 import { checkIp } from 'services'
@@ -58,7 +58,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
       const isUblockInstalled = await detectUblock()
-      isUblockInstalled && dispatch(setOverlay({ isOpen: true, template: 'ublockDetected' }))
+      isUblockInstalled && dispatch(addOverlay('ublockDetected'))
       return response.data
     }
 
@@ -101,19 +101,19 @@ export const checkSessionStatus = createAsyncThunk(
           updatedSession.data.traffic_used !== undefined &&
           updatedSession.data.traffic_max - updatedSession.data.traffic_used <= 0
         ) {
-          dispatch(setOverlay({ isOpen: true, template: 'noData' }))
+          dispatch(addOverlay('noData'))
           dispatch(disconnectProxy())
         }
         if (updatedSession.data.status === ACCOUNT_STATES.BANNED) {
           await dispatch(logout())
-          dispatch(setOverlay({ isOpen: true, template: 'banned' }))
+          dispatch(addOverlay('banned'))
         }
 
         if (
           currentSession.is_premium === ACCOUNT_PLAN.PREMIUM &&
           updatedSession.data.is_premium === ACCOUNT_PLAN.FREE
         ) {
-          dispatch(setOverlay({ isOpen: true, template: 'proPlanExpired' }))
+          dispatch(addOverlay('proPlanExpired'))
         }
         dispatch(setSession(updatedSession.data))
       }

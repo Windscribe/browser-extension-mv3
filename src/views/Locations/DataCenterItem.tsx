@@ -16,7 +16,7 @@ import { useGoTo } from 'services/navigation'
 import { type DataCenter } from 'api/types'
 import { type ThemeUiElement } from 'utils/types'
 import { IconButton } from 'components'
-import { setOverlay } from 'state/slices/overlay'
+import { addOverlay } from 'state/slices/overlay'
 
 import HeartIcon from 'assets/img/heart.svg'
 import HeartBreakIcon from 'assets/img/heartBreak.svg'
@@ -42,7 +42,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
 
   const handleClick = (dataCenter: DataCenter) => {
     if (!dataCenter.hosts || dataCenter.hosts.length === 0) {
-      dispatch(setOverlay({ isOpen: true, template: 'locationDown' }))
+      dispatch(addOverlay('locationDown'))
     } else {
       location && dispatch(setCurrentLocation(location))
       goToHome()

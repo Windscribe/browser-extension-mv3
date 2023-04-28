@@ -6,7 +6,7 @@ import type { SyncThunkCreator } from 'utils/types'
 import { pushToDebugLog } from './debugLog'
 import { setReconnectionAttempts } from './connection'
 import { checkIp, createNotification } from 'services'
-import { setOverlay } from 'state/slices/overlay'
+import { addOverlay } from 'state/slices/overlay'
 import { ACCOUNT_PLAN } from 'utils/constants'
 
 import proxyOffIcon from 'assets/img/proxyOff.png'
@@ -52,7 +52,7 @@ export const connectProxy = createAsyncThunk(
         traffic_max !== ACCOUNT_PLAN.UNLIMITED &&
         traffic_max - traffic_used <= 0
       ) {
-        dispatch(setOverlay({ isOpen: true, template: 'noData' }))
+        dispatch(addOverlay('noData'))
         throw Error('Out of data.')
       }
 
@@ -63,7 +63,7 @@ export const connectProxy = createAsyncThunk(
       })
 
       if (proxySetting === 'controlled_by_other_extensions') {
-        dispatch(setOverlay({ isOpen: true, template: 'extensionConflict' }))
+        dispatch(addOverlay('extensionConflict'))
         throw Error('Proxy is controlled by another extension.')
       }
 
