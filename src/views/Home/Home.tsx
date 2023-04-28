@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Text } from 'theme-ui'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
 import UsageBar from './UsageBar'
@@ -7,7 +7,6 @@ import PrivacyButton from './PrivacyButton'
 import BlockerButton from './BlockerButton'
 import FlagBackground from './FlagBackground'
 import DomainControlBar from './DomainControlBar'
-import { checkIp } from 'services'
 import { useGoTo } from 'services/navigation'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
@@ -46,16 +45,12 @@ const Home: ThemeUiElement = () => {
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
-  const workingApi = useSelector(state => state.workingApi)
   const overlayTemplate = useSelector(state => state.overlay.template)
+  const currentIp = useSelector(state => state.proxy.currentIp)
+
+  const hasProxyError = useSelector(state => state.proxy.errorMessage)
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
-
-  const [currentIp, setCurrentIp] = useState('')
-
-  useEffect(() => {
-    checkIp(workingApi).then(ip => setCurrentIp(ip))
-  }, [workingApi])
 
   useEffect(() => {
     if (overlayTemplate === 'welcome') dispatch(setOverlay({ isOpen: true }))
@@ -78,7 +73,6 @@ const Home: ThemeUiElement = () => {
         await dispatchAlias(CONNECT_TO_AUTOPILOT)
       }
     }
-    setCurrentIp(await checkIp(workingApi))
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
@@ -174,24 +168,39 @@ const Home: ThemeUiElement = () => {
                 mb: '12px',
               }}
             >
-              <Text
-                sx={{
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  color: isConnected ? 'neonGreen' : 'white',
-                  mr: '8px',
-                }}
-              >
-                {isConnected ? 'ON' : 'OFF'}
-              </Text>
-              <Text
-                sx={{
-                  fontSize: '12px',
-                  color: isConnected ? 'neonGreen' : 'halfWhite',
-                }}
-              >
-                {currentIp}
-              </Text>
+              {isPending ? (
+                <Text
+                  sx={{
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    color: 'neonGreen',
+                    mr: '8px',
+                  }}
+                >
+                  CONNECTING...
+                </Text>
+              ) : (
+                <>
+                  <Text
+                    sx={{
+                      fontSize: '12px',
+                      fontWeight: '600',
+                      color: isPending || isConnected ? 'neonGreen' : 'white',
+                      mr: '8px',
+                    }}
+                  >
+                    {isConnected ? 'ON' : 'OFF'}
+                  </Text>
+                  <Text
+                    sx={{
+                      fontSize: '12px',
+                      color: isConnected ? 'neonGreen' : 'halfWhite',
+                    }}
+                  >
+                    {currentIp}
+                  </Text>
+                </>
+              )}
             </Flex>
             <Box mb="8px">
               <Text
@@ -279,7 +288,11 @@ const Home: ThemeUiElement = () => {
                 justifyContent: 'center',
                 borderRadius: '50%',
                 border: 'solid 3px',
-                borderColor: `${isConnected ? 'neonGreen' : 'transparent'}`,
+                borderColor: isConnected
+                  ? !!hasProxyError
+                    ? 'yellow'
+                    : 'neonGreen'
+                  : 'transparent',
                 transform: `rotate(${isPending || isConnected ? '0' : '-180deg'})`,
                 transition: '0.3s',
                 ':hover': {

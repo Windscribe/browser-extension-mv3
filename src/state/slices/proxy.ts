@@ -16,14 +16,18 @@ interface ProxyState {
   isConnected: boolean
   isPending: boolean
   hosts: Host[] | undefined
+  currentIp: string
   errorMessage?: string
+  errorChecking: boolean
 }
 
 const initialState: ProxyState = {
   isConnected: false,
   isPending: false,
   hosts: undefined,
+  currentIp: '---.---.---.---',
   errorMessage: undefined,
+  errorChecking: false,
 }
 
 export const CONNECT_PROXY = 'proxy/connectProxy'
@@ -72,7 +76,9 @@ export const connectProxy = createAsyncThunk(
 
       await connect(hosts, whitelist, proxyPort, cruiseControlList)
       dispatch(setProxy(hosts))
-      const ip = await checkIp(getState().workingApi)
+
+      const ip = await checkIp()
+      dispatch(setCurrentIp(ip))
 
       if (ip === '---.---.---.---') {
         throw Error('Failed to connect to proxy')
@@ -103,6 +109,8 @@ export const disconnectProxy = createAsyncThunk(
   DISCONNECT_PROXY,
   async (_, { getState, dispatch }) => {
     await disconnect()
+    const ip = await checkIp()
+    dispatch(setCurrentIp(ip))
     dispatch(resetProxy())
 
     if (getState().allowSystemNotifications) {
@@ -136,13 +144,23 @@ export const proxySlice = createSlice({
     resetProxy(state) {
       state.hosts = undefined
       state.isConnected = false
+      state.isPending = false
       state.errorMessage = undefined
+    },
+    setIsPending(state, action: PayloadAction<boolean>) {
+      state.isPending = action.payload
     },
     setConnectionError(state, action: PayloadAction<string>) {
       state.errorMessage = `Proxy connection error. ${action.payload}`
     },
     setIsConnected(state, action: PayloadAction<boolean>) {
       state.isConnected = action.payload
+    },
+    setCurrentIp(state, action: PayloadAction<string>) {
+      state.currentIp = action.payload
+    },
+    setErrorChecking(state, action: PayloadAction<boolean>) {
+      state.errorChecking = action.payload
     },
   },
   extraReducers: builder => {
@@ -154,10 +172,10 @@ export const proxySlice = createSlice({
       .addCase(connectProxy.fulfilled, state => {
         state.isConnected = true
         state.isPending = false
+        state.errorMessage = undefined
+        state.errorChecking = false
       })
       .addCase(connectProxy.rejected, (state, action) => {
-        state.isConnected = false
-        state.isPending = false
         if (action.error.message) {
           state.errorMessage = action.error.message
         }
@@ -165,5 +183,13 @@ export const proxySlice = createSlice({
   },
 })
 
-export const { setProxy, resetProxy, setConnectionError, setIsConnected } = proxySlice.actions
+export const {
+  setProxy,
+  resetProxy,
+  setConnectionError,
+  setIsConnected,
+  setCurrentIp,
+  setIsPending,
+  setErrorChecking,
+} = proxySlice.actions
 export default proxySlice.reducer

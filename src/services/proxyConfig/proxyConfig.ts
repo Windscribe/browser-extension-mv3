@@ -25,7 +25,6 @@ const createFindProxyForURLFunction = (
     const userWhitelist = ${JSON.stringify(whitelist)}
     const lanIps = /(^(127|10)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$)|(^192\\.168\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.1[6-9]\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.2[0-9]\\.\\d{1,3}\.\\d{1,3}$)|(^172\\.3[0-1]\\.\\d{1,3}\\.\\d{1,3}$)/
     const whitelist = [
-      '*://checkip.windscribe.com/*',
       '*://api-staging.windscribe.com/*',
       '*://api.windscribe.com/*',
       '*://assets.windscribe.com/*',
