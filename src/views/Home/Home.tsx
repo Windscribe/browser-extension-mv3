@@ -10,7 +10,7 @@ import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
-import { setOverlay } from 'state/slices/overlay'
+import { addOverlay } from 'state/slices/overlay'
 import { useInitialDataFetching } from 'components/hooks'
 import Onboarding from 'components/Onboarding'
 import { ACCOUNT_PLAN } from 'utils/constants'
@@ -48,16 +48,22 @@ const Home: ThemeUiElement = () => {
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
-  const overlayTemplate = useSelector(state => state.overlay.template)
   const hasProxyError = useSelector(state => state.proxy.errorMessage)
+  const workingApi = useSelector(state => state.workingApi)
 
   const proxyFailure = isConnected && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
-
+  // Todo. delete for test only
   useEffect(() => {
-    if (overlayTemplate === 'welcome') dispatch(setOverlay({ isOpen: true }))
-  }, [dispatch, overlayTemplate])
+    dispatch(addOverlay('welcome'))
+    //setTimeout(() => dispatch(addOverlay('ublockDetected')), 1000)
+  }, [])
+
+  //useEffect(() => {
+  // TODO Find condition
+  // dispatch(addOverlay('welcome'))
+  //}, [dispatch])
 
   useInitialDataFetching()
 
