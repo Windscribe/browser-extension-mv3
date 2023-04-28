@@ -1,6 +1,6 @@
 import type { OverlayTemplate } from 'utils/types'
 import { useDispatch } from 'state/hooks'
-import { setOverlay } from 'state/slices/overlay'
+import { addOverlay } from 'state/slices/overlay'
 import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import CancelButton from './CancelButton'
 import ConfirmButton from './ConfirmButton'
@@ -13,11 +13,13 @@ import noDataGarry from 'assets/img/garry/garryNoData.png'
 import sadGarry from 'assets/img/garry/garrySad.png'
 import angryGarry from 'assets/img/garry/garryAngry.png'
 
+type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
+
 type OverlayTemplateContent = {
   title: string
   message: string
   img: string
-  ActionsBlock?: React.ComponentType
+  ActionsBlock?: ActionsBlockComponent
 }
 
 export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateContent => {
@@ -92,9 +94,9 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
   }
 }
 
-function Welcome() {
+const Welcome: ActionsBlockComponent = ({ close }) => {
   const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false, template: 'somethingWeird' }))
+  //const close = () => dispatch(setOverlay({ isOpen: false, template: 'somethingWeird' }))
 
   return (
     <>
@@ -112,9 +114,7 @@ function Welcome() {
   )
 }
 
-function SomethingWeird() {
-  const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+const SomethingWeird: ActionsBlockComponent = ({ close }) => {
   return (
     <>
       <CancelButton onClick={close}>Got it</CancelButton>
@@ -122,12 +122,9 @@ function SomethingWeird() {
   )
 }
 
-function UblockDetected() {
+const UblockDetected: ActionsBlockComponent = ({ close }) => {
   const dispatch = useDispatch()
-  const open = () => {
-    dispatch(setOverlay({ isOpen: true, template: 'uninstallUblock' }))
-  }
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+  const open = () => dispatch(addOverlay('uninstallUblock'))
 
   return (
     <>
@@ -137,16 +134,16 @@ function UblockDetected() {
   )
 }
 
-function UninstallUblock() {
-  const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+const UninstallUblock: ActionsBlockComponent = ({ close }) => {
+  //const dispatch = useDispatch()
+  //const close = () => dispatch(setOverlay({ isOpen: false }))
 
   return <CancelButton onClick={close}>Ok</CancelButton>
 }
 
-const NoData = () => {
-  const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+const NoData: ActionsBlockComponent = ({ close }) => {
+  //const dispatch = useDispatch()
+  //const close = () => dispatch(setOverlay({ isOpen: false }))
 
   return (
     <>
@@ -163,9 +160,9 @@ const NoData = () => {
   )
 }
 
-const ProPlanExpired = () => {
-  const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+const ProPlanExpired: ActionsBlockComponent = ({ close }) => {
+  //const dispatch = useDispatch()
+  //const close = () => dispatch(setOverlay({ isOpen: false }))
 
   return (
     <>
@@ -182,9 +179,9 @@ const ProPlanExpired = () => {
   )
 }
 
-const Banned = () => {
-  const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+const Banned: ActionsBlockComponent = ({ close }) => {
+  //const dispatch = useDispatch()
+  //const close = () => dispatch(setOverlay({ isOpen: false }))
   return (
     <CancelButton
       onClick={() => {
@@ -197,16 +194,16 @@ const Banned = () => {
   )
 }
 
-const ExtensionConflict = () => {
-  const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+const ExtensionConflict: ActionsBlockComponent = ({ close }) => {
+  //const dispatch = useDispatch()
+  // const close = () => dispatch(setOverlay({ isOpen: false }))
 
   return <CancelButton onClick={close}>Got it</CancelButton>
 }
 
-const LocationDown = () => {
-  const dispatch = useDispatch()
-  const close = () => dispatch(setOverlay({ isOpen: false }))
+const LocationDown: ActionsBlockComponent = ({ close }) => {
+  //const dispatch = useDispatch()
+  //const close = () => dispatch(setOverlay({ isOpen: false }))
 
   return (
     <>
