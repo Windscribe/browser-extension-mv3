@@ -39,14 +39,14 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
         overflowX: 'hidden',
         scrollbarGutter: 'stable', // reserve space for the scrollbar
         /* For firefox */
-        scrollbarColor: 'quarterwhite background',
+        scrollbarColor: 'quarterWhite background',
         scrollbarWidth: 'thin',
         /*for chrome */
         '&::-webkit-scrollbar': {
           width: `${scrollbarWidth}px`,
         },
         '&::-webkit-scrollbar-thumb': {
-          backgroundColor: 'quarterwhite',
+          backgroundColor: 'quarterWhite',
           borderBottom: '2px solid',
           borderColor: 'background',
         },

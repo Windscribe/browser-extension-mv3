@@ -19,7 +19,7 @@ export default function withSpinner<P extends object>(
               top: 0,
               left: 0,
               zIndex: 10,
-              backgroundColor: 'quarterwhite',
+              backgroundColor: 'quarterWhite',
             }}
           >
             <Spinner

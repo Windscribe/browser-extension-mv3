@@ -27,7 +27,7 @@ const Signup: ThemeUiElement = () => {
         <Box mx="32px" my="24px">
           <Button
             dataTestId="windscribe-signup-button"
-            bg="lowWhite"
+            bg="foreground"
             color="white"
             text="Free"
             subtext="Up to 10GB/month"
