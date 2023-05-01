@@ -19,7 +19,7 @@ export const checkUserStash = createAsyncThunk(
   async (username: string, { getState, dispatch }) => {
     const userNameHash = md5(username || '').toString()
     const userStash = getState().userStashes.store[userNameHash]
-    userStash && (await dispatch({ type: 'global/applyUserStash', payload: userStash }))
+    userStash && dispatch({ type: 'global/applyUserStash', payload: userStash })
   },
 )
 
@@ -40,12 +40,13 @@ export const saveUserStash = createAsyncThunk(
       'servers',
       'serverCredentials',
       'view',
+      'userStashes',
     ] as Array<keyof typeof state>
 
     const toStash = Object.assign({}, state)
     for (const slice of doNotStash) delete toStash[slice]
 
-    dispatch(setUserStashes({ [userNameHash]: { state } }))
+    dispatch(setUserStashes({ [userNameHash]: { toStash } }))
   },
 )
 
