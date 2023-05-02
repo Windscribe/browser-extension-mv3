@@ -45,10 +45,10 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
       dispatch(setOverlay({ isOpen: true, template: 'locationDown' }))
     } else {
       location && dispatch(setCurrentLocation(location))
+      goToHome()
       dispatch(setCurrentDataCenter(dataCenter))
       dispatch(setAutopilotSelected(false))
       dispatch(connectProxy(dataCenter.hosts))
-      goToHome()
     }
   }
 

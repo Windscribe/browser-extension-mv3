@@ -45,8 +45,8 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
 
   const handleLocationItemClick = async () => {
     if (isAutopilot) {
-      await dispatchAlias(CONNECT_TO_AUTOPILOT)
       goToHome()
+      await dispatchAlias(CONNECT_TO_AUTOPILOT)
     } else {
       setIsExpanded(!isExpanded)
     }
