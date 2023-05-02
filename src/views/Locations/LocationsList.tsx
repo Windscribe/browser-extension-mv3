@@ -40,7 +40,7 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
       {searchText && !serverList.length ? (
         <Column
           sx={{
-            height: '100%',
+            height: '90%',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: '16px',
