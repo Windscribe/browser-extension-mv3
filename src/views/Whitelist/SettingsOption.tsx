@@ -26,6 +26,12 @@ const SettingsOption: React.FC<SettingsOptionProps> = ({
       sx={{
         cursor: 'pointer',
         transition: 'all ease 0.3s',
+        '& label': {
+          transition: '0.3s',
+        },
+        'svg > path': {
+          transition: '0.3s',
+        },
         '&:hover': {
           '& label': {
             color: 'primaryText',

@@ -29,6 +29,11 @@ const ButtonsGroup: React.FC<ButtonsGroupProps> = ({
           borderColor: 'secondaryText',
           borderStyle: 'solid',
           color: 'secondaryText',
+          transition: '0.3s',
+          '&:hover': {
+            borderColor: 'primaryText',
+            color: 'primaryText',
+          },
         }}
       >
         Cancel

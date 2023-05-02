@@ -34,7 +34,8 @@ const SortButton: ThemeUiElement = () => {
           aria-label={`Sort by ${sortBy}`}
           ml="auto"
           sx={{
-            '& > svg > path': {
+            'svg > path': {
+              transition: 'fill 0.2s',
               fill: 'secondaryText',
             },
             '&:hover > svg > path': {
