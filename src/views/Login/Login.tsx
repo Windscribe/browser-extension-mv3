@@ -69,7 +69,7 @@ const Login: ThemeUiElement = () => {
         flexDirection: 'column',
       }}
     >
-      <Header title="Login">
+      <Header title="Login" sx={{ borderBottom: '2px solid', borderColor: 'border', mb: '16px' }}>
         <HeaderLink buttonRoute="Signup" buttonText="Sign up" />
       </Header>
       <Box sx={{ mx: '16px' }}>
@@ -85,6 +85,7 @@ const Login: ThemeUiElement = () => {
               sx={{
                 fontWeight: '600',
                 color: 'primaryText',
+                height: '16px',
                 mb: '8px',
                 mr: '16px',
                 flexShrink: 0,
@@ -124,6 +125,7 @@ const Login: ThemeUiElement = () => {
             sx={{
               fontWeight: '600',
               color: 'primaryText',
+              height: '16px',
               mt: '16px',
               mb: '8px',
               mr: '16px',
@@ -164,6 +166,7 @@ const Login: ThemeUiElement = () => {
                   sx={{
                     color: 'secondaryText',
                     mb: '8px',
+                    transition: '0.3s',
                     ':hover': { color: 'primaryText' },
                   }}
                   onClick={() => setUse2fa(false)}
@@ -196,7 +199,7 @@ const Login: ThemeUiElement = () => {
               </Box>
             </>
           )}
-          <Flex sx={{ mt: '16px', mb: '18px', justifyContent: 'space-between' }}>
+          <Flex sx={{ my: '16px', justifyContent: 'space-between' }}>
             <Flex sx={{ flexDirection: 'column' }}>
               {!use2fa && (
                 <Button
@@ -204,6 +207,7 @@ const Login: ThemeUiElement = () => {
                   type="button"
                   sx={{
                     color: 'secondaryText',
+                    transition: '0.3s',
                     ':hover': { color: 'primaryText' },
                   }}
                   onClick={() => setUse2fa(true)}
@@ -229,6 +233,10 @@ const Login: ThemeUiElement = () => {
                 height: '40px',
                 color: 'softBlack',
                 backgroundColor: !!username && !!password ? 'neonGreen' : 'foreground',
+                transition: '0.3s',
+                ':hover': {
+                  backgroundColor: !!username && !!password ? 'white' : 'foreground',
+                },
               }}
               disabled={isPending}
             >
