@@ -1,7 +1,7 @@
 const expect = require('chai').expect
 
-const whitelist = async (popupPage, browser) => {
-  describe('Whitelist', async () => {
+const allowlist = async (popupPage, browser) => {
+  describe('Allowlist', async () => {
     let appUrl, testPage, userAgentSpoofed, appVersionSpoofed
     before(async function () {
       appUrl = 'http://google.com'
@@ -30,7 +30,7 @@ const whitelist = async (popupPage, browser) => {
       expect(userAgentData).to.equal(undefined)
     })
 
-    it('Push test page to whitelist', async () => {
+    it('Push test page to allowlist', async () => {
       popupPage.bringToFront()
       await popupPage.waitForSelector('[data-testid=home-page]')
 
@@ -38,21 +38,21 @@ const whitelist = async (popupPage, browser) => {
       popupPage.click('[data-testid=go-to-preferences]')
       await popupPage.waitForSelector('[data-testid=preferences-page]')
 
-      // Go to Whitelist page
-      popupPage.click('[data-testid=Whitelist]')
-      await popupPage.waitForSelector('[data-testid=whitelist-page]')
+      // Go to Allowlist page
+      popupPage.click('[data-testid=Allowlist]')
+      await popupPage.waitForSelector('[data-testid=allowlist-page]')
 
-      // Open popup with whitelist settings
-      popupPage.click('[data-testid=add-to-whitelist-button]')
-      await popupPage.waitForSelector('[data-testid=whitelist-settings-popup]')
-      await popupPage.waitForSelector('[data-testid=whitelist-domain-input]')
+      // Open popup with allowlist settings
+      popupPage.click('[data-testid=add-to-allowlist-button]')
+      await popupPage.waitForSelector('[data-testid=allowlist-settings-popup]')
+      await popupPage.waitForSelector('[data-testid=allowlist-domain-input]')
 
       // Fill input and Allow Privacy Features for test page
       // There is a bug with Page.type()
       // Details by link https://github.com/puppeteer/puppeteer/issues/1648
-      await popupPage.click('[data-testid=whitelist-domain-input]', { delay: 100 })
+      await popupPage.click('[data-testid=allowlist-domain-input]', { delay: 100 })
       await popupPage.keyboard.press('Backspace')
-      await popupPage.type('[data-testid=whitelist-domain-input]', 'www.google.com', {
+      await popupPage.type('[data-testid=allowlist-domain-input]', 'www.google.com', {
         delay: 50,
       })
 
@@ -61,15 +61,15 @@ const whitelist = async (popupPage, browser) => {
       await popupPage.waitForSelector('[data-testid=allow-privacy-features-checkbox]')
       popupPage.click('[data-testid=allow-privacy-features-checkbox]')
 
-      await popupPage.waitForSelector('[data-testid=whitelist-popup-submit-button]')
-      popupPage.click('[data-testid=whitelist-popup-submit-button]')
+      await popupPage.waitForSelector('[data-testid=allowlist-popup-submit-button]')
+      popupPage.click('[data-testid=allowlist-popup-submit-button]')
 
-      // Verify domain appeared on whitelist-page
-      await popupPage.waitForSelector('[data-testid=whitelist-items-list]')
+      // Verify domain appeared on allowlist-page
+      await popupPage.waitForSelector('[data-testid=allowlist-items-list]')
       await popupPage.waitForTimeout(800)
       const hasTestPage = await popupPage.evaluate(() => {
         return [
-          ...document.querySelectorAll("div[data-testid='whitelist-items-list'] > div > span"),
+          ...document.querySelectorAll("div[data-testid='allowlist-items-list'] > div > span"),
         ].some(element => element.textContent === 'www.google.com')
       })
       expect(hasTestPage).to.equal(true)
@@ -82,7 +82,7 @@ const whitelist = async (popupPage, browser) => {
       expect(homePage).to.not.equal(undefined)
     })
 
-    it('Open test page which is whitelisted now, and ensure that serviceWorker is NOT spoofed', async () => {
+    it('Open test page which is allowlisted now, and ensure that serviceWorker is NOT spoofed', async () => {
       // Refresh test page to apply changes
       testPage.bringToFront()
       await testPage.reload()
@@ -114,4 +114,4 @@ const whitelist = async (popupPage, browser) => {
   })
 }
 
-module.exports = { whitelist }
+module.exports = { allowlist }

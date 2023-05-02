@@ -75,7 +75,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ submitButtonMode, handleSub
   }
   return (
     <BasicButton
-      data-testid="whitelist-popup-submit-button"
+      data-testid="allowlist-popup-submit-button"
       onClick={handleSubmit}
       backgroundColor="lakeBlue"
       color="primaryText"

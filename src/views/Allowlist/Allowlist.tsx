@@ -4,20 +4,20 @@ import { Box, Flex } from 'theme-ui'
 import { Header, CircleButton, Rectangle, IconButton, Subheader, ScrollableBox } from 'components'
 import { Column } from 'components/Flexbox'
 import { useCurrentTabHostname } from 'components/hooks'
-import WhitelistPopup from './WhitelistPopup'
+import AllowlistPopup from './AllowlistPopup'
 import Hostname from './Hostname'
 import { type ThemeUiElement } from 'utils/types'
-import { REMOVE_FROM_WHITELIST } from 'state/slices/whitelist'
+import { REMOVE_FROM_ALLOWLIST } from 'state/slices/allowlist'
 import { useDispatchAlias, useSelector } from 'state/hooks'
 
 import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
 
-const Whitelist: ThemeUiElement = () => {
+const Allowlist: ThemeUiElement = () => {
   const dispatchAlias = useDispatchAlias()
-  const whitelist = useSelector(s => s.whitelist)
-  const whitelistedDomains = Object.keys(whitelist)
+  const allowlist = useSelector(s => s.allowlist)
+  const allowlistedDomains = Object.keys(allowlist)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [domainToEdit, setDomainToEdit] = useState<string>('')
   const [isEditMode, setIsEditMode] = useState(false)
@@ -40,10 +40,10 @@ const Whitelist: ThemeUiElement = () => {
   }
 
   return (
-    <Column data-testid="whitelist-page" bg="background">
-      <Header title="Whitelist">
+    <Column data-testid="allowlist-page" bg="background">
+      <Header title="Allowlist">
         <CircleButton
-          data-testid="add-to-whitelist-button"
+          data-testid="add-to-allowlist-button"
           Icon={PlusIcon}
           onClick={() => openSettingsFor('')}
           sx={{
@@ -78,10 +78,10 @@ const Whitelist: ThemeUiElement = () => {
           </Rectangle>
         </Box>
         <Subheader mt="20px" pl="16px">
-          whitelisted
+          allowlisted
         </Subheader>
-        <ScrollableBox data-testid="whitelist-items-list" sx={{ maxHeight: '212px' }}>
-          {whitelistedDomains.map(domain => (
+        <ScrollableBox data-testid="allowlist-items-list" sx={{ maxHeight: '212px' }}>
+          {allowlistedDomains.map(domain => (
             <Rectangle key={domain} sx={{ mb: '12px' }}>
               <Hostname>{domain}</Hostname>
               <Flex sx={{ flexShrink: 0 }}>
@@ -89,7 +89,16 @@ const Whitelist: ThemeUiElement = () => {
                   <EditIcon />
                 </IconButton>
                 <IconButton
-                  onClick={async () => await dispatchAlias(REMOVE_FROM_WHITELIST, { domain })}
+                  onClick={async () => {
+                    // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+                    chrome.runtime.sendMessage({
+                      what: 'setFilteringMode',
+                      hostname: domain,
+                      level: 3,
+                    })
+
+                    await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain })
+                  }}
                   sx={{ p: 0, ml: '16px' }}
                 >
                   <GarbageIcon />
@@ -99,7 +108,7 @@ const Whitelist: ThemeUiElement = () => {
           ))}
         </ScrollableBox>
       </Box>
-      <WhitelistPopup
+      <AllowlistPopup
         domain={domainToEdit}
         isOpen={isPopupOpen}
         isEditMode={isEditMode}
@@ -109,4 +118,4 @@ const Whitelist: ThemeUiElement = () => {
   )
 }
 
-export default Whitelist
+export default Allowlist

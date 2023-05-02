@@ -16,15 +16,15 @@ const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
 
 const createFindProxyForURLFunction = (
   hosts: Host[],
-  whitelist: string[],
+  allowlist: string[],
   proxyPort: ProxyPort,
   cruiseControlList?: CruiseControlItem[],
 ) => {
   return `
   function FindProxyForURL (url, host) {
-    const userWhitelist = ${JSON.stringify(whitelist)}
+    const userAllowlist = ${JSON.stringify(allowlist)}
     const lanIps = /(^(127|10)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$)|(^192\\.168\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.1[6-9]\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.2[0-9]\\.\\d{1,3}\.\\d{1,3}$)|(^172\\.3[0-1]\\.\\d{1,3}\\.\\d{1,3}$)/
-    const whitelist = [
+    const allowlist = [
       '*://checkip.windscribe.com/*',
       '*://api-staging.windscribe.com/*',
       '*://api.windscribe.com/*',
@@ -33,7 +33,7 @@ const createFindProxyForURLFunction = (
       '*://api.totallyacdn.com/*',
       '*://assets.totallyacdn.com/*',
       'https://windscribe.com/installed/*',
-    ].concat(userWhitelist)
+    ].concat(userAllowlist)
 
     const shouldNotProxy = [
       // if it is NOT an allowed protocol then go direct
@@ -41,7 +41,7 @@ const createFindProxyForURLFunction = (
       ['http', 'ftp', 'ws'].every(protocol => !url.startsWith(protocol)),
       isPlainHostName(host),
       lanIps.test(host),
-      whitelist.some(pattern =>  shExpMatch(url, pattern)),
+      allowlist.some(pattern =>  shExpMatch(url, pattern)),
     ].some(_ => _)
 
     if (shouldNotProxy) {
@@ -57,14 +57,14 @@ const createFindProxyForURLFunction = (
 
 export const connect = async (
   hosts: Host[],
-  whitelist: string[],
+  allowlist: string[],
   proxyPort: ProxyPort,
   cruiseControlList?: CruiseControlItem[],
 ): Promise<void> => {
   const config = {
     mode: 'pac_script',
     pacScript: {
-      data: createFindProxyForURLFunction(hosts, whitelist, proxyPort, cruiseControlList),
+      data: createFindProxyForURLFunction(hosts, allowlist, proxyPort, cruiseControlList),
       mandatory: true,
     },
   }

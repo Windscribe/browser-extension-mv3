@@ -148,10 +148,10 @@ const injectScripts = async (details: WebNavDetails) => {
   const store = await bgStore
 
   const { hostname } = new URL(details.url)
-  const whitelistItem = store.getState().whitelist[hostname]
+  const allowlistItem = store.getState().allowlist[hostname]
 
   // We do not inject any spoofing script if this domain is in an allowlist.
-  if (whitelistItem?.allowPrivacyFeatures) return
+  if (allowlistItem?.allowPrivacyFeatures) return
 
   if (store.getState().workerBlock) {
     executeScript(details.tabId, workerBlock, '')
