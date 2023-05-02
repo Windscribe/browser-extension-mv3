@@ -89,7 +89,7 @@ export const theme: Theme = {
         transition: '0.3s',
       },
       ':hover': {
-        backgroundColor: 'white',
+        backgroundColor: 'primaryText',
         color: 'softBlack',
         div: {
           color: 'background',

@@ -15,7 +15,7 @@ const HeaderLink: ThemeUiElement<HeaderLinkProps> = ({ buttonText, buttonRoute }
     onClick={useGoTo(buttonRoute)}
     sx={{
       fontSize: '14px',
-      color: 'white',
+      color: 'primaryText',
       opacity: 0.5,
       transition: '0.3s',
       '&:hover': {
