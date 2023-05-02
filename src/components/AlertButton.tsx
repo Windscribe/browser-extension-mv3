@@ -2,25 +2,26 @@ import { Button, type ButtonProps } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 
-const RefreshButton: ThemeUiElement<ButtonProps> = ({ ...restProps }) => {
+const AlertButton: ThemeUiElement<ButtonProps & { text: string }> = ({ text, ...restProps }) => {
   return (
     <Button
       variant="rounded"
       sx={{
-        width: '160px',
+        p: '6px 12px',
         fontSize: '12px',
         backgroundColor: 'orange',
+        color: 'black',
         zIndex: 1,
-        filter: 'brightness(0.9)',
+        transition: '0.3s',
         ':hover': {
-          filter: 'brightness(1)',
+          backgroundColor: 'rgba(255, 142, 0, 0.9)',
         },
       }}
       {...restProps}
     >
-      Refresh to see changes
+      {text}
     </Button>
   )
 }
 
-export default RefreshButton
+export default AlertButton

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import { DataCenter } from 'api/types'
 import { setOverlay } from 'state/slices/overlay'
+import IpAddress from './IpAddress'
 import InfoIcon from 'assets/img/infoIcon.svg'
 import NoInternet from 'assets/img/noInternet.svg'
 
@@ -22,8 +23,6 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
   proxyFailure,
 }) => {
   const dispatch = useDispatch()
-
-  const currentIp = useSelector(state => state.proxy.currentIp)
   const isOnline = useSelector(state => state.isOnline)
 
   return (
@@ -94,7 +93,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
                   />
                 </Flex>
               ) : isOnline ? (
-                currentIp
+                <IpAddress />
               ) : null}
             </Text>
           </>
