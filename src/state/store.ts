@@ -90,7 +90,7 @@ const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === 'global/resetStore') {
     state = { userStashes: state?.userStashes } as RootState
   } else if (action.type === 'global/applyUserStash') {
-    state = { ...state, ...action.payload.state } as RootState
+    state = { ...state, ...action.payload.toStash } as RootState
   }
 
   return combinedReducer(state, action)
