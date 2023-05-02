@@ -67,6 +67,10 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
             borderBottomColor: 'border',
             borderBottomStyle: 'solid',
           }),
+          transition: 'color 0.3s',
+          'svg > path': {
+            transition: 'fill 0.3s',
+          },
           '&:hover': {
             color: 'primaryText',
             'svg > path': {

@@ -108,7 +108,10 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
             width: '100%',
             justifyContent: 'space-between',
             color: currentlySelected ? 'primaryText' : 'secondaryText',
-            transition: 'transform ease-in-out 0.2s',
+            transition: '0.3s',
+            'svg > path': {
+              transition: 'fill 0.3s',
+            },
             '&:hover': {
               color: 'primaryText',
               '& > svg': {

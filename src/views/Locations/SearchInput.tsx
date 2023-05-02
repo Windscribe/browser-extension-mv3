@@ -116,12 +116,12 @@ const SearchInput: React.FC<SearchInputProps> = memo(
             onClick={handleIconClick}
             sx={{
               transition: 'all 0.3s ease 0s',
+              'svg > path': {
+                transition: 'fill 0.3s',
+              },
               '&:hover': {
-                svg: {
+                'svg > path': {
                   fill: 'primaryText',
-                  path: {
-                    fill: 'primaryText',
-                  },
                 },
               },
             }}

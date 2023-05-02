@@ -47,6 +47,7 @@ const Whitelist: ThemeUiElement = () => {
           onClick={() => openSettingsFor('')}
           sx={{
             background: 'lakeBlue',
+            transition: '0.3s',
             svg: {
               fill: 'white',
             },

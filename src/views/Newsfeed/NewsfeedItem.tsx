@@ -48,7 +48,10 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
           }),
-
+          transition: '0.3s',
+          'svg > path': {
+            transition: 'fill 0.3s',
+          },
           '&:hover': {
             color: 'primaryText',
             'svg > path': {

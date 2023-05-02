@@ -27,6 +27,9 @@ const ExternalLinkButton: ThemeUiElement<ExternalLinkButtonProps> = ({ url }) =>
           color: 'primaryText',
           fontSize: '14px',
           fontWeight: 'bold',
+          'svg > path': {
+            transition: '0.3s',
+          },
           '&:hover > svg > path': {
             fill: 'primaryText',
           },
