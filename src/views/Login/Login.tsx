@@ -166,6 +166,7 @@ const Login: ThemeUiElement = () => {
                   sx={{
                     color: 'secondaryText',
                     mb: '8px',
+                    transition: '0.3s',
                     ':hover': { color: 'primaryText' },
                   }}
                   onClick={() => setUse2fa(false)}
@@ -206,6 +207,7 @@ const Login: ThemeUiElement = () => {
                   type="button"
                   sx={{
                     color: 'secondaryText',
+                    transition: '0.3s',
                     ':hover': { color: 'primaryText' },
                   }}
                   onClick={() => setUse2fa(true)}
@@ -231,6 +233,10 @@ const Login: ThemeUiElement = () => {
                 height: '40px',
                 color: 'softBlack',
                 backgroundColor: !!username && !!password ? 'neonGreen' : 'foreground',
+                transition: '0.3s',
+                ':hover': {
+                  backgroundColor: !!username && !!password ? 'white' : 'foreground',
+                },
               }}
               disabled={isPending}
             >

@@ -39,6 +39,7 @@ export const theme: Theme = {
     primary: {
       textDecoration: 'none',
       color: 'secondaryText',
+      transition: '0.3s',
       '&:hover': { color: 'primaryText' },
     },
   },
@@ -76,6 +77,17 @@ export const theme: Theme = {
       px: '16px',
       pb: '15px',
       borderRadius: '6px',
+      // TODO: fix all this repeated code
+      transition: '0.3s',
+      div: {
+        transition: '0.3s',
+      },
+      span: {
+        transition: '0.3s',
+      },
+      svg: {
+        transition: '0.3s',
+      },
       ':hover': {
         backgroundColor: 'white',
         color: 'softBlack',

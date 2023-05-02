@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from 'theme-ui'
+import { Box, Flex, Text, type BoxProps } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 import GoBackButton from './GoBackButton'
@@ -14,13 +14,14 @@ type OptionalProps =
   | { shouldShowReloadAlert?: undefined; showReloadAlert?: never }
   | { shouldShowReloadAlert: boolean; showReloadAlert: (flag: boolean) => void }
 
-type HeaderProps = React.PropsWithChildren<MandatoryProps & OptionalProps>
+type HeaderProps = React.PropsWithChildren<MandatoryProps & OptionalProps & BoxProps>
 
 const Header: ThemeUiElement<HeaderProps> = ({
   title,
   showReloadAlert,
   shouldShowReloadAlert,
   children,
+  ...props
 }) => {
   const handleClick = async () => {
     await reloadCurrentTab()
@@ -37,6 +38,7 @@ const Header: ThemeUiElement<HeaderProps> = ({
         alignItems: 'center',
         px: '16px',
       }}
+      {...props}
     >
       <GoBackButton />
       <RefreshButton

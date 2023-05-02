@@ -17,6 +17,7 @@ const HeaderLink: ThemeUiElement<HeaderLinkProps> = ({ buttonText, buttonRoute }
       fontSize: '14px',
       color: 'white',
       opacity: 0.5,
+      transition: '0.3s',
       '&:hover': {
         opacity: 1,
       },

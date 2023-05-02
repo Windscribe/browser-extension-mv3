@@ -60,6 +60,7 @@ const SplashPage: ThemeUiElement = () => {
           color: 'softBlack',
           backgroundColor: 'neonGreen',
           textAlign: 'center',
+          transition: '0.3s',
           ':hover': {
             backgroundColor: 'white',
           },
@@ -77,6 +78,7 @@ const SplashPage: ThemeUiElement = () => {
           fontSize: '14px',
           fontWeight: '600',
           color: 'white',
+          transition: '0.3s',
           ':hover': {
             opacity: '1',
           },

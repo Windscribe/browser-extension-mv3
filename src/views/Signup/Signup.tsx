@@ -9,14 +9,14 @@ const Signup: ThemeUiElement = () => {
   return (
     <Box data-testid="signup-page" bg="background">
       <Column>
-        <Header title="Sign up">
+        <Header title="Sign up" sx={{ borderBottom: '2px solid', borderColor: 'border' }}>
           <HeaderLink buttonRoute="Login" buttonText="Login" />
         </Header>
       </Column>
       <Column>
         <Text
           color="secondaryText"
-          pt="24px"
+          pt="26px"
           sx={{
             fontSize: '14px',
             textAlign: 'center',
@@ -34,7 +34,7 @@ const Signup: ThemeUiElement = () => {
             url="https://windscribe.com/signup?cpid=ext_chrome&platform=chrome"
           />
         </Box>
-        <Box mx="32px" mb="24px">
+        <Box mx="32px" mb="46px">
           <Button
             bg="neonGreen"
             color="black"
