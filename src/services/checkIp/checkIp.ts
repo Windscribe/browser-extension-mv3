@@ -3,6 +3,15 @@ import browserApi from 'services/browserApi'
 export default async function checkIp(): Promise<string> {
   const state = await browserApi.getStateFromStorage()
   const noIp = '---.---.---.---'
+
+  //@ts-expect-error
+  await chrome.offscreen.createDocument({
+    url: chrome.runtime.getURL('checkIp.html'),
+    //@ts-expect-error
+    reasons: [chrome.offscreen.Reason.IFRAME_SCRIPTING],
+    justification: 'reason for needing the document',
+  })
+
   if (state[1].workingApi) {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 3000)
@@ -19,6 +28,9 @@ export default async function checkIp(): Promise<string> {
       .catch(() => noIp)
 
     clearTimeout(timeoutId)
+
+    //@ts-expect-error
+    chrome.offscreen.closeDocument()
 
     return res
   }

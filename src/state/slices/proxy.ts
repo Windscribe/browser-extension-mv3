@@ -146,6 +146,7 @@ export const proxySlice = createSlice({
       state.isConnected = false
       state.isPending = false
       state.errorMessage = undefined
+      state.errorChecking = false
     },
     setIsPending(state, action: PayloadAction<boolean>) {
       state.isPending = action.payload
