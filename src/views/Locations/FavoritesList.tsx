@@ -5,7 +5,7 @@ import { Box, Flex } from 'theme-ui'
 const FavoritesList: React.FC = () => {
   const favorites = useSelector(s => s.favoriteLocations)
 
-  return favorites.length !== 0 ? (
+  return favorites.length ? (
     <Box pb="16px">
       {favorites.map(dataCenter => (
         <DataCenterItem key={dataCenter.id} dataCenter={dataCenter} />
