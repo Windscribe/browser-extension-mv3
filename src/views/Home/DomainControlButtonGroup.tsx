@@ -143,18 +143,18 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
         <ToolTip message="Privacy Features">
           <StyledIconButton
-          data-testid="allowlist-security-features-button"
-          onClick={() => {
-            setIsPrivacyFeaturesAllowed(!isPrivacyFeaturesAllowed)
-            setWasSettingsUpdated(true)
-          }}
-        >
-          {isPrivacyFeaturesAllowed ? (
-            <CookiesSelected sx={{ fill: 'white' }} />
-          ) : (
-            <CookiesDeselected sx={{ fill: 'halfWhite' }} />
-          )}
-        </StyledIconButton>
+            data-testid="allowlist-security-features-button"
+            onClick={() => {
+              setIsPrivacyFeaturesAllowed(!isPrivacyFeaturesAllowed)
+              setWasSettingsUpdated(true)
+            }}
+          >
+            {isPrivacyFeaturesAllowed ? (
+              <CookiesSelected sx={{ fill: 'white' }} />
+            ) : (
+              <CookiesDeselected sx={{ fill: 'halfWhite' }} />
+            )}
+          </StyledIconButton>
         </ToolTip>
         <StyledIconButton data-testid="domain-control-close-button" onClick={handleClose}>
           {wasSettingsUpdated ? <Refresh /> : <CloseAllowlist sx={{ fill: 'halfWhite' }} />}
