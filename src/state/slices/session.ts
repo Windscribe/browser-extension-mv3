@@ -72,7 +72,6 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
   dispatch(disconnectProxy())
   dispatch(resetNotificationBlocker())
   dispatch(resetWebRtcBlocker())
-  dispatch(disconnectProxy())
 })
 
 export const checkSessionStatus = createAsyncThunk(

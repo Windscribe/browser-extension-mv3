@@ -1,12 +1,12 @@
 import { Box, Flex, Text, Link, useColorMode } from 'theme-ui'
 import { useState } from 'react'
 import bytes from 'bytes'
-import { logout } from 'state/slices/session'
+import { LOGOUT } from 'state/slices/session'
 import { Badge, CircleButton, Header, RoundedBox, ListItemButton } from 'components'
 import { SpaceBetween } from 'components/Flexbox'
 import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import { useGoTo } from 'services/navigation'
-import { useDispatch, useSelector } from 'state/hooks'
+import { useDispatch, useSelector, useDispatchAlias } from 'state/hooks'
 import { useWindowOpening } from 'components/hooks'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
 import { type ThemeUiElement } from 'utils/types'
@@ -35,7 +35,10 @@ const Preferences: ThemeUiElement = () => {
   const goToNewsfeed = useGoTo('Newsfeed')
   const goToPrivacy = useGoTo('Privacy')
   const goToHome = useGoTo('Home')
+
   const dispatch = useDispatch()
+  const dispatchAlias = useDispatchAlias()
+
   const { openWindowUsingTempSession } = useWindowOpening()
 
   const runTutorial = () => {
@@ -43,7 +46,7 @@ const Preferences: ThemeUiElement = () => {
     dispatch(setShouldShowOnboarding(true))
   }
 
-  const handleLogoutClick = async () => await dispatch(logout())
+  const handleLogoutClick = async () => await dispatchAlias(LOGOUT)
 
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
