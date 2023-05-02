@@ -32,8 +32,6 @@ const GetNewButton: ThemeUiElement<GetNewButtonProps> = ({ onClick, durationMs =
         setSplitAnimating(true)
         onClick(e)
       }}
-      mr="4px"
-      pr="4px"
     >
       <Box
         sx={{
