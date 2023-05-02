@@ -15,6 +15,7 @@ import ConnectionSelected from 'assets/img/connectionSelected.svg'
 import CookiesSelected from 'assets/img/cookiesSelected.svg'
 import CookiesDeselected from 'assets/img/cookiesDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
+import ToolTip from 'components/ToolTip'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -91,43 +92,51 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           transition: 'opacity 0.2s ease',
         }}
       />
-      <Flex>
-        <StyledIconButton
-          onClick={() => {
-            setIsDirectConnectionsAllowed(!isDirectConnectionsAllowed)
-            setWasSettingsUpdated(true)
-          }}
-        >
-          {isDirectConnectionsAllowed ? (
-            <ConnectionSelected sx={{ fill: 'white' }} />
-          ) : (
-            <ConnectionDeselected sx={{ fill: 'halfWhite' }} />
-          )}
-        </StyledIconButton>
-        <StyledIconButton
-          onClick={() => {
-            setIsAdsAllowed(!isAdsAllowed)
-            setWasSettingsUpdated(true)
-          }}
-        >
-          {isAdsAllowed ? (
-            <AdsSelected sx={{ fill: 'white' }} />
-          ) : (
-            <AdsDeselected sx={{ fill: 'halfWhite' }} />
-          )}
-        </StyledIconButton>
-        <StyledIconButton
-          onClick={() => {
-            setIsCookiesAllowed(!isCookiesAllowed)
-            setWasSettingsUpdated(true)
-          }}
-        >
-          {isCookiesAllowed ? (
-            <CookiesSelected sx={{ fill: 'white' }} />
-          ) : (
-            <CookiesDeselected sx={{ fill: 'halfWhite' }} />
-          )}
-        </StyledIconButton>
+      <Flex sx={{ gap: '16px', mr: '16px' }}>
+        <ToolTip message="Connection">
+          <StyledIconButton
+            onClick={() => {
+              setIsDirectConnectionsAllowed(!isDirectConnectionsAllowed)
+              setWasSettingsUpdated(true)
+            }}
+          >
+            {isDirectConnectionsAllowed ? (
+              <ConnectionSelected sx={{ fill: 'white' }} />
+            ) : (
+              <ConnectionDeselected sx={{ fill: 'halfWhite' }} />
+            )}
+          </StyledIconButton>
+        </ToolTip>
+        <ToolTip message="Ads">
+          <StyledIconButton
+            onClick={() => {
+              setIsAdsAllowed(!isAdsAllowed)
+              setWasSettingsUpdated(true)
+            }}
+          >
+            {isAdsAllowed ? (
+              <AdsSelected sx={{ fill: 'white' }} />
+            ) : (
+              <AdsDeselected sx={{ fill: 'halfWhite' }} />
+            )}
+          </StyledIconButton>
+        </ToolTip>
+
+        <ToolTip message="Privacy Features">
+          <StyledIconButton
+            onClick={() => {
+              setIsCookiesAllowed(!isCookiesAllowed)
+              setWasSettingsUpdated(true)
+            }}
+          >
+            {isCookiesAllowed ? (
+              <CookiesSelected sx={{ fill: 'white' }} />
+            ) : (
+              <CookiesDeselected sx={{ fill: 'halfWhite' }} />
+            )}
+          </StyledIconButton>
+        </ToolTip>
+
         <StyledIconButton onClick={handleClose}>
           {wasSettingsUpdated ? <Refresh /> : <CloseWhitelist sx={{ fill: 'halfWhite' }} />}
         </StyledIconButton>
@@ -142,7 +151,6 @@ export const StyledIconButton: React.FC<StyledIconButtonProps> = ({ children, ..
     <IconButton
       sx={{
         p: 0,
-        mr: '16px',
         height: '24px',
         width: '24px',
         '&:hover svg > path': {
