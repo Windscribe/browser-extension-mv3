@@ -15,6 +15,9 @@ import { locationWarp, languageWarp, splitPersonality, timeWarp, workerBlock } f
 import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 import { checkSessionStatus } from 'state/slices/session'
 import { chooseIcon } from 'state/slices/iconVariant'
+import { fetchNotifications } from 'state/slices/newsfeed'
+import { fetchServerList } from 'state/slices/servers'
+import { fetchServerCredentials } from 'state/slices/serverCredentials'
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
@@ -54,12 +57,24 @@ async function onStartupCallback() {
   }
 }
 
-chrome.alarms.create('sessionPoller', { periodInMinutes: 1 })
+chrome.alarms.create('sessionPoller', { periodInMinutes: 10 })
+chrome.alarms.create('notificationPoller', { periodInMinutes: 720 })
 
 chrome.alarms.onAlarm.addListener(async alarm => {
   if (alarm.name === 'sessionPoller') {
     const store = await bgStore
-    store.dispatch(checkSessionStatus())
+
+    const oldSession = store.getState().session
+    await store.dispatch(checkSessionStatus())
+    const newSession = store.getState().session
+
+    if (JSON.stringify(oldSession) !== JSON.stringify(newSession)) {
+      await store.dispatch(fetchServerCredentials())
+      store.dispatch(fetchServerList())
+    }
+  } else if (alarm.name === 'notificationPoller') {
+    const store = await bgStore
+    store.dispatch(fetchNotifications())
   }
 })
 
