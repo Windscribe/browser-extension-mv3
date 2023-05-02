@@ -135,6 +135,15 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
+          from: 'src/assets/img/spinningLogo.gif',
+          to: path.join(__dirname, 'build/spinningLogo.gif'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
           //TODO Consider not to fetch everything from ublock
           from: 'ublock',
           to: path.join(__dirname, 'build'),
