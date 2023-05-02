@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Box, Flex, Text, Button } from 'theme-ui'
+import { Button } from 'theme-ui'
 import { useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
-import { DataCenter } from 'api/types'
 import AlertButton from 'components/AlertButton'
 
 const IpAddress: ThemeUiElement = () => {
@@ -13,9 +12,11 @@ const IpAddress: ThemeUiElement = () => {
   const [showAlert, setShowAlert] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       showAlert && setShowAlert(false)
     }, 3000)
+
+    return () => clearTimeout(timeoutId)
   }, [showAlert])
 
   const handleClick = () => {
@@ -51,7 +52,6 @@ const IpAddress: ThemeUiElement = () => {
           transform: 'translate(-50%, -50%)',
           top: '100%',
           left: '50%',
-          transition: '0.3s',
         }}
       />
     </>
