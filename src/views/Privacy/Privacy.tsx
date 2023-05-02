@@ -13,6 +13,7 @@ import {
 import { setTimeWarpEnabled } from 'state/slices/timeWarpEnabled'
 import { setLocationWarp } from 'state/slices/locationWarp'
 import { setWorkerBlock } from 'state/slices/workerBlock'
+import ToolTip from 'components/ToolTip'
 
 import DoNotDisturbIcon from 'assets/img/doNotDisturb.svg'
 import WebRtcLeakIcon from 'assets/img/webRtcLeak.svg'
@@ -21,7 +22,7 @@ import LanguageWarpIcon from 'assets/img/languageWarp.svg'
 import LocationWarpIcon from 'assets/img/locationWarp.svg'
 import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
-import ToolTip from 'components/ToolTip'
+import TimeIcon from 'assets/img/time.svg'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -34,6 +35,7 @@ const Privacy: ThemeUiElement = () => {
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
+  const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -86,11 +88,24 @@ const Privacy: ThemeUiElement = () => {
           title="Time Warp"
           subTitle="Sets your browser time to match the connected proxy."
         >
-          <ToggleSwitch
-            onChange={() => dispatch(setTimeWarpEnabled(!timeWarpEnabled))}
-            checked={timeWarpEnabled}
-            disabled={autopilotSelected}
-          />
+          <Flex sx={{ gap: '8px', alignItems: 'center' }}>
+            {timeWarpEnabled && !autopilotSelected && (
+              <Box sx={{ maxHeight: '16px' }}>
+                <ToolTip message={`${currentLocationTimezone}`}>
+                  <TimeIcon
+                    sx={{
+                      fill: 'primaryText',
+                    }}
+                  />
+                </ToolTip>
+              </Box>
+            )}
+            <ToggleSwitch
+              onChange={() => dispatch(setTimeWarpEnabled(!timeWarpEnabled))}
+              checked={timeWarpEnabled}
+              disabled={autopilotSelected}
+            />
+          </Flex>
         </OptionBox>
         <OptionBox
           Icon={LanguageWarpIcon}
@@ -114,16 +129,18 @@ const Privacy: ThemeUiElement = () => {
           title="Split Personality"
           subTitle="Randomly rotates your user agent."
         >
-          <Flex>
+          <Flex sx={{ gap: '8px', alignItems: 'center' }}>
             {splitPersonalityEnabled && (
-              <ToolTip message="Rotate User Agent">
-                <GetNewButton
-                  onClick={() => {
-                    showReloadAlert(true)
-                    dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)
-                  }}
-                />
-              </ToolTip>
+              <Box sx={{ maxHeight: '16px' }}>
+                <ToolTip message="Rotate User Agent">
+                  <GetNewButton
+                    onClick={() => {
+                      showReloadAlert(true)
+                      dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)
+                    }}
+                  />
+                </ToolTip>
+              </Box>
             )}
             <ToggleSwitch
               onChange={() => {
