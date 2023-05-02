@@ -80,6 +80,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              minHeight: '18px',
             }}
           >
             {title}
