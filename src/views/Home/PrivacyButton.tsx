@@ -1,5 +1,4 @@
 import { createSelector } from '@reduxjs/toolkit'
-
 import { type ThemeUiElement } from 'utils/types'
 import { useGoTo } from 'services/navigation'
 import { type RootState } from 'state'
@@ -8,13 +7,14 @@ import { useSelector } from 'state/hooks'
 import PrivacyIcon from 'assets/img/privacy.svg'
 
 // TODO Uncomment selectors when correspondent slices will be merged
-const selectIsInFavorite = createSelector(
+// Might be better to have a count variable slice that is updated every time a privacy option is toggled
+const privacyCount = createSelector(
   [
     //(state: RootState) => state.cookieMonster.enabled,
     (state: RootState) => state.notificationBlockerEnabled,
     (state: RootState) => state.webRtcEnabled,
     (state: RootState) => state.locationWarp,
-    //(state: RootState) => state.timeWarp,
+    (state: RootState) => state.timeWarpEnabled,
     (state: RootState) => state.languageWarpEnabled,
     (state: RootState) => state.splitPersonalityEnabled,
     (state: RootState) => state.workerBlock,
@@ -27,7 +27,7 @@ const selectIsInFavorite = createSelector(
 const PrivacyButton: ThemeUiElement = () => {
   const goToPrivacy = useGoTo('Privacy')
 
-  const count = useSelector(selectIsInFavorite)
+  const count = useSelector(privacyCount)
   const isConnected = useSelector(s => s.proxy?.isConnected)
 
   return (

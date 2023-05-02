@@ -6,6 +6,7 @@ import BlockerIcon from 'assets/img/blocker.svg'
 
 const BlockerButton: ThemeUiElement = () => {
   const goToBlocker = useGoTo('Blocker')
+  const blockLists = useSelector(s => s.blocker.blockLists)
   const isConnected = useSelector(s => s.proxy?.isConnected)
 
   return (
@@ -13,7 +14,7 @@ const BlockerButton: ThemeUiElement = () => {
       className="joyride-element-blocker"
       Icon={BlockerIcon}
       isConnected={isConnected}
-      count={0}
+      count={blockLists.length}
       onClick={goToBlocker}
     />
   )
