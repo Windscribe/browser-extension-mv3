@@ -89,7 +89,16 @@ const Allowlist: ThemeUiElement = () => {
                   <EditIcon />
                 </IconButton>
                 <IconButton
-                  onClick={async () => await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain })}
+                  onClick={async () => {
+                    // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+                    chrome.runtime.sendMessage({
+                      what: 'setFilteringMode',
+                      hostname: domain,
+                      level: 3,
+                    })
+
+                    await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain })
+                  }}
                   sx={{ p: 0, ml: '16px' }}
                 >
                   <GarbageIcon />

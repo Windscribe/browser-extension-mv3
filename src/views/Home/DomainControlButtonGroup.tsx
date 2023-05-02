@@ -4,7 +4,7 @@ import { Flex } from 'theme-ui'
 import IconButton, { type IconButtonProps } from 'components/IconButton'
 import { type ThemeUiElement } from 'utils/types'
 import { useDispatchAlias, useSelector } from 'state/hooks'
-import { ADD_TO_ALLOWLIST } from 'state/slices/allowlist'
+import { ADD_TO_ALLOWLIST, REMOVE_FROM_ALLOWLIST } from 'state/slices/allowlist'
 import { reloadCurrentTab } from 'services/currentTab'
 
 import AdsDeselected from 'assets/img/adsDeselected.svg'
@@ -53,12 +53,31 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
   const handleClose = async () => {
     if (wasSettingsUpdated) {
-      await dispatchAlias(ADD_TO_ALLOWLIST, {
-        domain: currentTabHostname,
-        allowAds: isAdsAllowed,
-        allowPrivacyFeatures: isPrivacyFeaturesAllowed,
-        allowDirectConnections: isDirectConnectionsAllowed,
-      })
+      if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
+        // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+        isAdsAllowed &&
+          chrome.runtime.sendMessage({
+            what: 'setFilteringMode',
+            hostname: currentTabHostname,
+            level: 0,
+          })
+
+        await dispatchAlias(ADD_TO_ALLOWLIST, {
+          domain: currentTabHostname,
+          allowAds: isAdsAllowed,
+          allowPrivacyFeatures: isPrivacyFeaturesAllowed,
+          allowDirectConnections: isDirectConnectionsAllowed,
+        })
+      } else {
+        // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+        chrome.runtime.sendMessage({
+          what: 'setFilteringMode',
+          hostname: currentTabHostname,
+          level: 3,
+        })
+
+        await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain: currentTabHostname })
+      }
       await reloadCurrentTab()
     }
     setIsDomainSettingsOpen(false)

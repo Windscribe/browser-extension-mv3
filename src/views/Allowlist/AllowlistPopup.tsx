@@ -80,12 +80,27 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
   const handleSubmit = async () => {
     if (submitButtonMode === 'delete') {
+      // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+      chrome.runtime.sendMessage({
+        what: 'setFilteringMode',
+        hostname: domainValue,
+        level: 3,
+      })
+
       await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain: domainValue })
+      closePopup()
       return
     }
 
     const isValid = checkIfDomainValid(domainValue)
     if (!isValid) return
+
+    // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+    chrome.runtime.sendMessage({
+      what: 'setFilteringMode',
+      hostname: domainValue,
+      level: isAdsAllowed ? 0 : 3,
+    })
 
     await dispatchAlias(ADD_TO_ALLOWLIST, {
       domain: domainValue,
