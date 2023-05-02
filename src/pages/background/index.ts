@@ -68,7 +68,7 @@ chrome.alarms.onAlarm.addListener(async alarm => {
     await store.dispatch(checkSessionStatus())
     const newSession = store.getState().session
 
-    const SessionDoNotComapreArr = [
+    const sessionDoNotComapreArr = [
       'email',
       'email_status',
       'our_ip',
@@ -82,7 +82,7 @@ chrome.alarms.onAlarm.addListener(async alarm => {
     const oldSessionCompare = Object.assign({}, oldSession)
     const newSessionCompare = Object.assign({}, newSession)
 
-    for (const property of SessionDoNotComapreArr) {
+    for (const property of sessionDoNotComapreArr) {
       delete oldSessionCompare[property]
       delete newSessionCompare[property]
     }
