@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction, type Dispatch } from '@reduxjs/toolkit'
 import type { Host } from 'api/types'
 import { connect, disconnect } from 'services/proxyConfig'
-import { reduceWhitelist } from 'utils/reduceWhitelist'
+import { reduceAllowlist } from 'utils/reduceAllowlist'
 import type { SyncThunkCreator } from 'utils/types'
 import { pushToDebugLog } from './debugLog'
 import { setReconnectionAttempts } from './connection'
@@ -63,14 +63,14 @@ export const connectProxy = createAsyncThunk(
         throw Error('Error while trying to connect to proxy. No hostname was provided.')
       }
 
-      const whitelist = reduceWhitelist(getState())
+      const allowlist = reduceAllowlist(getState())
       const proxyPort = getState().proxyPort
       const autopilotSelected = getState().autopilot.autopilotSelected
       const cruiseControlList = autopilotSelected
         ? getState().autopilot.cruiseControlList
         : undefined
 
-      await connect(hosts, whitelist, proxyPort, cruiseControlList)
+      await connect(hosts, allowlist, proxyPort, cruiseControlList)
       dispatch(setProxy(hosts))
       const ip = await checkIp(getState().workingApi)
 

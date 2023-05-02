@@ -176,7 +176,16 @@ const executeScript = async <Data extends string | Coords | TimeWarp>(
 type WebNavDetails = chrome.webNavigation.WebNavigationTransitionCallbackDetails
 
 const injectScripts = async (details: WebNavDetails) => {
+  // We do not inject any scripts in iframes.
+  if (details.frameId > 0) return
+
   const store = await bgStore
+
+  const { hostname } = new URL(details.url)
+  const allowlistItem = store.getState().allowlist[hostname]
+
+  // We do not inject any spoofing script if this domain is in an allowlist.
+  if (allowlistItem?.allowPrivacyFeatures) return
 
   if (store.getState().workerBlock) {
     executeScript(details.tabId, workerBlock, '')

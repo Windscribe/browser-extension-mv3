@@ -17,7 +17,7 @@ import blockerReducer from './slices/blocker'
 import sessionReducer, { login } from './slices/session'
 import serversReducer from './slices/servers'
 import newsfeedReducer from './slices/newsfeed'
-import whitelistReducer from './slices/whitelist'
+import allowlistReducer from './slices/allowlist'
 import autopilotReducer from './slices/autopilot'
 import connectionReducer from './slices/connection'
 import workingApiReducer from './slices/workingApi'
@@ -78,7 +78,7 @@ const reducers = {
   userStashes: userStashesReducer,
   view: viewReducer,
   webRtcEnabled: webRtcEnabledReducer,
-  whitelist: whitelistReducer,
+  allowlist: allowlistReducer,
   workerBlock: workerBlockReducer,
   workingApi: workingApiReducer,
 }

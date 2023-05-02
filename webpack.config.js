@@ -9,6 +9,9 @@ const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 
+console.log('env.NODE_ENV: ', env.NODE_ENV)
+console.log('process.env.API_URL: ', process.env.API_URL)
+
 const alias = {
   'react-dom': '@hot-loader/react-dom',
 }
@@ -25,6 +28,10 @@ const maybeProgressPlugin = env.NODE_ENV === 'development' ? [new webpack.Progre
 
 const options = {
   mode: env.NODE_ENV || 'development',
+  stats: {
+    children: true,
+    errorDetails: true,
+  },
   entry: {
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
     background: path.join(__dirname, 'src', 'pages', 'background', 'index.ts'),
@@ -104,6 +111,7 @@ const options = {
   },
   plugins: [
     new CleanWebpackPlugin({ verbose: false }),
+    // TODO maybe delete or pass .env as argument
     new Dotenv(),
     new CircularDependencyPlugin({
       exclude: /a\.js|node_modules/,

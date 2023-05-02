@@ -4,12 +4,12 @@ import { Flex } from 'theme-ui'
 import IconButton, { type IconButtonProps } from 'components/IconButton'
 import { type ThemeUiElement } from 'utils/types'
 import { useDispatchAlias, useSelector } from 'state/hooks'
-import { ADD_TO_WHITELIST } from 'state/slices/whitelist'
+import { ADD_TO_ALLOWLIST, REMOVE_FROM_ALLOWLIST } from 'state/slices/allowlist'
 import { reloadCurrentTab } from 'services/currentTab'
 
 import AdsDeselected from 'assets/img/adsDeselected.svg'
 import AdsSelected from 'assets/img/adsSelected.svg'
-import CloseWhitelist from 'assets/img/closeWhitelist.svg'
+import CloseAllowlist from 'assets/img/closeAllowlist.svg'
 import ConnectionDeselected from 'assets/img/connectionDeselected.svg'
 import ConnectionSelected from 'assets/img/connectionSelected.svg'
 import CookiesSelected from 'assets/img/cookiesSelected.svg'
@@ -29,24 +29,24 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   setIsDomainSettingsOpen,
 }) => {
   const dispatchAlias = useDispatchAlias()
-  const whitelist = useSelector(s => s.whitelist)
+  const allowlist = useSelector(s => s.allowlist)
 
   const [isAdsAllowed, setIsAdsAllowed] = useState(false)
-  const [isCookiesAllowed, setIsCookiesAllowed] = useState(false)
+  const [isPrivacyFeaturesAllowed, setIsPrivacyFeaturesAllowed] = useState(false)
   const [isDirectConnectionsAllowed, setIsDirectConnectionsAllowed] = useState(false)
   const [wasSettingsUpdated, setWasSettingsUpdated] = useState(false)
 
   const initializeDomainSettings = useCallback(() => {
-    const settings = whitelist[currentTabHostname]
+    const settings = allowlist[currentTabHostname]
 
     const allowAds = settings?.allowAds || false
-    const allowCookies = settings?.allowCookies || false
+    const allowPrivacyFeatures = settings?.allowPrivacyFeatures || false
     const allowDirectConnections = settings?.allowDirectConnections || false
 
     setIsAdsAllowed(allowAds)
-    setIsCookiesAllowed(allowCookies)
+    setIsPrivacyFeaturesAllowed(allowPrivacyFeatures)
     setIsDirectConnectionsAllowed(allowDirectConnections)
-  }, [whitelist, currentTabHostname])
+  }, [allowlist, currentTabHostname])
 
   useEffect(() => {
     initializeDomainSettings()
@@ -54,12 +54,31 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
   const handleClose = async () => {
     if (wasSettingsUpdated) {
-      await dispatchAlias(ADD_TO_WHITELIST, {
-        domain: currentTabHostname,
-        allowAds: isAdsAllowed,
-        allowCookies: isCookiesAllowed,
-        allowDirectConnections: isDirectConnectionsAllowed,
-      })
+      if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
+        // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+        isAdsAllowed &&
+          chrome.runtime.sendMessage({
+            what: 'setFilteringMode',
+            hostname: currentTabHostname,
+            level: 0,
+          })
+
+        await dispatchAlias(ADD_TO_ALLOWLIST, {
+          domain: currentTabHostname,
+          allowAds: isAdsAllowed,
+          allowPrivacyFeatures: isPrivacyFeaturesAllowed,
+          allowDirectConnections: isDirectConnectionsAllowed,
+        })
+      } else {
+        // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+        chrome.runtime.sendMessage({
+          what: 'setFilteringMode',
+          hostname: currentTabHostname,
+          level: 3,
+        })
+
+        await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain: currentTabHostname })
+      }
       await reloadCurrentTab()
     }
     setIsDomainSettingsOpen(false)
@@ -124,21 +143,21 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
         <ToolTip message="Privacy Features">
           <StyledIconButton
-            onClick={() => {
-              setIsCookiesAllowed(!isCookiesAllowed)
-              setWasSettingsUpdated(true)
-            }}
-          >
-            {isCookiesAllowed ? (
-              <CookiesSelected sx={{ fill: 'white' }} />
-            ) : (
-              <CookiesDeselected sx={{ fill: 'halfWhite' }} />
-            )}
-          </StyledIconButton>
+          data-testid="allowlist-security-features-button"
+          onClick={() => {
+            setIsPrivacyFeaturesAllowed(!isPrivacyFeaturesAllowed)
+            setWasSettingsUpdated(true)
+          }}
+        >
+          {isPrivacyFeaturesAllowed ? (
+            <CookiesSelected sx={{ fill: 'white' }} />
+          ) : (
+            <CookiesDeselected sx={{ fill: 'halfWhite' }} />
+          )}
+        </StyledIconButton>
         </ToolTip>
-
-        <StyledIconButton onClick={handleClose}>
-          {wasSettingsUpdated ? <Refresh /> : <CloseWhitelist sx={{ fill: 'halfWhite' }} />}
+        <StyledIconButton data-testid="domain-control-close-button" onClick={handleClose}>
+          {wasSettingsUpdated ? <Refresh /> : <CloseAllowlist sx={{ fill: 'halfWhite' }} />}
         </StyledIconButton>
       </Flex>
     </Flex>

@@ -6,7 +6,7 @@ interface BlockerState {
 }
 
 const initialState: BlockerState = {
-  blockLists: [],
+  blockLists: ['default', 'block-lan'],
   showUblockWarning: true,
 }
 

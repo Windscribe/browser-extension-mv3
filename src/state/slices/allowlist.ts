@@ -2,37 +2,37 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 
 import { connectProxy } from './proxy'
 
-interface WhitelistItemSettings {
+interface AllowlistItemSettings {
   allowAds: boolean
-  allowCookies: boolean
+  allowPrivacyFeatures: boolean
   allowDirectConnections: boolean
   includeAllSubdomains: boolean
 }
 
-type WhitelistState = {
-  [key in string]: WhitelistItemSettings
+type AllowlistState = {
+  [key in string]: AllowlistItemSettings
 }
 
-const initialState: WhitelistState = {}
+const initialState: AllowlistState = {}
 
-export type WhitelistPayload = {
+export type AllowlistPayload = {
   domain: string
-} & WhitelistItemSettings
+} & AllowlistItemSettings
 
-export const ADD_TO_WHITELIST = 'whitelist/addToWhitelist'
-export const REMOVE_FROM_WHITELIST = 'whitelist/removeFromWhitelist'
+export const ADD_TO_ALLOWLIST = 'allowlist/addToAllowlist'
+export const REMOVE_FROM_ALLOWLIST = 'allowlist/removeFromAllowlist'
 
-export const addToWhitelist = createAsyncThunk(
-  ADD_TO_WHITELIST,
-  async (domainWithSettings: WhitelistPayload, { dispatch, getState }) => {
+export const addToAllowlist = createAsyncThunk(
+  ADD_TO_ALLOWLIST,
+  async (domainWithSettings: AllowlistPayload, { dispatch, getState }) => {
     dispatch(addDomain(domainWithSettings))
     const hosts = getState().proxy.hosts
     if (hosts) await dispatch(connectProxy(hosts))
   },
 )
 
-export const removeFromWhitelist = createAsyncThunk(
-  REMOVE_FROM_WHITELIST,
+export const removeFromAllowlist = createAsyncThunk(
+  REMOVE_FROM_ALLOWLIST,
   async (domain: string, { dispatch, getState }) => {
     await dispatch(removeDomain(domain))
     const hosts = getState().proxy.hosts
@@ -40,11 +40,11 @@ export const removeFromWhitelist = createAsyncThunk(
   },
 )
 
-export const whitelistSlice = createSlice({
-  name: 'whitelist',
+export const allowlistSlice = createSlice({
+  name: 'allowlist',
   initialState,
   reducers: {
-    addDomain(state, action: PayloadAction<WhitelistPayload>) {
+    addDomain(state, action: PayloadAction<AllowlistPayload>) {
       const { domain, ...settings } = action.payload
       state[domain] = settings
       return state
@@ -56,5 +56,5 @@ export const whitelistSlice = createSlice({
   },
 })
 
-export const { addDomain, removeDomain } = whitelistSlice.actions
-export default whitelistSlice.reducer
+export const { addDomain, removeDomain } = allowlistSlice.actions
+export default allowlistSlice.reducer

@@ -7,12 +7,12 @@ import { footerHeight } from 'styles/constants'
 import DomainControlButtonGroup from './DomainControlButtonGroup'
 import { useCurrentTabHostname } from 'components/hooks'
 import { IconButton } from 'components'
-import WhitelistOff from 'assets/img/whitelistOff.svg'
-import WhitelistOn from 'assets/img/whitelistOn.svg'
+import AllowlistOff from 'assets/img/allowlistOff.svg'
+import AllowlistOn from 'assets/img/allowlistOn.svg'
 import ToolTip from 'components/ToolTip'
 
 const SiteControlBar: React.FC = () => {
-  const whitelist = useSelector(s => s.whitelist)
+  const allowlist = useSelector(s => s.allowlist)
 
   const [isDomainValid, setIsDomainValid] = useState(true)
   const [isDomainSettingsOpen, setIsDomainSettingsOpen] = useState(false)
@@ -26,7 +26,7 @@ const SiteControlBar: React.FC = () => {
 
   return (
     <Flex
-      className="joyride-element-whitelist"
+      className="joyride-element-allowlist"
       sx={{
         alignItems: 'center',
         height: `${footerHeight}`,
@@ -39,11 +39,15 @@ const SiteControlBar: React.FC = () => {
         overflow: 'hidden',
       }}
     >
-      <Text sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}>
+      <Text
+        data-testid="current-tab-hostname"
+        sx={{ fontWeight: '600', fontSize: '14px', color: 'halfWhite' }}
+      >
         {currentTabHostname}
       </Text>
       <ToolTip message="Allowlist Settings">
         <IconButton
+          data-testid="open-allowlist-button"
           sx={{
             p: 0,
             height: '24px',
@@ -64,10 +68,10 @@ const SiteControlBar: React.FC = () => {
           disabled={!isDomainValid}
           onClick={() => setIsDomainSettingsOpen(true)}
         >
-          {whitelist[currentTabHostname] ? (
-            <WhitelistOn />
+          {allowlist[currentTabHostname] ? (
+            <AllowlistOn />
           ) : (
-            <WhitelistOff sx={{ fill: 'halfWhite' }} />
+            <AllowlistOff sx={{ fill: 'halfWhite' }} />
           )}
         </IconButton>
       </ToolTip>

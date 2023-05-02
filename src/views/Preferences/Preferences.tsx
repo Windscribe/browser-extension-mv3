@@ -18,7 +18,7 @@ import ConnectionIcon from 'assets/img/connection.svg'
 import BlockerIcon from 'assets/img/blocker.svg'
 import PrivacyIcon from 'assets/img/privacy.svg'
 import AccountIcon from 'assets/img/account.svg'
-import WhitelistIcon from 'assets/img/whitelist.svg'
+import AllowlistIcon from 'assets/img/allowlist.svg'
 import DarkModeIcon from 'assets/img/darkMode.svg'
 import LightModeIcon from 'assets/img/lightMode.svg'
 import TutorialIcon from 'assets/img/tutorial.svg'
@@ -31,7 +31,7 @@ const Preferences: ThemeUiElement = () => {
   const goToConnection = useGoTo('Connection')
   const goToBlocker = useGoTo('Blocker')
   const goToAccount = useGoTo('Account')
-  const goToWhitelist = useGoTo('Whitelist')
+  const goToAllowlist = useGoTo('Allowlist')
   const goToNewsfeed = useGoTo('Newsfeed')
   const goToPrivacy = useGoTo('Privacy')
   const goToHome = useGoTo('Home')
@@ -99,7 +99,7 @@ const Preferences: ThemeUiElement = () => {
           <ListItemButton title="Blocker" Icon={BlockerIcon} onClick={goToBlocker} />
           <ListItemButton title="Privacy" Icon={PrivacyIcon} onClick={goToPrivacy} />
           <ListItemButton title="Account" Icon={AccountIcon} onClick={goToAccount} />
-          <ListItemButton title="Whitelist" Icon={WhitelistIcon} onClick={goToWhitelist} noBorder />
+          <ListItemButton title="Allowlist" Icon={AllowlistIcon} onClick={goToAllowlist} noBorder />
         </RoundedBox>
         <Flex
           sx={{

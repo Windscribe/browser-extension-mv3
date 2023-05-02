@@ -8,50 +8,51 @@ import ButtonsGroup, { type SubmitButtonMode } from './ButtonsGroup'
 import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useDispatchAlias, useSelector } from 'state/hooks'
-import { ADD_TO_WHITELIST, REMOVE_FROM_WHITELIST } from 'state/slices/whitelist'
+import { ADD_TO_ALLOWLIST, REMOVE_FROM_ALLOWLIST } from 'state/slices/allowlist'
 
-type WhitelistPopupProps = {
+type AllowlistPopupProps = {
   domain: string
   isOpen: boolean
   isEditMode: boolean
   closePopup: () => void
 }
 
-const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
+const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   domain,
   isOpen = false,
   isEditMode = false,
   closePopup,
 }) => {
   const dispatchAlias = useDispatchAlias()
-  const whitelist = useSelector(s => s.whitelist)
+  const allowlist = useSelector(s => s.allowlist)
 
   const [submitButtonMode, setSubmitButtonMode] = useState<SubmitButtonMode>('disabled')
   const [isDomainValid, setIsDomainValid] = useState(true)
   const [domainValue, setDomainValue] = useState(domain)
   const [isAdsAllowed, setIsAdsAllowed] = useState(false)
-  const [isCookiesAllowed, setIsCookiesAllowed] = useState(false)
+  const [isPrivacyFeaturesAllowed, setIsPrivacyFeaturesAllowed] = useState(false)
   const [isDirectConnectionsAllowed, setIsDirectConnectionsAllowed] = useState(false)
   const [isAllSubdomainsIncluded, setIsAllSubdomainsIncluded] = useState(false)
 
   const isAnyOptionAllowed = useCallback(
-    () => [isAdsAllowed, isCookiesAllowed, isDirectConnectionsAllowed].some(option => option),
-    [isAdsAllowed, isCookiesAllowed, isDirectConnectionsAllowed],
+    () =>
+      [isAdsAllowed, isPrivacyFeaturesAllowed, isDirectConnectionsAllowed].some(option => option),
+    [isAdsAllowed, isPrivacyFeaturesAllowed, isDirectConnectionsAllowed],
   )
 
   const initializeDomainSettings = useCallback(() => {
-    const settings = whitelist[domain]
+    const settings = allowlist[domain]
 
     const allowAds = settings?.allowAds || false
-    const allowCookies = settings?.allowCookies || false
+    const allowPrivacyFeatures = settings?.allowPrivacyFeatures || false
     const allowDirectConnections = settings?.allowDirectConnections || false
     const includeAllSubdomains = settings?.includeAllSubdomains || false
 
     setIsAdsAllowed(allowAds)
-    setIsCookiesAllowed(allowCookies)
+    setIsPrivacyFeaturesAllowed(allowPrivacyFeatures)
     setIsDirectConnectionsAllowed(allowDirectConnections)
     setIsAllSubdomainsIncluded(includeAllSubdomains)
-  }, [whitelist, domain])
+  }, [allowlist, domain])
 
   useEffect(() => {
     initializeDomainSettings()
@@ -79,17 +80,32 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
 
   const handleSubmit = async () => {
     if (submitButtonMode === 'delete') {
-      await dispatchAlias(REMOVE_FROM_WHITELIST, { domain: domainValue })
+      // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+      chrome.runtime.sendMessage({
+        what: 'setFilteringMode',
+        hostname: domainValue,
+        level: 3,
+      })
+
+      await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain: domainValue })
+      closePopup()
       return
     }
 
     const isValid = checkIfDomainValid(domainValue)
     if (!isValid) return
 
-    await dispatchAlias(ADD_TO_WHITELIST, {
+    // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
+    chrome.runtime.sendMessage({
+      what: 'setFilteringMode',
+      hostname: domainValue,
+      level: isAdsAllowed ? 0 : 3,
+    })
+
+    await dispatchAlias(ADD_TO_ALLOWLIST, {
       domain: domainValue,
       allowAds: isAdsAllowed,
-      allowCookies: isCookiesAllowed,
+      allowPrivacyFeatures: isPrivacyFeaturesAllowed,
       allowDirectConnections: isDirectConnectionsAllowed,
       includeAllSubdomains: isAllSubdomainsIncluded,
     })
@@ -109,7 +125,7 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
   }
 
   return (
-    <Popup isOpen={isOpen}>
+    <Popup data-testid="allowlist-settings-popup" isOpen={isOpen}>
       <Box bg="background" py="24px" px="16px" sx={{ height: '100%' }}>
         {isDomainValid ? (
           <Subheader>{isEditMode ? 'edit' : 'add new'}</Subheader>
@@ -120,7 +136,8 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
           <ExternalLinkButton url={domainValue} />
         ) : (
           <Input
-            placeholder={'Enter domain to whitelist'}
+            data-testid="allowlist-domain-input"
+            placeholder={'Enter domain to allowlist'}
             value={domainValue}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -144,8 +161,13 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
             <SettingsOption isChecked={isAdsAllowed} toggleState={setIsAdsAllowed}>
               Allow Ads
             </SettingsOption>
-            <SettingsOption isChecked={isCookiesAllowed} noBorder toggleState={setIsCookiesAllowed}>
-              Allow Cookies
+            <SettingsOption
+              data-testid="allow-privacy-features-checkbox"
+              isChecked={isPrivacyFeaturesAllowed}
+              noBorder
+              toggleState={setIsPrivacyFeaturesAllowed}
+            >
+              Allow Privacy Features
             </SettingsOption>
           </RoundedBox>
         </Box>
@@ -155,4 +177,4 @@ const WhitelistPopup: ThemeUiElement<WhitelistPopupProps> = ({
   )
 }
 
-export default WhitelistPopup
+export default AllowlistPopup
