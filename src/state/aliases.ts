@@ -1,5 +1,12 @@
 import { fetchServerList, FETCH_SERVER_LIST } from './slices/servers'
-import { login, LOGIN, checkSessionStatus, CHECK_SESSION_STATUS } from './slices/session'
+import {
+  login,
+  LOGIN,
+  logout,
+  LOGOUT,
+  checkSessionStatus,
+  CHECK_SESSION_STATUS,
+} from './slices/session'
 import { connectToAutopilot, CONNECT_TO_AUTOPILOT } from './slices/autopilot'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
 import {
@@ -43,6 +50,7 @@ const _removeFromWhitelist: ActionCreator<{ domain: string }, void> = ({ payload
 
 export default {
   [`alias/${LOGIN}`]: _login,
+  [`alias/${LOGOUT}`]: logout,
   [`alias/${FETCH_SERVER_LIST}`]: fetchServerList,
   [`alias/${FETCH_SERVER_CREDENTIALS}`]: fetchServerCredentials,
   [`alias/${CONNECT_TO_AUTOPILOT}`]: connectToAutopilot,

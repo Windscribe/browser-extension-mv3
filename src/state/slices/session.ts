@@ -63,18 +63,19 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 )
 
 export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch }) => {
-  const sessionAuthHash = getState().session.session_auth_hash
+  const sendLogoutRequest = async () => {
+    const sessionAuthHash = getState().session.session_auth_hash
+    sessionAuthHash && (await logoutRequest(dispatch, sessionAuthHash))
+  }
+  const resetState = async () => {
+    await dispatch(saveUserStash())
+    await dispatch({ type: 'global/resetStore' })
+    await dispatch(disconnectProxy())
+    await dispatch(resetNotificationBlocker())
+    await dispatch(resetWebRtcBlocker())
+  }
 
-  await dispatch(disconnectProxy())
-  await dispatch(resetNotificationBlocker())
-  await dispatch(resetWebRtcBlocker())
-  await dispatch(disconnectProxy())
-  sessionAuthHash && (await logoutRequest(dispatch, sessionAuthHash))
-
-  await dispatch(saveUserStash())
-
-  await dispatch({ type: 'global/resetStore' })
-  //TODO Implement userStashes to store user's settings preferences between sessions
+  await Promise.all([sendLogoutRequest(), resetState()])
 })
 
 export const checkSessionStatus = createAsyncThunk(
