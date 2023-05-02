@@ -6,7 +6,10 @@ import { ScrollableBox, Header, OptionBox, ToggleSwitch } from 'components'
 import { setBlockLists } from 'state/slices/blocker'
 import { setOverlay } from 'state/slices/overlay'
 import detectUblock from 'services/detectUblock'
-import SmokewallIcon from 'assets/img/smokewall.svg'
+import AdblockIcon from 'assets/img/adblock.svg'
+import TrackerIcon from 'assets/img/trackers.svg'
+import MalwareIcon from 'assets/img/malware.svg'
+import SocialDistancingIcon from 'assets/img/socialDistancing.svg'
 import LinkIcon from 'assets/img/link.svg'
 
 const Blocker: ThemeUiElement = () => {
@@ -41,7 +44,7 @@ const Blocker: ThemeUiElement = () => {
     <Box data-testid="blocker-page" bg="background">
       <Header title="Blocker" {...{ shouldShowReloadAlert, showReloadAlert }} />
       <ScrollableBox>
-        <OptionBox Icon={SmokewallIcon} title="Default" subTitle="Ads, Trackers, Miners, And More">
+        <OptionBox Icon={AdblockIcon} title="Default" subTitle="Ads, Trackers, Miners, And More">
           <ToggleSwitch
             onChange={() => {
               handleBlockListToggle('default')
@@ -50,7 +53,7 @@ const Blocker: ThemeUiElement = () => {
           />
         </OptionBox>
         <OptionBox
-          Icon={SmokewallIcon}
+          Icon={TrackerIcon}
           title="Block Lan"
           subTitle="Block Outsider Intrusion Into LAN"
         >
@@ -62,7 +65,7 @@ const Blocker: ThemeUiElement = () => {
           />
         </OptionBox>
         <OptionBox
-          Icon={SmokewallIcon}
+          Icon={MalwareIcon}
           title="Dan Pollock’s Hosts File"
           subTitle="Dan Pollock’s Hosts File"
         >
@@ -74,7 +77,7 @@ const Blocker: ThemeUiElement = () => {
           />
         </OptionBox>
         <OptionBox
-          Icon={SmokewallIcon}
+          Icon={SocialDistancingIcon}
           title="Steven Black's Hosts File"
           subTitle="Steven Black's Hosts File"
         >
