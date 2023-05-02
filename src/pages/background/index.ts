@@ -68,7 +68,26 @@ chrome.alarms.onAlarm.addListener(async alarm => {
     await store.dispatch(checkSessionStatus())
     const newSession = store.getState().session
 
-    if (JSON.stringify(oldSession) !== JSON.stringify(newSession)) {
+    const SessionDoNotComapreArr = [
+      'email',
+      'email_status',
+      'our_ip',
+      'reg_date',
+      'traffic_used',
+      'user_id',
+      'username',
+      'loading',
+    ] as Array<keyof typeof oldSession>
+
+    const oldSessionCompare = Object.assign({}, oldSession)
+    const newSessionCompare = Object.assign({}, newSession)
+
+    for (const property of SessionDoNotComapreArr) {
+      delete oldSessionCompare[property]
+      delete newSessionCompare[property]
+    }
+
+    if (JSON.stringify(oldSessionCompare) !== JSON.stringify(newSessionCompare)) {
       await store.dispatch(fetchServerCredentials())
       store.dispatch(fetchServerList())
     }
