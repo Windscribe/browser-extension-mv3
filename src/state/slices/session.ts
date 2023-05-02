@@ -11,6 +11,8 @@ import { resetWebRtcBlocker } from './webRtcEnabled'
 import { setOverlay } from 'state/slices/overlay'
 import { setView } from 'state/slices/view'
 import detectUblock from 'services/detectUblock'
+import { checkIp } from 'services'
+import { setCurrentIp } from 'state/slices/proxy'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -51,6 +53,8 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
+      const ip = await checkIp()
+      dispatch(setCurrentIp(ip))
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
       const isUblockInstalled = await detectUblock()

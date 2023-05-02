@@ -75,6 +75,7 @@ export const connectToAutopilot = createAsyncThunk(
     const dataCenter = getState().autopilot.autopilotData?.dataCenter
     if (!location || !dataCenter)
       throw new AutopilotConnectionError('No autopilot candidates are available')
+    dispatch(setAutopilotSelected(true))
 
     dispatch(setCurrentLocation(location))
     dispatch(setCurrentDataCenter(dataCenter))
@@ -82,8 +83,6 @@ export const connectToAutopilot = createAsyncThunk(
     const hosts = getState().currentDataCenter?.hosts
     if (!hosts) throw new AutopilotConnectionError(`No data center is being used as current`)
     await dispatch(connectProxy(hosts))
-
-    dispatch(setAutopilotSelected(true))
   },
 )
 

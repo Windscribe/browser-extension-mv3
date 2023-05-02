@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Text } from 'theme-ui'
-import { useEffect, useState } from 'react'
+import { Box, Button, Flex } from 'theme-ui'
+import { useEffect } from 'react'
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
 import UsageBar from './UsageBar'
@@ -7,7 +7,6 @@ import PrivacyButton from './PrivacyButton'
 import BlockerButton from './BlockerButton'
 import FlagBackground from './FlagBackground'
 import DomainControlBar from './DomainControlBar'
-import { checkIp } from 'services'
 import { useGoTo } from 'services/navigation'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
@@ -18,6 +17,8 @@ import { ACCOUNT_PLAN } from 'utils/constants'
 import { type ThemeUiElement } from 'utils/types'
 import Flags from 'assets/flags'
 import { SpinAnim } from 'styles/constants'
+import ConnectionInfo from './ConnectionInfo'
+import ToolTip from 'components/ToolTip'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -26,7 +27,7 @@ import PowerButton from 'assets/img/powerButton.svg'
 import Globe from 'assets/img/globe.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import ConnectingRing from 'assets/img/connectingRing.svg'
-import ToolTip from 'components/ToolTip'
+import ProxyFailureRing from 'assets/img/proxyFailureRing.svg'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -46,16 +47,12 @@ const Home: ThemeUiElement = () => {
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
-  const workingApi = useSelector(state => state.workingApi)
   const overlayTemplate = useSelector(state => state.overlay.template)
+  const hasProxyError = useSelector(state => state.proxy.errorMessage)
+
+  const proxyFailure = isConnected && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
-
-  const [currentIp, setCurrentIp] = useState('')
-
-  useEffect(() => {
-    checkIp(workingApi).then(ip => setCurrentIp(ip))
-  }, [workingApi])
 
   useEffect(() => {
     if (overlayTemplate === 'welcome') dispatch(setOverlay({ isOpen: true }))
@@ -78,7 +75,6 @@ const Home: ThemeUiElement = () => {
         await dispatchAlias(CONNECT_TO_AUTOPILOT)
       }
     }
-    setCurrentIp(await checkIp(workingApi))
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
@@ -167,56 +163,13 @@ const Home: ThemeUiElement = () => {
             height: '104px',
           }}
         >
-          <Box>
-            <Flex
-              sx={{
-                alignItems: 'center',
-                mb: '12px',
-              }}
-            >
-              <Text
-                sx={{
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  color: isConnected ? 'neonGreen' : 'white',
-                  mr: '8px',
-                }}
-              >
-                {isConnected ? 'ON' : 'OFF'}
-              </Text>
-              <Text
-                sx={{
-                  fontSize: '12px',
-                  color: isConnected ? 'neonGreen' : 'halfWhite',
-                }}
-              >
-                {currentIp}
-              </Text>
-            </Flex>
-            <Box mb="8px">
-              <Text
-                data-testid="city"
-                sx={{
-                  fontSize: '16px',
-                  color: 'white',
-                  fontWeight: 600,
-                }}
-              >
-                {autopilotSelected ? 'Autopilot' : currentDataCenter?.city}
-              </Text>
-            </Box>
-            {!autopilotSelected && currentDataCenter?.nick && (
-              <Text
-                data-testid="nick"
-                sx={{
-                  fontSize: '14px',
-                  color: 'halfWhite',
-                }}
-              >
-                {currentDataCenter?.nick}
-              </Text>
-            )}
-          </Box>
+          <ConnectionInfo
+            isPending={isPending}
+            isConnected={isConnected}
+            autopilotSelected={autopilotSelected}
+            currentDataCenter={currentDataCenter}
+            proxyFailure={!!proxyFailure}
+          />
           <Flex
             sx={{
               alignItems: 'center',
@@ -279,7 +232,7 @@ const Home: ThemeUiElement = () => {
                 justifyContent: 'center',
                 borderRadius: '50%',
                 border: 'solid 3px',
-                borderColor: `${isConnected ? 'neonGreen' : 'transparent'}`,
+                borderColor: isConnected && !hasProxyError ? 'neonGreen' : 'transparent',
                 transform: `rotate(${isPending || isConnected ? '0' : '-180deg'})`,
                 transition: '0.3s',
                 ':hover': {
@@ -289,7 +242,7 @@ const Home: ThemeUiElement = () => {
               onClick={toggleProxy}
             >
               <PowerButton />
-              {isPending && (
+              {isPending ? (
                 <Box
                   sx={{
                     position: 'absolute',
@@ -299,6 +252,18 @@ const Home: ThemeUiElement = () => {
                 >
                   <ConnectingRing sx={{ animation: `${SpinAnim} 1s linear infinite` }} />
                 </Box>
+              ) : (
+                proxyFailure && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      zIndex: 12,
+                      height: '72px',
+                    }}
+                  >
+                    <ProxyFailureRing sx={{ fill: 'neonGreen' }} />
+                  </Box>
+                )
               )}
             </Button>
           </Flex>

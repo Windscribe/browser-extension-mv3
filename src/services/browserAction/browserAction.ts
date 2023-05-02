@@ -51,6 +51,10 @@ export function getIconVariant({
     return 'proxyNoConnection'
   }
 
+  if (proxyConnected && hasProxyError) {
+    return 'proxyFailure'
+  }
+
   if (proxyConnected && desktopConnected) {
     return 'proxyOnDouble'
   }
@@ -61,10 +65,6 @@ export function getIconVariant({
 
   if (proxyConnected) {
     return 'proxyOn'
-  }
-
-  if (hasProxyError) {
-    return 'proxyFailure'
   }
 
   return 'proxyOff'

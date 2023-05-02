@@ -2,7 +2,7 @@ import { Box, Flex, Text, type BoxProps } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 import GoBackButton from './GoBackButton'
-import RefreshButton from './RefreshButton'
+import AlertButton from './AlertButton'
 import { reloadCurrentTab } from 'services/currentTab'
 
 type MandatoryProps = {
@@ -41,10 +41,12 @@ const Header: ThemeUiElement<HeaderProps> = ({
       {...props}
     >
       <GoBackButton />
-      <RefreshButton
+      <AlertButton
+        text="Refresh to see changes"
         onClick={handleClick}
         sx={{
-          display: shouldShowReloadAlert ? 'block' : 'none',
+          visibility: shouldShowReloadAlert ? 'visible' : 'hidden',
+          opacity: shouldShowReloadAlert ? 1 : 0,
           position: 'absolute',
           transform: 'translate(-50%, -50%)',
           top: '100%',

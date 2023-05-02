@@ -3,11 +3,10 @@ import getTimeWarp from 'utils/getTimeWarp'
 import getErrorMessage from 'utils/getErrorMessage'
 import type { Coords, TimeWarp } from 'utils/types'
 import browserApi from 'services/browserApi'
+import proxyError from 'services/proxyError'
 import { addContextMenuItem } from 'services/contextMenu'
 import { initializeWrappedStore } from 'state'
 import { pushToDebugLog } from 'state/slices/debugLog'
-import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
-import { setReconnectionAttempts } from 'state/slices/connection'
 import { connectToAutopilot } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
 import { setIsOnline } from 'state/slices/isOnline'
@@ -97,10 +96,6 @@ chrome.alarms.onAlarm.addListener(async alarm => {
   }
 })
 
-/* TODO
-Consider should we implement different recovery strategies: 
-change location, change DC, check if Internet connection exist, re-fetch credentials. 
-*/
 chrome.proxy.onProxyError.addListener(async e => {
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line no-console
@@ -117,45 +112,15 @@ chrome.proxy.onProxyError.addListener(async e => {
       data: e,
     }),
   )
-  const { smokeWall, failover, reconnectionAttempts } = store.getState().connection
 
-  const RECONNECTION_ATTEMPTS_LIMIT = 3
-  if (reconnectionAttempts >= RECONNECTION_ATTEMPTS_LIMIT) {
-    store.dispatch(
-      pushToDebugLog({
-        level: 'ERROR',
-        message: 'reconnection_attempts_limit reached',
-        tag: 'background',
-        data: reconnectionAttempts,
-      }),
-    )
-    // TODO Consider to open Modal window with error message
-    // to explain to the user what's going on.
-    return
-  }
+  const errorChecking = store.getState().proxy.errorChecking
+  const isConnected = store.getState().proxy.isConnected
+  const hasProxyError = !!store.getState().proxy.errorMessage
 
-  if (failover === 'Auto / Best') {
-    store.dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
-    await store.dispatch(connectToAutopilot())
-  } else if (failover === 'Same Country') {
-    const currentLocation = store.getState().currentLocation
-    const currentDataCenter = store.getState().currentDataCenter
+  const proxyFailure = isConnected && hasProxyError
 
-    const newDatacenter = currentLocation.groups?.find(
-      dataCenter => dataCenter.id !== currentDataCenter.id,
-    )
-
-    if (newDatacenter) {
-      store.dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
-      store.dispatch(setCurrentDataCenter(newDatacenter))
-      await store.dispatch(connectProxy(newDatacenter.hosts))
-    }
-  }
-
-  if (smokeWall) {
-    store.dispatch(handleConnectionError('Proxy error'))
-  } else {
-    store.dispatch(disconnectProxy())
+  if (!errorChecking && !proxyFailure) {
+    proxyError(store.dispatch)
   }
 })
 

@@ -25,7 +25,8 @@
     "webRequest",
     "webRequestAuthProvider",
     "management",
-    "alarms"
+    "alarms",
+    "offscreen"
   ],
   "host_permissions": ["<all_urls>"],
   "icons": {
