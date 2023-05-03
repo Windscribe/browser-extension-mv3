@@ -126,7 +126,7 @@ export const sessionSlice = createSlice({
   initialState,
   reducers: {
     setSession(state, action: PayloadAction<SessionData>) {
-      return { ...state, our_ip: 0, ...action.payload }
+      return { ...state, loading: 'fulfilled', our_ip: 0, ...action.payload }
     },
   },
   extraReducers: builder => {
