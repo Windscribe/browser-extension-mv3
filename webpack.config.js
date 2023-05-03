@@ -98,7 +98,7 @@ const options = {
             loader: 'babel-loader',
           },
         ],
-        exclude: /node_modules/,
+        exclude: [/node_modules/, path.resolve(__dirname, 'src/services/checkIp/offscreen')],
       },
     ],
   },
@@ -137,6 +137,33 @@ const options = {
               }),
             )
           },
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/services/checkIp/offscreen/checkIp.html',
+          to: path.join(__dirname, 'build/checkIp.html'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/services/checkIp/offscreen/checkIp.js',
+          to: path.join(__dirname, 'build/checkIp.js'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/services/checkIp/offscreen/checkIpWorker.js',
+          to: path.join(__dirname, 'build/checkIpWorker.js'),
+          force: true,
         },
       ],
     }),

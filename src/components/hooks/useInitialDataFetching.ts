@@ -32,12 +32,7 @@ export default (): void => {
   }, [userAgentOriginal, dispatch])
 
   useEffect(() => {
-    if (
-      sessionAuthHash &&
-      !(username && password) &&
-      serverCredentialsLoading !== 'pending' &&
-      serverCredentialsLoading !== 'idle'
-    ) {
+    if (sessionAuthHash && !(username && password) && serverCredentialsLoading !== 'pending') {
       dispatchAlias(FETCH_SERVER_CREDENTIALS)
     }
   }, [sessionAuthHash, password, username, serverCredentialsLoading, dispatchAlias])
