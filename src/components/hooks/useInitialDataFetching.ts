@@ -4,9 +4,10 @@ import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
-import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
+import { applyBestLocationAsAutopilot, CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
 import { setOriginalUserAgent, FETCH_USER_AGENTS_LIST } from 'state/slices/userAgent'
+import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -24,6 +25,9 @@ export default (): void => {
   const serverCredentialsLoading = useSelector(state => state.serverCredentials.loading)
   const userAgentLoading = useSelector(state => state.userAgent.loading)
   const userAgentOriginal = useSelector(state => state.userAgent.original)
+  const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
+  const isConnected = useSelector(state => state.proxy?.isConnected)
+  const isPending = useSelector(state => state.proxy.isPending)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -77,4 +81,26 @@ export default (): void => {
     // Do NOT add dispatchAlias to Dependency array. It leads to double network requests. Don't know why.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionAuthHash, userAgentLoading])
+
+  useEffect(() => {
+    const dispatchConnectToAutopilot = async () => await dispatchAlias(CONNECT_TO_AUTOPILOT)
+    if (
+      autoConnectAfterLogin &&
+      serverListLoading === 'fulfilled' &&
+      bestLocationLoading === 'fulfilled' &&
+      !isConnected &&
+      !isPending
+    ) {
+      dispatchConnectToAutopilot()
+      dispatch(setAutoConnectAfterLogin(false))
+    }
+  }, [
+    isConnected,
+    isPending,
+    serverListLoading,
+    bestLocationLoading,
+    autoConnectAfterLogin,
+    dispatch,
+    dispatchAlias,
+  ])
 }

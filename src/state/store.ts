@@ -45,9 +45,12 @@ import timeWarpEnabledReducer from './slices/timeWarpEnabled'
 import overlayReducer from './slices/overlay'
 import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
 import iconVariantReducer from './slices/iconVariant'
+import autoConnectAfterLoginReducer from './slices/autoConnectAfterLogin'
 
 const reducers = {
+  allowlist: allowlistReducer,
   allowSystemNotifications: allowSystemNotificationsReducer,
+  autoConnectAfterLogin: autoConnectAfterLoginReducer,
   autopilot: autopilotReducer,
   bestLocation: bestLocationReducer,
   blocker: blockerReducer,
@@ -78,7 +81,6 @@ const reducers = {
   userStashes: userStashesReducer,
   view: viewReducer,
   webRtcEnabled: webRtcEnabledReducer,
-  allowlist: allowlistReducer,
   workerBlock: workerBlockReducer,
   workingApi: workingApiReducer,
 }

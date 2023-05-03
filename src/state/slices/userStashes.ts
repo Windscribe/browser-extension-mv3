@@ -31,6 +31,7 @@ export const saveUserStash = createAsyncThunk(
     const userNameHash = md5(state.session.username || '').toString()
 
     const doNotStash = [
+      'autoConnectAfterLogin',
       'currentDataCenter',
       'currentLocation',
       'workingApi',
