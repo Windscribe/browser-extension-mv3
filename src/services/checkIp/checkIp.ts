@@ -4,13 +4,18 @@ export default async function checkIp(): Promise<string> {
   const state = await browserApi.getStateFromStorage()
   const noIp = '---.---.---.---'
 
-  //@ts-expect-error
-  await chrome.offscreen.createDocument({
-    url: chrome.runtime.getURL('checkIp.html'),
+  try {
     //@ts-expect-error
-    reasons: [chrome.offscreen.Reason.IFRAME_SCRIPTING],
-    justification: 'reason for needing the document',
-  })
+    await chrome.offscreen.createDocument({
+      url: chrome.runtime.getURL('checkIp.html'),
+      //@ts-expect-error
+      reasons: [chrome.offscreen.Reason.IFRAME_SCRIPTING],
+      justification: '407 authentication',
+    })
+  } catch (e) {
+    //@ts-expect-error
+    chrome.offscreen.closeDocument()
+  }
 
   if (state[1].workingApi) {
     const controller = new AbortController()
@@ -28,9 +33,6 @@ export default async function checkIp(): Promise<string> {
       .catch(() => noIp)
 
     clearTimeout(timeoutId)
-
-    //@ts-expect-error
-    chrome.offscreen.closeDocument()
 
     return res
   }
