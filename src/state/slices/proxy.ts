@@ -14,7 +14,9 @@ import proxyOnIcon from 'assets/img/proxyOn.png'
 
 interface ProxyState {
   isConnected: boolean
-  isPending: boolean
+  isConnecting: boolean
+  isDisconnected: boolean
+  isDisconnecting: boolean
   hosts: Host[] | undefined
   currentIp: string
   errorMessage?: string
@@ -23,7 +25,9 @@ interface ProxyState {
 
 const initialState: ProxyState = {
   isConnected: false,
-  isPending: false,
+  isConnecting: false,
+  isDisconnected: false,
+  isDisconnecting: false,
   hosts: undefined,
   currentIp: '---.---.---.---',
   errorMessage: undefined,
@@ -81,7 +85,7 @@ export const connectProxy = createAsyncThunk(
       dispatch(setCurrentIp(ip))
 
       if (ip === '---.---.---.---') {
-        throw Error('Failed to connect to proxy')
+        throw Error('Proxy Error')
       } else {
         dispatch(setReconnectionAttempts(0))
       }
@@ -119,7 +123,8 @@ export const disconnectProxy = createAsyncThunk(
         message: 'Connection to Windscribe has been terminated',
       })
     }
-    dispatch(setIsConnected(false))
+    dispatch(setReconnectionAttempts(0))
+    await disconnect()
   },
 )
 
@@ -144,12 +149,13 @@ export const proxySlice = createSlice({
     resetProxy(state) {
       state.hosts = undefined
       state.isConnected = false
-      state.isPending = false
+      state.isConnecting = false
+      state.isDisconnecting = false
       state.errorMessage = undefined
       state.errorChecking = false
     },
-    setIsPending(state, action: PayloadAction<boolean>) {
-      state.isPending = action.payload
+    setIsConnecting(state, action: PayloadAction<boolean>) {
+      state.isConnecting = action.payload
     },
     setConnectionError(state, action: PayloadAction<string>) {
       state.errorMessage = `Proxy connection error. ${action.payload}`
@@ -168,18 +174,39 @@ export const proxySlice = createSlice({
     builder
       .addCase(connectProxy.pending, state => {
         state.isConnected = false
-        state.isPending = true
+        state.isConnecting = true
+        state.isDisconnected = false
+        state.isDisconnecting = false
       })
       .addCase(connectProxy.fulfilled, state => {
         state.isConnected = true
-        state.isPending = false
+        state.isConnecting = false
         state.errorMessage = undefined
         state.errorChecking = false
       })
       .addCase(connectProxy.rejected, (state, action) => {
         if (action.error.message) {
           state.errorMessage = action.error.message
+
+          if (action.error.message !== 'Proxy Error') {
+            state.isConnected = false
+            state.isConnecting = false
+            state.errorChecking = false
+          }
         }
+      })
+      .addCase(disconnectProxy.pending, state => {
+        state.isConnected = false
+        state.isConnecting = false
+        state.isDisconnected = false
+        state.isDisconnecting = true
+      })
+      .addCase(disconnectProxy.fulfilled, state => {
+        state.isConnected = false
+        state.isConnecting = false
+        state.isDisconnected = true
+        state.isDisconnecting = false
+        state.errorChecking = false
       })
   },
 })
@@ -190,7 +217,7 @@ export const {
   setConnectionError,
   setIsConnected,
   setCurrentIp,
-  setIsPending,
+  setIsConnecting,
   setErrorChecking,
 } = proxySlice.actions
 export default proxySlice.reducer

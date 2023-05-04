@@ -5,9 +5,10 @@ import {
   connectProxy,
   disconnectProxy,
   setIsConnected,
-  setIsPending,
+  setIsConnecting,
   setErrorChecking,
 } from 'state/slices/proxy'
+import { setOverlay } from 'state/slices/overlay'
 import type { AppDispatch } from 'state/store'
 import browserApi from 'services/browserApi'
 
@@ -59,10 +60,11 @@ const proxyError = async (dispatch: AppDispatch): Promise<void> => {
   dispatch(setReconnectionAttempts(0))
 
   if (smokeWall) {
-    dispatch(setIsPending(false))
+    dispatch(setIsConnecting(false))
     dispatch(setIsConnected(true))
   } else if (!smokeWall) {
     dispatch(disconnectProxy())
+    dispatch(setOverlay({ isOpen: true, template: 'somethingWeird' }))
   }
 
   dispatch(setErrorChecking(false))

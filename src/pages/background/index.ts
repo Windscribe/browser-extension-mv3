@@ -115,11 +115,13 @@ chrome.proxy.onProxyError.addListener(async e => {
 
   const errorChecking = store.getState().proxy.errorChecking
   const isConnected = store.getState().proxy.isConnected
+  const isConnecting = store.getState().proxy.isConnecting
+
   const hasProxyError = !!store.getState().proxy.errorMessage
 
   const proxyFailure = isConnected && hasProxyError
 
-  if (!errorChecking && !proxyFailure) {
+  if (!errorChecking && !proxyFailure && isConnecting) {
     proxyError(store.dispatch)
   }
 })
