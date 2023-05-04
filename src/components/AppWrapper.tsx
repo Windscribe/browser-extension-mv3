@@ -13,7 +13,7 @@ const AppWrapper: ThemeUiElement<BoxProps> = ({ children, ...props }) => {
     <Box
       sx={{
         width: '100%',
-        maxHeight: templates?.length ? bodyMaxHeight : 'auto',
+        height: templates?.length ? bodyMaxHeight : 'auto',
       }}
       {...props}
     >
