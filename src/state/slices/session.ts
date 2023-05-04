@@ -10,7 +10,6 @@ import { login as loginRequest, logout as logoutRequest, getSessionStatus } from
 import { resetWebRtcBlocker } from './webRtcEnabled'
 import { addOverlay } from 'state/slices/overlay'
 import { setView } from 'state/slices/view'
-import detectUblock from 'services/detectUblock'
 import { checkIp } from 'services'
 import { setCurrentIp } from 'state/slices/proxy'
 
@@ -57,8 +56,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
       dispatch(setCurrentIp(ip))
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
-      const isUblockInstalled = await detectUblock()
-      isUblockInstalled && dispatch(addOverlay('ublockDetected'))
+
       return response.data
     }
 
