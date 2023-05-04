@@ -40,7 +40,8 @@ const Home: ThemeUiElement = () => {
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
   const isConnected = useSelector(state => state.proxy?.isConnected)
-  const isPending = useSelector(state => state.proxy.isPending)
+  const isConnecting = useSelector(state => state.proxy.isConnecting)
+  const isDisconnecting = useSelector(state => state.proxy.isDisconnecting)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
@@ -65,7 +66,7 @@ const Home: ThemeUiElement = () => {
     // This is example of how to use logger in React components
     // log('Proxy toggled ' + (isConnected ? 'off' : 'on'))
 
-    if (isConnected) {
+    if (isConnected || isConnecting) {
       await dispatch(disconnectProxy())
     } else {
       const hosts = currentDataCenter?.hosts
@@ -164,8 +165,9 @@ const Home: ThemeUiElement = () => {
           }}
         >
           <ConnectionInfo
-            isPending={isPending}
             isConnected={isConnected}
+            isConnecting={isConnecting}
+            isDisconnecting={isDisconnecting}
             autopilotSelected={autopilotSelected}
             currentDataCenter={currentDataCenter}
             proxyFailure={!!proxyFailure}
@@ -233,16 +235,16 @@ const Home: ThemeUiElement = () => {
                 borderRadius: '50%',
                 border: 'solid 3px',
                 borderColor: isConnected && !hasProxyError ? 'neonGreen' : 'transparent',
-                transform: `rotate(${isPending || isConnected ? '0' : '-180deg'})`,
+                transform: `rotate(${isConnecting || isConnected ? '0' : '-180deg'})`,
                 transition: '0.3s',
                 ':hover': {
-                  transform: `scale(1.1) rotate(${isPending || isConnected ? '0' : '-180deg'})`,
+                  transform: `scale(1.1) rotate(${isConnecting || isConnected ? '0' : '-180deg'})`,
                 },
               }}
               onClick={toggleProxy}
             >
               <PowerButton />
-              {isPending ? (
+              {isConnecting || isDisconnecting ? (
                 <Box
                   sx={{
                     position: 'absolute',

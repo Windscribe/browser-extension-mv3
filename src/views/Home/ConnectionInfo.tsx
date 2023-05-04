@@ -8,16 +8,18 @@ import InfoIcon from 'assets/img/infoIcon.svg'
 import NoInternet from 'assets/img/noInternet.svg'
 
 type ConnectionStatusProps = {
-  isPending: boolean
   isConnected: boolean
+  isConnecting: boolean
+  isDisconnecting: boolean
   autopilotSelected: boolean
   currentDataCenter: Partial<DataCenter>
   proxyFailure: boolean
 }
 
 const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
-  isPending,
   isConnected,
+  isConnecting,
+  isDisconnecting,
   autopilotSelected,
   currentDataCenter,
   proxyFailure,
@@ -33,71 +35,60 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
           mb: '12px',
         }}
       >
-        {isPending ? (
-          <Text
-            sx={{
-              fontSize: '12px',
-              fontWeight: '600',
-              color: 'neonGreen',
-              mr: '8px',
-            }}
-          >
-            CONNECTING...
-          </Text>
-        ) : (
-          <>
-            <Text
-              sx={{
-                fontSize: '12px',
-                fontWeight: '600',
-                color:
-                  isPending || isConnected ? 'neonGreen' : isOnline ? 'white' : 'warningYellow',
-                mr: '8px',
-              }}
-            >
-              {isPending ? (
-                'CONNECTING...'
-              ) : isConnected ? (
-                'ON'
-              ) : isOnline ? (
-                'OFF'
-              ) : (
-                <Flex sx={{ alignItems: 'center', gap: '8px' }}>
-                  <NoInternet sx={{ fill: 'warningYellow' }} />
-                  OFFLINE
-                </Flex>
-              )}
-            </Text>
-            <Text
-              sx={{
-                fontSize: '12px',
-                color: isConnected && !proxyFailure ? 'neonGreen' : 'halfWhite',
-                fontWeight: proxyFailure ? '600' : '400',
-              }}
-            >
-              {proxyFailure ? (
-                <Flex sx={{ alignItems: 'center', gap: '8px' }}>
-                  PROXY FAILURE
-                  <InfoIcon
-                    sx={{
-                      cursor: 'pointer',
-                      fill: 'halfWhite',
-                      transition: '0.3s',
-                      ':hover': {
-                        fill: 'white',
-                      },
-                    }}
-                    onClick={() =>
-                      dispatch(setOverlay({ isOpen: true, template: 'somethingWeird' }))
-                    }
-                  />
-                </Flex>
-              ) : isOnline ? (
-                <IpAddress />
-              ) : null}
-            </Text>
-          </>
-        )}
+        <Text
+          sx={{
+            fontSize: '12px',
+            fontWeight: '600',
+            color:
+              isConnecting || isConnected || isDisconnecting
+                ? 'neonGreen'
+                : isOnline
+                ? 'white'
+                : 'warningYellow',
+            mr: '8px',
+          }}
+        >
+          {isConnecting ? (
+            'CONNECTING...'
+          ) : isDisconnecting ? (
+            'DISCONNECTING...'
+          ) : isConnected ? (
+            'ON'
+          ) : isOnline ? (
+            'OFF'
+          ) : (
+            <Flex sx={{ alignItems: 'center', gap: '8px' }}>
+              <NoInternet sx={{ fill: 'warningYellow' }} />
+              OFFLINE
+            </Flex>
+          )}
+        </Text>
+        <Text
+          sx={{
+            fontSize: '12px',
+            color: isConnected && !proxyFailure ? 'neonGreen' : 'halfWhite',
+            fontWeight: proxyFailure ? '600' : '400',
+          }}
+        >
+          {proxyFailure ? (
+            <Flex sx={{ alignItems: 'center', gap: '8px' }}>
+              PROXY FAILURE
+              <InfoIcon
+                sx={{
+                  cursor: 'pointer',
+                  fill: 'halfWhite',
+                  transition: '0.3s',
+                  ':hover': {
+                    fill: 'white',
+                  },
+                }}
+                onClick={() => dispatch(setOverlay({ isOpen: true, template: 'somethingWeird' }))}
+              />
+            </Flex>
+          ) : isOnline && !isConnecting && !isDisconnecting ? (
+            <IpAddress />
+          ) : null}
+        </Text>
       </Flex>
       <Box mb="8px">
         <Text
