@@ -12,7 +12,7 @@ interface ConnectionState {
 const initialState: ConnectionState = {
   smokeWall: true,
   failover: 'Auto / Best',
-  autoConnect: false,
+  autoConnect: true,
   reconnectionAttempts: 0,
 }
 
