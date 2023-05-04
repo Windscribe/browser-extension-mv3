@@ -2,7 +2,7 @@ import { Box, Flex, Text } from 'theme-ui'
 import { useDispatch, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import { DataCenter } from 'api/types'
-import { setOverlay } from 'state/slices/overlay'
+import { addOverlay } from 'state/slices/overlay'
 import IpAddress from './IpAddress'
 import InfoIcon from 'assets/img/infoIcon.svg'
 import NoInternet from 'assets/img/noInternet.svg'
@@ -82,7 +82,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
                     fill: 'white',
                   },
                 }}
-                onClick={() => dispatch(setOverlay({ isOpen: true, template: 'somethingWeird' }))}
+                onClick={() => dispatch(addOverlay('somethingWeird'))}
               />
             </Flex>
           ) : isOnline && !isConnecting && !isDisconnecting ? (

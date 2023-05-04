@@ -1,5 +1,6 @@
 import { Box, Button, Flex } from 'theme-ui'
 import { useEffect } from 'react'
+
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
 import UsageBar from './UsageBar'
@@ -10,7 +11,8 @@ import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
-import { setOverlay } from 'state/slices/overlay'
+import { setIsRightAfterLogin } from 'state/slices/isRightAfterLogin'
+import { addOverlay } from 'state/slices/overlay'
 import { useInitialDataFetching } from 'components/hooks'
 import Onboarding from 'components/Onboarding'
 import { ACCOUNT_PLAN } from 'utils/constants'
@@ -19,6 +21,7 @@ import Flags from 'assets/flags'
 import { SpinAnim } from 'styles/constants'
 import ConnectionInfo from './ConnectionInfo'
 import ToolTip from 'components/ToolTip'
+import detectUblock from 'services/detectUblock'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -48,16 +51,22 @@ const Home: ThemeUiElement = () => {
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
-  const overlayTemplate = useSelector(state => state.overlay.template)
   const hasProxyError = useSelector(state => state.proxy.errorMessage)
+  const isRightAfterLogin = useSelector(state => state.isRightAfterLogin)
 
   const proxyFailure = isConnected && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
   useEffect(() => {
-    if (overlayTemplate === 'welcome') dispatch(setOverlay({ isOpen: true }))
-  }, [dispatch, overlayTemplate])
+    if (isRightAfterLogin) {
+      dispatch(setIsRightAfterLogin(false))
+      detectUblock().then(isUblockInstalled => {
+        isUblockInstalled && dispatch(addOverlay('ublockDetected'))
+        dispatch(addOverlay('welcome'))
+      })
+    }
+  }, [isRightAfterLogin, dispatch])
 
   useInitialDataFetching()
 

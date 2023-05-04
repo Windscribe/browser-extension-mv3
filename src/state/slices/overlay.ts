@@ -3,27 +3,31 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import type { OverlayTemplate } from 'utils/types'
 
 type OverlayState = {
-  isOpen: boolean
-  template?: OverlayTemplate
+  templates: OverlayTemplate[]
 }
 const initialState: OverlayState = {
-  isOpen: false,
-  template: 'welcome',
+  templates: [],
 }
 
 export const overlaySlice = createSlice({
   name: 'overlay',
   initialState,
   reducers: {
-    setOverlay(state: OverlayState, action: PayloadAction<OverlayState>) {
-      const { isOpen, template } = action.payload
-      state.isOpen = isOpen
-      if (template) {
-        state.template = template
-      }
+    addOverlay(state: OverlayState, action: PayloadAction<OverlayTemplate>) {
+      const template = action.payload
+      // TODO Consider to make it simpler
+      const uniqueValuesArray = [...new Set([...state.templates, template])]
+      state.templates = uniqueValuesArray
+    },
+    removeOverlay(state: OverlayState, action: PayloadAction<OverlayTemplate>) {
+      const templateToRemove = action.payload
+      state.templates = state.templates.filter(template => template !== templateToRemove)
+    },
+    removeAllOverlays(state: OverlayState) {
+      state.templates = []
     },
   },
 })
 
-export const { setOverlay } = overlaySlice.actions
+export const { addOverlay, removeOverlay, removeAllOverlays } = overlaySlice.actions
 export default overlaySlice.reducer

@@ -4,7 +4,7 @@ import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { ScrollableBox, Header, OptionBox, ToggleSwitch } from 'components'
 import { setBlockLists, setShowUblockWarning } from 'state/slices/blocker'
-import { setOverlay } from 'state/slices/overlay'
+import { addOverlay } from 'state/slices/overlay'
 import detectUblock from 'services/detectUblock'
 import AdblockIcon from 'assets/img/adblock.svg'
 import TrackerIcon from 'assets/img/trackers.svg'
@@ -22,7 +22,7 @@ const Blocker: ThemeUiElement = () => {
   useEffect(() => {
     detectUblock().then(isUblockInstalled => {
       if (isUblockInstalled && showUblockWarning) {
-        dispatch(setOverlay({ isOpen: true, template: 'ublockDetected' }))
+        dispatch(addOverlay('ublockDetected'))
         dispatch(setShowUblockWarning(false))
       }
     })
