@@ -27,7 +27,7 @@ export default (): void => {
   const userAgentOriginal = useSelector(state => state.userAgent.original)
   const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
   const isConnected = useSelector(state => state.proxy?.isConnected)
-  const isPending = useSelector(state => state.proxy.isPending)
+  const isConnecting = useSelector(state => state.proxy.isConnecting)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -84,14 +84,14 @@ export default (): void => {
       serverListLoading === 'fulfilled' &&
       bestLocationLoading === 'fulfilled' &&
       !isConnected &&
-      !isPending
+      !isConnecting
     ) {
       dispatchConnectToAutopilot()
       dispatch(setAutoConnectAfterLogin(false))
     }
   }, [
     isConnected,
-    isPending,
+    isConnecting,
     serverListLoading,
     bestLocationLoading,
     autoConnectAfterLogin,
