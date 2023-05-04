@@ -1,11 +1,9 @@
 import { useSelector } from 'state/hooks'
-import { Overlay } from './Overlay'
+import { Overlay } from '.'
 
 // Is plural form better ? 'OverlaysGenerator' ?
-const OverlayGenerator: React.FC = () => {
+export const OverlayGenerator: React.FC = () => {
   const { templates } = useSelector(s => s.overlay)
-
-  console.log('%c OverlayGenerator ', 'background: #383E49; color: #1ADEAE', templates)
 
   return (
     <>
@@ -15,5 +13,3 @@ const OverlayGenerator: React.FC = () => {
     </>
   )
 }
-
-export default OverlayGenerator

@@ -7,7 +7,7 @@ import theme from 'styles'
 import Router from 'services/navigation/Router'
 import proxyStore from 'pages/proxyStore'
 import { pushToDebugLog } from 'state/slices/debugLog'
-import { AppWrapper, OverlayGenerator, SessionStatusChecker } from 'components'
+import { AppWrapper } from 'components'
 
 proxyStore
   .ready()
@@ -17,8 +17,6 @@ proxyStore
         <Provider store={proxyStore}>
           <AppWrapper>
             <Router />
-            <OverlayGenerator />
-            <SessionStatusChecker />
           </AppWrapper>
         </Provider>
       </ThemeProvider>,

@@ -1,5 +1,6 @@
 import { Box, Button, Flex } from 'theme-ui'
 import { useEffect } from 'react'
+
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
 import UsageBar from './UsageBar'
@@ -49,21 +50,15 @@ const Home: ThemeUiElement = () => {
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
   const hasProxyError = useSelector(state => state.proxy.errorMessage)
-  const workingApi = useSelector(state => state.workingApi)
 
   const proxyFailure = isConnected && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
-  // Todo. delete for test only
-  useEffect(() => {
-    dispatch(addOverlay('welcome'))
-    //setTimeout(() => dispatch(addOverlay('ublockDetected')), 1000)
-  }, [])
 
-  //useEffect(() => {
-  // TODO Find condition
-  // dispatch(addOverlay('welcome'))
-  //}, [dispatch])
+  useEffect(() => {
+    // TODO Find condition
+    dispatch(addOverlay('welcome'))
+  }, [dispatch])
 
   useInitialDataFetching()
 

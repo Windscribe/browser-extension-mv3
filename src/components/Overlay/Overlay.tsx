@@ -39,16 +39,14 @@ export const Overlay: ThemeUiElement<{ template: OverlayTemplate; index: number 
   return (
     <Box
       sx={{
-        //position: isOpen ? 'relative' : 'absolute',
         position: 'absolute',
         top: 0,
         width: '100%',
-        height: 'auto',
-        maxHeight: isOpen ? bodyMaxHeight : 0,
+        height: isOpen ? bodyMaxHeight : 0,
         color: 'primaryText',
         backgroundColor: 'background',
         overflow: 'hidden',
-        transition: 'max-height ease-in-out 1.3s',
+        transition: 'height ease-in-out 0.2s',
         zIndex: 3 + index,
         visibility: isOpen ? 'visible' : 'hidden',
       }}
