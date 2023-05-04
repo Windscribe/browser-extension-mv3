@@ -21,6 +21,7 @@ import Flags from 'assets/flags'
 import { SpinAnim } from 'styles/constants'
 import ConnectionInfo from './ConnectionInfo'
 import ToolTip from 'components/ToolTip'
+import detectUblock from 'services/detectUblock'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -60,7 +61,10 @@ const Home: ThemeUiElement = () => {
   useEffect(() => {
     if (isRightAfterLogin) {
       dispatch(setIsRightAfterLogin(false))
-      dispatch(addOverlay('welcome'))
+      detectUblock().then(isUblockInstalled => {
+        dispatch(addOverlay('welcome'))
+        isUblockInstalled && dispatch(addOverlay('ublockDetected'))
+      })
     }
   }, [isRightAfterLogin, dispatch])
 
