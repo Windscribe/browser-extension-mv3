@@ -62,8 +62,8 @@ const Home: ThemeUiElement = () => {
     if (isRightAfterLogin) {
       dispatch(setIsRightAfterLogin(false))
       detectUblock().then(isUblockInstalled => {
-        dispatch(addOverlay('welcome'))
         isUblockInstalled && dispatch(addOverlay('ublockDetected'))
+        dispatch(addOverlay('welcome'))
       })
     }
   }, [isRightAfterLogin, dispatch])

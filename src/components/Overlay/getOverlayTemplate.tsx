@@ -1,6 +1,6 @@
 import type { OverlayTemplate } from 'utils/types'
 import { useDispatch } from 'state/hooks'
-import { addOverlay } from 'state/slices/overlay'
+import { addOverlay, removeAllOverlays } from 'state/slices/overlay'
 import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import CancelButton from './CancelButton'
 import ConfirmButton from './ConfirmButton'
@@ -101,7 +101,7 @@ const Welcome: ActionsBlockComponent = ({ close }) => {
     <>
       <ConfirmButton
         onClick={() => {
-          close()
+          dispatch(removeAllOverlays())
           dispatch(setShouldShowOnboarding(true))
         }}
         data-testid="start-tutorial-button"
@@ -123,7 +123,9 @@ const SomethingWeird: ActionsBlockComponent = ({ close }) => {
 
 const UblockDetected: ActionsBlockComponent = ({ close }) => {
   const dispatch = useDispatch()
-  const open = () => dispatch(addOverlay('uninstallUblock'))
+  const open = () => {
+    dispatch(addOverlay('uninstallUblock'))
+  }
 
   return (
     <>
@@ -133,8 +135,10 @@ const UblockDetected: ActionsBlockComponent = ({ close }) => {
   )
 }
 
-const UninstallUblock: ActionsBlockComponent = ({ close }) => {
-  return <CancelButton onClick={close}>Ok</CancelButton>
+const UninstallUblock: ActionsBlockComponent = () => {
+  const dispatch = useDispatch()
+
+  return <CancelButton onClick={() => dispatch(removeAllOverlays())}>Ok</CancelButton>
 }
 
 const NoData: ActionsBlockComponent = ({ close }) => {

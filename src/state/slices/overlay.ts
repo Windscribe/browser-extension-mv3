@@ -23,8 +23,11 @@ export const overlaySlice = createSlice({
       const templateToRemove = action.payload
       state.templates = state.templates.filter(template => template !== templateToRemove)
     },
+    removeAllOverlays(state: OverlayState) {
+      state.templates = []
+    },
   },
 })
 
-export const { addOverlay, removeOverlay } = overlaySlice.actions
+export const { addOverlay, removeOverlay, removeAllOverlays } = overlaySlice.actions
 export default overlaySlice.reducer
