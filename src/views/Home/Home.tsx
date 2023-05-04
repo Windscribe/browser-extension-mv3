@@ -11,6 +11,7 @@ import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy } from 'state/slices/proxy'
+import { setIsRightAfterLogin } from 'state/slices/isRightAfterLogin'
 import { addOverlay } from 'state/slices/overlay'
 import { useInitialDataFetching } from 'components/hooks'
 import Onboarding from 'components/Onboarding'
@@ -50,15 +51,18 @@ const Home: ThemeUiElement = () => {
   const notifications = useSelector(state => state.newsfeed.notifications)
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
   const hasProxyError = useSelector(state => state.proxy.errorMessage)
+  const isRightAfterLogin = useSelector(state => state.isRightAfterLogin)
 
   const proxyFailure = isConnected && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
   useEffect(() => {
-    // TODO Find condition
-    dispatch(addOverlay('welcome'))
-  }, [dispatch])
+    if (isRightAfterLogin) {
+      dispatch(setIsRightAfterLogin(false))
+      dispatch(addOverlay('welcome'))
+    }
+  }, [isRightAfterLogin, dispatch])
 
   useInitialDataFetching()
 

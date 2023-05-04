@@ -46,6 +46,7 @@ import overlayReducer from './slices/overlay'
 import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
 import iconVariantReducer from './slices/iconVariant'
 import autoConnectAfterLoginReducer from './slices/autoConnectAfterLogin'
+import isRightAfterLoginReducer from './slices/isRightAfterLogin'
 
 const reducers = {
   allowlist: allowlistReducer,
@@ -62,6 +63,7 @@ const reducers = {
   favoriteLocations: favoriteLocationsReducer,
   iconVariant: iconVariantReducer,
   isOnline: isOnlineReducer,
+  isRightAfterLogin: isRightAfterLoginReducer,
   languageWarpEnabled: languageWarpEnabledReducer,
   locationLoad: locationLoadReducer,
   locationSorting: locationSortingReducer,

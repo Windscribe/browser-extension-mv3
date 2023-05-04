@@ -96,7 +96,6 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
 
 const Welcome: ActionsBlockComponent = ({ close }) => {
   const dispatch = useDispatch()
-  //const close = () => dispatch(setOverlay({ isOpen: false, template: 'somethingWeird' }))
 
   return (
     <>
@@ -135,16 +134,10 @@ const UblockDetected: ActionsBlockComponent = ({ close }) => {
 }
 
 const UninstallUblock: ActionsBlockComponent = ({ close }) => {
-  //const dispatch = useDispatch()
-  //const close = () => dispatch(setOverlay({ isOpen: false }))
-
   return <CancelButton onClick={close}>Ok</CancelButton>
 }
 
 const NoData: ActionsBlockComponent = ({ close }) => {
-  //const dispatch = useDispatch()
-  //const close = () => dispatch(setOverlay({ isOpen: false }))
-
   return (
     <>
       <ConfirmButton
@@ -161,9 +154,6 @@ const NoData: ActionsBlockComponent = ({ close }) => {
 }
 
 const ProPlanExpired: ActionsBlockComponent = ({ close }) => {
-  //const dispatch = useDispatch()
-  //const close = () => dispatch(setOverlay({ isOpen: false }))
-
   return (
     <>
       <ConfirmButton
@@ -180,8 +170,6 @@ const ProPlanExpired: ActionsBlockComponent = ({ close }) => {
 }
 
 const Banned: ActionsBlockComponent = ({ close }) => {
-  //const dispatch = useDispatch()
-  //const close = () => dispatch(setOverlay({ isOpen: false }))
   return (
     <CancelButton
       onClick={() => {
@@ -195,16 +183,10 @@ const Banned: ActionsBlockComponent = ({ close }) => {
 }
 
 const ExtensionConflict: ActionsBlockComponent = ({ close }) => {
-  //const dispatch = useDispatch()
-  // const close = () => dispatch(setOverlay({ isOpen: false }))
-
   return <CancelButton onClick={close}>Got it</CancelButton>
 }
 
 const LocationDown: ActionsBlockComponent = ({ close }) => {
-  //const dispatch = useDispatch()
-  //const close = () => dispatch(setOverlay({ isOpen: false }))
-
   return (
     <>
       <ConfirmButton onClick={() => window.open(`${ENVS.ROOT_URL}/status`)}>

@@ -31,8 +31,6 @@ body {
 
   position: relative;
   overflow: hidden;
-  /* width: 324px;
-  max-height: 442px; */
   min-height: 208px;
   background-color: #1a2432;
 }

@@ -18,15 +18,13 @@ export const Overlay: ThemeUiElement<{ template: OverlayTemplate; index: number 
   const [isOpen, setIsOpen] = useState(false)
   const [shouldDelete, setShouldDelete] = useState(false)
 
-  console.log('%c Overlay', 'background: #383E49; color: #1ADEAE', template)
-
   useEffect(() => {
     setIsOpen(true)
   }, [])
 
   useEffect(() => {
     if (!isOpen && shouldDelete) dispatch(removeOverlay(template))
-  }, [isOpen])
+  }, [isOpen, shouldDelete, dispatch, template])
 
   // consider of using useCallback.
   const close = () => {
