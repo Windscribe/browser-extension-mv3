@@ -44,7 +44,6 @@ export const Overlay: ThemeUiElement<{ template: OverlayTemplate; index: number 
         color: 'primaryText',
         backgroundColor: 'background',
         overflow: 'hidden',
-        transition: 'height ease-in-out 0.2s',
         zIndex: 3 + index,
         visibility: isOpen ? 'visible' : 'hidden',
       }}

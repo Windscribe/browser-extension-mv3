@@ -14,7 +14,6 @@ const AppWrapper: ThemeUiElement<BoxProps> = ({ children, ...props }) => {
       sx={{
         width: '100%',
         height: templates?.length ? bodyMaxHeight : 'auto',
-        transition: 'height ease-in-out 0.2s',
       }}
       {...props}
     >
