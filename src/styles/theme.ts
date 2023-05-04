@@ -2,7 +2,6 @@ import type { Theme } from 'theme-ui'
 
 import { colors } from './colors'
 import { zIndices } from './zIndices'
-import { bodyMaxHeight } from './constants'
 
 export const theme: Theme = {
   config: {
@@ -27,16 +26,12 @@ export const theme: Theme = {
     root: {
       body: {
         fontSize: '14px',
-        width: '324px',
-        maxHeight: bodyMaxHeight,
       },
       mark: {
         backgroundColor: 'warmGrey',
         color: 'primaryText',
       },
       height: 'auto',
-      width: '324px',
-      maxHeight: bodyMaxHeight,
       backgroundColor: 'white',
     },
   },
