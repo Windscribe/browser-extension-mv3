@@ -95,6 +95,8 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     const isValid = checkIfDomainValid(domainValue)
     if (!isValid) return
 
+    closePopup()
+
     // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
     chrome.runtime.sendMessage({
       what: 'setFilteringMode',
@@ -109,8 +111,6 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
       allowDirectConnections: isDirectConnectionsAllowed,
       includeAllSubdomains: isAllSubdomainsIncluded,
     })
-
-    closePopup()
   }
 
   const checkIfDomainValid = (domainValue: string) => {
