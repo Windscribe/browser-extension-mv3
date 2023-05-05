@@ -51,7 +51,7 @@ const GradientOverlay: ThemeUiElement<GradientOverlayProps> = ({ isTransparent, 
   <Box
     sx={{
       width: '100%',
-      height: `calc(100% - ${footerHeight})`,
+      height: '160px',
       position: 'absolute',
       top: '0px',
       zIndex: 1,
