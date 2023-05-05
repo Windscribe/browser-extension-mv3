@@ -3,7 +3,6 @@ import { Flex, Text } from 'theme-ui'
 import isValidDomain from 'is-valid-domain'
 
 import { useSelector } from 'state/hooks'
-import { footerHeight } from 'styles/constants'
 import DomainControlButtonGroup from './DomainControlButtonGroup'
 import { useCurrentTabHostname } from 'components/hooks'
 import { IconButton } from 'components'
@@ -29,7 +28,7 @@ const SiteControlBar: React.FC = () => {
       className="joyride-element-allowlist"
       sx={{
         alignItems: 'center',
-        height: `${footerHeight}`,
+        height: '48px',
         width: '100%',
         backgroundColor: 'darkBackground',
         px: '16px',

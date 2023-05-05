@@ -1,8 +1,5 @@
 import { Box, useThemeUI } from 'theme-ui'
-
 import { type ThemeUiElement } from 'utils/types'
-import { footerHeight } from 'styles/constants'
-
 import FlagGradientMask from 'assets/img/flag-gradient-mask.svg'
 
 type FlagBackgroundProps = {
