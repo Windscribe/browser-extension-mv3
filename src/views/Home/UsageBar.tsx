@@ -18,7 +18,6 @@ const UsageBar: React.FC<ButtonProps> = () => {
   const remainingDataBytes = bytes(traffic_max - traffic_used)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async () => {
-    //TODO Implement separate, browser-agnostic service. Get rid of hardcoded url.
     const url = `${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`
     await chrome.tabs.create({ url })
   }

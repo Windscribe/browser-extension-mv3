@@ -15,7 +15,6 @@ type ButtonProps = {
 
 const Button: ThemeUiElement<ButtonProps> = ({ bg, color, text, subtext, url, dataTestId }) => {
   const gotoLink = async () => {
-    //TODO Implement separate, browser-agnostic service. Get rid of hardcoded url.
     await chrome.tabs.create({ url })
   }
 
