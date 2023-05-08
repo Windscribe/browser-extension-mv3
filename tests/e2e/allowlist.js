@@ -31,7 +31,6 @@ const allowlist = async (popupPage, browser) => {
     })
 
     it('Push test page to allowlist', async () => {
-      console.log('Allowlist 0.0')
       popupPage.bringToFront()
       await popupPage.waitForSelector('[data-testid=home-page]')
 
@@ -39,18 +38,15 @@ const allowlist = async (popupPage, browser) => {
       popupPage.click('[data-testid=go-to-preferences]')
       await popupPage.waitForSelector('[data-testid=preferences-page]')
 
-      console.log('Allowlist 0.1')
       // Go to Allowlist page
       popupPage.waitForSelector('[data-testid=Allowlist]')
       popupPage.click('[data-testid=Allowlist]')
       await popupPage.waitForSelector('[data-testid=allowlist-page]')
 
       // Open popup with allowlist settings
-      console.log('Allowlist 1')
       popupPage.click('[data-testid=add-to-allowlist-button]')
       await popupPage.waitForSelector('[data-testid=allowlist-settings-popup]')
       await popupPage.waitForSelector('[data-testid=allowlist-domain-input]')
-      console.log('Allowlist 2')
 
       // Fill input and Allow Privacy Features for test page
       // There is a bug with Page.type()
@@ -60,18 +56,14 @@ const allowlist = async (popupPage, browser) => {
       await popupPage.type('[data-testid=allowlist-domain-input]', 'www.google.com', {
         delay: 50,
       })
-      console.log('Allowlist 3')
 
       await popupPage.waitForTimeout(800)
-      console.log('Allowlist 4')
 
       await popupPage.waitForSelector('[data-testid=allow-privacy-features-checkbox]')
       popupPage.click('[data-testid=allow-privacy-features-checkbox]')
-      console.log('Allowlist 5')
 
       await popupPage.waitForSelector('[data-testid=allowlist-popup-submit-button]')
       popupPage.click('[data-testid=allowlist-popup-submit-button]')
-      console.log('Allowlist 6')
 
       // Verify domain appeared on allowlist-page
       await popupPage.waitForSelector('[data-testid=allowlist-items-list]')
@@ -82,7 +74,6 @@ const allowlist = async (popupPage, browser) => {
         ].some(element => element.textContent === 'www.google.com')
       })
       expect(hasTestPage).to.equal(true)
-      console.log('Allowlist 7')
 
       // Return to home page
       popupPage.click('[data-testid=go-back-button]')
@@ -90,7 +81,6 @@ const allowlist = async (popupPage, browser) => {
       popupPage.click('[data-testid=go-back-button]')
       const homePage = await popupPage.waitForSelector('[data-testid=home-page]')
       expect(homePage).to.not.equal(undefined)
-      console.log('Allowlist 8')
     })
 
     it('Open test page which is allowlisted now, and ensure that serviceWorker is NOT spoofed', async () => {
