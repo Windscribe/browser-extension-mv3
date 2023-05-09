@@ -11,7 +11,7 @@ const ToolTip: ThemeUiElement<ToolTipProps> = ({ message, children, ...props }) 
   <Tippy
     content={message}
     sx={{
-      backgroundColor: 'foregroundSolid',
+      backgroundColor: 'foreground',
       color: 'primaryText',
       borderRadius: '4px',
       wordBreak: 'break-all',
@@ -23,7 +23,7 @@ const ToolTip: ThemeUiElement<ToolTipProps> = ({ message, children, ...props }) 
         p: '3px 6px',
       },
       '.tippy-arrow': {
-        color: 'foregroundSolid',
+        color: 'foreground',
       },
     }}
     {...props}

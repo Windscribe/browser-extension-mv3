@@ -17,19 +17,26 @@ import { type DataCenter } from 'api/types'
 import { type ThemeUiElement } from 'utils/types'
 import { IconButton } from 'components'
 import { addOverlay } from 'state/slices/overlay'
+import { useWindowOpening } from 'components/hooks'
 
 import HeartIcon from 'assets/img/heart.svg'
 import HeartBreakIcon from 'assets/img/heartBreak.svg'
 import HeartOutlineIcon from 'assets/img/heartOutline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
+import StarIcon from 'assets/img/star.svg'
 
 type DataCenterItem = ButtonProps & {
+  isPremium?: boolean
   dataCenter: DataCenter
   searchText?: string
 }
 
-const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText = '' }) => {
+const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
+  isPremium,
+  dataCenter,
+  searchText = '',
+}) => {
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
   const currentDataCenter = useSelector(s => s.currentDataCenter)
@@ -40,8 +47,14 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
 
   const [showBrokenHeart, setShowBrokenHeart] = useState(false)
 
-  const handleClick = (dataCenter: DataCenter) => {
-    if (!dataCenter.hosts || dataCenter.hosts.length === 0) {
+  const { openWindowUsingTempSession } = useWindowOpening()
+
+  const showPro = !isPremium && dataCenter.pro
+
+  const handleClick = async (dataCenter: DataCenter) => {
+    if (showPro) {
+      await openWindowUsingTempSession('upgrade?pcpid=upgrade_ext1')
+    } else if (!dataCenter.hosts || dataCenter.hosts.length === 0) {
       dispatch(addOverlay('locationDown'))
     } else {
       location && dispatch(setCurrentLocation(location))
@@ -90,15 +103,17 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
           listStyleType: 'none',
         }}
       >
-        <IconButton
-          data-testid="heart-icon-button"
-          onClick={handleHeartIconClick}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          sx={{ height: '16px', mr: '24px', p: 0 }}
-        >
-          <HeartButtonIcon {...{ showBrokenHeart, isInFavorite }} />
-        </IconButton>
+        {!showPro ? (
+          <IconButton
+            data-testid="heart-icon-button"
+            onClick={handleHeartIconClick}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            sx={{ height: '16px', mr: '24px', p: 0 }}
+          >
+            <HeartButtonIcon {...{ showBrokenHeart, isInFavorite }} />
+          </IconButton>
+        ) : null}
         <Button
           onClick={() => handleClick(dataCenter)}
           variant="simple"
@@ -108,49 +123,79 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({ dataCenter, searchText
             width: '100%',
             justifyContent: 'space-between',
             color: currentlySelected ? 'primaryText' : 'secondaryText',
-            transition: '0.3s',
+            alignItems: 'center',
+            position: 'relative',
+            transition: 'color 0.3s',
             'svg > path': {
               transition: 'fill 0.3s',
             },
-            '&:hover': {
+            span: {
+              transition: 'opacity 0.3s, visibility 0.3s',
+            },
+            ':hover': {
               color: 'primaryText',
-              '& > svg': {
+              'svg > *': {
                 fill: 'primaryText',
+              },
+              span: {
+                opacity: 1,
+                visibility: 'visible',
               },
             },
           }}
         >
-          <Box>
-            <Text sx={{ fontWeight: '600' }}>
+          <Flex sx={{ alignItems: 'center', minWidth: 'auto' }}>
+            {showPro ? (
+              <StarIcon sx={{ height: '16px', mr: '24px', p: 0, fill: 'secondaryText' }} />
+            ) : null}
+            <Box sx={{ fontWeight: '600', mr: '4px' }}>
               <Highlighter
                 data-testid="data-center-city"
                 searchWords={[searchText]}
                 textToHighlight={dataCenter.city}
               />
-            </Text>
-            &nbsp;
-            <Text sx={{ fontWeight: '400' }}>
+            </Box>
+            <Box sx={{ fontWeight: '400', whiteSpace: 'nowrap' }}>
               <Highlighter
                 data-testid="data-center-nick"
                 searchWords={[searchText]}
                 textToHighlight={dataCenter.nick}
               />
+            </Box>
+          </Flex>
+          {showPro ? (
+            <Text
+              sx={{
+                visibility: 'hidden',
+                opacity: 0,
+                fontWeight: '600',
+                position: 'absolute',
+                right: '0',
+                backgroundColor: 'foreground',
+                pl: '8px',
+                boxShadow: '0 0 20px 20px #313a46',
+              }}
+            >
+              UPGRADE
             </Text>
-          </Box>
-          {currentlySelected ? (
-            <CheckmarkIcon
-              data-testid="checkmark-icon"
-              sx={{
-                fill: 'primaryText',
-              }}
-            />
           ) : (
-            <ArrowRightIcon
-              data-testid="arrow-right-icon"
-              sx={{
-                fill: 'secondaryText',
-              }}
-            />
+            <>
+              {currentlySelected ? (
+                <CheckmarkIcon
+                  data-testid="checkmark-icon"
+                  sx={{
+                    fill: 'primaryText',
+                  }}
+                />
+              ) : (
+                <ArrowRightIcon
+                  data-testid="arrow-right-icon"
+                  sx={{
+                    fill: 'secondaryText',
+                  }}
+                />
+              )}
+            </>
           )}
         </Button>
       </Flex>
@@ -186,9 +231,6 @@ const HeartButtonIcon: React.FC<{ isInFavorite: boolean; showBrokenHeart: boolea
       <HeartBreakIcon
         sx={{
           fill: 'primaryText',
-          path: {
-            scale: '0.4',
-          },
         }}
       />
     ) : (

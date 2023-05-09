@@ -19,8 +19,7 @@ export const colors = {
   warningYellow: '#ffe600',
   warmGrey: '#777',
   background: '#1a2432',
-  foreground: 'rgba(255, 255, 255, 0.1)',
-  foregroundSolid: '#313a46',
+  foreground: '#313a47',
   primaryText: '#fff',
   secondaryText: 'rgba(255, 255, 255, 0.5)',
   border: 'rgba(255, 255, 255, 0.05)',
@@ -30,8 +29,7 @@ export const colors = {
   modes: {
     light: {
       background: '#fff',
-      foreground: 'rgba(2, 13, 28, 0.1)',
-      foregroundSolid: '#e5e6e8',
+      foreground: '#e5e6e8',
       primaryText: '#020d1c',
       secondaryText: 'rgba(2, 13, 28, 0.5)',
       softText: 'white',
