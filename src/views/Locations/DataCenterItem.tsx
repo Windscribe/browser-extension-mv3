@@ -77,6 +77,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
   const handleMouseLeave = () => setShowBrokenHeart(false)
 
   const getUsageColor = (percentage: number) => {
+    if (showPro) return 'transparent'
     if (percentage < 50) return 'neonGreen'
     if (percentage < 75) return 'lemonYellow'
     return 'rubyRed'
