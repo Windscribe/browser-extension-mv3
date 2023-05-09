@@ -26,6 +26,7 @@ const Badge: ThemeUiElement<BadgeProps> = ({ count, ...restProps }) => {
           color: 'neonGreen',
           fontWeight: '700',
           lineHeight: '100%',
+          pt: '1px',
         }}
       >
         {count}
