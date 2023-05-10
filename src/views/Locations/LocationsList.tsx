@@ -16,6 +16,7 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
   const currentLocationId = useSelector(s => s.currentLocation?.id)
   const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
+  const isPremium = useSelector(s => s.session.is_premium)
 
   const [serverList, setServerList] = useState<ServerList>(serverListSorted)
 
@@ -53,8 +54,9 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
         <>
           {autopilotLocation && !searchText && (
             <LocationsListItem
-              location={autopilotLocation}
               data-testid="autopilot-list-item"
+              location={autopilotLocation}
+              isPremium={!!isPremium}
               isAutopilot
               currentlySelected={currentLocationId === autopilotLocation.id && autopilotSelected}
             />
@@ -64,6 +66,7 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
               data-testid={`locations-list-item-${i}`}
               key={location.id}
               location={location}
+              isPremium={!!isPremium}
               searchText={searchText}
             />
           ))}

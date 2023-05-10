@@ -157,9 +157,6 @@ export const theme: Theme = {
         borderColor: 'border',
         outline: 'none',
       },
-      '&:-webkit-autofill': {
-        WebkitTextFillColor: 'primaryText',
-      },
     },
   },
   text: {

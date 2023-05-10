@@ -112,14 +112,18 @@ const Login: ThemeUiElement = () => {
             type="text"
             name="username"
             data-testid="username-input"
-            autofillBackgroundColor="foreground"
             spellCheck="false"
             value={username}
             onChange={e => {
               setUsername(e.target.value)
               dispatch(saveUsername(e.target.value))
             }}
-            sx={{ borderColor: error ? 'bloodRed' : 'transparent' }}
+            sx={{
+              borderColor: error ? 'bloodRed' : 'transparent',
+              ':autofill': {
+                boxShadow: 'none !important',
+              },
+            }}
           />
           <Label
             sx={{
@@ -187,13 +191,7 @@ const Login: ThemeUiElement = () => {
                 )}
               </Flex>
 
-              <Input
-                required
-                type="text"
-                name="twoFa"
-                autofillBackgroundColor="foreground"
-                mb="10px"
-              />
+              <Input required type="text" name="twoFa" mb="10px" />
               <Box sx={{ color: 'secondaryText', fontSize: '12px', width: '181px' }}>
                 If enabled, use an authentication app to generate the code.
               </Box>

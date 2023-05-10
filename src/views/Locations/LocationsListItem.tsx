@@ -16,6 +16,7 @@ import ArrowRightIcon from 'assets/img/arrowRight.svg'
 
 type LocationsListItemProps = BoxProps & {
   location: Location
+  isPremium: boolean
   searchText?: string
   isAutopilot?: boolean
   currentlySelected?: boolean
@@ -23,6 +24,7 @@ type LocationsListItemProps = BoxProps & {
 
 const LocationsListItem: React.FC<LocationsListItemProps> = ({
   location,
+  isPremium,
   searchText = '',
   isAutopilot = false,
   currentlySelected = false,
@@ -110,7 +112,11 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
         </Box>
       </Rectangle>
       {isExpanded && (
-        <LocationsListItemDetails dataCenters={location.groups} searchText={searchText} />
+        <LocationsListItemDetails
+          isPremium={isPremium}
+          dataCenters={location.groups}
+          searchText={searchText}
+        />
       )}
     </Box>
   )
