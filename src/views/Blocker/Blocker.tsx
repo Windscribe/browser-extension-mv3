@@ -58,7 +58,7 @@ const Blocker: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={TrackerIcon}
-          title="Block Lan"
+          title="Block LAN"
           subTitle="Block Outsider Intrusion Into LAN"
         >
           <ToggleSwitch
