@@ -1,8 +1,5 @@
 import { Box, useThemeUI } from 'theme-ui'
-
 import { type ThemeUiElement } from 'utils/types'
-import { footerHeight } from 'styles/constants'
-
 import FlagGradientMask from 'assets/img/flag-gradient-mask.svg'
 
 type FlagBackgroundProps = {
@@ -51,7 +48,7 @@ const GradientOverlay: ThemeUiElement<GradientOverlayProps> = ({ isTransparent, 
   <Box
     sx={{
       width: '100%',
-      height: `calc(100% - ${footerHeight})`,
+      height: '160px',
       position: 'absolute',
       top: '0px',
       zIndex: 1,
