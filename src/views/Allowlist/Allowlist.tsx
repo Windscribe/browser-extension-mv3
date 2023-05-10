@@ -3,19 +3,17 @@ import { Box, Flex } from 'theme-ui'
 
 import { Header, CircleButton, Rectangle, IconButton, Subheader, ScrollableBox } from 'components'
 import { Column } from 'components/Flexbox'
-import { useCurrentTabHostname } from 'components/hooks'
+import { useCurrentTabHostname, useRemoveFromAllowlist } from 'components/hooks'
 import AllowlistPopup from './AllowlistPopup'
 import Hostname from './Hostname'
 import { type ThemeUiElement } from 'utils/types'
-import { REMOVE_FROM_ALLOWLIST } from 'state/slices/allowlist'
-import { useDispatchAlias, useSelector } from 'state/hooks'
+import { useSelector } from 'state/hooks'
 
 import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
 
 const Allowlist: ThemeUiElement = () => {
-  const dispatchAlias = useDispatchAlias()
   const allowlist = useSelector(s => s.allowlist)
   const allowlistedDomains = Object.keys(allowlist)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
@@ -23,6 +21,7 @@ const Allowlist: ThemeUiElement = () => {
   const [isEditMode, setIsEditMode] = useState(false)
 
   const currentTabHostname = useCurrentTabHostname()
+  const { removeFromAllowlist } = useRemoveFromAllowlist()
 
   const openSettingsFor = (candidate: string): void => {
     setDomainToEdit(candidate)
@@ -90,16 +89,7 @@ const Allowlist: ThemeUiElement = () => {
                   <EditIcon />
                 </IconButton>
                 <IconButton
-                  onClick={async () => {
-                    // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
-                    chrome.runtime.sendMessage({
-                      what: 'setFilteringMode',
-                      hostname: domain,
-                      level: 3,
-                    })
-
-                    await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain })
-                  }}
+                  onClick={async () => await removeFromAllowlist({ hostname: domain, level: 3 })}
                   sx={{ p: 0, ml: '16px' }}
                 >
                   <GarbageIcon />
