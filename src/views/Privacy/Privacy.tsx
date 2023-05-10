@@ -78,8 +78,13 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Fakes your GPS location to match the connected proxy."
         >
           <ToggleSwitch
-            onChange={() => dispatch(setLocationWarp(!locationWarp))}
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(setLocationWarp(!locationWarp))
+            }}
             checked={locationWarp}
+            disabled={autopilotSelected}
+            data-testid="location-warp-toggle"
           />
         </OptionBox>
         <OptionBox
@@ -150,22 +155,6 @@ const Privacy: ThemeUiElement = () => {
               checked={splitPersonalityEnabled}
             />
           </Flex>
-        </OptionBox>
-        <OptionBox
-          Icon={LocationWarpIcon}
-          path={'features/location-warp'}
-          title="Location Warp"
-          subTitle="Fakes your GPS location to match the connected proxy."
-        >
-          <ToggleSwitch
-            onChange={() => {
-              showReloadAlert(true)
-              dispatch(setLocationWarp(!locationWarp))
-            }}
-            checked={locationWarp}
-            disabled={autopilotSelected}
-            data-testid="location-warp-toggle"
-          />
         </OptionBox>
         <OptionBox
           Icon={WorkerBlockIcon}
