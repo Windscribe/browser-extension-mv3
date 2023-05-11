@@ -3,7 +3,7 @@ import { Box, Flex } from 'theme-ui'
 
 import { Header, CircleButton, Rectangle, IconButton, Subheader, ScrollableBox } from 'components'
 import { Column } from 'components/Flexbox'
-import { useCurrentTabHostname, useRemoveFromAllowlist } from 'components/hooks'
+import { useCurrentTabHostname, useManageAllowlist } from 'components/hooks'
 import AllowlistPopup from './AllowlistPopup'
 import Hostname from './Hostname'
 import { type ThemeUiElement } from 'utils/types'
@@ -21,7 +21,7 @@ const Allowlist: ThemeUiElement = () => {
   const [isEditMode, setIsEditMode] = useState(false)
 
   const currentTabHostname = useCurrentTabHostname()
-  const { removeFromAllowlist } = useRemoveFromAllowlist()
+  const { removeFromAllowlist } = useManageAllowlist()
 
   const openSettingsFor = (candidate: string): void => {
     setDomainToEdit(candidate)
