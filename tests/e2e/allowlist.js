@@ -39,6 +39,7 @@ const allowlist = async (popupPage, browser) => {
       await popupPage.waitForSelector('[data-testid=preferences-page]')
 
       // Go to Allowlist page
+      popupPage.waitForSelector('[data-testid=Allowlist]')
       popupPage.click('[data-testid=Allowlist]')
       await popupPage.waitForSelector('[data-testid=allowlist-page]')
 

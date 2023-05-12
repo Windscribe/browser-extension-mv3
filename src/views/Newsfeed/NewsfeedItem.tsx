@@ -1,6 +1,4 @@
-import { Box, useThemeUI } from 'theme-ui'
-
-import { Rectangle } from 'components'
+import { Box, Button, useThemeUI } from 'theme-ui'
 import { Column } from 'components/Flexbox'
 import { unreadIconRadius } from 'styles/constants'
 import PlusIcon from 'assets/img/plus-icon.svg'
@@ -34,13 +32,19 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
 
   return (
     <Box mb="16px">
-      <Rectangle
+      <Button
         data-id={id}
         data-testid={`newsfeed-item-${id}`}
         onClick={handleItemClick}
         sx={{
           position: 'relative',
+          display: 'flex',
           cursor: 'pointer',
+          width: '100%',
+          height: '48px',
+          padding: '16px',
+          background: 'foreground',
+          justifyContent: 'space-between',
           fill: isExpanded ? 'primaryText' : 'secondaryText',
           color: isExpanded ? 'primaryText' : 'secondaryText',
           ...(isExpanded && {
@@ -48,7 +52,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
           }),
-          transition: '0.3s',
+          transition: 'color 0.3s',
           'svg > path': {
             transition: 'fill 0.3s',
           },
@@ -73,14 +77,17 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
             }}
           />
         )}
-        <Column>
+        <Column
+          sx={{
+            textAlign: 'start',
+          }}
+        >
           <Box
             sx={{
               fontWeight: '600',
               whiteSpace: 'nowrap',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              minHeight: '18px',
             }}
           >
             {title}
@@ -103,7 +110,7 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
         >
           <PlusIcon />
         </Box>
-      </Rectangle>
+      </Button>
       {isExpanded && (
         <Box
           sx={{

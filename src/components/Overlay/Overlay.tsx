@@ -49,7 +49,7 @@ export const Overlay: ThemeUiElement<{ template: OverlayTemplate; index: number 
       }}
       {...props}
     >
-      <Column m="40px" sx={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Column mx="40px" sx={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
         <Flex mb="24px">
           <img src={img} alt={`${title.replaceAll(' ', '-')}-image`} height={108} width={108} />
         </Flex>

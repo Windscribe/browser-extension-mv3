@@ -1,4 +1,6 @@
 import { Box } from 'theme-ui'
+import bytes from 'bytes'
+
 import { type ThemeUiElement } from 'utils/types'
 import { ScrollableBox, Header, RoundedBox, ListItem, Subheader } from 'components'
 import CircleButton from 'components/CircleButton'
@@ -9,6 +11,9 @@ import ToolTip from 'components/ToolTip'
 
 const Account: ThemeUiElement = () => {
   const session = useSelector(s => s.session)
+  const trafficMax = session.traffic_max || 0
+  const trafficMaxFormatted = bytes(trafficMax)
+
   const { openWindowUsingTempSession } = useWindowOpening()
 
   const handleButtonClick = async () => {
@@ -56,7 +61,7 @@ const Account: ThemeUiElement = () => {
         <Subheader>plan</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
-            {session.traffic_max === -1 ? 'Unlimited' : session.traffic_max} GB
+            {session.traffic_max === -1 ? 'Unlimited' : trafficMaxFormatted}
             <Box sx={{ fontWeight: '400' }}>{session.is_premium ? 'Pro' : 'Free'}</Box>
           </ListItem>
           <ListItem noBorder>

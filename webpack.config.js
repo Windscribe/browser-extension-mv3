@@ -34,7 +34,7 @@ const options = {
   },
   entry: {
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
-    background: path.join(__dirname, 'src', 'pages', 'background', 'index.ts'),
+    background: path.join(__dirname, 'src', 'pages', 'background', 'main.ts'),
     debugLog: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.tsx'),
   },
   chromeExtensionBoilerplate: {
