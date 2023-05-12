@@ -42,7 +42,7 @@ const locations = async popupPage => {
         dataCentersList.map(dataCenter => dataCenter.evaluate(el => el.textContent)),
       )
       expect(dataCentersNames.toString()).to.equal(
-        'Toronto Skydome,Boston The Wahlberg,Pyongyang Hennessey',
+        'TorontoSkydome,BostonThe Wahlberg,PyongyangHennessey',
       )
 
       // Reset input field value
