@@ -35,7 +35,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   const goToHome = useGoTo('Home')
 
   useEffect(() => {
-    const isFoundIn = (str: string) => str.toLowerCase().includes(searchText)
+    const isFoundIn = (str: string) => str.toLowerCase().includes(searchText.toLowerCase())
 
     const hasSearchTextInName = (dataCenter: DataCenter) =>
       isFoundIn(dataCenter.city) || isFoundIn(dataCenter.nick)

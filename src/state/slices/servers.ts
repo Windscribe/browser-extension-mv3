@@ -81,7 +81,7 @@ export const selectLocationBySearchText = createSelector(
   (state: RootState) => state.servers.serverList,
   (_: RootState, searchText: string) => searchText,
   (serverList, searchText: string): ServerList => {
-    const isFoundIn = (str: string) => str.toLowerCase().includes(searchText)
+    const isFoundIn = (str: string) => str.toLowerCase().includes(searchText.toLowerCase())
 
     const findDataCenters = (location: Location) =>
       location.groups.reduce<DataCenter[]>((accumulator, dataCenter) => {
