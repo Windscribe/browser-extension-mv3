@@ -35,15 +35,17 @@ const allowlist = async (popupPage, browser) => {
       await popupPage.waitForSelector('[data-testid=home-page]')
 
       // Go to Preferences page
+      await popupPage.waitForSelector('[data-testid=go-to-preferences]')
       popupPage.click('[data-testid=go-to-preferences]')
       await popupPage.waitForSelector('[data-testid=preferences-page]')
 
       // Go to Allowlist page
-      popupPage.waitForSelector('[data-testid=Allowlist]')
+      await popupPage.waitForSelector('[data-testid=Allowlist]')
       popupPage.click('[data-testid=Allowlist]')
       await popupPage.waitForSelector('[data-testid=allowlist-page]')
 
       // Open popup with allowlist settings
+      await popupPage.waitForSelector('[data-testid=add-to-allowlist-button]')
       popupPage.click('[data-testid=add-to-allowlist-button]')
       await popupPage.waitForSelector('[data-testid=allowlist-settings-popup]')
       await popupPage.waitForSelector('[data-testid=allowlist-domain-input]')
@@ -51,6 +53,7 @@ const allowlist = async (popupPage, browser) => {
       // Fill input and Allow Privacy Features for test page
       // There is a bug with Page.type()
       // Details by link https://github.com/puppeteer/puppeteer/issues/1648
+      await popupPage.waitForSelector('[data-testid=allowlist-domain-input]')
       await popupPage.click('[data-testid=allowlist-domain-input]', { delay: 100 })
       await popupPage.keyboard.press('Backspace')
       await popupPage.type('[data-testid=allowlist-domain-input]', 'www.google.com', {
@@ -76,6 +79,7 @@ const allowlist = async (popupPage, browser) => {
       expect(hasTestPage).to.equal(true)
 
       // Return to home page
+      await popupPage.waitForSelector('[data-testid=go-back-button]')
       popupPage.click('[data-testid=go-back-button]')
       await popupPage.waitForSelector('[data-testid=preferences-page]')
       popupPage.click('[data-testid=go-back-button]')
