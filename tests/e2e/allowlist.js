@@ -87,6 +87,7 @@ const allowlist = async (popupPage, browser) => {
         expect(homePage).to.not.equal(undefined)
       } catch (e) {
         console.log('CAN NOT WAIT ANYMORE.', e)
+        console.log('CAUSE', e?.cause)
       }
     })
 
