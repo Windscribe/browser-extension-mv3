@@ -3,6 +3,8 @@ const expect = require('chai').expect
 const newsfeed = async popupPage => {
   describe('Newsfeed', async () => {
     it('Navigates to Newsfeed page and checks that we can click on news and see a message. Verifies that amount of unread news has been updated.', async () => {
+      // Ensure that we are on Home page
+      await popupPage.waitForSelector('[data-testid=home-page]')
       // Check unread news amount
       let newsfeedBadge = await popupPage.waitForSelector('[data-testid=newsfeed-badge]')
       let unreadNewsAmount = await newsfeedBadge.evaluate(el => el.textContent)
