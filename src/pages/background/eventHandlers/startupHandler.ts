@@ -4,7 +4,7 @@ import { connectToAutopilot } from 'state/slices/autopilot'
 import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
-  return async (a?: unknown): Promise<void> => {
+  return async (): Promise<void> => {
     let store
     try {
       store = await bgStore
