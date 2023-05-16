@@ -20,6 +20,19 @@ const launchBrowser = async () => {
   })
 }
 
+/* 
+If you see an 'Error: Node is either not visible or not an HTMLElement',
+try to adjust your waitForSelector function with option parameter visible = true
+For example
+  await popupPage.waitForSelector('[data-testid=Allowlist]', { visible: true })
+  await popupPage.click('[data-testid=Allowlist]')
+
+If it doesn't help, try:
+  await button.evaluate(b => b.click());
+instead of
+  await button.click();
+*/
+
 const setup = async () => {
   const browser = await launchBrowser()
 
