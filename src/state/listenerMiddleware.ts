@@ -2,6 +2,9 @@ import { createListenerMiddleware, type TypedStartListening } from '@reduxjs/too
 
 import type { RootState, AppDispatch } from './store'
 import { chooseIcon } from './slices/iconVariant'
+import { fetchServerList } from 'state/slices/servers'
+import { fetchServerCredentials } from 'state/slices/serverCredentials'
+import type { SessionData } from 'api/types'
 
 export const listenerMiddleware = createListenerMiddleware()
 
@@ -20,5 +23,28 @@ startAppListening({
   },
   effect: async (action, listenerApi) => {
     listenerApi.dispatch(chooseIcon())
+  },
+})
+
+startAppListening({
+  predicate: (action, currentState, previousState) => {
+    const sessionPropertiesToWatch: Array<keyof SessionData> = [
+      'billing_plan_id',
+      'is_premium',
+      'last_reset',
+      'loc_hash',
+      'loc_rev',
+      'our_addr',
+      'our_dc',
+      'our_location',
+      'session_auth_hash',
+      'status',
+      'traffic_max',
+    ]
+    return sessionPropertiesToWatch.some(p => currentState.session[p] !== previousState.session[p])
+  },
+  effect: async (action, listenerApi) => {
+    listenerApi.dispatch(fetchServerCredentials())
+    listenerApi.dispatch(fetchServerList())
   },
 })
