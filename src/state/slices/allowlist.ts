@@ -22,6 +22,9 @@ export type AllowlistPayload = {
 export const ADD_TO_ALLOWLIST = 'allowlist/addToAllowlist'
 export const REMOVE_FROM_ALLOWLIST = 'allowlist/removeFromAllowlist'
 
+// DO NOT USE this slice directly.
+// Because we also need to update ublock filter.
+// Use 'components/hooks/useManageAllowlist' instead.
 export const addToAllowlist = createAsyncThunk(
   ADD_TO_ALLOWLIST,
   async (domainWithSettings: AllowlistPayload, { dispatch, getState }) => {
@@ -31,6 +34,9 @@ export const addToAllowlist = createAsyncThunk(
   },
 )
 
+// DO NOT USE this slice directly.
+// Because we also need to update ublock filter.
+// Use 'components/hooks/useManageAllowlist' instead.
 export const removeFromAllowlist = createAsyncThunk(
   REMOVE_FROM_ALLOWLIST,
   async (domain: string, { dispatch, getState }) => {

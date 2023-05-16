@@ -7,8 +7,8 @@ import type { ThemeUiElement, InputChangeHandler } from 'utils/types'
 import ButtonsGroup, { type SubmitButtonMode } from './ButtonsGroup'
 import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
-import { useDispatchAlias, useSelector } from 'state/hooks'
-import { ADD_TO_ALLOWLIST, REMOVE_FROM_ALLOWLIST } from 'state/slices/allowlist'
+import { useSelector } from 'state/hooks'
+import { useManageAllowlist } from 'components/hooks'
 
 type AllowlistPopupProps = {
   domain: string
@@ -23,7 +23,8 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   isEditMode = false,
   closePopup,
 }) => {
-  const dispatchAlias = useDispatchAlias()
+  const { addToAllowlist, removeFromAllowlist } = useManageAllowlist()
+
   const allowlist = useSelector(s => s.allowlist)
 
   const [submitButtonMode, setSubmitButtonMode] = useState<SubmitButtonMode>('disabled')
@@ -80,14 +81,7 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
   const handleSubmit = async () => {
     if (submitButtonMode === 'delete') {
-      // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
-      chrome.runtime.sendMessage({
-        what: 'setFilteringMode',
-        hostname: domainValue,
-        level: 3,
-      })
-
-      await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain: domainValue })
+      removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup()
       return
     }
@@ -97,20 +91,16 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
     closePopup()
 
-    // TODO: investigate why this doesn't work when called from ADD_TO_ALLOWLIST
-    chrome.runtime.sendMessage({
-      what: 'setFilteringMode',
-      hostname: domainValue,
-      level: isAdsAllowed ? 0 : 3,
-    })
-
-    await dispatchAlias(ADD_TO_ALLOWLIST, {
+    const level = isAdsAllowed ? 0 : 3
+    const domainWithSettings = {
       domain: domainValue,
       allowAds: isAdsAllowed,
       allowPrivacyFeatures: isPrivacyFeaturesAllowed,
       allowDirectConnections: isDirectConnectionsAllowed,
       includeAllSubdomains: isAllSubdomainsIncluded,
-    })
+    }
+
+    await addToAllowlist({ hostname: domainValue, level, domainWithSettings })
   }
 
   const checkIfDomainValid = (domainValue: string) => {
