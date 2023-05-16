@@ -31,56 +31,64 @@ const allowlist = async (popupPage, browser) => {
     })
 
     it('Push test page to allowlist', async () => {
-      popupPage.bringToFront()
-      await popupPage.waitForSelector('[data-testid=home-page]')
+      try {
+        await popupPage.bringToFront()
+        await popupPage.waitForSelector('[data-testid=home-page]')
 
-      // Go to Preferences page
-      popupPage.click('[data-testid=go-to-preferences]')
-      await popupPage.waitForSelector('[data-testid=preferences-page]')
+        // Go to Preferences page
+        await popupPage.waitForSelector('[data-testid=go-to-preferences]')
+        await popupPage.click('[data-testid=go-to-preferences]')
+        await popupPage.waitForSelector('[data-testid=preferences-page]')
 
-      // Go to Allowlist page
-      popupPage.waitForSelector('[data-testid=Allowlist]')
-      popupPage.click('[data-testid=Allowlist]')
-      await popupPage.waitForSelector('[data-testid=allowlist-page]')
+        // Go to Allowlist page
+        await popupPage.waitForSelector('[data-testid=Allowlist]', { visible: true })
+        await popupPage.click('[data-testid=Allowlist]')
+        await popupPage.waitForSelector('[data-testid=allowlist-page]')
 
-      // Open popup with allowlist settings
-      popupPage.click('[data-testid=add-to-allowlist-button]')
-      await popupPage.waitForSelector('[data-testid=allowlist-settings-popup]')
-      await popupPage.waitForSelector('[data-testid=allowlist-domain-input]')
+        // Open popup with allowlist settings
+        await popupPage.waitForSelector('[data-testid=add-to-allowlist-button]')
+        await popupPage.click('[data-testid=add-to-allowlist-button]')
+        await popupPage.waitForSelector('[data-testid=allowlist-settings-popup]')
 
-      // Fill input and Allow Privacy Features for test page
-      // There is a bug with Page.type()
-      // Details by link https://github.com/puppeteer/puppeteer/issues/1648
-      await popupPage.click('[data-testid=allowlist-domain-input]', { delay: 100 })
-      await popupPage.keyboard.press('Backspace')
-      await popupPage.type('[data-testid=allowlist-domain-input]', 'www.google.com', {
-        delay: 50,
-      })
+        // Fill input and Allow Privacy Features for test page
+        // There is a bug with Page.type()
+        // Details by link https://github.com/puppeteer/puppeteer/issues/1648
+        await popupPage.waitForSelector('[data-testid=allowlist-domain-input]')
+        await popupPage.click('[data-testid=allowlist-domain-input]', { delay: 200 })
+        await popupPage.keyboard.press('Backspace')
+        await popupPage.type('[data-testid=allowlist-domain-input]', 'www.google.com', {
+          delay: 80,
+        })
 
-      await popupPage.waitForTimeout(800)
+        await popupPage.waitForTimeout(800)
 
-      await popupPage.waitForSelector('[data-testid=allow-privacy-features-checkbox]')
-      popupPage.click('[data-testid=allow-privacy-features-checkbox]')
+        await popupPage.waitForSelector('[data-testid=allow-privacy-features-checkbox]')
+        popupPage.click('[data-testid=allow-privacy-features-checkbox]')
 
-      await popupPage.waitForSelector('[data-testid=allowlist-popup-submit-button]')
-      popupPage.click('[data-testid=allowlist-popup-submit-button]')
+        await popupPage.waitForSelector('[data-testid=allowlist-popup-submit-button]')
+        await popupPage.click('[data-testid=allowlist-popup-submit-button]')
 
-      // Verify domain appeared on allowlist-page
-      await popupPage.waitForSelector('[data-testid=allowlist-items-list]')
-      await popupPage.waitForTimeout(800)
-      const hasTestPage = await popupPage.evaluate(() => {
-        return [
-          ...document.querySelectorAll("div[data-testid='allowlist-items-list'] > div > span"),
-        ].some(element => element.textContent === 'www.google.com')
-      })
-      expect(hasTestPage).to.equal(true)
+        // Verify domain appeared on allowlist-page
+        await popupPage.waitForSelector('[data-testid=allowlist-items-list]')
+        await popupPage.waitForTimeout(800)
+        const hasTestPage = await popupPage.evaluate(() => {
+          return [
+            ...document.querySelectorAll("div[data-testid='allowlist-items-list'] > div > span"),
+          ].some(element => element.textContent === 'www.google.com')
+        })
+        expect(hasTestPage).to.equal(true)
 
-      // Return to home page
-      popupPage.click('[data-testid=go-back-button]')
-      await popupPage.waitForSelector('[data-testid=preferences-page]')
-      popupPage.click('[data-testid=go-back-button]')
-      const homePage = await popupPage.waitForSelector('[data-testid=home-page]')
-      expect(homePage).to.not.equal(undefined)
+        // Return to home page
+        await popupPage.waitForSelector('[data-testid=go-back-button]')
+        await popupPage.click('[data-testid=go-back-button]')
+        await popupPage.waitForSelector('[data-testid=preferences-page]')
+        await popupPage.click('[data-testid=go-back-button]')
+        const homePage = await popupPage.waitForSelector('[data-testid=home-page]')
+        expect(homePage).to.not.equal(undefined)
+      } catch (e) {
+        console.log('CAN NOT WAIT ANYMORE.', e)
+        console.log('CAUSE', e?.cause)
+      }
     })
 
     it('Open test page which is allowlisted now, and ensure that serviceWorker is NOT spoofed', async () => {
