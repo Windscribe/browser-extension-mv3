@@ -37,7 +37,14 @@ const IpAddress: ThemeUiElement = () => {
   return (
     <>
       <Button
-        sx={{ all: 'unset', cursor: 'pointer', filter: isBlurred ? 'blur(4px)' : 'none' }}
+        sx={{
+          all: 'unset',
+          cursor: 'pointer',
+          filter: isBlurred ? 'blur(4px)' : 'none',
+          maxWidth: '135px',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
+        }}
         onClick={handleClick}
       >
         {currentIp}
