@@ -10,7 +10,7 @@ import FlagBackground from './FlagBackground'
 import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
 import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
-import { connectProxy, disconnectProxy } from 'state/slices/proxy'
+import { CONNECT_PROXY, DISCONNECT_PROXY } from 'state/slices/proxy'
 import { setIsRightAfterLogin } from 'state/slices/isRightAfterLogin'
 import { addOverlay } from 'state/slices/overlay'
 import { useInitialDataFetching } from 'components/hooks'
@@ -72,11 +72,11 @@ const Home: ThemeUiElement = () => {
 
   const toggleProxy = async () => {
     if (isConnected || isConnecting) {
-      await dispatch(disconnectProxy())
+      await dispatchAlias(DISCONNECT_PROXY)
     } else {
       const hosts = currentDataCenter?.hosts
       if (!autopilotSelected && hosts) {
-        await dispatch(connectProxy(hosts))
+        await dispatchAlias(CONNECT_PROXY, hosts)
       } else {
         await dispatchAlias(CONNECT_TO_AUTOPILOT)
       }

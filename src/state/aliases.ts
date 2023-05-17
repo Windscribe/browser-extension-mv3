@@ -33,6 +33,7 @@ import {
   SAVE_USER_STASH,
 } from './slices/userStashes'
 import { chooseIcon, CHOOSE_ICON } from './slices/iconVariant'
+import { connectProxy, CONNECT_PROXY, disconnectProxy, DISCONNECT_PROXY } from './slices/proxy'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string
@@ -65,4 +66,6 @@ export default {
   [`alias/${TOGGLE_SPLIT_PERSONALITY}`]: toggleSplitPersonality,
   [`alias/${CHOOSE_ICON}`]: chooseIcon,
   [`alias/${CHECK_SESSION_STATUS}`]: checkSessionStatus,
+  [`alias/${CONNECT_PROXY}`]: connectProxy,
+  [`alias/${DISCONNECT_PROXY}`]: disconnectProxy,
 }

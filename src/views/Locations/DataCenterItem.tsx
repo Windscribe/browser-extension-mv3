@@ -10,8 +10,8 @@ import {
   removeLocationFromFavorite,
   selectIsInFavorite,
 } from 'state/slices/favoriteLocations'
-import { connectProxy } from 'state/slices/proxy'
-import { useDispatch, useSelector } from 'state/hooks'
+import { CONNECT_PROXY } from 'state/slices/proxy'
+import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { useGoTo } from 'services/navigation'
 import { type DataCenter } from 'api/types'
 import { type ThemeUiElement } from 'utils/types'
@@ -38,6 +38,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
   searchText = '',
 }) => {
   const dispatch = useDispatch()
+  const dispatchAlias = useDispatchAlias()
   const goToHome = useGoTo('Home')
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const isInFavorite = useSelector(s => selectIsInFavorite(s, dataCenter.id))
@@ -61,7 +62,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
       goToHome()
       dispatch(setCurrentDataCenter(dataCenter))
       dispatch(setAutopilotSelected(false))
-      dispatch(connectProxy(dataCenter.hosts))
+      dispatchAlias(CONNECT_PROXY, dataCenter.hosts)
     }
   }
 
