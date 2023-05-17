@@ -47,12 +47,12 @@ export const CHECK_SESSION_STATUS = 'session/checkSessionStatus'
 
 export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Credentials>(
   LOGIN,
-  async ({ username, password, twoFa }, { dispatch }) => {
+  async ({ username, password, twoFa }, { getState, dispatch }) => {
     const response = await loginRequest(dispatch, username, password, twoFa)
 
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
-      const ip = await checkIp()
+      const ip = await checkIp(getState().workingApi)
       dispatch(setCurrentIp(ip))
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))

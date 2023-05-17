@@ -12,8 +12,11 @@ const SessionStatusChecker: React.FC = () => {
   useEffect(() => {
     const cb = async () => {
       await dispatchAlias(CHECK_SESSION_STATUS)
-      const currentIp = await checkIp()
-      dispatch(setCurrentIp(currentIp))
+      // TODO Lets Remove checkIp() from popup to bgsw
+      // probably to CHECK_SESSION_STATUS async thunk or any other
+
+      // const currentIp = await checkIp()
+      // dispatch(setCurrentIp(currentIp))
     }
     cb()
   }, [dispatch, dispatchAlias])

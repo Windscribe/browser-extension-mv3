@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
+import { pushToDebugLog } from './debugLog'
 import { setIcon, setTitleByIconVariant, getIconVariant } from 'services/browserAction'
 import type { IconVariant } from 'utils/types'
 
@@ -8,15 +9,30 @@ const initialState: IconVariantState = 'proxyOff'
 
 export const CHOOSE_ICON = 'iconVariant/chooseIcon'
 export const chooseIcon = createAsyncThunk(CHOOSE_ICON, async (_, { getState, dispatch }) => {
-  const isOnline = getState().isOnline
-  const proxyConnected = getState().proxy.isConnected
-  const desktopConnected = !!getState().session.our_ip
-  const hasProxyError = !!getState().proxy.errorMessage
+  try {
+    const isOnline = getState().isOnline
+    const proxyConnected = getState().proxy.isConnected
+    const desktopConnected = !!getState().session.our_ip
+    const hasProxyError = !!getState().proxy.errorMessage
 
-  const iconVariant = getIconVariant({ isOnline, proxyConnected, desktopConnected, hasProxyError })
-  await setIcon(iconVariant)
-  await setTitleByIconVariant(iconVariant)
-  dispatch(setIconVariant(iconVariant))
+    const iconVariant = getIconVariant({
+      isOnline,
+      proxyConnected,
+      desktopConnected,
+      hasProxyError,
+    })
+    await setIcon(iconVariant)
+    await setTitleByIconVariant(iconVariant)
+    dispatch(setIconVariant(iconVariant))
+  } catch (err) {
+    dispatch(
+      pushToDebugLog({
+        message: "Failed while trying to choose and set the extension's icon",
+        level: 'ERROR',
+        data: err as Error,
+      }),
+    )
+  }
 })
 
 export const iconVariantSlice = createSlice({

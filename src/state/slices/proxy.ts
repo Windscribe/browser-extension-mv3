@@ -81,7 +81,7 @@ export const connectProxy = createAsyncThunk(
       await connect(hosts, allowlist, proxyPort, cruiseControlList)
       dispatch(setProxy(hosts))
 
-      const ip = await checkIp()
+      const ip = await checkIp(getState().workingApi)
       dispatch(setCurrentIp(ip))
 
       if (ip === '---.---.---.---') {
@@ -112,19 +112,31 @@ export const connectProxy = createAsyncThunk(
 export const disconnectProxy = createAsyncThunk(
   DISCONNECT_PROXY,
   async (_, { getState, dispatch }) => {
-    await disconnect()
-    const ip = await checkIp()
-    dispatch(setCurrentIp(ip))
-    dispatch(resetProxy())
+    try {
+      await disconnect()
+      const workingApi = getState().workingApi
+      const ip = await checkIp(workingApi)
+      dispatch(setCurrentIp(ip))
+      dispatch(resetProxy())
 
-    if (getState().allowSystemNotifications) {
-      createNotification({
-        iconUrl: proxyOffIcon,
-        message: 'Connection to Windscribe has been terminated',
-      })
+      if (getState().allowSystemNotifications) {
+        createNotification({
+          iconUrl: proxyOffIcon,
+          message: 'Connection to Windscribe has been terminated',
+        })
+      }
+      dispatch(setReconnectionAttempts(0))
+    } catch (err: unknown) {
+      console.log('%c err DISCONNECT_PROXY: ', 'background: #383E49; color: #1ADEAE', err)
+      dispatch(
+        pushToDebugLog({
+          message: 'Error while trying to disconnect from proxy.',
+          level: 'ERROR',
+          //data: err as Error,
+        }),
+      )
+      throw new Error('Error while trying to disconnect from proxy.')
     }
-    dispatch(setReconnectionAttempts(0))
-    await disconnect()
   },
 )
 
@@ -207,6 +219,13 @@ export const proxySlice = createSlice({
         state.isDisconnected = true
         state.isDisconnecting = false
         state.errorChecking = false
+      })
+      .addCase(disconnectProxy.rejected, state => {
+        state.isConnected = true
+        state.isConnecting = false
+        state.isDisconnected = false
+        state.isDisconnecting = false
+        state.errorChecking = false // ??
       })
   },
 })
