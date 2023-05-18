@@ -29,7 +29,7 @@ export const chooseIcon = createAsyncThunk(CHOOSE_ICON, async (_, { getState, di
       pushToDebugLog({
         message: "Failed while trying to choose and set the extension's icon",
         level: 'ERROR',
-        data: err as Error,
+        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
       }),
     )
   }

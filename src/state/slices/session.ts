@@ -116,7 +116,7 @@ export const checkSessionStatus = createAsyncThunk(
         dispatch(setSession(updatedSession.data))
       }
     }
-    // Not sure it is the right place for it
+    // Not sure if it is the right place for it
     // TODO Consider left it here or move somewhere else
     const currentIp = await checkIp(getState().workingApi)
     dispatch(setCurrentIp(currentIp))

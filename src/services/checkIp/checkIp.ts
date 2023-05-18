@@ -15,6 +15,7 @@ export default async function checkIp(workingApi: string): Promise<string> {
 
 // A global promise to avoid concurrency issues
 let creating: Promise<void> | null = null
+
 async function setupOffscreenDocument() {
   const offscreenUrl = chrome.runtime.getURL('checkIp.html')
   const matchedClients = await self.clients.matchAll()
