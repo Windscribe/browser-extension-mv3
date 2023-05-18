@@ -1,65 +1,53 @@
-// import browserApi from 'services/browserApi'
+declare const self: ServiceWorkerGlobalScope
+
+const NO_IP = '---.---.---.---'
 
 export default async function checkIp(workingApi: string): Promise<string> {
-  // const state = await browserApi.getStateFromStorage()
-  const noIp = '---.---.---.---'
+  await setupOffscreenDocument()
 
-  console.log('%c checkIp 0 workingApi:', 'background: #383E49; color: #1ADEAE', workingApi)
-
-  // TODO Is it 2 different functions (ping nossl and checkIp)?
-  // TODO Do we really need to create offscreen page every time every time  or just check if it has exist?
-  try {
-    //@ts-expect-error
-    await chrome.offscreen.createDocument({
-      url: chrome.runtime.getURL('checkIp.html'),
-      //@ts-expect-error
-      reasons: [chrome.offscreen.Reason.IFRAME_SCRIPTING],
-      justification: '407 authentication',
-    })
-  } catch (err) {
-    await closeOffscreen()
-    console.log('%c checkIp createDocument() Error', 'background: #d83E49; color: #1ADEAE', err)
-    throw new Error('Error while trying to chrome.offscreen.createDocument')
+  if (!workingApi) {
+    return NO_IP
   }
-  console.log('%c checkIp 1', 'background: #383E49; color: #1ADEAE')
 
-  async function closeOffscreen() {
-    try {
-      //@ts-expect-error
-      await chrome.offscreen.closeDocument()
-    } catch (err) {
-      console.log('%c checkIp closeDocument() Error', 'background: #d83E49; color: #1ADEAE', err)
-      throw new Error('Error while trying to chrome.offscreen.closeDocument')
+  const ip = await sayMyIp(workingApi)
+  return ip || NO_IP
+}
+
+// A global promise to avoid concurrency issues
+let creating: Promise<void> | null = null
+async function setupOffscreenDocument() {
+  const offscreenUrl = chrome.runtime.getURL('checkIp.html')
+  const matchedClients = await self.clients.matchAll()
+  for (const client of matchedClients) {
+    if (client.url === offscreenUrl) {
+      return
     }
   }
 
-  if (!workingApi) {
-    return noIp
+  // create offscreen document
+  if (creating) {
+    await creating
+  } else {
+    creating = chrome.offscreen.createDocument({
+      url: offscreenUrl,
+      reasons: [chrome.offscreen.Reason.IFRAME_SCRIPTING],
+      justification: '407 authentication',
+    })
+    await creating
+    creating = null
   }
+}
 
+async function sayMyIp(workingApi: string): Promise<string> {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 3000)
 
-  console.log('%c checkIp 2 ', 'background: #383E49; color: #1ADEAE')
-
-  const res = await fetch(
-    //TODO get url from constant.ts
-    `https://checkip.${process.env.NODE_ENV !== 'production' ? 'windscribe.com' : workingApi}`,
-    {
-      signal: controller.signal,
-    },
-  )
+  const res = await fetch(`https://checkip.${workingApi}`, {
+    signal: controller.signal,
+  })
     .then(r => r.text())
-    .catch(e => {
-      //TODO handle error
-      // throw?
-      console.log('fetch checkip Error', e)
-      return noIp
-    })
+    .catch(err => NO_IP)
 
   clearTimeout(timeoutId)
-
-  console.log('%c checkIp 3 res', 'background: #383E49; color: #1ADEAE', res)
-
   return res
 }

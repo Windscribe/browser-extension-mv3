@@ -127,12 +127,11 @@ export const disconnectProxy = createAsyncThunk(
       }
       dispatch(setReconnectionAttempts(0))
     } catch (err: unknown) {
-      console.log('%c err DISCONNECT_PROXY: ', 'background: #383E49; color: #1ADEAE', err)
       dispatch(
         pushToDebugLog({
           message: 'Error while trying to disconnect from proxy.',
           level: 'ERROR',
-          //data: err as Error,
+          data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
         }),
       )
       throw new Error('Error while trying to disconnect from proxy.')
