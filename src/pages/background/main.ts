@@ -11,6 +11,7 @@ import {
   navigationCommittedHandler,
   proxyErrorHandler,
   startupHandler,
+  messageHandler,
 } from './eventHandlers'
 
 const bgStore = initializeWrappedStore().then(store => {
@@ -36,6 +37,8 @@ chrome.webRequest.onAuthRequired.addListener(
 chrome.alarms.create('sessionPoller', { periodInMinutes: 10 })
 chrome.alarms.create('notificationPoller', { periodInMinutes: 720 })
 chrome.alarms.onAlarm.addListener(alarmHandler(bgStore))
+
+chrome.runtime.onMessage.addListener(messageHandler)
 
 // This is experimental feature and currently nor supported by FF
 // Also it might not work in Brave browser
