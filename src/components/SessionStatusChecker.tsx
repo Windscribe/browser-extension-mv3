@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-import { useDispatch, useDispatchAlias } from 'state/hooks'
+import { useDispatchAlias } from 'state/hooks'
 import { CHECK_SESSION_STATUS } from 'state/slices/session'
 
+// We run it every time user opens popup.
 const SessionStatusChecker: React.FC = () => {
-  const dispatch = useDispatch()
   const dispatchAlias = useDispatchAlias()
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const SessionStatusChecker: React.FC = () => {
       await dispatchAlias(CHECK_SESSION_STATUS)
     }
     cb()
-  }, [dispatch, dispatchAlias])
+  }, [dispatchAlias])
   return <></>
 }
 

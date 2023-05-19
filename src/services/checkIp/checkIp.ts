@@ -9,7 +9,7 @@ export default async function checkIp(workingApi: string): Promise<string> {
     return NO_IP
   }
 
-  const ip = await sayMyIp(workingApi)
+  const ip = await fetchIp(workingApi)
   return ip || NO_IP
 }
 
@@ -39,7 +39,7 @@ async function setupOffscreenDocument() {
   }
 }
 
-async function sayMyIp(workingApi: string): Promise<string> {
+async function fetchIp(workingApi: string): Promise<string> {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 3000)
 
@@ -48,7 +48,7 @@ async function sayMyIp(workingApi: string): Promise<string> {
     signal: controller.signal,
   })
     .then(r => r.text())
-    .catch(err => NO_IP)
+    .catch(() => NO_IP)
 
   clearTimeout(timeoutId)
   return res
