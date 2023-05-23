@@ -40,6 +40,7 @@ const Blocker: ThemeUiElement = () => {
 
     chrome.runtime.sendMessage({
       what: 'applyRulesets',
+      from: 'popup',
       enabledRulesets: newBlocklist,
     })
   }
