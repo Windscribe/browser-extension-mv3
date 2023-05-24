@@ -445,8 +445,6 @@ const timezoneOffsets = {
   'Pacific/Kiritimati': { offset: 840 },
 } as const
 
-type Key = keyof typeof timezoneOffsets
-
 type TimezoneOffsetItem = {
   offset?: number
   msg?: {
@@ -456,4 +454,4 @@ type TimezoneOffsetItem = {
   }
 }
 
-export default timezoneOffsets as Record<Key, TimezoneOffsetItem>
+export default timezoneOffsets as Record<string, TimezoneOffsetItem>

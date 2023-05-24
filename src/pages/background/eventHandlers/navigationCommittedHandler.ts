@@ -4,7 +4,7 @@ import { type StoreType } from 'state/store'
 import type { Coords, TimeWarp } from 'utils/types'
 import { locationWarp, languageWarp, splitPersonality, timeWarp, workerBlock } from 'pages/content'
 
-const executeScript = async <Data extends string | Coords | TimeWarp>(
+const executeScript = async <Data extends string | Coords | TimeWarp | object>(
   tabId: number,
   func: (data: Data) => void,
   data: Data,
@@ -68,11 +68,15 @@ export function navigationCommittedHandler(bgStore: Promise<StoreType>) {
 
     if (store.getState().timeWarpEnabled) {
       const currentLocationTimezone = store.getState().currentLocation.tz
-      const spoofedTime = getTimeWarp(currentLocationTimezone)
+      if (!currentLocationTimezone) return
 
+      const spoofedTime = getTimeWarp(currentLocationTimezone)
       if (!spoofedTime) return
 
-      executeScript(details.tabId, timeWarp, spoofedTime)
+      executeScript(details.tabId, timeWarp, {
+        timezone: spoofedTime.desiredTimezone,
+        offset: spoofedTime.offset?.toString(),
+      })
     }
   }
 }
