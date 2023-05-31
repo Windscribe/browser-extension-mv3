@@ -1,1 +1,3 @@
-fetch('https://nosslscribe.com')
+fetch('https://nosslscribe.com').catch(err => {
+  throw err
+})
