@@ -34,7 +34,7 @@ proxyStore
       pushToDebugLog({
         level: 'ERROR',
         message: 'Error while rendering Popup',
-        data: err,
+        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
       }),
     )
   })

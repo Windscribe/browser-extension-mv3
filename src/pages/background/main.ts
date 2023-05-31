@@ -16,6 +16,7 @@ import {
 
 const bgStore = initializeWrappedStore().then(store => {
   store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
+  //TODO dispatch it only if it is not in pending state already
   store.dispatch(chooseIcon())
   return store
 })

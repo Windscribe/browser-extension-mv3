@@ -36,6 +36,7 @@ const initialState: ProxyState = {
 
 export const CONNECT_PROXY = 'proxy/connectProxy'
 export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
+export const CHECK_CURRENT_IP = 'proxy/checkCurrentIp'
 
 export const connectProxy = createAsyncThunk(
   CONNECT_PROXY,
@@ -81,7 +82,7 @@ export const connectProxy = createAsyncThunk(
       await connect(hosts, allowlist, proxyPort, cruiseControlList)
       dispatch(setProxy(hosts))
 
-      const ip = await checkIp()
+      const ip = await checkIp(getState().workingApi)
       dispatch(setCurrentIp(ip))
 
       if (ip === '---.---.---.---') {
@@ -112,19 +113,30 @@ export const connectProxy = createAsyncThunk(
 export const disconnectProxy = createAsyncThunk(
   DISCONNECT_PROXY,
   async (_, { getState, dispatch }) => {
-    await disconnect()
-    const ip = await checkIp()
-    dispatch(setCurrentIp(ip))
-    dispatch(resetProxy())
+    try {
+      await disconnect()
+      const workingApi = getState().workingApi
+      const ip = await checkIp(workingApi)
+      dispatch(setCurrentIp(ip))
+      dispatch(resetProxy())
 
-    if (getState().allowSystemNotifications) {
-      createNotification({
-        iconUrl: proxyOffIcon,
-        message: 'Connection to Windscribe has been terminated',
-      })
+      if (getState().allowSystemNotifications) {
+        createNotification({
+          iconUrl: proxyOffIcon,
+          message: 'Connection to Windscribe has been terminated',
+        })
+      }
+      dispatch(setReconnectionAttempts(0))
+    } catch (err: unknown) {
+      dispatch(
+        pushToDebugLog({
+          message: 'Error while trying to disconnect from proxy.',
+          level: 'ERROR',
+          data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+        }),
+      )
+      throw new Error('Error while trying to disconnect from proxy.')
     }
-    dispatch(setReconnectionAttempts(0))
-    await disconnect()
   },
 )
 
@@ -137,6 +149,25 @@ export const handleConnectionError: SyncThunkCreator<string> = errorMessage => {
   action.type = 'proxy/handleConnectionError'
   return action
 }
+
+export const checkCurrentIp = createAsyncThunk(
+  CHECK_CURRENT_IP,
+  async (_, { getState, dispatch }) => {
+    try {
+      const workingApi = getState().workingApi
+      const currentIp = await checkIp(workingApi)
+      dispatch(setCurrentIp(currentIp))
+    } catch (err: unknown) {
+      dispatch(
+        pushToDebugLog({
+          message: 'Error while trying to check current Ip.',
+          level: 'ERROR',
+          data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+        }),
+      )
+    }
+  },
+)
 
 export const proxySlice = createSlice({
   name: 'proxy',
@@ -207,6 +238,13 @@ export const proxySlice = createSlice({
         state.isDisconnected = true
         state.isDisconnecting = false
         state.errorChecking = false
+      })
+      .addCase(disconnectProxy.rejected, state => {
+        state.isConnected = true
+        state.isConnecting = false
+        state.isDisconnected = false
+        state.isDisconnecting = false
+        state.errorChecking = false // ??
       })
   },
 })

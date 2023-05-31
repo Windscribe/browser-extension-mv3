@@ -55,7 +55,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@types/bytes": "^3.1.1",
-    "@types/chrome": "^0.0.206",
+    "@types/chrome": "^0.0.236",
     "@types/crypto-js": "^4.1.1",
     "@types/expect-puppeteer": "^5.0.1",
     "@types/jest-environment-puppeteer": "^5.0.2",

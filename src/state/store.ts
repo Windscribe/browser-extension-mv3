@@ -106,7 +106,7 @@ const store = configureStore({
 
 const consoleLogger = createLogger({
   collapsed: (_, action, logEntry) => !logEntry?.error,
-  predicate: (_, action) => action.type !== pushToDebugLog.type,
+  predicate: (_, action) => action.type !== pushToDebugLog.type || action.payload.level === 'ERROR',
 })
 
 const debugLogMiddleware: Middleware<Dispatch, RootState> = store => next => action => {
@@ -133,9 +133,9 @@ export function buildFrom(preloadedState?: RootState): StoreType {
     preloadedState,
     middleware: getDefaultMiddleware => {
       const arr = [
-        listenerMiddleware.middleware,
         debugLogMiddleware,
         alias(aliases),
+        listenerMiddleware.middleware,
         ...getDefaultMiddleware(),
       ]
       if (process.env.NODE_ENV === 'development') {
