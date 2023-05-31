@@ -25,7 +25,7 @@ import {
   toggleSplitPersonality,
   TOGGLE_SPLIT_PERSONALITY,
 } from './slices/splitPersonalityEnabled'
-import { type Credentials } from 'api/types'
+import type { Credentials, Host } from 'api/types'
 import {
   checkUserStash,
   CHECK_USER_STASH,
@@ -56,6 +56,8 @@ const _addToAllowlist: ActionCreator<AllowlistPayload, void> = ({ payload }) =>
 const _removeFromAllowlist: ActionCreator<{ domain: string }, void> = ({ payload }) =>
   removeFromAllowlist(payload.domain)
 
+const _connectProxy: ActionCreator<Host[], void> = ({ payload }) => connectProxy(payload)
+
 export default {
   [`alias/${LOGIN}`]: _login,
   [`alias/${LOGOUT}`]: logout,
@@ -73,7 +75,7 @@ export default {
   [`alias/${TOGGLE_SPLIT_PERSONALITY}`]: toggleSplitPersonality,
   [`alias/${CHOOSE_ICON}`]: chooseIcon,
   [`alias/${CHECK_SESSION_STATUS}`]: checkSessionStatus,
-  [`alias/${CONNECT_PROXY}`]: connectProxy,
+  [`alias/${CONNECT_PROXY}`]: _connectProxy,
   [`alias/${DISCONNECT_PROXY}`]: disconnectProxy,
   [`alias/${CHECK_CURRENT_IP}`]: checkCurrentIp,
 }
