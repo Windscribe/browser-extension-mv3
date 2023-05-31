@@ -70,29 +70,38 @@ export default function (options) {
     apply(target, self, args) {
       args[1] = args[1] !== undefined ? args[1] : {}
       args[1].timeZone = options.timezone
-      return isNaN(self) ? Reflect.apply(target, self, args) : Reflect.apply(target, self, args)
+      return Reflect.apply(target, self, args)
     },
   })
   Date.prototype.toLocaleDateString = new Proxy(Date.prototype.toLocaleDateString, {
     apply(target, self, args) {
       args[1] = args[1] !== undefined ? args[1] : {}
       args[1].timeZone = options.timezone
-      return isNaN(self) ? Reflect.apply(target, self, args) : Reflect.apply(target, self, args)
+      return Reflect.apply(target, self, args)
     },
   })
   Date.prototype.toLocaleTimeString = new Proxy(Date.prototype.toLocaleTimeString, {
     apply(target, self, args) {
       args[1] = args[1] !== undefined ? args[1] : {}
       args[1].timeZone = options.timezone
-      return isNaN(self) ? Reflect.apply(target, self, args) : Reflect.apply(target, self, args)
+      return Reflect.apply(target, self, args)
     },
   })
   Date.prototype.toTimeString = new Proxy(Date.prototype.toTimeString, {
     apply(target, self, args) {
       const result = Reflect.apply(target, self._date, args)
+
+      const now = new Date()
+      const timeString = new Intl.DateTimeFormat('en-AU', {
+        timeZoneName: 'long',
+        timeZone: options.name,
+      }).format(now) // e.q. "20/12/2020, Central European Standard Time"
+      const desiredTimezoneName = timeString.split(', ')[1]
+
       const replace_1 = convertToGMT(self._offset)
       const replace_2 = convertToGMT(options.offset)
-      const replace_3 = '(' + options.timezone.replace(/\//g, ' ') + ' Standard Time)'
+      const replace_3 = `(${desiredTimezoneName})`
+
       return isNaN(self)
         ? Reflect.apply(target, self, args)
         : result.replace(replace_1, replace_2).replace(/\(.*\)/, replace_3)
