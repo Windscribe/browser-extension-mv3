@@ -116,13 +116,6 @@ export const checkSessionStatus = createAsyncThunk(
         dispatch(setSession(updatedSession.data))
       }
     }
-    // Not sure if it is the right place for it
-    // TODO Consider left it here or move somewhere else
-    const currentIp = await checkIp(getState().workingApi)
-    dispatch(setCurrentIp(currentIp))
-    // to speed up ip check consider of using
-    // await Promise.all([checkSession(), checkIp()])
-    // if we'll decide to leave checkIp() call here
   },
 )
 

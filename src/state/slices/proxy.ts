@@ -36,6 +36,7 @@ const initialState: ProxyState = {
 
 export const CONNECT_PROXY = 'proxy/connectProxy'
 export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
+export const CHECK_CURRENT_IP = 'proxy/checkCurrentIp'
 
 export const connectProxy = createAsyncThunk(
   CONNECT_PROXY,
@@ -148,6 +149,25 @@ export const handleConnectionError: SyncThunkCreator<string> = errorMessage => {
   action.type = 'proxy/handleConnectionError'
   return action
 }
+
+export const checkCurrentIp = createAsyncThunk(
+  CHECK_CURRENT_IP,
+  async (_, { getState, dispatch }) => {
+    try {
+      const workingApi = getState().workingApi
+      const currentIp = await checkIp(workingApi)
+      dispatch(setCurrentIp(currentIp))
+    } catch (err: unknown) {
+      dispatch(
+        pushToDebugLog({
+          message: 'Error while trying to check current Ip.',
+          level: 'ERROR',
+          data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+        }),
+      )
+    }
+  },
+)
 
 export const proxySlice = createSlice({
   name: 'proxy',

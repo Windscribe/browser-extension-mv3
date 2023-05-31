@@ -33,7 +33,14 @@ import {
   SAVE_USER_STASH,
 } from './slices/userStashes'
 import { chooseIcon, CHOOSE_ICON } from './slices/iconVariant'
-import { connectProxy, CONNECT_PROXY, disconnectProxy, DISCONNECT_PROXY } from './slices/proxy'
+import {
+  connectProxy,
+  CONNECT_PROXY,
+  disconnectProxy,
+  DISCONNECT_PROXY,
+  checkCurrentIp,
+  CHECK_CURRENT_IP,
+} from './slices/proxy'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string
@@ -68,4 +75,5 @@ export default {
   [`alias/${CHECK_SESSION_STATUS}`]: checkSessionStatus,
   [`alias/${CONNECT_PROXY}`]: connectProxy,
   [`alias/${DISCONNECT_PROXY}`]: disconnectProxy,
+  [`alias/${CHECK_CURRENT_IP}`]: checkCurrentIp,
 }
