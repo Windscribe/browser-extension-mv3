@@ -7,10 +7,11 @@ import theme from 'styles'
 import Router from 'services/navigation/Router'
 import proxyStore from 'pages/proxyStore'
 import { pushToDebugLog } from 'state/slices/debugLog'
-import { AppWrapper } from 'components'
+import { AppWrapper, onBeforePopupRenders } from 'components'
 
 proxyStore
   .ready()
+  .then(() => onBeforePopupRenders(proxyStore))
   .then(() => {
     render(
       <ThemeProvider theme={theme}>

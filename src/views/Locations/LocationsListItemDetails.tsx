@@ -27,7 +27,7 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
       }}
     >
       {dataCenters.map(dataCenter => (
-        <DataCenterItem isPremium={isPremium} key={dataCenter.id} {...{ dataCenter, searchText }} />
+        <DataCenterItem key={dataCenter.id} isPremium={isPremium} {...{ dataCenter, searchText }} />
       ))}
     </Box>
   )

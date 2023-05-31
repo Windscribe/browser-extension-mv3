@@ -1,6 +1,5 @@
-import { Box } from 'theme-ui'
+import { Box, Button } from 'theme-ui'
 import bytes from 'bytes'
-
 import { type ThemeUiElement } from 'utils/types'
 import { ScrollableBox, Header, RoundedBox, ListItem, Subheader } from 'components'
 import CircleButton from 'components/CircleButton'
@@ -9,6 +8,13 @@ import { useSelector } from 'state/hooks'
 import { useWindowOpening } from 'components/hooks'
 import ToolTip from 'components/ToolTip'
 
+const addOneMonthToDate = (date?: string) => {
+  if (!date) return
+  const currentDate = new Date(date)
+  currentDate.setMonth(currentDate.getMonth() + 1)
+  return currentDate.toISOString().split('T')[0]
+}
+
 const Account: ThemeUiElement = () => {
   const session = useSelector(s => s.session)
   const trafficMax = session.traffic_max || 0
@@ -16,7 +22,7 @@ const Account: ThemeUiElement = () => {
 
   const { openWindowUsingTempSession } = useWindowOpening()
 
-  const handleButtonClick = async () => {
+  const openMyAccountPage = async () => {
     await openWindowUsingTempSession('myaccount')
   }
 
@@ -27,7 +33,7 @@ const Account: ThemeUiElement = () => {
           <CircleButton
             data-testid="edit-account-button"
             Icon={EditIcon}
-            onClick={handleButtonClick}
+            onClick={openMyAccountPage}
             sx={{
               background: 'lakeBlue',
               svg: {
@@ -55,7 +61,16 @@ const Account: ThemeUiElement = () => {
           </ListItem>
           <ListItem noBorder>
             Email
-            <Box sx={{ fontWeight: '400' }}>{session.email}</Box>
+            <Box sx={{ fontWeight: '400' }}>
+              {session.email || (
+                <Button
+                  onClick={openMyAccountPage}
+                  sx={{ all: 'unset', cursor: 'pointer', color: 'lakeBlue' }}
+                >
+                  Add Email (+8GB)
+                </Button>
+              )}
+            </Box>
           </ListItem>
         </RoundedBox>
         <Subheader>plan</Subheader>
@@ -65,8 +80,12 @@ const Account: ThemeUiElement = () => {
             <Box sx={{ fontWeight: '400' }}>{session.is_premium ? 'Pro' : 'Free'}</Box>
           </ListItem>
           <ListItem noBorder>
-            Expiry Date
-            <Box sx={{ fontWeight: '400' }}>{session.premium_expiry_date}</Box>
+            {session.is_premium ? 'Expiry' : 'Reset'} Date
+            <Box sx={{ fontWeight: '400' }}>
+              {session.is_premium
+                ? session.premium_expiry_date
+                : addOneMonthToDate(session.last_reset)}
+            </Box>
           </ListItem>
         </RoundedBox>
       </ScrollableBox>

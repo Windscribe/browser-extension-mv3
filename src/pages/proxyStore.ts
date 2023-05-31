@@ -11,3 +11,4 @@ const middleware = [thunkMiddleware]
 const proxyStoreWithMiddleware = applyMiddleware(proxyStore, ...middleware)
 
 export default proxyStoreWithMiddleware
+export type ProxyStore = typeof proxyStoreWithMiddleware
