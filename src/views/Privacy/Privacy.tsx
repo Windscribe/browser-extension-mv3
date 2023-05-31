@@ -14,6 +14,7 @@ import { setTimeWarpEnabled } from 'state/slices/timeWarpEnabled'
 import { setLocationWarp } from 'state/slices/locationWarp'
 import { setWorkerBlock } from 'state/slices/workerBlock'
 import ToolTip from 'components/ToolTip'
+import getTimeZoneInfo from 'utils/getTimeZoneInfo'
 
 import DoNotDisturbIcon from 'assets/img/doNotDisturb.svg'
 import WebRtcLeakIcon from 'assets/img/webRtcLeak.svg'
@@ -96,7 +97,7 @@ const Privacy: ThemeUiElement = () => {
           <Flex sx={{ gap: '8px', alignItems: 'center' }}>
             {timeWarpEnabled && !autopilotSelected && (
               <Box sx={{ maxHeight: '16px' }}>
-                <ToolTip message={`${currentLocationTimezone}`}>
+                <ToolTip message={getTimeZoneInfo(currentLocationTimezone)}>
                   <TimeIcon
                     sx={{
                       fill: 'primaryText',
