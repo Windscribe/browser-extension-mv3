@@ -4,10 +4,13 @@ import { connect, disconnect } from 'services/proxyConfig'
 import { reduceAllowlist } from 'utils/reduceAllowlist'
 import type { SyncThunkCreator } from 'utils/types'
 import { pushToDebugLog } from './debugLog'
-import { setReconnectionAttempts } from './connection'
 import { checkIp, createNotification } from 'services'
 import { addOverlay } from 'state/slices/overlay'
 import { ACCOUNT_PLAN } from 'utils/constants'
+import { applyBestLocationAsAutopilot, setAutopilotSelected } from './autopilot'
+import { setCurrentLocation } from './currentLocation'
+import { setCurrentDataCenter } from './currentDataCenter'
+import type { AppDispatch, GetState } from 'state/store'
 
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
@@ -21,6 +24,7 @@ interface ProxyState {
   currentIp: string
   errorMessage?: string
   errorChecking: boolean
+  reconnectionAttempts: number
 }
 
 const initialState: ProxyState = {
@@ -32,11 +36,14 @@ const initialState: ProxyState = {
   currentIp: '---.---.---.---',
   errorMessage: undefined,
   errorChecking: false,
+  reconnectionAttempts: 0,
 }
 
 export const CONNECT_PROXY = 'proxy/connectProxy'
 export const DISCONNECT_PROXY = 'proxy/disconnectProxy'
 export const CHECK_CURRENT_IP = 'proxy/checkCurrentIp'
+export const CONNECT_TO_AUTOPILOT = 'proxy/connectToAutopilot'
+export const HANDLE_PROXY_ERROR = 'proxy/handleProxyError'
 
 export const connectProxy = createAsyncThunk(
   CONNECT_PROXY,
@@ -84,21 +91,33 @@ export const connectProxy = createAsyncThunk(
 
       const ip = await checkIp(getState().workingApi)
       dispatch(setCurrentIp(ip))
-
       if (ip === '---.---.---.---') {
-        throw Error('Proxy Error')
+        const isRetrying = await handleProxyError(dispatch, getState)
+        if (isRetrying) {
+          throw Error('Retrying Connection')
+        } else {
+          const smokeWall = getState().connection.smokeWall
+
+          if (smokeWall) {
+            throw Error('Smoke Wall Failover')
+          } else if (!smokeWall) {
+            await dispatch(disconnectProxy())
+            dispatch(addOverlay('somethingWeird'))
+            throw Error('Proxy Disconnection Failover')
+          }
+        }
       } else {
         dispatch(setReconnectionAttempts(0))
-      }
 
-      if (getState().allowSystemNotifications) {
-        const autopilotSelected = getState().autopilot.autopilotSelected
-        const { city = '', nick = '' } = getState().currentDataCenter
-        const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
-        createNotification({
-          iconUrl: proxyOnIcon,
-          message: `You are now connected to Windscribe (${locationInfo})`,
-        })
+        if (getState().allowSystemNotifications) {
+          const autopilotSelected = getState().autopilot.autopilotSelected
+          const { city = '', nick = '' } = getState().currentDataCenter
+          const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
+          createNotification({
+            iconUrl: proxyOnIcon,
+            message: `You are now connected to Windscribe (${locationInfo})`,
+          })
+        }
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -118,7 +137,6 @@ export const disconnectProxy = createAsyncThunk(
       const workingApi = getState().workingApi
       const ip = await checkIp(workingApi)
       dispatch(setCurrentIp(ip))
-      dispatch(resetProxy())
 
       if (getState().allowSystemNotifications) {
         createNotification({
@@ -126,7 +144,6 @@ export const disconnectProxy = createAsyncThunk(
           message: 'Connection to Windscribe has been terminated',
         })
       }
-      dispatch(setReconnectionAttempts(0))
     } catch (err: unknown) {
       dispatch(
         pushToDebugLog({
@@ -169,6 +186,71 @@ export const checkCurrentIp = createAsyncThunk(
   },
 )
 
+export const connectToAutopilot = createAsyncThunk(
+  CONNECT_TO_AUTOPILOT,
+  async (_, { getState, dispatch }) => {
+    await dispatch(applyBestLocationAsAutopilot())
+
+    const location = getState().autopilot.autopilotData?.location
+    const dataCenter = getState().autopilot.autopilotData?.dataCenter
+    if (!location || !dataCenter) throw new Error('No autopilot candidates are available')
+    dispatch(setAutopilotSelected(true))
+
+    dispatch(setCurrentLocation(location))
+    dispatch(setCurrentDataCenter(dataCenter))
+
+    const hosts = getState().currentDataCenter?.hosts
+    if (!hosts) throw new Error(`No data center is being used as current`)
+    await dispatch(connectProxy(hosts))
+  },
+)
+
+export const handleProxyError = async (
+  dispatch: AppDispatch,
+  getState: GetState,
+): Promise<boolean> => {
+  const RECONNECTION_ATTEMPTS_LIMIT = 2
+
+  dispatch(setErrorChecking(true))
+
+  const failover = getState().connection.failover
+  const reconnectionAttempts = getState().proxy.reconnectionAttempts
+  if (reconnectionAttempts < RECONNECTION_ATTEMPTS_LIMIT) {
+    dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
+    const currentHosts = getState().currentDataCenter?.hosts
+    if (currentHosts) {
+      dispatch(connectProxy(currentHosts))
+      dispatch(setErrorChecking(false))
+      return true
+    }
+  }
+  if (reconnectionAttempts === RECONNECTION_ATTEMPTS_LIMIT) {
+    if (failover === 'Auto / Best') {
+      dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
+      dispatch(connectToAutopilot())
+      dispatch(setErrorChecking(false))
+      return true
+    }
+    if (failover === 'Same Country') {
+      const currentLocation = getState().currentLocation
+      const currentDataCenter = getState().currentDataCenter
+
+      const newDatacenter = currentLocation.groups?.find(
+        dataCenter => dataCenter.id !== currentDataCenter.id,
+      )
+      if (newDatacenter) {
+        dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
+        dispatch(setCurrentDataCenter(newDatacenter))
+        dispatch(connectProxy(newDatacenter.hosts))
+        dispatch(setErrorChecking(false))
+        return true
+      }
+    }
+  }
+
+  return false
+}
+
 export const proxySlice = createSlice({
   name: 'proxy',
   initialState,
@@ -177,19 +259,11 @@ export const proxySlice = createSlice({
       state.hosts = action.payload
       state.errorMessage = undefined
     },
-    resetProxy(state) {
-      state.hosts = undefined
-      state.isConnected = false
-      state.isConnecting = false
-      state.isDisconnecting = false
-      state.errorMessage = undefined
-      state.errorChecking = false
-    },
     setIsConnecting(state, action: PayloadAction<boolean>) {
       state.isConnecting = action.payload
     },
     setConnectionError(state, action: PayloadAction<string>) {
-      state.errorMessage = `Proxy connection error. ${action.payload}`
+      state.errorMessage = action.payload
     },
     setIsConnected(state, action: PayloadAction<boolean>) {
       state.isConnected = action.payload
@@ -199,6 +273,9 @@ export const proxySlice = createSlice({
     },
     setErrorChecking(state, action: PayloadAction<boolean>) {
       state.errorChecking = action.payload
+    },
+    setReconnectionAttempts(state, action: PayloadAction<number>) {
+      state.reconnectionAttempts = action.payload
     },
   },
   extraReducers: builder => {
@@ -210,17 +287,18 @@ export const proxySlice = createSlice({
         state.isDisconnecting = false
       })
       .addCase(connectProxy.fulfilled, state => {
+        state.reconnectionAttempts = 0
         state.isConnected = true
         state.isConnecting = false
-        state.errorMessage = undefined
         state.errorChecking = false
       })
       .addCase(connectProxy.rejected, (state, action) => {
         if (action.error.message) {
           state.errorMessage = action.error.message
 
-          if (action.error.message !== 'Proxy Error') {
-            state.isConnected = false
+          if (action.error.message !== 'Retrying Connection') {
+            state.isConnected = action.error.message === 'Smoke Wall Failover'
+            state.reconnectionAttempts = 0
             state.isConnecting = false
             state.errorChecking = false
           }
@@ -238,24 +316,23 @@ export const proxySlice = createSlice({
         state.isDisconnected = true
         state.isDisconnecting = false
         state.errorChecking = false
+        state.hosts = undefined
+        state.errorMessage = undefined
+        state.reconnectionAttempts = 0
       })
-      .addCase(disconnectProxy.rejected, state => {
-        state.isConnected = true
-        state.isConnecting = false
-        state.isDisconnected = false
-        state.isDisconnecting = false
-        state.errorChecking = false // ??
+      .addCase(connectToAutopilot.rejected, (state, action) => {
+        state.errorMessage = `${action.error.name}. ${action.error.message}`
       })
   },
 })
 
 export const {
   setProxy,
-  resetProxy,
   setConnectionError,
   setIsConnected,
   setCurrentIp,
   setIsConnecting,
   setErrorChecking,
+  setReconnectionAttempts,
 } = proxySlice.actions
 export default proxySlice.reducer

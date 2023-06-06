@@ -21,6 +21,7 @@ async function setupOffscreenDocument() {
   const matchedClients = await self.clients.matchAll()
   for (const client of matchedClients) {
     if (client.url === offscreenUrl) {
+      await chrome.offscreen.closeDocument()
       return
     }
   }
@@ -44,6 +45,7 @@ async function fetchIp(workingApi: string): Promise<string> {
   const timeoutId = setTimeout(() => controller.abort(), 3000)
 
   const domain = process.env.NODE_ENV !== 'production' ? 'windscribe.com' : workingApi
+
   const res = await fetch(`https://checkip.${domain}`, {
     signal: controller.signal,
   })
@@ -51,5 +53,6 @@ async function fetchIp(workingApi: string): Promise<string> {
     .catch(() => NO_IP)
 
   clearTimeout(timeoutId)
+
   return res
 }

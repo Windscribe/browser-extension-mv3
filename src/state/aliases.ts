@@ -7,7 +7,6 @@ import {
   checkSessionStatus,
   CHECK_SESSION_STATUS,
 } from './slices/session'
-import { connectToAutopilot, CONNECT_TO_AUTOPILOT } from './slices/autopilot'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
 import {
   addToAllowlist,
@@ -40,6 +39,8 @@ import {
   DISCONNECT_PROXY,
   checkCurrentIp,
   CHECK_CURRENT_IP,
+  connectToAutopilot,
+  CONNECT_TO_AUTOPILOT,
 } from './slices/proxy'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {

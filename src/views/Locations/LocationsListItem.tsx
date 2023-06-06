@@ -6,7 +6,7 @@ import { FlagIcon, Rectangle } from 'components'
 import flags from 'assets/flags'
 import { useGoTo } from 'services/navigation'
 import { useDispatchAlias } from 'state/hooks'
-import { CONNECT_TO_AUTOPILOT } from 'state/slices/autopilot'
+import { CONNECT_TO_AUTOPILOT } from 'state/slices/proxy'
 import LocationsListItemDetails from './LocationsListItemDetails'
 import type { Location, DataCenter } from 'api/types'
 

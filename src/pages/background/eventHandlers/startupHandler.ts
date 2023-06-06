@@ -1,7 +1,11 @@
 import getErrorMessage from 'utils/getErrorMessage'
 import { type StoreType } from 'state/store'
-import { connectToAutopilot } from 'state/slices/autopilot'
-import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
+import {
+  connectProxy,
+  disconnectProxy,
+  connectToAutopilot,
+  handleConnectionError,
+} from 'state/slices/proxy'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {

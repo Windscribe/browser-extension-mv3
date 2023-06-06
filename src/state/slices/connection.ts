@@ -6,14 +6,12 @@ interface ConnectionState {
   smokeWall: boolean
   failover: FailoverOption
   autoConnect: boolean
-  reconnectionAttempts: number
 }
 
 const initialState: ConnectionState = {
   smokeWall: true,
   failover: 'Auto / Best',
   autoConnect: true,
-  reconnectionAttempts: 0,
 }
 
 export const connectionSlice = createSlice({
@@ -29,12 +27,8 @@ export const connectionSlice = createSlice({
     setAutoConnect(state, action: PayloadAction<boolean>) {
       state.autoConnect = action.payload
     },
-    setReconnectionAttempts(state, action: PayloadAction<number>) {
-      state.reconnectionAttempts = action.payload
-    },
   },
 })
 
-export const { setSmokeWall, setFailover, setAutoConnect, setReconnectionAttempts } =
-  connectionSlice.actions
+export const { setSmokeWall, setFailover, setAutoConnect } = connectionSlice.actions
 export default connectionSlice.reducer
