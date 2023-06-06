@@ -12,8 +12,8 @@ import AdsSelected from 'assets/img/adsSelected.svg'
 import CloseAllowlist from 'assets/img/closeAllowlist.svg'
 import ConnectionDeselected from 'assets/img/connectionDeselected.svg'
 import ConnectionSelected from 'assets/img/connectionSelected.svg'
-import CookiesSelected from 'assets/img/cookiesSelected.svg'
-import CookiesDeselected from 'assets/img/cookiesDeselected.svg'
+import PrivacySelected from 'assets/img/privacySelected.svg'
+import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
 
@@ -138,9 +138,9 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
             }}
           >
             {isPrivacyFeaturesAllowed ? (
-              <CookiesSelected sx={{ fill: 'white' }} />
+              <PrivacySelected sx={{ fill: 'white' }} />
             ) : (
-              <CookiesDeselected sx={{ fill: 'halfWhite' }} />
+              <PrivacyDeselected sx={{ fill: 'halfWhite' }} />
             )}
           </StyledIconButton>
         </ToolTip>
