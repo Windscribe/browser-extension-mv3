@@ -92,7 +92,9 @@ const stringifyCruiseControlList = (
 
 export const connect = async (store: StoreType, hosts: Host[]): Promise<void> => {
   try {
+    if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
     store.dispatch(setStatus('connecting'))
+
     const { traffic_max, traffic_used, is_premium } = store.getState().session
 
     if (traffic_max === undefined || traffic_used === undefined) {
@@ -132,16 +134,20 @@ export const connect = async (store: StoreType, hosts: Host[]): Promise<void> =>
       },
     }
 
+    if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
     chrome.proxy.settings.set({ value: config, scope: 'regular' })
 
     store.dispatch(setProxy(hosts))
 
+    if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
     const ip = await checkIp(store.getState().workingApi)
+
     store.dispatch(setCurrentIp(ip))
     if (ip === '---.---.---.---') {
       await handleProxyError(store)
     } else {
       store.dispatch(setReconnectionAttempts(0))
+      if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
       store.dispatch(setStatus('on'))
 
       if (store.getState().allowSystemNotifications) {
@@ -196,6 +202,7 @@ export const disconnect = async (store: StoreType): Promise<void> => {
 
 export const connectToAutopilot = async (store: StoreType): Promise<void> => {
   try {
+    if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
     store.dispatch(setStatus('connecting'))
 
     await store.dispatch(applyBestLocationAsAutopilot())

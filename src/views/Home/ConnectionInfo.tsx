@@ -9,7 +9,6 @@ import NoInternet from 'assets/img/noInternet.svg'
 
 type ConnectionStatusProps = {
   status: Status
-  loadingStatus: string | null
   autopilotSelected: boolean
   currentDataCenter: Partial<DataCenter>
   proxyFailure: boolean
@@ -17,7 +16,6 @@ type ConnectionStatusProps = {
 
 const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
   status,
-  loadingStatus,
   autopilotSelected,
   currentDataCenter,
   proxyFailure,
@@ -37,14 +35,13 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
           sx={{
             fontSize: '12px',
             fontWeight: '600',
-            color:
-              status === 'on' || loadingStatus ? 'neonGreen' : isOnline ? 'white' : 'warningYellow',
+            color: status !== 'off' ? 'neonGreen' : isOnline ? 'white' : 'warningYellow',
             mr: '8px',
           }}
         >
-          {loadingStatus === 'connecting' ? (
+          {status === 'connecting' ? (
             'CONNECTING...'
-          ) : loadingStatus === 'disconnecting' ? (
+          ) : status === 'disconnecting' ? (
             'DISCONNECTING...'
           ) : status === 'on' ? (
             'ON'
@@ -79,7 +76,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
                 onClick={() => dispatch(addOverlay('somethingWeird'))}
               />
             </Flex>
-          ) : isOnline && !loadingStatus ? (
+          ) : isOnline && (status === 'on' || status === 'off') ? (
             <IpAddress />
           ) : null}
         </Text>
