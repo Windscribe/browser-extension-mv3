@@ -1,7 +1,7 @@
 import getErrorMessage from 'utils/getErrorMessage'
 import { type StoreType } from 'state/store'
-import { connectToAutopilot } from 'state/slices/autopilot'
-import { connectProxy, disconnectProxy, handleConnectionError } from 'state/slices/proxy'
+import { handleConnectionError } from 'state/slices/proxy'
+import { connect, disconnect, connectToAutopilot } from 'services/proxyConfig'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {
@@ -10,7 +10,7 @@ export function startupHandler(bgStore: Promise<StoreType>) {
       store = await bgStore
 
       if (!store.getState().connection.autoConnect) {
-        store.dispatch(disconnectProxy())
+        await disconnect(store)
         return
       }
 
@@ -23,11 +23,11 @@ export function startupHandler(bgStore: Promise<StoreType>) {
       const currentHosts = store.getState().currentDataCenter?.hosts
       const autopilotSelected = store.getState().autopilot.autopilotSelected
       if (!autopilotSelected && currentHosts) {
-        await store.dispatch(connectProxy(currentHosts))
+        await connect(store, currentHosts)
         return
       }
 
-      await store.dispatch(connectToAutopilot())
+      await connectToAutopilot(store)
     } catch (err) {
       const message = getErrorMessage(err)
       store?.dispatch(handleConnectionError(message))

@@ -87,6 +87,8 @@ export type IconVariant =
   | 'proxyOnDouble'
   | 'proxyNoConnection'
 
+export type Status = 'on' | 'off' | 'connecting' | 'disconnecting'
+
 declare global {
   interface Window {
     store: StoreType

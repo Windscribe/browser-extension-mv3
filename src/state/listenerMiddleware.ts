@@ -16,7 +16,7 @@ startAppListening({
   predicate: (action, currentState, previousState) => {
     return (
       currentState.session.our_ip !== previousState.session.our_ip ||
-      currentState.proxy.isConnected !== previousState.proxy.isConnected ||
+      currentState.proxy.status !== previousState.proxy.status ||
       currentState.proxy.errorMessage !== previousState.proxy.errorMessage ||
       currentState.isOnline !== previousState.isOnline
     )

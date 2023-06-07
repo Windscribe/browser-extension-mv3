@@ -1,6 +1,6 @@
 import { type StoreType } from 'state/store'
 import { pushToDebugLog } from 'state/slices/debugLog'
-import { handleProxyError } from 'state/slices/proxyErrorChecking'
+import { handleProxyError } from 'services/proxyConfig'
 
 export function proxyErrorHandler(bgStore: Promise<StoreType>) {
   return async (e: chrome.proxy.ErrorDetails): Promise<void> => {
@@ -20,6 +20,13 @@ export function proxyErrorHandler(bgStore: Promise<StoreType>) {
       }),
     )
 
-    store.dispatch(handleProxyError())
+    const proxy = store.getState().proxy
+    const isConnected = proxy.status === 'on'
+    const hasProxyError = !!proxy.errorMessage
+    const reconnectionAttempts = proxy.reconnectionAttempts
+    const proxyFailure = isConnected && hasProxyError
+    const shouldIgnore = proxyFailure || !isConnected || reconnectionAttempts
+
+    if (!shouldIgnore) handleProxyError(store)
   }
 }

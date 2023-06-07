@@ -15,22 +15,11 @@ export const Overlay: ThemeUiElement<{ template: OverlayTemplate; index: number 
   ...props
 }) => {
   const dispatch = useDispatch()
-  const [isOpen, setIsOpen] = useState(false)
-  const [shouldDelete, setShouldDelete] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
-    setIsOpen(true)
-  }, [])
-
-  useEffect(() => {
-    if (!isOpen && shouldDelete) dispatch(removeOverlay(template))
-  }, [isOpen, shouldDelete, dispatch, template])
-
-  // consider of using useCallback.
-  const close = () => {
-    setIsOpen(false)
-    setShouldDelete(true)
-  }
+    if (!isOpen) dispatch(removeOverlay(template))
+  }, [dispatch, isOpen, template])
 
   const { title, message, img, ActionsBlock } = getOverlayTemplate(template)
 
@@ -45,7 +34,6 @@ export const Overlay: ThemeUiElement<{ template: OverlayTemplate; index: number 
         backgroundColor: 'background',
         overflow: 'hidden',
         zIndex: 3 + index,
-        visibility: isOpen ? 'visible' : 'hidden',
       }}
       {...props}
     >
@@ -79,7 +67,7 @@ export const Overlay: ThemeUiElement<{ template: OverlayTemplate; index: number 
             {message}
           </Text>
         </Column>
-        {ActionsBlock && <ActionsBlock close={close} />}
+        {ActionsBlock && <ActionsBlock close={() => setIsOpen(false)} />}
       </Column>
     </Box>
   )

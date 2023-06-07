@@ -3,9 +3,6 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import type { Autopilot, CruiseControlItem } from 'api/types'
 import { selectLocationByName, findDataCenterById } from './servers'
 import { FETCH_BEST_LOCATION } from './bestLocation'
-import { setCurrentLocation } from './currentLocation'
-import { setCurrentDataCenter } from './currentDataCenter'
-import { connectProxy } from './proxy'
 import { getCruiseControlDomains } from 'api/endpoints'
 import createCruiseControlList from 'services/cruiseControl/createCruiseControlList'
 
@@ -64,28 +61,6 @@ export const applyBestLocationAsAutopilot = createAsyncThunk(
   },
 )
 
-export const CONNECT_TO_AUTOPILOT = 'autopilot/connectToAutopilot'
-
-export const connectToAutopilot = createAsyncThunk(
-  CONNECT_TO_AUTOPILOT,
-  async (_, { getState, dispatch }) => {
-    await dispatch(applyBestLocationAsAutopilot())
-
-    const location = getState().autopilot.autopilotData?.location
-    const dataCenter = getState().autopilot.autopilotData?.dataCenter
-    if (!location || !dataCenter)
-      throw new AutopilotConnectionError('No autopilot candidates are available')
-    dispatch(setAutopilotSelected(true))
-
-    dispatch(setCurrentLocation(location))
-    dispatch(setCurrentDataCenter(dataCenter))
-
-    const hosts = getState().currentDataCenter?.hosts
-    if (!hosts) throw new AutopilotConnectionError(`No data center is being used as current`)
-    await dispatch(connectProxy(hosts))
-  },
-)
-
 export const autopilotSlice = createSlice({
   name: 'autopilot',
   initialState,
@@ -103,9 +78,6 @@ export const autopilotSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(applyBestLocationAsAutopilot.rejected, (state, action) => {
-      state.errorMessage = `${action.error.name}. ${action.error.message}`
-    })
-    builder.addCase(connectToAutopilot.rejected, (state, action) => {
       state.errorMessage = `${action.error.name}. ${action.error.message}`
     })
   },

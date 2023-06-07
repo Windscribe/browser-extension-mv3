@@ -12,6 +12,7 @@ import {
   proxyErrorHandler,
   startupHandler,
   messageHandler,
+  popupCloseHandler,
 } from './eventHandlers'
 
 const bgStore = initializeWrappedStore().then(store => {
@@ -39,7 +40,9 @@ chrome.alarms.create('sessionPoller', { periodInMinutes: 10 })
 chrome.alarms.create('notificationPoller', { periodInMinutes: 720 })
 chrome.alarms.onAlarm.addListener(alarmHandler(bgStore))
 
-chrome.runtime.onMessage.addListener(messageHandler)
+chrome.runtime.onMessage.addListener(messageHandler(bgStore))
+
+chrome.runtime.onConnect.addListener(popupCloseHandler(bgStore))
 
 // This is experimental feature and currently nor supported by FF
 // Also it might not work in Brave browser

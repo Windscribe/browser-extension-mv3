@@ -1,4 +1,4 @@
-import type { IconVariant } from 'utils/types'
+import type { IconVariant, Status } from 'utils/types'
 
 import proxyOnIcon from 'assets/img/proxyOn.png'
 import proxyOffIcon from 'assets/img/proxyOff.png'
@@ -36,14 +36,14 @@ export async function setTitleByIconVariant(iconVariant: IconVariant): Promise<v
 
 type GetIconVariantOptions = {
   isOnline: boolean
-  proxyConnected: boolean
+  status: Status
   desktopConnected: boolean
   hasProxyError: boolean
 }
 
 export function getIconVariant({
   isOnline,
-  proxyConnected,
+  status,
   desktopConnected,
   hasProxyError,
 }: GetIconVariantOptions): IconVariant {
@@ -51,11 +51,11 @@ export function getIconVariant({
     return 'proxyNoConnection'
   }
 
-  if (proxyConnected && hasProxyError) {
+  if (status === 'on' && hasProxyError) {
     return 'proxyFailure'
   }
 
-  if (proxyConnected && desktopConnected) {
+  if (status === 'on' && desktopConnected) {
     return 'proxyOnDouble'
   }
 
@@ -63,7 +63,7 @@ export function getIconVariant({
     return 'proxyDesktopOn'
   }
 
-  if (proxyConnected) {
+  if (status === 'on') {
     return 'proxyOn'
   }
 
