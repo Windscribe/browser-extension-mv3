@@ -3,7 +3,6 @@ import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/tool
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 import { ACCOUNT_STATES, ACCOUNT_PLAN } from 'utils/constants'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
-import { disconnectProxy } from './proxy'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
 import { login as loginRequest, logout as logoutRequest, getSessionStatus } from 'api/endpoints'
@@ -72,7 +71,7 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
   const resetState = async () => {
     await dispatch(saveUserStash())
     await dispatch({ type: 'global/resetStore' })
-    await dispatch(disconnectProxy())
+    await chrome.runtime.sendMessage({ what: 'disconnectProxy' })
     await dispatch(resetNotificationBlocker())
     await dispatch(resetWebRtcBlocker())
   }
@@ -83,7 +82,7 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
 export const checkSessionStatus = createAsyncThunk(
   CHECK_SESSION_STATUS,
   async (_, { getState, dispatch }) => {
-    const { isConnected } = getState().proxy
+    const status = getState().proxy.status
     const currentSession = getState().session
 
     // poll only when connected and we have a session_auth_hash
@@ -92,7 +91,7 @@ export const checkSessionStatus = createAsyncThunk(
       const updatedSession = await getSessionStatus(dispatch, currentSession?.session_auth_hash)
       if (updatedSession.data) {
         if (
-          isConnected &&
+          status === 'on' &&
           !updatedSession.data.is_premium &&
           updatedSession.data.traffic_max !== ACCOUNT_PLAN.UNLIMITED &&
           updatedSession.data.traffic_max !== undefined &&
@@ -100,7 +99,7 @@ export const checkSessionStatus = createAsyncThunk(
           updatedSession.data.traffic_max - updatedSession.data.traffic_used <= 0
         ) {
           dispatch(addOverlay('noData'))
-          dispatch(disconnectProxy())
+          await chrome.runtime.sendMessage({ what: 'disconnectProxy' })
         }
         if (updatedSession.data.status === ACCOUNT_STATES.BANNED) {
           await dispatch(logout())

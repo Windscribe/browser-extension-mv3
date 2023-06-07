@@ -1,1 +1,1 @@
-export { connect, disconnect } from './proxyConfig'
+export { connect, disconnect, connectToAutopilot, handleProxyError } from './proxyConfig'

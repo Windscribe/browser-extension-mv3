@@ -43,7 +43,7 @@ export function navigationCommittedHandler(bgStore: Promise<StoreType>) {
       executeScript(details.tabId, splitPersonality, spoofedUserAgent)
     }
 
-    if (!store.getState().proxy.isConnected) return
+    if (store.getState().proxy.status !== 'on') return
     if (store.getState().autopilot.autopilotSelected) return
 
     if (store.getState().locationWarp) {

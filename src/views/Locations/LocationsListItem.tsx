@@ -5,8 +5,6 @@ import { Box, Text, Flex, type BoxProps } from 'theme-ui'
 import { FlagIcon, Rectangle } from 'components'
 import flags from 'assets/flags'
 import { useGoTo } from 'services/navigation'
-import { useDispatchAlias } from 'state/hooks'
-import { CONNECT_TO_AUTOPILOT } from 'state/slices/proxy'
 import LocationsListItemDetails from './LocationsListItemDetails'
 import type { Location, DataCenter } from 'api/types'
 
@@ -31,7 +29,6 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   ...props
 }) => {
   const [isExpanded, setIsExpanded] = useState(currentlySelected && !isAutopilot)
-  const dispatchAlias = useDispatchAlias()
   const goToHome = useGoTo('Home')
 
   useEffect(() => {
@@ -48,7 +45,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   const handleLocationItemClick = async () => {
     if (isAutopilot) {
       goToHome()
-      await dispatchAlias(CONNECT_TO_AUTOPILOT)
+      await chrome.runtime.sendMessage({ what: 'connectAutopilot' })
     } else {
       setIsExpanded(!isExpanded)
     }

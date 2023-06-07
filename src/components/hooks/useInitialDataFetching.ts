@@ -5,7 +5,6 @@ import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
 import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
-import { CONNECT_TO_AUTOPILOT } from 'state/slices/proxy'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
 import { setOriginalUserAgent, FETCH_USER_AGENTS_LIST } from 'state/slices/userAgent'
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
@@ -27,8 +26,7 @@ export default (): void => {
   const userAgentLoading = useSelector(state => state.userAgent.loading)
   const userAgentOriginal = useSelector(state => state.userAgent.original)
   const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
-  const isConnected = useSelector(state => state.proxy?.isConnected)
-  const isConnecting = useSelector(state => state.proxy.isConnecting)
+  const status = useSelector(s => s.proxy.status)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -79,20 +77,21 @@ export default (): void => {
   }, [sessionAuthHash, userAgentLoading])
 
   useEffect(() => {
-    const dispatchConnectToAutopilot = async () => await dispatchAlias(CONNECT_TO_AUTOPILOT)
+    const dispatchConnectToAutopilot = async () =>
+      await chrome.runtime.sendMessage({ what: 'connectAutopilot' })
+
     if (
       autoConnectAfterLogin &&
       serverListLoading === 'fulfilled' &&
       bestLocationLoading === 'fulfilled' &&
-      !isConnected &&
-      !isConnecting
+      status !== 'on' &&
+      status !== 'connecting'
     ) {
       dispatchConnectToAutopilot()
       dispatch(setAutoConnectAfterLogin(false))
     }
   }, [
-    isConnected,
-    isConnecting,
+    status,
     serverListLoading,
     bestLocationLoading,
     autoConnectAfterLogin,

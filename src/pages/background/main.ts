@@ -40,7 +40,7 @@ chrome.alarms.create('sessionPoller', { periodInMinutes: 10 })
 chrome.alarms.create('notificationPoller', { periodInMinutes: 720 })
 chrome.alarms.onAlarm.addListener(alarmHandler(bgStore))
 
-chrome.runtime.onMessage.addListener(messageHandler)
+chrome.runtime.onMessage.addListener(messageHandler(bgStore))
 
 chrome.runtime.onConnect.addListener(popupCloseHandler(bgStore))
 

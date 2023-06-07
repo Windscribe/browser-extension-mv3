@@ -1,7 +1,6 @@
 import { Box, Button, Flex } from 'theme-ui'
-import { useEffect } from 'react'
-
-import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
 import UsageBar from './UsageBar'
 import PrivacyButton from './PrivacyButton'
@@ -9,7 +8,6 @@ import BlockerButton from './BlockerButton'
 import FlagBackground from './FlagBackground'
 import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
-import { CONNECT_PROXY, DISCONNECT_PROXY, CONNECT_TO_AUTOPILOT } from 'state/slices/proxy'
 import { setIsRightAfterLogin } from 'state/slices/isRightAfterLogin'
 import { addOverlay } from 'state/slices/overlay'
 import { useInitialDataFetching } from 'components/hooks'
@@ -33,7 +31,6 @@ import ProxyFailureRing from 'assets/img/proxyFailureRing.svg'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
-  const dispatchAlias = useDispatchAlias()
 
   const goToLocations = useGoTo('Locations')
   const goToPreferences = useGoTo('Preferences')
@@ -41,9 +38,7 @@ const Home: ThemeUiElement = () => {
 
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
-  const isConnected = useSelector(state => state.proxy?.isConnected)
-  const isConnecting = useSelector(state => state.proxy.isConnecting)
-  const isDisconnecting = useSelector(state => state.proxy.isDisconnecting)
+  const status = useSelector(state => state.proxy.status)
   const isPremium = useSelector(s => s.session.is_premium)
   const trafficMax = useSelector(s => s.session.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
@@ -53,7 +48,13 @@ const Home: ThemeUiElement = () => {
   const hasProxyError = useSelector(state => state.proxy.errorMessage)
   const isRightAfterLogin = useSelector(state => state.isRightAfterLogin)
 
-  const proxyFailure = isConnected && hasProxyError
+  const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null)
+  const [lastClick, setLastClick] = useState(Date.now())
+  const [loadingStatus, setLoadingStatus] = useState(
+    status === 'connecting' ? 'connecting' : status === 'disconnecting' ? 'disconnecting' : null,
+  )
+
+  const proxyFailure = status === 'on' && hasProxyError && !loadingStatus
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
@@ -67,19 +68,53 @@ const Home: ThemeUiElement = () => {
     }
   }, [isRightAfterLogin, dispatch])
 
+  useEffect(() => {
+    if (status === 'on' || status === 'off') {
+      setLoadingStatus(null)
+    } else {
+      setLoadingStatus(status)
+    }
+  }, [status])
+
   useInitialDataFetching()
 
-  const toggleProxy = async () => {
-    if (isConnected || isConnecting) {
-      await dispatchAlias(DISCONNECT_PROXY)
+  const setProxy = async () => {
+    if (status === 'on' || status === 'connecting') {
+      await chrome.runtime.sendMessage({ what: 'disconnectProxy' })
     } else {
       const hosts = currentDataCenter?.hosts
       if (!autopilotSelected && hosts) {
-        await dispatchAlias(CONNECT_PROXY, hosts)
+        await chrome.runtime.sendMessage({ what: 'connectProxy', hosts: hosts })
       } else {
-        await dispatchAlias(CONNECT_TO_AUTOPILOT)
+        await chrome.runtime.sendMessage({ what: 'connectAutopilot' })
       }
     }
+  }
+
+  const toggleProxy = async () => {
+    let newLoadingStatus = null
+
+    if (loadingStatus === 'connecting' || status === 'on') {
+      newLoadingStatus = 'disconnecting'
+    } else if (loadingStatus === 'disconnecting' || status === 'off') {
+      newLoadingStatus = 'connecting'
+    }
+    setLoadingStatus(newLoadingStatus)
+
+    if (clickTimeout) {
+      clearTimeout(clickTimeout)
+      setClickTimeout(null)
+    }
+
+    if (Date.now() - lastClick > 1000) {
+      setProxy()
+    } else {
+      const newTimeout = setTimeout(() => {
+        setProxy()
+      }, 1000)
+      setClickTimeout(newTimeout)
+    }
+    setLastClick(Date.now())
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
@@ -111,7 +146,7 @@ const Home: ThemeUiElement = () => {
               width: '186px',
               alignItems: 'center',
               transition: 'background-color  1s ease',
-              backgroundColor: isConnected ? 'halfBlack' : 'darkBackground',
+              backgroundColor: status === 'on' ? 'halfBlack' : 'darkBackground',
             }}
           >
             <Button variant="simple" data-testid="go-to-preferences" onClick={goToPreferences}>
@@ -152,7 +187,7 @@ const Home: ThemeUiElement = () => {
               width: '46px',
               height: '56px',
               transition: 'fill 1s ease',
-              fill: isConnected ? 'halfBlack' : 'darkBackground',
+              fill: status === 'on' ? 'halfBlack' : 'darkBackground',
             }}
           />
           <Flex sx={{ gap: '8px' }}>
@@ -169,9 +204,8 @@ const Home: ThemeUiElement = () => {
           }}
         >
           <ConnectionInfo
-            isConnected={isConnected}
-            isConnecting={isConnecting}
-            isDisconnecting={isDisconnecting}
+            status={status}
+            loadingStatus={loadingStatus}
             autopilotSelected={autopilotSelected}
             currentDataCenter={currentDataCenter}
             proxyFailure={!!proxyFailure}
@@ -238,17 +272,30 @@ const Home: ThemeUiElement = () => {
                 justifyContent: 'center',
                 borderRadius: '50%',
                 border: 'solid 3px',
-                borderColor: isConnected && !hasProxyError ? 'neonGreen' : 'transparent',
-                transform: `rotate(${isConnecting || isConnected ? '0' : '-180deg'})`,
+                borderColor:
+                  status === 'on' && !hasProxyError && !loadingStatus ? 'neonGreen' : 'transparent',
                 transition: '0.3s',
                 ':hover': {
-                  transform: `scale(1.1) rotate(${isConnecting || isConnected ? '0' : '-180deg'})`,
+                  transform: `scale(1.1)`,
                 },
               }}
               onClick={toggleProxy}
             >
-              <PowerButton />
-              {isConnecting || isDisconnecting ? (
+              <PowerButton
+                sx={{
+                  transform: `rotate(${
+                    loadingStatus === 'connecting'
+                      ? '0'
+                      : loadingStatus === 'disconnecting'
+                      ? '-180deg'
+                      : status === 'on'
+                      ? '0'
+                      : '-180deg'
+                  })`,
+                  transition: '0.3s',
+                }}
+              />
+              {loadingStatus ? (
                 <Box
                   sx={{
                     position: 'absolute',
@@ -276,7 +323,7 @@ const Home: ThemeUiElement = () => {
         </Flex>
       </Box>
       <DomainControlBar />
-      <FlagBackground isConnected={isConnected} FlagSvg={FlagSvg} />
+      <FlagBackground isConnected={status === 'on'} FlagSvg={FlagSvg} />
       {!hideUsageBar && <UsageBar />}
       <Onboarding />
     </Box>

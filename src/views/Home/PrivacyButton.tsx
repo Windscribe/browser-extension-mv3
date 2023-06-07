@@ -28,13 +28,13 @@ const PrivacyButton: ThemeUiElement = () => {
   const goToPrivacy = useGoTo('Privacy')
 
   const count = useSelector(privacyCount)
-  const isConnected = useSelector(s => s.proxy?.isConnected)
+  const status = useSelector(s => s.proxy.status)
 
   return (
     <HeaderButton
       className="joyride-element-privacy"
       Icon={PrivacyIcon}
-      isConnected={isConnected}
+      isConnected={status === 'on'}
       count={count}
       onClick={goToPrivacy}
     />

@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from 'theme-ui'
 import { useDispatch, useSelector } from 'state/hooks'
-import { type ThemeUiElement } from 'utils/types'
+import { type ThemeUiElement, Status } from 'utils/types'
 import { DataCenter } from 'api/types'
 import { addOverlay } from 'state/slices/overlay'
 import IpAddress from './IpAddress'
@@ -8,18 +8,16 @@ import InfoIcon from 'assets/img/infoIcon.svg'
 import NoInternet from 'assets/img/noInternet.svg'
 
 type ConnectionStatusProps = {
-  isConnected: boolean
-  isConnecting: boolean
-  isDisconnecting: boolean
+  status: Status
+  loadingStatus: string | null
   autopilotSelected: boolean
   currentDataCenter: Partial<DataCenter>
   proxyFailure: boolean
 }
 
 const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
-  isConnected,
-  isConnecting,
-  isDisconnecting,
+  status,
+  loadingStatus,
   autopilotSelected,
   currentDataCenter,
   proxyFailure,
@@ -40,19 +38,15 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
             fontSize: '12px',
             fontWeight: '600',
             color:
-              isConnecting || isConnected || isDisconnecting
-                ? 'neonGreen'
-                : isOnline
-                ? 'white'
-                : 'warningYellow',
+              status === 'on' || loadingStatus ? 'neonGreen' : isOnline ? 'white' : 'warningYellow',
             mr: '8px',
           }}
         >
-          {isConnecting ? (
+          {loadingStatus === 'connecting' ? (
             'CONNECTING...'
-          ) : isDisconnecting ? (
+          ) : loadingStatus === 'disconnecting' ? (
             'DISCONNECTING...'
-          ) : isConnected ? (
+          ) : status === 'on' ? (
             'ON'
           ) : isOnline ? (
             'OFF'
@@ -66,7 +60,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
         <Text
           sx={{
             fontSize: '12px',
-            color: isConnected && !proxyFailure ? 'neonGreen' : 'halfWhite',
+            color: status === 'on' && !proxyFailure ? 'neonGreen' : 'halfWhite',
             fontWeight: proxyFailure ? '600' : '400',
           }}
         >
@@ -85,7 +79,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
                 onClick={() => dispatch(addOverlay('somethingWeird'))}
               />
             </Flex>
-          ) : isOnline && !isConnecting && !isDisconnecting ? (
+          ) : isOnline && !loadingStatus ? (
             <IpAddress />
           ) : null}
         </Text>
