@@ -24,7 +24,9 @@ export default (): {
 
   const addToAllowlist: AddToAllowlist = async ({ hostname, level, domainWithSettings }) => {
     try {
-      await setUblockFilteringMode({ hostname, level })
+      if (domainWithSettings.allowAds === true) {
+        await setUblockFilteringMode({ hostname, level })
+      }
       await dispatchAlias(ADD_TO_ALLOWLIST, domainWithSettings)
     } catch (err) {
       dispatch(

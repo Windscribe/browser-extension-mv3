@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Flex } from 'theme-ui'
 
 import IconButton, { type IconButtonProps } from 'components/IconButton'
@@ -28,45 +28,51 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   isDomainSettingsOpen,
   setIsDomainSettingsOpen,
 }) => {
+  const [wasSettingsUpdated, setWasSettingsUpdated] = useState(false)
+
   const { addToAllowlist, removeFromAllowlist } = useManageAllowlist()
   const allowlist = useSelector(s => s.allowlist)
 
-  const [isAdsAllowed, setIsAdsAllowed] = useState(false)
-  const [isPrivacyFeaturesAllowed, setIsPrivacyFeaturesAllowed] = useState(false)
-  const [isDirectConnectionsAllowed, setIsDirectConnectionsAllowed] = useState(false)
-  const [wasSettingsUpdated, setWasSettingsUpdated] = useState(false)
+  const settings = allowlist[currentTabHostname]
+  const allowAdsState = !!settings?.allowAds
+  const allowPrivacyFeaturesState = !!settings?.allowPrivacyFeatures
+  const allowDirectConnectionsState = !!settings?.allowDirectConnections
 
-  const initializeDomainSettings = useCallback(() => {
-    const settings = allowlist[currentTabHostname]
+  type HandleSettingsItemClick = (options: {
+    isAdsAllowed?: boolean
+    isPrivacyFeaturesAllowed?: boolean
+    isDirectConnectionsAllowed?: boolean
+  }) => Promise<void>
 
-    const allowAds = settings?.allowAds || false
-    const allowPrivacyFeatures = settings?.allowPrivacyFeatures || false
-    const allowDirectConnections = settings?.allowDirectConnections || false
+  const handleSettingsItemClick: HandleSettingsItemClick = async ({
+    isAdsAllowed,
+    isPrivacyFeaturesAllowed,
+    isDirectConnectionsAllowed,
+  }) => {
+    setWasSettingsUpdated(true)
 
-    setIsAdsAllowed(allowAds)
-    setIsPrivacyFeaturesAllowed(allowPrivacyFeatures)
-    setIsDirectConnectionsAllowed(allowDirectConnections)
-  }, [allowlist, currentTabHostname])
+    // If parameter was not passed, use value from redux store
+    isAdsAllowed ??= allowAdsState
+    isPrivacyFeaturesAllowed ??= allowPrivacyFeaturesState
+    isDirectConnectionsAllowed ??= allowDirectConnectionsState
 
-  useEffect(() => {
-    initializeDomainSettings()
-  }, [currentTabHostname, initializeDomainSettings])
+    if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
+      const level = isAdsAllowed ? 0 : 3
+      const domainWithSettings = {
+        domain: currentTabHostname,
+        allowAds: isAdsAllowed,
+        allowPrivacyFeatures: isPrivacyFeaturesAllowed,
+        allowDirectConnections: isDirectConnectionsAllowed,
+        includeAllSubdomains: false,
+      }
+      await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
+    } else {
+      await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
+    }
+  }
 
   const handleClose = async () => {
     if (wasSettingsUpdated) {
-      if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
-        const level = isAdsAllowed ? 0 : 3
-        const domainWithSettings = {
-          domain: currentTabHostname,
-          allowAds: isAdsAllowed,
-          allowPrivacyFeatures: isPrivacyFeaturesAllowed,
-          allowDirectConnections: isDirectConnectionsAllowed,
-          includeAllSubdomains: false,
-        }
-        await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
-      } else {
-        await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
-      }
       await reloadCurrentTab()
     }
     setIsDomainSettingsOpen(false)
@@ -103,11 +109,10 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         <ToolTip message="Connection">
           <StyledIconButton
             onClick={() => {
-              setIsDirectConnectionsAllowed(!isDirectConnectionsAllowed)
-              setWasSettingsUpdated(true)
+              handleSettingsItemClick({ isDirectConnectionsAllowed: !allowDirectConnectionsState })
             }}
           >
-            {isDirectConnectionsAllowed ? (
+            {allowDirectConnectionsState ? (
               <ConnectionSelected sx={{ fill: 'white' }} />
             ) : (
               <ConnectionDeselected sx={{ fill: 'halfWhite' }} />
@@ -117,11 +122,10 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         <ToolTip message="Ads">
           <StyledIconButton
             onClick={() => {
-              setIsAdsAllowed(!isAdsAllowed)
-              setWasSettingsUpdated(true)
+              handleSettingsItemClick({ isAdsAllowed: !allowAdsState })
             }}
           >
-            {isAdsAllowed ? (
+            {allowAdsState ? (
               <AdsSelected sx={{ fill: 'white' }} />
             ) : (
               <AdsDeselected sx={{ fill: 'halfWhite' }} />
@@ -133,11 +137,10 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           <StyledIconButton
             data-testid="allowlist-security-features-button"
             onClick={() => {
-              setIsPrivacyFeaturesAllowed(!isPrivacyFeaturesAllowed)
-              setWasSettingsUpdated(true)
+              handleSettingsItemClick({ isPrivacyFeaturesAllowed: !allowPrivacyFeaturesState })
             }}
           >
-            {isPrivacyFeaturesAllowed ? (
+            {allowPrivacyFeaturesState ? (
               <PrivacySelected sx={{ fill: 'white' }} />
             ) : (
               <PrivacyDeselected sx={{ fill: 'halfWhite' }} />

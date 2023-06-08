@@ -1,5 +1,3 @@
-declare const self: ServiceWorkerGlobalScope
-
 const NO_IP = '---.---.---.---'
 
 export default async function checkIp(workingApi: string): Promise<string> {
@@ -13,31 +11,17 @@ export default async function checkIp(workingApi: string): Promise<string> {
   return ip || NO_IP
 }
 
-// A global promise to avoid concurrency issues
-let creating: Promise<void> | null = null
-
 async function setupOffscreenDocument() {
   const offscreenUrl = chrome.runtime.getURL('checkIp.html')
-  const matchedClients = await self.clients.matchAll()
-  for (const client of matchedClients) {
-    if (client.url === offscreenUrl) {
-      await chrome.offscreen.closeDocument()
-      return
-    }
+  if (await chrome.offscreen.hasDocument()) {
+    await chrome.offscreen.closeDocument()
   }
 
-  // create offscreen document
-  if (creating) {
-    await creating
-  } else {
-    creating = chrome.offscreen.createDocument({
-      url: offscreenUrl,
-      reasons: [chrome.offscreen.Reason.IFRAME_SCRIPTING],
-      justification: '407 authentication',
-    })
-    await creating
-    creating = null
-  }
+  chrome.offscreen.createDocument({
+    url: offscreenUrl,
+    reasons: [chrome.offscreen.Reason.IFRAME_SCRIPTING],
+    justification: '407 authentication',
+  })
 }
 
 async function fetchIp(workingApi: string): Promise<string> {
