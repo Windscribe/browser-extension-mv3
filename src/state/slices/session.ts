@@ -18,6 +18,7 @@ export interface SessionState extends SessionData {
 }
 
 const initialState: SessionState = {
+  alc: undefined,
   billing_plan_id: undefined,
   email: '',
   email_status: undefined,

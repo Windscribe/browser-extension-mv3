@@ -78,8 +78,15 @@ const getServerList = async (
   dispatch: AppDispatch,
   locHash: string,
   isPro = 0,
+  alc?: string[],
 ): Promise<ApiResponse<ServerList>> =>
-  await sendRequest(dispatch, 'GET', `serverlist/chrome/${isPro}/${locHash}`, undefined, true)
+  await sendRequest(
+    dispatch,
+    'GET',
+    `serverlist/chrome/${isPro}/${locHash}${alc ? `?alc=${alc.join(',')}` : null}`,
+    undefined,
+    true,
+  )
 
 const getWebSession = async (
   dispatch: AppDispatch,
