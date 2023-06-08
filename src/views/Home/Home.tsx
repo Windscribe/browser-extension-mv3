@@ -19,6 +19,7 @@ import { SpinAnim } from 'styles/constants'
 import ConnectionInfo from './ConnectionInfo'
 import ToolTip from 'components/ToolTip'
 import detectUblock from 'services/detectUblock'
+import { setStatus } from 'state/slices/proxy'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -50,11 +51,8 @@ const Home: ThemeUiElement = () => {
 
   const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null)
   const [lastClick, setLastClick] = useState(Date.now())
-  const [loadingStatus, setLoadingStatus] = useState(
-    status === 'connecting' ? 'connecting' : status === 'disconnecting' ? 'disconnecting' : null,
-  )
 
-  const proxyFailure = status === 'on' && hasProxyError && !loadingStatus
+  const proxyFailure = status === 'on' && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
 
@@ -67,14 +65,6 @@ const Home: ThemeUiElement = () => {
       })
     }
   }, [isRightAfterLogin, dispatch])
-
-  useEffect(() => {
-    if (status === 'on' || status === 'off') {
-      setLoadingStatus(null)
-    } else {
-      setLoadingStatus(status)
-    }
-  }, [status])
 
   useInitialDataFetching()
 
@@ -92,14 +82,11 @@ const Home: ThemeUiElement = () => {
   }
 
   const toggleProxy = async () => {
-    let newLoadingStatus = null
-
-    if (loadingStatus === 'connecting' || status === 'on') {
-      newLoadingStatus = 'disconnecting'
-    } else if (loadingStatus === 'disconnecting' || status === 'off') {
-      newLoadingStatus = 'connecting'
+    if (status === 'on' || status === 'connecting') {
+      dispatch(setStatus('disconnecting'))
+    } else {
+      dispatch(setStatus('connecting'))
     }
-    setLoadingStatus(newLoadingStatus)
 
     if (clickTimeout) {
       clearTimeout(clickTimeout)
@@ -205,7 +192,6 @@ const Home: ThemeUiElement = () => {
         >
           <ConnectionInfo
             status={status}
-            loadingStatus={loadingStatus}
             autopilotSelected={autopilotSelected}
             currentDataCenter={currentDataCenter}
             proxyFailure={!!proxyFailure}
@@ -272,8 +258,7 @@ const Home: ThemeUiElement = () => {
                 justifyContent: 'center',
                 borderRadius: '50%',
                 border: 'solid 3px',
-                borderColor:
-                  status === 'on' && !hasProxyError && !loadingStatus ? 'neonGreen' : 'transparent',
+                borderColor: status === 'on' && !hasProxyError ? 'neonGreen' : 'transparent',
                 transition: '0.3s',
                 ':hover': {
                   transform: `scale(1.1)`,
@@ -284,18 +269,12 @@ const Home: ThemeUiElement = () => {
               <PowerButton
                 sx={{
                   transform: `rotate(${
-                    loadingStatus === 'connecting'
-                      ? '0'
-                      : loadingStatus === 'disconnecting'
-                      ? '-180deg'
-                      : status === 'on'
-                      ? '0'
-                      : '-180deg'
+                    status === 'connecting' || status === 'on' ? '0' : '-180deg'
                   })`,
                   transition: '0.3s',
                 }}
               />
-              {loadingStatus ? (
+              {status === 'connecting' || status === 'disconnecting' ? (
                 <Box
                   sx={{
                     position: 'absolute',

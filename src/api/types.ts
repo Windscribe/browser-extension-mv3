@@ -71,6 +71,7 @@ export type ApiCallFunction<T extends object, P extends ObjectOrStringOrNumber> 
 ) => Promise<ApiResponse<T>>
 
 export interface SessionData {
+  alc?: string[]
   billing_plan_id?: number
   email?: string
   email_status?: 0 | 1

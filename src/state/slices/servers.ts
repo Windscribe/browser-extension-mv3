@@ -25,7 +25,7 @@ export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorRespo
     const store = getState()
     const serversListLoading = store.servers.loading
     const serverList = store.servers.serverList
-    const { loc_hash, is_premium } = store.session
+    const { loc_hash, is_premium, alc } = store.session
 
     // TODO Consider of removing this condition. Lets discuss
     // Currently we do NOT fetch new list of servers if we've fetched it once.
@@ -37,7 +37,7 @@ export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorRespo
       throw Error('No loc_hash is available. Try to sign in.')
     }
 
-    const response = await getServerList(dispatch, loc_hash, is_premium)
+    const response = await getServerList(dispatch, loc_hash, is_premium, alc)
 
     if (response?.errorMessage) return rejectWithValue(response)
     if (response?.data) return response.data
