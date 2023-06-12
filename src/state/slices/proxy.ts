@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction, type Dispatch } from '@reduxjs/toolkit'
 import type { Host } from 'api/types'
 import type { SyncThunkCreator, Status } from 'utils/types'
-import { pushToDebugLog } from './debugLog'
+import { pushToDebugLog } from 'services/debugLog'
 import { checkIp } from 'services'
 
 interface ProxyState {
@@ -25,7 +25,7 @@ export const HANDLE_PROXY_ERROR = 'proxy/handleProxyError'
 
 export const handleConnectionError: SyncThunkCreator<string> = errorMessage => {
   const action = (dispatch: Dispatch) => {
-    dispatch(pushToDebugLog({ message: errorMessage, level: 'ERROR' }))
+    pushToDebugLog({ message: errorMessage, level: 'ERROR' })
     dispatch(setConnectionError(errorMessage))
   }
   // Add type manually to view this action in a debugLog
@@ -41,13 +41,11 @@ export const checkCurrentIp = createAsyncThunk(
       const currentIp = await checkIp(workingApi)
       dispatch(setCurrentIp(currentIp))
     } catch (err: unknown) {
-      dispatch(
-        pushToDebugLog({
-          message: 'Error while trying to check current Ip.',
-          level: 'ERROR',
-          data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
-        }),
-      )
+      pushToDebugLog({
+        message: 'Error while trying to check current Ip.',
+        level: 'ERROR',
+        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+      })
     }
   },
 )

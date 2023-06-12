@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 
-import { pushToDebugLog } from './debugLog'
+import { pushToDebugLog } from 'services/debugLog'
 import { setRandomSpoofedUserAgent } from './userAgent'
 import {
   spoofUserAgentHeader,
@@ -31,7 +31,7 @@ export const deactivateSplitPersonality = createAsyncThunk(
       dispatch(setSplitPersonalityEnabled(false))
     } catch (err) {
       const { cause, message } = err as Error
-      dispatch(pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) }))
+      pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })
       // TODO show Error message for user on Privacy page?
     }
   },
@@ -48,7 +48,7 @@ export const activateSplitPersonality = createAsyncThunk(
       dispatch(setSplitPersonalityEnabled(true))
     } catch (err) {
       const { cause, message } = err as Error
-      dispatch(pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) }))
+      pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })
       // TODO show Error message for user on Privacy page?
     }
   },

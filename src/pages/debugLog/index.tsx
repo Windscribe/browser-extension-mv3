@@ -5,8 +5,7 @@ import { ThemeProvider } from 'theme-ui'
 import theme from 'styles'
 import DebugLog from './DebugLog'
 import proxyStore from 'pages/proxyStore'
-import { pushToDebugLog } from 'state/slices/debugLog'
-
+import { pushToDebugLog } from 'services/debugLog'
 proxyStore
   .ready()
   .then(() => {

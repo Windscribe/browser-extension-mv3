@@ -7,6 +7,7 @@ import {
 } from '@reduxjs/toolkit'
 import { createLogger } from 'redux-logger'
 import { alias } from '@eduardoac-skimlinks/webext-redux'
+import { pushToDebugLog } from 'services/debugLog'
 
 import { LogTag, LogItem } from 'utils/types'
 import { listenerMiddleware } from './listenerMiddleware'
@@ -28,7 +29,6 @@ import currentLocationReducer from './slices/currentLocation'
 import locationSortingReducer from './slices/locationSorting'
 import currentDataCenterReducer from './slices/currentDataCenter'
 import serverCredentialsReducer from './slices/serverCredentials'
-import debugLogReducer, { pushToDebugLog } from './slices/debugLog'
 import favoriteLocationsReducer from './slices/favoriteLocations'
 import notificationBlockerEnabledReducer from './slices/notificationBlockerEnabled'
 import webRtcEnabledReducer from './slices/webRtcEnabled'
@@ -47,6 +47,7 @@ import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
 import iconVariantReducer from './slices/iconVariant'
 import autoConnectAfterLoginReducer from './slices/autoConnectAfterLogin'
 import isRightAfterLoginReducer from './slices/isRightAfterLogin'
+import log from 'utils/log'
 
 const reducers = {
   allowlist: allowlistReducer,
@@ -59,7 +60,6 @@ const reducers = {
   contextMenu: contextMenuReducer,
   currentDataCenter: currentDataCenterReducer,
   currentLocation: currentLocationReducer,
-  debugLog: debugLogReducer,
   favoriteLocations: favoriteLocationsReducer,
   iconVariant: iconVariantReducer,
   isOnline: isOnlineReducer,
@@ -106,24 +106,23 @@ const store = configureStore({
 
 const consoleLogger = createLogger({
   collapsed: (_, action, logEntry) => !logEntry?.error,
-  predicate: (_, action) => action.type !== pushToDebugLog.type || action.payload.level === 'ERROR',
+  // predicate: (_, action) => action.type !== pushToDebugLog.type || action.payload.level === 'ERROR',
 })
 
-const debugLogMiddleware: Middleware<Dispatch, RootState> = store => next => action => {
-  if (action.type !== pushToDebugLog.type) {
-    const message = `Redux action: ${action.type}`
+const debugLogMiddleware: Middleware<Dispatch, RootState> = () => next => action => {
+  const message = `Redux action: ${action.type}`
 
-    let tag: LogTag = 'background'
-    if (action._sender?.url?.includes('popup.html')) tag = 'popup'
-    if (action._sender?.url?.includes('debugLog.html')) tag = 'debugLog'
-    // Need a check if(contentScript) When contentScript will be added
+  let tag: LogTag = 'background'
+  if (action._sender?.url?.includes('popup.html')) tag = 'popup'
+  if (action._sender?.url?.includes('debugLog.html')) tag = 'debugLog'
+  // Need a check if(contentScript) When contentScript will be added
 
-    const logItem: LogItem = { message, tag }
-    // We don't want to put in debug log user's credentials:
-    if (action.payload && !action.type.endsWith(login.typePrefix)) logItem.data = action.payload
-    if (action.type?.includes('/rejected')) logItem.level = 'WARN'
-    store.dispatch(pushToDebugLog(logItem))
-  }
+  const logItem: LogItem = { message, tag }
+  // We don't want to put in debug log user's credentials:
+  if (action.payload && !action.type.endsWith(login.typePrefix)) logItem.data = action.payload
+  if (action.type?.includes('/rejected')) logItem.level = 'WARN'
+
+  pushToDebugLog(logItem)
   return next(action)
 }
 

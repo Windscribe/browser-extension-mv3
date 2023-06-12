@@ -19,8 +19,7 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
-import { pushToDebugLog } from 'state/slices/debugLog'
-
+import { pushToDebugLog } from 'services/debugLog'
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
   if (hosts?.length > 0) {
@@ -164,13 +163,11 @@ export const connect = async (store: StoreType, hosts: Host[]): Promise<void> =>
     disconnect(store)
     store.dispatch(setStatus('off'))
 
-    store.dispatch(
-      pushToDebugLog({
-        message: 'Error while trying to connect from proxy.',
-        level: 'ERROR',
-        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
-      }),
-    )
+    pushToDebugLog({
+      message: 'Error while trying to connect from proxy.',
+      level: 'ERROR',
+      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+    })
   }
 }
 
@@ -222,13 +219,11 @@ export const connectToAutopilot = async (store: StoreType): Promise<void> => {
     disconnect(store)
     store.dispatch(setStatus('off'))
 
-    store.dispatch(
-      pushToDebugLog({
-        message: 'Error while trying to connect from proxy.',
-        level: 'ERROR',
-        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
-      }),
-    )
+    pushToDebugLog({
+      message: 'Error while trying to connect from proxy.',
+      level: 'ERROR',
+      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+    })
   }
 }
 
