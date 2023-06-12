@@ -83,7 +83,7 @@ const getServerList = async (
   await sendRequest(
     dispatch,
     'GET',
-    `serverlist/chrome/${isPro}/${locHash}${alc ? `?alc=${alc.join(',')}` : null}`,
+    `serverlist/chrome/${isPro}/${locHash}${alc ? `?alc=${alc.join(',')}` : ''}`,
     undefined,
     true,
   )
