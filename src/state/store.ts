@@ -47,7 +47,6 @@ import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
 import iconVariantReducer from './slices/iconVariant'
 import autoConnectAfterLoginReducer from './slices/autoConnectAfterLogin'
 import isRightAfterLoginReducer from './slices/isRightAfterLogin'
-import log from 'utils/log'
 
 const reducers = {
   allowlist: allowlistReducer,
