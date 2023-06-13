@@ -44,6 +44,8 @@ chrome.runtime.onMessage.addListener(messageHandler(bgStore))
 
 chrome.runtime.onConnect.addListener(popupCloseHandler(bgStore))
 
+chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
+
 // This is experimental feature and currently nor supported by FF
 // Also it might not work in Brave browser
 // @link https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/change_event
