@@ -1,5 +1,5 @@
 import { type StoreType } from 'state/store'
-import { pushToDebugLog } from 'state/slices/debugLog'
+import { pushToDebugLog } from 'services/debugLog'
 import { handleProxyError } from 'services/proxyConfig'
 
 export function proxyErrorHandler(bgStore: Promise<StoreType>) {
@@ -11,14 +11,12 @@ export function proxyErrorHandler(bgStore: Promise<StoreType>) {
 
     const store = await bgStore
 
-    store.dispatch(
-      pushToDebugLog({
-        level: 'ERROR',
-        message: 'onProxyError',
-        tag: 'background',
-        data: e,
-      }),
-    )
+    pushToDebugLog({
+      level: 'ERROR',
+      message: 'onProxyError',
+      tag: 'background',
+      data: e,
+    })
 
     const proxy = store.getState().proxy
     const isConnected = proxy.status === 'on'

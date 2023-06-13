@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import { getBlocklists, getUserAgents } from 'api/endpoints'
 import { platforms } from 'utils/constants'
 import type { LoadingState, ErrorState } from 'utils/types'
-import { pushToDebugLog } from './debugLog'
+import { pushToDebugLog } from 'services/debugLog'
 import { getRandomIntInclusive } from 'utils/getRandomNumber'
 import type { AppDispatch, GetState } from 'state'
 
@@ -56,7 +56,7 @@ export const fetchUserAgentsList = createAsyncThunk(
       return uaList
     } catch (err) {
       const { cause, message } = err as Error
-      dispatch(pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) }))
+      pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })
       throw new Error(message)
     }
   },

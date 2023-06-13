@@ -1,7 +1,7 @@
 import browserApi from 'services/browserApi'
 import { initializeWrappedStore } from 'state'
 import { chooseIcon } from 'state/slices/iconVariant'
-import { pushToDebugLog } from 'state/slices/debugLog'
+import { pushToDebugLog } from 'services/debugLog'
 import { addContextMenuItem } from 'services/contextMenu'
 import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 import {
@@ -16,7 +16,7 @@ import {
 } from './eventHandlers'
 
 const bgStore = initializeWrappedStore().then(store => {
-  store.dispatch(pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' }))
+  pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
   //TODO dispatch it only if it is not in pending state already
   store.dispatch(chooseIcon())
   return store

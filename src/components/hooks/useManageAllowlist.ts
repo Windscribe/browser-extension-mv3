@@ -1,5 +1,5 @@
-import { pushToDebugLog } from 'state/slices/debugLog'
-import { useDispatch, useDispatchAlias } from 'state/hooks'
+import { pushToDebugLog } from 'services/debugLog'
+import { useDispatchAlias } from 'state/hooks'
 import {
   ADD_TO_ALLOWLIST,
   REMOVE_FROM_ALLOWLIST,
@@ -19,7 +19,6 @@ export default (): {
   removeFromAllowlist: RemoveFromAllowlist
   addToAllowlist: AddToAllowlist
 } => {
-  const dispatch = useDispatch()
   const dispatchAlias = useDispatchAlias()
 
   const addToAllowlist: AddToAllowlist = async ({ hostname, level, domainWithSettings }) => {
@@ -29,13 +28,11 @@ export default (): {
       }
       await dispatchAlias(ADD_TO_ALLOWLIST, domainWithSettings)
     } catch (err) {
-      dispatch(
-        pushToDebugLog({
-          message: 'Failed while trying to add domain to allowlist',
-          level: 'ERROR',
-          data: err as Error,
-        }),
-      )
+      pushToDebugLog({
+        message: 'Failed while trying to add domain to allowlist',
+        level: 'ERROR',
+        data: err as Error,
+      })
     }
   }
 
@@ -44,13 +41,11 @@ export default (): {
       await setUblockFilteringMode({ hostname, level })
       await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain: hostname })
     } catch (err) {
-      dispatch(
-        pushToDebugLog({
-          message: 'Failed while trying to remove domain from allowlist',
-          level: 'ERROR',
-          data: err as Error,
-        }),
-      )
+      pushToDebugLog({
+        message: 'Failed while trying to remove domain from allowlist',
+        level: 'ERROR',
+        data: err as Error,
+      })
     }
   }
 

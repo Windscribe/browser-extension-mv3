@@ -6,7 +6,7 @@ import './index.css'
 import theme from 'styles'
 import Router from 'services/navigation/Router'
 import proxyStore from 'pages/proxyStore'
-import { pushToDebugLog } from 'state/slices/debugLog'
+import { pushToDebugLog } from 'services/debugLog'
 import { AppWrapper, onBeforePopupRenders } from 'components'
 
 chrome.runtime.connect({ name: 'popup' })
@@ -32,13 +32,11 @@ proxyStore
     }
   })
   .catch((err: object): void => {
-    proxyStore.dispatch(
-      pushToDebugLog({
-        level: 'ERROR',
-        message: 'Error while rendering Popup',
-        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
-      }),
-    )
+    pushToDebugLog({
+      level: 'ERROR',
+      message: 'Error while rendering Popup',
+      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+    })
   })
 
 /*

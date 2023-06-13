@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box, Button, Flex } from 'theme-ui'
 
 import { ENVS } from 'utils/constants'
-import { sendDebugLog } from 'services'
+import { sendDebugLog } from 'services/debugLog'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { setAutoConnect } from 'state/slices/connection'
@@ -25,7 +25,6 @@ const General: ThemeUiElement = () => {
   const autoConnect = useSelector(s => s.connection.autoConnect)
   const contextMenu = useSelector(s => s.contextMenu)
   const session = useSelector(s => s.session)
-  const debugLog = useSelector(s => s.debugLog)
   const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
   const locationLoad = useSelector(s => s.locationLoad)
 
@@ -95,14 +94,11 @@ const General: ThemeUiElement = () => {
                 data-testid="send-debug-log"
                 onClick={() => {
                   if (session.session_auth_hash && session.username) {
-                    sendDebugLog(
-                      dispatch,
-                      session.session_auth_hash,
-                      session.username,
-                      debugLog,
-                    ).then(response => {
-                      setSentDebugLog(response ? 'Sent!' : 'Error')
-                    })
+                    sendDebugLog(dispatch, session.session_auth_hash, session.username).then(
+                      response => {
+                        setSentDebugLog(response ? 'Sent!' : 'Error')
+                      },
+                    )
                   }
                 }}
                 sx={{ transition: '0.3s' }}

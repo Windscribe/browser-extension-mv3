@@ -1,28 +1,33 @@
 import UAParser from 'ua-parser-js'
 import React, { useEffect, useState } from 'react'
-import { Box, Button, Label, Select, Text } from 'theme-ui'
+import { Box, Button } from 'theme-ui'
+import { getStorage, removeStorage } from 'services/storage'
 
-import { ToggleSwitch } from 'components'
+// import { ToggleSwitch } from 'components'
 import { AlignItemsCenter } from 'components/Flexbox'
-import { useSelector, useDispatch } from 'state/hooks'
-import { clearDebugLog, parseLogToStrings } from 'state/slices/debugLog'
-import type { LogItem, LogLevel, LogTag } from 'utils/types'
+import { useSelector } from 'state/hooks'
+import { parseLogToStrings } from 'services/debugLog'
 import './DebugLog.css'
 
-type OrAny<T> = T | 'any'
-
 const DebugLog: React.FC = () => {
-  const dispatch = useDispatch()
-  const log = useSelector(s => s.debugLog)
-  const autoConnect = useSelector(s => s.connection.autoConnect)
-  const contextMenu = useSelector(s => s.contextMenu)
-
-  const failover = useSelector(s => s.connection.failover)
-  const [isAutoScroll, setIsAutoScroll] = useState(false)
+  // const [isAutoScroll, setIsAutoScroll] = useState(false)
   const [isShowUserInfo, setIsShowUserInfo] = useState(false)
-  const [tagOption, setTagOption] = useState<OrAny<LogTag>>('any')
-  const [levelOption, setLevelOption] = useState<OrAny<LogLevel>>('any')
-  const [parsedLog, setParsedLog] = useState<string[]>([])
+  const [parsedLog, setParsedLog] = useState([''])
+
+  const autoConnect = useSelector(s => s.connection.autoConnect)
+  const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
+  const locationLoad = useSelector(s => s.locationLoad)
+  const contextMenu = useSelector(s => s.contextMenu)
+  const smokewall = useSelector(s => s.connection.smokeWall)
+  const failover = useSelector(s => s.connection.failover)
+  const proxyPort = useSelector(s => s.proxyPort)
+  const notificationBlockerEnabled = useSelector(s => s.notificationBlockerEnabled)
+  const webRtcEnabled = useSelector(s => s.webRtcEnabled)
+  const locationWarp = useSelector(s => s.locationWarp)
+  const languageWarpEnabled = useSelector(s => s.languageWarpEnabled)
+  const timeWarpEnabled = useSelector(s => s.timeWarpEnabled)
+  const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const workerBlockEnabled = useSelector(s => s.workerBlock)
 
   const parser = new UAParser(navigator.userAgent)
 
@@ -36,33 +41,59 @@ const DebugLog: React.FC = () => {
 [User State]
 ------------------------------------------------------
 Auto-connect: ${autoConnect}
+Notification: ${allowSystemNotifications}
+Show Location Load: ${locationLoad}
 Debug Context Menu: ${contextMenu}
-Failover: ${failover}`
+
+Smokewall: ${smokewall}
+Failover: ${failover}
+Proxy Port: ${proxyPort}
+
+Do Not Disturb: ${notificationBlockerEnabled}
+WebRTC Slayer: ${webRtcEnabled}
+Location Warp: ${locationWarp}
+Time Warp: ${timeWarpEnabled}
+Language Warp: ${languageWarpEnabled}
+Spilt Personality: ${splitPersonalityEnabled}
+Worker Block: ${workerBlockEnabled}`
+
+  // useEffect(() => {
+  //   console.log('parsedLog', parsedLog)
+  //   if (isAutoScroll) {
+  //     window.scrollTo(0, document.body.scrollHeight)
+  //   }
+  // }, [isAutoScroll, parsedLog])
 
   useEffect(() => {
-    if (isAutoScroll) {
-      window.scrollTo(0, document.body.scrollHeight)
-    }
-  }, [isAutoScroll, log])
+    getStorage('debugLog').then(debugLog => {
+      debugLog && setParsedLog(parseLogToStrings(debugLog))
+    })
+  }, [])
 
-  useEffect(() => {
-    let filteredLog: LogItem[] = log
-    if (tagOption != 'any') {
-      filteredLog = filteredLog.filter(logItem => logItem.tag === tagOption)
-    }
-    if (levelOption != 'any') {
-      filteredLog = filteredLog.filter(logItem => logItem.level === levelOption)
-    }
-    setParsedLog(parseLogToStrings(filteredLog))
-  }, [log, tagOption, levelOption])
+  // chrome.storage.onChanged.addListener(e => {
+  //   if (e.debugLog !== undefined) {
+  //     setParsedLog(parseLogToStrings(e.debugLog.newValue))
+  //   }
+  // })
 
-  const handleTagFilterChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
-    setTagOption(e.target.value as LogTag)
-  }
+  // useEffect(() => {
+  //   // let filteredLog: LogItem[] = log
+  //   // if (tagOption != 'any') {
+  //   //   filteredLog = filteredLog.filter(logItem => logItem.tag === tagOption)
+  //   // }
+  //   // if (levelOption != 'any') {
+  //   //   filteredLog = filteredLog.filter(logItem => logItem.level === levelOption)
+  //   // }
+  //   setParsedLog(parseLogToStrings(filteredLog))
+  // }, [log, tagOption, levelOption])
 
-  const handleLevelFilterChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
-    setLevelOption(e.target.value as LogLevel)
-  }
+  // const handleTagFilterChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
+  //   setTagOption(e.target.value as LogTag)
+  // }
+
+  // const handleLevelFilterChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
+  //   setLevelOption(e.target.value as LogLevel)
+  // }
 
   return (
     <Box data-testid="debug-page">
@@ -76,11 +107,17 @@ Failover: ${failover}`
           gap: '24px',
         }}
       >
-        <Label sx={{ alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
+        {/* <Label sx={{ alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
           Toggle Autoscroll
           <ToggleSwitch onChange={() => setIsAutoScroll(!isAutoScroll)} />
-        </Label>
-        <Button variant="debug" onClick={() => dispatch(clearDebugLog())}>
+        </Label> */}
+        <Button
+          variant="debug"
+          onClick={() => {
+            removeStorage('debugLog')
+            setParsedLog([''])
+          }}
+        >
           Clear Log
         </Button>
         <Button
@@ -111,7 +148,7 @@ Failover: ${failover}`
       </Button>
       <Box sx={{ whiteSpace: 'pre', p: '18px', fontSize: '16px', lineHeight: '30px' }}>
         {userInfo}
-        <Box mt="24px">
+        {/* <Box mt="24px">
           <h3>Filtered by</h3>
           <AlignItemsCenter
             sx={{
@@ -160,7 +197,7 @@ Failover: ${failover}`
               </Select>
             </AlignItemsCenter>
           </AlignItemsCenter>
-        </Box>
+        </Box> */}
         {`\n\n[Start of log]\n------------------------------------------------------\n`}
         {parsedLog}
       </Box>
