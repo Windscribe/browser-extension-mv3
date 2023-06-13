@@ -20,6 +20,7 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
 import { pushToDebugLog } from 'services/debugLog'
+
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
   if (hosts?.length > 0) {
@@ -38,6 +39,7 @@ const createFindProxyForURLFunction = (
   allowlist: string[],
   proxyPort: ProxyPort,
   cruiseControlList?: CruiseControlItem[],
+  workingApi?: string,
 ) => {
   return `
   function FindProxyForURL (url, host) {
@@ -51,6 +53,12 @@ const createFindProxyForURLFunction = (
       '*://api.totallyacdn.com/*',
       '*://assets.totallyacdn.com/*',
       'https://windscribe.com/installed/*',
+      ${
+        workingApi !== '.windscribe.com' && workingApi !== 'totallyacdn.com'
+          ? `'*://api.${workingApi}/*', 
+          '*://assets.${workingApi}/*',`
+          : ''
+      }
     ].concat(userAllowlist)
 
     const shouldNotProxy = [
@@ -125,10 +133,18 @@ export const connect = async (store: StoreType, hosts: Host[]): Promise<void> =>
     const cruiseControlList = autopilotSelected
       ? store.getState().autopilot.cruiseControlList
       : undefined
+    const workingApi = store.getState().workingApi
+
     const config = {
       mode: 'pac_script',
       pacScript: {
-        data: createFindProxyForURLFunction(hosts, allowlist, proxyPort, cruiseControlList),
+        data: createFindProxyForURLFunction(
+          hosts,
+          allowlist,
+          proxyPort,
+          cruiseControlList,
+          workingApi,
+        ),
         mandatory: true,
       },
     }
