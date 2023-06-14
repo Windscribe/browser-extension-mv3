@@ -4,19 +4,19 @@ import { Column } from 'components/Flexbox'
 import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
-import type { ServerList } from 'api/types'
+import type { ServerList, Location, DataCenter } from 'api/types'
 
 import { selectSortedLocation } from 'state/slices/servers'
 
-const filterServerListBySearchText = (serverList: ServerList, searchText: string): any => {
+const filterServerListBySearchText = (serverList: ServerList, searchText: string): ServerList => {
   const searchTextLowerCase = searchText.toLowerCase()
 
-  const searchedServerList = serverList.filter((location: any) => {
+  const searchedServerList = serverList.filter((location: Location) => {
     if (location.name.toLowerCase().includes(searchTextLowerCase)) {
       return location
     }
     if (location.groups) {
-      const dataCenters = location.groups.filter((dataCenter: any) => {
+      const dataCenters = location.groups.filter((dataCenter: DataCenter) => {
         if (
           dataCenter.city.toLowerCase().includes(searchTextLowerCase) ||
           dataCenter.nick.toLowerCase().includes(searchTextLowerCase)
