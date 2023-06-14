@@ -77,34 +77,6 @@ export const serversSlice = createSlice({
   },
 })
 
-export const selectLocationBySearchText = createSelector(
-  (state: RootState) => state.servers.serverList,
-  (_: RootState, searchText: string) => searchText,
-  (serverList, searchText: string): ServerList => {
-    const isFoundIn = (str: string) => str.toLowerCase().includes(searchText.toLowerCase())
-
-    const findDataCenters = (location: Location) =>
-      location.groups.reduce<DataCenter[]>((accumulator, dataCenter) => {
-        if (isFoundIn(dataCenter.city) || isFoundIn(dataCenter.nick)) accumulator.push(dataCenter)
-        return accumulator
-      }, [])
-
-    return serverList.reduce<ServerList>((accumulator, location) => {
-      const dataCentersThatMatch = findDataCenters(location)
-
-      if (dataCentersThatMatch.length) {
-        accumulator.push({ ...location, ...{ groups: dataCentersThatMatch } })
-      }
-
-      if (isFoundIn(location.name)) {
-        accumulator.push({ ...location })
-      }
-
-      return accumulator
-    }, [])
-  },
-)
-
 export const selectSortedLocation = createSelector(
   (state: RootState) => state.servers.serverList,
   (state: RootState) => state.locationSorting,
