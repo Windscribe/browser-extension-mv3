@@ -15,11 +15,11 @@ import Onboarding from 'components/Onboarding'
 import { ACCOUNT_PLAN } from 'utils/constants'
 import { type ThemeUiElement } from 'utils/types'
 import Flags from 'assets/flags'
-import { SpinAnim } from 'styles/constants'
 import ConnectionInfo from './ConnectionInfo'
 import ToolTip from 'components/ToolTip'
 import detectUblock from 'services/detectUblock'
 import { setStatus } from 'state/slices/proxy'
+import { keyframes } from '@emotion/react'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -105,6 +105,10 @@ const Home: ThemeUiElement = () => {
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
+
+  const SpinAnimation = keyframes`from {transform: rotate(0deg); } to { transform: rotate(${
+    status === 'connecting' ? '' : '-'
+  }360deg); } 1s linear infinite`
 
   return (
     <Box
@@ -282,7 +286,11 @@ const Home: ThemeUiElement = () => {
                     height: '72px',
                   }}
                 >
-                  <ConnectingRing sx={{ animation: `${SpinAnim} 1s linear infinite` }} />
+                  <ConnectingRing
+                    sx={{
+                      animation: `${SpinAnimation} 1s linear infinite`,
+                    }}
+                  />
                 </Box>
               ) : (
                 proxyFailure && (
