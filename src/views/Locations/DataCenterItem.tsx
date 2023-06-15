@@ -17,6 +17,7 @@ import { type ThemeUiElement } from 'utils/types'
 import { IconButton } from 'components'
 import { addOverlay } from 'state/slices/overlay'
 import { useWindowOpening } from 'components/hooks'
+import { alpha } from '@theme-ui/color'
 
 import HeartIcon from 'assets/img/heart.svg'
 import HeartBreakIcon from 'assets/img/heartBreak.svg'
@@ -137,7 +138,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
               'svg > *': {
                 fill: 'primaryText',
               },
-              span: {
+              div: {
                 opacity: 1,
                 visibility: 'visible',
               },
@@ -164,20 +165,36 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
             </Box>
           </Flex>
           {showPro ? (
-            <Text
+            <Flex
               sx={{
                 visibility: 'hidden',
                 opacity: 0,
-                fontWeight: '600',
                 position: 'absolute',
                 right: '0',
-                backgroundColor: 'foreground',
-                pl: '8px',
-                boxShadow: '0 0 20px 20px #313a46',
+                transition: '0.3s',
               }}
             >
-              UPGRADE
-            </Text>
+              <Box
+                sx={{
+                  width: '60px',
+                  backgroundImage: t => `
+                    linear-gradient(
+                      to right,
+                      ${alpha('foreground', 0)(t)},
+                      ${alpha('foreground', 1)(t)}
+                    )
+                  `,
+                }}
+              />
+              <Text
+                sx={{
+                  fontWeight: '600',
+                  backgroundColor: 'foreground',
+                }}
+              >
+                UPGRADE
+              </Text>
+            </Flex>
           ) : (
             <>
               {currentlySelected ? (
