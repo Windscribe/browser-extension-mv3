@@ -22,7 +22,11 @@ const bgStore = initializeWrappedStore().then(store => {
   return store
 })
 
-chrome.runtime.onInstalled.addListener(addContextMenuItem)
+chrome.runtime.onInstalled.addListener(async () => {
+  const store = await bgStore
+  if (!store.getState().contextMenu) return
+  addContextMenuItem()
+})
 
 browserApi.runtime.onStartup.addListener(startupHandler(bgStore))
 
