@@ -4,14 +4,36 @@ import { Column } from 'components/Flexbox'
 import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
-import { useInitialDataFetching } from 'components/hooks'
-import type { ServerList } from 'api/types'
+import type { ServerList, Location, DataCenter } from 'api/types'
 
-import { selectLocationBySearchText, selectSortedLocation } from 'state/slices/servers'
+import { selectSortedLocation } from 'state/slices/servers'
+
+const filterServerListBySearchText = (serverList: ServerList, searchText: string): ServerList => {
+  const searchTextLowerCase = searchText.toLowerCase()
+
+  const searchedServerList = serverList.filter((location: Location) => {
+    if (location.name.toLowerCase().includes(searchTextLowerCase)) {
+      return location
+    }
+    if (location.groups) {
+      const dataCenters = location.groups.filter((dataCenter: DataCenter) => {
+        if (
+          dataCenter.city.toLowerCase().includes(searchTextLowerCase) ||
+          dataCenter.nick.toLowerCase().includes(searchTextLowerCase)
+        ) {
+          return dataCenter
+        }
+      })
+      if (dataCenters.length) {
+        return location
+      }
+    }
+  })
+  return searchedServerList
+}
 
 const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
   const serverListSorted = useSelector(selectSortedLocation)
-  const serverListFiltered = useSelector(s => selectLocationBySearchText(s, searchText))
   const serversListLoading = useSelector(s => s.servers.loading)
   const currentLocationId = useSelector(s => s.currentLocation?.id)
   const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
@@ -21,13 +43,9 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
   const [serverList, setServerList] = useState<ServerList>(serverListSorted)
 
   useEffect(() => {
-    const newServerList = searchText ? serverListFiltered : serverListSorted
-    setServerList(newServerList)
-  }, [searchText, serverListFiltered, serverListSorted])
-
-  // TODO Discuss.
-  // serversList and bestLocation should be fetched already on Home page. Is this reassurance redundant?
-  useInitialDataFetching()
+    const searchedServerList = filterServerListBySearchText(serverListSorted, searchText)
+    setServerList(searchedServerList)
+  }, [searchText, serverListSorted])
 
   /*
    * Creating components inside render function of another component is an anti-pattern
