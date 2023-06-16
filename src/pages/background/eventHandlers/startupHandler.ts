@@ -10,7 +10,7 @@ export function startupHandler(bgStore: Promise<StoreType>) {
       store = await bgStore
 
       if (!store.getState().connection.autoConnect) {
-        await disconnect(store)
+        await disconnect(store.getState, store.dispatch)
         return
       }
 

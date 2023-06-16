@@ -12,7 +12,7 @@ export function messageHandler(bgStore: Promise<StoreType>) {
     } else if (message.what === 'connectProxy') {
       await connect(store, message.hosts)
     } else if (message.what === 'disconnectProxy') {
-      await disconnect(store)
+      await disconnect(store.getState, store.dispatch)
     } else if (message.what === 'connectAutopilot') {
       await connectToAutopilot(store)
     }

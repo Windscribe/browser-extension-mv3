@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import type { LoadingState, Either, ErrorState } from 'utils/types'
-import { ACCOUNT_STATES, ACCOUNT_PLAN } from 'utils/constants'
+import { ACCOUNT_STATES, ACCOUNT_PLAN, SESSION_ERRORS } from 'utils/constants'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
@@ -11,6 +11,7 @@ import { addOverlay } from 'state/slices/overlay'
 import { setView } from 'state/slices/view'
 import { checkIp } from 'services'
 import { setCurrentIp } from 'state/slices/proxy'
+import { disconnect } from 'services/proxyConfig'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -72,7 +73,7 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
   const resetState = async () => {
     await dispatch(saveUserStash())
     await dispatch({ type: 'global/resetStore' })
-    await chrome.runtime.sendMessage({ what: 'disconnectProxy' })
+    await disconnect(getState, dispatch)
     await dispatch(resetNotificationBlocker())
     await dispatch(resetWebRtcBlocker())
   }
@@ -114,6 +115,8 @@ export const checkSessionStatus = createAsyncThunk(
           dispatch(addOverlay('proPlanExpired'))
         }
         dispatch(setSession(updatedSession.data))
+      } else if (updatedSession.errorCode === SESSION_ERRORS.SESSION_INVALID) {
+        await dispatch(logout())
       }
     }
   },
