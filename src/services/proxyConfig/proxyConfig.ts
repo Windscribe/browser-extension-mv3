@@ -1,7 +1,7 @@
 import { CruiseControlItem } from 'api/types'
 import type { ProxyPort } from 'utils/types'
 import { reduceAllowlist } from 'utils/reduceAllowlist'
-import { type StoreType } from 'state/store'
+import type { StoreType, GetState, AppDispatch } from 'state/store'
 import {
   setStatus,
   setProxy,
@@ -176,7 +176,7 @@ export const connect = async (store: StoreType, hosts: Host[]): Promise<void> =>
       }
     }
   } catch (err) {
-    disconnect(store)
+    disconnect(store.getState, store.dispatch)
     store.dispatch(setStatus('off'))
 
     pushToDebugLog({
@@ -187,8 +187,8 @@ export const connect = async (store: StoreType, hosts: Host[]): Promise<void> =>
   }
 }
 
-export const disconnect = async (store: StoreType): Promise<void> => {
-  store.dispatch(setStatus('disconnecting'))
+export const disconnect = async (getState: GetState, dispatch: AppDispatch): Promise<void> => {
+  dispatch(setStatus('disconnecting'))
 
   const config = {
     mode: 'direct',
@@ -197,15 +197,15 @@ export const disconnect = async (store: StoreType): Promise<void> => {
 
   chrome.proxy.settings.set({ value: config, scope: 'regular' })
 
-  const workingApi = store.getState().workingApi
+  const workingApi = getState().workingApi
 
   const ip = await checkIp(workingApi)
 
-  store.dispatch(setCurrentIp(ip))
+  dispatch(setCurrentIp(ip))
 
-  store.dispatch(setStatus('off'))
+  dispatch(setStatus('off'))
 
-  if (store.getState().allowSystemNotifications) {
+  if (getState().allowSystemNotifications) {
     createNotification({
       iconUrl: proxyOffIcon,
       message: 'Connection to Windscribe has been terminated',
@@ -232,7 +232,7 @@ export const connectToAutopilot = async (store: StoreType): Promise<void> => {
     if (!hosts) throw new Error(`No data center is being used as current`)
     await connect(store, hosts)
   } catch (err) {
-    disconnect(store)
+    disconnect(store.getState, store.dispatch)
     store.dispatch(setStatus('off'))
 
     pushToDebugLog({
@@ -286,7 +286,7 @@ export const handleProxyError = async (store: StoreType): Promise<void> => {
     store.dispatch(setConnectionError('Smoke Wall Failover'))
     store.dispatch(setStatus('on'))
   } else if (!smokeWall) {
-    await disconnect(store)
+    await disconnect(store.getState, store.dispatch)
     store.dispatch(addOverlay('somethingWeird'))
   }
   return

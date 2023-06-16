@@ -30,6 +30,18 @@ export const ACCOUNT_STATES = {
   BANNED: 3,
 }
 
+export const SESSION_ERRORS = {
+  COULD_NOT_CREATE_USER_SESSION: 700, //"400::Could not create user session"
+  SESSION_INVALID: 701, //"403::Submitted session is invalid. Please re-log in"
+  COULD_NOT_LOGIN: 702, //"403::Could not log in with provided credentials"
+  COULD_NOT_LOGIN_CONSECUTIVE: 703, //"403::Could not log in with provided credentials. Too many consecutive login failures."
+  SESSION_EXPIRED: 704, //"403::Session has expired."
+  NOT_AVAILIBLE: 705, //"403::Not avaialble for this connection type."
+  USER_SUSPENDED: 706, //403::User has status of suspended, action no permitted."
+  IP_SUSPENDED: 707, //403::Suspicious activity detected from your network. Please try again soon."
+  NO_AUTH_HASH: 1337,
+}
+
 export const DEVTOOL_PROTOCOL = '1.3'
 
 // used for user agent setting (do not want user to assume different platform)
