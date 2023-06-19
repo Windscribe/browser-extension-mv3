@@ -22,9 +22,8 @@ const Account: ThemeUiElement = () => {
 
   const { openWindowUsingTempSession } = useWindowOpening()
 
-  const openMyAccountPage = async () => {
-    await openWindowUsingTempSession('myaccount')
-  }
+  const openMyAccountPage = async () => await openWindowUsingTempSession('myaccount')
+  const openUpgradePage = async () => await openWindowUsingTempSession('upgrade')
 
   return (
     <Box data-testid="account-page" bg="background">
@@ -76,8 +75,19 @@ const Account: ThemeUiElement = () => {
         <Subheader>plan</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
-            {session.traffic_max === -1 ? 'Unlimited' : trafficMaxFormatted}
-            <Box sx={{ fontWeight: '400' }}>{session.is_premium ? 'Pro' : 'Free'}</Box>
+            {session.traffic_max === -1 ? 'Unlimited' : `${trafficMaxFormatted}/month`}
+            <Box sx={{ fontWeight: '400' }}>
+              {session.is_premium ? (
+                'Pro'
+              ) : (
+                <Button
+                  onClick={openUpgradePage}
+                  sx={{ all: 'unset', cursor: 'pointer', color: 'lakeBlue' }}
+                >
+                  Upgrade
+                </Button>
+              )}
+            </Box>
           </ListItem>
           <ListItem noBorder>
             {session.is_premium ? 'Expiry' : 'Reset'} Date
