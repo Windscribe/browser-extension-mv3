@@ -5,6 +5,9 @@ import { chooseIcon } from './slices/iconVariant'
 import { fetchServerList } from 'state/slices/servers'
 import { fetchServerCredentials } from 'state/slices/serverCredentials'
 import type { SessionData } from 'api/types'
+import { resetBestLocation } from './slices/bestLocation'
+import { resetCurrentDataCenter } from './slices/currentDataCenter'
+import { resetCurrentLocation } from './slices/currentLocation'
 
 export const listenerMiddleware = createListenerMiddleware()
 
@@ -45,7 +48,19 @@ startAppListening({
     return sessionPropertiesToWatch.some(p => currentState.session[p] !== previousState.session[p])
   },
   effect: async (action, listenerApi) => {
+    const isConnected = listenerApi.getState().proxy.status === 'on'
+
     listenerApi.dispatch(fetchServerCredentials())
     listenerApi.dispatch(fetchServerList())
+
+    listenerApi.dispatch(resetBestLocation())
+    listenerApi.dispatch(resetCurrentDataCenter())
+    listenerApi.dispatch(resetCurrentLocation())
+
+    if (isConnected) {
+      const state = listenerApi.getState()
+      // TODO connectToAutopilot should be async thunk
+      // listenerApi.dispatch(connectToAutopilot(state))
+    }
   },
 })
