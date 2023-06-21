@@ -4,6 +4,7 @@ import type { RootState, AppDispatch } from './store'
 import { chooseIcon } from './slices/iconVariant'
 import { fetchServerList } from 'state/slices/servers'
 import { fetchServerCredentials } from 'state/slices/serverCredentials'
+import { fetchNotifications } from 'state/slices/newsfeed'
 import type { SessionData } from 'api/types'
 
 export const listenerMiddleware = createListenerMiddleware()
@@ -47,5 +48,6 @@ startAppListening({
   effect: async (action, listenerApi) => {
     listenerApi.dispatch(fetchServerCredentials())
     listenerApi.dispatch(fetchServerList())
+    listenerApi.dispatch(fetchNotifications())
   },
 })
