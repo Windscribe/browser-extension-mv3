@@ -15,8 +15,8 @@ export default (): void => {
   const dispatchAlias = useDispatchAlias()
 
   const bestLocationLoading = useSelector(s => s.bestLocation.loading)
-  const isPremium = useSelector(s => s.session.is_premium)
-  const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
+  const isPremium = useSelector(s => s.session.sessionData?.is_premium)
+  const sessionAuthHash = useSelector(s => s.session.sessionData?.session_auth_hash)
   const serverListLoading = useSelector(s => s.servers.loading)
   const autopilotData = useSelector(state => state.autopilot.autopilotData)
   const newsfeedLoading = useSelector(state => state.newsfeed.loading)

@@ -43,7 +43,9 @@ export const applyBestLocationAsAutopilot = createAsyncThunk(
 
     dispatch(setAutopilotData({ location, dataCenter }))
 
-    const { session_auth_hash, is_premium } = getState().session
+    const session_auth_hash = getState().session.sessionData?.session_auth_hash
+    const is_premium = getState().session.sessionData?.is_premium
+
     const serverList = getState().servers.serverList
     const cruiseControlDomainsResponse = await getCruiseControlDomains(dispatch, session_auth_hash)
     if (cruiseControlDomainsResponse.errorMessage)

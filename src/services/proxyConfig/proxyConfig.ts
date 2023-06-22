@@ -1,7 +1,7 @@
 import { CruiseControlItem } from 'api/types'
 import type { ProxyPort } from 'utils/types'
 import { reduceAllowlist } from 'utils/reduceAllowlist'
-import type { StoreType, GetState, AppDispatch } from 'state/store'
+import type { GetState, AppDispatch } from 'state/store'
 import {
   setStatus,
   setProxy,
@@ -97,19 +97,25 @@ const stringifyCruiseControlList = (
     .join('\n')
 }
 
-export const connect = async (store: StoreType, hosts: Host[]): Promise<void> => {
+export const connect = async (
+  getState: GetState,
+  dispatch: AppDispatch,
+  hosts: Host[],
+): Promise<void> => {
   try {
-    if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
-    store.dispatch(setStatus('connecting'))
+    if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+    dispatch(setStatus('connecting'))
 
-    const { traffic_max, traffic_used, is_premium } = store.getState().session
+    const traffic_max = getState().session?.sessionData?.traffic_max
+    const traffic_used = getState().session?.sessionData?.traffic_used
+    const is_premium = getState().session?.sessionData?.is_premium
 
     if (traffic_max === undefined || traffic_used === undefined) {
       throw Error('No session info.')
     }
 
     if (!is_premium && traffic_max !== ACCOUNT_PLAN.UNLIMITED && traffic_max - traffic_used <= 0) {
-      store.dispatch(addOverlay('noData'))
+      dispatch(addOverlay('noData'))
       throw Error('Out of data.')
     }
 
@@ -120,20 +126,18 @@ export const connect = async (store: StoreType, hosts: Host[]): Promise<void> =>
     })
 
     if (proxySetting === 'controlled_by_other_extensions') {
-      store.dispatch(addOverlay('extensionConflict'))
+      dispatch(addOverlay('extensionConflict'))
       throw Error('Proxy is controlled by another extension.')
     }
 
     if (!hosts || hosts?.length === 0) {
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }
-    const allowlist = reduceAllowlist(store.getState())
-    const proxyPort = store.getState().proxyPort
-    const autopilotSelected = store.getState().autopilot.autopilotSelected
-    const cruiseControlList = autopilotSelected
-      ? store.getState().autopilot.cruiseControlList
-      : undefined
-    const workingApi = store.getState().workingApi
+    const allowlist = reduceAllowlist(getState())
+    const proxyPort = getState().proxyPort
+    const autopilotSelected = getState().autopilot.autopilotSelected
+    const cruiseControlList = autopilotSelected ? getState().autopilot.cruiseControlList : undefined
+    const workingApi = getState().workingApi
 
     const config = {
       mode: 'pac_script',
@@ -149,25 +153,25 @@ export const connect = async (store: StoreType, hosts: Host[]): Promise<void> =>
       },
     }
 
-    if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+    if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
     chrome.proxy.settings.set({ value: config, scope: 'regular' })
 
-    store.dispatch(setProxy(hosts))
+    dispatch(setProxy(hosts))
 
-    if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
-    const ip = await checkIp(store.getState().workingApi)
+    if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+    const ip = await checkIp(getState().workingApi)
 
-    store.dispatch(setCurrentIp(ip))
+    dispatch(setCurrentIp(ip))
     if (ip === '---.---.---.---') {
-      await handleProxyError(store)
+      await handleProxyError(getState, dispatch)
     } else {
-      store.dispatch(setReconnectionAttempts(0))
-      if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
-      store.dispatch(setStatus('on'))
+      dispatch(setReconnectionAttempts(0))
+      if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+      dispatch(setStatus('on'))
 
-      if (store.getState().allowSystemNotifications) {
-        const autopilotSelected = store.getState().autopilot.autopilotSelected
-        const { city = '', nick = '' } = store.getState().currentDataCenter
+      if (getState().allowSystemNotifications) {
+        const autopilotSelected = getState().autopilot.autopilotSelected
+        const { city = '', nick = '' } = getState().currentDataCenter
         const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
         createNotification({
           iconUrl: proxyOnIcon,
@@ -176,8 +180,8 @@ export const connect = async (store: StoreType, hosts: Host[]): Promise<void> =>
       }
     }
   } catch (err) {
-    disconnect(store.getState, store.dispatch)
-    store.dispatch(setStatus('off'))
+    disconnect(getState, dispatch)
+    dispatch(setStatus('off'))
 
     pushToDebugLog({
       message: 'Error while trying to connect from proxy.',
@@ -213,27 +217,30 @@ export const disconnect = async (getState: GetState, dispatch: AppDispatch): Pro
   }
 }
 
-export const connectToAutopilot = async (store: StoreType): Promise<void> => {
+export const connectToAutopilot = async (
+  getState: GetState,
+  dispatch: AppDispatch,
+): Promise<void> => {
   try {
-    if (store.getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
-    store.dispatch(setStatus('connecting'))
+    if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+    dispatch(setStatus('connecting'))
 
-    await store.dispatch(applyBestLocationAsAutopilot())
+    await dispatch(applyBestLocationAsAutopilot())
 
-    const location = store.getState().autopilot.autopilotData?.location
-    const dataCenter = store.getState().autopilot.autopilotData?.dataCenter
+    const location = getState().autopilot.autopilotData?.location
+    const dataCenter = getState().autopilot.autopilotData?.dataCenter
     if (!location || !dataCenter) throw new Error('No autopilot candidates are available')
-    store.dispatch(setAutopilotSelected(true))
+    dispatch(setAutopilotSelected(true))
 
-    store.dispatch(setCurrentLocation(location))
-    store.dispatch(setCurrentDataCenter(dataCenter))
+    dispatch(setCurrentLocation(location))
+    dispatch(setCurrentDataCenter(dataCenter))
 
-    const hosts = store.getState().currentDataCenter?.hosts
+    const hosts = getState().currentDataCenter?.hosts
     if (!hosts) throw new Error(`No data center is being used as current`)
-    await connect(store, hosts)
+    await connect(getState, dispatch, hosts)
   } catch (err) {
-    disconnect(store.getState, store.dispatch)
-    store.dispatch(setStatus('off'))
+    disconnect(getState, dispatch)
+    dispatch(setStatus('off'))
 
     pushToDebugLog({
       message: 'Error while trying to connect from proxy.',
@@ -243,51 +250,54 @@ export const connectToAutopilot = async (store: StoreType): Promise<void> => {
   }
 }
 
-export const handleProxyError = async (store: StoreType): Promise<void> => {
+export const handleProxyError = async (
+  getState: GetState,
+  dispatch: AppDispatch,
+): Promise<void> => {
   const RECONNECTION_ATTEMPTS_LIMIT = 2
 
-  const failover = store.getState().connection.failover
-  const reconnectionAttempts = store.getState().proxy.reconnectionAttempts
+  const failover = getState().connection.failover
+  const reconnectionAttempts = getState().proxy.reconnectionAttempts
 
   if (reconnectionAttempts < RECONNECTION_ATTEMPTS_LIMIT) {
-    store.dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
-    const currentHosts = store.getState().currentDataCenter?.hosts
+    dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
+    const currentHosts = getState().currentDataCenter?.hosts
     if (currentHosts) {
-      await connect(store, currentHosts)
+      await connect(getState, dispatch, currentHosts)
       return
     }
   }
   if (reconnectionAttempts === RECONNECTION_ATTEMPTS_LIMIT) {
     if (failover === 'Auto / Best') {
-      store.dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
-      await connectToAutopilot(store)
+      dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
+      await connectToAutopilot(getState, dispatch)
       return
     }
     if (failover === 'Same Country') {
-      const currentLocation = store.getState().currentLocation
-      const currentDataCenter = store.getState().currentDataCenter
+      const currentLocation = getState().currentLocation
+      const currentDataCenter = getState().currentDataCenter
 
       const newDatacenter = currentLocation.groups?.find(
         dataCenter => dataCenter.id !== currentDataCenter.id,
       )
 
       if (newDatacenter) {
-        store.dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
-        store.dispatch(setCurrentDataCenter(newDatacenter))
-        await connect(store, newDatacenter.hosts)
+        dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
+        dispatch(setCurrentDataCenter(newDatacenter))
+        await connect(getState, dispatch, newDatacenter.hosts)
         return
       }
     }
   }
 
-  const smokeWall = store.getState().connection.smokeWall
+  const smokeWall = getState().connection.smokeWall
 
   if (smokeWall) {
-    store.dispatch(setConnectionError('Smoke Wall Failover'))
-    store.dispatch(setStatus('on'))
+    dispatch(setConnectionError('Smoke Wall Failover'))
+    dispatch(setStatus('on'))
   } else if (!smokeWall) {
-    await disconnect(store.getState, store.dispatch)
-    store.dispatch(addOverlay('somethingWeird'))
+    await disconnect(getState, dispatch)
+    dispatch(addOverlay('somethingWeird'))
   }
   return
 }

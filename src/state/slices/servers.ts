@@ -25,7 +25,10 @@ export const fetchServerList = createAsyncThunk<Either<ServerList, ApiErrorRespo
     const store = getState()
     const serversListLoading = store.servers.loading
     const serverList = store.servers.serverList
-    const { loc_hash, is_premium, alc } = store.session
+
+    const loc_hash = store.session.sessionData?.loc_hash
+    const is_premium = store.session.sessionData?.is_premium
+    const alc = store.session.sessionData?.alc
 
     // TODO Consider of removing this condition. Lets discuss
     // Currently we do NOT fetch new list of servers if we've fetched it once.

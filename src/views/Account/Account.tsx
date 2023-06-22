@@ -16,8 +16,8 @@ const addOneMonthToDate = (date?: string) => {
 }
 
 const Account: ThemeUiElement = () => {
-  const session = useSelector(s => s.session)
-  const trafficMax = session.traffic_max || 0
+  const sessionData = useSelector(s => s.session.sessionData)
+  const trafficMax = sessionData?.traffic_max || 0
   const trafficMaxFormatted = bytes(trafficMax)
 
   const { openWindowUsingTempSession } = useWindowOpening()
@@ -56,13 +56,13 @@ const Account: ThemeUiElement = () => {
           <ListItem>
             Username
             <Box sx={{ fontWeight: '400' }} data-testid="account-username">
-              {session.username}
+              {sessionData?.username}
             </Box>
           </ListItem>
           <ListItem noBorder>
             Email
             <Box sx={{ fontWeight: '400' }}>
-              {session.email || (
+              {sessionData?.email || (
                 <Button
                   onClick={openMyAccountPage}
                   sx={{ all: 'unset', cursor: 'pointer', color: 'lakeBlue' }}
@@ -76,15 +76,15 @@ const Account: ThemeUiElement = () => {
         <Subheader>plan</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
-            {session.traffic_max === -1 ? 'Unlimited' : trafficMaxFormatted}
-            <Box sx={{ fontWeight: '400' }}>{session.is_premium ? 'Pro' : 'Free'}</Box>
+            {sessionData?.traffic_max === -1 ? 'Unlimited' : trafficMaxFormatted}
+            <Box sx={{ fontWeight: '400' }}>{sessionData?.is_premium ? 'Pro' : 'Free'}</Box>
           </ListItem>
           <ListItem noBorder>
-            {session.is_premium ? 'Expiry' : 'Reset'} Date
+            {sessionData?.is_premium ? 'Expiry' : 'Reset'} Date
             <Box sx={{ fontWeight: '400' }}>
-              {session.is_premium
-                ? session.premium_expiry_date
-                : addOneMonthToDate(session.last_reset)}
+              {sessionData?.is_premium
+                ? sessionData?.premium_expiry_date
+                : addOneMonthToDate(sessionData?.last_reset)}
             </Box>
           </ListItem>
         </RoundedBox>

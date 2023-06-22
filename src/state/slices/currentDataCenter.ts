@@ -11,11 +11,8 @@ export const currentDataCenterSlice = createSlice({
     setCurrentDataCenter(state, action: PayloadAction<DataCenter>) {
       return { ...state, ...action.payload }
     },
-    resetCurrentDataCenter() {
-      return initialState
-    },
   },
 })
 
-export const { setCurrentDataCenter, resetCurrentDataCenter } = currentDataCenterSlice.actions
+export const { setCurrentDataCenter } = currentDataCenterSlice.actions
 export default currentDataCenterSlice.reducer

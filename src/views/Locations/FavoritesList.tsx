@@ -4,7 +4,7 @@ import { Box, Flex } from 'theme-ui'
 
 const FavoritesList: React.FC = () => {
   const favorites = useSelector(s => s.favoriteLocations)
-  const isPremium = useSelector(s => s.session.is_premium)
+  const isPremium = useSelector(s => s.session.sessionData?.is_premium)
 
   return favorites.length ? (
     <Box pb="16px">

@@ -14,7 +14,7 @@ export function startupHandler(bgStore: Promise<StoreType>) {
         return
       }
 
-      const authHash = store.getState().session.session_auth_hash
+      const authHash = store.getState().session.sessionData?.session_auth_hash
       if (!authHash) {
         store.dispatch(handleConnectionError('No session auth hash is available'))
         return
@@ -23,11 +23,11 @@ export function startupHandler(bgStore: Promise<StoreType>) {
       const currentHosts = store.getState().currentDataCenter?.hosts
       const autopilotSelected = store.getState().autopilot.autopilotSelected
       if (!autopilotSelected && currentHosts) {
-        await connect(store, currentHosts)
+        await connect(store.getState, store.dispatch, currentHosts)
         return
       }
 
-      await connectToAutopilot(store)
+      await connectToAutopilot(store.getState, store.dispatch)
     } catch (err) {
       const message = getErrorMessage(err)
       store?.dispatch(handleConnectionError(message))

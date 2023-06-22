@@ -40,8 +40,8 @@ const Home: ThemeUiElement = () => {
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
   const status = useSelector(state => state.proxy.status)
-  const isPremium = useSelector(s => s.session.is_premium)
-  const trafficMax = useSelector(s => s.session.traffic_max)
+  const isPremium = useSelector(s => s.session.sessionData?.is_premium)
+  const trafficMax = useSelector(s => s.session.sessionData?.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)

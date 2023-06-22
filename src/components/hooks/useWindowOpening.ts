@@ -5,7 +5,7 @@ import { pushToDebugLog } from 'services/debugLog'
 export default (): { openWindowUsingTempSession: (route: string) => Promise<void> } => {
   const dispatch = useDispatch()
 
-  const sessionAuthHash = useSelector(state => state.session.session_auth_hash)
+  const sessionAuthHash = useSelector(state => state.session.sessionData?.session_auth_hash)
 
   const openWindowUsingTempSession = async (route: string) => {
     if (sessionAuthHash) {
