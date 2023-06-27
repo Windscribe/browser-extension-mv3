@@ -24,6 +24,9 @@ export function navigationCommittedHandler(bgStore: Promise<StoreType>) {
   return async (details: WebNavDetails): Promise<void> => {
     // We do not inject any scripts in iframes.
     if (details.frameId > 0) return
+    // We do not inject any scripts in subsidiary chrome tabs.
+    if (details.url?.startsWith('chrome://')) return undefined
+    if (details.url?.startsWith('chrome-extension://')) return undefined
 
     const store = await bgStore
 

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
+import sendMessage from 'services/runtime/sendMessage'
 
 interface AllowlistItemSettings {
   allowAds: boolean
@@ -28,7 +29,7 @@ export const addToAllowlist = createAsyncThunk(
   async (domainWithSettings: AllowlistPayload, { dispatch, getState }) => {
     dispatch(addDomain(domainWithSettings))
     const hosts = getState().proxy.hosts
-    if (hosts) await chrome.runtime.sendMessage({ what: 'connectProxy', hosts: hosts })
+    if (hosts) await sendMessage({ what: 'connectProxy', hosts: hosts })
   },
 )
 
@@ -40,7 +41,7 @@ export const removeFromAllowlist = createAsyncThunk(
   async (domain: string, { dispatch, getState }) => {
     await dispatch(removeDomain(domain))
     const hosts = getState().proxy.hosts
-    if (hosts) await chrome.runtime.sendMessage({ what: 'connectProxy', hosts: hosts })
+    if (hosts) await sendMessage({ what: 'connectProxy', hosts: hosts })
   },
 )
 
