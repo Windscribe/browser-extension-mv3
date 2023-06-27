@@ -234,6 +234,7 @@ const renderWidgets = function() {
 /******************************************************************************/
 
 async function onFilteringModeChange(ev) {
+    try {
     const input = ev.target;
     const newLevel = parseInt(input.value, 10);
     let granted = false;
@@ -264,6 +265,11 @@ async function onFilteringModeChange(ev) {
     }
     renderFilterLists(true);
     renderWidgets();
+    } catch(e) {
+        // It throws "Error: You cannot remove required permissions."
+        // because it tries to remove permissions declared in manifest.json of Windscribe
+        // Nothing to do with that.
+    }
 }
 
 dom.on(
