@@ -81,18 +81,21 @@ export const checkSessionStatus = createAsyncThunk(
         dispatch,
         currentSession?.sessionData?.session_auth_hash,
       )
+
       if (updatedSession.data) {
         if (
-          status === 'on' &&
-          !updatedSession.data.is_premium &&
-          updatedSession.data.traffic_max !== ACCOUNT_PLAN.UNLIMITED &&
-          updatedSession.data.traffic_max !== undefined &&
-          updatedSession.data.traffic_used !== undefined &&
-          updatedSession.data.traffic_max - updatedSession.data.traffic_used <= 0
+          (status === 'on' &&
+            !updatedSession.data.is_premium &&
+            updatedSession.data.traffic_max !== ACCOUNT_PLAN.UNLIMITED &&
+            updatedSession.data.traffic_max !== undefined &&
+            updatedSession.data.traffic_used !== undefined &&
+            updatedSession.data.traffic_max - updatedSession.data.traffic_used <= 0) ||
+          updatedSession.data.status === ACCOUNT_STATES.EXPIRED
         ) {
           dispatch(addOverlay('noData'))
-          await chrome.runtime.sendMessage({ what: 'disconnectProxy' })
+          await disconnect(getState, dispatch)
         }
+
         if (updatedSession.data.status === ACCOUNT_STATES.BANNED) {
           await dispatch(logout())
           dispatch(addOverlay('banned'))

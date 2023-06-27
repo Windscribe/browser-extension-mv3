@@ -22,7 +22,6 @@ export default (): void => {
   const newsfeedLoading = useSelector(state => state.newsfeed.loading)
   const username = useSelector(state => state.serverCredentials.username)
   const password = useSelector(state => state.serverCredentials.password)
-  const serverCredentialsLoading = useSelector(state => state.serverCredentials.loading)
   const userAgentLoading = useSelector(state => state.userAgent.loading)
   const userAgentOriginal = useSelector(state => state.userAgent.original)
   const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
@@ -35,10 +34,10 @@ export default (): void => {
   }, [userAgentOriginal, dispatch])
 
   useEffect(() => {
-    if (sessionAuthHash && !(username && password) && serverCredentialsLoading !== 'pending') {
+    if (sessionAuthHash && !(username && password)) {
       dispatchAlias(FETCH_SERVER_CREDENTIALS)
     }
-  }, [sessionAuthHash, password, username, serverCredentialsLoading, dispatchAlias])
+  }, [sessionAuthHash, password, username, dispatchAlias])
 
   useEffect(() => {
     if (serverListLoading === 'idle' && sessionAuthHash) {

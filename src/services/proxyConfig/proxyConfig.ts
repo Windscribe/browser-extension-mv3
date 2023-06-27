@@ -12,7 +12,7 @@ import {
 import type { Host } from 'api/types'
 import { checkIp, createNotification } from 'services'
 import { addOverlay } from 'state/slices/overlay'
-import { ACCOUNT_PLAN } from 'utils/constants'
+import { ACCOUNT_STATES, ACCOUNT_PLAN } from 'utils/constants'
 import { applyBestLocationAsAutopilot, setAutopilotSelected } from 'state/slices/autopilot'
 import { setCurrentLocation } from 'state/slices/currentLocation'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
@@ -109,12 +109,16 @@ export const connect = async (
     const traffic_max = getState().session?.sessionData?.traffic_max
     const traffic_used = getState().session?.sessionData?.traffic_used
     const is_premium = getState().session?.sessionData?.is_premium
+    const sessionStatus = getState().session?.sessionData?.status
 
     if (traffic_max === undefined || traffic_used === undefined) {
       throw Error('No session info.')
     }
 
-    if (!is_premium && traffic_max !== ACCOUNT_PLAN.UNLIMITED && traffic_max - traffic_used <= 0) {
+    if (
+      (!is_premium && traffic_max !== ACCOUNT_PLAN.UNLIMITED && traffic_max - traffic_used <= 0) ||
+      sessionStatus === ACCOUNT_STATES.EXPIRED
+    ) {
       dispatch(addOverlay('noData'))
       throw Error('Out of data.')
     }
