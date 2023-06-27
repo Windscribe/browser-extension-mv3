@@ -1,15 +1,8 @@
 import { pushToDebugLog } from 'services/debugLog'
 
-type SendMessageType = typeof chrome.runtime.sendMessage
-type SendMessageReturnType = ReturnType<SendMessageType>
-
-type SendMessageFunction = {
-  (message: object): SendMessageReturnType | undefined
-}
-
-const sendMessage: SendMessageFunction = message => {
+const sendMessage = async (message: object): Promise<unknown> => {
   try {
-    return chrome.runtime.sendMessage(message)
+    return await chrome.runtime.sendMessage(message)
   } catch (err) {
     pushToDebugLog({
       message: 'Error while sending message through runtime',
