@@ -14,8 +14,11 @@ import { setCurrentIp } from 'state/slices/proxy'
 import { connectToAutopilot, disconnect } from 'services/proxyConfig'
 import { fetchServerList } from 'state/slices/servers'
 import { fetchServerCredentials } from 'state/slices/serverCredentials'
-import { applyBestLocationAsAutopilot } from './autopilot'
+import { applyBestLocationAsAutopilot, setAutopilotSelected } from './autopilot'
 import { fetchBestLocation } from './bestLocation'
+import { setCurrentLocation } from 'state/slices/currentLocation'
+import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
+import { refreshFavorites } from './favoriteLocations'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -149,8 +152,17 @@ export const checkSessionStatus = createAsyncThunk(
           if (showPro) {
             await dispatch(fetchBestLocation())
             await dispatch(applyBestLocationAsAutopilot())
+            dispatch(refreshFavorites(serverList))
+
             if (isConnected) {
               await connectToAutopilot(getState, dispatch)
+            } else {
+              const location = getState().autopilot.autopilotData?.location
+              const dataCenter = getState().autopilot.autopilotData?.dataCenter
+              if (!location || !dataCenter) throw new Error('No autopilot candidates are available')
+              dispatch(setAutopilotSelected(true))
+              dispatch(setCurrentLocation(location))
+              dispatch(setCurrentDataCenter(dataCenter))
             }
           }
         }

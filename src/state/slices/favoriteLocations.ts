@@ -1,6 +1,5 @@
 import { createSlice, createSelector, type PayloadAction } from '@reduxjs/toolkit'
-
-import type { DataCenter } from 'api/types'
+import type { ServerList, DataCenter } from 'api/types'
 import type { RootState } from '../store'
 
 type FavoriteLocationsState = DataCenter[]
@@ -17,6 +16,18 @@ export const favoriteLocationsSlice = createSlice({
     removeLocationFromFavorite(state: FavoriteLocationsState, action: PayloadAction<number>) {
       return state.filter(location => location.id !== action.payload)
     },
+    refreshFavorites(state: FavoriteLocationsState, action: PayloadAction<ServerList>) {
+      state.forEach((favoriteLocation, index) => {
+        const newFavoriteLocation = action.payload.find(location => {
+          return location.groups.some(dataCenter => dataCenter.id === favoriteLocation.id)
+        })
+        if (newFavoriteLocation) {
+          state[index] = newFavoriteLocation.groups.find(
+            dataCenter => dataCenter.id === favoriteLocation.id,
+          ) as DataCenter
+        }
+      })
+    },
   },
 })
 
@@ -28,5 +39,6 @@ export const selectIsInFavorite = createSelector(
   },
 )
 
-export const { addLocationToFavorite, removeLocationFromFavorite } = favoriteLocationsSlice.actions
+export const { addLocationToFavorite, removeLocationFromFavorite, refreshFavorites } =
+  favoriteLocationsSlice.actions
 export default favoriteLocationsSlice.reducer
