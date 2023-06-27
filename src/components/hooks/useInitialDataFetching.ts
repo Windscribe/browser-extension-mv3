@@ -8,6 +8,7 @@ import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
 import { setOriginalUserAgent, FETCH_USER_AGENTS_LIST } from 'state/slices/userAgent'
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
+import sendMessage from 'services/runtime/sendMessage'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -77,8 +78,7 @@ export default (): void => {
   }, [sessionAuthHash, userAgentLoading])
 
   useEffect(() => {
-    const dispatchConnectToAutopilot = async () =>
-      await chrome.runtime.sendMessage({ what: 'connectAutopilot' })
+    const dispatchConnectToAutopilot = async () => await sendMessage({ what: 'connectAutopilot' })
 
     if (
       autoConnectAfterLogin &&

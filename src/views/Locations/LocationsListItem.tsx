@@ -7,6 +7,7 @@ import flags from 'assets/flags'
 import { useGoTo } from 'services/navigation'
 import LocationsListItemDetails from './LocationsListItemDetails'
 import type { Location, DataCenter } from 'api/types'
+import sendMessage from 'services/runtime/sendMessage'
 
 import PlusIcon from 'assets/img/plus-icon.svg'
 import AirplaneIcon from 'assets/img/airplane.svg'
@@ -45,7 +46,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   const handleLocationItemClick = async () => {
     if (isAutopilot) {
       goToHome()
-      await chrome.runtime.sendMessage({ what: 'connectAutopilot' })
+      await sendMessage({ what: 'connectAutopilot' })
     } else {
       setIsExpanded(!isExpanded)
     }

@@ -12,6 +12,7 @@ import { setView } from 'state/slices/view'
 import { checkIp } from 'services'
 import { setCurrentIp } from 'state/slices/proxy'
 import { disconnect } from 'services/proxyConfig'
+import sendMessage from 'services/runtime/sendMessage'
 
 export interface SessionState extends SessionData {
   loading: LoadingState
@@ -101,7 +102,7 @@ export const checkSessionStatus = createAsyncThunk(
           updatedSession.data.traffic_max - updatedSession.data.traffic_used <= 0
         ) {
           dispatch(addOverlay('noData'))
-          await chrome.runtime.sendMessage({ what: 'disconnectProxy' })
+          await sendMessage({ what: 'disconnectProxy' })
         }
         if (updatedSession.data.status === ACCOUNT_STATES.BANNED) {
           await dispatch(logout())
