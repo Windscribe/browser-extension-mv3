@@ -18,6 +18,7 @@ import { applyBestLocationAsAutopilot, setAutopilotSelected } from './autopilot'
 import { fetchBestLocation } from './bestLocation'
 import { setCurrentLocation } from 'state/slices/currentLocation'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
+import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
 
 export interface SessionState {
@@ -135,6 +136,7 @@ export const checkSessionStatus = createAsyncThunk(
         if (isSessionChanges) {
           await dispatch(fetchServerCredentials())
           await dispatch(fetchServerList())
+          await dispatch(fetchNotifications())
 
           const currentLocation = getState().currentLocation
           const currentDataCenter = getState().currentDataCenter
