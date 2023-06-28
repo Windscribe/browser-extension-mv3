@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Box, Input, Text } from 'theme-ui'
+import { Box, Flex, Input, Text } from 'theme-ui'
 import isValidDomain from 'is-valid-domain'
 
 import { Subheader, Popup, RoundedBox, ToggleSwitch, ListItem } from 'components'
@@ -131,36 +131,45 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
             value={domainValue}
             onChange={handleChange}
             onBlur={handleBlur}
+            sx={{
+              '::placeholder': {
+                color: 'secondaryText',
+              },
+            }}
           />
         )}
-        <Box mt="24px">
+        <Flex mt="16px" sx={{ gap: '16px', flexDirection: 'column' }}>
           <RoundedBox>
-            <ListItem>
+            <SettingsOption isChecked={isAdsAllowed} toggleState={setIsAdsAllowed} noBorder>
+              Allow Ads
+            </SettingsOption>
+          </RoundedBox>
+          <Box sx={{ borderRadius: '8px', border: '1px solid', borderColor: 'foreground' }}>
+            <RoundedBox>
+              <SettingsOption
+                isChecked={isDirectConnectionsAllowed}
+                toggleState={setIsDirectConnectionsAllowed}
+              >
+                Allow Connection
+              </SettingsOption>
+              <SettingsOption
+                data-testid="allow-privacy-features-checkbox"
+                isChecked={isPrivacyFeaturesAllowed}
+                noBorder
+                toggleState={setIsPrivacyFeaturesAllowed}
+              >
+                Allow Privacy Features
+              </SettingsOption>
+            </RoundedBox>
+            <ListItem sx={{ color: 'secondaryText', px: '16px' }} noBorder>
               <Text sx={{ fontWeight: 'bold' }}>Apply to all subdomains</Text>
               <ToggleSwitch
                 onChange={e => setIsAllSubdomainsIncluded(e.target.checked)}
                 checked={isAllSubdomainsIncluded}
               />
             </ListItem>
-            <SettingsOption
-              isChecked={isDirectConnectionsAllowed}
-              toggleState={setIsDirectConnectionsAllowed}
-            >
-              Allow Connection
-            </SettingsOption>
-            <SettingsOption isChecked={isAdsAllowed} toggleState={setIsAdsAllowed}>
-              Allow Ads
-            </SettingsOption>
-            <SettingsOption
-              data-testid="allow-privacy-features-checkbox"
-              isChecked={isPrivacyFeaturesAllowed}
-              noBorder
-              toggleState={setIsPrivacyFeaturesAllowed}
-            >
-              Allow Privacy Features
-            </SettingsOption>
-          </RoundedBox>
-        </Box>
+          </Box>
+        </Flex>
         <ButtonsGroup {...{ handleCancel, handleSubmit, submitButtonMode }} />
       </Box>
     </Popup>
