@@ -10,11 +10,11 @@ export function messageHandler(bgStore: Promise<StoreType>) {
     if (message.what === 'applyRulesets' && message.from !== 'popup') {
       store.dispatch(setBlockLists(message.enabledRulesets))
     } else if (message.what === 'connectProxy') {
-      await connect(store, message.hosts)
+      await connect(store.getState, store.dispatch, message.hosts)
     } else if (message.what === 'disconnectProxy') {
       await disconnect(store.getState, store.dispatch)
     } else if (message.what === 'connectAutopilot') {
-      await connectToAutopilot(store)
+      await connectToAutopilot(store.getState, store.dispatch)
     }
   }
 }

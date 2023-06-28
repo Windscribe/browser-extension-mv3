@@ -11,34 +11,20 @@ import { addOverlay } from 'state/slices/overlay'
 import { setView } from 'state/slices/view'
 import { checkIp } from 'services'
 import { setCurrentIp } from 'state/slices/proxy'
-import { disconnect } from 'services/proxyConfig'
-import sendMessage from 'services/runtime/sendMessage'
+import { connectToAutopilot, disconnect } from 'services/proxyConfig'
+import { fetchServerList } from 'state/slices/servers'
+import { fetchServerCredentials } from 'state/slices/serverCredentials'
+import { applyBestLocationAsAutopilot } from './autopilot'
+import { fetchBestLocation } from './bestLocation'
 
-export interface SessionState extends SessionData {
+export interface SessionState {
+  sessionData?: SessionData
   loading: LoadingState
   error?: ErrorState
 }
 
 const initialState: SessionState = {
-  alc: undefined,
-  billing_plan_id: undefined,
-  email: '',
-  email_status: undefined,
-  is_premium: 0,
-  last_reset: undefined,
-  loc_hash: undefined,
-  loc_rev: undefined,
-  our_addr: undefined,
-  our_dc: undefined,
-  our_ip: 0,
-  our_location: undefined,
-  reg_date: undefined,
-  session_auth_hash: '',
-  status: undefined,
-  traffic_max: undefined,
-  traffic_used: undefined,
-  user_id: undefined,
-  username: undefined,
+  sessionData: undefined,
   error: undefined,
   loading: 'idle',
 }
@@ -68,7 +54,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 
 export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch }) => {
   const sendLogoutRequest = async () => {
-    const sessionAuthHash = getState().session.session_auth_hash
+    const sessionAuthHash = getState().session.sessionData?.session_auth_hash
     sessionAuthHash && (await logoutRequest(dispatch, sessionAuthHash))
   }
   const resetState = async () => {
@@ -90,32 +76,84 @@ export const checkSessionStatus = createAsyncThunk(
 
     // poll only when connected and we have a session_auth_hash
     // TODO Consider to push user on Login page if we don't have session_auth_hash (pretty rare case tho, or even impossible)
-    if (currentSession?.session_auth_hash) {
-      const updatedSession = await getSessionStatus(dispatch, currentSession?.session_auth_hash)
+    if (currentSession?.sessionData?.session_auth_hash) {
+      const updatedSession = await getSessionStatus(
+        dispatch,
+        currentSession?.sessionData?.session_auth_hash,
+      )
+
       if (updatedSession.data) {
         if (
-          status === 'on' &&
-          !updatedSession.data.is_premium &&
-          updatedSession.data.traffic_max !== ACCOUNT_PLAN.UNLIMITED &&
-          updatedSession.data.traffic_max !== undefined &&
-          updatedSession.data.traffic_used !== undefined &&
-          updatedSession.data.traffic_max - updatedSession.data.traffic_used <= 0
+          (status === 'on' &&
+            !updatedSession.data.is_premium &&
+            updatedSession.data.traffic_max !== ACCOUNT_PLAN.UNLIMITED &&
+            updatedSession.data.traffic_max !== undefined &&
+            updatedSession.data.traffic_used !== undefined &&
+            updatedSession.data.traffic_max - updatedSession.data.traffic_used <= 0) ||
+          updatedSession.data.status === ACCOUNT_STATES.EXPIRED
         ) {
           dispatch(addOverlay('noData'))
-          await sendMessage({ what: 'disconnectProxy' })
+          await disconnect(getState, dispatch)
         }
+
         if (updatedSession.data.status === ACCOUNT_STATES.BANNED) {
           await dispatch(logout())
           dispatch(addOverlay('banned'))
         }
 
         if (
-          currentSession.is_premium === ACCOUNT_PLAN.PREMIUM &&
+          currentSession.sessionData?.is_premium === ACCOUNT_PLAN.PREMIUM &&
           updatedSession.data.is_premium === ACCOUNT_PLAN.FREE
         ) {
           dispatch(addOverlay('proPlanExpired'))
         }
+
         dispatch(setSession(updatedSession.data))
+
+        const sessionPropertiesToWatch: Array<keyof SessionData> = [
+          'alc',
+          'billing_plan_id',
+          'is_premium',
+          'last_reset',
+          'loc_hash',
+          'loc_rev',
+          'status',
+          'traffic_max',
+        ]
+
+        const isSessionChanges = sessionPropertiesToWatch.some(p => {
+          if (!currentSession?.sessionData?.hasOwnProperty(p)) {
+            return updatedSession.data.hasOwnProperty(p)
+          } else {
+            return currentSession?.sessionData[p]?.toString() !== updatedSession.data[p]?.toString()
+          }
+        })
+
+        if (isSessionChanges) {
+          await dispatch(fetchServerCredentials())
+          await dispatch(fetchServerList())
+          const currentLocation = getState().currentLocation
+          const currentDataCenter = getState().currentDataCenter
+
+          const serverList = getState().servers.serverList
+          const isConnected = getState().proxy.status === 'on'
+          const isPremium = getState().session.sessionData?.is_premium
+
+          const locationNewList = serverList.find(location => location.id === currentLocation.id)
+          const dataCenterNewList = locationNewList?.groups.find(
+            dataCenter => dataCenter.id === currentDataCenter.id,
+          )
+
+          const showPro = !isPremium && dataCenterNewList?.pro
+
+          if (showPro) {
+            await dispatch(fetchBestLocation())
+            await dispatch(applyBestLocationAsAutopilot())
+            if (isConnected) {
+              await connectToAutopilot(getState, dispatch)
+            }
+          }
+        }
       } else if (updatedSession.errorCode === SESSION_ERRORS.SESSION_INVALID) {
         await dispatch(logout())
       }
@@ -128,7 +166,10 @@ export const sessionSlice = createSlice({
   initialState,
   reducers: {
     setSession(state, action: PayloadAction<SessionData>) {
-      return { ...state, loading: 'fulfilled', our_ip: 0, ...action.payload }
+      state.sessionData = {
+        ...action.payload,
+        session_auth_hash: state.sessionData?.session_auth_hash,
+      }
     },
   },
   extraReducers: builder => {
@@ -139,9 +180,12 @@ export const sessionSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         if (action.payload.errorMessage) {
-          return { ...initialState, ...{ loading: 'idle' }, error: action.payload }
+          state.loading = 'idle'
+          state.error = action.payload
+        } else {
+          state.sessionData = action.payload
+          state.loading = 'fulfilled'
         }
-        return { ...state, ...{ loading: 'fulfilled' }, ...action.payload }
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = 'rejected'

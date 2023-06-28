@@ -2,11 +2,11 @@
 
 For state management we use `webext-redux` to facilitate passing state between the `background` service worker and `popup`. We use an alternative version of the library which supports `manifest v3`. See on [github](https://github.com/eduardoacskimlinks/webext-redux).
 
-###  Webext-redux Dataflow
+### Webext-redux Dataflow
 
 | ![webext-dataflow-diagram](webext-redux.svg) |
-|:--:| 
-| *webext-redux dataflow diagram* |
+| :------------------------------------------: |
+|       _webext-redux dataflow diagram_        |
 
 ## Location
 
@@ -18,29 +18,28 @@ Adding a new slice is fairly simple. Navigate to a plugin in `src/state/slices`.
 
 ```js
 interface ExampleState {
-  counter: number
+  counter: number;
 }
 
 const initialState: ExampleState = {
   counter: 42,
 }
 
-export const exampleSlice = 
-  createSlice({
-    name: 'example',
-    initialState,
-    reducers: {
-      incrementCounter(state) {
-        state.counter += 1
-      },
-      decrementCounter(state) {
-        state.counter -= 1
-      },
-      setCounter(state, action: PayloadAction<number>) {
-        state.counter = action.payload
-      },
+export const exampleSlice = createSlice({
+  name: 'example',
+  initialState,
+  reducers: {
+    incrementCounter(state) {
+      state.counter += 1
     },
-  })
+    decrementCounter(state) {
+      state.counter -= 1
+    },
+    setCounter(state, action: PayloadAction<number>) {
+      state.counter = action.payload
+    },
+  },
+})
 
 export const { incrementCounter, decrementCounter, setCounter } = exampleSlice.actions
 export default exampleSlice.reducer
@@ -71,10 +70,11 @@ As was mentioned at the start of this page, the extension uses `webext-redux` to
 > Note! In Manifest V3, background pages are now [service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API). A background service worker is loaded when it is needed, and unloaded when it goes idle.
 
 For example:
-+ The extension is first installed or updated to a new version.
-+ The background page was listening for an event, and the event is dispatched.
-+ A content script or other extension sends a message.
-+ Another view in the extension, such as a popup, calls `runtime.getBackgroundPage`.
+
+- The extension is first installed or updated to a new version.
+- The background page was listening for an event, and the event is dispatched.
+- A content script or other extension sends a message.
+- Another view in the extension, such as a popup, calls `runtime.getBackgroundPage`.
 
 Once it has been loaded, an extension's service worker generally keeps running as long as it is performing an action, such as calling a Chrome API or issuing a network request.
 
@@ -90,8 +90,7 @@ Due to the nature of how state works in the extension. You **cannot** import the
 
 If you do use the redux store directly from the popup then it will bypass the messaging system `webext-redux` uses to keep track of what state has changed.
 
-
-You should provide context `<Provider store={proxyStore}>` into a root React component  and than use `useDispatch` and `useSelector` hooks form `src/state/hooks.ts`.
+You should provide context `<Provider store={proxyStore}>` into a root React component and than use `useDispatch` and `useSelector` hooks form `src/state/hooks.ts`.
 
 ```jsx
 import { useSelector, useDispatch } from 'state/hooks'
@@ -118,12 +117,10 @@ const Example = () => {
     </div>
   )
 }
-
 ```
 
-
 > Set your eyes on `await dispatch(increment())`
-Contrary to regular Redux, all dispatches are asynchronous and return a Promise. It is inevitable since proxy stores and the main store communicate via browser messaging, which is inherently asynchronous.
+> Contrary to regular Redux, all dispatches are asynchronous and return a Promise. It is inevitable since proxy stores and the main store communicate via browser messaging, which is inherently asynchronous.
 
 ### Aliases
 
@@ -153,7 +150,7 @@ const Login: ThemeUiElement = () => {
 import { login, LOGIN } from './slices/session' // login is created by createAsyncThunk()
 
 export default {
-  [`alias/${LOGIN}`]: (originalAction) => login(originalAction.payload), 
+  [`alias/${LOGIN}`]: originalAction => login(originalAction.payload),
 }
 ```
 
@@ -163,16 +160,15 @@ Example for more complex actions:
 // aliases.ts
 const example: ActionCreator<Payload, AsyncThunkAction> = originalAction => {
   return async (dispatch, getState) => {
-    const hash = getState().session.session_auth_hash
+    const hash = getState().session.sessionData?.session_auth_hash
     await dispatch(getEntityByParam(hash, originalAction.payload))
   }
-} 
+}
 
 export default {
-  [`alias/${EXAMPLE}`]: example, 
+  [`alias/${EXAMPLE}`]: example,
 }
 ```
-
 
 ### Routing
 
@@ -192,5 +188,5 @@ const SplashPage: ThemeUiElement = () => {
       <Button onClick={useGoBack()}>
     </>
   )
-} 
+}
 ```

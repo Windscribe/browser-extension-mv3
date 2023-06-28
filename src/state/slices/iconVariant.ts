@@ -12,7 +12,7 @@ export const chooseIcon = createAsyncThunk(CHOOSE_ICON, async (_, { getState, di
   try {
     const isOnline = getState().isOnline
     const status = getState().proxy.status
-    const desktopConnected = !!getState().session.our_ip
+    const desktopConnected = !!getState().session.sessionData?.our_ip
     const hasProxyError = !!getState().proxy.errorMessage
 
     const iconVariant = getIconVariant({

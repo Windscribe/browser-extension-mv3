@@ -25,6 +25,6 @@ export function proxyErrorHandler(bgStore: Promise<StoreType>) {
     const proxyFailure = isConnected && hasProxyError
     const shouldIgnore = proxyFailure || !isConnected || reconnectionAttempts
 
-    if (!shouldIgnore) handleProxyError(store)
+    if (!shouldIgnore) handleProxyError(store.getState, store.dispatch)
   }
 }

@@ -22,7 +22,7 @@ export const FETCH_NOTIFICATIONS = 'newsfeed/fetchNotifications'
 export const fetchNotifications = createAsyncThunk<Either<Notifications, ApiErrorResponse>>(
   FETCH_NOTIFICATIONS,
   async (_, { getState, dispatch }) => {
-    const sessionAuthHash = getState().session.session_auth_hash
+    const sessionAuthHash = getState().session.sessionData?.session_auth_hash
     if (!sessionAuthHash) {
       throw Error('No session auth hash is available')
     }

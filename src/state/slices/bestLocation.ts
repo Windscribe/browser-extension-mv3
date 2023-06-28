@@ -28,7 +28,7 @@ export const FETCH_BEST_LOCATION = 'bestLocation/fetchBestLocation'
 export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorResponse>>(
   FETCH_BEST_LOCATION,
   async (_, { getState, dispatch }) => {
-    const sessionAuthHash = getState().session.session_auth_hash
+    const sessionAuthHash = getState().session.sessionData?.session_auth_hash
     if (!sessionAuthHash) {
       throw Error('No session auth hash is available')
     }

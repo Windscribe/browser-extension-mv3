@@ -17,7 +17,7 @@ const Login: ThemeUiElement = () => {
   const goToHome = useGoTo('Home')
   const errorMessage = useSelector(s => s.session.error?.errorMessage)
   const errorCode = useSelector(s => s.session.error?.errorCode)
-  const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
+  const sessionAuthHash = useSelector(s => s.session.sessionData?.session_auth_hash)
   const loginStatus = useSelector(s => s.session.loading)
   const savedUsername = useSelector(s => s.userStashes.username)
 
