@@ -9,7 +9,12 @@ const FavoritesList: React.FC = () => {
   return favorites.length ? (
     <Box pb="16px">
       {favorites.map(dataCenter => (
-        <DataCenterItem key={dataCenter.id} isPremium={!!isPremium} dataCenter={dataCenter} />
+        <DataCenterItem
+          key={dataCenter.id}
+          isPremium={!!isPremium}
+          dataCenter={dataCenter}
+          isFavorite
+        />
       ))}
     </Box>
   ) : (

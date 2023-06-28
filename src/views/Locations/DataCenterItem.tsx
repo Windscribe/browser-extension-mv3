@@ -32,12 +32,14 @@ type DataCenterItem = ButtonProps & {
   isPremium?: boolean
   dataCenter: DataCenter
   searchText?: string
+  isFavorite?: boolean
 }
 
 const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
   isPremium,
   dataCenter,
   searchText = '',
+  isFavorite = false,
 }) => {
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
@@ -182,8 +184,8 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
                   backgroundImage: t => `
                     linear-gradient(
                       to right,
-                      ${alpha('foreground', 0)(t)},
-                      ${alpha('foreground', 1)(t)}
+                      ${alpha(`${isFavorite ? 'background' : 'foreground'}`, 0)(t)},
+                      ${alpha(`${isFavorite ? 'background' : 'foreground'}`, 1)(t)}
                     )
                   `,
                 }}
@@ -191,7 +193,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
               <Text
                 sx={{
                   fontWeight: '600',
-                  backgroundColor: 'foreground',
+                  backgroundColor: isFavorite ? 'background' : 'foreground',
                 }}
               >
                 UPGRADE

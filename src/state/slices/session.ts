@@ -14,8 +14,11 @@ import { setCurrentIp } from 'state/slices/proxy'
 import { connectToAutopilot, disconnect } from 'services/proxyConfig'
 import { fetchServerList } from 'state/slices/servers'
 import { fetchServerCredentials } from 'state/slices/serverCredentials'
-import { applyBestLocationAsAutopilot } from './autopilot'
+import { applyBestLocationAsAutopilot, setAutopilotSelected } from './autopilot'
 import { fetchBestLocation } from './bestLocation'
+import { setCurrentLocation } from 'state/slices/currentLocation'
+import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
+import { refreshFavorites } from './favoriteLocations'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -132,6 +135,7 @@ export const checkSessionStatus = createAsyncThunk(
         if (isSessionChanges) {
           await dispatch(fetchServerCredentials())
           await dispatch(fetchServerList())
+
           const currentLocation = getState().currentLocation
           const currentDataCenter = getState().currentDataCenter
 
@@ -139,18 +143,27 @@ export const checkSessionStatus = createAsyncThunk(
           const isConnected = getState().proxy.status === 'on'
           const isPremium = getState().session.sessionData?.is_premium
 
+          dispatch(refreshFavorites(serverList))
+
           const locationNewList = serverList.find(location => location.id === currentLocation.id)
           const dataCenterNewList = locationNewList?.groups.find(
             dataCenter => dataCenter.id === currentDataCenter.id,
           )
 
           const showPro = !isPremium && dataCenterNewList?.pro
-
           if (showPro) {
             await dispatch(fetchBestLocation())
             await dispatch(applyBestLocationAsAutopilot())
+
             if (isConnected) {
               await connectToAutopilot(getState, dispatch)
+            } else {
+              const location = getState().autopilot.autopilotData?.location
+              const dataCenter = getState().autopilot.autopilotData?.dataCenter
+              if (!location || !dataCenter) throw new Error('No autopilot candidates are available')
+              dispatch(setAutopilotSelected(true))
+              dispatch(setCurrentLocation(location))
+              dispatch(setCurrentDataCenter(dataCenter))
             }
           }
         }
