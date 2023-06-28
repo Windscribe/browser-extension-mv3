@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Box, Button } from 'theme-ui'
+
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { ScrollableBox, Header, OptionBox, ToggleSwitch } from 'components'
 import { setBlockLists, setShowUblockWarning } from 'state/slices/blocker'
 import { addOverlay } from 'state/slices/overlay'
 import detectUblock from 'services/detectUblock'
+import sendMessage from 'services/runtime/sendMessage'
+
 import AdblockIcon from 'assets/img/adblock.svg'
 import TrackerIcon from 'assets/img/trackers.svg'
 import MalwareIcon from 'assets/img/malware.svg'
@@ -38,7 +41,7 @@ const Blocker: ThemeUiElement = () => {
     }
     dispatch(setBlockLists(newBlocklist))
 
-    chrome.runtime.sendMessage({
+    sendMessage({
       what: 'applyRulesets',
       from: 'popup',
       enabledRulesets: newBlocklist,

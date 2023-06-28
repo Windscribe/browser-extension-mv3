@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Text, Flex, Button, Box, type ButtonProps } from 'theme-ui'
+import { alpha } from '@theme-ui/color'
 import Highlighter from 'react-highlight-words'
+
 import { selectLocationByDataCenterId } from 'state/slices/servers'
 import { setCurrentLocation } from 'state/slices/currentLocation'
 import { setAutopilotSelected } from 'state/slices/autopilot'
@@ -17,7 +19,7 @@ import { type ThemeUiElement } from 'utils/types'
 import { IconButton } from 'components'
 import { addOverlay } from 'state/slices/overlay'
 import { useWindowOpening } from 'components/hooks'
-import { alpha } from '@theme-ui/color'
+import sendMessage from 'services/runtime/sendMessage'
 
 import HeartIcon from 'assets/img/heart.svg'
 import HeartBreakIcon from 'assets/img/heartBreak.svg'
@@ -30,12 +32,14 @@ type DataCenterItem = ButtonProps & {
   isPremium?: boolean
   dataCenter: DataCenter
   searchText?: string
+  isFavorite?: boolean
 }
 
 const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
   isPremium,
   dataCenter,
   searchText = '',
+  isFavorite = false,
 }) => {
   const dispatch = useDispatch()
   const goToHome = useGoTo('Home')
@@ -61,7 +65,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
       goToHome()
       dispatch(setCurrentDataCenter(dataCenter))
       dispatch(setAutopilotSelected(false))
-      await chrome.runtime.sendMessage({ what: 'connectProxy', hosts: dataCenter.hosts })
+      await sendMessage({ what: 'connectProxy', hosts: dataCenter.hosts })
     }
   }
 
@@ -180,8 +184,8 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
                   backgroundImage: t => `
                     linear-gradient(
                       to right,
-                      ${alpha('foreground', 0)(t)},
-                      ${alpha('foreground', 1)(t)}
+                      ${alpha(`${isFavorite ? 'background' : 'foreground'}`, 0)(t)},
+                      ${alpha(`${isFavorite ? 'background' : 'foreground'}`, 1)(t)}
                     )
                   `,
                 }}
@@ -189,7 +193,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
               <Text
                 sx={{
                   fontWeight: '600',
-                  backgroundColor: 'foreground',
+                  backgroundColor: isFavorite ? 'background' : 'foreground',
                 }}
               >
                 UPGRADE

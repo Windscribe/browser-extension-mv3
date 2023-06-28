@@ -28,7 +28,7 @@ export const fetchUserAgentsList = createAsyncThunk(
   FETCH_USER_AGENTS_LIST,
   async (_, { getState, dispatch }) => {
     try {
-      const sessionAuthHash = getState().session.session_auth_hash
+      const sessionAuthHash = getState().session.sessionData?.session_auth_hash
       if (!sessionAuthHash) {
         throw Error('No session auth hash is available')
       }

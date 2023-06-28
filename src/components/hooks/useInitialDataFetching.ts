@@ -8,6 +8,7 @@ import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
 import { setOriginalUserAgent, FETCH_USER_AGENTS_LIST } from 'state/slices/userAgent'
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
+import sendMessage from 'services/runtime/sendMessage'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -15,14 +16,13 @@ export default (): void => {
   const dispatchAlias = useDispatchAlias()
 
   const bestLocationLoading = useSelector(s => s.bestLocation.loading)
-  const isPremium = useSelector(s => s.session.is_premium)
-  const sessionAuthHash = useSelector(s => s.session.session_auth_hash)
+  const isPremium = useSelector(s => s.session.sessionData?.is_premium)
+  const sessionAuthHash = useSelector(s => s.session.sessionData?.session_auth_hash)
   const serverListLoading = useSelector(s => s.servers.loading)
   const autopilotData = useSelector(state => state.autopilot.autopilotData)
   const newsfeedLoading = useSelector(state => state.newsfeed.loading)
   const username = useSelector(state => state.serverCredentials.username)
   const password = useSelector(state => state.serverCredentials.password)
-  const serverCredentialsLoading = useSelector(state => state.serverCredentials.loading)
   const userAgentLoading = useSelector(state => state.userAgent.loading)
   const userAgentOriginal = useSelector(state => state.userAgent.original)
   const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
@@ -35,10 +35,10 @@ export default (): void => {
   }, [userAgentOriginal, dispatch])
 
   useEffect(() => {
-    if (sessionAuthHash && !(username && password) && serverCredentialsLoading !== 'pending') {
+    if (sessionAuthHash && !(username && password)) {
       dispatchAlias(FETCH_SERVER_CREDENTIALS)
     }
-  }, [sessionAuthHash, password, username, serverCredentialsLoading, dispatchAlias])
+  }, [sessionAuthHash, password, username, dispatchAlias])
 
   useEffect(() => {
     if (serverListLoading === 'idle' && sessionAuthHash) {
@@ -77,8 +77,7 @@ export default (): void => {
   }, [sessionAuthHash, userAgentLoading])
 
   useEffect(() => {
-    const dispatchConnectToAutopilot = async () =>
-      await chrome.runtime.sendMessage({ what: 'connectAutopilot' })
+    const dispatchConnectToAutopilot = async () => await sendMessage({ what: 'connectAutopilot' })
 
     if (
       autoConnectAfterLogin &&

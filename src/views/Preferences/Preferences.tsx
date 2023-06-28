@@ -53,9 +53,9 @@ const Preferences: ThemeUiElement = () => {
 
   const unreadNewsAmount = notifications.length - viewedNewsIds.length
 
-  const data = useSelector(s => s.session)
-
-  const { traffic_max = 0, traffic_used = 0, is_premium } = data
+  const traffic_max = useSelector(s => s.session?.sessionData?.traffic_max) || 0
+  const traffic_used = useSelector(s => s.session?.sessionData?.traffic_used) || 0
+  const is_premium = useSelector(s => s.session?.sessionData?.is_premium)
   const remainingDataBytes = bytes(traffic_max - traffic_used)
   const [isWebSessionPending, setIsWebSessionPending] = useState(false)
 

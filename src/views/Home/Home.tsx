@@ -1,5 +1,7 @@
+import { keyframes } from '@emotion/react'
 import { Box, Button, Flex } from 'theme-ui'
 import { useState, useEffect } from 'react'
+
 import { useDispatch, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
 import UsageBar from './UsageBar'
@@ -19,7 +21,7 @@ import ConnectionInfo from './ConnectionInfo'
 import ToolTip from 'components/ToolTip'
 import detectUblock from 'services/detectUblock'
 import { setStatus } from 'state/slices/proxy'
-import { keyframes } from '@emotion/react'
+import sendMessage from 'services/runtime/sendMessage'
 
 import HeaderBlade from 'assets/img/headerBlade.svg'
 import Menu from 'assets/img/menu.svg'
@@ -40,8 +42,8 @@ const Home: ThemeUiElement = () => {
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const countryCode = useSelector(s => s.currentLocation?.country_code) || 'AUTO'
   const status = useSelector(state => state.proxy.status)
-  const isPremium = useSelector(s => s.session.is_premium)
-  const trafficMax = useSelector(s => s.session.traffic_max)
+  const isPremium = useSelector(s => s.session.sessionData?.is_premium)
+  const trafficMax = useSelector(s => s.session.sessionData?.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
@@ -70,13 +72,13 @@ const Home: ThemeUiElement = () => {
 
   const setProxy = async () => {
     if (status === 'on' || status === 'connecting') {
-      await chrome.runtime.sendMessage({ what: 'disconnectProxy' })
+      await sendMessage({ what: 'disconnectProxy' })
     } else {
       const hosts = currentDataCenter?.hosts
       if (!autopilotSelected && hosts) {
-        await chrome.runtime.sendMessage({ what: 'connectProxy', hosts: hosts })
+        await sendMessage({ what: 'connectProxy', hosts: hosts })
       } else {
-        await chrome.runtime.sendMessage({ what: 'connectAutopilot' })
+        await sendMessage({ what: 'connectAutopilot' })
       }
     }
   }

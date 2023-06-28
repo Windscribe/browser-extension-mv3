@@ -12,8 +12,10 @@ const getUsageColor = (percentage: number) => {
 }
 
 const UsageBar: React.FC<ButtonProps> = () => {
-  const data = useSelector(s => s.session)
-  const { traffic_max = 0, traffic_used = 0, username } = data
+  const traffic_max = useSelector(s => s.session.sessionData?.traffic_max) || 0
+  const traffic_used = useSelector(s => s.session.sessionData?.traffic_used) || 0
+  const username = useSelector(s => s.session.sessionData?.username)
+
   const percentageUsed = (traffic_used / traffic_max) * 100
   const remainingDataBytes = bytes(traffic_max - traffic_used)
 

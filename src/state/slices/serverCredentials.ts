@@ -24,7 +24,7 @@ export const fetchServerCredentials = createAsyncThunk<Either<ServerCredentials,
   FETCH_SERVER_CREDENTIALS,
   async (_, { getState, dispatch }) => {
     const store = getState()
-    const sessionAuthHash = store.session.session_auth_hash
+    const sessionAuthHash = store.session.sessionData?.session_auth_hash
 
     if (!sessionAuthHash) {
       throw Error('No session auth hash is available')
