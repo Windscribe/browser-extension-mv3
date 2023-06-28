@@ -75,9 +75,9 @@ const Account: ThemeUiElement = () => {
         <Subheader>plan</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
-            {session.traffic_max === -1 ? 'Unlimited' : `${trafficMaxFormatted}/month`}
+            {sessionData?.traffic_max === -1 ? 'Unlimited' : `${trafficMaxFormatted}/month`}
             <Box sx={{ fontWeight: '400' }}>
-              {session.is_premium ? (
+              {sessionData?.is_premium ? (
                 'Pro'
               ) : (
                 <Button
