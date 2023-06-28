@@ -17,15 +17,10 @@ export const favoriteLocationsSlice = createSlice({
       return state.filter(location => location.id !== action.payload)
     },
     refreshFavorites(state: FavoriteLocationsState, action: PayloadAction<ServerList>) {
-      state.forEach((favoriteLocation, index) => {
-        const newFavoriteLocation = action.payload.find(location => {
-          return location.groups.some(dataCenter => dataCenter.id === favoriteLocation.id)
-        })
-        if (newFavoriteLocation) {
-          state[index] = newFavoriteLocation.groups.find(
-            dataCenter => dataCenter.id === favoriteLocation.id,
-          ) as DataCenter
-        }
+      const dataCenters = action.payload.flatMap(location => location.groups)
+      dataCenters.forEach(dataCenter => {
+        const index = state.findIndex(favoriteLocation => dataCenter.id === favoriteLocation.id)
+        if (index >= 0) state[index] = dataCenter
       })
     },
   },

@@ -135,6 +135,7 @@ export const checkSessionStatus = createAsyncThunk(
         if (isSessionChanges) {
           await dispatch(fetchServerCredentials())
           await dispatch(fetchServerList())
+
           const currentLocation = getState().currentLocation
           const currentDataCenter = getState().currentDataCenter
 
@@ -142,17 +143,17 @@ export const checkSessionStatus = createAsyncThunk(
           const isConnected = getState().proxy.status === 'on'
           const isPremium = getState().session.sessionData?.is_premium
 
+          dispatch(refreshFavorites(serverList))
+
           const locationNewList = serverList.find(location => location.id === currentLocation.id)
           const dataCenterNewList = locationNewList?.groups.find(
             dataCenter => dataCenter.id === currentDataCenter.id,
           )
 
           const showPro = !isPremium && dataCenterNewList?.pro
-
           if (showPro) {
             await dispatch(fetchBestLocation())
             await dispatch(applyBestLocationAsAutopilot())
-            dispatch(refreshFavorites(serverList))
 
             if (isConnected) {
               await connectToAutopilot(getState, dispatch)
