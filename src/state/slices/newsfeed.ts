@@ -61,7 +61,7 @@ export const newsfeedSlice = createSlice({
       })
       .addCase(fetchNotifications.fulfilled, (state, action) => {
         if (action.payload.errorCode) {
-          return { ...initialState, error: action.payload }
+          return { ...state, notifications: [], loading: 'rejected', error: action.payload }
         }
         return { ...state, error: undefined, ...{ loading: 'fulfilled' }, ...action.payload }
       })

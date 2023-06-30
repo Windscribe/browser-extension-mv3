@@ -45,11 +45,13 @@ const Home: ThemeUiElement = () => {
   const isPremium = useSelector(s => s.session.sessionData?.is_premium)
   const trafficMax = useSelector(s => s.session.sessionData?.traffic_max)
   const autopilotSelected = useSelector(state => state.autopilot.autopilotSelected)
-  const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
-  const notifications = useSelector(state => state.newsfeed.notifications)
-  const unreadNewsAmount = notifications.length - viewedNewsIds.length
   const hasProxyError = useSelector(state => state.proxy.errorMessage)
   const isRightAfterLogin = useSelector(state => state.isRightAfterLogin)
+  const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
+  const notifications = useSelector(state => state.newsfeed.notifications)
+  const unreadNewsAmount = notifications
+    .map(n => n.id)
+    .filter(id => !viewedNewsIds.includes(id)).length
 
   const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null)
   const [lastClick, setLastClick] = useState(Date.now())
