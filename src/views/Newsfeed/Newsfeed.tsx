@@ -11,17 +11,18 @@ const Newsfeed: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const notifications = useSelector(s => s.newsfeed.notifications)
   const viewedNewsIds = useSelector(s => s.newsfeed.viewedNewsIds)
-  const [expandedId, setExpandedId] = useState<number>(-1)
+  const [expandedId, setExpandedId] = useState<number | null>(null)
 
   const handleItemClick = async (e: React.MouseEvent<HTMLDivElement>) => {
-    let id = Number(e.currentTarget?.dataset?.id) || -1
+    const id = Number(e.currentTarget?.dataset?.id) || null
 
     // close if it's already expanded
     if (id === expandedId) {
-      id = -1
+      setExpandedId(null)
+      return
     }
 
-    ~id && (await dispatch(markNewsAsViewed(id)))
+    id && (await dispatch(markNewsAsViewed(id)))
     setExpandedId(id)
   }
 

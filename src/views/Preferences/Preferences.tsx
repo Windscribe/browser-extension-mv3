@@ -50,8 +50,9 @@ const Preferences: ThemeUiElement = () => {
 
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
-
-  const unreadNewsAmount = notifications.length - viewedNewsIds.length
+  const unreadNewsAmount = notifications
+    .map(n => n.id)
+    .filter(id => !viewedNewsIds.includes(id)).length
 
   const traffic_max = useSelector(s => s.session?.sessionData?.traffic_max) || 0
   const traffic_used = useSelector(s => s.session?.sessionData?.traffic_used) || 0
