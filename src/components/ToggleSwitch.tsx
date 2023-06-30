@@ -6,12 +6,14 @@ type ToggleSwitchProps = {
   onChange?: React.ChangeEventHandler<HTMLInputElement>
   checked?: boolean
   disabled?: boolean
+  bg?: string
 }
 
 const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({
   onChange,
   checked,
   disabled,
+  bg = 'white',
   ...restProps
 }) => {
   return (
@@ -22,7 +24,7 @@ const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({
         readOnly={disabled}
         sx={{
           m: 0,
-          backgroundColor: 'white',
+          backgroundColor: bg,
           cursor: disabled ? 'not-allowed' : 'pointer',
           opacity: disabled ? '0.3' : '1',
           width: '36px',

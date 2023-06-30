@@ -166,6 +166,7 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
               <ToggleSwitch
                 onChange={e => setIsAllSubdomainsIncluded(e.target.checked)}
                 checked={isAllSubdomainsIncluded}
+                bg="allowListSwitch"
               />
             </ListItem>
           </Box>
