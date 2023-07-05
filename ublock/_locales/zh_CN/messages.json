@@ -4,7 +4,7 @@
     "description": "extension name."
   },
   "extShortDesc": {
-    "message": "一个实验性的，不需要权限的内容屏蔽工具。安装即可屏蔽广告、跟踪器、挖矿脚本等网页内容。",
+    "message": "一个不需要权限的内容屏蔽工具。安装即可屏蔽广告、跟踪器、挖矿脚本等网页内容。",
     "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "perRulesetStats": {
@@ -51,9 +51,9 @@
     "message": "隐私政策",
     "description": "Link to privacy policy on GitHub (English)"
   },
-  "popupPowerSwitchInfo": {
-    "message": "在此网站停用/启用 uBO Lite",
-    "description": "Tooltip for the main power button in the popup panel"
+  "popupFilteringModeLabel": {
+    "message": "过滤模式",
+    "description": "Label in the popup panel for the current filtering mode"
   },
   "popupTipDashboard": {
     "message": "打开控制面板",
@@ -228,7 +228,7 @@
     "description": "The header text for the welcome message section"
   },
   "firstRunDescription": {
-    "message": "uBO Lite 现已安装完毕。接下来您可以为网页内容选择默认过滤模式。\n\n预设过滤模式为【基础】，该模式不需要读取或修改网页内容的权限。如果您信任 uBO Lite，您可以授予其用以读取或修改所有网页数据的额外权限，进而默认为所有网站开启高级过滤模式。",
+    "message": "uBO Lite 现已安装完毕。接下来您可以为网页内容选择默认过滤模式。\n\n预设过滤模式为“基础”，该模式不需要读取或修改网页内容的权限。如果您信任 uBO Lite，您可以授予其用以读取或修改所有网页数据的额外权限，进而默认为所有网站开启高级过滤模式。",
     "description": "Descriptive text shown at first install time only "
   },
   "defaultFilteringModeSectionLabel": {

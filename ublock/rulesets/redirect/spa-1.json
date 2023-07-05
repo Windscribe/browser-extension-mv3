@@ -22,8 +22,8 @@
    ],
    "urlFilter": "||static.criteo.net/js/px.js?ch="
   },
-  "id": 929,
-  "priority": 11
+  "id": 925,
+  "priority": 12
  },
  {
   "action": {
@@ -48,8 +48,8 @@
    ],
    "urlFilter": "||cas.criteo.com/delivery/ajs.php"
   },
-  "id": 930,
-  "priority": 11
+  "id": 926,
+  "priority": 12
  },
  {
   "action": {
@@ -65,8 +65,57 @@
    ],
    "urlFilter": "||mundodonghua.com/ver/supreme-god-2/banner.gif?"
   },
-  "id": 931,
-  "priority": 11
+  "id": 927,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "baixedetudo.net.br",
+    "fantasy.lu",
+    "haddoz.net",
+    "lawebdelprogramador.com",
+    "saludmasya.com",
+    "stardeos.com",
+    "sudoroot.net",
+    "tipsdesalud.tips",
+    "xkekos.tv"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 928,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "olhonaviagem.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 929,
+  "priority": 2
  },
  {
   "action": {
@@ -87,8 +136,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 932,
-  "priority": 11
+  "id": 930,
+  "priority": 12
  },
  {
   "action": {
@@ -108,8 +157,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 933,
-  "priority": 11
+  "id": 931,
+  "priority": 12
  },
  {
   "action": {
@@ -131,8 +180,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 934,
-  "priority": 11
+  "id": 932,
+  "priority": 12
  },
  {
   "action": {
@@ -154,8 +203,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 935,
-  "priority": 11
+  "id": 933,
+  "priority": 12
  },
  {
   "action": {
@@ -175,35 +224,8 @@
    ],
    "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
   },
-  "id": 936,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "baixedetudo.net.br",
-    "fantasy.lu",
-    "haddoz.net",
-    "lawebdelprogramador.com",
-    "stardeos.com",
-    "sudoroot.net",
-    "xkekos.tv"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script",
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-  },
-  "id": 937,
-  "priority": 1
+  "id": 934,
+  "priority": 2
  },
  {
   "action": {
@@ -222,8 +244,8 @@
    ],
    "urlFilter": "||static.vocento.com/dab/latest/strategy.js"
   },
-  "id": 938,
-  "priority": 11
+  "id": 935,
+  "priority": 12
  },
  {
   "action": {
@@ -243,8 +265,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 939,
-  "priority": 1
+  "id": 936,
+  "priority": 2
  },
  {
   "action": {
@@ -266,8 +288,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 940,
-  "priority": 1
+  "id": 937,
+  "priority": 2
  },
  {
   "action": {
@@ -286,8 +308,8 @@
    ],
    "urlFilter": "||st.bebi.com/bebi_v*.js"
   },
-  "id": 941,
-  "priority": 1
+  "id": 938,
+  "priority": 2
  },
  {
   "action": {
@@ -307,8 +329,8 @@
    ],
    "urlFilter": "||cdn.adtrue.com/rtb/async.js"
   },
-  "id": 942,
-  "priority": 11
+  "id": 939,
+  "priority": 12
  },
  {
   "action": {
@@ -328,8 +350,8 @@
    ],
    "urlFilter": "||cdn.onesignal.com/sdks/onesignalsdk.js"
   },
-  "id": 943,
-  "priority": 11
+  "id": 940,
+  "priority": 12
  },
  {
   "action": {
@@ -348,8 +370,28 @@
    ],
    "urlFilter": "/tghr.js"
   },
-  "id": 944,
-  "priority": 1
+  "id": 941,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/google-ima.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "niusdiario.es"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+  },
+  "id": 942,
+  "priority": 2
  },
  {
   "action": {
@@ -368,8 +410,8 @@
    ],
    "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
   },
-  "id": 945,
-  "priority": 1
+  "id": 943,
+  "priority": 2
  },
  {
   "action": {
@@ -388,8 +430,8 @@
    ],
    "urlFilter": "||googletagservices.com/tag/js/gpt.js"
   },
-  "id": 946,
-  "priority": 11
+  "id": 944,
+  "priority": 12
  },
  {
   "action": {
@@ -409,8 +451,8 @@
     "xmlhttprequest"
    ]
   },
-  "id": 947,
-  "priority": 1
+  "id": 945,
+  "priority": 2
  },
  {
   "action": {
@@ -429,8 +471,8 @@
    ],
    "urlFilter": "||ads-twitter.com/uwt.js"
   },
-  "id": 948,
-  "priority": 11
+  "id": 946,
+  "priority": 12
  },
  {
   "action": {
@@ -446,8 +488,8 @@
    ],
    "urlFilter": "||mahimeta.com/networks/ad_code.php"
   },
-  "id": 949,
-  "priority": 1
+  "id": 947,
+  "priority": 2
  },
  {
   "action": {
@@ -466,8 +508,28 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 950,
-  "priority": 11
+  "id": 948,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "pobre.wtf"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||cloud.mail.ru/weblink/view/*?advideo"
+  },
+  "id": 949,
+  "priority": 2
  },
  {
   "action": {
@@ -486,8 +548,8 @@
    ],
    "urlFilter": "||baixarhentais.com/*/*-pre-roll-*.mp4"
   },
-  "id": 951,
-  "priority": 1
+  "id": 950,
+  "priority": 2
  },
  {
   "action": {
@@ -503,8 +565,8 @@
    ],
    "urlFilter": "||pobre.tv/videos/bt.mp4"
   },
-  "id": 952,
-  "priority": 1
+  "id": 951,
+  "priority": 2
  },
  {
   "action": {
@@ -520,7 +582,7 @@
    ],
    "urlFilter": "||hentaiporno.xxx/wp-content/uploads/*/*_video.mp4.mp4"
   },
-  "id": 953,
-  "priority": 1
+  "id": 952,
+  "priority": 2
  }
 ]

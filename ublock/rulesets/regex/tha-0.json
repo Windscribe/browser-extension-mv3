@@ -5,32 +5,13 @@
   },
   "condition": {
    "initiatorDomains": [
-    "khaosod.co.th",
-    "khaosodenglish.com",
-    "matichon.co.th",
-    "prachachat.net",
-    "sentangsedtee.com",
-    "silpa-mag.com",
-    "technologychaoban.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "plugin-pdpa"
-  },
-  "id": 8
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
     "compgamer.com",
     "tgpl.in.th"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "plugins\\/add-to-any"
   },
-  "id": 270
+  "id": 681
  },
  {
   "action": {
@@ -52,6 +33,6 @@
     "stylesheet"
    ]
   },
-  "id": 306
+  "id": 718
  }
 ]

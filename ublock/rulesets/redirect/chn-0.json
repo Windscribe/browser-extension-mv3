@@ -19,8 +19,25 @@
    ],
    "urlFilter": "||85tube.com/player/html.php?aid=*_html&video_id=*&*&referer"
   },
-  "id": 6514,
-  "priority": 1
+  "id": 6421,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/1x1.gif"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||manwa.me/static/custom/files/300x250.gif"
+  },
+  "id": 6422,
+  "priority": 12
  },
  {
   "action": {
@@ -36,8 +53,8 @@
    ],
    "urlFilter": "||manwa.fun/static/upload/ads/"
   },
-  "id": 6515,
-  "priority": 11
+  "id": 6423,
+  "priority": 12
  },
  {
   "action": {
@@ -53,8 +70,8 @@
    ],
    "urlFilter": "||nfmovies.com/static/*.jpg"
   },
-  "id": 6516,
-  "priority": 1
+  "id": 6424,
+  "priority": 2
  },
  {
   "action": {
@@ -73,8 +90,48 @@
    ],
    "urlFilter": "||8maple.ru/dzcm"
   },
-  "id": 6517,
-  "priority": 1
+  "id": 6425,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "vpslog.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "/?placementname="
+  },
+  "id": 6426,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "wuyong.fun"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 6427,
+  "priority": 12
  },
  {
   "action": {
@@ -94,28 +151,8 @@
     "script"
    ]
   },
-  "id": 6518,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "m.twfanti.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-  },
-  "id": 6519,
-  "priority": 11
+  "id": 6428,
+  "priority": 2
  },
  {
   "action": {
@@ -127,6 +164,26 @@
   "condition": {
    "initiatorDomains": [
     "linovelib.com",
+    "m.twfanti.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 6429,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
     "yodu.org"
    ],
    "isUrlFilterCaseSensitive": false,
@@ -135,8 +192,29 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 6520,
-  "priority": 1
+  "id": 6430,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/google-ima.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "line.me",
+    "linetv.tw"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+  },
+  "id": 6431,
+  "priority": 12
  },
  {
   "action": {
@@ -155,8 +233,8 @@
    ],
    "urlFilter": "||googletagservices.com/tag/js/gpt.js"
   },
-  "id": 6521,
-  "priority": 1
+  "id": 6432,
+  "priority": 2
  },
  {
   "action": {
@@ -175,8 +253,8 @@
    ],
    "urlFilter": "||static.jfrft.com/js/main_list.js^"
   },
-  "id": 6522,
-  "priority": 11
+  "id": 6433,
+  "priority": 12
  },
  {
   "action": {
@@ -195,8 +273,8 @@
    ],
    "urlFilter": "||static.jfrft.com/js/main_video.js^"
   },
-  "id": 6523,
-  "priority": 11
+  "id": 6434,
+  "priority": 12
  },
  {
   "action": {
@@ -217,8 +295,8 @@
    ],
    "urlFilter": "||pc.weizhenwx.com/pc/rich-tf.js"
   },
-  "id": 6524,
-  "priority": 1
+  "id": 6435,
+  "priority": 2
  },
  {
   "action": {
@@ -237,29 +315,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 6525,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "ddrk.me"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script",
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||cnzz.com/z_stat.php"
-  },
-  "id": 6526,
-  "priority": 11
+  "id": 6436,
+  "priority": 2
  },
  {
   "action": {
@@ -279,8 +336,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 6527,
-  "priority": 11
+  "id": 6437,
+  "priority": 12
  },
  {
   "action": {
@@ -300,8 +357,48 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 6528,
-  "priority": 1
+  "id": 6438,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googletagservices_gpt.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "line.me"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
+  },
+  "id": 6439,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googletagservices_gpt.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "line.me"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||d.line-scdn.net/*/torimochi.js/*/torimochi.js"
+  },
+  "id": 6440,
+  "priority": 2
  },
  {
   "action": {
@@ -320,8 +417,8 @@
    ],
    "urlFilter": "||googletagservices.com/tag/js/gpt.js"
   },
-  "id": 6529,
-  "priority": 11
+  "id": 6441,
+  "priority": 12
  },
  {
   "action": {
@@ -340,8 +437,8 @@
    ],
    "urlFilter": "||delivery-pc.wasu.cn/d/frontjs/3.0"
   },
-  "id": 6530,
-  "priority": 1
+  "id": 6442,
+  "priority": 2
  },
  {
   "action": {
@@ -360,8 +457,8 @@
    ],
    "urlFilter": "||yitongkan.com/splash.xml"
   },
-  "id": 6531,
-  "priority": 1
+  "id": 6443,
+  "priority": 2
  },
  {
   "action": {
@@ -377,8 +474,8 @@
    ],
    "urlFilter": "||itad.linetv.tw/api/v2/vmap?ad_id="
   },
-  "id": 6532,
-  "priority": 1
+  "id": 6444,
+  "priority": 2
  },
  {
   "action": {
@@ -394,8 +491,8 @@
    ],
    "urlFilter": "||hboav.com/guga/images/"
   },
-  "id": 6533,
-  "priority": 1
+  "id": 6445,
+  "priority": 2
  },
  {
   "action": {
@@ -414,8 +511,8 @@
    ],
    "urlFilter": "||syndication.exosrv.com/splash.php?"
   },
-  "id": 6534,
-  "priority": 11
+  "id": 6446,
+  "priority": 12
  },
  {
   "action": {
@@ -431,8 +528,8 @@
    ],
    "urlFilter": "||abminbuy.com/*.mp4"
   },
-  "id": 6541,
-  "priority": 1
+  "id": 6455,
+  "priority": 2
  },
  {
   "action": {
@@ -448,8 +545,8 @@
    ],
    "urlFilter": "||52996.me/upload/ad/"
   },
-  "id": 6542,
-  "priority": 1
+  "id": 6456,
+  "priority": 2
  },
  {
   "action": {
@@ -468,8 +565,8 @@
    ],
    "urlFilter": "||cibntv.net/youku/*.mp4?"
   },
-  "id": 6543,
-  "priority": 11
+  "id": 6457,
+  "priority": 12
  },
  {
   "action": {
@@ -488,8 +585,8 @@
    ],
    "urlFilter": "/ad/"
   },
-  "id": 6544,
-  "priority": 1
+  "id": 6458,
+  "priority": 2
  },
  {
   "action": {
@@ -508,8 +605,8 @@
    ],
    "urlFilter": "||17173cdn.com/20*.mp4"
   },
-  "id": 6545,
-  "priority": 1
+  "id": 6459,
+  "priority": 2
  },
  {
   "action": {
@@ -529,8 +626,8 @@
    ],
    "urlFilter": "||amazononline.xyz/mp4/*.mp4"
   },
-  "id": 6546,
-  "priority": 1
+  "id": 6460,
+  "priority": 2
  },
  {
   "action": {
@@ -550,8 +647,8 @@
     "media"
    ]
   },
-  "id": 6547,
-  "priority": 1
+  "id": 6461,
+  "priority": 2
  },
  {
   "action": {
@@ -570,8 +667,8 @@
    ],
    "urlFilter": "||hellocenter.xyz^*.mp4"
   },
-  "id": 6548,
-  "priority": 1
+  "id": 6462,
+  "priority": 2
  },
  {
   "action": {
@@ -590,8 +687,8 @@
    ],
    "urlFilter": "||huya.com/leaf/*=vodadv&"
   },
-  "id": 6549,
-  "priority": 1
+  "id": 6463,
+  "priority": 2
  },
  {
   "action": {
@@ -610,8 +707,8 @@
    ],
    "urlFilter": "^sdtfrom=^"
   },
-  "id": 6550,
-  "priority": 1
+  "id": 6464,
+  "priority": 2
  },
  {
   "action": {
@@ -630,8 +727,8 @@
    ],
    "urlFilter": "||lts*.qq.com^*.ts?index="
   },
-  "id": 6551,
-  "priority": 1
+  "id": 6465,
+  "priority": 2
  },
  {
   "action": {
@@ -646,28 +743,10 @@
    "resourceTypes": [
     "image"
    ],
-   "urlFilter": "||manwa.life/static/upload/ads/"
+   "urlFilter": "||manwa.me/static/custom/files/300x250."
   },
-  "id": 6552,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/1x1.gif"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "image"
-   ],
-   "urlFilter": "||manwa.site/static/upload/ads/"
-  },
-  "id": 6553,
-  "priority": 1
+  "id": 6466,
+  "priority": 2
  },
  {
   "action": {
@@ -687,7 +766,7 @@
    ],
    "urlFilter": "."
   },
-  "id": 6554,
-  "priority": 1
+  "id": 6467,
+  "priority": 2
  }
 ]

@@ -6,6 +6,7 @@ export function messageHandler(bgStore: Promise<StoreType>) {
   // Message is typed as any here: https://developer.chrome.com/docs/extensions/reference/runtime/#event-onMessage
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   return async (message: any): Promise<void> => {
+    console.log('messageHandler', message)
     const store = await bgStore
     if (message.what === 'applyRulesets' && message.from !== 'popup') {
       store.dispatch(setBlockLists(message.enabledRulesets))

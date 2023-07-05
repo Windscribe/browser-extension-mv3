@@ -16,8 +16,8 @@
    ],
    "urlFilter": "||b-cdn.net/ssd1/ads/*.mp4"
   },
-  "id": 338,
-  "priority": 11
+  "id": 749,
+  "priority": 12
  },
  {
   "action": {
@@ -35,7 +35,7 @@
     "media"
    ]
   },
-  "id": 339,
-  "priority": 1
+  "id": 750,
+  "priority": 2
  }
 ]

@@ -16,8 +16,8 @@
    ],
    "urlFilter": "||acdn.adnxs.com/ast/ast.js"
   },
-  "id": 461,
-  "priority": 11
+  "id": 474,
+  "priority": 12
  },
  {
   "action": {
@@ -36,8 +36,28 @@
    ],
    "urlFilter": "||damoh.vgtv.no/hic_qos"
   },
-  "id": 462,
-  "priority": 1
+  "id": 475,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googletagservices_gpt.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "vegetarbloggen.no"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||googletagservices.com/tag/js/gpt.js"
+  },
+  "id": 476,
+  "priority": 12
  },
  {
   "action": {
@@ -57,7 +77,27 @@
     "media"
    ]
   },
-  "id": 464,
-  "priority": 1
+  "id": 478,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "bold.dk"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||freewheel-mtgx-tv.akamaized.net/*.mp4"
+  },
+  "id": 479,
+  "priority": 2
  }
 ]

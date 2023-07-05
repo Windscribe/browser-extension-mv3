@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2019-present Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,49 +18,76 @@
 
     Home: https://github.com/gorhill/uBlock
 
-    The scriptlets below are meant to be injected only into a
-    web page context.
 */
 
 /* jshint esversion:11 */
 
 'use strict';
 
-/******************************************************************************/
-
-/// name json-prune
+// ruleset: tur-0
 
 /******************************************************************************/
 
 // Important!
 // Isolate from global scope
+
 (function uBOL_jsonPrune() {
 
 /******************************************************************************/
 
-// tur-0
+const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = [{"a":["ads"]},{"a":["style","maxActive"]}];
+const argsList = ["[\"productAds\"]","[\"ads\"]","[\"style\",\"maxActive\"]"];
 
-const hostnamesMap = new Map([["trstx.org",0],["ifsamerkezi.com",1]]);
+const hostnamesMap = new Map([["search.donanimhaber.com",0],["trstx.org",1],["ifsamerkezi.com",2]]);
+
+const entitiesMap = new Map([["31vakti",2]]);
+
+const exceptionsMap = new Map([]);
 
 /******************************************************************************/
 
-//  https://github.com/uBlockOrigin/uBlock-issues/issues/1545
-//  - Add support for "remove everything if needle matches" case
-
-const scriptlet = (
+function jsonPrune(
     rawPrunePaths = '',
     rawNeedlePaths = ''
-) => {
+) {
+    JSON.parse = new Proxy(JSON.parse, {
+        apply: function(target, thisArg, args) {
+            return objectPrune(
+                Reflect.apply(target, thisArg, args),
+                rawPrunePaths,
+                rawNeedlePaths
+            );
+        },
+    });
+    Response.prototype.json = new Proxy(Response.prototype.json, {
+        apply: function(target, thisArg, args) {
+            return Reflect.apply(target, thisArg, args).then(o => 
+                objectPrune(o, rawPrunePaths, rawNeedlePaths)
+            );
+        },
+    });
+}
+
+function objectPrune(
+    obj,
+    rawPrunePaths,
+    rawNeedlePaths
+) {
+    if ( typeof rawPrunePaths !== 'string' ) { return; }
     const prunePaths = rawPrunePaths !== ''
         ? rawPrunePaths.split(/ +/)
         : [];
     let needlePaths;
-    if ( prunePaths.length === 0 ) { return; }
-    needlePaths = prunePaths.length !== 0 && rawNeedlePaths !== ''
-        ? rawNeedlePaths.split(/ +/)
-        : [];
+    let log, reLogNeedle;
+    if ( prunePaths.length !== 0 ) {
+        needlePaths = prunePaths.length !== 0 && rawNeedlePaths !== ''
+            ? rawNeedlePaths.split(/ +/)
+            : [];
+    } else {
+        log = console.log.bind(console);
+        reLogNeedle = patternToRegex(rawNeedlePaths);
+    }
     const findOwner = function(root, path, prune = false) {
         let owner = root;
         let chain = path;
@@ -108,53 +135,98 @@ const scriptlet = (
         }
         return true;
     };
-    const pruner = function(o) {
-        if ( mustProcess(o) === false ) { return o; }
-        for ( const path of prunePaths ) {
-            findOwner(o, path, true);
+    if ( log !== undefined ) {
+        const json = JSON.stringify(obj, null, 2);
+        if ( reLogNeedle.test(json) ) {
+            log('uBO:', location.hostname, json);
         }
-        return o;
-    };
-    JSON.parse = new Proxy(JSON.parse, {
-        apply: function() {
-            return pruner(Reflect.apply(...arguments));
-        },
-    });
-    Response.prototype.json = new Proxy(Response.prototype.json, {
-        apply: function() {
-            return Reflect.apply(...arguments).then(o => pruner(o));
-        },
-    });
-};
+        return obj;
+    }
+    if ( mustProcess(obj) === false ) { return obj; }
+    for ( const path of prunePaths ) {
+        findOwner(obj, path, true);
+    }
+    return obj;
+}
+
+function patternToRegex(pattern, flags = undefined) {
+    if ( pattern === '' ) { return /^/; }
+    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+    if ( match !== null ) {
+        return new RegExp(match[1], match[2] || flags);
+    }
+    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+}
 
 /******************************************************************************/
 
-let hn;
-try { hn = document.location.hostname; } catch(ex) { }
-while ( hn ) {
-    if ( hostnamesMap.has(hn) ) {
-        let argsIndices = hostnamesMap.get(hn);
-        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
-        for ( const argsIndex of argsIndices ) {
-            const details = argsList[argsIndex];
-            if ( details.n && details.n.includes(hn) ) { continue; }
-            try { scriptlet(...details.a); } catch(ex) {}
-        }
+const hnParts = [];
+try { hnParts.push(...document.location.hostname.split('.')); }
+catch(ex) { }
+const hnpartslen = hnParts.length;
+if ( hnpartslen === 0 ) { return; }
+
+const todoIndices = new Set();
+const tonotdoIndices = [];
+
+// Exceptions
+if ( exceptionsMap.size !== 0 ) {
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        const excepted = exceptionsMap.get(hn);
+        if ( excepted ) { tonotdoIndices.push(...excepted); }
     }
-    if ( hn === '*' ) { break; }
-    const pos = hn.indexOf('.');
-    if ( pos !== -1 ) {
-        hn = hn.slice(pos + 1);
-    } else {
-        hn = '*';
-    }
+    exceptionsMap.clear();
 }
 
+// Hostname-based
+if ( hostnamesMap.size !== 0 ) {
+    const collectArgIndices = hn => {
+        let argsIndices = hostnamesMap.get(hn);
+        if ( argsIndices === undefined ) { return; }
+        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+        for ( const argsIndex of argsIndices ) {
+            if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+            todoIndices.add(argsIndex);
+        }
+    };
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        collectArgIndices(hn);
+    }
+    collectArgIndices('*');
+    hostnamesMap.clear();
+}
+
+// Entity-based
+if ( entitiesMap.size !== 0 ) {
+    const n = hnpartslen - 1;
+    for ( let i = 0; i < n; i++ ) {
+        for ( let j = n; j > i; j-- ) {
+            const en = hnParts.slice(i,j).join('.');
+            let argsIndices = entitiesMap.get(en);
+            if ( argsIndices === undefined ) { continue; }
+            if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+            for ( const argsIndex of argsIndices ) {
+                if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+                todoIndices.add(argsIndex);
+            }
+        }
+    }
+    entitiesMap.clear();
+}
+
+// Apply scriplets
+for ( const i of todoIndices ) {
+    try { jsonPrune(...JSON.parse(argsList[i])); }
+    catch(ex) {}
+}
 argsList.length = 0;
-hostnamesMap.clear();
 
 /******************************************************************************/
 
 })();
 
 /******************************************************************************/
+
+void 0;

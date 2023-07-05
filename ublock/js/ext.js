@@ -25,22 +25,22 @@
 
 /******************************************************************************/
 
-const browser =
+export const browser =
     self.browser instanceof Object &&
     self.browser instanceof Element === false
         ? self.browser
         : self.chrome;
 
-const dnr = browser.declarativeNetRequest;
-const i18n = browser.i18n;
-const runtime = browser.runtime;
+export const dnr = browser.declarativeNetRequest;
+export const i18n = browser.i18n;
+export const runtime = browser.runtime;
 
 /******************************************************************************/
 
 // The extension's service worker can be evicted at any time, so when we
 // send a message, we try a few more times when the message fails to be sent.
 
-function sendMessage(msg) {
+export function sendMessage(msg) {
     return new Promise((resolve, reject) => {
         let i = 5;
         const send = ( ) => {
@@ -61,4 +61,59 @@ function sendMessage(msg) {
 
 /******************************************************************************/
 
-export { browser, dnr, i18n, runtime, sendMessage };
+export async function localRead(key) {
+    if ( browser.storage instanceof Object === false ) { return; }
+    if ( browser.storage.local instanceof Object === false ) { return; }
+    try {
+        const bin = await browser.storage.local.get(key);
+        if ( bin instanceof Object === false ) { return; }
+        return bin[key] ?? undefined;
+    } catch(ex) {
+    }
+}
+
+export async function localWrite(key, value) {
+    if ( browser.storage instanceof Object === false ) { return; }
+    if ( browser.storage.local instanceof Object === false ) { return; }
+    return browser.storage.local.set({ [key]: value });
+}
+
+export async function localRemove(key) {
+    if ( browser.storage instanceof Object === false ) { return; }
+    if ( browser.storage.local instanceof Object === false ) { return; }
+    return browser.storage.local.remove(key);
+}
+
+/******************************************************************************/
+
+export async function sessionRead(key) {
+    if ( browser.storage instanceof Object === false ) { return; }
+    if ( browser.storage.session instanceof Object === false ) { return; }
+    try {
+        const bin = await browser.storage.session.get(key);
+        if ( bin instanceof Object === false ) { return; }
+        return bin[key] ?? undefined;
+    } catch(ex) {
+    }
+}
+
+export async function sessionWrite(key, value) {
+    if ( browser.storage instanceof Object === false ) { return; }
+    if ( browser.storage.session instanceof Object === false ) { return; }
+    return browser.storage.session.set({ [key]: value });
+}
+
+/******************************************************************************/
+
+export async function adminRead(key) {
+    if ( browser.storage instanceof Object === false ) { return; }
+    if ( browser.storage.local instanceof Object === false ) { return; }
+    try {
+        const bin = await browser.storage.managed.get(key);
+        if ( bin instanceof Object === false ) { return; }
+        return bin[key] ?? undefined;
+    } catch(ex) {
+    }
+}
+
+/******************************************************************************/

@@ -4,7 +4,7 @@
     "description": "extension name."
   },
   "extShortDesc": {
-    "message": "En eksperimentell innholdsblokkerer uten tillatelseskrav. Blokkerer reklame, sporere, minere og mer øyeblikkelig etter installering.",
+    "message": "En tillatelsesbegrenset innholdsblokkerer. Blokkerer reklame, sporere, minere og mer umiddelbart etter installering.",
     "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "perRulesetStats": {
@@ -51,9 +51,9 @@
     "message": "Personvernpraksis",
     "description": "Link to privacy policy on GitHub (English)"
   },
-  "popupPowerSwitchInfo": {
-    "message": "Deaktiver/aktiver uBO Lite for dette nettstedet",
-    "description": "Tooltip for the main power button in the popup panel"
+  "popupFilteringModeLabel": {
+    "message": "filtreringsmodus",
+    "description": "Label in the popup panel for the current filtering mode"
   },
   "popupTipDashboard": {
     "message": "Åpne dashbordet",
@@ -228,7 +228,7 @@
     "description": "The header text for the welcome message section"
   },
   "firstRunDescription": {
-    "message": "Du har nettopp installert uBO Lite. Her kan du velge standard-filtreringsmodusen som skal brukes på alle nettsteder.\n\nSom standard er modusen <em>Grunnleggende</em> valgt fordi den ikke krever tillatelse til å lese og endre data. Hvis du stoler på uBO Lite, kan du gi uBO Lite bred tillatelse til å lese og endre data på alle nettsteder, for å aktivere mer avanserte filtreringsfunksjoner for alle nettsteder som standard.",
+    "message": "Du har nettopp installert uBO Lite. Her kan du velge standard-filtreringsmodusen som skal brukes på alle nettsteder.\n\nSom standard er modusen <em>Grunnleggende</em> valgt fordi den ikke krever tillatelse til å lese og endre data. Hvis du stoler på uBO Lite, kan du gi uBO Lite bred tillatelse til å lese og endre data på alle nettsteder for å aktivere mer avanserte filtreringsfunksjoner for alle nettsteder som standard.",
     "description": "Descriptive text shown at first install time only "
   },
   "defaultFilteringModeSectionLabel": {

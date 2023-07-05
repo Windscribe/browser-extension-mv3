@@ -2414,8 +2414,9 @@
    "initiatorDomains": [
     "dennews.bg"
    ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||giphy.com"
+   "requestDomains": [
+    "giphy.com"
+   ]
   },
   "id": 241
  },
@@ -2425,7 +2426,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||godzila.bg/admin/upload/banners*"
+   "urlFilter": "||godzila.bg/admin/upload/banners"
   },
   "id": 242
  },
@@ -4898,7 +4899,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||silabg.com/i/smartshake*"
+   "urlFilter": "||silabg.com/i/smartshake"
   },
   "id": 489
  },
@@ -6365,11 +6366,12 @@
    "type": "block"
   },
   "condition": {
-   "isUrlFilterCaseSensitive": false,
+   "requestDomains": [
+    "adhash.org"
+   ],
    "resourceTypes": [
     "script"
-   ],
-   "urlFilter": "||adhash.org"
+   ]
   },
   "id": 635
  },
@@ -6453,7 +6455,8 @@
     "bg-gledai.tv"
    ],
    "requestDomains": [
-    "contextweb.com"
+    "contextweb.com",
+    "puhtml.com"
    ]
   },
   "id": 642
@@ -6568,23 +6571,10 @@
    "type": "allow"
   },
   "condition": {
-   "initiatorDomains": [
-    "bg-gledai.tv"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||puhtml.com"
-  },
-  "id": 652
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "s5emagst.akamaized.net/assets/bg/js/ads-"
   },
-  "id": 653
+  "id": 652
  },
  {
   "action": {
@@ -6599,7 +6589,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/securepubads."
   },
-  "id": 654
+  "id": 653
  },
  {
   "action": {
@@ -6609,17 +6599,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||seirsanduk.com/ad-server.js"
   },
-  "id": 655
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||serialmaniq.com"
-  },
-  "id": 656
+  "id": 654
  },
  {
   "action": {
@@ -6629,7 +6609,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "slotbg.com/images/adds/"
   },
-  "id": 657
+  "id": 655
  },
  {
   "action": {
@@ -6639,17 +6619,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||sportal.bg/uploads/video_advertising/"
   },
-  "id": 658
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||subsmania.info"
-  },
-  "id": 659
+  "id": 656
  },
  {
   "action": {
@@ -6659,7 +6629,19 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||zopplus.com/wp-content/themes/zop/js/advertisement.js"
   },
-  "id": 660
+  "id": 657
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "requestDomains": [
+    "serialmaniq.com",
+    "subsmania.info"
+   ]
+  },
+  "id": 658
  },
  {
   "action": {
@@ -6672,7 +6654,7 @@
    ],
    "urlFilter": "||webnews.bg/assets/js/ads.js"
   },
-  "id": 661
+  "id": 659
  },
  {
   "action": {
@@ -6690,7 +6672,7 @@
    ],
    "urlFilter": "||webnews.bg/assets/js/min/dfp.js"
   },
-  "id": 662
+  "id": 660
  },
  {
   "action": {
@@ -6705,7 +6687,7 @@
     "main_frame"
    ]
   },
-  "id": 663
+  "id": 661
  },
  {
   "action": {
@@ -6723,6 +6705,6 @@
    ],
    "urlFilter": "|https://"
   },
-  "id": 664
+  "id": 662
  }
 ]

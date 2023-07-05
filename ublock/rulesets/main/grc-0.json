@@ -5,7 +5,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "2mdn.net/2629844/"
+   "urlFilter": "||2mdn.net/2629844/"
   },
   "id": 1
  },
@@ -15,7 +15,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "65.109.238.16/openx-2.4.6/www/delivery/"
+   "urlFilter": "||65.109.238.16/openx-2.4.6/www/delivery/"
   },
   "id": 2
  },
@@ -25,7 +25,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "adman.otenet.gr/"
+   "urlFilter": "||ads.e-go.gr/gbanner/"
   },
   "id": 3
  },
@@ -35,7 +35,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "ads.e-go.gr/gbanner/"
+   "urlFilter": "||agronews.gr/images/banners/"
   },
   "id": 4
  },
@@ -45,7 +45,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "adserver.linkwise.gr/"
+   "urlFilter": "||alogos.gr/images/banners/"
   },
   "id": 5
  },
@@ -55,7 +55,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "affiliate.linkwise.gr/"
+   "urlFilter": "||anendotos.gr/ads/"
   },
   "id": 6
  },
@@ -65,7 +65,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "agronews.gr/images/banners/"
+   "urlFilter": "||astrack.mediacdn.com/ipquery?siteorigin=sportfm"
   },
   "id": 7
  },
@@ -75,7 +75,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "alogos.gr/images/banners/"
+   "urlFilter": "||asxetos.gr/ban/"
   },
   "id": 8
  },
@@ -85,7 +85,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "anendotos.gr/ads/"
+   "urlFilter": "||avclub.gr/forum/images/banners/"
   },
   "id": 9
  },
@@ -95,7 +95,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "astrack.mediacdn.com/ipquery?siteorigin=sportfm"
+   "urlFilter": "||avgi.gr/images/photoarchive/banners/"
   },
   "id": 10
  },
@@ -105,7 +105,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "asxetos.gr/ban/"
+   "urlFilter": "||avopolis.gr/banners/*.swf"
   },
   "id": 11
  },
@@ -115,7 +115,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "avclub.gr/forum/images/banners/"
+   "urlFilter": "||avopolis.gr/images/ote*.gif"
   },
   "id": 12
  },
@@ -125,7 +125,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "avgi.gr/images/photoarchive/banners/"
+   "urlFilter": "||avopolis.gr/images/backskin5.gif"
   },
   "id": 13
  },
@@ -135,7 +135,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "avopolis.gr/banners/*.swf"
+   "urlFilter": "||ax-easy.com/banners/"
   },
   "id": 14
  },
@@ -145,7 +145,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "avopolis.gr/images/ote*.gif"
+   "urlFilter": "||banners.otenet.gr/banner/all_banners/"
   },
   "id": 15
  },
@@ -155,7 +155,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "avopolis.gr/images/backskin5.gif"
+   "urlFilter": "||bestprice.gr/promos/allshops/"
   },
   "id": 16
  },
@@ -165,7 +165,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "ax-easy.com/banners/"
+   "urlFilter": "||boukouvalas.org/*.gif^"
   },
   "id": 17
  },
@@ -175,7 +175,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "banners.otenet.gr/banner/all_banners/"
+   "urlFilter": "||cacheserve.williamhill.com/"
   },
   "id": 18
  },
@@ -185,7 +185,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "bestprice.gr/promos/allshops/"
+   "urlFilter": "||cacheserve.williamhillcasino.com/"
   },
   "id": 19
  },
@@ -195,7 +195,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "boukouvalas.org/*.gif"
+   "urlFilter": "||capital.gr/banners/staticbanners/"
   },
   "id": 20
  },
@@ -205,7 +205,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "cacheserve.williamhill.com/"
+   "urlFilter": "||connextra.com/vistabet/"
   },
   "id": 21
  },
@@ -215,7 +215,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "cacheserve.williamhillcasino.com/"
+   "urlFilter": "||contra.gr/xml/sponsors/"
   },
   "id": 22
  },
@@ -225,7 +225,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "capital.gr/banners/staticbanners/"
+   "urlFilter": "||corfuland.gr/images/banners/"
   },
   "id": 23
  },
@@ -235,7 +235,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "cdn.orangeclickmedia.com/"
+   "urlFilter": "||dev.realize.gr/temp/away.swf?"
   },
   "id": 24
  },
@@ -245,7 +245,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "connextra.com/vistabet/"
+   "urlFilter": "||e-cannibals.gr/blog/wp-content/uploads/kanivaloiad.jpg^"
   },
   "id": 25
  },
@@ -255,7 +255,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "contra.gr/xml/sponsors/"
+   "urlFilter": "||e-cannibals.gr/blog/wp-content/uploads/sm_kanivaloiad.jpg^"
   },
   "id": 26
  },
@@ -265,7 +265,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "corfuland.gr/images/banners/"
+   "urlFilter": "||e-cannibals.gr/blog/wp-content/uploads/somafusion_adsb.jpg^"
   },
   "id": 27
  },
@@ -275,7 +275,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "dev.realize.gr/temp/away.swf?"
+   "urlFilter": "||e-shop.gr/banners/spamet.swf^"
   },
   "id": 28
  },
@@ -285,7 +285,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "e-cannibals.gr/blog/wp-content/uploads/kanivaloiad.jpg"
+   "urlFilter": "||edu4u.gr/portals/0/banners/"
   },
   "id": 29
  },
@@ -295,7 +295,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "e-cannibals.gr/blog/wp-content/uploads/sm_kanivaloiad.jpg"
+   "urlFilter": "||epiruspost.gr/images/banners/"
   },
   "id": 30
  },
@@ -305,7 +305,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "e-cannibals.gr/blog/wp-content/uploads/somafusion_adsb.jpg"
+   "urlFilter": "||files.capital.gr/adserver/"
   },
   "id": 31
  },
@@ -315,7 +315,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "e-shop.gr/banners/spamet.swf"
+   "urlFilter": "||files.capital.gr/banners/"
   },
   "id": 32
  },
@@ -325,7 +325,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "edu4u.gr/portals/0/banners/"
+   "urlFilter": "||files.capital.gr/images/dowjones/dowjones_home_logo_small.jpg"
   },
   "id": 33
  },
@@ -335,7 +335,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "epiruspost.gr/images/banners/"
+   "urlFilter": "||flights.gr/tromaktikos/"
   },
   "id": 34
  },
@@ -345,7 +345,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "files.capital.gr/adserver/"
+   "urlFilter": "||forthnet.gr/media/banners/driveme/"
   },
   "id": 35
  },
@@ -355,7 +355,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "files.capital.gr/banners/"
+   "urlFilter": "||geoloc12.geovisite.com:82/private/geocounter.js"
   },
   "id": 36
  },
@@ -365,7 +365,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "files.capital.gr/images/dowjones/dowjones_home_logo_small.jpg"
+   "urlFilter": "||gpoint.com.gr/*.swf^"
   },
   "id": 37
  },
@@ -375,7 +375,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "flights.gr/tromaktikos/"
+   "urlFilter": "||greeklug.gr/images/banners/"
   },
   "id": 38
  },
@@ -385,7 +385,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "forthnet.gr/media/banners/driveme/"
+   "urlFilter": "||greektube.org/images/banners/"
   },
   "id": 39
  },
@@ -395,7 +395,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "geoloc12.geovisite.com:82/private/geocounter.js"
+   "urlFilter": "||imagehosting.gr/images/"
   },
   "id": 40
  },
@@ -405,7 +405,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "gpoint.com.gr/*.swf"
+   "urlFilter": "||imageshack.gr/banners/"
   },
   "id": 41
  },
@@ -415,7 +415,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "gr.partypoker.com/"
+   "urlFilter": "||imagine897.gr/dat/"
   },
   "id": 42
  },
@@ -425,7 +425,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "greeklug.gr/images/banners/"
+   "urlFilter": "||imerisia.gr/slidingpen/"
   },
   "id": 43
  },
@@ -435,7 +435,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "greektube.org/images/banners/"
+   "urlFilter": "||in.gr/banners/"
   },
   "id": 44
  },
@@ -445,7 +445,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "imagehosting.gr/images/"
+   "urlFilter": "||in.gr/files/1/2010/ingr-ovinokia.gif"
   },
   "id": 45
  },
@@ -455,7 +455,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "imageshack.gr/banners/"
+   "urlFilter": "||in.gr/files/1/sponsors/"
   },
   "id": 46
  },
@@ -465,7 +465,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "imagine897.gr/dat/"
+   "urlFilter": "||in.gr/googleadscode/"
   },
   "id": 47
  },
@@ -475,7 +475,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "imerisia.gr/slidingpen/"
+   "urlFilter": "||insomnia.gr/templates/insomnia/images/battleleft.jpg^"
   },
   "id": 48
  },
@@ -485,7 +485,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "in.gr/banners/"
+   "urlFilter": "||insomnia.gr/templates/insomnia/images/cartoonbattle.jpg^"
   },
   "id": 49
  },
@@ -495,7 +495,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "in.gr/files/1/2010/ingr-ovinokia.gif"
+   "urlFilter": "||ioannina24.gr//images/banners/"
   },
   "id": 50
  },
@@ -505,7 +505,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "in.gr/files/1/sponsors/"
+   "urlFilter": "||ioannina24.gr/images/banners/"
   },
   "id": 51
  },
@@ -515,7 +515,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "in.gr/googleadscode/"
+   "urlFilter": "||kathimerini.gr/webadmin/ellada/bca/"
   },
   "id": 52
  },
@@ -525,7 +525,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "insomnia.gr/templates/insomnia/images/battleleft.jpg"
+   "urlFilter": "||kathimerini.gr/webadmin/glife/chartis/"
   },
   "id": 53
  },
@@ -535,7 +535,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "insomnia.gr/templates/insomnia/images/cartoonbattle.jpg"
+   "urlFilter": "||kathimerini.gr/webadmin/techno/connx/"
   },
   "id": 54
  },
@@ -545,7 +545,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "ioannina24.gr//images/banners/"
+   "urlFilter": "||lifo.gr/adsimg/"
   },
   "id": 55
  },
@@ -555,7 +555,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "ioannina24.gr/images/banners/"
+   "urlFilter": "||livikos.gr/adserver/"
   },
   "id": 56
  },
@@ -565,7 +565,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "kathimerini.gr/webadmin/ellada/bca/"
+   "urlFilter": "||makthes.gr/filestore/banners/"
   },
   "id": 57
  },
@@ -575,7 +575,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "kathimerini.gr/webadmin/glife/chartis/"
+   "urlFilter": "||media.adslgr.com/www/images/1a31027deca376bfb2a140554a29a047.jpg^"
   },
   "id": 58
  },
@@ -585,7 +585,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "kathimerini.gr/webadmin/techno/connx/"
+   "urlFilter": "||media.adslgr.com/www/images/8d9b102aab0f8990eeeef58b57ed2c49.gif^"
   },
   "id": 59
  },
@@ -595,7 +595,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "lifo.gr/adsimg/"
+   "urlFilter": "||media.adslgr.com/www/images/934adc119cb74c815df8b1697cae4c98.png^"
   },
   "id": 60
  },
@@ -605,7 +605,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "livikos.gr/adserver/"
+   "urlFilter": "||media2.feed.gr/filesystem/images/20090810/low/"
   },
   "id": 61
  },
@@ -615,7 +615,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "makthes.gr/filestore/banners/"
+   "urlFilter": "||media2.feed.gr/pegasus/multimedia/swf/"
   },
   "id": 62
  },
@@ -625,7 +625,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "media.adslgr.com/www/images/1a31027deca376bfb2a140554a29a047.jpg"
+   "urlFilter": "||meteo.gr/addscust/"
   },
   "id": 63
  },
@@ -635,7 +635,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "media.adslgr.com/www/images/8d9b102aab0f8990eeeef58b57ed2c49.gif"
+   "urlFilter": "||meteo.gr/absolutebmxe/banners/"
   },
   "id": 64
  },
@@ -645,7 +645,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "media.adslgr.com/www/images/934adc119cb74c815df8b1697cae4c98.png"
+   "urlFilter": "||michanikos.gr/images/banner/"
   },
   "id": 65
  },
@@ -655,7 +655,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "media2.feed.gr/filesystem/images/20090810/low/"
+   "urlFilter": "||moneybookers.com/images/banners/gr/"
   },
   "id": 66
  },
@@ -665,7 +665,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "media2.feed.gr/pegasus/multimedia/swf/"
+   "urlFilter": "||myshopper.gr/ads/"
   },
   "id": 67
  },
@@ -675,7 +675,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "meteo.gr/addscust/"
+   "urlFilter": "||neo.gr/images/banners/"
   },
   "id": 68
  },
@@ -685,7 +685,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "meteo.gr/absolutebmxe/banners/"
+   "urlFilter": "||neo.gr/website/ebuy-shops/"
   },
   "id": 69
  },
@@ -695,7 +695,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "michanikos.gr/images/banner/"
+   "urlFilter": "||paokmania.gr/images/banner_"
   },
   "id": 70
  },
@@ -705,7 +705,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "moneybookers.com/images/banners/gr/"
+   "urlFilter": "||paokmania.gr/images/banners/"
   },
   "id": 71
  },
@@ -715,7 +715,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "myshopper.gr/ads/"
+   "urlFilter": "||paokmania.gr/images/stories/"
   },
   "id": 72
  },
@@ -725,7 +725,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "neo.gr/images/banners/"
+   "urlFilter": "||partypartners.com/images/marketing-materials/partycasino/greek/"
   },
   "id": 73
  },
@@ -735,7 +735,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "neo.gr/website/ebuy-shops/"
+   "urlFilter": "||plaisio.gr/bannerimages/0910/"
   },
   "id": 74
  },
@@ -745,7 +745,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "paokmania.gr/images/banner_"
+   "urlFilter": "||politis-news.com/banners/"
   },
   "id": 75
  },
@@ -755,7 +755,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "paokmania.gr/images/banners/"
+   "urlFilter": "||prasini.gr/images/stories/banners/"
   },
   "id": 76
  },
@@ -765,7 +765,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "paokmania.gr/images/stories/"
+   "urlFilter": "||protothema.gr/hyperads/"
   },
   "id": 77
  },
@@ -775,7 +775,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "partypartners.com/images/marketing-materials/partycasino/greek/"
+   "urlFilter": "||real.gr/files/advbanners/"
   },
   "id": 78
  },
@@ -785,7 +785,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "plaisio.gr/bannerimages/0910/"
+   "urlFilter": "||resources.sport-fm.gr/sportfm/banners/"
   },
   "id": 79
  },
@@ -795,7 +795,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "politis-news.com/banners/"
+   "urlFilter": "||resources.sport-fm.gr/supersportfm/images/layout/campaigns/"
   },
   "id": 80
  },
@@ -805,7 +805,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "prasini.gr/images/stories/banners/"
+   "urlFilter": "||scdn.gr/images/helmet/promo_material/"
   },
   "id": 81
  },
@@ -815,7 +815,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "protothema.gr/hyperads/"
+   "urlFilter": "||sport-fm.gr/resrc/images/layout/campaigns/eshop/"
   },
   "id": 82
  },
@@ -825,7 +825,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "real.gr/files/advbanners/"
+   "urlFilter": "||sport-fm.gr/resrc/images/layout/campaigns/europa/"
   },
   "id": 83
  },
@@ -835,7 +835,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "resources.sport-fm.gr/sportfm/banners/"
+   "urlFilter": "||sport24.gr/ast/ads/fil/"
   },
   "id": 84
  },
@@ -845,7 +845,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "resources.sport-fm.gr/supersportfm/images/layout/campaigns/"
+   "urlFilter": "||sportsioannina.gr/images/stories/ads/"
   },
   "id": 85
  },
@@ -855,7 +855,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "scdn.gr/images/helmet/promo_material/"
+   "urlFilter": "||star-tv.gr/assets/media/swf/"
   },
   "id": 86
  },
@@ -865,7 +865,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "serve.ads.gr/"
+   "urlFilter": "||static01.aek365.gr/ads/"
   },
   "id": 87
  },
@@ -875,7 +875,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "sport-fm.gr/resrc/images/layout/campaigns/eshop/"
+   "urlFilter": "||stercinemas.gr/stercinemas/sterimageslive/banners/right%20banners/emporiki"
   },
   "id": 88
  },
@@ -885,7 +885,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "sport-fm.gr/resrc/images/layout/campaigns/europa/"
+   "urlFilter": "||stercinemas.gr/stercinemas/sterimageslive/nescafe"
   },
   "id": 89
  },
@@ -895,7 +895,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "sport24.gr/ast/ads/fil/"
+   "urlFilter": "||tech.in.gr/themes/1/default/media/technology/skin/htc_left.jpg^"
   },
   "id": 90
  },
@@ -905,7 +905,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "sportsioannina.gr/images/stories/ads/"
+   "urlFilter": "||tech.in.gr/themes/1/default/media/technology/skin/htc_right.jpg^"
   },
   "id": 91
  },
@@ -915,7 +915,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "star-tv.gr/assets/media/swf/"
+   "urlFilter": "||tech.in.gr/themes/1/default/media/technology/htc-1280grey.jpg^"
   },
   "id": 92
  },
@@ -925,7 +925,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "static01.aek365.gr/ads/"
+   "urlFilter": "||videos.stifora.gr/banners/"
   },
   "id": 93
  },
@@ -935,7 +935,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "stercinemas.gr/stercinemas/sterimageslive/banners/right%20banners/emporiki"
+   "urlFilter": "||villagecinemas.gr/media/banners/"
   },
   "id": 94
  },
@@ -945,7 +945,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "stercinemas.gr/stercinemas/sterimageslive/nescafe"
+   "urlFilter": "||vrisko.gr/logos/public/tromaktiko/3-300x250.swf^"
   },
   "id": 95
  },
@@ -955,7 +955,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "tech.in.gr/themes/1/default/media/technology/skin/htc_left.jpg"
+   "urlFilter": "||wagershare.com/affiliate_media/flashbanners/"
   },
   "id": 96
  },
@@ -965,7 +965,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "tech.in.gr/themes/1/default/media/technology/skin/htc_right.jpg"
+   "urlFilter": "||wk.kathimerini.gr/webadmin/woman/gifsxor/"
   },
   "id": 97
  },
@@ -975,7 +975,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "tech.in.gr/themes/1/default/media/technology/htc-1280grey.jpg"
+   "urlFilter": "||xe.gr/professionalservices/banners/"
   },
   "id": 98
  },
@@ -985,7 +985,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "videos.stifora.gr/banners/"
+   "urlFilter": "||zougla.gr/hyperads/"
   },
   "id": 99
  },
@@ -995,7 +995,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "villagecinemas.gr/media/banners/"
+   "urlFilter": "||zougla.gr/uploads/thomas/travel_city_banner*"
   },
   "id": 100
  },
@@ -1005,7 +1005,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "vrisko.gr/logos/public/tromaktiko/3-300x250.swf"
+   "urlFilter": "||2810.gr/images/2810photo/pelates1/"
   },
   "id": 101
  },
@@ -1015,7 +1015,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "wagershare.com/affiliate_media/flashbanners/"
+   "urlFilter": "||alfavita.gr/sites/default/files/efsyn_4.png"
   },
   "id": 102
  },
@@ -1025,7 +1025,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "wk.kathimerini.gr/kath/adv/banners468/"
+   "urlFilter": "||alfavita.gr/sites/www.alfavita.gr/themes/mixon/images/bannernew.swf"
   },
   "id": 103
  },
@@ -1035,7 +1035,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "wk.kathimerini.gr/kath/adv/textlinks/"
+   "urlFilter": "||apergia.gr/images/adds/"
   },
   "id": 104
  },
@@ -1045,7 +1045,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "wk.kathimerini.gr/webadmin/woman/gifsxor/"
+   "urlFilter": "||argiro.gr/images/promotions/"
   },
   "id": 105
  },
@@ -1055,7 +1055,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "xe.gr/professionalservices/banners/"
+   "urlFilter": "||athensvoice.gr/files/honda/"
   },
   "id": 106
  },
@@ -1065,7 +1065,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "zougla.gr/hyperads/"
+   "urlFilter": "||athensvoice.gr/files/samsung/"
   },
   "id": 107
  },
@@ -1075,7 +1075,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "zougla.gr/uploads/banners/realnews*.swf"
+   "urlFilter": "||athensvoice.gr/files/tezenis/"
   },
   "id": 108
  },
@@ -1085,7 +1085,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "zougla.gr/uploads/banners/static/banner-"
+   "urlFilter": "||athinorama.gr/adv/lmnts/"
   },
   "id": 109
  },
@@ -1095,7 +1095,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "zougla.gr/uploads/banners/static/jeep*.swf"
+   "urlFilter": "||athinorama.gr/lmnts/skins/"
   },
   "id": 110
  },
@@ -1105,7 +1105,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "zougla.gr/uploads/banners/travel_city_banner*"
+   "urlFilter": "||away.gr/wp-content/themes/carrington_away/images/footer_l.jpg"
   },
   "id": 111
  },
@@ -1115,7 +1115,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "zougla.gr/uploads/thomas/travel_city_banner*"
+   "urlFilter": "||bourdela.com/images/banners/"
   },
   "id": 112
  },
@@ -1125,7 +1125,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||2810.gr/images/2810photo/pelates1/"
+   "urlFilter": "||bourdela.com/studiobanners/"
   },
   "id": 113
  },
@@ -1135,7 +1135,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||adman.kathimerini.gr/"
+   "urlFilter": "||call.thebutterfly.eu/snippet/"
   },
   "id": 114
  },
@@ -1145,7 +1145,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||ads.naftemporiki.gr"
+   "urlFilter": "||cdn.cnngreece.gr/media/com_news/ads/4/skin_new_cosmote_2.jpg"
   },
   "id": 115
  },
@@ -1155,7 +1155,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||alfavita.gr/sites/default/files/efsyn_4.png"
+   "urlFilter": "||cdn.cnngreece.gr/templates/kgt_cnn/images/sponsors/videobox_1800x900.png"
   },
   "id": 116
  },
@@ -1165,7 +1165,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||alfavita.gr/sites/www.alfavita.gr/themes/mixon/images/bannernew.swf"
+   "urlFilter": "||cdn1.bbend.net/media/com_news/ads/"
   },
   "id": 117
  },
@@ -1175,7 +1175,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||apergia.gr/images/adds/"
+   "urlFilter": "||cheapis.gr/widget/"
   },
   "id": 118
  },
@@ -1185,7 +1185,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||argiro.gr/images/promotions/"
+   "urlFilter": "||clickgr.gr/picture_library/"
   },
   "id": 119
  },
@@ -1195,7 +1195,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||athensvoice.gr/files/honda/"
+   "urlFilter": "||comedylab.gr/ad/"
   },
   "id": 120
  },
@@ -1205,7 +1205,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||athensvoice.gr/files/samsung/"
+   "urlFilter": "||commission.gr/on/"
   },
   "id": 121
  },
@@ -1215,7 +1215,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||athensvoice.gr/files/tezenis/"
+   "urlFilter": "||contra.gr/*/binary/original/adidas*.js"
   },
   "id": 122
  },
@@ -1225,7 +1225,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||athinorama.gr/adv/lmnts/"
+   "urlFilter": "||contra.gr/basketball/article1799945.ece/binary/original"
   },
   "id": 123
  },
@@ -1235,7 +1235,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||athinorama.gr/lmnts/skins/"
+   "urlFilter": "||contra.gr/columns/paparazzi/article1188372.ece/binary/original"
   },
   "id": 124
  },
@@ -1245,7 +1245,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||away.gr/wp-content/themes/carrington_away/images/footer_l.jpg"
+   "urlFilter": "||contra.gr/columns/article1348068.ece/binary/original"
   },
   "id": 125
  },
@@ -1255,7 +1255,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||banners.dol.gr/"
+   "urlFilter": "||contra.gr/soccer/article1188569.ece/binary/"
   },
   "id": 126
  },
@@ -1265,7 +1265,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||bold.adman.gr/"
+   "urlFilter": "||contra.gr/soccer/article1188575.ece/binary/"
   },
   "id": 127
  },
@@ -1275,7 +1275,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||bourdela.com/images/banners/"
+   "urlFilter": "||contra.gr/genika/article1698130.ece/binary/original/ts.jpg"
   },
   "id": 128
  },
@@ -1285,7 +1285,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||bourdela.com/studiobanners/"
+   "urlFilter": "||contra.gr/genika/article1805738.ece/binary/original/cbg.png"
   },
   "id": 129
  },
@@ -1295,7 +1295,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||call.thebutterfly.eu/snippet/"
+   "urlFilter": "||contra.gr/genika/article1938232.ece/binary/original/header.png"
   },
   "id": 130
  },
@@ -1305,7 +1305,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||call.theowl.gr"
+   "urlFilter": "||contra.gr/genika/article2841960.ece/binary/original/contra-editors-skin.jpg"
   },
   "id": 131
  },
@@ -1315,7 +1315,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cdn.cnngreece.gr/media/com_news/ads/4/skin_new_cosmote_2.jpg"
+   "urlFilter": "||contra.gr/incoming/article4110736.ece/binary/original/stoiximan_contra.png"
   },
   "id": 132
  },
@@ -1325,7 +1325,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cdn.cnngreece.gr/templates/kgt_cnn/images/sponsors/videobox_1800x900.png"
+   "urlFilter": "||contra.gr/latest/article1196807.ece/binary/"
   },
   "id": 133
  },
@@ -1335,7 +1335,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cdn1.bbend.net/media/com_news/ads/"
+   "urlFilter": "||contra.gr/livematches/article1559168.ece/binary/original/contra_mc_opel_logo.png"
   },
   "id": 134
  },
@@ -1345,7 +1345,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cheapis.gr/widget/"
+   "urlFilter": "||contra.gr/multimedia/article3498428.ece/binary/original/contra-articlepng.png"
   },
   "id": 135
  },
@@ -1355,7 +1355,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||clickgr.gr/picture_library/"
+   "urlFilter": "||contra.gr/multimedia/article3498429.ece/binary/original/sport24hp-left.png"
   },
   "id": 136
  },
@@ -1365,7 +1365,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||comedylab.gr/ad/"
+   "urlFilter": "||contra.gr/multimedia/article3508528.ece/binary/original/stoiximan.png"
   },
   "id": 137
  },
@@ -1375,7 +1375,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||commission.gr/on/"
+   "urlFilter": "||contra.gr/multimedia/article3679751.ece/binary/original/contra-fasa-hp.png"
   },
   "id": 138
  },
@@ -1385,7 +1385,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/*/binary/original/adidas*.js"
+   "urlFilter": "||contra.gr/multimedia/article4122214.ece/binary/original/stoiximan-euro2016.jpg"
   },
   "id": 139
  },
@@ -1395,7 +1395,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/basketball/article1799945.ece/binary/original"
+   "urlFilter": "||contra.gr/test/article1194453.ece/binary/original"
   },
   "id": 140
  },
@@ -1405,7 +1405,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/columns/paparazzi/article1188372.ece/binary/original"
+   "urlFilter": "||contra.gr/test/article1315085.ece/binary/"
   },
   "id": 141
  },
@@ -1415,7 +1415,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/columns/article1348068.ece/binary/original"
+   "urlFilter": "||contra.gr/test/article1315517.ece/binary/original"
   },
   "id": 142
  },
@@ -1425,7 +1425,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/soccer/article1188569.ece/binary/"
+   "urlFilter": "||contra.gr/test/article1316979.ece/binary/original"
   },
   "id": 143
  },
@@ -1435,7 +1435,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/soccer/article1188575.ece/binary/"
+   "urlFilter": "||contra.gr/vathmologies/article1589967.ece/binary/original/"
   },
   "id": 144
  },
@@ -1445,7 +1445,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/genika/article1698130.ece/binary/original/ts.jpg"
+   "urlFilter": "||cosmo.gr/xml/sponsors/"
   },
   "id": 145
  },
@@ -1455,7 +1455,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/genika/article1805738.ece/binary/original/cbg.png"
+   "urlFilter": "||cosmo.gr/incoming/article1337227.ece/binary/"
   },
   "id": 146
  },
@@ -1465,7 +1465,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/genika/article1938232.ece/binary/original/header.png"
+   "urlFilter": "||cosmo.gr/latestarticles/article2315555.ece/binary/original"
   },
   "id": 147
  },
@@ -1475,7 +1475,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/genika/article2841960.ece/binary/original/contra-editors-skin.jpg"
+   "urlFilter": "||cretalive.gr/flash/full_banner/"
   },
   "id": 148
  },
@@ -1485,7 +1485,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/incoming/article4110736.ece/binary/original/stoiximan_contra.png"
+   "urlFilter": "||cretalive.gr/img/frontend/banners/"
   },
   "id": 149
  },
@@ -1495,7 +1495,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/latest/article1196807.ece/binary/"
+   "urlFilter": "||cretalive.gr/img/frontend/businesscatalog/"
   },
   "id": 150
  },
@@ -1505,7 +1505,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/livematches/article1559168.ece/binary/original/contra_mc_opel_logo.png"
+   "urlFilter": "||dealin.gr/iframes/5/"
   },
   "id": 151
  },
@@ -1515,7 +1515,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/multimedia/article3498428.ece/binary/original/contra-articlepng.png"
+   "urlFilter": "||defencenet.gr/defence/images/aroma300x250_black.jpg"
   },
   "id": 152
  },
@@ -1525,7 +1525,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/multimedia/article3498429.ece/binary/original/sport24hp-left.png"
+   "urlFilter": "||defencenet.gr/defence/images/banners/"
   },
   "id": 153
  },
@@ -1535,7 +1535,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/multimedia/article3508528.ece/binary/original/stoiximan.png"
+   "urlFilter": "||dikaiologitika.gr/images/banners/defence1.gif"
   },
   "id": 154
  },
@@ -1545,7 +1545,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/multimedia/article3679751.ece/binary/original/contra-fasa-hp.png"
+   "urlFilter": "||e-ptolemeos.gr/wp-content/uploads/2017/05/roi-eid-ban.jpg"
   },
   "id": 155
  },
@@ -1555,7 +1555,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/multimedia/article4122214.ece/binary/original/stoiximan-euro2016.jpg"
+   "urlFilter": "||ebusiness-interactive.forthnet.gr/portalsites/livescores/"
   },
   "id": 156
  },
@@ -1565,7 +1565,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/test/article1194453.ece/binary/original"
+   "urlFilter": "||efsyn.gr/ads/"
   },
   "id": 157
  },
@@ -1575,7 +1575,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/test/article1315085.ece/binary/"
+   "urlFilter": "||efsyn.gr/wp-content/uploads/2013/10/banner*"
   },
   "id": 158
  },
@@ -1585,7 +1585,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/test/article1315517.ece/binary/original"
+   "urlFilter": "||efsyn.gr/wp-content/uploads/2014/05/housebanner300x250d.jpg"
   },
   "id": 159
  },
@@ -1595,7 +1595,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/test/article1316979.ece/binary/original"
+   "urlFilter": "||egnatiapost.gr/images/banners/"
   },
   "id": 160
  },
@@ -1605,7 +1605,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||contra.gr/vathmologies/article1589967.ece/binary/original/"
+   "urlFilter": "||egob2.feed.gr/filesystem/images/20130927/low/"
   },
   "id": 161
  },
@@ -1615,7 +1615,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cosmo.gr/xml/sponsors/"
+   "urlFilter": "||eleftheria.gr/images/banners^"
   },
   "id": 162
  },
@@ -1625,7 +1625,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cosmo.gr/incoming/article1337227.ece/binary/"
+   "urlFilter": "||emea.gr/banner.php"
   },
   "id": 163
  },
@@ -1635,7 +1635,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cosmo.gr/latestarticles/article2315555.ece/binary/original"
+   "urlFilter": "||emea.gr/ftp_files/"
   },
   "id": 164
  },
@@ -1645,7 +1645,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cretalive.gr/flash/full_banner/"
+   "urlFilter": "||enikos.gr/banners/bg/"
   },
   "id": 165
  },
@@ -1655,7 +1655,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cretalive.gr/img/frontend/banners/"
+   "urlFilter": "||entertv.gr/sites/default/files/entertv_skin*"
   },
   "id": 166
  },
@@ -1665,7 +1665,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||cretalive.gr/img/frontend/businesscatalog/"
+   "urlFilter": "||flix.gr/skins/"
   },
   "id": 167
  },
@@ -1675,7 +1675,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||dealin.gr/iframes/5/"
+   "urlFilter": "||flix.gr/static/skins/"
   },
   "id": 168
  },
@@ -1685,7 +1685,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||defencenet.gr/defence/images/aroma300x250_black.jpg"
+   "urlFilter": "||forthnet.gr/media/banners/geodata/"
   },
   "id": 169
  },
@@ -1695,7 +1695,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||defencenet.gr/defence/images/banners/"
+   "urlFilter": "||fvcreatives.s3.amazonaws.com/perrier/20131115/banners/img/"
   },
   "id": 170
  },
@@ -1705,7 +1705,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||dikaiologitika.gr/images/banners/defence1.gif"
+   "urlFilter": "||gameover.gr/images/promotion/fifa12/"
   },
   "id": 171
  },
@@ -1715,7 +1715,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||e-ptolemeos.gr/wp-content/uploads/2017/05/roi-eid-ban.jpg"
+   "urlFilter": "||gazzetta.gr/images/banners/"
   },
   "id": 172
  },
@@ -1725,7 +1725,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||ebusiness-interactive.forthnet.gr/portalsites/livescores/"
+   "urlFilter": "||gazzetta.gr/sites/all/themes/basic/images/banners/pokerstar*.jpg"
   },
   "id": 173
  },
@@ -1735,7 +1735,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||educate.theowl.gr"
+   "urlFilter": "||gazzetta.gr/sites/default/files/anytime*.jpg"
   },
   "id": 174
  },
@@ -1745,7 +1745,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||efsyn.gr/ads/"
+   "urlFilter": "||gossip-tv.gr/images/banner*"
   },
   "id": 175
  },
@@ -1755,7 +1755,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||efsyn.gr/wp-content/uploads/2013/10/banner*"
+   "urlFilter": "||gossip-tv.gr/media/com_skins/skins/"
   },
   "id": 176
  },
@@ -1765,7 +1765,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||efsyn.gr/wp-content/uploads/2014/05/housebanner300x250d.jpg"
+   "urlFilter": "||greek-movies.com/icon/banner*"
   },
   "id": 177
  },
@@ -1775,7 +1775,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||egnatiapost.gr/images/banners/"
+   "urlFilter": "||hiphop.gr/ads/"
   },
   "id": 178
  },
@@ -1785,7 +1785,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||egob2.feed.gr/filesystem/images/20130927/low/"
+   "urlFilter": "||iefimerida.gr/sites/all/themes/base/images/*chivas*"
   },
   "id": 179
  },
@@ -1795,7 +1795,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||el.williamhillcasino.com/"
+   "urlFilter": "||imerisia.gr/images/top_stories_xorhgia2.gif"
   },
   "id": 180
  },
@@ -1805,7 +1805,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||eleftheria.gr/images/banners^"
+   "urlFilter": "||in.gr/themes/1/default/media/adsl_in-gr_logo.jpg"
   },
   "id": 181
  },
@@ -1815,7 +1815,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||emea.gr/banner.php"
+   "urlFilter": "||in.gr/themes/1/default/media/ub_180x18.gif"
   },
   "id": 182
  },
@@ -1825,7 +1825,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||emea.gr/ftp_files/"
+   "urlFilter": "||in.gr/themes/1/default/media/woman/marie-claire-stamp.png"
   },
   "id": 183
  },
@@ -1835,7 +1835,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||enikos.gr/banners/bg/"
+   "urlFilter": "||in.gr/themes/1/default/media/chivas.gif"
   },
   "id": 184
  },
@@ -1845,7 +1845,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||entertv.gr/sites/default/files/entertv_skin*"
+   "urlFilter": "||in.gr/themes/1/default/media/havana180x18.jpg"
   },
   "id": 185
  },
@@ -1855,7 +1855,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||flix.gr/skins/"
+   "urlFilter": "||in.gr/themes/1/default/media/imommy.png"
   },
   "id": 186
  },
@@ -1865,7 +1865,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||flix.gr/static/skins/"
+   "urlFilter": "||in.gr/themes/1/default/media/logo-bp-ingr-95x20.gif"
   },
   "id": 187
  },
@@ -1875,7 +1875,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||forthnet.gr/media/banners/geodata/"
+   "urlFilter": "||in.gr/themes/1/default/media/logotravelplan_180x18.jpg"
   },
   "id": 188
  },
@@ -1885,7 +1885,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||fvcreatives.s3.amazonaws.com/perrier/20131115/banners/img/"
+   "urlFilter": "||in.gr/themes/1/default/media/logo_vb_1.jpg"
   },
   "id": 189
  },
@@ -1895,7 +1895,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||gameover.gr/images/promotion/fifa12/"
+   "urlFilter": "||in.gr/themes/1/default/media/senso_pro*"
   },
   "id": 190
  },
@@ -1905,7 +1905,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||gazzetta.gr/images/banners/"
+   "urlFilter": "||in.gr/themes/1/default/media/sensodyne-logo.png"
   },
   "id": 191
  },
@@ -1915,7 +1915,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||gazzetta.gr/sites/all/themes/basic/images/banners/pokerstar*.jpg"
+   "urlFilter": "||in.gr/themes/1/default/media/vb-logo-in.gif"
   },
   "id": 192
  },
@@ -1925,7 +1925,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||gazzetta.gr/sites/default/files/anytime*.jpg"
+   "urlFilter": "||in.gr/files/1/2011/banner/ofi365_370x60.jpg"
   },
   "id": 193
  },
@@ -1935,7 +1935,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||gossip-tv.gr/images/banner*"
+   "urlFilter": "||in.gr/files/1/2012/01/09/office365_37060.jpg"
   },
   "id": 194
  },
@@ -1945,7 +1945,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||gossip-tv.gr/media/com_skins/skins/"
+   "urlFilter": "||insurer.gr/widgets/calc/insucalc.html?"
   },
   "id": 195
  },
@@ -1955,7 +1955,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||greek-movies.com/icon/banner*"
+   "urlFilter": "||interactive.forthnet.gr/banner*"
   },
   "id": 196
  },
@@ -1965,7 +1965,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||hiphop.gr/ads/"
+   "urlFilter": "||ishow.gr/images/*skin.jpg"
   },
   "id": 197
  },
@@ -1975,7 +1975,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||iefimerida.gr/sites/all/themes/base/images/*chivas"
+   "urlFilter": "||kathimerini.com.cy/assets/modules/kat/banners/"
   },
   "id": 198
  },
@@ -1985,7 +1985,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||imerisia.gr/images/top_stories_xorhgia2.gif"
+   "urlFilter": "||kathimerini.gr/kath/adv/"
   },
   "id": 199
  },
@@ -1995,7 +1995,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/adsl_in-gr_logo.jpg"
+   "urlFilter": "||kathimerini.gr/webadmin/home/xor/"
   },
   "id": 200
  },
@@ -2005,7 +2005,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/ub_180x18.gif"
+   "urlFilter": "||koutipandoras.gr/img/adds/"
   },
   "id": 201
  },
@@ -2015,7 +2015,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/woman/marie-claire-stamp.png"
+   "urlFilter": "||koutipandoras.gr/sites/default/files/*banner*.swf"
   },
   "id": 202
  },
@@ -2025,7 +2025,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/chivas.gif"
+   "urlFilter": "||koutipandoras.gr/skins/koutipandoras.gr_skin.jpg"
   },
   "id": 203
  },
@@ -2035,7 +2035,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/havana180x18.jpg"
+   "urlFilter": "||lifo.gr/icache/300/600/1/989673_wind_mila.jpg"
   },
   "id": 204
  },
@@ -2045,7 +2045,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/imommy.png"
+   "urlFilter": "||lifo.gr/icache/940/337/1/983904_got_970.jpg"
   },
   "id": 205
  },
@@ -2055,7 +2055,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/logo-bp-ingr-95x20.gif"
+   "urlFilter": "||luben.tv/wp-content/uploads/2014/11/output_cvzg2g.gif"
   },
   "id": 206
  },
@@ -2065,7 +2065,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/logotravelplan_180x18.jpg"
+   "urlFilter": "||luben.tv/wp-content/uploads/2015/07/corona-sunsets_a-1.jpg"
   },
   "id": 207
  },
@@ -2075,7 +2075,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/logo_vb_1.jpg"
+   "urlFilter": "||luben.tv/wp-content/uploads/2015/09/unnamed.png"
   },
   "id": 208
  },
@@ -2085,7 +2085,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/senso_pro*"
+   "urlFilter": "||luben.tv/wp-content/uploads/2016/01/luben-skin-stoli-2-x480x780-new2.png"
   },
   "id": 209
  },
@@ -2095,7 +2095,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/sensodyne-logo.png"
+   "urlFilter": "||luben.tv/wp-content/uploads/2017/01/voyager.jpg"
   },
   "id": 210
  },
@@ -2105,7 +2105,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/themes/1/default/media/vb-logo-in.gif"
+   "urlFilter": "||makeleio.gr/wp-content/uploads/2014/11/klamin-300x250.jpg"
   },
   "id": 211
  },
@@ -2115,7 +2115,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/files/1/2011/banner/ofi365_370x60.jpg"
+   "urlFilter": "||makeleio.gr/wp-content/uploads/2014/11/netra_bannernew.jpg"
   },
   "id": 212
  },
@@ -2125,7 +2125,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||in.gr/files/1/2012/01/09/office365_37060.jpg"
+   "urlFilter": "||makeleio.gr/wp-content/uploads/2015/09/hyaluron-250x250-zampidis-2.jpg"
   },
   "id": 213
  },
@@ -2135,7 +2135,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||insurer.gr/widgets/calc/insucalc.html?"
+   "urlFilter": "||marketnews.gr/banners/groupama_970x250.gif"
   },
   "id": 214
  },
@@ -2145,7 +2145,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||interactive.forthnet.gr/banner*"
+   "urlFilter": "||marketnews.gr/banners/ipos.jpg"
   },
   "id": 215
  },
@@ -2155,7 +2155,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||ishow.gr/images/*skin.jpg"
+   "urlFilter": "||media.adslgr.com/www/images/0a7c90d00978af65bd2089862535b7e6.jpg"
   },
   "id": 216
  },
@@ -2165,7 +2165,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||kathimerini.com.cy/assets/modules/kat/banners/"
+   "urlFilter": "||media.adslgr.com/www/images/727fbd95261492dbd269bccbc7fffbb3.jpg"
   },
   "id": 217
  },
@@ -2175,7 +2175,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||kathimerini.gr/kath/adv/"
+   "urlFilter": "||media.adslgr.com/www/images/80ffb536c4617d7afe7c8be553b1c37d.jpg"
   },
   "id": 218
  },
@@ -2185,7 +2185,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||kathimerini.gr/webadmin/home/xor/"
+   "urlFilter": "||media.adslgr.com/www/images/c1259c4e50e39b2fc908400addb29c96.jpg"
   },
   "id": 219
  },
@@ -2195,7 +2195,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||koutipandoras.gr/img/adds/"
+   "urlFilter": "||media.adslgr.com/www/images/e3026593eee92619a864ff0841906cd0.gif"
   },
   "id": 220
  },
@@ -2205,7 +2205,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||koutipandoras.gr/sites/default/files/*banner*.swf"
+   "urlFilter": "||medlook.net/banners/"
   },
   "id": 221
  },
@@ -2215,7 +2215,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||koutipandoras.gr/skins/koutipandoras.gr_skin.jpg"
+   "urlFilter": "||megatv.com/webtv/newsbeast.asp?"
   },
   "id": 222
  },
@@ -2225,7 +2225,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||lifo.gr/icache/300/600/1/989673_wind_mila.jpg"
+   "urlFilter": "||mignatiou.com/wp-content/uploads/2014/09/300x250_piraeus_stametrasou_final.jpg"
   },
   "id": 223
  },
@@ -2235,7 +2235,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||lifo.gr/icache/940/337/1/983904_got_970.jpg"
+   "urlFilter": "||milaraki.com/banner/"
   },
   "id": 224
  },
@@ -2245,7 +2245,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||luben.tv/wp-content/uploads/2014/11/output_cvzg2g.gif"
+   "urlFilter": "||missbloom.gr/images/*skin*"
   },
   "id": 225
  },
@@ -2255,7 +2255,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||luben.tv/wp-content/uploads/2015/07/corona-sunsets_a-1.jpg"
+   "urlFilter": "||missbloom.gr/media/vidspics/*-skin.jpg"
   },
   "id": 226
  },
@@ -2265,7 +2265,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||luben.tv/wp-content/uploads/2015/09/unnamed.png"
+   "urlFilter": "||mothersblog.gr/media/com_skins/skins/79/"
   },
   "id": 227
  },
@@ -2275,7 +2275,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||luben.tv/wp-content/uploads/2016/01/luben-skin-stoli-2-x480x780-new2.png"
+   "urlFilter": "||mydirect.gr/calculatorbanner.aspx?"
   },
   "id": 228
  },
@@ -2285,7 +2285,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||luben.tv/wp-content/uploads/2017/01/voyager.jpg"
+   "urlFilter": "||news.in.gr/themes/1/default/media/image-ads-sponsor.jpg"
   },
   "id": 229
  },
@@ -2295,7 +2295,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||makeleio.gr/wp-content/uploads/2014/11/klamin-300x250.jpg"
+   "urlFilter": "||newsbeast.gr/files/1/banners/animal/animal.jpg"
   },
   "id": 230
  },
@@ -2305,7 +2305,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||makeleio.gr/wp-content/uploads/2014/11/netra_bannernew.jpg"
+   "urlFilter": "||newsbeast.gr/files/1/banners/axatextadimg.png"
   },
   "id": 231
  },
@@ -2315,7 +2315,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||makeleio.gr/wp-content/uploads/2015/09/hyaluron-250x250-zampidis-2.jpg"
+   "urlFilter": "||newsbeast.gr/files/1/top100europe/airfasttickets.png"
   },
   "id": 232
  },
@@ -2325,7 +2325,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||marketnews.gr/banners/groupama_970x250.gif"
+   "urlFilter": "||newsbomb.gr/ads/"
   },
   "id": 233
  },
@@ -2335,7 +2335,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||marketnews.gr/banners/ipos.jpg"
+   "urlFilter": "||newsbomb.gr/media/com_skins/"
   },
   "id": 234
  },
@@ -2345,7 +2345,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||media.adslgr.com/www/images/0a7c90d00978af65bd2089862535b7e6.jpg"
+   "urlFilter": "||newsit.gr/flash/banners/2015/06/caremarket_banner300x250_29_6.gif"
   },
   "id": 235
  },
@@ -2355,7 +2355,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||media.adslgr.com/www/images/727fbd95261492dbd269bccbc7fffbb3.jpg"
+   "urlFilter": "||newsit.gr/flash/categories/category_xorhgia_blank_pixel.gif"
   },
   "id": 236
  },
@@ -2365,7 +2365,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||media.adslgr.com/www/images/80ffb536c4617d7afe7c8be553b1c37d.jpg"
+   "urlFilter": "||newsit.gr/templates/default/images/newsit-11888-search.png"
   },
   "id": 237
  },
@@ -2375,7 +2375,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||media.adslgr.com/www/images/c1259c4e50e39b2fc908400addb29c96.jpg"
+   "urlFilter": "||oneman.gr/antikeimena/article1635665.ece/binary/oneman.jpg"
   },
   "id": 238
  },
@@ -2385,7 +2385,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||media.adslgr.com/www/images/e3026593eee92619a864ff0841906cd0.gif"
+   "urlFilter": "||oneman.gr/antikeimena/article1635795.ece/binary/original/oneman_fasa.png"
   },
   "id": 239
  },
@@ -2395,7 +2395,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||medlook.net/banners/"
+   "urlFilter": "||oneman.gr/incoming/article1517780.ece/binary/original/skin_onemansony.jpg"
   },
   "id": 240
  },
@@ -2405,7 +2405,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||megatv.com/webtv/newsbeast.asp?"
+   "urlFilter": "||oneman.gr/keimena/style/article1659136.ece/binary/oneman.jpg"
   },
   "id": 241
  },
@@ -2415,7 +2415,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||mignatiou.com/wp-content/uploads/2014/09/300x250_piraeus_stametrasou_final.jpg"
+   "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/chefs-feb19-300x250.gif"
   },
   "id": 242
  },
@@ -2425,7 +2425,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||milaraki.com/banner/"
+   "urlFilter": "||onlinedelivery.gr/banners/"
   },
   "id": 243
  },
@@ -2435,7 +2435,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||missbloom.gr/images/*skin*"
+   "urlFilter": "||onsports.gr/media/com_skins/"
   },
   "id": 244
  },
@@ -2445,7 +2445,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||missbloom.gr/media/vidspics/*-skin.jpg"
+   "urlFilter": "||ough.gr/uploads/skins/skin_ough_gapyear-01.jpg"
   },
   "id": 245
  },
@@ -2455,7 +2455,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||mothersblog.gr/media/com_skins/skins/79/"
+   "urlFilter": "||paparazzigr.tv/diafimistika/"
   },
   "id": 246
  },
@@ -2465,7 +2465,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||mydirect.gr/calculatorbanner.aspx?"
+   "urlFilter": "||parallaximag.gr/wp-content/uploads/bebarkitcen.jpg"
   },
   "id": 247
  },
@@ -2475,7 +2475,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||news.in.gr/themes/1/default/media/image-ads-sponsor.jpg"
+   "urlFilter": "||parapolitika.gr/portals/0/banners/"
   },
   "id": 248
  },
@@ -2485,7 +2485,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||newsbeast.gr/files/1/banners/animal/animal.jpg"
+   "urlFilter": "||prismanews.gr/images/banners/"
   },
   "id": 249
  },
@@ -2495,7 +2495,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||newsbeast.gr/files/1/banners/axatextadimg.png"
+   "urlFilter": "||protagon.gr/resources/campaigns/"
   },
   "id": 250
  },
@@ -2505,7 +2505,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||newsbeast.gr/files/1/top100europe/airfasttickets.png"
+   "urlFilter": "||protothema.gr/files/1/*/skin*"
   },
   "id": 251
  },
@@ -2515,7 +2515,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||newsbomb.gr/ads/"
+   "urlFilter": "||protothema.gr/files/1/2012/11/12/anytime"
   },
   "id": 252
  },
@@ -2525,7 +2525,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||newsbomb.gr/media/com_skins/"
+   "urlFilter": "||protothema.gr/files/1/2013/08/09/"
   },
   "id": 253
  },
@@ -2535,7 +2535,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||newsit.gr/flash/banners/2015/06/caremarket_banner300x250_29_6.gif"
+   "urlFilter": "||protothema.gr/files/1/bg-banners/"
   },
   "id": 254
  },
@@ -2545,7 +2545,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||newsit.gr/flash/categories/category_xorhgia_blank_pixel.gif"
+   "urlFilter": "||queen.gr/media/com_skins/skins/"
   },
   "id": 255
  },
@@ -2555,7 +2555,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||newsit.gr/templates/default/images/newsit-11888-search.png"
+   "urlFilter": "||real.gr/bannersexternal.aspx*"
   },
   "id": 256
  },
@@ -2565,7 +2565,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||oneman.gr/antikeimena/article1635665.ece/binary/oneman.jpg"
+   "urlFilter": "||real.gr/files/skins/"
   },
   "id": 257
  },
@@ -2575,7 +2575,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||oneman.gr/antikeimena/article1635795.ece/binary/original/oneman_fasa.png"
+   "urlFilter": "||real.gr/files/banners/"
   },
   "id": 258
  },
@@ -2585,7 +2585,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||oneman.gr/incoming/article1517780.ece/binary/original/skin_onemansony.jpg"
+   "urlFilter": "||roumlouki.gr/images/banners/"
   },
   "id": 259
  },
@@ -2595,7 +2595,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||oneman.gr/keimena/style/article1659136.ece/binary/oneman.jpg"
+   "urlFilter": "||roumlouki.gr/images/roumlouki_banners/"
   },
   "id": 260
  },
@@ -2605,7 +2605,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/chefs-feb19-300x250.gif"
+   "urlFilter": "||runningnews.gr/bimages/"
   },
   "id": 261
  },
@@ -2615,7 +2615,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||onlinedelivery.gr/banners/"
+   "urlFilter": "||s3.amazonaws.com/bulkimages/2011/skins/newsit-11888-bg.jpg"
   },
   "id": 262
  },
@@ -2625,7 +2625,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||onsports.gr/media/com_skins/"
+   "urlFilter": "||s3.amazonaws.com/bulkimages/2012/newsit/opap_skin_newsit.jpg"
   },
   "id": 263
  },
@@ -2635,7 +2635,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||ough.gr/uploads/skins/skin_ough_gapyear-01.jpg"
+   "urlFilter": "||scdn.gr/images/yogurt/dressings/forthnet/"
   },
   "id": 264
  },
@@ -2645,7 +2645,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||paparazzigr.tv/diafimistika/"
+   "urlFilter": "||secnews.gr/wp-content/uploads/2014/11/digitalbrains.png"
   },
   "id": 265
  },
@@ -2655,7 +2655,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||parallaximag.gr/wp-content/uploads/bebarkitcen.jpg"
+   "urlFilter": "||secnews.gr/wp-content/uploads/2014/11/isoqar.png"
   },
   "id": 266
  },
@@ -2665,7 +2665,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||parapolitika.gr/portals/0/banners/"
+   "urlFilter": "||secnews.gr/wp-content/uploads/2015/05/cyberkid1.jpg"
   },
   "id": 267
  },
@@ -2675,7 +2675,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||prismanews.gr/images/banners/"
+   "urlFilter": "||secnews.gr/wp-content/uploads/2015/05/host1plusbanner2.jpg"
   },
   "id": 268
  },
@@ -2685,7 +2685,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||protagon.gr/resources/campaigns/"
+   "urlFilter": "||secnews.gr/wp-content/uploads/2015/05/papei1.png"
   },
   "id": 269
  },
@@ -2695,7 +2695,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||protothema.gr/files/1/*/skin*"
+   "urlFilter": "||seleo.gr/images/stories/diafimisi/"
   },
   "id": 270
  },
@@ -2705,7 +2705,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||protothema.gr/files/1/2012/11/12/anytime"
+   "urlFilter": "||seleo.gr/images/stories/mast/"
   },
   "id": 271
  },
@@ -2715,7 +2715,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||protothema.gr/files/1/2013/08/09/"
+   "urlFilter": "||seri.gr/sites/default/iframes/"
   },
   "id": 272
  },
@@ -2725,7 +2725,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||protothema.gr/files/1/bg-banners/"
+   "urlFilter": "||skai.gr/themes/1/default/media/layout_renault/"
   },
   "id": 273
  },
@@ -2735,7 +2735,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||queen.gr/media/com_skins/skins/"
+   "urlFilter": "||skai.gr/themes/1/default/media/skins/ethiniki-trapeza"
   },
   "id": 274
  },
@@ -2745,7 +2745,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||real.gr/bannersexternal.aspx*"
+   "urlFilter": "||skai.gr/themes/1/default/media/skins/kri-kri*"
   },
   "id": 275
  },
@@ -2755,7 +2755,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||real.gr/files/skins/"
+   "urlFilter": "||skai.gr/themes/1/default/media/skins/samsung"
   },
   "id": 276
  },
@@ -2765,7 +2765,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||real.gr/files/banners/"
+   "urlFilter": "||skai.gr/wp-content/themes/vantage/images/*skin*"
   },
   "id": 277
  },
@@ -2775,7 +2775,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||roumlouki.gr/images/banners/"
+   "urlFilter": "||skroutz.gr/images/helmet/promo/"
   },
   "id": 278
  },
@@ -2785,7 +2785,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||roumlouki.gr/images/roumlouki_banners/"
+   "urlFilter": "||skroutz.gr/images/yogurt/dressings/wind/"
   },
   "id": 279
  },
@@ -2795,7 +2795,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||s3.amazonaws.com/bulkimages/2011/skins/newsit-11888-bg.jpg"
+   "urlFilter": "||smart-ads.gr/adtextlinks"
   },
   "id": 280
  },
@@ -2805,7 +2805,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||s3.amazonaws.com/bulkimages/2012/newsit/opap_skin_newsit.jpg"
+   "urlFilter": "||sofokleousin.gr/files/banners/*.jpg"
   },
   "id": 281
  },
@@ -2815,7 +2815,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||scdn.gr/images/yogurt/dressings/forthnet/"
+   "urlFilter": "||sport-fm.gr/resrc/campaigns/windone/"
   },
   "id": 282
  },
@@ -2825,7 +2825,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||secnews.gr/wp-content/uploads/2014/11/digitalbrains.png"
+   "urlFilter": "||sport-fm.gr/resrc/campaigns_v2/"
   },
   "id": 283
  },
@@ -2835,7 +2835,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||secnews.gr/wp-content/uploads/2014/11/isoqar.png"
+   "urlFilter": "||sport-fm.gr/resrc/images/custombanners/novi_438x75_paysafe.jpg"
   },
   "id": 284
  },
@@ -2845,7 +2845,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||secnews.gr/wp-content/uploads/2015/05/cyberkid1.jpg"
+   "urlFilter": "||sport103.gr/images/banners/"
   },
   "id": 285
  },
@@ -2855,7 +2855,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||secnews.gr/wp-content/uploads/2015/05/host1plusbanner2.jpg"
+   "urlFilter": "||sport24.gr/genika/article1951216.ece/binary/original/mc_tab.png"
   },
   "id": 286
  },
@@ -2865,7 +2865,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||secnews.gr/wp-content/uploads/2015/05/papei1.png"
+   "urlFilter": "||sport24.gr/incoming/article778267.ece/binary/"
   },
   "id": 287
  },
@@ -2875,7 +2875,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||seleo.gr/images/stories/diafimisi/"
+   "urlFilter": "||sport24.gr/incoming/article854008.ece/binary/original"
   },
   "id": 288
  },
@@ -2885,7 +2885,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||seleo.gr/images/stories/mast/"
+   "urlFilter": "||sport24.gr/multimedia/*/stoiximan*.jpg"
   },
   "id": 289
  },
@@ -2895,7 +2895,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||seri.gr/sites/default/iframes/"
+   "urlFilter": "||sport24.gr/multimedia/*/stoiximan*.png"
   },
   "id": 290
  },
@@ -2905,7 +2905,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||skai.gr/themes/1/default/media/layout_renault/"
+   "urlFilter": "||sportygossip.com/sites/all/themes/athensbars/images/bg/"
   },
   "id": 291
  },
@@ -2915,7 +2915,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||skai.gr/themes/1/default/media/skins/ethiniki-trapeza"
+   "urlFilter": "||static.24media.gr/dealin/"
   },
   "id": 292
  },
@@ -2925,7 +2925,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||skai.gr/themes/1/default/media/skins/kri-kri*"
+   "urlFilter": "||static.24media.gr/interstitials/betoto/"
   },
   "id": 293
  },
@@ -2935,7 +2935,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||skai.gr/themes/1/default/media/skins/samsung"
+   "urlFilter": "||static.24media.gr/push_down/bwin/"
   },
   "id": 294
  },
@@ -2945,7 +2945,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||skai.gr/wp-content/themes/vantage/images/*skin*"
+   "urlFilter": "||static.reembed.com/data/logos/"
   },
   "id": 295
  },
@@ -2955,7 +2955,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||skroutz.gr/images/helmet/promo/"
+   "urlFilter": "||static.scar.gr/ads/"
   },
   "id": 296
  },
@@ -2965,7 +2965,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||skroutz.gr/images/yogurt/dressings/wind/"
+   "urlFilter": "||stokokkino.gr/photos/gsk.jpg"
   },
   "id": 297
  },
@@ -2975,7 +2975,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||smart-ads.gr/adtextlinks"
+   "urlFilter": "||subs4free.com/js/wh4_s4f_p2.js"
   },
   "id": 298
  },
@@ -2985,7 +2985,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sofokleousin.gr/files/banners/*.jpg"
+   "urlFilter": "||thepressproject.gr/ad/"
   },
   "id": 299
  },
@@ -2995,7 +2995,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport-fm.gr/resrc/campaigns/windone/"
+   "urlFilter": "||tlife.gr/flash/banners/"
   },
   "id": 300
  },
@@ -3005,7 +3005,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport-fm.gr/resrc/campaigns_v2/"
+   "urlFilter": "||tovima.gr/themes/1/default/media/home/pireos.jpg"
   },
   "id": 301
  },
@@ -3015,7 +3015,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport-fm.gr/resrc/images/custombanners/novi_438x75_paysafe.jpg"
+   "urlFilter": "||tuned.gr/images/stories/leo/vlas_toolbar.jpg"
   },
   "id": 302
  },
@@ -3025,7 +3025,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport103.gr/images/banners/"
+   "urlFilter": "||tvcreta.gr/upload_images/banners/"
   },
   "id": 303
  },
@@ -3035,7 +3035,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport24.gr/genika/article1951216.ece/binary/original/mc_tab.png"
+   "urlFilter": "||unboxholics.com/images/banners/egalaxy/e-galaxynew.jpg"
   },
   "id": 304
  },
@@ -3045,189 +3045,9 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport24.gr/incoming/article778267.ece/binary/"
-  },
-  "id": 305
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport24.gr/incoming/article854008.ece/binary/original"
-  },
-  "id": 306
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport24.gr/multimedia/*/stoiximan*.jpg"
-  },
-  "id": 307
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sport24.gr/multimedia/*/stoiximan*.png"
-  },
-  "id": 308
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sportygossip.com/sites/all/themes/athensbars/images/bg/"
-  },
-  "id": 309
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.24media.gr/dealin/"
-  },
-  "id": 310
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.24media.gr/interstitials/betoto/"
-  },
-  "id": 311
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.24media.gr/push_down/bwin/"
-  },
-  "id": 312
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.reembed.com/data/logos/"
-  },
-  "id": 313
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.scar.gr/ads/"
-  },
-  "id": 314
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||stokokkino.gr/photos/gsk.jpg"
-  },
-  "id": 315
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||subs4free.com/js/wh4_s4f_p2.js"
-  },
-  "id": 316
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||thepressproject.gr/ad/"
-  },
-  "id": 317
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||tlife.gr/flash/banners/"
-  },
-  "id": 318
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||tovima.gr/themes/1/default/media/home/pireos.jpg"
-  },
-  "id": 319
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||tuned.gr/images/stories/leo/vlas_toolbar.jpg"
-  },
-  "id": 320
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||tvcreta.gr/upload_images/banners/"
-  },
-  "id": 321
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||unboxholics.com/images/banners/egalaxy/e-galaxynew.jpg"
-  },
-  "id": 322
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
    "urlFilter": "||unboxholics.com/images/banners/inspot/inspot_banner.jpg"
   },
-  "id": 323
+  "id": 305
  },
  {
   "action": {
@@ -3241,7 +3061,7 @@
     "unibet-cdn.com"
    ]
   },
-  "id": 324
+  "id": 306
  },
  {
   "action": {
@@ -3251,7 +3071,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||usay.gr/hyperads/"
   },
-  "id": 325
+  "id": 307
  },
  {
   "action": {
@@ -3261,7 +3081,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||vidata.gr/files/plugins/longtailvideo/v5a/r6/vidads.swf"
   },
-  "id": 326
+  "id": 308
  },
  {
   "action": {
@@ -3271,7 +3091,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||widgets.nova.gr/nownext_compact/el/"
   },
-  "id": 327
+  "id": 309
  },
  {
   "action": {
@@ -3281,7 +3101,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||wigetmedia.com/tags/"
   },
-  "id": 328
+  "id": 310
  },
  {
   "action": {
@@ -3291,7 +3111,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||www.anew.gr/admin/baners/"
   },
-  "id": 329
+  "id": 311
  },
  {
   "action": {
@@ -3301,7 +3121,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||www.candiadoc.gr/banners/"
   },
-  "id": 330
+  "id": 312
  },
  {
   "action": {
@@ -3311,7 +3131,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||www.creteplus.gr/assets/bnrs/"
   },
-  "id": 331
+  "id": 313
  },
  {
   "action": {
@@ -3321,7 +3141,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||www.diaforetiko.gr/wp-content/uploads/2015/03/droidbanner3.gif"
   },
-  "id": 332
+  "id": 314
  },
  {
   "action": {
@@ -3331,7 +3151,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||www.neakriti.gr/bannersexternal.aspx?bid="
   },
-  "id": 333
+  "id": 315
  },
  {
   "action": {
@@ -3341,7 +3161,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||www.sportkit.gr/widget.aspx*"
   },
-  "id": 334
+  "id": 316
  },
  {
   "action": {
@@ -3351,7 +3171,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||www.thelosouvlakia.gr/cms/uploads/ad/"
   },
-  "id": 335
+  "id": 317
  },
  {
   "action": {
@@ -3361,7 +3181,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||www.triakilakodika.gr/images/teamworkpm650.png"
   },
-  "id": 336
+  "id": 318
  },
  {
   "action": {
@@ -3371,7 +3191,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||yupiii.gr/banners/bg/"
   },
-  "id": 337
+  "id": 319
  },
  {
   "action": {
@@ -3381,7 +3201,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||zougla.gr/uploads/banners/"
   },
-  "id": 338
+  "id": 320
  },
  {
   "action": {
@@ -3394,7 +3214,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||services.madinad.com/analytics/"
   },
-  "id": 339
+  "id": 321
  },
  {
   "action": {
@@ -3404,24 +3224,63 @@
    "requestDomains": [
     "ad.gr.doubleclick.net",
     "ad2.linkwise.gr",
+    "adman.kathimerini.gr",
+    "adman.otenet.gr",
     "ads.24media.gr",
+    "ads.naftemporiki.gr",
+    "adserver.linkwise.gr",
+    "affiliate.linkwise.gr",
     "axiabanners.exodus.gr",
+    "banners.dol.gr",
+    "bold.adman.gr",
+    "call.theowl.gr",
+    "cdn.orangeclickmedia.com",
     "clickbanner.gr",
     "d.agkn.com",
+    "educate.theowl.gr",
+    "el.williamhillcasino.com",
     "gazzetta.adman.gr",
     "gpoint.gpoint.com.gr",
+    "gr.partypoker.com",
     "media.mybet.com",
     "obj.adman.gr",
     "phaistos-ssp.adman.gr",
     "promo.gpoint.com.gr",
     "promos.pathfinder.gr",
     "scripts.bestprice.gr",
+    "serve.ads.gr",
     "smartadserver.com",
     "static.adman.gr",
     "switch.statman.gr"
    ]
   },
-  "id": 340
+  "id": 322
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||www.e-evros.gr/banners/*.gif"
+  },
+  "id": 323
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||meteo.gr/graphics/ads/"
+  },
+  "id": 324
  },
  {
   "action": {
@@ -3434,7 +3293,7 @@
    ],
    "urlFilter": "||athensmagazine.gr/files/banners/"
   },
-  "id": 341
+  "id": 325
  },
  {
   "action": {
@@ -3447,7 +3306,7 @@
    ],
    "urlFilter": "||bankingnews.gr/ad/"
   },
-  "id": 342
+  "id": 326
  },
  {
   "action": {
@@ -3460,7 +3319,7 @@
    ],
    "urlFilter": "||cdn-gr.sexgr.net/b/"
   },
-  "id": 343
+  "id": 327
  },
  {
   "action": {
@@ -3473,7 +3332,7 @@
    ],
    "urlFilter": "||cdn.cnngreece.gr/media/com_news/ads/"
   },
-  "id": 344
+  "id": 328
  },
  {
   "action": {
@@ -3486,7 +3345,7 @@
    ],
    "urlFilter": "||deliver.mediacdn.com/live24/itrofi-wide.jpg"
   },
-  "id": 345
+  "id": 329
  },
  {
   "action": {
@@ -3499,7 +3358,7 @@
    ],
    "urlFilter": "||e-ptolemeos.gr/*.gif"
   },
-  "id": 346
+  "id": 330
  },
  {
   "action": {
@@ -3512,7 +3371,7 @@
    ],
    "urlFilter": "||e-ptolemeos.gr/*banner"
   },
-  "id": 347
+  "id": 331
  },
  {
   "action": {
@@ -3525,7 +3384,7 @@
    ],
    "urlFilter": "||focuswebtv.gr/images/banners/"
   },
-  "id": 348
+  "id": 332
  },
  {
   "action": {
@@ -3538,7 +3397,7 @@
    ],
    "urlFilter": "||fonitisparou.gr/*/banners/"
   },
-  "id": 349
+  "id": 333
  },
  {
   "action": {
@@ -3551,7 +3410,7 @@
    ],
    "urlFilter": "||gossip-tv.gr/media/com_news/ads/"
   },
-  "id": 350
+  "id": 334
  },
  {
   "action": {
@@ -3564,7 +3423,7 @@
    ],
    "urlFilter": "||i-kyr.gr/wp-content/uploads/2016/03/banner*"
   },
-  "id": 351
+  "id": 335
  },
  {
   "action": {
@@ -3577,7 +3436,7 @@
    ],
    "urlFilter": "||i-kyr.gr/wp-content/uploads/2018/05/alpha*"
   },
-  "id": 352
+  "id": 336
  },
  {
   "action": {
@@ -3590,7 +3449,7 @@
    ],
    "urlFilter": "||idrones.gr/images/banners/"
   },
-  "id": 353
+  "id": 337
  },
  {
   "action": {
@@ -3603,7 +3462,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2017/02/podium-2.gif"
   },
-  "id": 354
+  "id": 338
  },
  {
   "action": {
@@ -3616,7 +3475,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2017/06/collectives1-20.jpg"
   },
-  "id": 355
+  "id": 339
  },
  {
   "action": {
@@ -3629,7 +3488,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/04/baner_asfalistiko_300x249.jpg"
   },
-  "id": 356
+  "id": 340
  },
  {
   "action": {
@@ -3642,7 +3501,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/05/screen-shot-2018-05-07-at-20.41.56.png"
   },
-  "id": 357
+  "id": 341
  },
  {
   "action": {
@@ -3655,7 +3514,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/05/tiniakosgr.gif"
   },
-  "id": 358
+  "id": 342
  },
  {
   "action": {
@@ -3668,7 +3527,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/07/boukovibanner-500x417.jpg"
   },
-  "id": 359
+  "id": 343
  },
  {
   "action": {
@@ -3681,7 +3540,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/11/500x417_columbia.jpg"
   },
-  "id": 360
+  "id": 344
  },
  {
   "action": {
@@ -3694,7 +3553,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/11/500x417_marcos.jpg"
   },
-  "id": 361
+  "id": 345
  },
  {
   "action": {
@@ -3707,7 +3566,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/11/500x417_marx.jpg"
   },
-  "id": 362
+  "id": 346
  },
  {
   "action": {
@@ -3720,7 +3579,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/12/megalh-istoria-ths-elladas-1.jpg"
   },
-  "id": 363
+  "id": 347
  },
  {
   "action": {
@@ -3733,7 +3592,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/12/megalh-istoria-ths-elladas-2.jpg"
   },
-  "id": 364
+  "id": 348
  },
  {
   "action": {
@@ -3746,7 +3605,7 @@
    ],
    "urlFilter": "||imerodromos.gr/wp-content/uploads/2018/12/na_ntysoume_tous_gymnous_500x417pix-2-1.gif"
   },
-  "id": 365
+  "id": 349
  },
  {
   "action": {
@@ -3759,7 +3618,7 @@
    ],
    "urlFilter": "||insider.gr/sites/default/files/2019-02/eurobank%20rgb_1.png"
   },
-  "id": 366
+  "id": 350
  },
  {
   "action": {
@@ -3772,7 +3631,7 @@
    ],
    "urlFilter": "||logotypos.gr/wp-content/uploads/2018/01/ektypotik3.gif"
   },
-  "id": 367
+  "id": 351
  },
  {
   "action": {
@@ -3785,7 +3644,7 @@
    ],
    "urlFilter": "||logotypos.gr/wp-content/uploads/2018/02/ektypotikh_low.jpg"
   },
-  "id": 368
+  "id": 352
  },
  {
   "action": {
@@ -3798,7 +3657,7 @@
    ],
    "urlFilter": "||logotypos.gr/wp-content/uploads/2018/03/teliko_background.jpg"
   },
-  "id": 369
+  "id": 353
  },
  {
   "action": {
@@ -3811,7 +3670,7 @@
    ],
    "urlFilter": "||marketnews.gr/banners/delonghi.gif"
   },
-  "id": 370
+  "id": 354
  },
  {
   "action": {
@@ -3824,7 +3683,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2016/09/icbsnew1200small.gif"
   },
-  "id": 371
+  "id": 355
  },
  {
   "action": {
@@ -3837,7 +3696,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/eda-thess.png"
   },
-  "id": 372
+  "id": 356
  },
  {
   "action": {
@@ -3850,7 +3709,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/europroodos.gif"
   },
-  "id": 373
+  "id": 357
  },
  {
   "action": {
@@ -3863,7 +3722,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/fashion-city.gif"
   },
-  "id": 374
+  "id": 358
  },
  {
   "action": {
@@ -3876,7 +3735,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/kazanas_xeimerines_ekptwseis_2019.gif"
   },
-  "id": 375
+  "id": 359
  },
  {
   "action": {
@@ -3889,7 +3748,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/larisa-300x250.gif"
   },
-  "id": 376
+  "id": 360
  },
  {
   "action": {
@@ -3902,7 +3761,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/nona-rossa.gif"
   },
-  "id": 377
+  "id": 361
  },
  {
   "action": {
@@ -3915,7 +3774,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/snoopy-1.gif"
   },
-  "id": 378
+  "id": 362
  },
  {
   "action": {
@@ -3928,7 +3787,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/09/snoopy.gif"
   },
-  "id": 379
+  "id": 363
  },
  {
   "action": {
@@ -3941,7 +3800,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/11/webp.net-gifmaker-1.gif"
   },
-  "id": 380
+  "id": 364
  },
  {
   "action": {
@@ -3954,7 +3813,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/11/victoria-10.gif"
   },
-  "id": 381
+  "id": 365
  },
  {
   "action": {
@@ -3967,7 +3826,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/12/benneton.jpg"
   },
-  "id": 382
+  "id": 366
  },
  {
   "action": {
@@ -3980,7 +3839,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/12/giannakos-christmas.gif"
   },
-  "id": 383
+  "id": 367
  },
  {
   "action": {
@@ -3993,7 +3852,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/12/giannakos-miltos.gif"
   },
-  "id": 384
+  "id": 368
  },
  {
   "action": {
@@ -4006,7 +3865,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/12/karla-final.gif"
   },
-  "id": 385
+  "id": 369
  },
  {
   "action": {
@@ -4019,7 +3878,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2018/12/ktimatografisi.jpg"
   },
-  "id": 386
+  "id": 370
  },
  {
   "action": {
@@ -4032,7 +3891,7 @@
    ],
    "urlFilter": "||onlarissa.gr/wp-content/uploads/2019/01/leroy.gif"
   },
-  "id": 387
+  "id": 371
  },
  {
   "action": {
@@ -4045,7 +3904,7 @@
    ],
    "urlFilter": "||parianostypos.gr/images/banners/"
   },
-  "id": 388
+  "id": 372
  },
  {
   "action": {
@@ -4058,7 +3917,7 @@
    ],
    "urlFilter": "||parianostypos.gr/*/diafimissi/"
   },
-  "id": 389
+  "id": 373
  },
  {
   "action": {
@@ -4071,7 +3930,7 @@
    ],
    "urlFilter": "||protagon.gr/wp-content/uploads/2018/11/opap-new_generic_3_174px-protagon-1.jpg"
   },
-  "id": 390
+  "id": 374
  },
  {
   "action": {
@@ -4084,7 +3943,7 @@
    ],
    "urlFilter": "||queen.gr/media/com_news/ads/"
   },
-  "id": 391
+  "id": 375
  },
  {
   "action": {
@@ -4097,7 +3956,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/1theloakinita5.gif"
   },
-  "id": 392
+  "id": 376
  },
  {
   "action": {
@@ -4110,7 +3969,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/250px.gif"
   },
-  "id": 393
+  "id": 377
  },
  {
   "action": {
@@ -4123,7 +3982,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/baner-pontiki.gif"
   },
-  "id": 394
+  "id": 378
  },
  {
   "action": {
@@ -4136,7 +3995,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/img-trap.jpg"
   },
-  "id": 395
+  "id": 379
  },
  {
   "action": {
@@ -4149,7 +4008,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/logo-sygkatoikos-ren-a.gif"
   },
-  "id": 396
+  "id": 380
  },
  {
   "action": {
@@ -4162,7 +4021,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/nomisma_140x60.gif"
   },
-  "id": 397
+  "id": 381
  },
  {
   "action": {
@@ -4175,7 +4034,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/para_250x300.gif"
   },
-  "id": 398
+  "id": 382
  },
  {
   "action": {
@@ -4188,7 +4047,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/pomidaani.gif"
   },
-  "id": 399
+  "id": 383
  },
  {
   "action": {
@@ -4201,7 +4060,7 @@
    ],
    "urlFilter": "||rockinathens.gr/wp-content/uploads/2016/08/ritual-banner.gif"
   },
-  "id": 400
+  "id": 384
  },
  {
   "action": {
@@ -4214,7 +4073,7 @@
    ],
    "urlFilter": "||seleo.gr/wp-content/uploads/2020/12/aaa5.png"
   },
-  "id": 401
+  "id": 385
  },
  {
   "action": {
@@ -4227,7 +4086,7 @@
    ],
    "urlFilter": "||sport24.gr/img/app/9018330/0/o/0/0/matchcenter_stoiximan_desk.png"
   },
-  "id": 402
+  "id": 386
  },
  {
   "action": {
@@ -4240,7 +4099,7 @@
    ],
    "urlFilter": "||travelstyle.gr/portal/files/banners/"
   },
-  "id": 403
+  "id": 387
  },
  {
   "action": {
@@ -4253,7 +4112,7 @@
    ],
    "urlFilter": "||tvxs.gr/sites/all/themes/xsonethree/skins/jobby_skinv3.jpg"
   },
-  "id": 404
+  "id": 388
  },
  {
   "action": {
@@ -4266,7 +4125,7 @@
    ],
    "urlFilter": "||www.e-food.gr/site-assets/img/coca/"
   },
-  "id": 405
+  "id": 389
  },
  {
   "action": {
@@ -4280,7 +4139,7 @@
    ],
    "urlFilter": "||www.taxheaven.gr/public/banners/"
   },
-  "id": 406
+  "id": 390
  },
  {
   "action": {
@@ -4293,7 +4152,7 @@
    ],
    "urlFilter": "||www.trinews.gr/runimg/2016_04_saucony.gif"
   },
-  "id": 407
+  "id": 391
  },
  {
   "action": {
@@ -4306,7 +4165,7 @@
    ],
    "urlFilter": "||www.trinews.gr/runimg/2016_05_ethicsports_150x300.gif"
   },
-  "id": 408
+  "id": 392
  },
  {
   "action": {
@@ -4319,7 +4178,7 @@
    ],
    "urlFilter": "||www.trinews.gr/runimg/2016_07_intersport-summersales_150x300.gif"
   },
-  "id": 409
+  "id": 393
  },
  {
   "action": {
@@ -4332,7 +4191,7 @@
    ],
    "urlFilter": "||realestatenews.gr/images/stories/banner-red.swf"
   },
-  "id": 410
+  "id": 394
  },
  {
   "action": {
@@ -4348,7 +4207,7 @@
    ],
    "urlFilter": "||cdnprojectagora.s3.amazonaws.com/gr/gazzetta.js"
   },
-  "id": 411
+  "id": 395
  },
  {
   "action": {
@@ -4361,7 +4220,7 @@
    ],
    "urlFilter": "||bankingnews.gr/ad/*/"
   },
-  "id": 412
+  "id": 396
  },
  {
   "action": {
@@ -4375,7 +4234,7 @@
     "sub_frame"
    ]
   },
-  "id": 413
+  "id": 397
  },
  {
   "action": {
@@ -4388,7 +4247,7 @@
    ],
    "urlFilter": "goldenconcept.ir^"
   },
-  "id": 414
+  "id": 398
  },
  {
   "action": {
@@ -4401,7 +4260,7 @@
    ],
    "urlFilter": "indusviva.com^"
   },
-  "id": 415
+  "id": 399
  },
  {
   "action": {
@@ -4410,12 +4269,13 @@
   "condition": {
    "domainType": "thirdParty",
    "requestDomains": [
+    "adstorebluebird.cy",
     "adwebone.com",
     "madinad.com",
     "vidads.gr"
    ]
   },
-  "id": 416
+  "id": 400
  },
  {
   "action": {
@@ -4423,9 +4283,9 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "contra.gr/xml/sponsors/pokergr/ilika/*_image.png"
+   "urlFilter": "||politis-news.com/banners/entheta/"
   },
-  "id": 417
+  "id": 401
  },
  {
   "action": {
@@ -4433,9 +4293,9 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "contra.gr/xml/sponsors/pokergr/ilika/fasa_bg.jpg"
+   "urlFilter": "||resources.sport-fm.gr/sportfm/newspapers/"
   },
-  "id": 418
+  "id": 402
  },
  {
   "action": {
@@ -4443,9 +4303,9 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "contra.gr/xml/sponsors/pokergr/ilika/mundobasket.css"
+   "urlFilter": "||sport-fm.gr/resrc/images/layout/campaigns/mb2010/bg-bck-block.jpg"
   },
-  "id": 419
+  "id": 403
  },
  {
   "action": {
@@ -4453,9 +4313,9 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "politis-news.com/banners/entheta/"
+   "urlFilter": "||sport-fm.gr/resrc/images/layout/campaigns/mb2010/bg-fp-block-mb2010.jpg"
   },
-  "id": 420
+  "id": 404
  },
  {
   "action": {
@@ -4463,39 +4323,9 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "resources.sport-fm.gr/sportfm/newspapers/"
+   "urlFilter": "||sport-fm.gr/resrc/images/layout/campaigns/mb2010/bg-fp-block__v3.jpg"
   },
-  "id": 421
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "sport-fm.gr/resrc/images/layout/campaigns/mb2010/bg-bck-block.jpg"
-  },
-  "id": 422
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "sport-fm.gr/resrc/images/layout/campaigns/mb2010/bg-fp-block-mb2010.jpg"
-  },
-  "id": 423
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "sport-fm.gr/resrc/images/layout/campaigns/mb2010/bg-fp-block__v3.jpg"
-  },
-  "id": 424
+  "id": 405
  },
  {
   "action": {
@@ -4505,7 +4335,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||ads.patris.gr/_banners/1421748421.gif"
   },
-  "id": 425
+  "id": 406
  },
  {
   "action": {
@@ -4515,7 +4345,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||athinorama.gr/adv/lmnts/blank.gif"
   },
-  "id": 426
+  "id": 407
  },
  {
   "action": {
@@ -4525,7 +4355,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||athinorama.gr/adv/lmnts/disimata/"
   },
-  "id": 427
+  "id": 408
  },
  {
   "action": {
@@ -4535,7 +4365,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||athinorama.gr/adv/lmnts/earth/*.swf"
   },
-  "id": 428
+  "id": 409
  },
  {
   "action": {
@@ -4545,7 +4375,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||athinorama.gr/adv/lmnts/stegi/*.swf"
   },
-  "id": 429
+  "id": 410
  },
  {
   "action": {
@@ -4555,7 +4385,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||contra.gr/xml/sponsors/pokergr/ilika/"
   },
-  "id": 430
+  "id": 411
  },
  {
   "action": {
@@ -4565,7 +4395,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||megatv.com/*/xml/jw/adverts.asp?"
   },
-  "id": 431
+  "id": 412
  },
  {
   "action": {
@@ -4575,7 +4405,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||skaihd-f.akamaihd.net/z/advert/"
   },
-  "id": 432
+  "id": 413
  },
  {
   "action": {
@@ -4585,7 +4415,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||xe.gr/property/recent_ads?"
   },
-  "id": 433
+  "id": 414
  },
  {
   "action": {
@@ -4601,6 +4431,6 @@
    ],
    "urlFilter": "||www.antenna.gr/js/adman-video*.js"
   },
-  "id": 434
+  "id": 415
  }
 ]

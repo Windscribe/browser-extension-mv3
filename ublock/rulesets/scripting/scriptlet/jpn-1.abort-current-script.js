@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2019-present Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,67 +18,67 @@
 
     Home: https://github.com/gorhill/uBlock
 
-    The scriptlets below are meant to be injected only into a
-    web page context.
 */
 
 /* jshint esversion:11 */
 
 'use strict';
 
-/******************************************************************************/
-
-/// name abort-current-script
-/// alias acs
-/// alias abort-current-inline-script
-/// alias acis
+// ruleset: jpn-1
 
 /******************************************************************************/
 
 // Important!
 // Isolate from global scope
+
 (function uBOL_abortCurrentScript() {
 
 /******************************************************************************/
 
-// jpn-1
+const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = [{"a":["onload","adsCount"]},{"a":["navigator.brave"]},{"a":["document.getElementById","_0x"]},{"a":["onload","innerHTML"]},{"a":["document.createElement","admiral"]},{"a":["onload","ad"]},{"a":["jQuery","decodeURIComponent"]},{"a":["jQuery","floatingAd"]},{"a":["tag","Math.random"]},{"a":["addEventListener","style.display"]},{"a":["jmp","Math"]},{"a":["document.getElementById","lists"]},{"a":["document.write","sitejack"]},{"a":["__htapop"]}];
+const argsList = ["[\"setTimeout\",\"AdContainer\"]","[\"atob\",\"/documentEl[\\\\s\\\\S]*?_0x/\"]","[\"onload\",\"adsCount\"]","[\"navigator.brave\"]","[\"document.getElementById\",\"_0x\"]","[\"document.querySelector\",\"_0x\"]","[\"document.createElement\",\"admiral\"]","[\"onload\",\"ad\"]","[\"jQuery\",\"decodeURIComponent\"]","[\"document.referrer\",\"gmo_bb\"]","[\"document.write\",\"LinkURL\"]","[\"document.currentScript\",\"insertAdjacentHTML\"]","[\"jQuery\",\"floatingAd\"]","[\"tag\",\"Math.random\"]","[\"addEventListener\",\"style.display\"]","[\"jmp\",\"Math\"]","[\"document.getElementById\",\"lists\"]","[\"document.write\",\"sitejack\"]","[\"__htapop\"]"];
 
-const hostnamesMap = new Map([["blog-and-destroy.com",0],["musenboya.com",1],["kledgeb.blogspot.com",2],["itby.net",3],["nordot.app",4],["h-ken.net",5],["connect.coron.tech",6],["blog.livedoor.jp",[7,10,12]],["majikichi.com",8],["xn--gmq92kd2rm1kx34a.com",9],["dtiblog.com",10],["momoiroadult.com",11],["avgle.com",13]]);
+const hostnamesMap = new Map([["gamemod.blog.fc2.com",0],["ssbsblg.blogspot.com",1],["blog-and-destroy.com",2],["musenboya.com",3],["kledgeb.blogspot.com",4],["nordot.app",6],["h-ken.net",7],["connect.coron.tech",8],["h1g.jp",9],["russianbeauties.jp",10],["agora-web.jp",11],["kijomatomelog.com",12],["gundamlog.com",12],["doorblog.jp",12],["digital-thread.com",12],["livedoor.blog",12],["blog.jp",12],["blog.livedoor.jp",[12,15,17]],["majikichi.com",13],["xn--gmq92kd2rm1kx34a.com",14],["dtiblog.com",15],["momoiroadult.com",16],["avgle.com",18]]);
+
+const entitiesMap = new Map([["manga1001",5],["javmix",14]]);
+
+const exceptionsMap = new Map([]);
 
 /******************************************************************************/
 
-// Issues to mind before changing anything:
-//  https://github.com/uBlockOrigin/uBlock-issues/issues/2154
+function abortCurrentScript(
+    arg1,
+    arg2,
+    arg3
+) {
+    runAtHtmlElement(( ) => {
+        abortCurrentScriptCore(arg1, arg2, arg3);
+    });
+}
 
-const scriptlet = (
-    target = '',
-    needle = '',
-    context = ''
-) => {
+function abortCurrentScriptCore(
+    arg1 = '',
+    arg2 = '',
+    arg3 = ''
+) {
+    const details = typeof arg1 !== 'object'
+        ? { target: arg1, needle: arg2, context: arg3 }
+        : arg1;
+    const { target = '', needle = '', context = '' } = details;
+    if ( typeof target !== 'string' ) { return; }
     if ( target === '' ) { return; }
-    const reRegexEscape = /[.*+?^${}()|[\]\\]/g;
-    const reNeedle = (( ) => {
-        if ( needle === '' ) { return /^/; }
-        if ( /^\/.+\/$/.test(needle) ) {
-            return new RegExp(needle.slice(1,-1));
-        }
-        return new RegExp(needle.replace(reRegexEscape, '\\$&'));
-    })();
-    const reContext = (( ) => {
-        if ( context === '' ) { return; }
-        if ( /^\/.+\/$/.test(context) ) {
-            return new RegExp(context.slice(1,-1));
-        }
-        return new RegExp(context.replace(reRegexEscape, '\\$&'));
-    })();
+    const safe = safeSelf();
+    const reNeedle = patternToRegex(needle);
+    const reContext = patternToRegex(context);
+    const thisScript = document.currentScript;
     const chain = target.split('.');
     let owner = window;
     let prop;
     for (;;) {
         prop = chain.shift();
         if ( chain.length === 0 ) { break; }
+        if ( prop in owner === false ) { break; }
         owner = owner[prop];
         if ( owner instanceof Object === false ) { return; }
     }
@@ -91,8 +91,9 @@ const scriptlet = (
         value = owner[prop];
         desc = undefined;
     }
-    const magic = String.fromCharCode(Date.now() % 26 + 97) +
-                  Math.floor(Math.random() * 982451653 + 982451653).toString(36);
+    const log = shouldLog(details);
+    const debug = shouldDebug(details);
+    const exceptionToken = getExceptionToken();
     const scriptTexts = new WeakMap();
     const getScriptText = elem => {
         let text = elem.textContent;
@@ -116,69 +117,176 @@ const scriptlet = (
         return text;
     };
     const validate = ( ) => {
+        if ( debug ) { debugger; }  // jshint ignore: line
         const e = document.currentScript;
         if ( e instanceof HTMLScriptElement === false ) { return; }
-        if ( reContext !== undefined && reContext.test(e.src) === false ) {
-            return;
-        }
-        if ( reNeedle.test(getScriptText(e)) === false ) { return; }
-        throw new ReferenceError(magic);
+        if ( e === thisScript ) { return; }
+        if ( context !== '' && reContext.test(e.src) === false ) { return; }
+        if ( log && e.src !== '' ) { safe.uboLog(`matched src: ${e.src}`); }
+        const scriptText = getScriptText(e);
+        if ( reNeedle.test(scriptText) === false ) { return; }
+        if ( log ) { safe.uboLog(`matched script text: ${scriptText}`); }
+        throw new ReferenceError(exceptionToken);
     };
-    Object.defineProperty(owner, prop, {
-        get: function() {
-            validate();
-            return desc instanceof Object
-                ? desc.get.call(owner)
-                : value;
-        },
-        set: function(a) {
-            validate();
-            if ( desc instanceof Object ) {
-                desc.set.call(owner, a);
-            } else {
-                value = a;
+    if ( debug ) { debugger; }  // jshint ignore: line
+    try {
+        Object.defineProperty(owner, prop, {
+            get: function() {
+                validate();
+                return desc instanceof Object
+                    ? desc.get.call(owner)
+                    : value;
+            },
+            set: function(a) {
+                validate();
+                if ( desc instanceof Object ) {
+                    desc.set.call(owner, a);
+                } else {
+                    value = a;
+                }
             }
-        }
-    });
-    const oe = window.onerror;
-    window.onerror = function(msg) {
-        if ( typeof msg === 'string' && msg.includes(magic) ) {
-            return true;
-        }
-        if ( oe instanceof Function ) {
-            return oe.apply(this, arguments);
-        }
-    }.bind();
-};
-
-/******************************************************************************/
-
-let hn;
-try { hn = document.location.hostname; } catch(ex) { }
-while ( hn ) {
-    if ( hostnamesMap.has(hn) ) {
-        let argsIndices = hostnamesMap.get(hn);
-        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
-        for ( const argsIndex of argsIndices ) {
-            const details = argsList[argsIndex];
-            if ( details.n && details.n.includes(hn) ) { continue; }
-            try { scriptlet(...details.a); } catch(ex) {}
-        }
-    }
-    if ( hn === '*' ) { break; }
-    const pos = hn.indexOf('.');
-    if ( pos !== -1 ) {
-        hn = hn.slice(pos + 1);
-    } else {
-        hn = '*';
+        });
+    } catch(ex) {
+        if ( log ) { safe.uboLog(ex); }
     }
 }
 
+function runAtHtmlElement(fn) {
+    if ( document.documentElement ) {
+        fn();
+        return;
+    }
+    const observer = new MutationObserver(( ) => {
+        observer.disconnect();
+        fn();
+    });
+    observer.observe(document, { childList: true });
+}
+
+function patternToRegex(pattern, flags = undefined) {
+    if ( pattern === '' ) { return /^/; }
+    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+    if ( match !== null ) {
+        return new RegExp(match[1], match[2] || flags);
+    }
+    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+}
+
+function getExceptionToken() {
+    const token =
+        String.fromCharCode(Date.now() % 26 + 97) +
+        Math.floor(Math.random() * 982451653 + 982451653).toString(36);
+    const oe = self.onerror;
+    self.onerror = function(msg, ...args) {
+        if ( typeof msg === 'string' && msg.includes(token) ) { return true; }
+        if ( oe instanceof Function ) {
+            return oe.call(this, msg, ...args);
+        }
+    }.bind();
+    return token;
+}
+
+function safeSelf() {
+    if ( scriptletGlobals.has('safeSelf') ) {
+        return scriptletGlobals.get('safeSelf');
+    }
+    const safe = {
+        'Object_defineProperty': Object.defineProperty.bind(Object),
+        'RegExp': self.RegExp,
+        'RegExp_test': self.RegExp.prototype.test,
+        'RegExp_exec': self.RegExp.prototype.exec,
+        'addEventListener': self.EventTarget.prototype.addEventListener,
+        'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'log': console.log.bind(console),
+        'uboLog': function(...args) {
+            if ( args.length === 0 ) { return; }
+            if ( `${args[0]}` === '' ) { return; }
+            this.log('[uBO]', ...args);
+        },
+    };
+    scriptletGlobals.set('safeSelf', safe);
+    return safe;
+}
+
+function shouldDebug(details) {
+    if ( details instanceof Object === false ) { return false; }
+    return scriptletGlobals.has('canDebug') && details.debug;
+}
+
+function shouldLog(details) {
+    if ( details instanceof Object === false ) { return false; }
+    return scriptletGlobals.has('canDebug') && details.log;
+}
+
+/******************************************************************************/
+
+const hnParts = [];
+try { hnParts.push(...document.location.hostname.split('.')); }
+catch(ex) { }
+const hnpartslen = hnParts.length;
+if ( hnpartslen === 0 ) { return; }
+
+const todoIndices = new Set();
+const tonotdoIndices = [];
+
+// Exceptions
+if ( exceptionsMap.size !== 0 ) {
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        const excepted = exceptionsMap.get(hn);
+        if ( excepted ) { tonotdoIndices.push(...excepted); }
+    }
+    exceptionsMap.clear();
+}
+
+// Hostname-based
+if ( hostnamesMap.size !== 0 ) {
+    const collectArgIndices = hn => {
+        let argsIndices = hostnamesMap.get(hn);
+        if ( argsIndices === undefined ) { return; }
+        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+        for ( const argsIndex of argsIndices ) {
+            if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+            todoIndices.add(argsIndex);
+        }
+    };
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        collectArgIndices(hn);
+    }
+    collectArgIndices('*');
+    hostnamesMap.clear();
+}
+
+// Entity-based
+if ( entitiesMap.size !== 0 ) {
+    const n = hnpartslen - 1;
+    for ( let i = 0; i < n; i++ ) {
+        for ( let j = n; j > i; j-- ) {
+            const en = hnParts.slice(i,j).join('.');
+            let argsIndices = entitiesMap.get(en);
+            if ( argsIndices === undefined ) { continue; }
+            if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+            for ( const argsIndex of argsIndices ) {
+                if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+                todoIndices.add(argsIndex);
+            }
+        }
+    }
+    entitiesMap.clear();
+}
+
+// Apply scriplets
+for ( const i of todoIndices ) {
+    try { abortCurrentScript(...JSON.parse(argsList[i])); }
+    catch(ex) {}
+}
 argsList.length = 0;
-hostnamesMap.clear();
 
 /******************************************************************************/
 
 })();
 
 /******************************************************************************/
+
+void 0;

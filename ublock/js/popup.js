@@ -25,10 +25,16 @@
 
 /******************************************************************************/
 
-import { browser, sendMessage } from './ext.js';
+import {
+    browser,
+    runtime,
+    sendMessage,
+    localRead, localWrite,
+} from './ext.js';
+
 import { dom, qs$ } from './dom.js';
-import { i18n$ } from './i18n.js';
-import { simpleStorage } from './storage.js';
+import { i18n,  i18n$ } from './i18n.js';
+import punycode from './punycode.js';
 
 /******************************************************************************/
 
@@ -51,7 +57,7 @@ function setFilteringMode(level, commit = false) {
     modeSlider.dataset.level = level;
     if ( qs$('.filteringModeSlider.moving') === null ) {
         dom.text(
-            qs$('#filteringModeText > span:nth-of-type(1)'),
+            '#filteringModeText > span:nth-of-type(1)',
             i18n$(`filteringMode${level}Name`)
         );
     }
@@ -79,7 +85,7 @@ async function commitFilteringMode() {
         }
     }
     dom.text(
-        qs$('#filteringModeText > span:nth-of-type(1)'),
+        '#filteringModeText > span:nth-of-type(1)',
         i18n$(`filteringMode${afterLevel}Name`)
     );
     const actualLevel = await sendMessage({
@@ -112,7 +118,7 @@ async function commitFilteringMode() {
         const modeSlider = qs$('.filteringModeSlider');
         if ( `${level}` === modeSlider.dataset.level ) { return; }
         dom.text(
-            qs$('#filteringModeText > span:nth-of-type(2)'),
+            '#filteringModeText > span:nth-of-type(2)',
             i18n$(`filteringMode${level}Name`)
         );
         setFilteringMode(level);
@@ -131,7 +137,7 @@ async function commitFilteringMode() {
         dom.cl.remove(modeSlider, 'moving');
         self.removeEventListener('mousemove', moveAsync, { capture: true });
         self.removeEventListener('mouseup', stop, { capture: true });
-        dom.text(qs$('#filteringModeText > span:nth-of-type(2)'), '');
+        dom.text('#filteringModeText > span:nth-of-type(2)', '');
         commitFilteringMode();
         ev.stopPropagation();
         ev.preventDefault();
@@ -160,11 +166,11 @@ async function commitFilteringMode() {
         ev.preventDefault();
     };
 
-    dom.on(qs$('.filteringModeButton'), 'mousedown', startSliding);
+    dom.on('.filteringModeButton', 'mousedown', startSliding);
 }
 
 dom.on(
-    qs$('.filteringModeSlider'),
+    '.filteringModeSlider',
     'click',
     '.filteringModeSlider span[data-level]',
     ev => {
@@ -177,25 +183,25 @@ dom.on(
 );
 
 dom.on(
-    qs$('.filteringModeSlider'),
+    '.filteringModeSlider',
     'mouseenter',
     '.filteringModeSlider span[data-level]',
     ev => {
         const span = ev.target;
         const level = parseInt(span.dataset.level, 10);
         dom.text(
-            qs$('#filteringModeText > span:nth-of-type(2)'),
+            '#filteringModeText > span:nth-of-type(2)',
             i18n$(`filteringMode${level}Name`)
         );
     }
 );
 
 dom.on(
-    qs$('.filteringModeSlider'),
+    '.filteringModeSlider',
     'mouseleave',
     '.filteringModeSlider span[data-level]',
     ( ) => {
-        dom.text(qs$('#filteringModeText > span:nth-of-type(2)'), '');
+        dom.text('#filteringModeText > span:nth-of-type(2)', '');
     }
 );
 
@@ -242,25 +248,36 @@ async function toggleSections(more) {
     }
     if ( newBits === currentBits ) { return; }
     sectionBitsToAttribute(newBits);
-    simpleStorage.setItem('popupPanelSections', newBits);
+    localWrite('popupPanelSections', newBits);
 }
 
-simpleStorage.getItem('popupPanelSections').then(s => {
-    sectionBitsToAttribute(parseInt(s, 10) || 0);
+localRead('popupPanelSections').then(bits => {
+    sectionBitsToAttribute(bits || 0);
 });
 
-dom.on(qs$('#moreButton'), 'click', ( ) => {
+dom.on('#moreButton', 'click', ( ) => {
     toggleSections(true);
 });
 
-dom.on(qs$('#lessButton'), 'click', ( ) => {
+dom.on('#lessButton', 'click', ( ) => {
     toggleSections(false);
 });
 
 /******************************************************************************/
 
+dom.on('[data-i18n-title="popupTipDashboard"]', 'click', ev => {
+    if ( ev.isTrusted !== true ) { return; }
+    if ( ev.button !== 0 ) { return; }
+    runtime.openOptionsPage();
+});
+
+/******************************************************************************/
+
 async function init() {
-    const [ tab ] = await browser.tabs.query({ active: true });
+    const [ tab ] = await browser.tabs.query({
+        active: true,
+        currentWindow: true,
+    });
     if ( tab instanceof Object === false ) { return true; }
     Object.assign(currentTab, tab);
 
@@ -284,23 +301,33 @@ async function init() {
 
     setFilteringMode(popupPanelData.level);
 
-    dom.text(qs$('#hostname'), tabHostname);
+    dom.text('#hostname', punycode.toUnicode(tabHostname));
 
     const parent = qs$('#rulesetStats');
     for ( const details of popupPanelData.rulesetDetails || [] ) {
-        const div = qs$('#templates .rulesetDetails').cloneNode(true);
-        dom.text(qs$('h1', div), details.name);
+        const div = dom.clone('#templates .rulesetDetails');
+        qs$(div, 'h1').append(i18n.patchUnicodeFlags(details.name));
         const { rules, filters, css } = details;
         let ruleCount = rules.plain + rules.regex;
         if ( popupPanelData.hasOmnipotence ) {
-            ruleCount += rules.removeparam + rules.redirect;
+            ruleCount += rules.removeparam + rules.redirect + rules.csp;
+        }
+        let specificCount = 0;
+        if ( typeof css.specific === 'number' ) {
+            specificCount += css.specific;
+        }
+        if ( typeof css.declarative === 'number' ) {
+            specificCount += css.declarative;
+        }
+        if ( typeof css.procedural === 'number' ) {
+            specificCount += css.procedural;
         }
         dom.text(
-            qs$('p', div),
+            qs$(div, 'p'),
             i18n$('perRulesetStats')
                 .replace('{{ruleCount}}', ruleCount.toLocaleString())
                 .replace('{{filterCount}}', filters.accepted.toLocaleString())
-                .replace('{{cssSpecificCount}}', css.specific.toLocaleString())
+                .replace('{{cssSpecificCount}}', specificCount.toLocaleString())
         );
         parent.append(div);
     }

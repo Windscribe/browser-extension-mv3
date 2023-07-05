@@ -2,6 +2,28 @@
  {
   "action": {
    "redirect": {
+    "extensionPath": "/web_accessible_resources/1x1.gif"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "rocketnews24.com",
+    "youpouch.com"
+   ],
+   "requestDomains": [
+    "tpc.googlesyndication.com"
+   ],
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 1210,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
     "extensionPath": "/web_accessible_resources/32x32.png"
    },
    "type": "redirect"
@@ -18,8 +40,8 @@
     "image"
    ]
   },
-  "id": 808,
-  "priority": 1
+  "id": 1211,
+  "priority": 2
  },
  {
   "action": {
@@ -35,8 +57,29 @@
    ],
    "urlFilter": "||affiliate.dtiserv.com/image/dti/default128.jpg"
   },
-  "id": 809,
-  "priority": 1
+  "id": 1212,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "egotter.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 1213,
+  "priority": 2
  },
  {
   "action": {
@@ -56,8 +99,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/"
   },
-  "id": 810,
-  "priority": 1
+  "id": 1214,
+  "priority": 2
  },
  {
   "action": {
@@ -73,8 +116,7 @@
     "helpsupport.blog.fc2.com",
     "playai.nu",
     "realtime-chart.info",
-    "sekai-kabuka.com",
-    "tabtter.jp"
+    "sekai-kabuka.com"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
@@ -82,8 +124,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 811,
-  "priority": 11
+  "id": 1215,
+  "priority": 12
  },
  {
   "action": {
@@ -98,6 +140,9 @@
     "battlecats-db.com",
     "db-siken.com",
     "fe-siken.com",
+    "fp1-siken.com",
+    "fp2-siken.com",
+    "fp3-siken.com",
     "itpassportsiken.com",
     "kakomonn.com",
     "nw-siken.com",
@@ -111,8 +156,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 812,
-  "priority": 1
+  "id": 1216,
+  "priority": 2
  },
  {
   "action": {
@@ -131,8 +176,8 @@
    ],
    "urlFilter": "||ad-stir.com/js/adstir.js"
   },
-  "id": 813,
-  "priority": 1
+  "id": 1217,
+  "priority": 2
  },
  {
   "action": {
@@ -151,8 +196,8 @@
    ],
    "urlFilter": "||i-mobile.co.jp/script/v1/spot.js"
   },
-  "id": 814,
-  "priority": 1
+  "id": 1218,
+  "priority": 2
  },
  {
   "action": {
@@ -171,8 +216,8 @@
    ],
    "urlFilter": "||nend.net/js/nendadloader.js"
   },
-  "id": 815,
-  "priority": 1
+  "id": 1219,
+  "priority": 2
  },
  {
   "action": {
@@ -192,8 +237,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 816,
-  "priority": 11
+  "id": 1220,
+  "priority": 12
  },
  {
   "action": {
@@ -212,8 +257,8 @@
    ],
    "urlFilter": "||glssp.net/gl_ad/"
   },
-  "id": 817,
-  "priority": 1
+  "id": 1221,
+  "priority": 2
  },
  {
   "action": {
@@ -232,8 +277,8 @@
    ],
    "urlFilter": "||fensi.plus/store-ad.js"
   },
-  "id": 818,
-  "priority": 1
+  "id": 1222,
+  "priority": 2
  },
  {
   "action": {
@@ -249,8 +294,28 @@
    ],
    "urlFilter": "||k-img.com/script/libs/kkkns.des/jack.js"
   },
-  "id": 819,
-  "priority": 1
+  "id": 1223,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googletagservices_gpt.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "oricon.co.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||g.doubleclick.net/tag/js/gpt.js"
+  },
+  "id": 1224,
+  "priority": 2
  },
  {
   "action": {
@@ -270,8 +335,8 @@
    ],
    "urlFilter": "||yads.c.yimg.jp/uadf/yads_vimps.js"
   },
-  "id": 820,
-  "priority": 1
+  "id": 1225,
+  "priority": 2
  },
  {
   "action": {
@@ -291,8 +356,8 @@
    ],
    "urlFilter": "||yimg.jp/images/advertising/common/js/iicon.min.js"
   },
-  "id": 821,
-  "priority": 1
+  "id": 1226,
+  "priority": 2
  },
  {
   "action": {
@@ -311,8 +376,8 @@
    ],
    "urlFilter": "||yads.c.yimg.jp/js/yads.js"
   },
-  "id": 822,
-  "priority": 11
+  "id": 1227,
+  "priority": 12
  },
  {
   "action": {
@@ -331,8 +396,8 @@
    ],
    "urlFilter": "||googleadservices.com/pagead/conversion.js"
   },
-  "id": 823,
-  "priority": 1
+  "id": 1228,
+  "priority": 2
  },
  {
   "action": {
@@ -351,8 +416,8 @@
    ],
    "urlFilter": "||img.ak.impact-ad.jp/sr/js/nissan_visitorapi_main.js"
   },
-  "id": 824,
-  "priority": 1
+  "id": 1229,
+  "priority": 2
  },
  {
   "action": {
@@ -372,27 +437,49 @@
     "script"
    ]
   },
-  "id": 825,
-  "priority": 1
+  "id": 1230,
+  "priority": 2
  },
  {
   "action": {
    "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.txt"
+    "extensionPath": "/web_accessible_resources/noop.html"
    },
    "type": "redirect"
   },
   "condition": {
    "initiatorDomains": [
-    "uploader.xzy.pw"
+    "rocketnews24.com",
+    "youpouch.com"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
-    "xmlhttprequest"
+    "sub_frame"
    ],
-   "urlFilter": "||googlesyndication.com/pagead/js/adsbygoogle.js"
+   "urlFilter": "||googlesyndication.com/safeframe/"
   },
-  "id": 826,
-  "priority": 11
+  "id": 1231,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "ordermaid.ai"
+   ],
+   "requestDomains": [
+    "nend.net"
+   ],
+   "resourceTypes": [
+    "media"
+   ]
+  },
+  "id": 1232,
+  "priority": 12
  }
 ]
