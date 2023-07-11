@@ -11,7 +11,6 @@ import {
   proxyErrorHandler,
   startupHandler,
   messageHandler,
-  popupCloseHandler,
 } from './eventHandlers'
 
 declare const self: ServiceWorkerGlobalScope
@@ -47,8 +46,6 @@ try {
   chrome.alarms.onAlarm.addListener(alarmHandler(bgStore))
 
   chrome.runtime.onMessage.addListener(messageHandler(bgStore))
-
-  chrome.runtime.onConnect.addListener(popupCloseHandler(bgStore))
 
   chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
 
