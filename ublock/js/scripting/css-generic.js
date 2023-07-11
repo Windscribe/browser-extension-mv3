@@ -30,9 +30,9 @@
 (function uBOL_cssGeneric() {
 
 const genericSelectorMap = self.genericSelectorMap || new Map();
-if ( genericSelectorMap.size === 0 ) { return; }
+delete self.genericSelectorMap;
 
-self.genericSelectorMap = undefined;
+if ( genericSelectorMap.size === 0 ) { return; }
 
 /******************************************************************************/
 
@@ -50,15 +50,17 @@ let lastDomChange = Date.now();
 
 /******************************************************************************/
 
-// https://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
+// http://www.cse.yorku.ca/~oz/hash.html#djb2
+//   Must mirror dnrRulesetFromRawLists's version
+
 const hashFromStr = (type, s) => {
     const len = s.length;
     const step = len + 7 >>> 3;
-	let hash = type;
-	for ( let i = 0; i < len; i += step ) {
-		hash = (hash << 5) - hash + s.charCodeAt(i) | 0;
-	}
-	return hash & 0x00FFFFFF;
+    let hash = (type << 5) + type ^ len;
+    for ( let i = 0; i < len; i += step ) {
+        hash = (hash << 5) + hash ^ s.charCodeAt(i);
+    }
+    return hash & 0xFFFFFF;
 };
 
 /******************************************************************************/
@@ -160,7 +162,8 @@ const uBOL_processNodes = ( ) => {
     if ( styleSheetTimer !== undefined ) { return; }
     styleSheetTimer = self.requestAnimationFrame(( ) => {
         styleSheetTimer = undefined;
-        uBOL_injectStyleSheet();
+        uBOL_injectCSS(`${styleSheetSelectors.join(',')}{display:none!important;}`);
+        styleSheetSelectors.length = 0;
     });
 };
 
@@ -185,17 +188,12 @@ const uBOL_processChanges = mutations => {
 
 /******************************************************************************/
 
-const uBOL_injectStyleSheet = ( ) => {
-    try {
-        const sheet = new CSSStyleSheet();
-        sheet.replace(`@layer{${styleSheetSelectors.join(',')}{display:none!important;}}`);
-        document.adoptedStyleSheets = [
-            ...document.adoptedStyleSheets,
-            sheet
-        ];
-    } catch(ex) {
-    }
-    styleSheetSelectors.length = 0;
+const uBOL_injectCSS = (css, count = 10) => {
+    chrome.runtime.sendMessage({ what: 'insertCSS', css }).catch(( ) => {
+        count -= 1;
+        if ( count === 0 ) { return; }
+        uBOL_injectCSS(css, count - 1);
+    });
 };
 
 /******************************************************************************/

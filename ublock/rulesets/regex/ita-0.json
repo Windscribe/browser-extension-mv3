@@ -6,20 +6,28 @@
   "condition": {
    "initiatorDomains": [
     "amatorialeporno.it",
+    "amoreporno.com",
+    "clipdisesso.com",
     "culonudo.com",
     "granditetteporno.it",
     "listasitiporno.it",
     "matrignaporno.it",
     "matureporno.it",
     "milfporno.it",
+    "peneporno.com",
     "porno-anale.it",
     "porno-gay.it",
     "porno-hardcore.it",
     "porno-lesbica.it",
     "pornoadolescente.it",
+    "pornoamica.com",
+    "pornocategorie.com",
+    "pornoculi.com",
     "pornomatura.it",
+    "pornotreno.com",
     "scopateitaliane.com",
     "scopateitaliane.it",
+    "sessoromantico.com",
     "videoporno-gratis.it"
    ],
    "isUrlFilterCaseSensitive": false,
@@ -30,7 +38,7 @@
     "sub_frame"
    ]
   },
-  "id": 5282
+  "id": 3711
  },
  {
   "action": {
@@ -38,9 +46,7 @@
   },
   "condition": {
    "initiatorDomains": [
-    "dundi.it",
-    "pornototale.com",
-    "skip.li"
+    "pornototale.com"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*\\/.*sw[0-9._].*",
@@ -48,7 +54,7 @@
     "script"
    ]
   },
-  "id": 5288
+  "id": 3718
  },
  {
   "action": {
@@ -61,30 +67,51 @@
     "media"
    ],
    "initiatorDomains": [
+    "altadefinizione-01.info",
+    "altadefinizione.immo",
+    "altd.uno",
     "animeforce.it",
-    "cb01.press",
+    "cb01.pizza",
+    "cb01.taxi",
     "cbo1.bar",
+    "cineblog01.hair",
     "cineblog01.sale",
+    "cineblog01.taxi",
+    "cineblog01.trade",
+    "eurekaddl.cfd",
     "eurekaddl.lol",
-    "eurostreaming.actor",
-    "eurostreaming.cfd",
+    "eurekaddl.mom",
+    "eurostreaming.cc",
     "eurostreaming.pics",
+    "eurostreaming.rodeo",
     "eurostreaming.sbs",
-    "eurostreaming.social",
     "eurostreaming.voyage",
-    "guardaserie.skin",
-    "guardaserie.social",
-    "ilgeniodellostreaming.bar",
-    "ilgeniodellostreaming.vip",
-    "italia-film.click",
+    "guardaserie01.click",
+    "ilgeniodellostreaming.live",
     "nuovoindirizzo.com",
-    "pepperlive.info",
-    "streamingcommunity.top",
-    "tantifilm.tattoo"
+    "pepperlive.info"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.com\\/.*"
   },
-  "id": 5344
+  "id": 3778
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "excludedResourceTypes": [
+    "main_frame",
+    "media"
+   ],
+   "initiatorDomains": [
+    "socceron.name"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.xyz\\/.*"
+  },
+  "id": 3779
  }
 ]

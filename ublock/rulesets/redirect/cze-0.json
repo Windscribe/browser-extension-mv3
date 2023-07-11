@@ -16,8 +16,8 @@
    ],
    "urlFilter": "||trackad.cz/adtrack.php"
   },
-  "id": 118,
-  "priority": 1
+  "id": 114,
+  "priority": 2
  },
  {
   "action": {
@@ -36,8 +36,8 @@
    ],
    "urlFilter": "||media.actve.net/sads/"
   },
-  "id": 120,
-  "priority": 1
+  "id": 116,
+  "priority": 2
  },
  {
   "action": {
@@ -56,8 +56,8 @@
    ],
    "urlFilter": "||redirector.gvt1.com/videoplayback/id/"
   },
-  "id": 121,
-  "priority": 1
+  "id": 117,
+  "priority": 2
  },
  {
   "action": {
@@ -75,7 +75,7 @@
     "image"
    ]
   },
-  "id": 122,
-  "priority": 1
+  "id": 118,
+  "priority": 2
  }
 ]

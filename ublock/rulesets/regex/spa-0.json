@@ -13,7 +13,32 @@
     "image"
    ]
   },
-  "id": 544
+  "id": 561
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "elmundoporno.com",
+    "pasionchicas.com",
+    "pornoculazos.com",
+    "pornoespaniol.com",
+    "pornofakings.com",
+    "pornoincreible.com",
+    "teatrodelporno.com",
+    "teatroporno.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/.*\\/[a-z0-9A-Z_]{2,15}\\.(php|jx|jsx|1ph|jsf|jz|jsm|j$)",
+   "resourceTypes": [
+    "image",
+    "script",
+    "sub_frame"
+   ]
+  },
+  "id": 563
  },
  {
   "action": {
@@ -33,7 +58,7 @@
     "script"
    ]
   },
-  "id": 550
+  "id": 568
  },
  {
   "action": {
@@ -49,7 +74,7 @@
     "script"
    ]
   },
-  "id": 551
+  "id": 569
  },
  {
   "action": {
@@ -63,22 +88,31 @@
    ],
    "initiatorDomains": [
     "animefenix.com",
+    "animefenix.tv",
+    "animeonline.ninja",
     "animeyt.es",
+    "aniyae.net",
     "compucalitv.com",
     "compupaste.com",
     "cuevana2.cyou",
     "gnula24.xyz",
+    "henaojara2.com",
     "hispasexy.org",
+    "mangamovil.net",
+    "megaepubsgratis.com",
     "mejortorrent.cc",
+    "mundoepub3.com",
     "pelispediahd.site",
     "pelisplus.top",
     "pelisplus2.io",
     "pelisplushd.nu",
+    "pirlotv.fr",
     "pirlotvonline.org",
     "pornotorrent.es",
     "pornstarsyfamosas.es",
     "rojadirectaenvivo.club",
     "rojadirectatv.tv",
+    "seriesly.top",
     "seriespepito.top",
     "shadowrangers.live",
     "shadowrangers.net",
@@ -91,7 +125,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.com\\/.*"
   },
-  "id": 572
+  "id": 590
  },
  {
   "action": {
@@ -104,12 +138,21 @@
     "media"
    ],
    "initiatorDomains": [
-    "gnula.nu"
+    "abismalonshort.blogspot.com",
+    "animeonline.ninja",
+    "cinehax.com",
+    "gnula.nu",
+    "gnula.se",
+    "nickelodeonplus.online",
+    "seriesperu.com",
+    "telenovelas-turcas.com.es",
+    "verificandoarch2.blogspot.com",
+    "verificarhuman.blogspot.com"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.xyz\\/.*"
   },
-  "id": 573
+  "id": 591
  },
  {
   "action": {
@@ -123,7 +166,7 @@
     "script"
    ]
   },
-  "id": 577
+  "id": 595
  },
  {
   "action": {
@@ -137,6 +180,6 @@
     "script"
    ]
   },
-  "id": 578
+  "id": 596
  }
 ]

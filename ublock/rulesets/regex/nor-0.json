@@ -10,7 +10,18 @@
     "main_frame"
    ]
   },
-  "id": 359
+  "id": 368
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": ":\\/\\/f\\.nordiskemedier\\.dk\\/2[a-z0-9]{12,}\\.(jpg|png|jpeg)"
+  },
+  "id": 383
  },
  {
   "action": {
@@ -27,7 +38,7 @@
     "script"
    ]
   },
-  "id": 426
+  "id": 437
  },
  {
   "action": {
@@ -41,6 +52,6 @@
     "script"
    ]
   },
-  "id": 432
+  "id": 443
  }
 ]

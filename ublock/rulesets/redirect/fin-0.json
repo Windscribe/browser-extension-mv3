@@ -17,8 +17,8 @@
     "xmlhttprequest"
    ]
   },
-  "id": 149,
-  "priority": 1
+  "id": 156,
+  "priority": 2
  },
  {
   "action": {
@@ -39,8 +39,8 @@
     "media"
    ]
   },
-  "id": 150,
-  "priority": 1
+  "id": 157,
+  "priority": 2
  },
  {
   "action": {
@@ -51,7 +51,8 @@
   },
   "condition": {
    "initiatorDomains": [
-    "ruutu.fi"
+    "ruutu.fi",
+    "supla.fi"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
@@ -59,7 +60,7 @@
    ],
    "urlFilter": "||nelonenmedia-pmd-ads-*.nm-stream.nelonenmedia.fi^"
   },
-  "id": 151,
-  "priority": 1
+  "id": 158,
+  "priority": 2
  }
 ]

@@ -4,7 +4,7 @@
     "description": "extension name."
   },
   "extShortDesc": {
-    "message": "Eksperymentalne blokowanie treści bez pozwolenia. Natychmiast po instalacji blokuje reklamy, trackery, koparki i inne.",
+    "message": "Eksperymentalny, niewymagający uprawnień bloker treści. Natychmiast po instalacji blokuje reklamy, moduły śledzące, koparki i [...]",
     "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "perRulesetStats": {
@@ -51,9 +51,9 @@
     "message": "Polityka prywatności",
     "description": "Link to privacy policy on GitHub (English)"
   },
-  "popupPowerSwitchInfo": {
-    "message": "Wyłącz/włącz uBO Lite na tej witrynie",
-    "description": "Tooltip for the main power button in the popup panel"
+  "popupFilteringModeLabel": {
+    "message": "tryb filtrowania",
+    "description": "Label in the popup panel for the current filtering mode"
   },
   "popupTipDashboard": {
     "message": "Otwórz panel sterowania",

@@ -2,6 +2,23 @@
  {
   "action": {
    "redirect": {
+    "extensionPath": "/web_accessible_resources/1x1.gif"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||hdfilmcehennemi.life/red3.jpg"
+  },
+  "id": 1319,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
     "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
    },
    "type": "redirect"
@@ -19,8 +36,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 1187,
-  "priority": 1
+  "id": 1320,
+  "priority": 2
  },
  {
   "action": {
@@ -40,8 +57,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 1188,
-  "priority": 1
+  "id": 1321,
+  "priority": 2
  },
  {
   "action": {
@@ -60,8 +77,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 1189,
-  "priority": 11
+  "id": 1322,
+  "priority": 12
  },
  {
   "action": {
@@ -81,8 +98,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 1190,
-  "priority": 1
+  "id": 1323,
+  "priority": 2
  },
  {
   "action": {
@@ -102,8 +119,8 @@
     "script"
    ]
   },
-  "id": 1191,
-  "priority": 1
+  "id": 1324,
+  "priority": 2
  },
  {
   "action": {
@@ -114,7 +131,7 @@
   },
   "condition": {
    "initiatorDomains": [
-    "eksisozluk.com"
+    "eksisozluk1923.com"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
@@ -122,8 +139,8 @@
    ],
    "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
   },
-  "id": 1192,
-  "priority": 1
+  "id": 1325,
+  "priority": 2
  },
  {
   "action": {
@@ -142,8 +159,8 @@
    ],
    "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
   },
-  "id": 1193,
-  "priority": 1
+  "id": 1326,
+  "priority": 2
  },
  {
   "action": {
@@ -159,8 +176,8 @@
    ],
    "urlFilter": "||tmgrup.com.tr/videojs/adblockdetect.js"
   },
-  "id": 1194,
-  "priority": 11
+  "id": 1327,
+  "priority": 12
  },
  {
   "action": {
@@ -181,8 +198,8 @@
    ],
    "urlFilter": "/service/advertchannels?"
   },
-  "id": 1195,
-  "priority": 1
+  "id": 1328,
+  "priority": 2
  },
  {
   "action": {
@@ -198,8 +215,8 @@
    ],
    "urlFilter": "||fox.com.tr/vmap?*&player_skin=getir"
   },
-  "id": 1196,
-  "priority": 1
+  "id": 1329,
+  "priority": 2
  },
  {
   "action": {
@@ -213,10 +230,31 @@
    "resourceTypes": [
     "media"
    ],
-   "urlFilter": "||webteizle.one/i/*.mp4"
+   "urlFilter": "||cdn-dfj.pages.dev/video.mp4"
   },
-  "id": 1197,
-  "priority": 1
+  "id": 1330,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "play.diziyou.co"
+   ],
+   "requestDomains": [
+    "diskstore.xyz"
+   ],
+   "resourceTypes": [
+    "media"
+   ]
+  },
+  "id": 1331,
+  "priority": 2
  },
  {
   "action": {
@@ -232,8 +270,8 @@
    ],
    "urlFilter": "||vivovivo.xyz/*/rekrek.mp4"
   },
-  "id": 1198,
-  "priority": 1
+  "id": 1332,
+  "priority": 2
  },
  {
   "action": {
@@ -249,8 +287,8 @@
    ],
    "urlFilter": "||morethanpost.com/wp-content/uploads/2022/01/mrtryl.mp4"
   },
-  "id": 1199,
-  "priority": 1
+  "id": 1333,
+  "priority": 2
  },
  {
   "action": {
@@ -266,8 +304,8 @@
    ],
    "urlFilter": "||webteizle.*/i/vid-onu-*.mp4"
   },
-  "id": 1200,
-  "priority": 1
+  "id": 1334,
+  "priority": 2
  },
  {
   "action": {
@@ -283,7 +321,7 @@
    ],
    "urlFilter": "||filmmodu*.com/uploads/"
   },
-  "id": 1201,
-  "priority": 1
+  "id": 1335,
+  "priority": 2
  }
 ]

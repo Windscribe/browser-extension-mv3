@@ -12,25 +12,7 @@
    "urlFilter": "||15min.lt/cached/tgif"
   },
   "id": 522,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "media"
-   ],
-   "urlFilter": "||kinas.tv/info.mp4"
-  },
-  "id": 523,
-  "priority": 1
+  "priority": 2
  },
  {
   "action": {
@@ -47,7 +29,7 @@
    ],
    "urlFilter": "||161.97.106.129/info.mp4"
   },
-  "id": 524,
-  "priority": 1
+  "id": 523,
+  "priority": 2
  }
 ]

@@ -6,17 +6,22 @@
   "condition": {
    "initiatorDomains": [
     "beeg-pornos.com",
+    "besterpornos.com",
     "deinesexfilme.com",
     "deutsche-sexfilme.net",
+    "deutschetitten.com",
     "deutschsex.com",
     "deutschsex.mobi",
     "einfachtitten.com",
-    "german-porno-deutsch.info",
+    "germanfucktube.com",
     "gutesexfilme.com",
     "hd-pornos.info",
     "hd-sexfilme.com",
     "lesbenhd.com",
     "meinyouporn.com",
+    "nacktepaare.com",
+    "nurxxx.mobi",
+    "orgasmusporn.com",
     "pornoaffe.com",
     "pornoente.tv",
     "pornofisch.com",
@@ -31,20 +36,20 @@
     "reifporn.de",
     "sexente.com",
     "sexvideos-hd.com",
+    "spitzetitten.com",
     "tube8-pornos.com",
     "xhamster-sexvideos.com",
     "xnxx-porno.com"
    ],
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/.*\\/[a-z0-9A-Z]{3,15}\\.(php|jsx|1ph)",
+   "regexFilter": "^https?:\\/\\/.*\\/[a-z0-9A-Z_]{2,15}\\.(php|jx|jsx|1ph|jsf|jz|jsm|j$)",
    "resourceTypes": [
     "image",
-    "media",
     "script",
     "sub_frame"
    ]
   },
-  "id": 1422
+  "id": 1485
  },
  {
   "action": {
@@ -60,7 +65,7 @@
     "script"
    ]
   },
-  "id": 1431
+  "id": 1497
  },
  {
   "action": {
@@ -91,6 +96,24 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.com\\/.*"
   },
-  "id": 1575
+  "id": 1642
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "excludedResourceTypes": [
+    "main_frame",
+    "media"
+   ],
+   "initiatorDomains": [
+    "kinoger.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.xyz\\/.*"
+  },
+  "id": 1643
  }
 ]

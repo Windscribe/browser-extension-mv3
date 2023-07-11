@@ -20,8 +20,8 @@
    ],
    "urlFilter": "||ad.doubleclick.net/favicon.ico?ad="
   },
-  "id": 255,
-  "priority": 11
+  "id": 253,
+  "priority": 12
  },
  {
   "action": {
@@ -44,8 +44,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js"
   },
-  "id": 256,
-  "priority": 11
+  "id": 254,
+  "priority": 12
  },
  {
   "action": {
@@ -64,8 +64,8 @@
    ],
    "urlFilter": "||walla.co.il/dist/scripts/ads/global-targeting.js"
   },
-  "id": 257,
-  "priority": 1
+  "id": 255,
+  "priority": 2
  },
  {
   "action": {
@@ -84,8 +84,8 @@
    ],
    "urlFilter": "||yad2.co.il/js-new/showads.js"
   },
-  "id": 258,
-  "priority": 1
+  "id": 256,
+  "priority": 2
  },
  {
   "action": {
@@ -104,8 +104,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 259,
-  "priority": 1
+  "id": 257,
+  "priority": 2
  },
  {
   "action": {
@@ -121,8 +121,8 @@
    ],
    "urlFilter": "||moodaot.kipa.co.il^*/*.mp4"
   },
-  "id": 261,
-  "priority": 1
+  "id": 259,
+  "priority": 2
  },
  {
   "action": {
@@ -138,8 +138,8 @@
    ],
    "urlFilter": "||jdn.co.il/wp-content/banners/bankleumi/"
   },
-  "id": 262,
-  "priority": 1
+  "id": 260,
+  "priority": 2
  },
  {
   "action": {
@@ -155,8 +155,8 @@
    ],
    "urlFilter": "||jdn.co.il/wp-content/uploads/video/yugort.mp4"
   },
-  "id": 263,
-  "priority": 1
+  "id": 261,
+  "priority": 2
  },
  {
   "action": {
@@ -172,8 +172,8 @@
    ],
    "urlFilter": "||ch10.co.il/wp-content/uploads/2021/*/*.mp4"
   },
-  "id": 264,
-  "priority": 1
+  "id": 262,
+  "priority": 2
  },
  {
   "action": {
@@ -190,7 +190,7 @@
    ],
    "urlFilter": "||xads.zedo.com/ads2/c?*.one.co.il/"
   },
-  "id": 265,
-  "priority": 11
+  "id": 263,
+  "priority": 12
  }
 ]

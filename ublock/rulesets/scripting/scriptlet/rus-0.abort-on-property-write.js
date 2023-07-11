@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2019-present Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,46 +18,41 @@
 
     Home: https://github.com/gorhill/uBlock
 
-    The scriptlets below are meant to be injected only into a
-    web page context.
 */
 
 /* jshint esversion:11 */
 
 'use strict';
 
-/******************************************************************************/
-
-/// name abort-on-property-write
-/// alias aopw
+// ruleset: rus-0
 
 /******************************************************************************/
 
 // Important!
 // Isolate from global scope
+
 (function uBOL_abortOnPropertyWrite() {
 
 /******************************************************************************/
 
-// rus-0
+const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = [{"a":["ai_front"]},{"a":["document.oncontextmenu"]},{"a":["document.ondragstart"]},{"a":["document.onselectstart"]},{"a":["keepAdblock"]},{"a":["window.yaProxy"]},{"a":["adregain_wall"]},{"a":["fetch"]},{"a":["mailruEnabled"]},{"a":["__XRABStatus"]},{"a":["xRSrcSupport"]}];
+const argsList = ["[\"adregain_wall\"]","[\"adsBlocked\"]","[\"ai_front\"]","[\"document.oncontextmenu\"]","[\"document.ondragstart\"]","[\"document.onselectstart\"]","[\"fetch\"]","[\"keepAdblock\"]","[\"window.yaProxy\"]","[\"mailruEnabled\"]"];
 
-const hostnamesMap = new Map([["doctorrouter.ru",0],["ranobe-novels.ru",0],["fssp.gov.ru",[1,2,3]],["southpark.su",[1,2,3]],["stroi-help.ru",[1,2,3]],["turkcinema.org",[1,2,3]],["gamemag.ru",4],["kakprosto.ru",5],["meteoservice.ru",6],["phys-kids.com",7],["ok.ru",8],["pg11.ru",[9,10]],["pg12.ru",[9,10]],["pg13.ru",[9,10]],["pg21.ru",[9,10]],["prochepetsk.ru",[9,10]],["prodzer.ru",[9,10]],["progorod33.ru",[9,10]],["progorod43.ru",[9,10]],["progorod58.ru",[9,10]],["progorod59.ru",[9,10]],["progorod62.ru",[9,10]],["progorod76.ru",[9,10]],["progorodnn.ru",[9,10]],["progorodnsk.ru",[9,10]],["progorodsamara.ru",[9,10]],["progoroduhta.ru",[9,10]],["prokazan.ru",[9,10]]]);
+const hostnamesMap = new Map([["meteoservice.ru",0],["24pdd.ru",1],["doctorrouter.ru",2],["ranobe-novels.ru",2],["fssp.gov.ru",[3,4,5]],["southpark.su",[3,4,5]],["stroi-help.ru",[3,4,5]],["turkcinema.org",[3,4,5]],["phys-kids.com",6],["gamemag.ru",7],["kakprosto.ru",8],["ok.ru",9]]);
+
+const entitiesMap = new Map([]);
+
+const exceptionsMap = new Map([]);
 
 /******************************************************************************/
 
-const magic =
-    String.fromCharCode(Date.now() % 26 + 97) +
-    Math.floor(Math.random() * 982451653 + 982451653).toString(36);
-
-const abort = function() {
-    throw new ReferenceError(magic);
-};
-
-const scriptlet = (
+function abortOnPropertyWrite(
     prop = ''
-) => {
+) {
+    if ( typeof prop !== 'string' ) { return; }
+    if ( prop === '' ) { return; }
+    const exceptionToken = getExceptionToken();
     let owner = window;
     for (;;) {
         const pos = prop.indexOf('.');
@@ -69,45 +64,89 @@ const scriptlet = (
     delete owner[prop];
     Object.defineProperty(owner, prop, {
         set: function() {
-            abort();
+            throw new ReferenceError(exceptionToken);
         }
     });
-    const oe = window.onerror;
-    window.onerror = function(msg, src, line, col, error) {
-        if ( typeof msg === 'string' && msg.includes(magic) ) {
-            return true;
-        }
+}
+
+function getExceptionToken() {
+    const token =
+        String.fromCharCode(Date.now() % 26 + 97) +
+        Math.floor(Math.random() * 982451653 + 982451653).toString(36);
+    const oe = self.onerror;
+    self.onerror = function(msg, ...args) {
+        if ( typeof msg === 'string' && msg.includes(token) ) { return true; }
         if ( oe instanceof Function ) {
-            return oe(msg, src, line, col, error);
+            return oe.call(this, msg, ...args);
         }
     }.bind();
-};
+    return token;
+}
 
 /******************************************************************************/
 
-let hn;
-try { hn = document.location.hostname; } catch(ex) { }
-while ( hn ) {
-    if ( hostnamesMap.has(hn) ) {
-        let argsIndices = hostnamesMap.get(hn);
-        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
-        for ( const argsIndex of argsIndices ) {
-            const details = argsList[argsIndex];
-            if ( details.n && details.n.includes(hn) ) { continue; }
-            try { scriptlet(...details.a); } catch(ex) {}
-        }
+const hnParts = [];
+try { hnParts.push(...document.location.hostname.split('.')); }
+catch(ex) { }
+const hnpartslen = hnParts.length;
+if ( hnpartslen === 0 ) { return; }
+
+const todoIndices = new Set();
+const tonotdoIndices = [];
+
+// Exceptions
+if ( exceptionsMap.size !== 0 ) {
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        const excepted = exceptionsMap.get(hn);
+        if ( excepted ) { tonotdoIndices.push(...excepted); }
     }
-    if ( hn === '*' ) { break; }
-    const pos = hn.indexOf('.');
-    if ( pos !== -1 ) {
-        hn = hn.slice(pos + 1);
-    } else {
-        hn = '*';
-    }
+    exceptionsMap.clear();
 }
 
+// Hostname-based
+if ( hostnamesMap.size !== 0 ) {
+    const collectArgIndices = hn => {
+        let argsIndices = hostnamesMap.get(hn);
+        if ( argsIndices === undefined ) { return; }
+        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+        for ( const argsIndex of argsIndices ) {
+            if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+            todoIndices.add(argsIndex);
+        }
+    };
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        collectArgIndices(hn);
+    }
+    collectArgIndices('*');
+    hostnamesMap.clear();
+}
+
+// Entity-based
+if ( entitiesMap.size !== 0 ) {
+    const n = hnpartslen - 1;
+    for ( let i = 0; i < n; i++ ) {
+        for ( let j = n; j > i; j-- ) {
+            const en = hnParts.slice(i,j).join('.');
+            let argsIndices = entitiesMap.get(en);
+            if ( argsIndices === undefined ) { continue; }
+            if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+            for ( const argsIndex of argsIndices ) {
+                if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+                todoIndices.add(argsIndex);
+            }
+        }
+    }
+    entitiesMap.clear();
+}
+
+// Apply scriplets
+for ( const i of todoIndices ) {
+    try { abortOnPropertyWrite(...JSON.parse(argsList[i])); }
+    catch(ex) {}
+}
 argsList.length = 0;
-hostnamesMap.clear();
 
 /******************************************************************************/
 
@@ -115,3 +154,4 @@ hostnamesMap.clear();
 
 /******************************************************************************/
 
+void 0;

@@ -8,13 +8,13 @@
   },
   "condition": {
    "initiatorDomains": [
-    "phimchat1.com"
+    "phimchat2.com"
    ],
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||phimchat1.com/public/*.mp4"
+   "urlFilter": "||phimchat2.com/public/*.mp4"
   },
-  "id": 568,
-  "priority": 1
+  "id": 477,
+  "priority": 2
  },
  {
   "action": {
@@ -25,12 +25,32 @@
   },
   "condition": {
    "initiatorDomains": [
-    "xemphim365.net"
+    "xemphim365vn.net"
    ],
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||xemphim365.net/public/*.mp4"
+   "urlFilter": "||xemphim365vn.net/public/*.mp4"
   },
-  "id": 569,
-  "priority": 1
+  "id": 478,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "phimnet.vip"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||phimnet.vip/uploads/videos/"
+  },
+  "id": 482,
+  "priority": 2
  }
 ]

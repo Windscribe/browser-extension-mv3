@@ -5,7 +5,9 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "vastUrl"
+       "affid",
+       "bCode",
+       "cpcAdToken"
       ]
      }
     }
@@ -14,7 +16,7 @@
   },
   "condition": {
    "requestDomains": [
-    "tamasha.com"
+    "digikala.com"
    ],
    "resourceTypes": [
     "main_frame",
@@ -22,32 +24,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 508
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "referer"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "aparat.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 509
+  "id": 544
  },
  {
   "action": {
@@ -72,7 +49,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 510
+  "id": 545
  },
  {
   "action": {
@@ -98,7 +75,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 511
+  "id": 546
  },
  {
   "action": {
@@ -111,14 +88,15 @@
        "_ft__shop_score",
        "_http_referrer",
        "_url_referrer",
+       "android_app_ver",
        "btn",
        "bvid",
        "device",
        "discover_method",
        "is_adv",
+       "pre_prk",
        "session_id",
        "shop_rank",
-       "source",
        "suid",
        "uid"
       ]
@@ -137,7 +115,33 @@
     "xmlhttprequest"
    ]
   },
-  "id": 512
+  "id": 547
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "source"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "api.torob.com",
+    "virgool.io"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 548
  },
  {
   "action": {
@@ -162,6 +166,98 @@
     "xmlhttprequest"
    ]
   },
-  "id": 513
+  "id": 549
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "referer"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "aparat.com"
+   ],
+   "resourceTypes": [
+    "xmlhttprequest"
+   ]
+  },
+  "id": 550
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "referrer"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||podbean.com/player^"
+  },
+  "id": 551
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "pbss"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||podbean.com/pb^"
+  },
+  "id": 552
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "vastUrl"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||tamasha.com/embed^"
+  },
+  "id": 553
  }
 ]

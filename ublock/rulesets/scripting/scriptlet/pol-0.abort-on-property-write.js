@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2019-present Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,46 +18,41 @@
 
     Home: https://github.com/gorhill/uBlock
 
-    The scriptlets below are meant to be injected only into a
-    web page context.
 */
 
 /* jshint esversion:11 */
 
 'use strict';
 
-/******************************************************************************/
-
-/// name abort-on-property-write
-/// alias aopw
+// ruleset: pol-0
 
 /******************************************************************************/
 
 // Important!
 // Isolate from global scope
+
 (function uBOL_abortOnPropertyWrite() {
 
 /******************************************************************************/
 
-// pol-0
+const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = [{"a":["ads"]},{"a":["ub_ct_load"]},{"a":["iaqExt"]},{"a":["detectAB"]},{"a":["_yhbog"]},{"a":["yafaIt"]},{"a":["AdservingModule"]},{"a":["_pop"]}];
+const argsList = ["[\"ads\"]","[\"ub_ct_load\"]","[\"iaqExt\"]","[\"detectAB\"]","[\"_yhbog\"]","[\"yafaIt\"]","[\"fuckAdBlock\"]","[\"addBlocking\"]","[\"czy_wlaczony_adblock\"]","[\"Vublock\"]","[\"AdservingModule\"]","[\"_pop\"]","[\"adcashMacros\"]","[\"adquestoConfig\"]"];
 
-const hostnamesMap = new Map([["playpuls.pl",0],["autocentrum.pl",1],["demotywatory.pl",1],["dziennik.pl",1],["facetemjestem.pl",1],["gala.pl",1],["garnek.pl",1],["gry-online.pl",1],["jegostrona.pl",1],["joemonster.org",1],["kobieta.pl",1],["komixxy.pl",1],["transfery.info",1],["v10.pl",1],["facet.wp.pl",2],["gwiazdy.wp.pl",2],["teleshow.wp.pl",2],["bankier.pl",3],["filiser.tv",4],["eurogamer.pl",5],["shinden.pl",6],["exdb.net",7]]);
+const hostnamesMap = new Map([["playpuls.pl",0],["autocentrum.pl",1],["demotywatory.pl",1],["dziennik.pl",1],["facetemjestem.pl",1],["gala.pl",1],["garnek.pl",1],["gry-online.pl",1],["jegostrona.pl",1],["joemonster.org",1],["kobieta.pl",1],["komixxy.pl",1],["transfery.info",1],["v10.pl",1],["facet.wp.pl",2],["gwiazdy.wp.pl",2],["teleshow.wp.pl",2],["bankier.pl",3],["filiser.tv",4],["eurogamer.pl",5],["cvninja.pl",6],["warezdark.pl",7],["naszemiasto.pl",8],["tvn24.pl",9],["shinden.pl",10],["exdb.net",11],["darmowa-tv.ws",12],["roweroweporady.pl",13]]);
+
+const entitiesMap = new Map([]);
+
+const exceptionsMap = new Map([]);
 
 /******************************************************************************/
 
-const magic =
-    String.fromCharCode(Date.now() % 26 + 97) +
-    Math.floor(Math.random() * 982451653 + 982451653).toString(36);
-
-const abort = function() {
-    throw new ReferenceError(magic);
-};
-
-const scriptlet = (
+function abortOnPropertyWrite(
     prop = ''
-) => {
+) {
+    if ( typeof prop !== 'string' ) { return; }
+    if ( prop === '' ) { return; }
+    const exceptionToken = getExceptionToken();
     let owner = window;
     for (;;) {
         const pos = prop.indexOf('.');
@@ -69,45 +64,89 @@ const scriptlet = (
     delete owner[prop];
     Object.defineProperty(owner, prop, {
         set: function() {
-            abort();
+            throw new ReferenceError(exceptionToken);
         }
     });
-    const oe = window.onerror;
-    window.onerror = function(msg, src, line, col, error) {
-        if ( typeof msg === 'string' && msg.includes(magic) ) {
-            return true;
-        }
+}
+
+function getExceptionToken() {
+    const token =
+        String.fromCharCode(Date.now() % 26 + 97) +
+        Math.floor(Math.random() * 982451653 + 982451653).toString(36);
+    const oe = self.onerror;
+    self.onerror = function(msg, ...args) {
+        if ( typeof msg === 'string' && msg.includes(token) ) { return true; }
         if ( oe instanceof Function ) {
-            return oe(msg, src, line, col, error);
+            return oe.call(this, msg, ...args);
         }
     }.bind();
-};
+    return token;
+}
 
 /******************************************************************************/
 
-let hn;
-try { hn = document.location.hostname; } catch(ex) { }
-while ( hn ) {
-    if ( hostnamesMap.has(hn) ) {
-        let argsIndices = hostnamesMap.get(hn);
-        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
-        for ( const argsIndex of argsIndices ) {
-            const details = argsList[argsIndex];
-            if ( details.n && details.n.includes(hn) ) { continue; }
-            try { scriptlet(...details.a); } catch(ex) {}
-        }
+const hnParts = [];
+try { hnParts.push(...document.location.hostname.split('.')); }
+catch(ex) { }
+const hnpartslen = hnParts.length;
+if ( hnpartslen === 0 ) { return; }
+
+const todoIndices = new Set();
+const tonotdoIndices = [];
+
+// Exceptions
+if ( exceptionsMap.size !== 0 ) {
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        const excepted = exceptionsMap.get(hn);
+        if ( excepted ) { tonotdoIndices.push(...excepted); }
     }
-    if ( hn === '*' ) { break; }
-    const pos = hn.indexOf('.');
-    if ( pos !== -1 ) {
-        hn = hn.slice(pos + 1);
-    } else {
-        hn = '*';
-    }
+    exceptionsMap.clear();
 }
 
+// Hostname-based
+if ( hostnamesMap.size !== 0 ) {
+    const collectArgIndices = hn => {
+        let argsIndices = hostnamesMap.get(hn);
+        if ( argsIndices === undefined ) { return; }
+        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+        for ( const argsIndex of argsIndices ) {
+            if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+            todoIndices.add(argsIndex);
+        }
+    };
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        collectArgIndices(hn);
+    }
+    collectArgIndices('*');
+    hostnamesMap.clear();
+}
+
+// Entity-based
+if ( entitiesMap.size !== 0 ) {
+    const n = hnpartslen - 1;
+    for ( let i = 0; i < n; i++ ) {
+        for ( let j = n; j > i; j-- ) {
+            const en = hnParts.slice(i,j).join('.');
+            let argsIndices = entitiesMap.get(en);
+            if ( argsIndices === undefined ) { continue; }
+            if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+            for ( const argsIndex of argsIndices ) {
+                if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+                todoIndices.add(argsIndex);
+            }
+        }
+    }
+    entitiesMap.clear();
+}
+
+// Apply scriplets
+for ( const i of todoIndices ) {
+    try { abortOnPropertyWrite(...JSON.parse(argsList[i])); }
+    catch(ex) {}
+}
 argsList.length = 0;
-hostnamesMap.clear();
 
 /******************************************************************************/
 
@@ -115,3 +154,4 @@ hostnamesMap.clear();
 
 /******************************************************************************/
 
+void 0;
