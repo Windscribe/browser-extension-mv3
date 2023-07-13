@@ -14,8 +14,22 @@
     "ladsatz.com"
    ]
   },
-  "id": 20150,
-  "priority": 1
+  "id": 17661,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||fifa.com/api/v*/ad-manager/"
+  },
+  "id": 17664,
+  "priority": 2
  },
  {
   "action": {
@@ -28,8 +42,8 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||oakleysi.com/_ui/dist/scripts/vendor/tealium.js"
   },
-  "id": 20156,
-  "priority": 11
+  "id": 17670,
+  "priority": 12
  },
  {
   "action": {
@@ -46,8 +60,30 @@
     "d1z2jf7jlzjs58.cloudfront.net"
    ]
   },
-  "id": 20160,
-  "priority": 1
+  "id": 17672,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.css"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "browserstack.com",
+    "bungie.net",
+    "robertsspaceindustries.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "stylesheet"
+   ],
+   "urlFilter": "||p.typekit.net/p.css"
+  },
+  "id": 17673,
+  "priority": 12
  },
  {
   "action": {
@@ -66,8 +102,8 @@
    ],
    "urlFilter": "||static.toiimg.com/ad-banner*/photo/"
   },
-  "id": 20161,
-  "priority": 1
+  "id": 17674,
+  "priority": 2
  },
  {
   "action": {
@@ -86,8 +122,8 @@
    ],
    "urlFilter": "||cloudfront.net/ads/img/"
   },
-  "id": 20162,
-  "priority": 1
+  "id": 17675,
+  "priority": 2
  },
  {
   "action": {
@@ -107,8 +143,8 @@
     "image"
    ]
   },
-  "id": 20163,
-  "priority": 11
+  "id": 17676,
+  "priority": 12
  },
  {
   "action": {
@@ -129,8 +165,8 @@
     "image"
    ]
   },
-  "id": 20164,
-  "priority": 1
+  "id": 17677,
+  "priority": 2
  },
  {
   "action": {
@@ -146,8 +182,8 @@
    ],
    "urlFilter": "||ondemandkorea.com/*/*sponsor*300x250.jpg"
   },
-  "id": 20165,
-  "priority": 1
+  "id": 17678,
+  "priority": 2
  },
  {
   "action": {
@@ -166,8 +202,8 @@
    ],
    "urlFilter": "||google-analytics.com/collect"
   },
-  "id": 20166,
-  "priority": 1
+  "id": 17679,
+  "priority": 2
  },
  {
   "action": {
@@ -186,8 +222,8 @@
    ],
    "urlFilter": ".gif#"
   },
-  "id": 20167,
-  "priority": 1
+  "id": 17680,
+  "priority": 2
  },
  {
   "action": {
@@ -203,28 +239,8 @@
    ],
    "urlFilter": "||ads.puhutv.com/i.jpg"
   },
-  "id": 20168,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/3x2.png"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "radiocockpit.fr"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "image"
-   ],
-   "urlFilter": ".jpg#"
-  },
-  "id": 20169,
-  "priority": 1
+  "id": 17681,
+  "priority": 2
  },
  {
   "action": {
@@ -243,8 +259,8 @@
    ],
    "urlFilter": "||googlesyndication.com/simgad/"
   },
-  "id": 20170,
-  "priority": 1
+  "id": 17682,
+  "priority": 2
  },
  {
   "action": {
@@ -277,8 +293,8 @@
    ],
    "urlFilter": "/images/*/b/"
   },
-  "id": 20171,
-  "priority": 1
+  "id": 17683,
+  "priority": 2
  },
  {
   "action": {
@@ -302,6 +318,7 @@
     "dirtyyoungbitches.com",
     "exgirlfriendmarket.com",
     "fooxybabes.com",
+    "girlsofdesire.org",
     "glam0ur.com",
     "hotstunners.com",
     "livejasminbabes.net",
@@ -325,8 +342,26 @@
    ],
    "urlFilter": "/images/*/banners/"
   },
-  "id": 20172,
-  "priority": 1
+  "id": 17684,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/1x1.gif"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "torimochi.line-apps.com"
+   ],
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 17685,
+  "priority": 2
  },
  {
   "action": {
@@ -342,8 +377,8 @@
    ],
    "urlFilter": "/b/ss/*&aqe="
   },
-  "id": 20173,
-  "priority": 1
+  "id": 17686,
+  "priority": 2
  },
  {
   "action": {
@@ -362,8 +397,8 @@
    ],
    "urlFilter": "||frog.wix.com/da-client"
   },
-  "id": 20174,
-  "priority": 1
+  "id": 17687,
+  "priority": 2
  },
  {
   "action": {
@@ -383,8 +418,8 @@
     "image"
    ]
   },
-  "id": 20175,
-  "priority": 1
+  "id": 17688,
+  "priority": 2
  },
  {
   "action": {
@@ -403,8 +438,8 @@
    ],
    "urlFilter": "||cdn.shopify.com/*assets/pixel.gif"
   },
-  "id": 20176,
-  "priority": 11
+  "id": 17689,
+  "priority": 12
  },
  {
   "action": {
@@ -423,8 +458,8 @@
    ],
    "urlFilter": "||baidu.com/*/track.gif?"
   },
-  "id": 20177,
-  "priority": 11
+  "id": 17690,
+  "priority": 12
  },
  {
   "action": {
@@ -443,8 +478,8 @@
    ],
    "urlFilter": "||doubleclick.net/tag/js/gpt.js"
   },
-  "id": 20178,
-  "priority": 1
+  "id": 17691,
+  "priority": 2
  },
  {
   "action": {
@@ -460,8 +495,8 @@
    ],
    "urlFilter": "/fuckadblock-"
   },
-  "id": 20179,
-  "priority": 1
+  "id": 17692,
+  "priority": 7
  },
  {
   "action": {
@@ -477,8 +512,8 @@
    ],
    "urlFilter": "/fuckadblock."
   },
-  "id": 20180,
-  "priority": 1
+  "id": 17693,
+  "priority": 7
  },
  {
   "action": {
@@ -494,8 +529,8 @@
    ],
    "urlFilter": "/blockadblock."
   },
-  "id": 20181,
-  "priority": 1
+  "id": 17694,
+  "priority": 7
  },
  {
   "action": {
@@ -511,8 +546,8 @@
    ],
    "urlFilter": "/blockadblock-"
   },
-  "id": 20182,
-  "priority": 1
+  "id": 17695,
+  "priority": 7
  },
  {
   "action": {
@@ -528,8 +563,8 @@
    ],
    "urlFilter": "/wp-adblock-"
   },
-  "id": 20183,
-  "priority": 1
+  "id": 17696,
+  "priority": 7
  },
  {
   "action": {
@@ -554,8 +589,8 @@
    ],
    "urlFilter": "||s3.amazonaws.com/homad-global-configs.schneevonmorgen.com/hd-main.js"
   },
-  "id": 20184,
-  "priority": 1
+  "id": 17697,
+  "priority": 2
  },
  {
   "action": {
@@ -579,8 +614,8 @@
    ],
    "urlFilter": "||svonm.com/hd-main.js"
   },
-  "id": 20185,
-  "priority": 1
+  "id": 17698,
+  "priority": 2
  },
  {
   "action": {
@@ -599,8 +634,8 @@
    ],
    "urlFilter": "||adnxs.com/*/sport1.js"
   },
-  "id": 20186,
-  "priority": 1
+  "id": 17699,
+  "priority": 2
  },
  {
   "action": {
@@ -619,8 +654,8 @@
    ],
    "urlFilter": "||acdn.adnxs.com/as/1h/pages/sport1_mediathek.js"
   },
-  "id": 20187,
-  "priority": 1
+  "id": 17700,
+  "priority": 2
  },
  {
   "action": {
@@ -639,8 +674,8 @@
    ],
    "urlFilter": "||asadcdn.com/adlib/"
   },
-  "id": 20188,
-  "priority": 1
+  "id": 17701,
+  "priority": 2
  },
  {
   "action": {
@@ -656,8 +691,8 @@
    ],
    "urlFilter": "||g9g.eu^*fa.js"
   },
-  "id": 20189,
-  "priority": 1
+  "id": 17702,
+  "priority": 2
  },
  {
   "action": {
@@ -673,8 +708,8 @@
    ],
    "urlFilter": "||8s8.eu^*fa.js"
   },
-  "id": 20190,
-  "priority": 1
+  "id": 17703,
+  "priority": 2
  },
  {
   "action": {
@@ -690,8 +725,8 @@
    ],
    "urlFilter": "||twnmm.com/js/*/adobe_audience_manager"
   },
-  "id": 20191,
-  "priority": 1
+  "id": 17704,
+  "priority": 2
  },
  {
   "action": {
@@ -707,42 +742,32 @@
    ],
    "urlFilter": "||twnmm.com/js/*/dfpad/"
   },
-  "id": 20192,
-  "priority": 1
+  "id": 17705,
+  "priority": 2
  },
  {
   "action": {
    "redirect": {
-    "extensionPath": "/web_accessible_resources/ligatus_angular-tag.js"
+    "extensionPath": "/web_accessible_resources/google-ima.js"
    },
    "type": "redirect"
   },
   "condition": {
+   "initiatorDomains": [
+    "cbsnews.com",
+    "doubtnut.com",
+    "maharashtratimes.com",
+    "popculture.com",
+    "vk.sportsbull.jp"
+   ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
     "script"
    ],
-   "urlFilter": "||ligatus.com/*/angular-tag.js"
+   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
   },
-  "id": 20193,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/ligatus_angular-tag.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||ligatus.com/*/angular-tag-https.js"
-  },
-  "id": 20194,
-  "priority": 1
+  "id": 17706,
+  "priority": 12
  },
  {
   "action": {
@@ -758,8 +783,8 @@
    ],
    "urlFilter": "||popads.net/pop.js"
   },
-  "id": 20195,
-  "priority": 1
+  "id": 17707,
+  "priority": 2
  },
  {
   "action": {
@@ -779,8 +804,8 @@
     "script"
    ]
   },
-  "id": 20196,
-  "priority": 11
+  "id": 17708,
+  "priority": 12
  },
  {
   "action": {
@@ -799,31 +824,8 @@
    ],
    "urlFilter": "||uim.tifbs.net/js/*.js"
   },
-  "id": 20197,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "dl.ccbluex.net",
-    "download.mokeedev.com",
-    "offidocs.com"
-   ],
-   "requestDomains": [
-    "googlesyndication.com"
-   ],
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 20198,
-  "priority": 1
+  "id": 17709,
+  "priority": 2
  },
  {
   "action": {
@@ -842,8 +844,8 @@
    ],
    "urlFilter": "||s0.2mdn.net/instream/video/client.js"
   },
-  "id": 20199,
-  "priority": 1
+  "id": 17710,
+  "priority": 2
  },
  {
   "action": {
@@ -859,8 +861,8 @@
    ],
    "urlFilter": "||go.oclasrv.com/apu.php"
   },
-  "id": 20200,
-  "priority": 1
+  "id": 17711,
+  "priority": 2
  },
  {
   "action": {
@@ -876,8 +878,8 @@
    ],
    "urlFilter": "||go.onclasrv.com/apu.php"
   },
-  "id": 20201,
-  "priority": 1
+  "id": 17712,
+  "priority": 2
  },
  {
   "action": {
@@ -893,8 +895,8 @@
    ],
    "urlFilter": "||onclkds.com/apu.php"
   },
-  "id": 20202,
-  "priority": 1
+  "id": 17713,
+  "priority": 2
  },
  {
   "action": {
@@ -910,8 +912,8 @@
    ],
    "urlFilter": "||xxlargepop.com/apu.php"
   },
-  "id": 20203,
-  "priority": 1
+  "id": 17714,
+  "priority": 2
  },
  {
   "action": {
@@ -930,29 +932,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 20204,
-  "priority": 11
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "pga.com"
-   ],
-   "requestDomains": [
-    "z.moatads.com"
-   ],
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 20205,
-  "priority": 1
+  "id": 17715,
+  "priority": 12
  },
  {
   "action": {
@@ -964,21 +945,17 @@
   "condition": {
    "initiatorDomains": [
     "1shortlink.com",
-    "2pi.pw",
     "abdoutech.com",
     "adnan-tech.com",
     "apk.sekilastekno.com",
     "arlinadzgn.com",
     "atv.pw",
-    "babel.com",
     "collegestash.com",
     "felanovia.com",
     "firm-ware27.blogspot.com",
     "flash-reset.blogspot.com",
     "folhabv.com.br",
     "freeiptv.life",
-    "gsmcracktools.blogspot.com",
-    "htnovo.net",
     "idntheme.com",
     "infolokerserang.com",
     "insurance-corporate.blogspot.com",
@@ -986,18 +963,12 @@
     "kharisma-adzana.blogspot.com",
     "ktab3ndna.com",
     "kurazone.net",
-    "marfilius.blogspot.com",
     "megafile.io",
-    "moongourd.com",
-    "moviessquad.com",
     "mysterious-dev.com",
-    "naminakiky.com",
     "nsspot.herokuapp.com",
     "okyanime.com",
     "shidurlive.com",
     "spieleklassiker.com",
-    "tanked.io",
-    "themeplatinum.blogspot.com",
     "tokubatch.com",
     "tsforum.pl",
     "tunovelaligera.com",
@@ -1009,8 +980,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 20206,
-  "priority": 11
+  "id": 17716,
+  "priority": 12
  },
  {
   "action": {
@@ -1029,8 +1000,8 @@
    ],
    "urlFilter": "||cloudfront.net/ads/"
   },
-  "id": 20207,
-  "priority": 1
+  "id": 17717,
+  "priority": 2
  },
  {
   "action": {
@@ -1050,8 +1021,8 @@
     "script"
    ]
   },
-  "id": 20208,
-  "priority": 11
+  "id": 17718,
+  "priority": 12
  },
  {
   "action": {
@@ -1073,8 +1044,8 @@
    ],
    "urlFilter": "||amazon-adsystem.com/*/apstag.js"
   },
-  "id": 20209,
-  "priority": 1
+  "id": 17719,
+  "priority": 2
  },
  {
   "action": {
@@ -1094,8 +1065,8 @@
    ],
    "urlFilter": "||mssl.fwmrm.net/*/admanager.js"
   },
-  "id": 20210,
-  "priority": 1
+  "id": 17720,
+  "priority": 2
  },
  {
   "action": {
@@ -1114,8 +1085,8 @@
    ],
    "urlFilter": "||player.ooyala.com/static/*ad"
   },
-  "id": 20211,
-  "priority": 1
+  "id": 17721,
+  "priority": 2
  },
  {
   "action": {
@@ -1126,11 +1097,8 @@
   },
   "condition": {
    "initiatorDomains": [
-    "dlnowsoft.com",
     "gameguardian.net",
-    "igniel.com",
     "iptvdroid1.blogspot.com",
-    "main-echo.de",
     "mitly.us",
     "uploadbox.io",
     "yoututosjeff.es"
@@ -1141,8 +1109,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/"
   },
-  "id": 20212,
-  "priority": 1
+  "id": 17722,
+  "priority": 2
  },
  {
   "action": {
@@ -1161,8 +1129,8 @@
    ],
    "urlFilter": "||adspaces.ero-advertising.com/adspace/"
   },
-  "id": 20213,
-  "priority": 1
+  "id": 17723,
+  "priority": 2
  },
  {
   "action": {
@@ -1173,7 +1141,6 @@
   },
   "condition": {
    "initiatorDomains": [
-    "pinflix.com",
     "pornhd.com"
    ],
    "isUrlFilterCaseSensitive": false,
@@ -1182,8 +1149,8 @@
    ],
    "urlFilter": "||syndication.exoclick.com/ads-iframe-display.php"
   },
-  "id": 20214,
-  "priority": 1
+  "id": 17724,
+  "priority": 2
  },
  {
   "action": {
@@ -1202,8 +1169,8 @@
    ],
    "urlFilter": "||player.ooyala.com/*/ad-plugin/google_ima.min.js"
   },
-  "id": 20215,
-  "priority": 11
+  "id": 17725,
+  "priority": 12
  },
  {
   "action": {
@@ -1222,8 +1189,30 @@
    ],
    "urlFilter": "/adsid/integrator.js"
   },
-  "id": 20216,
-  "priority": 1
+  "id": 17726,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "dl.ccbluex.net",
+    "offidocs.com"
+   ],
+   "requestDomains": [
+    "googlesyndication.com"
+   ],
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 17727,
+  "priority": 2
  },
  {
   "action": {
@@ -1239,8 +1228,8 @@
    ],
    "urlFilter": "||go.pub2srv.com/apu.php"
   },
-  "id": 20217,
-  "priority": 1
+  "id": 17728,
+  "priority": 2
  },
  {
   "action": {
@@ -1260,8 +1249,8 @@
    ],
    "urlFilter": "||googletagmanager.com/gtm.js"
   },
-  "id": 20218,
-  "priority": 1
+  "id": 17729,
+  "priority": 2
  },
  {
   "action": {
@@ -1277,32 +1266,8 @@
    ],
    "urlFilter": "/rellect/adblockdetector/handler.min.js"
   },
-  "id": 20219,
-  "priority": 11
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "943thex.com",
-    "973espn.com",
-    "espn1420.com",
-    "newstalk1290.com",
-    "ultimateclassicrock.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||adservice.google.com/adsid/integrator.js"
-  },
-  "id": 20220,
-  "priority": 1
+  "id": 17730,
+  "priority": 12
  },
  {
   "action": {
@@ -1322,8 +1287,8 @@
     "script"
    ]
   },
-  "id": 20221,
-  "priority": 1
+  "id": 17731,
+  "priority": 2
  },
  {
   "action": {
@@ -1351,8 +1316,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/show_ads.js"
   },
-  "id": 20222,
-  "priority": 1
+  "id": 17732,
+  "priority": 2
  },
  {
   "action": {
@@ -1371,28 +1336,8 @@
    ],
    "urlFilter": "||player.ooyala.com/static/*/ad-plugin/"
   },
-  "id": 20223,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "all-episodes.tv"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||boostervideo.ru/client/boostervideo.js"
-  },
-  "id": 20224,
-  "priority": 1
+  "id": 17733,
+  "priority": 2
  },
  {
   "action": {
@@ -1411,8 +1356,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/js/"
   },
-  "id": 20225,
-  "priority": 1
+  "id": 17734,
+  "priority": 2
  },
  {
   "action": {
@@ -1431,8 +1376,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/"
   },
-  "id": 20226,
-  "priority": 11
+  "id": 17735,
+  "priority": 12
  },
  {
   "action": {
@@ -1452,8 +1397,8 @@
    ],
    "urlFilter": "||google-analytics.com/analytics.js"
   },
-  "id": 20227,
-  "priority": 11
+  "id": 17736,
+  "priority": 12
  },
  {
   "action": {
@@ -1472,8 +1417,31 @@
    ],
    "urlFilter": "||media.truex.com/integration/vpaid/com.truex.truexrenderer.js"
   },
-  "id": 20228,
-  "priority": 1
+  "id": 17737,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "943thex.com",
+    "973espn.com",
+    "espn1420.com",
+    "ultimateclassicrock.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||adservice.google.com/adsid/integrator.js"
+  },
+  "id": 17738,
+  "priority": 2
  },
  {
   "action": {
@@ -1492,8 +1460,8 @@
    ],
    "urlFilter": "||googlesyndication.com/"
   },
-  "id": 20229,
-  "priority": 1
+  "id": 17739,
+  "priority": 2
  },
  {
   "action": {
@@ -1512,8 +1480,8 @@
    ],
    "urlFilter": "||google.com/adsid/integrator.js"
   },
-  "id": 20230,
-  "priority": 1
+  "id": 17740,
+  "priority": 2
  },
  {
   "action": {
@@ -1532,8 +1500,8 @@
    ],
    "urlFilter": "||google.com/adsense/domains/caf.js"
   },
-  "id": 20231,
-  "priority": 1
+  "id": 17741,
+  "priority": 2
  },
  {
   "action": {
@@ -1552,8 +1520,8 @@
    ],
    "urlFilter": "||global.proper.io/salon.min.js"
   },
-  "id": 20232,
-  "priority": 1
+  "id": 17742,
+  "priority": 2
  },
  {
   "action": {
@@ -1574,8 +1542,29 @@
     "script"
    ]
   },
-  "id": 20233,
-  "priority": 1
+  "id": 17743,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "excludedInitiatorDomains": [
+    "zipextractor.app"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 17744,
+  "priority": 7
  },
  {
   "action": {
@@ -1595,8 +1584,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/pagead/show_ads.js"
   },
-  "id": 20234,
-  "priority": 1
+  "id": 17745,
+  "priority": 2
  },
  {
   "action": {
@@ -1615,8 +1604,8 @@
    ],
    "urlFilter": "||assets.bilsyndication.com/plugins/"
   },
-  "id": 20235,
-  "priority": 1
+  "id": 17746,
+  "priority": 2
  },
  {
   "action": {
@@ -1636,28 +1625,8 @@
    ],
    "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
   },
-  "id": 20236,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "id-card.info"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||mgid.com/"
-  },
-  "id": 20237,
-  "priority": 1
+  "id": 17747,
+  "priority": 2
  },
  {
   "action": {
@@ -1673,8 +1642,8 @@
    ],
    "urlFilter": "||ads.exoclick.com/ads.js"
   },
-  "id": 20238,
-  "priority": 1
+  "id": 17748,
+  "priority": 2
  },
  {
   "action": {
@@ -1693,8 +1662,8 @@
    ],
    "urlFilter": "||googletagmanager.com/gtag/"
   },
-  "id": 20239,
-  "priority": 1
+  "id": 17749,
+  "priority": 2
  },
  {
   "action": {
@@ -1713,8 +1682,8 @@
    ],
    "urlFilter": "-contrib-ads."
   },
-  "id": 20240,
-  "priority": 1
+  "id": 17750,
+  "priority": 2
  },
  {
   "action": {
@@ -1733,8 +1702,26 @@
    ],
    "urlFilter": "/videojs.ads."
   },
-  "id": 20241,
-  "priority": 1
+  "id": 17751,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/google-analytics_analytics.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||googletagmanager.com/gtag/js"
+  },
+  "id": 17752,
+  "priority": 7
  },
  {
   "action": {
@@ -1753,8 +1740,8 @@
    ],
    "urlFilter": "||amazon-adsystem.com/aax2/apstag.js"
   },
-  "id": 20242,
-  "priority": 11
+  "id": 17753,
+  "priority": 12
  },
  {
   "action": {
@@ -1774,8 +1761,28 @@
     "script"
    ]
   },
-  "id": 20243,
-  "priority": 11
+  "id": 17754,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "mdn.lol"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||live.demand.supply/up.js"
+  },
+  "id": 17755,
+  "priority": 2
  },
  {
   "action": {
@@ -1795,8 +1802,102 @@
     "script"
    ]
   },
-  "id": 20244,
-  "priority": 1
+  "id": 17756,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/doubleclick_instream_ad_status.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||doubleclick.net/instream/ad_status.js"
+  },
+  "id": 17757,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "dangerousminds.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||htlbid.com/v3/dangerousminds.net/htlbid.js"
+  },
+  "id": 17758,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/google-ima.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "juegos.eleconomista.es"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/"
+  },
+  "id": 17759,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/google-ima.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "littlebigsnake.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+  },
+  "id": 17760,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||cryptocoinsad.com/ads/js/slider_right.js"
+  },
+  "id": 17761,
+  "priority": 2
  },
  {
   "action": {
@@ -1812,8 +1913,8 @@
    ],
    "urlFilter": "||google-analytics.com/analytics.js"
   },
-  "id": 20245,
-  "priority": 6
+  "id": 17762,
+  "priority": 7
  },
  {
   "action": {
@@ -1829,8 +1930,8 @@
    ],
    "urlFilter": "||google-analytics.com/cx/api.js"
   },
-  "id": 20246,
-  "priority": 6
+  "id": 17763,
+  "priority": 7
  },
  {
   "action": {
@@ -1846,8 +1947,8 @@
    ],
    "urlFilter": "||googletagservices.com/tag/js/gpt.js"
   },
-  "id": 20247,
-  "priority": 6
+  "id": 17764,
+  "priority": 7
  },
  {
   "action": {
@@ -1863,8 +1964,8 @@
    ],
    "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
   },
-  "id": 20248,
-  "priority": 6
+  "id": 17765,
+  "priority": 7
  },
  {
   "action": {
@@ -1880,8 +1981,8 @@
    ],
    "urlFilter": "||pagead2.googlesyndication.com/tag/js/gpt.js"
   },
-  "id": 20249,
-  "priority": 6
+  "id": 17766,
+  "priority": 7
  },
  {
   "action": {
@@ -1897,8 +1998,8 @@
    ],
    "urlFilter": "||scorecardresearch.com/beacon.js"
   },
-  "id": 20250,
-  "priority": 6
+  "id": 17767,
+  "priority": 7
  },
  {
   "action": {
@@ -1914,8 +2015,8 @@
    ],
    "urlFilter": "||google-analytics.com/ga.js"
   },
-  "id": 20251,
-  "priority": 6
+  "id": 17768,
+  "priority": 7
  },
  {
   "action": {
@@ -1931,8 +2032,8 @@
    ],
    "urlFilter": "||addthis.com/*/addthis_widget.js"
   },
-  "id": 20252,
-  "priority": 1
+  "id": 17769,
+  "priority": 2
  },
  {
   "action": {
@@ -1948,8 +2049,8 @@
    ],
    "urlFilter": "||googletagmanager.com/gtm.js"
   },
-  "id": 20253,
-  "priority": 6
+  "id": 17770,
+  "priority": 7
  },
  {
   "action": {
@@ -1960,7 +2061,6 @@
   },
   "condition": {
    "excludedInitiatorDomains": [
-    "mainichi.jp",
     "vice.com"
    ],
    "isUrlFilterCaseSensitive": false,
@@ -1969,8 +2069,8 @@
    ],
    "urlFilter": "||widgets.outbrain.com/outbrain.js"
   },
-  "id": 20254,
-  "priority": 6
+  "id": 17771,
+  "priority": 7
  },
  {
   "action": {
@@ -1989,8 +2089,8 @@
    ],
    "urlFilter": "||googletagmanager.com/gtm.js"
   },
-  "id": 20255,
-  "priority": 11
+  "id": 17772,
+  "priority": 12
  },
  {
   "action": {
@@ -2006,8 +2106,8 @@
    ],
    "urlFilter": "||vidtech.cbsinteractive.com^*/tracking/"
   },
-  "id": 20256,
-  "priority": 11
+  "id": 17773,
+  "priority": 12
  },
  {
   "action": {
@@ -2023,8 +2123,8 @@
    ],
    "urlFilter": "||the-japan-news.com/modules/js/lib/fgp/fingerprint2.js"
   },
-  "id": 20257,
-  "priority": 11
+  "id": 17774,
+  "priority": 12
  },
  {
   "action": {
@@ -2040,8 +2140,8 @@
    ],
    "urlFilter": "||nsfw.xxx/vendor/fingerprint/fingerprint2.min.js"
   },
-  "id": 20258,
-  "priority": 11
+  "id": 17775,
+  "priority": 12
  },
  {
   "action": {
@@ -2060,8 +2160,8 @@
    ],
    "urlFilter": "||cloudflare.com/ajax/libs/fingerprintjs2/"
   },
-  "id": 20259,
-  "priority": 11
+  "id": 17776,
+  "priority": 12
  },
  {
   "action": {
@@ -2077,8 +2177,8 @@
    ],
    "urlFilter": "||gamerch.com/s3-assets/library/js/fingerprint2.min.js"
   },
-  "id": 20260,
-  "priority": 11
+  "id": 17777,
+  "priority": 12
  },
  {
   "action": {
@@ -2094,8 +2194,8 @@
    ],
    "urlFilter": "||serasaexperian.com.br/dist/scripts/fingerprint2.js^"
   },
-  "id": 20261,
-  "priority": 11
+  "id": 17778,
+  "priority": 12
  },
  {
   "action": {
@@ -2114,8 +2214,8 @@
    ],
    "urlFilter": "||hdslb.com/bfs/cm/cm-sdk/static/js/bili-collect.js"
   },
-  "id": 20262,
-  "priority": 11
+  "id": 17779,
+  "priority": 12
  },
  {
   "action": {
@@ -2134,8 +2234,8 @@
    ],
    "urlFilter": "||2mdn.net/instream/video/client.js"
   },
-  "id": 20264,
-  "priority": 1
+  "id": 17781,
+  "priority": 2
  },
  {
   "action": {
@@ -2155,8 +2255,8 @@
     "script"
    ]
   },
-  "id": 20265,
-  "priority": 1
+  "id": 17782,
+  "priority": 2
  },
  {
   "action": {
@@ -2172,8 +2272,8 @@
    ],
    "urlFilter": "||amazon-adsystem.com/aax2/amzn_ads.js"
   },
-  "id": 20266,
-  "priority": 1
+  "id": 17783,
+  "priority": 2
  },
  {
   "action": {
@@ -2192,8 +2292,8 @@
    ],
    "urlFilter": "||amazon-adsystem.com/aax2/amzn_ads.js"
   },
-  "id": 20267,
-  "priority": 1
+  "id": 17784,
+  "priority": 2
  },
  {
   "action": {
@@ -2212,8 +2312,8 @@
    ],
    "urlFilter": "||cdn.taboola.com/libtrc/*/loader.js"
   },
-  "id": 20268,
-  "priority": 11
+  "id": 17785,
+  "priority": 12
  },
  {
   "action": {
@@ -2229,8 +2329,8 @@
    ],
    "urlFilter": "||ggwebcast.com/*/kaltura/ga/urchin.js"
   },
-  "id": 20269,
-  "priority": 1
+  "id": 17786,
+  "priority": 2
  },
  {
   "action": {
@@ -2249,8 +2349,8 @@
    ],
    "urlFilter": "||bbci.co.uk^*/analytics.js"
   },
-  "id": 20270,
-  "priority": 1
+  "id": 17787,
+  "priority": 2
  },
  {
   "action": {
@@ -2269,8 +2369,8 @@
    ],
    "urlFilter": "||carambo.la^*/getangularlayer"
   },
-  "id": 20271,
-  "priority": 1
+  "id": 17788,
+  "priority": 2
  },
  {
   "action": {
@@ -2290,8 +2390,8 @@
     "script"
    ]
   },
-  "id": 20272,
-  "priority": 1
+  "id": 17789,
+  "priority": 2
  },
  {
   "action": {
@@ -2310,8 +2410,8 @@
    ],
    "urlFilter": "||adservex.media.net/videoads.js"
   },
-  "id": 20273,
-  "priority": 1
+  "id": 17790,
+  "priority": 2
  },
  {
   "action": {
@@ -2323,7 +2423,6 @@
   "condition": {
    "initiatorDomains": [
     "ladbible.com",
-    "playground.ru",
     "radio-canada.ca",
     "tvguide.com"
    ],
@@ -2333,8 +2432,8 @@
    ],
    "urlFilter": "||googletagservices.com/tag/js/gpt.js"
   },
-  "id": 20274,
-  "priority": 1
+  "id": 17791,
+  "priority": 2
  },
  {
   "action": {
@@ -2353,8 +2452,8 @@
    ],
    "urlFilter": "||agkn.com/*/tag.js"
   },
-  "id": 20275,
-  "priority": 1
+  "id": 17792,
+  "priority": 2
  },
  {
   "action": {
@@ -2373,8 +2472,8 @@
    ],
    "urlFilter": "||dogannet.tv/*/third_party/comscore/"
   },
-  "id": 20276,
-  "priority": 1
+  "id": 17793,
+  "priority": 2
  },
  {
   "action": {
@@ -2393,8 +2492,8 @@
    ],
    "urlFilter": "||gemius.pl/gplayer.js"
   },
-  "id": 20277,
-  "priority": 1
+  "id": 17794,
+  "priority": 2
  },
  {
   "action": {
@@ -2413,8 +2512,8 @@
    ],
    "urlFilter": "||player.ooyala.com/*/ad-plugin/pulse.min.js"
   },
-  "id": 20278,
-  "priority": 1
+  "id": 17795,
+  "priority": 2
  },
  {
   "action": {
@@ -2433,8 +2532,8 @@
    ],
    "urlFilter": "||cdn.auth0.com/*/analytics.min.js"
   },
-  "id": 20279,
-  "priority": 1
+  "id": 17796,
+  "priority": 2
  },
  {
   "action": {
@@ -2450,8 +2549,8 @@
    ],
    "urlFilter": "||player.ooyala.com/*/analytics-plugin/"
   },
-  "id": 20280,
-  "priority": 1
+  "id": 17797,
+  "priority": 2
  },
  {
   "action": {
@@ -2470,28 +2569,8 @@
    ],
    "urlFilter": "||vidtech.cbsinteractive.com/*/tracking/comscore/comscore.streaming."
   },
-  "id": 20281,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "telesurtv.net"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||geo.kaloo.ga/json/"
-  },
-  "id": 20282,
-  "priority": 1
+  "id": 17798,
+  "priority": 2
  },
  {
   "action": {
@@ -2510,8 +2589,8 @@
    ],
    "urlFilter": "||tag.navdmp.com/"
   },
-  "id": 20283,
-  "priority": 1
+  "id": 17799,
+  "priority": 2
  },
  {
   "action": {
@@ -2530,8 +2609,8 @@
    ],
    "urlFilter": "||src.litix.io/core/*/mux.js"
   },
-  "id": 20284,
-  "priority": 1
+  "id": 17800,
+  "priority": 2
  },
  {
   "action": {
@@ -2550,8 +2629,8 @@
    ],
    "urlFilter": "||tailtarget.com/profiles.js"
   },
-  "id": 20285,
-  "priority": 11
+  "id": 17801,
+  "priority": 12
  },
  {
   "action": {
@@ -2570,8 +2649,8 @@
    ],
    "urlFilter": "||qiota.com/assets/fingerprint2."
   },
-  "id": 20286,
-  "priority": 11
+  "id": 17802,
+  "priority": 12
  },
  {
   "action": {
@@ -2597,28 +2676,8 @@
    ],
    "urlFilter": "||tags.bluekai.com/"
   },
-  "id": 20287,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "voici.fr"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||d1z2jf7jlzjs58.cloudfront.net/p.js"
-  },
-  "id": 20288,
-  "priority": 1
+  "id": 17803,
+  "priority": 2
  },
  {
   "action": {
@@ -2637,8 +2696,8 @@
    ],
    "urlFilter": "/dw-tracking"
   },
-  "id": 20289,
-  "priority": 11
+  "id": 17804,
+  "priority": 12
  },
  {
   "action": {
@@ -2658,8 +2717,8 @@
    ],
    "urlFilter": "||adtech.redventures.io/lib/*/bidbarrel-techrepublic-"
   },
-  "id": 20290,
-  "priority": 11
+  "id": 17805,
+  "priority": 12
  },
  {
   "action": {
@@ -2678,8 +2737,8 @@
    ],
    "urlFilter": "||2mdn.net/instream/html5/ima3.js"
   },
-  "id": 20291,
-  "priority": 11
+  "id": 17806,
+  "priority": 12
  },
  {
   "action": {
@@ -2698,8 +2757,8 @@
    ],
    "urlFilter": "||scorecardresearch.com/*/plugins/"
   },
-  "id": 20292,
-  "priority": 1
+  "id": 17807,
+  "priority": 2
  },
  {
   "action": {
@@ -2719,8 +2778,8 @@
    ],
    "urlFilter": "||widgets.outbrain.com/outbrain.js"
   },
-  "id": 20293,
-  "priority": 1
+  "id": 17808,
+  "priority": 2
  },
  {
   "action": {
@@ -2739,8 +2798,8 @@
    ],
    "urlFilter": "||static.adsafeprotected.com/vans-adapter-google-ima.js"
   },
-  "id": 20294,
-  "priority": 1
+  "id": 17809,
+  "priority": 2
  },
  {
   "action": {
@@ -2759,8 +2818,8 @@
    ],
    "urlFilter": "||d26b395fwzu5fz.cloudfront.net/keen-tracking-"
   },
-  "id": 20295,
-  "priority": 1
+  "id": 17810,
+  "priority": 2
  },
  {
   "action": {
@@ -2779,8 +2838,8 @@
    ],
    "urlFilter": "||cdn.parsely.com/keys/nfl.com/p.js"
   },
-  "id": 20296,
-  "priority": 11
+  "id": 17811,
+  "priority": 12
  },
  {
   "action": {
@@ -2799,8 +2858,8 @@
    ],
    "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
   },
-  "id": 20297,
-  "priority": 11
+  "id": 17812,
+  "priority": 12
  },
  {
   "action": {
@@ -2816,8 +2875,8 @@
    ],
    "urlFilter": "||myaccount.chicagotribune.com/assets/scripts/tag-manager/googletag.js"
   },
-  "id": 20298,
-  "priority": 11
+  "id": 17813,
+  "priority": 12
  },
  {
   "action": {
@@ -2833,8 +2892,8 @@
    ],
    "urlFilter": "||tags.news.com.au/prod/heartbeat/*/mediasdk.min.js"
   },
-  "id": 20299,
-  "priority": 11
+  "id": 17814,
+  "priority": 12
  },
  {
   "action": {
@@ -2853,8 +2912,8 @@
    ],
    "urlFilter": "||googletagmanager.com/gtag/js"
   },
-  "id": 20300,
-  "priority": 1
+  "id": 17815,
+  "priority": 2
  },
  {
   "action": {
@@ -2870,8 +2929,8 @@
    ],
    "urlFilter": "||plausible.io/js/plausible.js"
   },
-  "id": 20301,
-  "priority": 11
+  "id": 17816,
+  "priority": 12
  },
  {
   "action": {
@@ -2887,8 +2946,8 @@
    ],
    "urlFilter": "||lastpass.com/assets/js/analyticsjs.js"
   },
-  "id": 20302,
-  "priority": 11
+  "id": 17817,
+  "priority": 12
  },
  {
   "action": {
@@ -2907,8 +2966,8 @@
    ],
    "urlFilter": "||sohu.com/cityjson"
   },
-  "id": 20303,
-  "priority": 11
+  "id": 17818,
+  "priority": 12
  },
  {
   "action": {
@@ -2919,56 +2978,36 @@
   },
   "condition": {
    "initiatorDomains": [
-    "myscore.cibil.com"
+    "voici.fr"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
     "script"
    ],
-   "urlFilter": "||cdn.optimizely.com/js/"
+   "urlFilter": "||d1z2jf7jlzjs58.cloudfront.net/p.js"
   },
-  "id": 20304,
-  "priority": 1
+  "id": 17819,
+  "priority": 2
  },
  {
   "action": {
    "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.txt"
+    "extensionPath": "/web_accessible_resources/noop.js"
    },
    "type": "redirect"
   },
   "condition": {
    "initiatorDomains": [
-    "computerbild.de"
+    "ncsoft.jp"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
-    "xmlhttprequest"
+    "script"
    ],
-   "urlFilter": "||computerbild.de/assets/homad/"
+   "urlFilter": "||googleadservices.com/pagead/conversion.js"
   },
-  "id": 20305,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.txt"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "autobild.de"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||i.auto-bild.de/assets/modules/homad/"
-  },
-  "id": 20306,
-  "priority": 1
+  "id": 17820,
+  "priority": 12
  },
  {
   "action": {
@@ -2987,8 +3026,8 @@
    ],
    "urlFilter": "||video.golem.de/*/scripts/radiant/homad"
   },
-  "id": 20307,
-  "priority": 1
+  "id": 17824,
+  "priority": 2
  },
  {
   "action": {
@@ -3008,8 +3047,8 @@
     "xmlhttprequest"
    ]
   },
-  "id": 20308,
-  "priority": 1
+  "id": 17825,
+  "priority": 2
  },
  {
   "action": {
@@ -3034,28 +3073,8 @@
     "xmlhttprequest"
    ]
   },
-  "id": 20309,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "mp4upload.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||bitcoadz.io/display/items.php"
-  },
-  "id": 20310,
-  "priority": 1
+  "id": 17826,
+  "priority": 2
  },
  {
   "action": {
@@ -3065,38 +3084,14 @@
    "type": "redirect"
   },
   "condition": {
-   "initiatorDomains": [
-    "mp4upload.com"
-   ],
-   "requestDomains": [
-    "server.cpmstar.com"
-   ],
-   "resourceTypes": [
-    "xmlhttprequest"
-   ]
-  },
-  "id": 20311,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.txt"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "video-static.tunnl.com"
-   ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
     "xmlhttprequest"
    ],
    "urlFilter": "||adservice.google.com.*/adsid/integrator.js?domain=player.tubia.com"
   },
-  "id": 20312,
-  "priority": 1
+  "id": 17827,
+  "priority": 2
  },
  {
   "action": {
@@ -3112,8 +3107,8 @@
    ],
    "urlFilter": "||propbigo.com/*.xml"
   },
-  "id": 20313,
-  "priority": 1
+  "id": 17828,
+  "priority": 2
  },
  {
   "action": {
@@ -3124,14 +3119,15 @@
   },
   "condition": {
    "requestDomains": [
+    "doubleclick.net",
     "downloadfullfree.com"
    ],
    "resourceTypes": [
     "xmlhttprequest"
    ]
   },
-  "id": 20314,
-  "priority": 1
+  "id": 17829,
+  "priority": 2
  },
  {
   "action": {
@@ -3146,6 +3142,7 @@
     "fitforfun.de",
     "golem.de",
     "n-tv.de",
+    "sport.de",
     "tele5.de",
     "wetter.de"
    ],
@@ -3155,8 +3152,8 @@
    ],
    "urlFilter": "||amazonaws.com/homad-global-configs.schneevonmorgen.com/global_config.json"
   },
-  "id": 20315,
-  "priority": 1
+  "id": 17830,
+  "priority": 2
  },
  {
   "action": {
@@ -3175,8 +3172,8 @@
    ],
    "urlFilter": "||amazonaws.com/homad-global-configs-eu-fra.schneevonmorgen.com/global_config.json"
   },
-  "id": 20316,
-  "priority": 1
+  "id": 17831,
+  "priority": 2
  },
  {
   "action": {
@@ -3195,30 +3192,8 @@
    ],
    "urlFilter": "||googleads.g.doubleclick.net/pagead/"
   },
-  "id": 20318,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "rp-online.de",
-    "saarbruecker-zeitung.de",
-    "volksfreund.de"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
-  },
-  "id": 20320,
-  "priority": 1
+  "id": 17833,
+  "priority": 2
  },
  {
   "action": {
@@ -3233,8 +3208,7 @@
     "collegestash.com",
     "gazetadopovo.com.br",
     "rollingstone.it",
-    "teemo.gg",
-    "unlockapk.com"
+    "teemo.gg"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
@@ -3242,8 +3216,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/js/adsbygoogle.js"
   },
-  "id": 20321,
-  "priority": 1
+  "id": 17835,
+  "priority": 2
  },
  {
   "action": {
@@ -3262,8 +3236,8 @@
    ],
    "urlFilter": "||adservice.google.*/adsid/integrator.js"
   },
-  "id": 20322,
-  "priority": 1
+  "id": 17836,
+  "priority": 2
  },
  {
   "action": {
@@ -3282,8 +3256,8 @@
    ],
    "urlFilter": "||pubads.g.doubleclick.net/gampad/ads"
   },
-  "id": 20323,
-  "priority": 1
+  "id": 17837,
+  "priority": 2
  },
  {
   "action": {
@@ -3303,8 +3277,8 @@
    ],
    "urlFilter": "||doubleclick.net/pagead/id"
   },
-  "id": 20324,
-  "priority": 1
+  "id": 17838,
+  "priority": 2
  },
  {
   "action": {
@@ -3323,8 +3297,8 @@
    ],
    "urlFilter": "||imdb.com/tr/*pagehit"
   },
-  "id": 20325,
-  "priority": 1
+  "id": 17839,
+  "priority": 2
  },
  {
   "action": {
@@ -3343,8 +3317,8 @@
    ],
    "urlFilter": "||fls-na.amazon.com/"
   },
-  "id": 20326,
-  "priority": 1
+  "id": 17840,
+  "priority": 2
  },
  {
   "action": {
@@ -3363,8 +3337,8 @@
    ],
    "urlFilter": "||cdnn.ufaclub8.com/*seg-2"
   },
-  "id": 20327,
-  "priority": 1
+  "id": 17841,
+  "priority": 2
  },
  {
   "action": {
@@ -3383,8 +3357,8 @@
    ],
    "urlFilter": "||adservice.google.com/adsid/integrator.js"
   },
-  "id": 20328,
-  "priority": 1
+  "id": 17842,
+  "priority": 2
  },
  {
   "action": {
@@ -3403,8 +3377,26 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/js/adsbygoogle.j"
   },
-  "id": 20329,
-  "priority": 1
+  "id": 17843,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "pagead2.googlesyndication.com"
+   ],
+   "resourceTypes": [
+    "xmlhttprequest"
+   ]
+  },
+  "id": 17844,
+  "priority": 2
  },
  {
   "action": {
@@ -3423,8 +3415,8 @@
    ],
    "urlFilter": "||video-ads-module.ad-tech.nbcuni.com/"
   },
-  "id": 20330,
-  "priority": 1
+  "id": 17845,
+  "priority": 2
  },
  {
   "action": {
@@ -3440,8 +3432,8 @@
    ],
    "urlFilter": "||hentaidude.com/wp-admin/admin-ajax.php?action=geocheck"
   },
-  "id": 20331,
-  "priority": 1
+  "id": 17846,
+  "priority": 2
  },
  {
   "action": {
@@ -3460,8 +3452,8 @@
    ],
    "urlFilter": "||doubleclick.net/gampad/ads?*&output=xml_vmap"
   },
-  "id": 20332,
-  "priority": 11
+  "id": 17847,
+  "priority": 12
  },
  {
   "action": {
@@ -3480,8 +3472,29 @@
    ],
    "urlFilter": "||grow.gab.com/get/status?video=tv"
   },
-  "id": 20338,
-  "priority": 1
+  "id": 17853,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "deezer.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "/ads/autopromo/"
+  },
+  "id": 17856,
+  "priority": 2
  },
  {
   "action": {
@@ -3500,8 +3513,45 @@
    ],
    "urlFilter": "||streamtheworld.com/ondemand/creative?cat=cm-preroll"
   },
-  "id": 20341,
-  "priority": 1
+  "id": 17858,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||api.doubtnut.com/v2/web-landing/web-ads-info"
+  },
+  "id": 17859,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/1x1.gif"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "vippetcare.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||yext-pixel.com/store_pagespixel^"
+  },
+  "id": 17860,
+  "priority": 2
  },
  {
   "action": {
@@ -3517,8 +3567,27 @@
    ],
    "urlFilter": "||namethatporn.com/assets/imgs/1x1.gif"
   },
-  "id": 20343,
-  "priority": 1
+  "id": 17864,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.html"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "d192r5l88wrng7.cloudfront.net",
+    "sibautomation.com"
+   ],
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 17888,
+  "priority": 2
  },
  {
   "action": {
@@ -3538,26 +3607,8 @@
     "sub_frame"
    ]
   },
-  "id": 20379,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.html"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "sibautomation.com"
-   ],
-   "resourceTypes": [
-    "sub_frame"
-   ]
-  },
-  "id": 20395,
-  "priority": 1
+  "id": 17895,
+  "priority": 2
  },
  {
   "action": {
@@ -3581,8 +3632,8 @@
    ],
    "urlFilter": "*expires"
   },
-  "id": 20405,
-  "priority": 1
+  "id": 17924,
+  "priority": 2
  },
  {
   "action": {
@@ -3601,8 +3652,8 @@
    ],
    "urlFilter": "||porndoe.com/movie/preroll/"
   },
-  "id": 20406,
-  "priority": 1
+  "id": 17925,
+  "priority": 2
  },
  {
   "action": {
@@ -3621,8 +3672,8 @@
    ],
    "urlFilter": "*expire="
   },
-  "id": 20407,
-  "priority": 1
+  "id": 17926,
+  "priority": 2
  },
  {
   "action": {
@@ -3645,28 +3696,8 @@
    ],
    "urlFilter": ".mp4"
   },
-  "id": 20408,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "cinema.de"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "media"
-   ],
-   "urlFilter": "||damoh.cinema.de/"
-  },
-  "id": 20409,
-  "priority": 1
+  "id": 17927,
+  "priority": 2
  },
  {
   "action": {
@@ -3685,8 +3716,8 @@
    ],
    "urlFilter": "||damoh.kochbar.de/"
   },
-  "id": 20410,
-  "priority": 1
+  "id": 17928,
+  "priority": 2
  },
  {
   "action": {
@@ -3705,8 +3736,8 @@
    ],
    "urlFilter": "||akamaihd.net/vod/"
   },
-  "id": 20411,
-  "priority": 1
+  "id": 17929,
+  "priority": 2
  },
  {
   "action": {
@@ -3725,8 +3756,8 @@
    ],
    "urlFilter": "||toots-a.akamaihd.net/priority/"
   },
-  "id": 20412,
-  "priority": 1
+  "id": 17930,
+  "priority": 2
  },
  {
   "action": {
@@ -3745,8 +3776,8 @@
    ],
    "urlFilter": "||toots-a.akamaihd.net/priority/"
   },
-  "id": 20413,
-  "priority": 1
+  "id": 17931,
+  "priority": 2
  },
  {
   "action": {
@@ -3765,8 +3796,8 @@
    ],
    "urlFilter": "*pre-roll"
   },
-  "id": 20414,
-  "priority": 11
+  "id": 17932,
+  "priority": 12
  },
  {
   "action": {
@@ -3779,7 +3810,6 @@
    "initiatorDomains": [
     "037-hd.com",
     "canalplus.com",
-    "discoveryplus.*",
     "doo4k.com",
     "fairyanime.com",
     "funimation.com",
@@ -3787,15 +3817,14 @@
     "pietsmiet.de",
     "play.tv3.lt",
     "series-d.com",
-    "stream.box-series.com",
     "stream1688.com"
    ],
    "resourceTypes": [
     "media"
    ]
   },
-  "id": 20415,
-  "priority": 1
+  "id": 17933,
+  "priority": 2
  },
  {
   "action": {
@@ -3814,8 +3843,8 @@
    ],
    "urlFilter": "||player.neko-miku.com/*slot"
   },
-  "id": 20416,
-  "priority": 1
+  "id": 17934,
+  "priority": 2
  },
  {
   "action": {
@@ -3834,8 +3863,8 @@
    ],
    "urlFilter": "||protovid.com/preroll/"
   },
-  "id": 20417,
-  "priority": 1
+  "id": 17935,
+  "priority": 2
  },
  {
   "action": {
@@ -3856,8 +3885,8 @@
     "media"
    ]
   },
-  "id": 20418,
-  "priority": 1
+  "id": 17936,
+  "priority": 2
  },
  {
   "action": {
@@ -3877,8 +3906,8 @@
    ],
    "urlFilter": "||youtube.com/get_video"
   },
-  "id": 20419,
-  "priority": 1
+  "id": 17937,
+  "priority": 2
  },
  {
   "action": {
@@ -3897,8 +3926,28 @@
     "media"
    ]
   },
-  "id": 20420,
-  "priority": 1
+  "id": 17938,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "xnxx-sexfilme.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||twincdn.com/video/susilive/"
+  },
+  "id": 17939,
+  "priority": 2
  },
  {
   "action": {
@@ -3917,8 +3966,8 @@
    ],
    "urlFilter": ".mp4"
   },
-  "id": 20421,
-  "priority": 1
+  "id": 17940,
+  "priority": 2
  },
  {
   "action": {
@@ -3941,8 +3990,8 @@
    ],
    "urlFilter": "&expires"
   },
-  "id": 20422,
-  "priority": 1
+  "id": 17941,
+  "priority": 2
  },
  {
   "action": {
@@ -3961,8 +4010,8 @@
    ],
    "urlFilter": "||smrmembers-smr.smartmediarep.com/*/video/*.mp4"
   },
-  "id": 20423,
-  "priority": 1
+  "id": 17942,
+  "priority": 2
  },
  {
   "action": {
@@ -3981,8 +4030,8 @@
    ],
    "urlFilter": "||rte.ie/ads/"
   },
-  "id": 20424,
-  "priority": 1
+  "id": 17943,
+  "priority": 2
  },
  {
   "action": {
@@ -4001,8 +4050,28 @@
    ],
    "urlFilter": "||securecdn.videologygroup.com/prod/dspmedia/"
   },
-  "id": 20425,
-  "priority": 1
+  "id": 17944,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "rte.ie"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "/media/*.mp4|"
+  },
+  "id": 17945,
+  "priority": 2
  },
  {
   "action": {
@@ -4021,8 +4090,8 @@
    ],
    "urlFilter": "||cibntv.net/youku/"
   },
-  "id": 20426,
-  "priority": 1
+  "id": 17946,
+  "priority": 2
  },
  {
   "action": {
@@ -4042,8 +4111,8 @@
     "media"
    ]
   },
-  "id": 20427,
-  "priority": 1
+  "id": 17947,
+  "priority": 2
  },
  {
   "action": {
@@ -4062,8 +4131,8 @@
    ],
    "urlFilter": "||assetshuluimcom-a.akamaihd.net/*.mp3"
   },
-  "id": 20428,
-  "priority": 1
+  "id": 17948,
+  "priority": 2
  },
  {
   "action": {
@@ -4080,8 +4149,8 @@
     "media"
    ]
   },
-  "id": 20429,
-  "priority": 1
+  "id": 17949,
+  "priority": 2
  },
  {
   "action": {
@@ -4100,8 +4169,8 @@
    ],
    "urlFilter": "||ipla.pluscdn.pl/p/"
   },
-  "id": 20430,
-  "priority": 1
+  "id": 17950,
+  "priority": 2
  },
  {
   "action": {
@@ -4120,8 +4189,8 @@
    ],
    "urlFilter": "||p-cdn.us/public/"
   },
-  "id": 20431,
-  "priority": 1
+  "id": 17951,
+  "priority": 2
  },
  {
   "action": {
@@ -4140,28 +4209,8 @@
    ],
    "urlFilter": "||sndcdn.com/audio/"
   },
-  "id": 20432,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "virginmediatelevision.ie"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "media"
-   ],
-   "urlFilter": "||damoh.curloc.com/"
-  },
-  "id": 20433,
-  "priority": 1
+  "id": 17952,
+  "priority": 2
  },
  {
   "action": {
@@ -4183,8 +4232,8 @@
    ],
    "urlFilter": "&token"
   },
-  "id": 20434,
-  "priority": 1
+  "id": 17953,
+  "priority": 2
  },
  {
   "action": {
@@ -4203,8 +4252,8 @@
    ],
    "urlFilter": "||static.canal-plus.net/pub/"
   },
-  "id": 20435,
-  "priority": 1
+  "id": 17954,
+  "priority": 2
  },
  {
   "action": {
@@ -4223,8 +4272,8 @@
    ],
    "urlFilter": "||redcdn.pl/file/*/vstatic/*.mp4"
   },
-  "id": 20436,
-  "priority": 1
+  "id": 17955,
+  "priority": 2
  },
  {
   "action": {
@@ -4243,8 +4292,8 @@
    ],
    "urlFilter": "||edgecast-vod.yimg.com/"
   },
-  "id": 20437,
-  "priority": 1
+  "id": 17956,
+  "priority": 2
  },
  {
   "action": {
@@ -4263,8 +4312,8 @@
    ],
    "urlFilter": "||damoh.tvnow.de/"
   },
-  "id": 20438,
-  "priority": 1
+  "id": 17957,
+  "priority": 2
  },
  {
   "action": {
@@ -4283,8 +4332,8 @@
    ],
    "urlFilter": "||videorolls.row.aiv-cdn.net/*.mp4"
   },
-  "id": 20439,
-  "priority": 1
+  "id": 17958,
+  "priority": 2
  },
  {
   "action": {
@@ -4303,8 +4352,8 @@
    ],
    "urlFilter": "||delivery.tf1.fr/pub"
   },
-  "id": 20440,
-  "priority": 1
+  "id": 17959,
+  "priority": 2
  },
  {
   "action": {
@@ -4323,8 +4372,8 @@
    ],
    "urlFilter": "||dnl-adv-ssl.tf1.fr/"
   },
-  "id": 20441,
-  "priority": 1
+  "id": 17960,
+  "priority": 2
  },
  {
   "action": {
@@ -4340,8 +4389,8 @@
    ],
    "urlFilter": "||loadshare.org/custom/"
   },
-  "id": 20442,
-  "priority": 11
+  "id": 17961,
+  "priority": 12
  },
  {
   "action": {
@@ -4360,8 +4409,8 @@
    ],
    "urlFilter": "/gfp_video_ads/"
   },
-  "id": 20443,
-  "priority": 1
+  "id": 17962,
+  "priority": 2
  },
  {
   "action": {
@@ -4381,8 +4430,8 @@
     "media"
    ]
   },
-  "id": 20444,
-  "priority": 1
+  "id": 17963,
+  "priority": 2
  },
  {
   "action": {
@@ -4398,8 +4447,8 @@
    ],
    "urlFilter": "||slacker.com^*/getspot/?spotid="
   },
-  "id": 20445,
-  "priority": 1
+  "id": 17964,
+  "priority": 2
  },
  {
   "action": {
@@ -4418,28 +4467,8 @@
    ],
    "urlFilter": "||ang-content.com/*.mp4"
   },
-  "id": 20446,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "v.qq.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "media"
-   ],
-   "urlFilter": "*level="
-  },
-  "id": 20447,
-  "priority": 1
+  "id": 17965,
+  "priority": 2
  },
  {
   "action": {
@@ -4467,13 +4496,13 @@
    ],
    "urlFilter": "||cloudfront.net^*.mp3|"
   },
-  "id": 20448,
-  "priority": 1
+  "id": 17966,
+  "priority": 2
  },
  {
   "action": {
    "redirect": {
-    "extensionPath": "/web_accessible_resources/noop-0.5s.mp3"
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
    },
    "type": "redirect"
   },
@@ -4487,13 +4516,13 @@
    ],
    "urlFilter": "||akamaized.net/audio/"
   },
-  "id": 20449,
-  "priority": 1
+  "id": 17967,
+  "priority": 12
  },
  {
   "action": {
    "redirect": {
-    "extensionPath": "/web_accessible_resources/noop-0.5s.mp3"
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
    },
    "type": "redirect"
   },
@@ -4507,8 +4536,28 @@
    ],
    "urlFilter": "||scdn.co/audio/"
   },
-  "id": 20450,
-  "priority": 1
+  "id": 17968,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "vidmoly.to"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||vastz.b-cdn.net/*.mp4"
+  },
+  "id": 17969,
+  "priority": 2
  },
  {
   "action": {
@@ -4524,8 +4573,8 @@
    ],
    "urlFilter": "||foxhq.com/gabtab.webm"
   },
-  "id": 20451,
-  "priority": 1
+  "id": 17970,
+  "priority": 2
  },
  {
   "action": {
@@ -4546,8 +4595,8 @@
     "media"
    ]
   },
-  "id": 20452,
-  "priority": 1
+  "id": 17971,
+  "priority": 2
  },
  {
   "action": {
@@ -4566,8 +4615,8 @@
    ],
    "urlFilter": "||cloclo11.cloud.mail.ru/weblink/"
   },
-  "id": 20453,
-  "priority": 1
+  "id": 17972,
+  "priority": 2
  },
  {
   "action": {
@@ -4583,8 +4632,8 @@
    ],
    "urlFilter": "||pobre.tv/videos/"
   },
-  "id": 20454,
-  "priority": 1
+  "id": 17973,
+  "priority": 2
  },
  {
   "action": {
@@ -4604,8 +4653,8 @@
    ],
    "urlFilter": "||redirector.gvt1.com/videoplayback/id/*/source/gfp_video_ads/"
   },
-  "id": 20455,
-  "priority": 1
+  "id": 17974,
+  "priority": 2
  },
  {
   "action": {
@@ -4621,8 +4670,8 @@
    ],
    "urlFilter": "||vbcdn.com/cdn/video_advt/"
   },
-  "id": 20456,
-  "priority": 1
+  "id": 17975,
+  "priority": 2
  },
  {
   "action": {
@@ -4641,8 +4690,8 @@
    ],
    "urlFilter": "||storage.googleapis.com/*&googleaccessid=firebase-adminsdk"
   },
-  "id": 20457,
-  "priority": 1
+  "id": 17976,
+  "priority": 2
  },
  {
   "action": {
@@ -4658,8 +4707,8 @@
    ],
    "urlFilter": "||giadinhngo.com/ads/"
   },
-  "id": 20458,
-  "priority": 1
+  "id": 17977,
+  "priority": 2
  },
  {
   "action": {
@@ -4675,8 +4724,8 @@
    ],
    "urlFilter": "||googles.video/"
   },
-  "id": 20459,
-  "priority": 1
+  "id": 17978,
+  "priority": 2
  },
  {
   "action": {
@@ -4696,8 +4745,29 @@
     "media"
    ]
   },
-  "id": 20460,
-  "priority": 1
+  "id": 17979,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "atresplayer.com"
+   ],
+   "requestDomains": [
+    "atresmediapublicidad.com"
+   ],
+   "resourceTypes": [
+    "media"
+   ]
+  },
+  "id": 17980,
+  "priority": 2
  },
  {
   "action": {
@@ -4716,8 +4786,8 @@
    ],
    "urlFilter": "||content.sinpartycdn.com/*pre-roll-ads/"
   },
-  "id": 20461,
-  "priority": 1
+  "id": 17981,
+  "priority": 2
  },
  {
   "action": {
@@ -4736,8 +4806,86 @@
    ],
    "urlFilter": "||content.sinpartycdn.com/videos-ads/"
   },
-  "id": 20462,
-  "priority": 1
+  "id": 17982,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "seznam.cz"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||sdn.cz/*/ad-*.mp4"
+  },
+  "id": 17983,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "deezer.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||cmodmedia*.live.streamtheworld.com/media/*.mp3"
+  },
+  "id": 17984,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||postmovie.net/*.mp4"
+  },
+  "id": 17985,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "app.idagio.com"
+   ],
+   "requestDomains": [
+    "ctfassets.net"
+   ],
+   "resourceTypes": [
+    "media"
+   ]
+  },
+  "id": 17986,
+  "priority": 2
  },
  {
   "action": {
@@ -4757,8 +4905,8 @@
     "media"
    ]
   },
-  "id": 20463,
-  "priority": 1
+  "id": 17987,
+  "priority": 2
  },
  {
   "action": {
@@ -4777,8 +4925,8 @@
    ],
    "urlFilter": "/videoplayback?expire"
   },
-  "id": 20464,
-  "priority": 1
+  "id": 17988,
+  "priority": 2
  },
  {
   "action": {
@@ -4798,8 +4946,8 @@
     "media"
    ]
   },
-  "id": 20465,
-  "priority": 1
+  "id": 17989,
+  "priority": 2
  },
  {
   "action": {
@@ -4818,8 +4966,8 @@
    ],
    "urlFilter": "||googlevideo.com/videoplayback?"
   },
-  "id": 20466,
-  "priority": 1
+  "id": 17990,
+  "priority": 2
  },
  {
   "action": {
@@ -4830,17 +4978,16 @@
   },
   "condition": {
    "initiatorDomains": [
-    "damoh.giga.de",
-    "damoh.t-online.de"
+    "lifehacker.com"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
     "media"
    ],
-   "urlFilter": "||damoh."
+   "urlFilter": "||googlevideo.com/videoplayback?expire"
   },
-  "id": 20467,
-  "priority": 1
+  "id": 17991,
+  "priority": 2
  },
  {
   "action": {
@@ -4857,8 +5004,8 @@
    ],
    "urlFilter": "||assets.moat.com/*/ad"
   },
-  "id": 20473,
-  "priority": 1
+  "id": 17996,
+  "priority": 2
  },
  {
   "action": {
@@ -4875,8 +5022,8 @@
    ],
    "urlFilter": "||nensaysubs.net/images/logonensay.ico"
   },
-  "id": 20474,
-  "priority": 1
+  "id": 17997,
+  "priority": 2
  },
  {
   "action": {
@@ -4893,26 +5040,8 @@
    ],
    "urlFilter": "||api.stopad.io/link/*/pixel"
   },
-  "id": 20475,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/nofab.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||download.mokeedev.com/js/jquery-common.js."
-  },
-  "id": 20476,
-  "priority": 1
+  "id": 17998,
+  "priority": 2
  },
  {
   "action": {
@@ -4929,8 +5058,8 @@
    ],
    "urlFilter": "||livesports.pw/adblock.js"
   },
-  "id": 20477,
-  "priority": 1
+  "id": 17999,
+  "priority": 2
  },
  {
   "action": {
@@ -4947,8 +5076,8 @@
    ],
    "urlFilter": "||focus.de/src/js/spmsg"
   },
-  "id": 20478,
-  "priority": 1
+  "id": 18000,
+  "priority": 2
  },
  {
   "action": {
@@ -4965,8 +5094,8 @@
    ],
    "urlFilter": "||assets.gfycat.com/prebid"
   },
-  "id": 20479,
-  "priority": 1
+  "id": 18001,
+  "priority": 2
  },
  {
   "action": {
@@ -4983,8 +5112,8 @@
    ],
    "urlFilter": "||paladinsdecks.com/fileadmin/*/fab.min.js"
   },
-  "id": 20480,
-  "priority": 1
+  "id": 18002,
+  "priority": 2
  },
  {
   "action": {
@@ -5001,8 +5130,8 @@
    ],
    "urlFilter": "||tvnow.de/lazy-tracking.js"
   },
-  "id": 20481,
-  "priority": 1
+  "id": 18003,
+  "priority": 2
  },
  {
   "action": {
@@ -5019,8 +5148,8 @@
    ],
    "urlFilter": "||gocolumbialions.com/components/js/analytics.js"
   },
-  "id": 20482,
-  "priority": 1
+  "id": 18004,
+  "priority": 2
  },
  {
   "action": {
@@ -5037,8 +5166,8 @@
    ],
    "urlFilter": "||mangahere.onl/adsbygoogle.js"
   },
-  "id": 20483,
-  "priority": 1
+  "id": 18005,
+  "priority": 2
  },
  {
   "action": {
@@ -5055,8 +5184,8 @@
    ],
    "urlFilter": "||static.bbc.co.uk/bbcdotcom/*/adverts.js"
   },
-  "id": 20484,
-  "priority": 11
+  "id": 18006,
+  "priority": 12
  },
  {
   "action": {
@@ -5073,26 +5202,8 @@
    ],
    "urlFilter": "||lexus.com/lexus-share/js/tracking_omn/s_code.js"
   },
-  "id": 20485,
-  "priority": 11
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||study.com/js/trcking/eventtracking*.js"
-  },
-  "id": 20486,
-  "priority": 1
+  "id": 18007,
+  "priority": 12
  },
  {
   "action": {
@@ -5109,8 +5220,8 @@
    ],
    "urlFilter": "||oakley.com/_ui/dist/scripts/vendor/tealium.js"
   },
-  "id": 20487,
-  "priority": 11
+  "id": 18008,
+  "priority": 12
  },
  {
   "action": {
@@ -5127,8 +5238,8 @@
    ],
    "urlFilter": "||camping.info/*/fingerprint2.min.js"
   },
-  "id": 20488,
-  "priority": 1
+  "id": 18009,
+  "priority": 2
  },
  {
   "action": {
@@ -5145,8 +5256,8 @@
    ],
    "urlFilter": "||iworkfor.nsw.gov.au/scripts/ga.js"
   },
-  "id": 20489,
-  "priority": 1
+  "id": 18010,
+  "priority": 2
  },
  {
   "action": {
@@ -5163,8 +5274,8 @@
    ],
    "urlFilter": "||netd.com/js/piwik-plugin.js"
   },
-  "id": 20490,
-  "priority": 1
+  "id": 18011,
+  "priority": 2
  },
  {
   "action": {
@@ -5181,8 +5292,8 @@
    ],
    "urlFilter": "||gcmgames.com.br/*/google.analytics.trackingcode.js"
   },
-  "id": 20491,
-  "priority": 1
+  "id": 18012,
+  "priority": 2
  },
  {
   "action": {
@@ -5199,8 +5310,8 @@
    ],
    "urlFilter": "/content/libs/comscore/comscore.min.js"
   },
-  "id": 20492,
-  "priority": 1
+  "id": 18013,
+  "priority": 2
  },
  {
   "action": {
@@ -5217,8 +5328,8 @@
    ],
    "urlFilter": "||dashradio.com^*/fingerprint2.min.js"
   },
-  "id": 20493,
-  "priority": 1
+  "id": 18014,
+  "priority": 2
  },
  {
   "action": {
@@ -5235,8 +5346,8 @@
    ],
    "urlFilter": "||nostv.pt/scripts/fingerprint2.min.js"
   },
-  "id": 20494,
-  "priority": 1
+  "id": 18015,
+  "priority": 2
  },
  {
   "action": {
@@ -5253,8 +5364,8 @@
    ],
    "urlFilter": "||goducks.com/components/js/analytics.js"
   },
-  "id": 20495,
-  "priority": 1
+  "id": 18016,
+  "priority": 2
  },
  {
   "action": {
@@ -5271,8 +5382,8 @@
    ],
    "urlFilter": "||miniusa.com/etc/designs/mini/js/vendor/tracking/"
   },
-  "id": 20496,
-  "priority": 1
+  "id": 18017,
+  "priority": 2
  },
  {
   "action": {
@@ -5289,8 +5400,8 @@
    ],
    "urlFilter": "||rtl.de/pf/resources/js/videotracking.min.js"
   },
-  "id": 20497,
-  "priority": 1
+  "id": 18018,
+  "priority": 2
  },
  {
   "action": {
@@ -5307,8 +5418,8 @@
    ],
    "urlFilter": "||farnell.com/*tracking.js"
   },
-  "id": 20498,
-  "priority": 1
+  "id": 18019,
+  "priority": 2
  },
  {
   "action": {
@@ -5325,8 +5436,8 @@
    ],
    "urlFilter": "||gratis.com/file/*/global/gtm.min.js"
   },
-  "id": 20499,
-  "priority": 1
+  "id": 18020,
+  "priority": 2
  },
  {
   "action": {
@@ -5343,8 +5454,8 @@
    ],
    "urlFilter": "||fox43.com/assets/js-libs/comscore/comscore.min.js"
   },
-  "id": 20500,
-  "priority": 1
+  "id": 18021,
+  "priority": 2
  },
  {
   "action": {
@@ -5361,8 +5472,8 @@
    ],
    "urlFilter": "||5newsonline.com/assets/*/comscore.min.js"
   },
-  "id": 20501,
-  "priority": 1
+  "id": 18022,
+  "priority": 2
  },
  {
   "action": {
@@ -5379,8 +5490,8 @@
    ],
    "urlFilter": "||slickdeals.net/scripts/*/js-campaign-tracking.js"
   },
-  "id": 20502,
-  "priority": 1
+  "id": 18023,
+  "priority": 2
  },
  {
   "action": {
@@ -5397,8 +5508,8 @@
    ],
    "urlFilter": "||slickdeals.net/scripts/*/sd_analytics.js"
   },
-  "id": 20503,
-  "priority": 1
+  "id": 18024,
+  "priority": 2
  },
  {
   "action": {
@@ -5415,8 +5526,8 @@
    ],
    "urlFilter": "/tegna-tracking.js"
   },
-  "id": 20504,
-  "priority": 11
+  "id": 18025,
+  "priority": 12
  },
  {
   "action": {
@@ -5433,8 +5544,26 @@
    ],
    "urlFilter": "||sammobile.com^*/newrelic.js"
   },
-  "id": 20505,
-  "priority": 11
+  "id": 18026,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/google-analytics_analytics.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||mycourses.pearson.com/shared/static/*/component/ga.min.js"
+  },
+  "id": 18027,
+  "priority": 12
  },
  {
   "action": {
@@ -5451,8 +5580,8 @@
    ],
    "urlFilter": "||carsensor.net/usedcar/modules/clicklog_"
   },
-  "id": 20506,
-  "priority": 11
+  "id": 18028,
+  "priority": 12
  },
  {
   "action": {
@@ -5469,8 +5598,8 @@
    ],
    "urlFilter": "||camhub.world/player/player_ads.html"
   },
-  "id": 20507,
-  "priority": 1
+  "id": 18029,
+  "priority": 2
  },
  {
   "action": {
@@ -5487,8 +5616,8 @@
    ],
    "urlFilter": "/player/html.php?aid=post_roll_html^"
   },
-  "id": 20508,
-  "priority": 1
+  "id": 18030,
+  "priority": 2
  },
  {
   "action": {
@@ -5500,15 +5629,14 @@
   "condition": {
    "domainType": "firstParty",
    "requestDomains": [
-    "damoh.virginmediatelevision.ie",
     "slpubmedias.tf1.fr"
    ],
    "resourceTypes": [
     "media"
    ]
   },
-  "id": 20510,
-  "priority": 1
+  "id": 18032,
+  "priority": 2
  },
  {
   "action": {
@@ -5525,8 +5653,8 @@
    ],
    "urlFilter": "||damoh.gmx.*/"
   },
-  "id": 20511,
-  "priority": 1
+  "id": 18033,
+  "priority": 2
  },
  {
   "action": {
@@ -5543,8 +5671,8 @@
    ],
    "urlFilter": "||damoh.web.de/"
   },
-  "id": 20512,
-  "priority": 1
+  "id": 18034,
+  "priority": 2
  },
  {
   "action": {
@@ -5561,8 +5689,8 @@
    ],
    "urlFilter": "||gartic.io/videos/"
   },
-  "id": 20513,
-  "priority": 1
+  "id": 18035,
+  "priority": 2
  },
  {
   "action": {
@@ -5579,8 +5707,8 @@
    ],
    "urlFilter": "||kinas.tv/info.mp4"
   },
-  "id": 20514,
-  "priority": 1
+  "id": 18036,
+  "priority": 2
  },
  {
   "action": {
@@ -5598,8 +5726,116 @@
     "image"
    ]
   },
-  "id": 20515,
-  "priority": 1
+  "id": 18038,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/1x1.gif"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||nitropay.com/1.gif?"
+  },
+  "id": 18039,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||ads.twitter.com/favicon.ico"
+  },
+  "id": 18040,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||advertising.yahoo.com/favicon.ico"
+  },
+  "id": 18041,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||doubleclickbygoogle.com/favicon.ico"
+  },
+  "id": 18042,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||google.com/adsense/start/images/favicon.ico"
+  },
+  "id": 18043,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||gstatic.com/adx/doubleclick.ico"
+  },
+  "id": 18044,
+  "priority": 2
  },
  {
   "action": {
@@ -5618,8 +5854,8 @@
     "script"
    ]
   },
-  "id": 20516,
-  "priority": 1
+  "id": 18045,
+  "priority": 2
  },
  {
   "action": {
@@ -5638,8 +5874,8 @@
     "script"
    ]
   },
-  "id": 20517,
-  "priority": 1
+  "id": 18046,
+  "priority": 2
  },
  {
   "action": {
@@ -5656,8 +5892,8 @@
    ],
    "urlFilter": "||artfut.com/static/tagtag."
   },
-  "id": 20518,
-  "priority": 1
+  "id": 18047,
+  "priority": 2
  },
  {
   "action": {
@@ -5674,8 +5910,318 @@
    ],
    "urlFilter": "||unileversolutions.com/*/config/analytics.js"
   },
-  "id": 20519,
-  "priority": 11
+  "id": 18048,
+  "priority": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/nobab2.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "requestDomains": [
+    "adclixx.net",
+    "adnetasia.com",
+    "adtrackers.net",
+    "bannertrack.net"
+   ],
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 18049,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https:\\/\\/[a-z]{7,16}\\.[a-z]{3,7}\\/[a-z0-9]{14}\\/\\d{5}$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 18050,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||intuitcdn.net/*/intuit-analytics."
+  },
+  "id": 18051,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||realsrv.com/popunder1000.js"
+  },
+  "id": 18052,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||exdynsrv.com/video-slider.js"
+  },
+  "id": 18053,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||ads-api.twitter.com/|"
+  },
+  "id": 18054,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||media.fastclick.net/|"
+  },
+  "id": 18055,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||ads.facebook.com/|"
+  },
+  "id": 18056,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||advice-ads.s3.amazonaws.com/|"
+  },
+  "id": 18057,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||ads.youtube.com/|"
+  },
+  "id": 18058,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||ads.reddit.com/|"
+  },
+  "id": 18059,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||ads.pinterest.com/|"
+  },
+  "id": 18060,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||adversal.com/|"
+  },
+  "id": 18061,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||sovrn.com/|"
+  },
+  "id": 18062,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||ads.tiktok.com/|"
+  },
+  "id": 18063,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||propellerads.com/|"
+  },
+  "id": 18064,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||infolinks.com/|"
+  },
+  "id": 18065,
+  "priority": 2
  },
  {
   "action": {
@@ -5695,8 +6241,8 @@
    ],
    "urlFilter": ".mp4"
   },
-  "id": 20520,
-  "priority": 1
+  "id": 18066,
+  "priority": 2
  },
  {
   "action": {
@@ -5713,8 +6259,8 @@
    ],
    "urlFilter": "||notifyvideo.info/p/creative-video/"
   },
-  "id": 20521,
-  "priority": 1
+  "id": 18067,
+  "priority": 2
  },
  {
   "action": {
@@ -5734,8 +6280,8 @@
    ],
    "urlFilter": "&expire"
   },
-  "id": 20522,
-  "priority": 1
+  "id": 18068,
+  "priority": 2
  },
  {
   "action": {
@@ -5748,14 +6294,15 @@
    "domainType": "thirdParty",
    "initiatorDomains": [
     "hdd.moviefun24.com",
+    "hitbdsm.com",
     "imdb.com"
    ],
    "resourceTypes": [
     "media"
    ]
   },
-  "id": 20523,
-  "priority": 1
+  "id": 18069,
+  "priority": 2
  },
  {
   "action": {
@@ -5773,7 +6320,7 @@
     "media"
    ]
   },
-  "id": 20524,
-  "priority": 1
+  "id": 18070,
+  "priority": 2
  }
 ]

@@ -10,7 +10,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": ":\\/\\/[\\w\\W]{5,15}\\.[a-z]{2,3}:[0-9]{3,4}\\/"
   },
-  "id": 152
+  "id": 156
  },
  {
   "action": {
@@ -35,7 +35,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 176
+  "id": 179
  },
  {
   "action": {
@@ -56,7 +56,7 @@
     "stylesheet"
    ]
   },
-  "id": 177
+  "id": 180
  },
  {
   "action": {
@@ -109,23 +109,7 @@
     "object"
    ]
   },
-  "id": 183
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "www.pcworld.pl"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "\\/[0-9a-zA-Z]{5,7}\\_(?!adaptiveresize)[a-z]{12,17}\\_[0-9]{3,3}\\x[0-9]{3,3}\\.jpg$",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 479
+  "id": 186
  },
  {
   "action": {
@@ -141,7 +125,7 @@
     "image"
    ]
   },
-  "id": 480
+  "id": 482
  },
  {
   "action": {
@@ -160,7 +144,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 499
+  "id": 501
  },
  {
   "action": {
@@ -175,7 +159,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 504
+  "id": 506
  },
  {
   "action": {
@@ -189,7 +173,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 523
+  "id": 525
  },
  {
   "action": {
@@ -202,7 +186,7 @@
     "script"
    ]
   },
-  "id": 574
+  "id": 576
  },
  {
   "action": {
@@ -218,7 +202,7 @@
     "script"
    ]
   },
-  "id": 575
+  "id": 577
  },
  {
   "action": {
@@ -234,7 +218,7 @@
     "script"
    ]
   },
-  "id": 576
+  "id": 578
  },
  {
   "action": {
@@ -250,7 +234,7 @@
     "script"
    ]
   },
-  "id": 577
+  "id": 579
  },
  {
   "action": {
@@ -263,7 +247,7 @@
     "script"
    ]
   },
-  "id": 585
+  "id": 587
  },
  {
   "action": {
@@ -279,7 +263,7 @@
     "script"
    ]
   },
-  "id": 586
+  "id": 588
  },
  {
   "action": {
@@ -296,7 +280,7 @@
     "script"
    ]
   },
-  "id": 587
+  "id": 589
  },
  {
   "action": {
@@ -312,7 +296,7 @@
     "script"
    ]
   },
-  "id": 588
+  "id": 590
  },
  {
   "action": {
@@ -347,7 +331,7 @@
     "script"
    ]
   },
-  "id": 589
+  "id": 591
  },
  {
   "action": {
@@ -391,7 +375,7 @@
     "script"
    ]
   },
-  "id": 590
+  "id": 592
  },
  {
   "action": {
@@ -409,7 +393,7 @@
     "script"
    ]
   },
-  "id": 591
+  "id": 593
  },
  {
   "action": {
@@ -425,7 +409,7 @@
     "script"
    ]
   },
-  "id": 592
+  "id": 594
  },
  {
   "action": {
@@ -445,7 +429,7 @@
     "sub_frame"
    ]
   },
-  "id": 593
+  "id": 595
  },
  {
   "action": {
@@ -461,7 +445,7 @@
     "script"
    ]
   },
-  "id": 594
+  "id": 596
  },
  {
   "action": {
@@ -478,7 +462,7 @@
     "sub_frame"
    ]
   },
-  "id": 596
+  "id": 598
  },
  {
   "action": {
@@ -495,7 +479,7 @@
     "script"
    ]
   },
-  "id": 599
+  "id": 601
  },
  {
   "action": {
@@ -513,7 +497,7 @@
     "script"
    ]
   },
-  "id": 620
+  "id": 617
  },
  {
   "action": {
@@ -533,7 +517,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 637
+  "id": 634
  },
  {
   "action": {
@@ -550,7 +534,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 638
+  "id": 635
  },
  {
   "action": {
@@ -566,7 +550,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 639
+  "id": 636
  },
  {
   "action": {
@@ -582,7 +566,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 642
+  "id": 639
  },
  {
   "action": {
@@ -602,7 +586,7 @@
     "sub_frame"
    ]
   },
-  "id": 689
+  "id": 685
  },
  {
   "action": {
@@ -619,7 +603,7 @@
     "sub_frame"
    ]
   },
-  "id": 690
+  "id": 686
  },
  {
   "action": {
@@ -637,7 +621,7 @@
     "sub_frame"
    ]
   },
-  "id": 691
+  "id": 687
  },
  {
   "action": {
@@ -653,7 +637,7 @@
     "sub_frame"
    ]
   },
-  "id": 692
+  "id": 688
  },
  {
   "action": {
@@ -669,7 +653,7 @@
     "sub_frame"
    ]
   },
-  "id": 694
+  "id": 690
  },
  {
   "action": {
@@ -685,7 +669,7 @@
     "media"
    ]
   },
-  "id": 701
+  "id": 697
  },
  {
   "action": {
@@ -701,25 +685,7 @@
     "media"
    ]
   },
-  "id": 702
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "domainType": "thirdParty",
-   "initiatorDomains": [
-    "orionblues.pinger.pl"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https:\\/\\/(www\\.)?youtube(-nocookie)?\\.com\\/embed\\/",
-   "resourceTypes": [
-    "object",
-    "sub_frame"
-   ]
-  },
-  "id": 716
+  "id": 698
  },
  {
   "action": {
@@ -729,7 +695,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "app\\.erpxt\\.[a-z]{2,3}\\/Scripts\\/Code\\/"
   },
-  "id": 748
+  "id": 740
  },
  {
   "action": {
@@ -745,7 +711,7 @@
     "image"
    ]
   },
-  "id": 813
+  "id": 805
  },
  {
   "action": {
@@ -761,7 +727,7 @@
     "image"
    ]
   },
-  "id": 828
+  "id": 820
  },
  {
   "action": {
@@ -777,7 +743,7 @@
     "script"
    ]
   },
-  "id": 882
+  "id": 874
  },
  {
   "action": {
@@ -793,7 +759,7 @@
     "script"
    ]
   },
-  "id": 883
+  "id": 875
  },
  {
   "action": {
@@ -806,7 +772,7 @@
     "script"
    ]
   },
-  "id": 902
+  "id": 894
  },
  {
   "action": {
@@ -822,6 +788,6 @@
     "script"
    ]
   },
-  "id": 917
+  "id": 909
  }
 ]

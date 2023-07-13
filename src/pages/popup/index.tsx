@@ -9,8 +9,6 @@ import proxyStore from 'pages/proxyStore'
 import { pushToDebugLog } from 'services/debugLog'
 import { AppWrapper, onBeforePopupRenders } from 'components'
 
-chrome.runtime.connect({ name: 'popup' })
-
 proxyStore
   .ready()
   .then(() => onBeforePopupRenders(proxyStore))

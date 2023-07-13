@@ -9,6 +9,7 @@
     "dackavisen.se",
     "datormagazin.se",
     "skanesport.se",
+    "tidningenproffs.se",
     "villalivet.se"
    ],
    "isUrlFilterCaseSensitive": false,
@@ -17,7 +18,7 @@
     "script"
    ]
   },
-  "id": 982
+  "id": 1052
  },
  {
   "action": {
@@ -25,14 +26,14 @@
   },
   "condition": {
    "initiatorDomains": [
-    "wellness.se"
+    "livsstil.se"
    ],
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "www.wellness.se\\/cnp-assets\\/[0-9]+.",
+   "regexFilter": "www.livsstil.se\\/cnp-assets\\/[0-9]+.",
    "resourceTypes": [
     "script"
    ]
   },
-  "id": 983
+  "id": 1053
  }
 ]

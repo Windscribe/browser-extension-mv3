@@ -15,7 +15,7 @@
     "sub_frame"
    ]
   },
-  "id": 74
+  "id": 75
  },
  {
   "action": {
@@ -77,7 +77,7 @@
     "sub_frame"
    ]
   },
-  "id": 126
+  "id": 122
  },
  {
   "action": {
@@ -94,7 +94,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 128
+  "id": 124
  },
  {
   "action": {
@@ -112,6 +112,6 @@
     "script"
    ]
   },
-  "id": 187
+  "id": 181
  }
 ]

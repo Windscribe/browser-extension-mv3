@@ -7,11 +7,26 @@
    "type": "redirect"
   },
   "condition": {
+   "requestDomains": [
+    "video.veilduck.app"
+   ]
+  },
+  "id": 844,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+   },
+   "type": "redirect"
+  },
+  "condition": {
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||smrmembers-smr.smartmediarep.com/smc/smrmembers/"
   },
-  "id": 824,
-  "priority": 1
+  "id": 845,
+  "priority": 2
  },
  {
   "action": {
@@ -24,8 +39,8 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||news.mobfeed.co.kr/front/personal/coupang"
   },
-  "id": 825,
-  "priority": 1
+  "id": 846,
+  "priority": 2
  },
  {
   "action": {
@@ -38,8 +53,8 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||openimage.interpark.com/dia/images/"
   },
-  "id": 826,
-  "priority": 1
+  "id": 847,
+  "priority": 2
  },
  {
   "action": {
@@ -52,8 +67,8 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||bigkinds.or.kr/resources/files/banner/"
   },
-  "id": 827,
-  "priority": 1
+  "id": 848,
+  "priority": 2
  },
  {
   "action": {
@@ -66,36 +81,8 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||bigkinds.or.kr/assets/*/img/content/*banner"
   },
-  "id": 828,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.html"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||ds.11st.co.kr/netinsight/text/11st/11st_product/product@"
-  },
-  "id": 829,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-  },
-  "id": 830,
-  "priority": 1
+  "id": 849,
+  "priority": 2
  },
  {
   "action": {
@@ -113,8 +100,8 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https:\\/\\/videoads\\.kakao\\.com\\/adserver\\/api\\/v[0-9]+\\/vmap"
   },
-  "id": 831,
-  "priority": 1
+  "id": 850,
+  "priority": 2
  },
  {
   "action": {
@@ -132,76 +119,8 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/embed/player/image/ads.png"
   },
-  "id": 832,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/2x2.png"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "tv.nate.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||adimg.nate.com/img/*?n="
-  },
-  "id": 833,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.txt"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "spotvnow.co.kr"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
-  },
-  "id": 834,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "game.hotsharegames.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
-  },
-  "id": 835,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.txt"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "blackkiwi.net"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||www3.doubleclick.net/|"
-  },
-  "id": 836,
-  "priority": 1
+  "id": 851,
+  "priority": 2
  },
  {
   "action": {
@@ -217,8 +136,100 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||ad.smartmediarep.com/netinsight/video/"
   },
-  "id": 837,
-  "priority": 1
+  "id": 852,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/2x2.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "tv.nate.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||adimg.nate.com/img/*?n="
+  },
+  "id": 853,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "game.hotsharegames.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
+  },
+  "id": 854,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/1x1.gif"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "tgd.kr"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||via.placeholder.com/"
+  },
+  "id": 856,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "m.cafe.naver.com",
+    "m.search.naver.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||ssl.pstatic.net/tveta/libs/glad/prod/gfp-core.js"
+  },
+  "id": 857,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/googlesyndication_adsbygoogle.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  },
+  "id": 858,
+  "priority": 2
  },
  {
   "action": {
@@ -234,8 +245,8 @@
    ],
    "urlFilter": "||amazon-adsystem.com/aax2/apstag.js"
   },
-  "id": 839,
-  "priority": 1
+  "id": 859,
+  "priority": 2
  },
  {
   "action": {
@@ -251,8 +262,8 @@
    ],
    "urlFilter": "||googletagservices.com/tag/js/gpt.js"
   },
-  "id": 840,
-  "priority": 1
+  "id": 860,
+  "priority": 2
  },
  {
   "action": {
@@ -268,8 +279,48 @@
    ],
    "urlFilter": "||securepubads.g.doubleclick.net/tag/js/gpt.js"
   },
-  "id": 841,
-  "priority": 1
+  "id": 861,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "m.sports.naver.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||ssl.pstatic.net/tveta/libs/ssp-video/prod/ssp.web.sdk_"
+  },
+  "id": 862,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.html"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "t.hi098123.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "sub_frame"
+   ],
+   "urlFilter": "||googleads.g.doubleclick.net/pagead/ads"
+  },
+  "id": 863,
+  "priority": 2
  },
  {
   "action": {
@@ -285,7 +336,7 @@
    ],
    "urlFilter": "||advod.sbs.co.kr/sbsad/"
   },
-  "id": 842,
-  "priority": 1
+  "id": 864,
+  "priority": 2
  }
 ]

@@ -10,7 +10,19 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "\\/bnr_side_(kiso3|octopass)\\.jpg"
   },
-  "id": 227
+  "id": 427
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "regexFilter": "\\.com\\/(?:[a-z]{2,}-)+p-\\d{4,6}\\.html\\?(?:page_source|prevRef|re[fl])=",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 840
  },
  {
   "action": {
@@ -18,51 +30,29 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^http:\\/\\/[0-9a-z]{1,4}\\.[a-z]{5}\\.com\\/chrome\\.apk$",
+   "regexFilter": "\\.(?:cn|icu|top|pro)\\/Personal\\/member\\/Login\\/index\\.php\\?oneTimeAccessID=",
    "resourceTypes": [
     "main_frame"
    ]
   },
-  "id": 609
+  "id": 909
  },
  {
   "action": {
    "type": "block"
   },
   "condition": {
+   "initiatorDomains": [
+    "online",
+    "top"
+   ],
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "\\.(?:cn|icu|pro)\\/Personal\\/member\\/Login\\/index\\.php\\?oneTimeAccessID=",
+   "regexFilter": "^https?:\\/\\/([-0-9a-z]{3,}\\.)?[a-z]{8,}\\.[a-z]{3,6}\\/product\\/\\d{6,}(\\.html)?$",
    "resourceTypes": [
     "main_frame"
    ]
   },
-  "id": 611
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "\\.(?:bar|icu|id|rest|shop|top|xyz)\\/[0-9A-Za-z]{2,10}\\/page1\\.php$",
-   "resourceTypes": [
-    "main_frame"
-   ]
-  },
-  "id": 622
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https:\\/\\/[a-z]{5,6}\\.[a-z]{7}\\.cn\\/recrea\\.php$",
-   "resourceTypes": [
-    "main_frame"
-   ]
-  },
-  "id": 628
+  "id": 912
  },
  {
   "action": {
@@ -73,12 +63,32 @@
     "duckdns.org"
    ],
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/[a-z]{10}\\.duckdns",
+   "regexFilter": "^https?:\\/\\/[0-9a-z]{6,10}\\.duckdns",
    "resourceTypes": [
     "main_frame"
    ]
   },
-  "id": 635
+  "id": 920
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "hime.me",
+    "konyoku.net",
+    "toukou.tv",
+    "tuma.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/pc(?:max)?728(?:200)?[a-z]?\\.png$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 922
  },
  {
   "action": {
@@ -95,7 +105,7 @@
     "image"
    ]
   },
-  "id": 636
+  "id": 923
  },
  {
   "action": {
@@ -112,7 +122,24 @@
     "image"
    ]
   },
-  "id": 637
+  "id": 924
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "www.ne.jp"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/shinbun\\/[0-9a-z]{3,12}200(280)?\\.(?:jpg|png)$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 927
  },
  {
   "action": {
@@ -129,7 +156,7 @@
     "image"
    ]
   },
-  "id": 639
+  "id": 928
  },
  {
   "action": {
@@ -146,7 +173,7 @@
     "image"
    ]
   },
-  "id": 640
+  "id": 929
  },
  {
   "action": {
@@ -163,7 +190,7 @@
     "image"
    ]
   },
-  "id": 642
+  "id": 935
  },
  {
   "action": {
@@ -179,7 +206,24 @@
     "image"
    ]
   },
-  "id": 643
+  "id": 936
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "anime365.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/js\\/(?:anime|comic|doujin|game)Ranking",
+   "resourceTypes": [
+    "xmlhttprequest"
+   ]
+  },
+  "id": 940
  },
  {
   "action": {
@@ -197,6 +241,6 @@
     "sub_frame"
    ]
   },
-  "id": 649
+  "id": 942
  }
 ]

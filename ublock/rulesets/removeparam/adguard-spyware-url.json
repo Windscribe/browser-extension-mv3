@@ -8,10 +8,12 @@
        "__hsfp",
        "__hssc",
        "__hstc",
+       "__io_lv",
        "_branch_match_id",
        "_clde",
        "_cldee",
        "_hsenc",
+       "_io_session_id",
        "_kx",
        "_openstat",
        "_sgm_action",
@@ -25,6 +27,7 @@
        "adjust_adgroup",
        "adjust_campaign",
        "adjust_creative",
+       "adjust_referrer",
        "adjust_tracker",
        "adjust_tracker_limit",
        "admitad_uid",
@@ -38,13 +41,19 @@
        "bsft_mid",
        "bsft_uid",
        "cmpid",
+       "cuid",
        "cx_click",
+       "cx_recsOrder",
+       "cx_recsWidget",
        "dclid",
        "dpg_campaign",
        "dpg_content",
        "dpg_medium",
        "dpg_source",
        "ebisAdID",
+       "erid",
+       "external_click_id",
+       "famad_xuid",
        "fb_action_ids",
        "fb_action_types",
        "fb_comment_id",
@@ -52,6 +61,7 @@
        "fb_source",
        "fbclid",
        "gbraid",
+       "gci",
        "gclid",
        "gclsrc",
        "gps_adid",
@@ -71,6 +81,10 @@
        "hsa_src",
        "hsa_tgt",
        "hsa_ver",
+       "ir_adid",
+       "ir_campaignid",
+       "ir_partnerid",
+       "irclickid",
        "irgwc",
        "itm_campaign",
        "itm_content",
@@ -79,6 +93,7 @@
        "itm_term",
        "maf",
        "mc_eid",
+       "mindbox-click-id",
        "mindbox-message-key",
        "mkt_tok",
        "ml_subscriber",
@@ -99,8 +114,13 @@
        "pk_campaign",
        "pk_medium",
        "pk_source",
+       "pk_vid",
        "rb_clickid",
+       "rtkcid",
        "s_cid",
+       "sscid",
+       "tduid",
+       "twclid",
        "unicorn_click_id",
        "usqp",
        "utm_ad",
@@ -111,9 +131,11 @@
        "utm_channel",
        "utm_cid",
        "utm_content",
+       "utm_creative",
        "utm_emcid",
        "utm_emmid",
        "utm_id",
+       "utm_id_",
        "utm_keyword",
        "utm_medium",
        "utm_name",
@@ -142,6 +164,7 @@
        "wt_mc",
        "xtor",
        "yclid",
+       "ymid",
        "ysclid"
       ]
      }
@@ -162,7 +185,11 @@
   "action": {
    "redirect": {
     "transform": {
-     "query": ""
+     "queryTransform": {
+      "removeParams": [
+       "clickid"
+      ]
+     }
     }
    },
    "type": "redirect"
@@ -174,7 +201,7 @@
     "sub_frame",
     "xmlhttprequest"
    ],
-   "urlFilter": "/?uclick=*;uclickhash="
+   "urlFilter": "rtkcid=*&clickid="
   },
   "id": 2
  },
@@ -182,7 +209,11 @@
   "action": {
    "redirect": {
     "transform": {
-     "query": ""
+     "queryTransform": {
+      "removeParams": [
+       "var"
+      ]
+     }
     }
    },
    "type": "redirect"
@@ -194,7 +225,7 @@
     "sub_frame",
     "xmlhttprequest"
    ],
-   "urlFilter": "&uclick=*&uclickhash="
+   "urlFilter": "^z=*&var="
   },
   "id": 3
  },
@@ -214,7 +245,7 @@
     "sub_frame",
     "xmlhttprequest"
    ],
-   "urlFilter": "/?r=dir&zoneid="
+   "urlFilter": "click_id=*_branch_referrer="
   },
   "id": 4
  },
@@ -234,9 +265,2993 @@
     "sub_frame",
     "xmlhttprequest"
    ],
-   "urlFilter": "/?rb=*&zoneid="
+   "urlFilter": "?uclick=*&uclickhash="
   },
   "id": 5
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "query": ""
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "/?uclick=*;uclickhash="
+  },
+  "id": 6
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "query": ""
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "&uclick=*&uclickhash="
+  },
+  "id": 7
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "query": ""
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "/?r=dir&zoneid="
+  },
+  "id": 8
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "query": ""
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "/?rb=*&zoneid="
+  },
+  "id": 9
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "a",
+       "frm",
+       "s1"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "roboform.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 10
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "affid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "cyberlink.com",
+    "flipkart.com",
+    "roboform.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 11
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "c"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "app.5-delivery.ru",
+    "awaliwa.com",
+    "getir.com",
+    "hepsiburada.com",
+    "roboform.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 12
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "lplid",
+       "shrsl_analytics_sscid",
+       "shrsl_analytics_sstid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "shareasale-analytics.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 13
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "vkTop"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "sportsbull.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 14
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "cx_clicks_art_mdl"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "hbol.jp",
+    "joshi-spa.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 15
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "referid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "singtao.ca"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 16
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "adid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "orbis.co.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 17
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "_ga"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "esquire.com",
+    "trendyol.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 18
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "fmid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "mora.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 19
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ref"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "arcelik.com.tr",
+    "asahi.com",
+    "boards.greenhouse.io",
+    "buzzfeednews.com",
+    "chunichi.co.jp",
+    "click.speee-ad.jp",
+    "cnn.co.jp",
+    "coconala.com",
+    "coolblue.nl",
+    "d-markets.net",
+    "gamesplanet.com",
+    "goodreads.com",
+    "kitizawa.com",
+    "livedoor.biz",
+    "mein.onlinekonto.de",
+    "nicovideo.jp",
+    "record.pt",
+    "reddit.com",
+    "tokyo-calendar.jp",
+    "uspoloassn.com",
+    "video.laxd.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 20
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "reflink"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "wsj.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 21
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "reference_location"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "github.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 22
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "from"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "column.sp.baseball.findfriends.jp",
+    "dietpartner.jp",
+    "fmworld.net",
+    "home.kingsoft.jp",
+    "jetbrains.com",
+    "jlcpcb.com",
+    "mp.weixin.qq.com",
+    "oshiete.goo.ne.jp",
+    "redtube.com",
+    "xhamster.com",
+    "you.163.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 23
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "affijet-click",
+       "partner_id",
+       "sub_1"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "fon.bet"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 24
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "login_source",
+       "ref_page"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "theathletic.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 25
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ranMID"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "chemistwarehouse.com.au"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 26
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ranEAID",
+       "ranSiteID"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "chemistwarehouse.com.au",
+    "microsoft.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 27
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "emcid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "playstation.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 28
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "epic_affiliate"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "epicgames.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 29
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "caff"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "gamersgate.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 30
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "partner"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "humblebundle.com",
+    "www.alternate.de"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 31
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "mcr",
+       "mpl",
+       "mpr"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "minfin.com.ua"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 32
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "__source"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "cnbc.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 33
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "par"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "cnbc.com",
+    "weather.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 34
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "cooper",
+       "plink"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "sbs.co.kr"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 35
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "nv"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "khan.co.kr"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 36
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "naver"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "dt.co.kr"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 37
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "pg"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "fnnews.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 38
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "sc"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "dailian.co.kr"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 39
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "OutLink"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "sedaily.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 40
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "newsstand"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "sportalkorea.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 41
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "source"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "edx.org",
+    "immobilienscout24.de",
+    "moffme.com",
+    "teknosa.com",
+    "theathletic.com",
+    "tradingview.com",
+    "tumblr.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 42
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "cta"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "deepl.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 43
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "appsrc"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "espn.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 44
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "from_ext"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "similarweb.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 45
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "t_ref"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "bild.de"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 46
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "slref"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "simplelogin.io"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 47
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "pageviewCount"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "pravda.com.ua"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 48
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "cid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "adshares.net",
+    "apple.com",
+    "asahi.com",
+    "belta.co.jp",
+    "flipkart.com",
+    "gearbest.com",
+    "giphy.com",
+    "rac.co.uk",
+    "teknosa.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 49
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "urrad"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "belta.co.jp",
+    "u-s-s.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 50
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "intpr",
+       "intpr2"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "7net.omni7.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 51
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "userId"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||mailtrack.io/trace/link/"
+  },
+  "id": 52
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "adjust_t"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "nesine.com",
+    "trendyol.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 53
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "rf"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "netkeiba.com",
+    "smart-flash.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 54
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "rct"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "chunichi.co.jp",
+    "nishispo.nishinippon.co.jp",
+    "tokyo-np.co.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 55
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ref_type"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "backit.me",
+    "epn.bz"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 56
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "fromReminder"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "homedepot.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 57
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "en_txn7"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "headlines.peta.org"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 58
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ats"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "brazzers.com",
+    "mofos.com",
+    "realitykings.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 59
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "utm_site_campaign",
+       "utm_site_medium",
+       "utm_site_source"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "quizangel.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 60
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ad_params",
+       "ga_account",
+       "gemius_identifier",
+       "tracking_params"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||media.joj.sk/outstream/embed"
+  },
+  "id": 61
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "aid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "klook.com",
+    "mp.weixin.qq.com",
+    "stacksocial.com",
+    "teknosa.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 62
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "clickId"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "klook.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 63
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "spm"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "klook.com",
+    "lazada.com.ph",
+    "sohu.com",
+    "v.youku.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 64
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "id",
+       "sref",
+       "xcust"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "go.redirectingat.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 65
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "agentId"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "kmkk78.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 66
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ref"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "2chblog.jp",
+    "animember.net",
+    "bipblog.com",
+    "blog.jp",
+    "blog.livedoor.jp",
+    "jin115.com",
+    "sbbit.jp",
+    "shein.co.uk",
+    "shein.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 67
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "from_country",
+       "ici",
+       "mallCode",
+       "phone_code",
+       "src_module",
+       "src_tab_page_id"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "shein.co.uk",
+    "shein.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 68
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "adj_adgroup",
+       "adj_creative",
+       "glid",
+       "rlid",
+       "trid",
+       "xid_param_2"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "nesine.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 69
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ncmp"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "nordot.app"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 70
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "_from"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "news-postseven.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 71
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ncid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "yahoo.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 72
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "isFreemail"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "zapiska.substack.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 73
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "via"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "sincode.ai"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 74
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "adv"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "mintj.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 75
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "lid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "flipkart.com",
+    "kakaku.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 76
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "rid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "giphy.com",
+    "stacksocial.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 77
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "sphrase_id"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "vodopad.ru"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 78
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "clickid",
+       "pixelid",
+       "ref"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "/landing."
+  },
+  "id": 79
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "sh"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "forbes.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 80
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "utm"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "gorodche.ru"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 81
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "leadSource"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "bloomberg.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 82
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "mod"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "marketwatch.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 83
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "article_id",
+       "ext.referrer",
+       "uid.p"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||d.odsyms15.com/click"
+  },
+  "id": 84
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ad_reason_recommended_items"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||olx."
+  },
+  "id": 85
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "UserId",
+       "login",
+       "signature",
+       "statsUID",
+       "valid",
+       "veb",
+       "vep",
+       "xhUserId"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "faphouse.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 86
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ad",
+       "cachekey",
+       "locale",
+       "position",
+       "query",
+       "serp_position",
+       "t",
+       "tgp",
+       "uri"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||lite.qwant.com/redirect/"
+  },
+  "id": 87
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "sc_out"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "realestate.yahoo.co.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 88
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "referral"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "open.spotify.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 89
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "referer"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||skt.sh/common/share/bridge?"
+  },
+  "id": 90
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "szFrom"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "login.afreecatv.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 91
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "medium"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "moffme.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 92
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "campaign"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "app.adjust.com",
+    "moffme.com",
+    "www.alternate.de"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 93
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "os",
+       "sess_id",
+       "slot_index",
+       "v"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "click.speee-ad.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 94
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "embed_source",
+       "referer_url",
+       "sec_uid",
+       "share_app_id",
+       "share_author_id",
+       "tt_from",
+       "web_id"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "tiktok.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 95
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "refer"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "tiktok.com",
+    "wemakeprice.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 96
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "share.ref"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "voicy.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 97
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "acr",
+       "bd_vid",
+       "lg",
+       "old",
+       "s",
+       "z"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "awaliwa.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 98
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "wpid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "whale.naver.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 99
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "cx_clicks_sldbox"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "joshi-spa.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 100
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "at_bbc_team",
+       "at_campaign_type",
+       "at_link_id",
+       "at_link_origin",
+       "at_link_type",
+       "at_ptr_name",
+       "facebook_page"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||bbc."
+  },
+  "id": 101
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "srsltid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "morhipo.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 102
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "s_mf"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "event.hoken-mammoth.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 103
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "g_clk"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "cinematoday.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 104
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "afid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "123chat.jp",
+    "kanochat.jp",
+    "live.fc2.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 105
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "cx_art"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "basketballking.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 106
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "tag"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "agoda.com",
+    "japan.cnet.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 107
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "iref"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "asahi.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 108
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "m"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "jiji.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 109
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "media"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "fashion-press.net"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 110
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "_i",
+       "dt_platform"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "douban.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 111
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "referrer"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "immobilienscout24.de",
+    "stripchat.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 112
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "enteredFrom",
+       "navigationServiceUrl",
+       "searchGeoPath",
+       "searchId"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "immobilienscout24.de"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 113
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "_branch_referrer"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "open.spotify.com",
+    "reddit.com",
+    "tumblr.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 114
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "_p"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "tumblr.app.link"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 115
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "affiliate"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "dhits.docomo.ne.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 116
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "query": ""
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "go.xlivrdr.com",
+    "promo.korabli.su"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 117
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "creative",
+       "install_callback",
+       "ip_address",
+       "nend_click_id"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "app.adjust.com"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 118
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "user_agent"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "app.adjust.com",
+    "web.vstat.info"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 119
  },
  {
   "action": {
@@ -265,7 +3280,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 6
+  "id": 120
  },
  {
   "action": {
@@ -295,7 +3310,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 7
+  "id": 121
  },
  {
   "action": {
@@ -323,7 +3338,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 8
+  "id": 122
  },
  {
   "action": {
@@ -355,7 +3370,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 9
+  "id": 123
  },
  {
   "action": {
@@ -385,7 +3400,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 10
+  "id": 124
  },
  {
   "action": {
@@ -412,7 +3427,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 11
+  "id": 125
  },
  {
   "action": {
@@ -437,34 +3452,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 12
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "c"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "app.5-delivery.ru",
-    "getir.com",
-    "hepsiburada.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 13
+  "id": 126
  },
  {
   "action": {
@@ -495,7 +3483,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 14
+  "id": 127
  },
  {
   "action": {
@@ -520,7 +3508,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15
+  "id": 128
  },
  {
   "action": {
@@ -545,7 +3533,7 @@
    ],
    "urlFilter": "||thumbs4.redgifs.com/*&for="
   },
-  "id": 16
+  "id": 129
  },
  {
   "action": {
@@ -570,7 +3558,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17
+  "id": 130
  },
  {
   "action": {
@@ -579,6 +3567,8 @@
      "queryTransform": {
       "removeParams": [
        "sp_atk",
+       "stm_medium",
+       "stm_source",
        "xptdk"
       ]
      }
@@ -596,7 +3586,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 18
+  "id": 131
  },
  {
   "action": {
@@ -612,16 +3602,15 @@
    "type": "redirect"
   },
   "condition": {
-   "requestDomains": [
-    "adguard.com"
-   ],
+   "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
     "main_frame",
     "sub_frame",
     "xmlhttprequest"
-   ]
+   ],
+   "urlFilter": "||adguard."
   },
-  "id": 19
+  "id": 132
  },
  {
   "action": {
@@ -647,33 +3636,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 20
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "aid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "mp.weixin.qq.com",
-    "teknosa.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 21
+  "id": 133
  },
  {
   "action": {
@@ -701,64 +3664,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 22
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "cid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "adshares.net",
-    "flipkart.com",
-    "gearbest.com",
-    "giphy.com",
-    "rac.co.uk",
-    "teknosa.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 23
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "source"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "edx.org",
-    "teknosa.com",
-    "tradingview.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 24
+  "id": 134
  },
  {
   "action": {
@@ -783,30 +3689,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 25
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "query": ""
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "go.xlivrdr.com",
-    "tix.axs.com",
-    "urldefense.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 26
+  "id": 135
  },
  {
   "action": {
@@ -817,7 +3700,6 @@
        "affiliateId",
        "campaignId",
        "realDomain",
-       "referrer",
        "sourceId"
       ]
      }
@@ -835,7 +3717,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 27
+  "id": 136
  },
  {
   "action": {
@@ -860,7 +3742,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 28
+  "id": 137
  },
  {
   "action": {
@@ -887,7 +3769,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 29
+  "id": 138
  },
  {
   "action": {
@@ -915,7 +3797,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 30
+  "id": 139
  },
  {
   "action": {
@@ -940,33 +3822,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 31
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "from"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "fmworld.net",
-    "mp.weixin.qq.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 32
+  "id": 140
  },
  {
   "action": {
@@ -991,7 +3847,31 @@
    ],
    "urlFilter": "||kaspersky."
   },
-  "id": 33
+  "id": 141
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "tracking"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||facebook.com/marketplace/"
+  },
+  "id": 142
  },
  {
   "action": {
@@ -1016,7 +3896,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 34
+  "id": 143
  },
  {
   "action": {
@@ -1042,7 +3922,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 35
+  "id": 144
  },
  {
   "action": {
@@ -1068,7 +3948,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 36
+  "id": 145
  },
  {
   "action": {
@@ -1095,7 +3975,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 37
+  "id": 146
  },
  {
   "action": {
@@ -1121,7 +4001,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 38
+  "id": 147
  },
  {
   "action": {
@@ -1147,7 +4027,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 39
+  "id": 148
  },
  {
   "action": {
@@ -1171,7 +4051,7 @@
    ],
    "urlFilter": "||target.georiot.com/proxy.ashx"
   },
-  "id": 40
+  "id": 149
  },
  {
   "action": {
@@ -1196,7 +4076,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 41
+  "id": 150
  },
  {
   "action": {
@@ -1225,7 +4105,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 42
+  "id": 151
  },
  {
   "action": {
@@ -1251,69 +4131,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 43
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "tduid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "microsoft.com",
-    "redirects.tradedoubler.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 44
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "ref"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "arcelik.com.tr",
-    "buzzfeednews.com",
-    "coconala.com",
-    "coolblue.nl",
-    "d-markets.net",
-    "goodreads.com",
-    "livedoor.biz",
-    "mein.onlinekonto.de",
-    "nicovideo.jp",
-    "reddit.com",
-    "uspoloassn.com",
-    "video.laxd.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 45
+  "id": 152
  },
  {
   "action": {
@@ -1339,7 +4157,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 46
+  "id": 153
  },
  {
   "action": {
@@ -1364,7 +4182,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 47
+  "id": 154
  },
  {
   "action": {
@@ -1389,7 +4207,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 48
+  "id": 155
  },
  {
   "action": {
@@ -1418,7 +4236,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 49
+  "id": 156
  },
  {
   "action": {
@@ -1445,7 +4263,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 50
+  "id": 157
  },
  {
   "action": {
@@ -1472,31 +4290,7 @@
    ],
    "urlFilter": "||join.worldoftanks."
   },
-  "id": 51
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "par"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||weather.com"
-  },
-  "id": 52
+  "id": 158
  },
  {
   "action": {
@@ -1522,7 +4316,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 53
+  "id": 159
  },
  {
   "action": {
@@ -1548,7 +4342,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 54
+  "id": 160
  },
  {
   "action": {
@@ -1576,7 +4370,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 55
+  "id": 161
  },
  {
   "action": {
@@ -1600,7 +4394,7 @@
    ],
    "urlFilter": "||heraldcorp.com/view.php"
   },
-  "id": 56
+  "id": 162
  },
  {
   "action": {
@@ -1627,7 +4421,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 57
+  "id": 163
  },
  {
   "action": {
@@ -1653,7 +4447,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 58
+  "id": 164
  },
  {
   "action": {
@@ -1679,7 +4473,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 59
+  "id": 165
  },
  {
   "action": {
@@ -1699,7 +4493,7 @@
    ],
    "urlFilter": "||mkaff.com/landings/"
   },
-  "id": 60
+  "id": 166
  },
  {
   "action": {
@@ -1725,34 +4519,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 61
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "spm"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "lazada.com.ph",
-    "sohu.com",
-    "v.youku.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 62
+  "id": 167
  },
  {
   "action": {
@@ -1781,7 +4548,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 63
+  "id": 168
  },
  {
   "action": {
@@ -1807,7 +4574,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 64
+  "id": 169
  },
  {
   "action": {
@@ -1817,7 +4584,6 @@
       "removeParams": [
        "__tn__",
        "c[0]",
-       "fbclid",
        "h"
       ]
      }
@@ -1826,33 +4592,8 @@
    "type": "redirect"
   },
   "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||trib.al"
-  },
-  "id": 65
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "_branch_referrer"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
    "requestDomains": [
-    "open.spotify.com",
-    "reddit.com"
+    "trib.al"
    ],
    "resourceTypes": [
     "main_frame",
@@ -1860,32 +4601,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 66
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "si"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "open.spotify.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 67
+  "id": 170
  },
  {
   "action": {
@@ -1909,7 +4625,7 @@
    ],
    "urlFilter": "||qcplay.co.jp/?shortlink=*&c="
   },
-  "id": 68
+  "id": 171
  },
  {
   "action": {
@@ -1935,84 +4651,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 69
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "rid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "giphy.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 70
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "ref"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "animember.net",
-    "bipblog.com",
-    "jin115.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 71
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "g_clk"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "cinematoday.jp"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 72
+  "id": 172
  },
  {
   "action": {
@@ -2037,7 +4676,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 73
+  "id": 173
  },
  {
   "action": {
@@ -2062,7 +4701,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 74
+  "id": 174
  },
  {
   "action": {
@@ -2087,7 +4726,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 75
+  "id": 175
  },
  {
   "action": {
@@ -2112,7 +4751,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 76
+  "id": 176
  },
  {
   "action": {
@@ -2120,6 +4759,7 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
+       "adxarea",
        "frm_id"
       ]
      }
@@ -2137,7 +4777,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 77
+  "id": 177
  },
  {
   "action": {
@@ -2162,7 +4802,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 78
+  "id": 178
  },
  {
   "action": {
@@ -2187,7 +4827,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 79
+  "id": 179
  },
  {
   "action": {
@@ -2213,7 +4853,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 80
+  "id": 180
  },
  {
   "action": {
@@ -2238,7 +4878,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 81
+  "id": 181
  },
  {
   "action": {
@@ -2246,7 +4886,6 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "/^cd\\d+/",
        "tm_hem",
        "wmc",
        "wt_cd"
@@ -2265,7 +4904,7 @@
    ],
    "urlFilter": "||zalando."
   },
-  "id": 82
+  "id": 182
  },
  {
   "action": {
@@ -2291,7 +4930,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 83
+  "id": 183
  },
  {
   "action": {
@@ -2316,7 +4955,7 @@
    ],
    "urlFilter": "||quora.com/qemail/tc?"
   },
-  "id": 84
+  "id": 184
  },
  {
   "action": {
@@ -2345,32 +4984,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 85
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "rf"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "netkeiba.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 86
+  "id": 185
  },
  {
   "action": {
@@ -2395,7 +5009,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 87
+  "id": 186
  },
  {
   "action": {
@@ -2421,7 +5035,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 88
+  "id": 187
  },
  {
   "action": {
@@ -2447,7 +5061,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 89
+  "id": 188
  },
  {
   "action": {
@@ -2472,7 +5086,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 90
+  "id": 189
  },
  {
   "action": {
@@ -2498,7 +5112,7 @@
    ],
    "urlFilter": "||wizcase.com/?"
   },
-  "id": 91
+  "id": 190
  },
  {
   "action": {
@@ -2523,7 +5137,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 92
+  "id": 191
  },
  {
   "action": {
@@ -2547,7 +5161,7 @@
    ],
    "urlFilter": "||ojrq.net/p/"
   },
-  "id": 93
+  "id": 192
  },
  {
   "action": {
@@ -2572,7 +5186,7 @@
    ],
    "urlFilter": "||click.linksynergy.com/fs-bin/click?id="
   },
-  "id": 94
+  "id": 193
  },
  {
   "action": {
@@ -2597,7 +5211,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 95
+  "id": 194
  },
  {
   "action": {
@@ -2605,6 +5219,7 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
+       "afid",
        "pt"
       ]
      }
@@ -2622,7 +5237,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 96
+  "id": 195
  },
  {
   "action": {
@@ -2650,7 +5265,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 97
+  "id": 196
  },
  {
   "action": {
@@ -2658,14 +5273,7 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "i",
-       "p",
-       "px",
-       "py",
-       "s",
-       "sx",
-       "sy",
-       "time"
+       "i"
       ]
      }
     }
@@ -2681,31 +5289,7 @@
    ],
    "urlFilter": "||search.naver.com/p/crd/rd"
   },
-  "id": 98
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "mindbox-click-id"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||journal.tinkoff.ru"
-  },
-  "id": 99
+  "id": 197
  },
  {
   "action": {
@@ -2731,7 +5315,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 100
+  "id": 198
  },
  {
   "action": {
@@ -2756,7 +5340,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 101
+  "id": 199
  },
  {
   "action": {
@@ -2781,7 +5365,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 102
+  "id": 200
  },
  {
   "action": {
@@ -2806,7 +5390,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 103
+  "id": 201
  },
  {
   "action": {
@@ -2836,7 +5420,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 104
+  "id": 202
  },
  {
   "action": {
@@ -2862,7 +5446,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 105
+  "id": 203
  },
  {
   "action": {
@@ -2888,7 +5472,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 106
+  "id": 204
  },
  {
   "action": {
@@ -2928,7 +5512,7 @@
    ],
    "urlFilter": "||aliexpress."
   },
-  "id": 107
+  "id": 205
  },
  {
   "action": {
@@ -2936,32 +5520,6 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "tag"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "agoda.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 108
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "/^ref_/",
        "source"
       ]
      }
@@ -2978,7 +5536,7 @@
    ],
    "urlFilter": "||github.com/signup"
   },
-  "id": 109
+  "id": 206
  },
  {
   "action": {
@@ -3005,7 +5563,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 110
+  "id": 207
  },
  {
   "action": {
@@ -3013,8 +5571,33 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "sc2id",
        "scid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "rakuten-wallet.co.jp",
+    "rakuten.co.jp"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 208
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "sc2id"
       ]
      }
     }
@@ -3031,7 +5614,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 111
+  "id": 209
  },
  {
   "action": {
@@ -3055,7 +5638,7 @@
    ],
    "urlFilter": "||azby.fmworld.net/cgi-bin/common/rd.cgi?"
   },
-  "id": 112
+  "id": 210
  },
  {
   "action": {
@@ -3080,7 +5663,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 113
+  "id": 211
  },
  {
   "action": {
@@ -3106,7 +5689,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 114
+  "id": 212
  },
  {
   "action": {
@@ -3132,7 +5715,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 115
+  "id": 213
  },
  {
   "action": {
@@ -3157,33 +5740,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 116
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "affid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "cyberlink.com",
-    "flipkart.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 117
+  "id": 214
  },
  {
   "action": {
@@ -3208,7 +5765,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 118
+  "id": 215
  },
  {
   "action": {
@@ -3233,7 +5790,7 @@
    ],
    "urlFilter": "||hit.gemius.pl/hitredir"
   },
-  "id": 119
+  "id": 216
  },
  {
   "action": {
@@ -3259,7 +5816,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 120
+  "id": 217
  },
  {
   "action": {
@@ -3284,36 +5841,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 121
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "sec_uid",
-       "share_app_id",
-       "share_author_id",
-       "tt_from",
-       "web_id"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "tiktok.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 122
+  "id": 218
  },
  {
   "action": {
@@ -3343,7 +5871,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 123
+  "id": 219
  },
  {
   "action": {
@@ -3368,7 +5896,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 124
+  "id": 220
  },
  {
   "action": {
@@ -3395,7 +5923,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 125
+  "id": 221
  },
  {
   "action": {
@@ -3423,7 +5951,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 126
+  "id": 222
  },
  {
   "action": {
@@ -3449,7 +5977,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 127
+  "id": 223
  },
  {
   "action": {
@@ -3476,7 +6004,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 128
+  "id": 224
  },
  {
   "action": {
@@ -3501,7 +6029,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 129
+  "id": 225
  },
  {
   "action": {
@@ -3526,7 +6054,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 130
+  "id": 226
  },
  {
   "action": {
@@ -3551,7 +6079,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 131
+  "id": 227
  },
  {
   "action": {
@@ -3576,7 +6104,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 132
+  "id": 228
  },
  {
   "action": {
@@ -3601,7 +6129,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 133
+  "id": 229
  },
  {
   "action": {
@@ -3628,7 +6156,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 134
+  "id": 230
  },
  {
   "action": {
@@ -3654,7 +6182,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 135
+  "id": 231
  },
  {
   "action": {
@@ -3662,8 +6190,7 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "guid",
-       "user_agent"
+       "guid"
       ]
      }
     }
@@ -3680,7 +6207,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 136
+  "id": 232
  },
  {
   "action": {
@@ -3705,7 +6232,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 137
+  "id": 233
  },
  {
   "action": {
@@ -3730,7 +6257,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 138
+  "id": 234
  },
  {
   "action": {
@@ -3738,7 +6265,6 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "_ga",
        "tyutm_campaign",
        "tyutm_medium",
        "tyutm_source",
@@ -3759,7 +6285,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 139
+  "id": 235
  },
  {
   "action": {
@@ -3789,7 +6315,7 @@
    ],
    "urlFilter": "||cc.loginfra.com/cc"
   },
-  "id": 140
+  "id": 236
  },
  {
   "action": {
@@ -3814,7 +6340,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 141
+  "id": 237
  },
  {
   "action": {
@@ -3840,7 +6366,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 142
+  "id": 238
  },
  {
   "action": {
@@ -3866,32 +6392,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 143
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "dt_platform"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "douban.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 144
+  "id": 239
  },
  {
   "action": {
@@ -3907,15 +6408,16 @@
    "type": "redirect"
   },
   "condition": {
-   "isUrlFilterCaseSensitive": false,
+   "requestDomains": [
+    "play.google.com"
+   ],
    "resourceTypes": [
     "main_frame",
     "sub_frame",
     "xmlhttprequest"
-   ],
-   "urlFilter": "||play.google.com/store/"
+   ]
   },
-  "id": 145
+  "id": 240
  },
  {
   "action": {
@@ -3940,7 +6442,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 146
+  "id": 241
  },
  {
   "action": {
@@ -3965,7 +6467,7 @@
    ],
    "urlFilter": "||coupang.com/*/products/"
   },
-  "id": 147
+  "id": 242
  },
  {
   "action": {
@@ -3993,7 +6495,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 148
+  "id": 243
  },
  {
   "action": {
@@ -4019,7 +6521,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 149
+  "id": 244
  },
  {
   "action": {
@@ -4043,7 +6545,7 @@
    ],
    "urlFilter": "||hog."
   },
-  "id": 150
+  "id": 245
  },
  {
   "action": {
@@ -4085,7 +6587,7 @@
    ],
    "urlFilter": "||lcs.naver.com/m?u="
   },
-  "id": 151
+  "id": 246
  },
  {
   "action": {
@@ -4110,7 +6612,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 152
+  "id": 247
  },
  {
   "action": {
@@ -4140,7 +6642,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 153
+  "id": 248
  },
  {
   "action": {
@@ -4160,7 +6662,7 @@
    ],
    "urlFilter": "||ups.xplosion.de/ctx?event_id="
   },
-  "id": 154
+  "id": 249
  },
  {
   "action": {
@@ -4187,7 +6689,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 155
+  "id": 250
  },
  {
   "action": {
@@ -4213,7 +6715,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 156
+  "id": 251
  },
  {
   "action": {
@@ -4239,7 +6741,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 157
+  "id": 252
  },
  {
   "action": {
@@ -4264,7 +6766,7 @@
    ],
    "urlFilter": "||dailymotion.com/embed/video/*?ads_params=*&origin="
   },
-  "id": 158
+  "id": 253
  },
  {
   "action": {
@@ -4281,7 +6783,8 @@
   },
   "condition": {
    "requestDomains": [
-    "wired.co.uk"
+    "wired.co.uk",
+    "wired.com"
    ],
    "resourceTypes": [
     "main_frame",
@@ -4289,7 +6792,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 159
+  "id": 254
  },
  {
   "action": {
@@ -4314,7 +6817,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 160
+  "id": 255
  },
  {
   "action": {
@@ -4339,7 +6842,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 161
+  "id": 256
  },
  {
   "action": {
@@ -4365,7 +6868,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 162
+  "id": 257
  },
  {
   "action": {
@@ -4390,7 +6893,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 163
+  "id": 258
  },
  {
   "action": {
@@ -4415,7 +6918,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 164
+  "id": 259
  },
  {
   "action": {
@@ -4440,7 +6943,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 165
+  "id": 260
  },
  {
   "action": {
@@ -4466,7 +6969,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 166
+  "id": 261
  },
  {
   "action": {
@@ -4474,7 +6977,6 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "/^trk/",
        "original_referer",
        "refId",
        "trackingId"
@@ -4494,7 +6996,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 167
+  "id": 262
  },
  {
   "action": {
@@ -4519,7 +7021,7 @@
    ],
    "urlFilter": "||linkedin.com/authwall?"
   },
-  "id": 168
+  "id": 263
  },
  {
   "action": {
@@ -4527,7 +7029,8 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "cmnhd_ref"
+       "cmnhd_ref",
+       "news_ref"
       ]
      }
     }
@@ -4544,7 +7047,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 169
+  "id": 264
  },
  {
   "action": {
@@ -4568,7 +7071,7 @@
    ],
    "urlFilter": "||search.naver.com/search.naver"
   },
-  "id": 170
+  "id": 265
  },
  {
   "action": {
@@ -4596,7 +7099,56 @@
    ],
    "urlFilter": "||cc.naver.com/cc?a"
   },
-  "id": 171
+  "id": 266
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "did",
+       "suggest_reqid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||yandex.*/search/"
+  },
+  "id": 267
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "utm-term"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||yandex.*/promo/"
+  },
+  "id": 268
  },
  {
   "action": {
@@ -4624,7 +7176,7 @@
    ],
    "urlFilter": "||yandex.*/news/"
   },
-  "id": 172
+  "id": 269
  },
  {
   "action": {
@@ -4651,7 +7203,7 @@
    ],
    "urlFilter": "||yandex.*/sport/"
   },
-  "id": 173
+  "id": 270
  },
  {
   "action": {
@@ -4675,7 +7227,33 @@
    ],
    "urlFilter": "||yandex.*/images/"
   },
-  "id": 174
+  "id": 271
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "clid",
+       "mclid",
+       "vid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||market.yandex."
+  },
+  "id": 272
  },
  {
   "action": {
@@ -4699,7 +7277,7 @@
    ],
    "urlFilter": "||www.yandex."
   },
-  "id": 175
+  "id": 273
  },
  {
   "action": {
@@ -4724,7 +7302,7 @@
    ],
    "urlFilter": "://yandex."
   },
-  "id": 176
+  "id": 274
  },
  {
   "action": {
@@ -4750,7 +7328,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 177
+  "id": 275
  },
  {
   "action": {
@@ -4774,7 +7352,7 @@
    ],
    "urlFilter": "||www.baidu.com/link?url="
   },
-  "id": 178
+  "id": 276
  },
  {
   "action": {
@@ -4800,7 +7378,7 @@
    ],
    "urlFilter": "||cod.bitrec.com/topocentras-services/js/recs?"
   },
-  "id": 179
+  "id": 277
  },
  {
   "action": {
@@ -4824,7 +7402,41 @@
    ],
    "urlFilter": "||play.google."
   },
-  "id": 180
+  "id": 278
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "aqs",
+       "bih",
+       "biw",
+       "ei",
+       "gs_l",
+       "gs_lcp",
+       "oe",
+       "oq",
+       "sa",
+       "source",
+       "sourceid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||google.*/search"
+  },
+  "id": 279
  },
  {
   "action": {
@@ -4848,38 +7460,7 @@
    ],
    "urlFilter": "||google.*/websearch"
   },
-  "id": 181
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "aqs",
-       "bih",
-       "biw",
-       "ei",
-       "gs_lcp",
-       "sa",
-       "source",
-       "sourceid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||google.*/search"
-  },
-  "id": 182
+  "id": 280
  },
  {
   "action": {
@@ -4907,7 +7488,35 @@
    ],
    "urlFilter": "||www.ebay."
   },
-  "id": 183
+  "id": 281
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "asc_campaign",
+       "asc_refurl",
+       "asc_source"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "aboutamazon.com",
+    "amzn.to"
+   ],
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 282
  },
  {
   "action": {
@@ -4935,6 +7544,7 @@
        "hydadcr",
        "ingress",
        "initialIssue",
+       "linkId",
        "pd_rd_i",
        "pd_rd_r",
        "pd_rd_w",
@@ -4950,8 +7560,6 @@
        "qid",
        "rdc",
        "refRID",
-       "smid",
-       "tag",
        "ts_id",
        "visitId",
        "vtr"
@@ -4970,7 +7578,7 @@
    ],
    "urlFilter": "||amazon."
   },
-  "id": 184
+  "id": 283
  },
  {
   "action": {
@@ -4994,7 +7602,7 @@
    ],
    "urlFilter": "||amazon.*/aa"
   },
-  "id": 185
+  "id": 284
  },
  {
   "action": {
@@ -5018,7 +7626,32 @@
    ],
    "urlFilter": "||amazon.*/dp/"
   },
-  "id": 186
+  "id": 285
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "from",
+       "source"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||amazon.*/hz/contact-us/csp"
+  },
+  "id": 286
  },
  {
   "action": {
@@ -5042,7 +7675,7 @@
    ],
    "urlFilter": "||amazon.*/message-us"
   },
-  "id": 187
+  "id": 287
  },
  {
   "action": {
@@ -5069,7 +7702,7 @@
    ],
    "urlFilter": "||app.mi.com/download/*?id="
   },
-  "id": 188
+  "id": 288
  },
  {
   "action": {
@@ -5105,7 +7738,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 189
+  "id": 289
  },
  {
   "action": {
@@ -5134,7 +7767,7 @@
    ],
    "urlFilter": "||pixel.adsafeprotected.com/services/pub?"
   },
-  "id": 190
+  "id": 290
  },
  {
   "action": {
@@ -5161,7 +7794,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 191
+  "id": 291
  },
  {
   "action": {
@@ -5169,7 +7802,6 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "/^at_custom/",
        "at_campaign",
        "at_medium",
        "ns_campaign",
@@ -5195,7 +7827,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 192
+  "id": 292
  },
  {
   "action": {
@@ -5221,7 +7853,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 193
+  "id": 293
  },
  {
   "action": {
@@ -5247,7 +7879,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 194
+  "id": 294
  },
  {
   "action": {
@@ -5273,59 +7905,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 195
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "irclickid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "duda.co",
-    "microsoft.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 196
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "ranEAID",
-       "ranSiteID"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "microsoft.com"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 197
+  "id": 295
  },
  {
   "action": {
@@ -5351,7 +7931,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 198
+  "id": 296
  },
  {
   "action": {
@@ -5376,7 +7956,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 199
+  "id": 297
  },
  {
   "action": {
@@ -5401,7 +7981,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 200
+  "id": 298
  },
  {
   "action": {
@@ -5426,7 +8006,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 201
+  "id": 299
  },
  {
   "action": {
@@ -5451,7 +8031,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 202
+  "id": 300
  },
  {
   "action": {
@@ -5476,7 +8056,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 203
+  "id": 301
  },
  {
   "action": {
@@ -5501,7 +8081,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 204
+  "id": 302
  },
  {
   "action": {
@@ -5533,7 +8113,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 205
+  "id": 303
  },
  {
   "action": {
@@ -5561,7 +8141,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 206
+  "id": 304
  },
  {
   "action": {
@@ -5585,7 +8165,7 @@
    ],
    "urlFilter": "||gmx.*/logoutlounge"
   },
-  "id": 207
+  "id": 305
  },
  {
   "action": {
@@ -5609,7 +8189,7 @@
    ],
    "urlFilter": "||web.de/logoutlounge"
   },
-  "id": 208
+  "id": 306
  },
  {
   "action": {
@@ -5633,7 +8213,7 @@
    ],
    "urlFilter": "||gmx."
   },
-  "id": 209
+  "id": 307
  },
  {
   "action": {
@@ -5658,7 +8238,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 210
+  "id": 308
  },
  {
   "action": {
@@ -5683,7 +8263,7 @@
    ],
    "urlFilter": "||lotto.gmx."
   },
-  "id": 211
+  "id": 309
  },
  {
   "action": {
@@ -5709,7 +8289,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 212
+  "id": 310
  },
  {
   "action": {
@@ -5733,7 +8313,7 @@
    ],
    "urlFilter": "||shopping.gmx."
   },
-  "id": 213
+  "id": 311
  },
  {
   "action": {
@@ -5759,7 +8339,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 214
+  "id": 312
  },
  {
   "action": {
@@ -5783,7 +8363,7 @@
    ],
    "urlFilter": "||alza.de/*.htm"
   },
-  "id": 215
+  "id": 313
  },
  {
   "action": {
@@ -5808,7 +8388,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 216
+  "id": 314
  },
  {
   "action": {
@@ -5833,7 +8413,7 @@
    ],
    "urlFilter": "||idealo.de/*.html"
   },
-  "id": 217
+  "id": 315
  },
  {
   "action": {
@@ -5860,7 +8440,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 218
+  "id": 316
  },
  {
   "action": {
@@ -5884,7 +8464,7 @@
    ],
    "urlFilter": "||media01.eu/set.aspx"
   },
-  "id": 219
+  "id": 317
  },
  {
   "action": {
@@ -5909,33 +8489,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 220
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "campaign",
-       "partner"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "requestDomains": [
-    "www.alternate.de"
-   ],
-   "resourceTypes": [
-    "main_frame",
-    "sub_frame",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 221
+  "id": 318
  },
  {
   "action": {
@@ -5960,7 +8514,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 222
+  "id": 319
  },
  {
   "action": {
@@ -5985,7 +8539,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 223
+  "id": 320
  },
  {
   "action": {
@@ -6010,7 +8564,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 224
+  "id": 321
  },
  {
   "action": {
@@ -6034,7 +8588,7 @@
    ],
    "urlFilter": "||boomstore.de*.html"
   },
-  "id": 225
+  "id": 322
  },
  {
   "action": {
@@ -6062,7 +8616,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 226
+  "id": 323
  },
  {
   "action": {
@@ -6087,7 +8641,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 227
+  "id": 324
  },
  {
   "action": {
@@ -6111,7 +8665,7 @@
    ],
    "urlFilter": "||websearch.rakuten.co.jp/web?"
   },
-  "id": 228
+  "id": 325
  },
  {
   "action": {
@@ -6135,7 +8689,7 @@
    ],
    "urlFilter": "||rakuten.co.jp^*&trflg="
   },
-  "id": 229
+  "id": 326
  },
  {
   "action": {
@@ -6143,11 +8697,8 @@
     "transform": {
      "queryTransform": {
       "removeParams": [
-       "/^affExtParam/",
-       "/^otracker/",
        "_refId",
        "iid",
-       "lid",
        "pageUID",
        "pwsvid",
        "ssid",
@@ -6168,7 +8719,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 230
+  "id": 327
  },
  {
   "action": {
@@ -6202,7 +8753,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 231
+  "id": 328
  },
  {
   "action": {
@@ -6227,7 +8778,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 232
+  "id": 329
  },
  {
   "action": {
@@ -6252,7 +8803,7 @@
    ],
    "urlFilter": "||weibo."
   },
-  "id": 233
+  "id": 330
  },
  {
   "action": {
@@ -6279,7 +8830,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 234
+  "id": 331
  },
  {
   "action": {
@@ -6305,7 +8856,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 235
+  "id": 332
  },
  {
   "action": {
@@ -6330,7 +8881,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 236
+  "id": 333
  },
  {
   "action": {
@@ -6355,7 +8906,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 237
+  "id": 334
  },
  {
   "action": {
@@ -6374,7 +8925,36 @@
     "stylesheet"
    ]
   },
-  "id": 238
+  "id": 335
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "p",
+       "px",
+       "py",
+       "s",
+       "sx",
+       "sy",
+       "time"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image",
+    "main_frame"
+   ],
+   "urlFilter": "||search.naver.com/p/crd/rd"
+  },
+  "id": 336
  },
  {
   "action": {
@@ -6397,7 +8977,7 @@
    ],
    "urlFilter": "||popin.cc/popin_discovery/"
   },
-  "id": 239
+  "id": 337
  },
  {
   "action": {
@@ -6420,7 +9000,29 @@
    ],
    "urlFilter": "||api.cxense.com/public/widget/data?json="
   },
-  "id": 240
+  "id": 338
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "referrer"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||podbean.com/player/"
+  },
+  "id": 339
  },
  {
   "action": {
@@ -6446,7 +9048,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 241
+  "id": 340
  },
  {
   "action": {
@@ -6469,6 +9071,82 @@
     "xmlhttprequest"
    ]
   },
-  "id": 242
+  "id": 341
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "pbss"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "media"
+   ],
+   "urlFilter": "||podbean.com/pb/"
+  },
+  "id": 342
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "DeviceTypeId",
+       "InteractionSessionId",
+       "PCAT_vNextTracking_LocalWidget",
+       "PCAT_vNextTracking_OnlineItrack",
+       "PCAT_vNextTracking_OnlinePlrss",
+       "PCAT_vNextTracking_RetailerScoring",
+       "UniqueUserId",
+       "profileId"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "productcatalog.channeladvisor.com"
+   ],
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 343
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "id",
+       "xcust"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "requestDomains": [
+    "go.skimresources.com"
+   ],
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 344
  }
 ]

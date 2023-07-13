@@ -13,22 +13,6 @@
     "image"
    ]
   },
-  "id": 49
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "telsu.fi"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "telsu\\.fi\\/[\\w!.,:;\\-*%%C3%A5%C3%A4%C3%B6${@%E2%82%AC|]{20,}$",
-   "resourceTypes": [
-    "image"
-   ]
-  },
   "id": 51
  },
  {
@@ -36,15 +20,27 @@
    "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "telsu.fi"
-   ],
+   "domainType": "firstParty",
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "telsu\\.fi\\/s\\/[\\w\\d]{30,40}$",
+   "regexFilter": "https:\\/\\/[www]{3}\\.v{0}t{1}f{0}e{1}f{0}l{1}f{0}s{1}f{0}g{0}u{1}\\.fi\\/[\\w]{3}\\?[\\d]{8}\\+[\\d]",
    "resourceTypes": [
-    "image"
+    "xmlhttprequest"
    ]
   },
-  "id": 52
+  "id": 134
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "https:\\/\\/[www]{3}\\.v{0}t{1}f{0}e{1}f{0}l{1}f{0}s{1}f{0}g{0}u{1}\\.fi\\/[\\w]{9}-[\\w]{7}\\?[\\w]{4}\\+[\\w]{6}\\+[\\w]{9}\\+[\\w]{4}\\+[\\w]{5}\\+[\\w%\\d]{19}",
+   "resourceTypes": [
+    "xmlhttprequest"
+   ]
+  },
+  "id": 135
  }
 ]

@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2019-present Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,185 +18,353 @@
 
     Home: https://github.com/gorhill/uBlock
 
-    The scriptlets below are meant to be injected only into a
-    web page context.
 */
 
 /* jshint esversion:11 */
 
 'use strict';
 
-/******************************************************************************/
-
-/// name set-constant
-/// alias set
+// ruleset: spa-1
 
 /******************************************************************************/
 
 // Important!
 // Isolate from global scope
+
 (function uBOL_setConstant() {
 
 /******************************************************************************/
 
-// spa-1
+const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = [{"a":["Object.prototype.adblockerEnabled","false"]},{"a":["adsbygoogle.loaded","true"]},{"a":["adBlockCheck","true"]},{"a":["pp_show_popupmessage","noopFunc"]},{"a":["easySettings.adblock","0"]},{"a":["canRunAds","true"]},{"a":["onload","null"]},{"a":["adblockDetector.init","noopFunc"]},{"a":["adsbygoogle.length","undefined"]},{"a":["WSL2.config.enableAdblockEcommerce","0"]},{"a":["ads_unblocked","true"]},{"a":["adblock","true"]},{"a":["kkwoiNI","noopFunc"]},{"a":["yUIlOsT","noopFunc"]},{"a":["better_ads_adblock","true"]},{"a":["adBlockDetected","false"]},{"a":["isAdsDisplayed","true"]},{"a":["Lata","1"]},{"a":["loadingAds","true"]},{"a":["goog_pvsid","1"]},{"a":["Goog_Osd_UnloadAdBlock","1"]},{"a":["google_osd_loaded","1"]},{"a":["stopMan","false"]},{"a":["google_unique_id","1"]},{"a":["player.preroll","noopFunc"]},{"a":["anunciotag","noopFunc"]},{"a":["_mvnxp","noopFunc"]},{"a":["loadingAds","undefined"]},{"a":["click","1"]},{"a":["clickd","1"]},{"a":["xxxStore","undefined"]},{"a":["vidorev_jav_plugin_video_ads_object.vid_ads_m_video_ads","''"]},{"a":["clicked","true"]},{"a":["eClicked","true"]},{"a":["number","0"]},{"a":["sync","true"]},{"a":["a_consola","noopFunc"]}];
+const argsList = ["[\"adManagerBlocked\",\"undefined\"]","[\"$MICROSITE_INFO.blockAdBlock\",\"false\"]","[\"adblock.check\",\"noopFunc\"]","[\"adBlockerActive\",\"false\"]","[\"canRunAds\",\"true\"]","[\"eazy_ad_unblocker_msg_var\",\"\"]","[\"antiAdBlockerStyle\",\"noopFunc\"]","[\"Object.prototype.adblockerEnabled\",\"false\"]","[\"adsbygoogle.loaded\",\"true\"]","[\"adBlockCheck\",\"true\"]","[\"pp_show_popupmessage\",\"noopFunc\"]","[\"easySettings.adblock\",\"0\"]","[\"onload\",\"null\"]","[\"adblockDetector.init\",\"noopFunc\"]","[\"adsbygoogle.length\",\"undefined\"]","[\"WSL2.config.enableAdblockEcommerce\",\"0\"]","[\"ads_unblocked\",\"true\"]","[\"adblock\",\"true\"]","[\"better_ads_adblock\",\"true\"]","[\"adBlockDetected\",\"false\"]","[\"isAdsDisplayed\",\"true\"]","[\"ATESTADO\",\"1\"]","[\"Lata\",\"1\"]","[\"loadingAds\",\"true\"]","[\"goog_pvsid\",\"1\"]","[\"Goog_Osd_UnloadAdBlock\",\"1\"]","[\"google_osd_loaded\",\"1\"]","[\"stopMan\",\"false\"]","[\"google_unique_id\",\"1\"]","[\"googleIMState\",\"{}\"]","[\"Object.prototype.adSlot\",\"\"]","[\"google.ima.OmidVerificationVendor\",\"{}\"]","[\"ads\",\"false\"]","[\"acdl\",\"undefined\"]","[\"global.noobMaxTry\",\"0\"]","[\"player.preroll\",\"noopFunc\"]","[\"anunciotag\",\"noopFunc\"]","[\"_mvnxp\",\"noopFunc\"]","[\"loadingAds\",\"undefined\"]","[\"click\",\"1\"]","[\"clickd\",\"1\"]","[\"xxxStore\",\"undefined\"]","[\"vidorev_jav_plugin_video_ads_object.vid_ads_m_video_ads\",\"\"]","[\"clicked\",\"true\"]","[\"eClicked\",\"true\"]","[\"number\",\"0\"]","[\"sync\",\"true\"]","[\"a_consola\",\"noopFunc\"]"];
 
-const hostnamesMap = new Map([["cadenaser.com",0],["texto.kom.gt",1],["infojobs.com.br",2],["maringapost.com.br",3],["bandab.com.br",3],["ouniversodatv.com",4],["skynovels.net",5],["wuolah.com",5],["botinnifit.com",5],["minhasdelicias.com",5],["luchaonline.com",5],["tribunaavila.com",6],["deportealdia.live",7],["elquintobeatle.com",8],["empregoestagios.com",8],["satcesc.com",8],["applesfera.com",9],["bebesymas.com",9],["compradiccion.com",9],["diariodelviajero.com",9],["directoalpaladar.com",9],["elblogsalmon.com",9],["espinof.com",9],["genbeta.com",9],["motorpasion.com",9],["motorpasionmoto.com",9],["pymesyautonomos.com",9],["trendencias.com",9],["trendenciashombre.com",9],["vidaextra.com",9],["vitonica.com",9],["xataka.com",9],["xatakaciencia.com",9],["xatakafoto.com",9],["xatakahome.com",9],["xatakamovil.com",9],["xatakandroid.com",9],["xatakawindows.com",9],["doceru.com",10],["docero.com.br",10],["comandotorrents.org",11],["mangahost.site",[12,13]],["adslayuda.com",14],["outerspace.com.br",15],["doramasmp4.com",16],["file4go.net",17],["seriesdonghua.com",18],["mundodonghua.com",18],["mangahost4.com",[19,20,21,22,23]],["mangahosted.com",[19,20,21,22,23]],["mangahost2.com",[19,20,21,22,23]],["player.hentaistube.com",24],["playnewserie.xyz",25],["vizer.vip",26],["tiohentai.xyz",27],["otakustv.com",[28,29]],["pornolandia.xxx",30],["hentaiporno.xxx",31],["megadescarga.net",[32,33,34,35]],["fakings.com",36]]);
+const hostnamesMap = new Map([["fichajes.com",0],["niusdiario.es",[1,31]],["xerifetech.com",2],["pobre.wtf",[3,32]],["impactoespananoticias.com",4],["skynovels.net",4],["botinnifit.com",4],["minhasdelicias.com",4],["luchaonline.com",4],["legendei.net",5],["mangacrab.com",6],["cadenaser.com",7],["texto.kom.gt",8],["infojobs.com.br",9],["maringapost.com.br",10],["bandab.com.br",10],["ouniversodatv.com",11],["tribunaavila.com",12],["deportealdia.live",13],["elquintobeatle.com",14],["empregoestagios.com",14],["satcesc.com",14],["applesfera.com",15],["bebesymas.com",15],["compradiccion.com",15],["diariodelviajero.com",15],["directoalpaladar.com",15],["elblogsalmon.com",15],["espinof.com",15],["genbeta.com",15],["motorpasion.com",15],["motorpasionmoto.com",15],["pymesyautonomos.com",15],["trendencias.com",15],["trendenciashombre.com",15],["vidaextra.com",15],["vitonica.com",15],["xataka.com",15],["xatakaciencia.com",15],["xatakafoto.com",15],["xatakahome.com",15],["xatakamovil.com",15],["xatakandroid.com",15],["xatakawindows.com",15],["doceru.com",16],["docero.com.br",16],["comandotorrents.org",17],["adslayuda.com",18],["outerspace.com.br",19],["doramasmp4.com",20],["file4go.net",22],["seriesdonghua.com",23],["mundodonghua.com",23],["yesmangas1.com",[24,25,26,27,28,29]],["mangahost4.com",[24,25,26,27,28,29]],["mangahosted.com",[24,25,26,27,28,29]],["mangahost2.com",[24,25,26,27,28,29]],["mangahost1.com",29],["mangahostbr.net",29],["mangahostbr.com",29],["elmundo.es",30],["suaurl.com",33],["safepc.online",34],["solopc.net",34],["player.hentaistube.com",35],["playnewserie.xyz",36],["vizer.vip",37],["tiohentai.xyz",38],["otakustv.com",[39,40]],["pornolandia.xxx",41],["hentaiporno.xxx",42],["megadescarga.net",[43,44,45,46]],["fakings.com",47]]);
+
+const entitiesMap = new Map([["anitube",21]]);
+
+const exceptionsMap = new Map([]);
 
 /******************************************************************************/
 
-const scriptlet = (
-    chain = '',
-    cValue = ''
-) => {
-    if ( chain === '' ) { return; }
-    if ( cValue === 'undefined' ) {
-        cValue = undefined;
-    } else if ( cValue === 'false' ) {
-        cValue = false;
-    } else if ( cValue === 'true' ) {
-        cValue = true;
-    } else if ( cValue === 'null' ) {
-        cValue = null;
-    } else if ( cValue === "''" ) {
-        cValue = '';
-    } else if ( cValue === '[]' ) {
-        cValue = [];
-    } else if ( cValue === '{}' ) {
-        cValue = {};
-    } else if ( cValue === 'noopFunc' ) {
-        cValue = function(){};
-    } else if ( cValue === 'trueFunc' ) {
-        cValue = function(){ return true; };
-    } else if ( cValue === 'falseFunc' ) {
-        cValue = function(){ return false; };
-    } else if ( /^\d+$/.test(cValue) ) {
-        cValue = parseFloat(cValue);
-        if ( isNaN(cValue) ) { return; }
-        if ( Math.abs(cValue) > 0x7FFF ) { return; }
-    } else {
-        return;
+function setConstant(
+    ...args
+) {
+    setConstantCore(false, ...args);
+}
+
+function setConstantCore(
+    trusted = false,
+    arg1 = '',
+    arg2 = '',
+    arg3 = ''
+) {
+    const details = typeof arg1 !== 'object'
+        ? { prop: arg1, value: arg2 }
+        : arg1;
+    if ( arg3 !== '' ) {
+        if ( /^\d$/.test(arg3) ) {
+            details.options = [ arg3 ];
+        } else {
+            details.options = Array.from(arguments).slice(3);
+        }
     }
-    let aborted = false;
-    const mustAbort = function(v) {
-        if ( aborted ) { return true; }
-        aborted =
-            (v !== undefined && v !== null) &&
-            (cValue !== undefined && cValue !== null) &&
-            (typeof v !== typeof cValue);
-        return aborted;
-    };
-    // https://github.com/uBlockOrigin/uBlock-issues/issues/156
-    //   Support multiple trappers for the same property.
-    const trapProp = function(owner, prop, configurable, handler) {
-        if ( handler.init(owner[prop]) === false ) { return; }
-        const odesc = Object.getOwnPropertyDescriptor(owner, prop);
-        let prevGetter, prevSetter;
-        if ( odesc instanceof Object ) {
-            owner[prop] = cValue;
-            if ( odesc.get instanceof Function ) {
-                prevGetter = odesc.get;
-            }
-            if ( odesc.set instanceof Function ) {
-                prevSetter = odesc.set;
-            }
-        }
-        try {
-            Object.defineProperty(owner, prop, {
-                configurable,
-                get() {
-                    if ( prevGetter !== undefined ) {
-                        prevGetter();
+    const { prop: chain = '', value: cValue = '' } = details;
+    if ( typeof chain !== 'string' ) { return; }
+    if ( chain === '' ) { return; }
+    const options = details.options || [];
+    const safe = safeSelf();
+    function setConstant(chain, cValue) {
+        const trappedProp = (( ) => {
+            const pos = chain.lastIndexOf('.');
+            if ( pos === -1 ) { return chain; }
+            return chain.slice(pos+1);
+        })();
+        if ( trappedProp === '' ) { return; }
+        const thisScript = document.currentScript;
+        const cloakFunc = fn => {
+            safe.Object_defineProperty(fn, 'name', { value: trappedProp });
+            const proxy = new Proxy(fn, {
+                defineProperty(target, prop) {
+                    if ( prop !== 'toString' ) {
+                        return Reflect.defineProperty(...arguments);
                     }
-                    return handler.getter(); // cValue
+                    return true;
                 },
-                set(a) {
-                    if ( prevSetter !== undefined ) {
-                        prevSetter(a);
+                deleteProperty(target, prop) {
+                    if ( prop !== 'toString' ) {
+                        return Reflect.deleteProperty(...arguments);
                     }
-                    handler.setter(a);
-                }
+                    return true;
+                },
+                get(target, prop) {
+                    if ( prop === 'toString' ) {
+                        return function() {
+                            return `function ${trappedProp}() { [native code] }`;
+                        }.bind(null);
+                    }
+                    return Reflect.get(...arguments);
+                },
             });
-        } catch(ex) {
+            return proxy;
+        };
+        if ( cValue === 'undefined' ) {
+            cValue = undefined;
+        } else if ( cValue === 'false' ) {
+            cValue = false;
+        } else if ( cValue === 'true' ) {
+            cValue = true;
+        } else if ( cValue === 'null' ) {
+            cValue = null;
+        } else if ( cValue === "''" ) {
+            cValue = '';
+        } else if ( cValue === '[]' ) {
+            cValue = [];
+        } else if ( cValue === '{}' ) {
+            cValue = {};
+        } else if ( cValue === 'noopFunc' ) {
+            cValue = cloakFunc(function(){});
+        } else if ( cValue === 'trueFunc' ) {
+            cValue = cloakFunc(function(){ return true; });
+        } else if ( cValue === 'falseFunc' ) {
+            cValue = cloakFunc(function(){ return false; });
+        } else if ( /^-?\d+$/.test(cValue) ) {
+            cValue = parseInt(cValue);
+            if ( isNaN(cValue) ) { return; }
+            if ( Math.abs(cValue) > 0x7FFF ) { return; }
+        } else if ( trusted ) {
+            if ( cValue.startsWith('{') && cValue.endsWith('}') ) {
+                try { cValue = JSON.parse(cValue).value; } catch(ex) { return; }
+            }
+        } else {
+            return;
         }
-    };
-    const trapChain = function(owner, chain) {
-        const pos = chain.indexOf('.');
-        if ( pos === -1 ) {
-            trapProp(owner, chain, false, {
+        if ( options.includes('asFunction') ) {
+            cValue = ( ) => cValue;
+        } else if ( options.includes('asCallback') ) {
+            cValue = ( ) => (( ) => cValue);
+        } else if ( options.includes('asResolved') ) {
+            cValue = Promise.resolve(cValue);
+        } else if ( options.includes('asRejected') ) {
+            cValue = Promise.reject(cValue);
+        }
+        let aborted = false;
+        const mustAbort = function(v) {
+            if ( trusted ) { return false; }
+            if ( aborted ) { return true; }
+            aborted =
+                (v !== undefined && v !== null) &&
+                (cValue !== undefined && cValue !== null) &&
+                (typeof v !== typeof cValue);
+            return aborted;
+        };
+        // https://github.com/uBlockOrigin/uBlock-issues/issues/156
+        //   Support multiple trappers for the same property.
+        const trapProp = function(owner, prop, configurable, handler) {
+            if ( handler.init(configurable ? owner[prop] : cValue) === false ) { return; }
+            const odesc = Object.getOwnPropertyDescriptor(owner, prop);
+            let prevGetter, prevSetter;
+            if ( odesc instanceof Object ) {
+                owner[prop] = cValue;
+                if ( odesc.get instanceof Function ) {
+                    prevGetter = odesc.get;
+                }
+                if ( odesc.set instanceof Function ) {
+                    prevSetter = odesc.set;
+                }
+            }
+            try {
+                safe.Object_defineProperty(owner, prop, {
+                    configurable,
+                    get() {
+                        if ( prevGetter !== undefined ) {
+                            prevGetter();
+                        }
+                        return handler.getter(); // cValue
+                    },
+                    set(a) {
+                        if ( prevSetter !== undefined ) {
+                            prevSetter(a);
+                        }
+                        handler.setter(a);
+                    }
+                });
+            } catch(ex) {
+            }
+        };
+        const trapChain = function(owner, chain) {
+            const pos = chain.indexOf('.');
+            if ( pos === -1 ) {
+                trapProp(owner, chain, false, {
+                    v: undefined,
+                    init: function(v) {
+                        if ( mustAbort(v) ) { return false; }
+                        this.v = v;
+                        return true;
+                    },
+                    getter: function() {
+                        return document.currentScript === thisScript
+                            ? this.v
+                            : cValue;
+                    },
+                    setter: function(a) {
+                        if ( mustAbort(a) === false ) { return; }
+                        cValue = a;
+                    }
+                });
+                return;
+            }
+            const prop = chain.slice(0, pos);
+            const v = owner[prop];
+            chain = chain.slice(pos + 1);
+            if ( v instanceof Object || typeof v === 'object' && v !== null ) {
+                trapChain(v, chain);
+                return;
+            }
+            trapProp(owner, prop, true, {
                 v: undefined,
                 init: function(v) {
-                    if ( mustAbort(v) ) { return false; }
                     this.v = v;
                     return true;
                 },
                 getter: function() {
-                    return cValue;
+                    return this.v;
                 },
                 setter: function(a) {
-                    if ( mustAbort(a) === false ) { return; }
-                    cValue = a;
+                    this.v = a;
+                    if ( a instanceof Object ) {
+                        trapChain(a, chain);
+                    }
                 }
             });
-            return;
+        };
+        trapChain(window, chain);
+    }
+    runAt(( ) => {
+        setConstant(chain, cValue);
+    }, options);
+}
+
+function runAt(fn, when) {
+    const intFromReadyState = state => {
+        const targets = {
+            'loading': 1,
+            'interactive': 2, 'end': 2, '2': 2,
+            'complete': 3, 'idle': 3, '3': 3,
+        };
+        const tokens = Array.isArray(state) ? state : [ state ];
+        for ( const token of tokens ) {
+            const prop = `${token}`;
+            if ( targets.hasOwnProperty(prop) === false ) { continue; }
+            return targets[prop];
         }
-        const prop = chain.slice(0, pos);
-        const v = owner[prop];
-        chain = chain.slice(pos + 1);
-        if ( v instanceof Object || typeof v === 'object' && v !== null ) {
-            trapChain(v, chain);
-            return;
-        }
-        trapProp(owner, prop, true, {
-            v: undefined,
-            init: function(v) {
-                this.v = v;
-                return true;
-            },
-            getter: function() {
-                return this.v;
-            },
-            setter: function(a) {
-                this.v = a;
-                if ( a instanceof Object ) {
-                    trapChain(a, chain);
-                }
-            }
-        });
+        return 0;
     };
-    trapChain(window, chain);
-};
+    const runAt = intFromReadyState(when);
+    if ( intFromReadyState(document.readyState) >= runAt ) {
+        fn(); return;
+    }
+    const onStateChange = ( ) => {
+        if ( intFromReadyState(document.readyState) < runAt ) { return; }
+        fn();
+        safe.removeEventListener.apply(document, args);
+    };
+    const safe = safeSelf();
+    const args = [ 'readystatechange', onStateChange, { capture: true } ];
+    safe.addEventListener.apply(document, args);
+}
+
+function safeSelf() {
+    if ( scriptletGlobals.has('safeSelf') ) {
+        return scriptletGlobals.get('safeSelf');
+    }
+    const safe = {
+        'Object_defineProperty': Object.defineProperty.bind(Object),
+        'RegExp': self.RegExp,
+        'RegExp_test': self.RegExp.prototype.test,
+        'RegExp_exec': self.RegExp.prototype.exec,
+        'addEventListener': self.EventTarget.prototype.addEventListener,
+        'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'log': console.log.bind(console),
+        'uboLog': function(...args) {
+            if ( args.length === 0 ) { return; }
+            if ( `${args[0]}` === '' ) { return; }
+            this.log('[uBO]', ...args);
+        },
+    };
+    scriptletGlobals.set('safeSelf', safe);
+    return safe;
+}
 
 /******************************************************************************/
 
-let hn;
-try { hn = document.location.hostname; } catch(ex) { }
-while ( hn ) {
-    if ( hostnamesMap.has(hn) ) {
-        let argsIndices = hostnamesMap.get(hn);
-        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
-        for ( const argsIndex of argsIndices ) {
-            const details = argsList[argsIndex];
-            if ( details.n && details.n.includes(hn) ) { continue; }
-            try { scriptlet(...details.a); } catch(ex) {}
-        }
+const hnParts = [];
+try { hnParts.push(...document.location.hostname.split('.')); }
+catch(ex) { }
+const hnpartslen = hnParts.length;
+if ( hnpartslen === 0 ) { return; }
+
+const todoIndices = new Set();
+const tonotdoIndices = [];
+
+// Exceptions
+if ( exceptionsMap.size !== 0 ) {
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        const excepted = exceptionsMap.get(hn);
+        if ( excepted ) { tonotdoIndices.push(...excepted); }
     }
-    if ( hn === '*' ) { break; }
-    const pos = hn.indexOf('.');
-    if ( pos !== -1 ) {
-        hn = hn.slice(pos + 1);
-    } else {
-        hn = '*';
-    }
+    exceptionsMap.clear();
 }
 
+// Hostname-based
+if ( hostnamesMap.size !== 0 ) {
+    const collectArgIndices = hn => {
+        let argsIndices = hostnamesMap.get(hn);
+        if ( argsIndices === undefined ) { return; }
+        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+        for ( const argsIndex of argsIndices ) {
+            if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+            todoIndices.add(argsIndex);
+        }
+    };
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        collectArgIndices(hn);
+    }
+    collectArgIndices('*');
+    hostnamesMap.clear();
+}
+
+// Entity-based
+if ( entitiesMap.size !== 0 ) {
+    const n = hnpartslen - 1;
+    for ( let i = 0; i < n; i++ ) {
+        for ( let j = n; j > i; j-- ) {
+            const en = hnParts.slice(i,j).join('.');
+            let argsIndices = entitiesMap.get(en);
+            if ( argsIndices === undefined ) { continue; }
+            if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+            for ( const argsIndex of argsIndices ) {
+                if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+                todoIndices.add(argsIndex);
+            }
+        }
+    }
+    entitiesMap.clear();
+}
+
+// Apply scriplets
+for ( const i of todoIndices ) {
+    try { setConstant(...JSON.parse(argsList[i])); }
+    catch(ex) {}
+}
 argsList.length = 0;
-hostnamesMap.clear();
 
 /******************************************************************************/
 
 })();
 
 /******************************************************************************/
+
+void 0;

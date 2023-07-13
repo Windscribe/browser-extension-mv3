@@ -5,9 +5,19 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/.*\\/easylist\\/[0-9]{5}"
+  },
+  "id": 1
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
    "regexFilter": "banners.*\\/go\\/page"
   },
-  "id": 2585
+  "id": 2489
  },
  {
   "action": {
@@ -17,7 +27,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)104\\.154\\..{100,}"
   },
-  "id": 5362
+  "id": 5081
  },
  {
   "action": {
@@ -27,7 +37,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)104\\.197\\..{100,}"
   },
-  "id": 5363
+  "id": 5082
  },
  {
   "action": {
@@ -37,7 +47,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)104\\.198\\..{100,}"
   },
-  "id": 5364
+  "id": 5083
  },
  {
   "action": {
@@ -47,7 +57,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)130\\.211\\..{100,}"
   },
-  "id": 5365
+  "id": 5084
  },
  {
   "action": {
@@ -57,7 +67,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)142\\.91\\.159\\..{100,}"
   },
-  "id": 5366
+  "id": 5085
  },
  {
   "action": {
@@ -67,7 +77,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)213\\.32\\.115\\..{100,}"
   },
-  "id": 5367
+  "id": 5086
  },
  {
   "action": {
@@ -77,7 +87,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)216\\.21\\..{100,}"
   },
-  "id": 5368
+  "id": 5087
  },
  {
   "action": {
@@ -87,7 +97,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)217\\.182\\.11\\..{100,}"
   },
-  "id": 5369
+  "id": 5088
  },
  {
   "action": {
@@ -97,7 +107,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)51\\.195\\.31\\..{100,}"
   },
-  "id": 5370
+  "id": 5089
  },
  {
   "action": {
@@ -129,177 +139,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*bit(ly)?\\.(com|ly)\\/"
   },
-  "id": 6242
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?aupetitparieur\\.com[\\/]{1,}.*[a-zA-Z0-9]{8,}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6249
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?canadafreepress\\.com\\/[\\/][\\/a-zA-Z0-9]{3,}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6250
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?canadafreepress\\.com\\/images\\/uploads\\/[a-zA-Z]{6,15}\\-.*"
-  },
-  "id": 6251
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?dailylol\\.com\\/wp-content\\/uploads\\/.*[a-zA-Z]{7,}\\-[a-z0-9]{8,}\\-"
-  },
-  "id": 6252
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?dcdirtylaundry\\.com[\\/]{1,}.*[a-zA-Z0-9]{9,}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6253
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?lovezin\\.fr[\\/]{1,}.*[a-zA-Z0-9]{7,9}\\/[a-zA-Z0-9]{10,}\\/.*"
-  },
-  "id": 6254
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?mamieastuce\\.com[\\/]{1,}.*[a-zA-Z0-9]{8,}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6255
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?meilleurpronostic\\.fr\\/[\\/][\\/a-zA-Z0-9]{3,}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6256
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?menrec\\.com\\/[\\/][\\/a-zA-Z0-9]{3,}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6257
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?naturalblaze\\.com\\/wp-content\\/uploads\\/.*[a-zA-Z0-9]{14,}\\.*"
-  },
-  "id": 6258
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?patriotnationpress\\.com[\\/][\\/a-zA-Z0-9]{8,}\\/[a-zA-Z0-9]{4,}\\/.*"
-  },
-  "id": 6259
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?reviveusa\\.com\\/[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6260
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?topminceur\\.fr\\/[a-zA-Z0-9]{6,}\\/[a-zA-Z0-9]{3,}\\/.*"
-  },
-  "id": 6261
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?toptenz\\.net\\/[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6262
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?videogamesblogger\\.com\\/wp-content\\/uploads\\/.*[a-zA-Z0-9]{8,}\\.*"
-  },
-  "id": 6263
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?vitamiiin\\.com\\/[\\/][\\/a-zA-Z0-9]{3,}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6264
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?writerscafe\\.org[\\/]{1,}.*[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*"
-  },
-  "id": 6265
+  "id": 5823
  },
  {
   "action": {
@@ -341,7 +181,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*\\.(club|news|live|online|store|tech|guru|cloud|bid|xyz|site|pro|info|online|icu|monster|buzz|fun|website|photos|re|casa|top|today|space|network|live|work|systems|ml|world|life)\\/.*"
   },
-  "id": 6647
+  "id": 6227
  },
  {
   "action": {
@@ -354,151 +194,7 @@
     "image"
    ]
   },
-  "id": 15113
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?allthingsvegas\\.com[\\/]{1,9}.*[a-zA-Z0-9]{8,}\\/[a-zA-Z0-9]{6,}.*\\.(png|jpg)",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15182
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?concomber\\.com[\\/]{1,}.*[a-zA-Z0-9]{3,}\\/[a-zA-Z0-9]{10,}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15183
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?conservativefiringline\\.com[\\/]{1,}.*[a-zA-Z0-9]{7,9}\\/[a-zA-Z0-9]{10,}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15184
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?dailylol\\.com[\\/]{1,}.*[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15185
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?ipatriot\\.com[\\/]{1,}.*[a-zA-Z0-9]{9,}\\/[a-zA-Z0-9]{6,}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15186
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?letocard\\.fr[\\/]{1,}.*[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15187
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?letocard\\.fr\\/[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15188
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?populist\\.press[\\/][\\/a-zA-Z0-9]{3,}\\/[a-zA-Z0-9]{6,}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15189
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?populist\\.press\\/[a-zA-Z0-9]{1,3}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15190
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(.+?\\.)?rightwingnews\\.com[\\/]{1,9}.*[a-zA-Z0-9]{8,}\\/[a-zA-Z0-9]{6,}\\/.*",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15191
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/motherless\\.com\\/[a-z0-9A-Z]{3,}\\.[a-z0-9A-Z]{2,}\\_",
-   "resourceTypes": [
-    "image",
-    "sub_frame"
-   ]
-  },
-  "id": 15196
+  "id": 13205
  },
  {
   "action": {
@@ -506,6 +202,384 @@
   },
   "condition": {
    "initiatorDomains": [
+    "ipatriot.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?ipatriot\\.com[\\/]{1,}.*[a-zA-Z0-9]{9,}\\/[a-zA-Z0-9]{6,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13285
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "letocard.fr"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?letocard\\.fr[\\/]{1,}.*[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13286
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "letocard.fr"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?letocard\\.fr\\/[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13287
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "lovezin.fr"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?lovezin\\.fr[\\/]{1,}.*[a-zA-Z0-9]{7,9}\\/[a-zA-Z0-9]{10,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13288
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "naturalblaze.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?naturalblaze\\.com\\/wp-content\\/uploads\\/.*[a-zA-Z0-9]{14,}\\.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13289
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "rightwingnews.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?rightwingnews\\.com[\\/]{1,9}.*[a-zA-Z0-9]{8,}\\/[a-zA-Z0-9]{6,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13290
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "topminceur.fr"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?topminceur\\.fr\\/[a-zA-Z0-9]{6,}\\/[a-zA-Z0-9]{3,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13291
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "vitamiiin.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?vitamiiin\\.com\\/[\\/][\\/a-zA-Z0-9]{3,}\\/[a-zA-Z0-9]{6,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13292
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "writerscafe.org"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(.+?\\.)?writerscafe\\.org[\\/]{1,}.*[a-zA-Z0-9]{3,7}\\/[a-zA-Z0-9]{6,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13293
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "allthingsvegas.com",
+    "aupetitparieur.com",
+    "beforeitsnews.com",
+    "bigleaguepolitics.com",
+    "canadafreepress.com",
+    "concomber.com",
+    "conservativefiringline.com",
+    "dailylol.com",
+    "ipatriot.com",
+    "mamieastuce.com",
+    "meilleurpronostic.fr",
+    "miaminewtimes.com",
+    "naturalblaze.com",
+    "patriotnationpress.com",
+    "populistpress.com",
+    "thegatewaypundit.com",
+    "thelibertydaily.com",
+    "toptenz.net",
+    "vitamiiin.com",
+    "westword.com",
+    "wltreport.com",
+    "writerscafe.org"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/.*\\.(com|net|org|fr)\\/[A-Za-z0-9]{1,}\\/[A-Za-z0-9]{1,}\\/[A-Za-z0-9]{2,}\\/.*",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 13294
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "555.porn",
+    "asiantv.fun",
+    "bdsmx.tube",
+    "bigdick.tube",
+    "blackporn.tube",
+    "hclips.com",
+    "imzog.com",
+    "inporn.com",
+    "javdaddy.com",
+    "mrgay.tube",
+    "porn555.com",
+    "pornclassic.tube",
+    "pornforrelax.com",
+    "porngo.tube",
+    "pornhits.com",
+    "pornj.com",
+    "pornl.com",
+    "pornq.com",
+    "porntop.com",
+    "pornzog.com",
+    "privatehomeclips.com",
+    "puporn.com",
+    "see.xxx",
+    "senzuri.tube",
+    "shemalez.com",
+    "sss.xxx",
+    "teenorgy.video",
+    "tubepornclassic.com",
+    "tuberel.com",
+    "txxxporn.tube",
+    "vxxx.com",
+    "xmilf.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\.[a-z]{3,5}\\/[a-z]{8,12}\\/[a-z]{8,12}\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 13505
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/t\\/[0-9]{3}\\/[0-9]{3}\\/a[0-9]{4,9}\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 13557
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "nowy.tlen.pl",
+    "poczta.o2.pl",
+    "profil.wp.pl"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https:\\/\\/[a-z]{2,14}\\.wp\\.pl\\/[a-zA-Z0-9_-]{200,915}$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 13636
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "1337x.to",
+    "anonfiles.com",
+    "cashurl.in",
+    "clicknupload.click",
+    "cloudvideo.tv",
+    "downloadpirate.com",
+    "fmovies.taxi",
+    "fmovies.world",
+    "hurawatch.at",
+    "igg-games.com",
+    "indishare.org",
+    "linksly.co",
+    "megaup.net",
+    "mixdrop.ch",
+    "mixdrop.co",
+    "mixdrp.to",
+    "mp3-convert.org",
+    "nutritioninsight.com",
+    "ouo.press",
+    "pcgamestorrents.com",
+    "pcgamestorrents.org",
+    "powvideo.net",
+    "powvldeo.cc",
+    "primewire.sc",
+    "proxyer.org",
+    "sendit.cloud",
+    "sendspace.com",
+    "shrinke.me",
+    "shrinkhere.xyz",
+    "solarmovie.to",
+    "theproxy.ws",
+    "uiz.io",
+    "up-load.io",
+    "upload.ac",
+    "uploadever.com",
+    "uploadproper.net",
+    "uploadrar.com",
+    "uploadrive.com",
+    "uplovd.com",
+    "upstream.to",
+    "userscloud.com",
+    "vidbull.tv",
+    "vidoza.co",
+    "vidoza.net",
+    "vidup.io",
+    "vumoo.life",
+    "xtits.com",
+    "yourbittorrent2.com",
+    "ziperto.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/.*\\/.*(sw[0-9a-z._-]{1,6}|\\.notify\\.).*",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 13677
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "1vag.com",
+    "4tube.com",
+    "adult-channels.com",
+    "analdin.com",
+    "biguz.net",
+    "bogrodius.com",
+    "chikiporn.com",
+    "fantasti.cc",
+    "fuqer.com",
+    "fux.com",
+    "hclips.com",
+    "heavy-r.com",
+    "hog.tv",
+    "megapornx.com",
+    "milfzr.com",
+    "mypornhere.com",
+    "niceporn.xxx",
+    "porn555.com",
+    "pornchimp.com",
+    "pornerbros.com",
+    "pornj.com",
+    "pornl.com",
+    "pornototale.com",
+    "porntube.com",
+    "sexu.com",
+    "sss.xxx",
+    "thisav.com",
+    "titkino.net",
+    "tubepornclassic.com",
+    "tuberel.com",
+    "tubev.sex",
+    "txxx.com",
+    "vidmo.org",
+    "vpornvideos.com",
+    "xozilla.com",
+    "youporn.lc",
+    "youpornhub.it",
+    "yourdailypornstars.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/.*\\/.*sw[0-9._].*",
+   "resourceTypes": [
+    "script",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 13683
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "4kporn.xxx",
     "4tube.com",
     "alotporn.com",
     "alphaporno.com",
@@ -519,7 +593,9 @@
     "bigtitslust.com",
     "bravotube.net",
     "cockmeter.com",
+    "crazyporn.xxx",
     "daftporn.com",
+    "ebony8.com",
     "erome.com",
     "exoav.com",
     "fantasti.cc",
@@ -537,8 +613,12 @@
     "hqsextube.xxx",
     "hqtube.xxx",
     "iceporn.com",
+    "imgderviches.work",
     "imx.to",
+    "its.porn",
     "katestube.com",
+    "lesbian8.com",
+    "love4porn.com",
     "lustypuppy.com",
     "manhwa18.cc",
     "maturetubehere.com",
@@ -589,196 +669,11 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*\\/[a-z0-9A-Z_]{2,15}\\.(php|jx|jsx|1ph|jsf|jz|jsm|j$)",
    "resourceTypes": [
-    "image",
     "script",
     "sub_frame"
    ]
   },
-  "id": 15197
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "maillist.*\\/t",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 15317
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "\\/t\\/[0-9]{3}\\/[0-9]{3}\\/a[0-9]{4,9}\\.js$",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 15503
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "nowy.tlen.pl",
-    "poczta.o2.pl",
-    "profil.wp.pl"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https:\\/\\/[a-z]{2,14}\\.wp\\.pl\\/[a-zA-Z0-9_-]{200,915}$",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 15610
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "123films.cc",
-    "123proxy.biz",
-    "1337x.to",
-    "animekisa.tv",
-    "anonfiles.com",
-    "aparat.cam",
-    "bdupload.asia",
-    "bitfly.io",
-    "cashurl.in",
-    "clicknupload.to",
-    "clk.ink",
-    "cloudvideo.tv",
-    "cocomanhua.com",
-    "downloadpirate.com",
-    "filmix.co",
-    "filmlinks4u.is",
-    "flashx.pw",
-    "fmovies.taxi",
-    "fmovies.world",
-    "getlink.pro",
-    "hurawatch.at",
-    "igg-games.com",
-    "indishare.org",
-    "katflys.com",
-    "linksly.co",
-    "megaup.net",
-    "mixdrop.ch",
-    "mixdrop.co",
-    "mp3-convert.org",
-    "nutritioninsight.com",
-    "ouo.press",
-    "pcgamestorrents.com",
-    "pcgamestorrents.org",
-    "pouvideo.cc",
-    "powvideo.net",
-    "powvldeo.cc",
-    "primewire.sc",
-    "proxyer.org",
-    "sendit.cloud",
-    "sendspace.com",
-    "shrinke.me",
-    "shrinkhere.xyz",
-    "solarmovie.to",
-    "theproxy.ws",
-    "uiz.io",
-    "up-load.io",
-    "upload.ac",
-    "uploadever.com",
-    "uploadproper.net",
-    "uploadrive.com",
-    "uplovd.com",
-    "upstream.to",
-    "userscloud.com",
-    "v96-surf.com",
-    "vev.red",
-    "vidbull.tv",
-    "videobin.co",
-    "vidlox.me",
-    "vidop.icu",
-    "vidoza.co",
-    "vidoza.net",
-    "vidtomp3.com",
-    "vidup.io",
-    "vumoo.life",
-    "watchtvseries.video",
-    "xtgem.com",
-    "xtits.com",
-    "yourbittorrent2.com",
-    "ziperto.com",
-    "zippyshare.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/.*\\/.*(sw[0-9a-z._-]{1,6}|\\.notify\\.).*",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 15655
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "1vag.com",
-    "4tube.com",
-    "adult-channels.com",
-    "analdin.com",
-    "biguz.net",
-    "bogrodius.com",
-    "chikiporn.com",
-    "daftsex.com",
-    "fantasti.cc",
-    "fuqer.com",
-    "fux.com",
-    "hclips.com",
-    "heavy-r.com",
-    "hog.tv",
-    "megapornx.com",
-    "milfzr.com",
-    "mypornhere.com",
-    "niceporn.xxx",
-    "porn555.com",
-    "pornchimp.com",
-    "pornerbros.com",
-    "pornj.com",
-    "pornl.com",
-    "pornototale.com",
-    "porntube.com",
-    "sexu.com",
-    "sss.xxx",
-    "thisav.com",
-    "titkino.net",
-    "tubepornclassic.com",
-    "tuberel.com",
-    "tubev.sex",
-    "txxx.com",
-    "vidmo.org",
-    "vpornvideos.com",
-    "xozilla.com",
-    "youporn.lc",
-    "youpornhub.it",
-    "yourdailypornstars.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/.*\\/.*sw[0-9._].*",
-   "resourceTypes": [
-    "script",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 15665
+  "id": 13684
  },
  {
   "action": {
@@ -794,7 +689,7 @@
     "script"
    ]
   },
-  "id": 15666
+  "id": 13685
  },
  {
   "action": {
@@ -802,7 +697,7 @@
   },
   "condition": {
    "initiatorDomains": [
-    "ebay-kleinanzeigen.de"
+    "kleinanzeigen.de"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/fdts\\.ebay-kleinanzeigen\\.de\\/[a-z0-9]{13,18}\\.js\\?",
@@ -810,23 +705,7 @@
     "script"
    ]
   },
-  "id": 15738
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "sciencedirect.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/nav\\.sciencedirect\\.com\\/[a-zA-Z0-9]{14,}\\.js",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 15739
+  "id": 13738
  },
  {
   "action": {
@@ -842,23 +721,7 @@
     "script"
    ]
   },
-  "id": 15740
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "pages.ebay.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/src\\.ebay-us\\.com\\/[_a-zA-Z0-9]{10,}\\?",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 15741
+  "id": 13739
  },
  {
   "action": {
@@ -875,7 +738,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15742
+  "id": 13740
  },
  {
   "action": {
@@ -893,7 +756,7 @@
     "script"
    ]
   },
-  "id": 15743
+  "id": 13741
  },
  {
   "action": {
@@ -901,7 +764,7 @@
   },
   "condition": {
    "initiatorDomains": [
-    "ebay-kleinanzeigen.de"
+    "kleinanzeigen.de"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/www\\.ebay-kleinanzeigen\\.de\\/[a-z0-9]{8}\\-[0-9a-f]{4}\\-",
@@ -909,24 +772,7 @@
     "script"
    ]
   },
-  "id": 15744
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "halifax-online.co.uk"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/www\\.halifax-online\\.co\\.uk\\/[A-Za-z0-9]{4,6}\\/[A-Za-z0-9]{2}\\/[A-Za-z0-9]{2}\\/",
-   "resourceTypes": [
-    "script",
-    "xmlhttprequest"
-   ]
-  },
-  "id": 15745
+  "id": 13742
  },
  {
   "action": {
@@ -943,23 +789,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15746
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "equifax.ca"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/www\\.myservices\\.equifax\\.ca\\/TSPD\\/[0-9a-f]{30,}",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 15747
+  "id": 13743
  },
  {
   "action": {
@@ -967,12 +797,39 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/www\\.newser\\.com[\\/]{1,}.*[a-zA-Z0-9]{5,}\\/[a-zA-Z0-9]{5,}\\/.*js",
+   "regexFilter": "^https?:\\/\\/(?:ak\\.)?[a-z]{6,12}\\.(?:com|net)\\/4\\/\\d{7}",
    "resourceTypes": [
-    "xmlhttprequest"
+    "main_frame",
+    "sub_frame"
    ]
   },
-  "id": 15819
+  "id": 13877
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "regexFilter": "^https?:\\/\\/[0-9a-z]*\\.?[-0-9a-z]{4,}\\.[a-z]{2,11}\\/(?:[0-9a-z]{6,8}\\/)?\\/?\\?u=[0-9a-z]{7}&o=[0-9a-z]{7}",
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame"
+   ]
+  },
+  "id": 13882
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "regexFilter": "^https?:\\/\\/[0-9a-z]*\\.?[-0-9a-z]{4,}\\.[a-z]{2,11}\\/(?:[0-9a-z]{6,8}\\/)?\\/?\\?o=[0-9a-z]{7}&u=[0-9a-z]{7}",
+   "resourceTypes": [
+    "main_frame",
+    "sub_frame"
+   ]
+  },
+  "id": 13883
  },
  {
   "action": {
@@ -985,7 +842,7 @@
     "main_frame"
    ]
   },
-  "id": 16009
+  "id": 13937
  },
  {
   "action": {
@@ -998,7 +855,7 @@
     "main_frame"
    ]
   },
-  "id": 16072
+  "id": 13984
  },
  {
   "action": {
@@ -1011,23 +868,20 @@
     "main_frame"
    ]
   },
-  "id": 16073
+  "id": 13985
  },
  {
   "action": {
    "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "top"
-   ],
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https:\\/\\/[0-9a-z]{3,}\\.[-a-z]{10,}\\.top\\/[a-z]{8}\\/\\?(?:cid=[0-9a-z]+&)?u=[0-9a-z]+&",
+   "regexFilter": "\\.com\\/proc\\.php\\?[0-9a-f]{40}$",
    "resourceTypes": [
     "main_frame"
    ]
   },
-  "id": 16075
+  "id": 14013
  },
  {
   "action": {
@@ -1045,7 +899,7 @@
     "main_frame"
    ]
   },
-  "id": 16076
+  "id": 14018
  },
  {
   "action": {
@@ -1061,7 +915,7 @@
     "main_frame"
    ]
   },
-  "id": 16077
+  "id": 14019
  },
  {
   "action": {
@@ -1077,7 +931,7 @@
     "main_frame"
    ]
   },
-  "id": 16078
+  "id": 14020
  },
  {
   "action": {
@@ -1093,7 +947,7 @@
     "main_frame"
    ]
   },
-  "id": 16081
+  "id": 14023
  },
  {
   "action": {
@@ -1108,7 +962,36 @@
     "main_frame"
    ]
   },
-  "id": 16087
+  "id": 14028
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https:\\/\\/[a-z]+\\.com\\/away\\.php\\?url=[%0-9A-z]{100,}$",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 14039
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "one",
+    "top"
+   ],
+   "regexFilter": "^https:\\/\\/(?:www\\.)?[a-z]{8,15}\\.[a-z]{3}\\/V1\\/$",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 14053
  },
  {
   "action": {
@@ -1125,7 +1008,7 @@
     "image"
    ]
   },
-  "id": 16111
+  "id": 14085
  },
  {
   "action": {
@@ -1142,7 +1025,7 @@
     "image"
    ]
   },
-  "id": 16117
+  "id": 14091
  },
  {
   "action": {
@@ -1159,7 +1042,7 @@
     "image"
    ]
   },
-  "id": 16127
+  "id": 14100
  },
  {
   "action": {
@@ -1176,7 +1059,7 @@
     "image"
    ]
   },
-  "id": 16128
+  "id": 14101
  },
  {
   "action": {
@@ -1193,7 +1076,7 @@
     "image"
    ]
   },
-  "id": 16130
+  "id": 14103
  },
  {
   "action": {
@@ -1201,12 +1084,12 @@
   },
   "condition": {
    "domainType": "firstParty",
-   "regexFilter": "\\/[A-Z]\\/[-0-9a-z]{5,}\\.com\\/(?:[0-9a-f]{2}\\/){3}[0-9a-f]{32}\\.js$",
+   "regexFilter": "\\/[A-Z]{1,2}\\/[-0-9a-z]{5,}\\.com\\/(?:[0-9a-f]{2}\\/){3}[0-9a-f]{32}\\.js$",
    "resourceTypes": [
     "script"
    ]
   },
-  "id": 16166
+  "id": 14141
  },
  {
   "action": {
@@ -1226,54 +1109,7 @@
     "script"
    ]
   },
-  "id": 16169
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "initiatorDomains": [
-    "555.porn",
-    "bdsmx.tube",
-    "bigdick.tube",
-    "blackporn.tube",
-    "hclips.com",
-    "hdzog.com",
-    "hotmovs.com",
-    "imzog.com",
-    "inporn.com",
-    "javdaddy.com",
-    "mrgay.tube",
-    "porn555.com",
-    "pornforrelax.com",
-    "porngo.tube",
-    "pornj.com",
-    "pornl.com",
-    "pornq.com",
-    "porntop.com",
-    "pornzog.com",
-    "privatehomeclips.com",
-    "puporn.com",
-    "see.xxx",
-    "senzuri.tube",
-    "shemalez.com",
-    "sss.xxx",
-    "tubepornclassic.com",
-    "tuberel.com",
-    "txxxporn.tube",
-    "voyeurhit.com",
-    "vxxx.com",
-    "xmilf.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "(?:com|porn|tube|xxx)\\/[a-z]{8,12}\\/[a-z]{8,12}\\.js$",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 16174
+  "id": 14144
  },
  {
   "action": {
@@ -1290,7 +1126,7 @@
     "script"
    ]
   },
-  "id": 16221
+  "id": 14180
  },
  {
   "action": {
@@ -1307,24 +1143,7 @@
     "script"
    ]
   },
-  "id": 16227
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "initiatorDomains": [
-    "pixsera.net"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "\\.net(\\/[a-z]{2,4}){2}\\.js$",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 16349
+  "id": 14186
  },
  {
   "action": {
@@ -1341,7 +1160,7 @@
     "script"
    ]
   },
-  "id": 16390
+  "id": 14326
  },
  {
   "action": {
@@ -1358,7 +1177,24 @@
     "script"
    ]
   },
-  "id": 16394
+  "id": 14330
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "rule34porn.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/wp-content\\/plugins\\/\\S{40,}\\.js\\?ver=",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 14338
  },
  {
   "action": {
@@ -1377,7 +1213,7 @@
     "script"
    ]
   },
-  "id": 16405
+  "id": 14342
  },
  {
   "action": {
@@ -1394,7 +1230,24 @@
     "script"
    ]
   },
-  "id": 16423
+  "id": 14360
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "eropics.to"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "eropics\\.to\\/[a-zA-Z0-9]{8}\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 14372
  },
  {
   "action": {
@@ -1403,12 +1256,60 @@
   "condition": {
    "domainType": "firstParty",
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^\\w+:\\/\\/[0-9a-z]{12}\\.dataunlocker\\.com\\/",
+   "regexFilter": "^https:\\/\\/www.ennovelas.com\\/[a-z0-9]{10}$",
    "resourceTypes": [
     "script"
    ]
   },
-  "id": 16429
+  "id": 14373
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/assets\\/jquery\\/jquery-\\d\\.\\d\\.(?:\\d\\.)?min\\.js\\?(?:v=2)?&?type=(?:adult|mainstream)$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 14377
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/js\\/\\d{2,3}eka\\d{2,3}\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 14379
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "dataunlocker.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "[a-z0-9]{12}(\\.admin)?\\.dataunlocker\\.com\\/",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 14389
  },
  {
   "action": {
@@ -1422,7 +1323,7 @@
     "script"
    ]
   },
-  "id": 16430
+  "id": 14390
  },
  {
   "action": {
@@ -1436,7 +1337,7 @@
     "script"
    ]
   },
-  "id": 16431
+  "id": 14391
  },
  {
   "action": {
@@ -1450,7 +1351,7 @@
     "script"
    ]
   },
-  "id": 16432
+  "id": 14392
  },
  {
   "action": {
@@ -1464,7 +1365,7 @@
     "script"
    ]
   },
-  "id": 16433
+  "id": 14393
  },
  {
   "action": {
@@ -1478,7 +1379,35 @@
     "script"
    ]
   },
-  "id": 16434
+  "id": 14394
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^\\w+:\\/\\/[0-9a-z]{12}\\.www\\.sidsplumbing\\.ie\\/",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 14395
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^\\w+:\\/\\/[0-9a-z]{12}\\.www\\.kodalia\\.com\\/",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 14396
  },
  {
   "action": {
@@ -1496,7 +1425,7 @@
     "script"
    ]
   },
-  "id": 16436
+  "id": 14398
  },
  {
   "action": {
@@ -1510,7 +1439,41 @@
     "script"
    ]
   },
-  "id": 16458
+  "id": 14403
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "bdsmx.tube",
+    "bigdick.tube",
+    "desiporn.tube",
+    "hclips.com",
+    "hdzog.com",
+    "hdzog.tube",
+    "hotmovs.com",
+    "inporn.com",
+    "porn555.com",
+    "pornzog.com",
+    "shemalez.com",
+    "tporn.xxx",
+    "tubepornclassic.com",
+    "txxx.com",
+    "upornia.com",
+    "vjav.com",
+    "vxxx.com",
+    "youteenporn.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/.*\\/[a-z]{4,}\\/[a-z]{4,}\\.js",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 14404
  },
  {
   "action": {
@@ -1530,7 +1493,7 @@
     "sub_frame"
    ]
   },
-  "id": 16513
+  "id": 14467
  },
  {
   "action": {
@@ -1545,23 +1508,14 @@
     "sub_frame"
    ],
    "initiatorDomains": [
-    "123movies-one.com",
     "123movies.net",
-    "123moviesnow.site",
-    "123proxy.biz",
-    "123series.ru",
     "1cloudfile.com",
     "adblockstreamtape.art",
     "adblockstreamtape.site",
-    "animebee.to",
-    "asianembed.io",
     "baomay01.com",
-    "bdupload.asia",
     "bowfile.com",
-    "cast4u.xyz",
     "clipconverter.cc",
     "cricplay2.xyz",
-    "daddylive.click",
     "desiupload.co",
     "dood.la",
     "dood.pm",
@@ -1575,74 +1529,42 @@
     "dulu.to",
     "embedstream.me",
     "eplayvid.net",
-    "extreme-down.plus",
-    "fclecteur.com",
-    "filmestorrents.net",
     "flashx.net",
     "flashx.tv",
     "fmovies.ps",
     "fmovies.to",
     "gdriveplayer.us",
-    "gdtot.nl",
-    "gogoplay.io",
-    "gogoplay1.com",
-    "gogoplay4.com",
     "gospeljingle.com",
-    "hdfilme.cx",
     "hexupload.net",
     "hurawatch.at",
     "kiss-anime.org",
     "krunkercentral.com",
-    "moviepapa.art",
     "movies2watch.tv",
-    "moviesin.co",
-    "myflixer.ac",
     "myflixer.it",
     "myflixer.pw",
-    "myflixer.site",
     "myflixer.to",
     "myflixer.today",
-    "myflixer.ws",
     "myflixertv.to",
-    "noob4cast.com",
-    "pkcast123.me",
     "powvideo.net",
-    "powvldeo.me",
-    "projectfreetv2.com",
     "proxyer.org",
-    "putlockers.gs",
     "scloud.online",
     "sflix.to",
-    "shortlinkto.icu",
     "skidrowcodex.net",
-    "slreamplay.cc",
-    "socolive.pro",
-    "sports-stream.click",
-    "steanplay.cc",
-    "streamsport.icu",
     "streamtape.com",
-    "streanplay.cc",
     "theproxy.ws",
-    "uplinkto.one",
-    "uptobhai.com",
+    "uptobhai.ink",
     "vidbam.org",
     "vidembed.cc",
     "vidembed.io",
-    "vidembed.me",
     "videobin.co",
-    "videovard.sx",
     "vidlii.com",
     "vidoo.org",
-    "vipbox.lc",
-    "watchseries.ninja",
-    "wawacity.work",
-    "wizhdlive.xyz",
-    "yodbox.com"
+    "vipbox.lc"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*\\.(club|bid|biz|xyz|site|pro|info|online|icu|monster|buzz|website|biz|re|casa|top|one|space|network|live|systems|ml|world|life|co)\\/.*"
   },
-  "id": 16712
+  "id": 14682
  },
  {
   "action": {
@@ -1652,13 +1574,15 @@
    "domainType": "thirdParty",
    "excludedResourceTypes": [
     "main_frame",
-    "media"
+    "media",
+    "sub_frame"
    ],
    "initiatorDomains": [
     "123movies.tw",
+    "19turanosephantasia.com",
     "1cloudfile.com",
-    "2embed.to",
-    "9xmovies.app",
+    "20demidistance9elongations.com",
+    "745mingiestblissfully.com",
     "9xupload.asia",
     "adblockeronstape.me",
     "adblockeronstreamtape.me",
@@ -1667,19 +1591,22 @@
     "adblockstreamtape.art",
     "adblockstreamtape.fr",
     "adblockstreamtape.site",
+    "adblocktape.online",
+    "adblocktape.store",
+    "adblocktape.wiki",
+    "allsport.icu",
     "allsports.icu",
     "animepl.xyz",
     "aotonline.co",
+    "asianstream.pro",
     "audaciousdefaulthouse.com",
     "bowfile.com",
-    "capodeportes.fr",
-    "cast4u.xyz",
     "clicknupload.to",
     "cloudvideo.tv",
     "coloredmanga.com",
+    "cr7sports.us",
     "cut-y.net",
-    "daddylive.click",
-    "daddylive.fun",
+    "daddylivehd.sx",
     "dailyuploads.net",
     "databasegdriveplayer.xyz",
     "deltabit.co",
@@ -1692,6 +1619,9 @@
     "dood.watch",
     "dood.wf",
     "dood.ws",
+    "dood.yt",
+    "dooood.com",
+    "dramacool.sr",
     "drivebuzz.icu",
     "dslayeronline.com",
     "dulu.to",
@@ -1700,26 +1630,30 @@
     "embedsb.com",
     "embedsito.com",
     "embedstream.me",
+    "enjoy4k.xyz",
     "eplayvid.net",
     "evoload.io",
+    "f123movies.com",
     "fembed-hd.com",
     "fileclub.cyou",
     "filemoon.sx",
+    "files.im",
     "filmy4wap.ink",
     "flashx.net",
+    "flexy.stream",
     "fmovies.ps",
+    "footyhunter3.xyz",
+    "gameshdlive.xyz",
     "gamovideo.com",
     "gaybeeg.info",
     "gdriveplayer.pro",
     "givemenbastreams.com",
     "gogoanimes.org",
     "gogohd.net",
-    "gogoplay.io",
-    "gogoplay4.com",
     "goload.io",
     "gomo.to",
     "goodstream.org",
-    "hdfilme.cx",
+    "greaseball6eventual20.com",
     "hdtoday.ru",
     "hexupload.net",
     "housecardsummerbutton.com",
@@ -1728,18 +1662,21 @@
     "kesini.in",
     "kickassanime.ro",
     "kickasstorrents.to",
-    "klubsports.click",
     "letsupload.io",
     "linkhub.icu",
     "linksafe.cc",
     "livetvon.click",
+    "lookmyimg.com",
     "luxubu.review",
+    "mangageko.com",
     "mangareader.cc",
+    "mangareader.to",
     "mangovideo.pw",
     "maxsport.one",
     "membed.net",
     "meomeo.pw",
     "mirrorace.org",
+    "mixdroop.bz",
     "mixdrop.bz",
     "mixdrop.ch",
     "mixdrop.click",
@@ -1748,87 +1685,87 @@
     "mixdrop.sx",
     "mixdrop.to",
     "mixdrops.xyz",
+    "mixdrp.co",
+    "movies2watch.tv",
     "mp4upload.com",
-    "mycast.icu",
-    "mystream.to",
+    "myflixer.to",
     "nelion.me",
-    "nocensor.biz",
+    "nsw2u.org",
+    "onlinevideoconverter.com",
     "ovagames.com",
     "owodeuwu.xyz",
+    "pahaplayers.click",
+    "papahd.club",
     "pcgamestorrents.com",
-    "playtube.ws",
     "pouvideo.cc",
-    "projectfreetv2.com",
     "proxyer.org",
     "putlocker-website.com",
-    "putlockers.gs",
-    "putlockertv.one",
-    "radamel.icu",
     "reputationsheriffkennethsand.com",
+    "rintor.space",
     "rojadirecta.watch",
-    "sbthe.com",
     "scloud.online",
     "send.cm",
+    "sflix.to",
     "shavetape.cash",
-    "shortlinkto.icu",
     "skidrowcodex.net",
     "smallencode.me",
     "soccerstreamslive.co",
+    "sportshighlights.club",
+    "stapadblockuser.art",
+    "stapadblockuser.click",
+    "stapadblockuser.info",
+    "stapadblockuser.xyz",
     "stape.fun",
     "stapewithadblock.beauty",
     "stapewithadblock.monster",
     "stapewithadblock.xyz",
     "stayonline.pro",
     "strcloud.in",
+    "streamadblocker.com",
+    "streamadblocker.store",
+    "streamadblocker.xyz",
+    "streamingsite.net",
     "streamlare.com",
-    "streamsport.icu",
     "streamta.pe",
     "streamta.site",
     "streamtape.com",
+    "streamtape.to",
     "streamtapeadblock.art",
+    "streamtapeadblockuser.art",
     "streamtapeadblockuser.homes",
-    "streamz.ws",
-    "streamzz.to",
-    "strikeout.cc",
+    "streamtapeadblockuser.monster",
+    "streamtapeadblockuser.xyz",
+    "strikeout.ws",
     "strtape.cloud",
     "strtape.tech",
     "strtapeadblock.club",
     "strtapeadblocker.xyz",
     "strtapewithadblock.art",
     "strtapewithadblock.xyz",
-    "superstream123.net",
     "supervideo.tv",
-    "telerium.icu",
+    "tapewithadblock.com",
+    "tapewithadblock.org",
+    "telyn610zoanthropy.com",
     "thepiratebay0.org",
     "theproxy.ws",
     "thevideome.com",
+    "toxitabellaeatrebates306.com",
     "un-block-voe.net",
     "upbam.org",
-    "uplinkto.one",
     "upload-4ever.com",
     "uproxy.to",
     "upstream.to",
-    "uptobhai.com",
-    "uqload.com",
-    "userload.co",
-    "userload.xyz",
+    "uptobhai.ink",
+    "uqload.co",
     "userscloud.com",
     "v-o-e-unblock.com",
-    "vanfem.com",
     "vidbam.org",
-    "vidcloud.click",
-    "vidembed.me",
-    "videovard.sx",
-    "vidlox.me",
     "vido.lol",
     "vidshar.org",
     "vidsrc.me",
     "vidsrc.stream",
     "vipleague.im",
-    "vipleague.tv",
-    "vivo.sx",
-    "voe-un-block.com",
-    "voe-unblock.com",
+    "vipleague.st",
     "voe-unblock.net",
     "voe.bar",
     "voe.sx",
@@ -1837,44 +1774,21 @@
     "voeunblck.com",
     "voeunblk.com",
     "voeunblock.com",
-    "voeunblock1.com",
-    "voeunblock2.com",
-    "voeunblock3.com",
     "vostfree.online",
     "vudeo.io",
     "vudeo.net",
     "vumoo.to",
-    "vupload.com",
     "watch-free.tv",
+    "watchkobe.info",
     "watchserieshd.live",
-    "wowlive.info",
-    "yodbox.com",
+    "yesmovies.mn",
     "youtube4kdownloader.com",
     "zoro.to"
    ],
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.com\\/.*"
+   "regexFilter": "^https?:\\/\\/[0-9a-z]{5,}\\.com\\/.*"
   },
-  "id": 16713
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "domainType": "thirdParty",
-   "excludedResourceTypes": [
-    "main_frame",
-    "media"
-   ],
-   "initiatorDomains": [
-    "apiyoutube.cc",
-    "clicknupload.to"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.xyz\\/.*"
-  },
-  "id": 16714
+  "id": 14683
  },
  {
   "action": {
@@ -1885,7 +1799,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*(com|net|top|xyz)\\/(bundle|warning|style|bootstrap|brand|reset|jquery-ui|styles|error|logo|index|favicon|star|header)\\.(png|css)\\?[A-Za-z0-9]{30,}.*"
   },
-  "id": 16715
+  "id": 14684
  },
  {
   "action": {
@@ -1898,7 +1812,7 @@
     "stylesheet"
    ]
   },
-  "id": 16894
+  "id": 14855
  },
  {
   "action": {
@@ -1911,7 +1825,7 @@
     "stylesheet"
    ]
   },
-  "id": 16895
+  "id": 14856
  },
  {
   "action": {
@@ -1924,7 +1838,7 @@
     "image"
    ]
   },
-  "id": 16906
+  "id": 14865
  },
  {
   "action": {
@@ -1937,7 +1851,72 @@
     "image"
    ]
   },
-  "id": 16907
+  "id": 14866
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.buzz\\/[+\\/0-9a-zA-Z]{140,}$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 14868
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.info\\/[+\\/0-9a-zA-Z]{140,}$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 14869
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.lol\\/[+\\/0-9a-zA-Z]{140,}$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 14870
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.one\\/[+\\/0-9a-zA-Z]{140,}$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 14871
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.xyz\\/[+\\/0-9a-zA-Z]{140,}$",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 14872
  },
  {
   "action": {
@@ -1951,7 +1930,7 @@
     "script"
    ]
   },
-  "id": 16992
+  "id": 14964
  },
  {
   "action": {
@@ -1960,13 +1939,13 @@
   "condition": {
    "domainType": "thirdParty",
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/(?:www\\.|[0-9a-z]{7,10}\\.)?[-0-9a-z]{5,}\\.com\\/(?:[0-9a-f]{2}\\/){2,3}[0-9a-f]{32}\\.js",
+   "regexFilter": "^https?:\\/\\/(?:www\\.|[0-9a-z]{7,10}\\.)?[-0-9a-z]{5,}\\.com\\/\\/?(?:[0-9a-f]{2}\\/){2,3}[0-9a-f]{32}\\.js",
    "resourceTypes": [
     "script",
     "xmlhttprequest"
    ]
   },
-  "id": 16993
+  "id": 14965
  },
  {
   "action": {
@@ -1981,7 +1960,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 16994
+  "id": 14966
  },
  {
   "action": {
@@ -1995,7 +1974,7 @@
     "script"
    ]
   },
-  "id": 16995
+  "id": 14967
  },
  {
   "action": {
@@ -2003,13 +1982,13 @@
   },
   "condition": {
    "domainType": "thirdParty",
-   "regexFilter": "^https?:\\/\\/[-a-z]{6,16}\\.com?\\/[a-d][-\\.\\/_A-Za-z][DHWXm][-\\.\\/_A-Za-z][59FVZ][-\\.\\/_A-Za-z][6swyz][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z]{22,162}$",
+   "regexFilter": "^https?:\\/\\/[-a-z]{6,}\\.com?\\/[a-d][-\\.\\/_A-Za-z][DHWXm][-\\.\\/_A-Za-z][59FVZ][-\\.\\/_A-Za-z][6swyz][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z]{22,162}$",
    "resourceTypes": [
     "script",
     "xmlhttprequest"
    ]
   },
-  "id": 16996
+  "id": 14968
  },
  {
   "action": {
@@ -2017,13 +1996,13 @@
   },
   "condition": {
    "domainType": "thirdParty",
-   "regexFilter": "^https?:\\/\\/[-a-z]{6,16}\\.info\\/[a-d][-\\.\\/_A-Za-z][DHWXm][-\\.\\/_A-Za-z][59FVZ][-\\.\\/_A-Za-z][6swyz][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z]{22,162}$",
+   "regexFilter": "^https?:\\/\\/[-a-z]{6,}\\.info\\/[a-d][-\\.\\/_A-Za-z][DHWXm][-\\.\\/_A-Za-z][59FVZ][-\\.\\/_A-Za-z][6swyz][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z]{22,162}$",
    "resourceTypes": [
     "script",
     "xmlhttprequest"
    ]
   },
-  "id": 16997
+  "id": 14969
  },
  {
   "action": {
@@ -2031,13 +2010,13 @@
   },
   "condition": {
    "domainType": "thirdParty",
-   "regexFilter": "^https?:\\/\\/[-a-z]{6,16}\\.pro\\/[a-d][-\\.\\/_A-Za-z][DHWXm][-\\.\\/_A-Za-z][59FVZ][-\\.\\/_A-Za-z][6swyz][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z]{22,162}$",
+   "regexFilter": "^https?:\\/\\/[-a-z]{6,}\\.pro\\/[a-d][-\\.\\/_A-Za-z][DHWXm][-\\.\\/_A-Za-z][59FVZ][-\\.\\/_A-Za-z][6swyz][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z]{22,162}$",
    "resourceTypes": [
     "script",
     "xmlhttprequest"
    ]
   },
-  "id": 16998
+  "id": 14970
  },
  {
   "action": {
@@ -2045,13 +2024,13 @@
   },
   "condition": {
    "domainType": "thirdParty",
-   "regexFilter": "^https?:\\/\\/[-a-z]{6,16}\\.xyz\\/[a-d][-\\.\\/_A-Za-z][DHWXm][-\\.\\/_A-Za-z][59FVZ][-\\.\\/_A-Za-z][6swyz][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z]{22,162}$",
+   "regexFilter": "^https?:\\/\\/[-a-z]{6,}\\.xyz\\/[a-d][-\\.\\/_A-Za-z][DHWXm][-\\.\\/_A-Za-z][59FVZ][-\\.\\/_A-Za-z][6swyz][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z][-\\.\\/_A-Za-z][-\\/_0-9a-zA-Z]{22,162}$",
    "resourceTypes": [
     "script",
     "xmlhttprequest"
    ]
   },
-  "id": 16999
+  "id": 14971
  },
  {
   "action": {
@@ -2060,12 +2039,12 @@
   "condition": {
    "domainType": "thirdParty",
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https:\\/\\/aj[0-9a-z]{2}\\d{2}\\.online\\/[0-9a-z]{8}\\.js$",
+   "regexFilter": "^https:\\/\\/(?:cdn77\\.)?aj[0-9a-z]{2}\\d{2}\\.online\\/[0-9a-z]{8}\\.js$",
    "resourceTypes": [
     "script"
    ]
   },
-  "id": 17032
+  "id": 14995
  },
  {
   "action": {
@@ -2074,12 +2053,26 @@
   "condition": {
    "domainType": "thirdParty",
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/[a-z]{8,15}\\.(?:com|net|xyz)\\/5\\/\\d{7}(?:\\?_=\\d+)?$",
+   "regexFilter": "^https:\\/\\/(?:cdn77\\.)?aj[0-9a-z]{2}\\d{2}\\.bid\\/[0-9a-z]{8}\\.js$",
    "resourceTypes": [
     "script"
    ]
   },
-  "id": 17053
+  "id": 14996
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/[a-z]{8,15}\\.(?:com|net|xyz)\\/5\\/\\d{6,7}(?:\\?_=\\d+)?$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15018
  },
  {
   "action": {
@@ -2093,7 +2086,7 @@
     "script"
    ]
   },
-  "id": 17054
+  "id": 15019
  },
  {
   "action": {
@@ -2107,7 +2100,38 @@
     "script"
    ]
   },
-  "id": 17055
+  "id": 15020
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/[a-z]{8,15}\\.(?:com|net)\\/tag\\.min\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15021
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "excludedInitiatorDomains": [
+    "edu",
+    "gov"
+   ],
+   "regexFilter": "^https:\\/\\/[a-z]{5,6}\\.com\\/script\\/[a-z]{3,8}\\d?(\\.min)?\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15057
  },
  {
   "action": {
@@ -2121,7 +2145,7 @@
     "script"
    ]
   },
-  "id": 17091
+  "id": 15058
  },
  {
   "action": {
@@ -2129,12 +2153,16 @@
   },
   "condition": {
    "domainType": "thirdParty",
-   "regexFilter": "^https?:\\/\\/cdn\\.[a-z]{4,6}\\.xyz\\/app\\.js$",
+   "excludedInitiatorDomains": [
+    "edu",
+    "gov"
+   ],
+   "regexFilter": "^https:\\/\\/www\\.[a-z]{8,14}\\.com\\/[a-z]{1,4}\\.js$",
    "resourceTypes": [
     "script"
    ]
   },
-  "id": 17100
+  "id": 15065
  },
  {
   "action": {
@@ -2148,7 +2176,118 @@
     "script"
    ]
   },
-  "id": 17107
+  "id": 15079
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "excludedInitiatorDomains": [
+    "edu",
+    "gov"
+   ],
+   "regexFilter": "^https?:\\/\\/cdn\\.[a-z]{5,7}\\.com\\/app\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15098
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/cdn\\.[a-z]{4,6}\\.xyz\\/app\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15099
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{8,15}\\.club\\/[%0-9a-zA-Z]{170,}$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15106
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{8,15}\\.fun\\/[%0-9a-zA-Z]{170,}$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15107
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{8,15}\\.hair\\/[%0-9a-zA-Z]{170,}$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15108
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/[a-z]{8,15}\\.work\\/[%0-9a-zA-Z]{170,}$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15109
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/[a-z]{8,15}\\.xyz\\/[%0-9a-zA-Z]{170,}$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15110
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https:\\/\\/[a-z]{3,5}\\.[a-z]{10,14}\\.top\\/[a-z]{10,16}\\/[a-z]{5,6}$",
+   "resourceTypes": [
+    "script",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 15122
  },
  {
   "action": {
@@ -2161,7 +2300,7 @@
     "script"
    ]
   },
-  "id": 17122
+  "id": 15133
  },
  {
   "action": {
@@ -2175,7 +2314,7 @@
     "script"
    ]
   },
-  "id": 17127
+  "id": 15139
  },
  {
   "action": {
@@ -2193,7 +2332,52 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17130
+  "id": 15142
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "initiatorDomains": [
+    "deltabit.co",
+    "nzbstars.com",
+    "papahd.club",
+    "vostfree.online"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/www\\..*.com\\/[a-z]{1,}\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 15144
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "excludedInitiatorDomains": [
+    "127.0.0.1",
+    "bitrix24.life",
+    "ccc.ac",
+    "localhost",
+    "mempool.space",
+    "scribble.ninja",
+    "scribble.website",
+    "traineast.co.uk"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/[0-9a-z]{5,}\\.(digital|website|life|guru|space)\\/[a-z0-9]{6,}\\/",
+   "resourceTypes": [
+    "script",
+    "xmlhttprequest"
+   ]
+  },
+  "id": 15145
  },
  {
   "action": {
@@ -2207,7 +2391,7 @@
     "script"
    ]
   },
-  "id": 17132
+  "id": 15146
  },
  {
   "action": {
@@ -2230,7 +2414,7 @@
     "script"
    ]
   },
-  "id": 17139
+  "id": 15152
  },
  {
   "action": {
@@ -2244,7 +2428,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17155
+  "id": 15170
  },
  {
   "action": {
@@ -2258,7 +2442,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17156
+  "id": 15171
  },
  {
   "action": {
@@ -2271,7 +2455,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17157
+  "id": 15172
  },
  {
   "action": {
@@ -2284,7 +2468,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17158
+  "id": 15173
  },
  {
   "action": {
@@ -2298,7 +2482,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17161
+  "id": 15176
  },
  {
   "action": {
@@ -2307,16 +2491,35 @@
   "condition": {
    "domainType": "thirdParty",
    "initiatorDomains": [
-    "buzz",
-    "xyz"
+    "1link.club",
+    "2embed.to",
+    "apiyoutube.cc",
+    "bestmp3converter.com",
+    "clicknupload.red",
+    "clicknupload.to",
+    "daddyhd.com",
+    "dood.wf",
+    "gameshdlive.xyz",
+    "hitstreams.live",
+    "mp4upload.com",
+    "poscitech.click",
+    "poscitech.com",
+    "sportcast.life",
+    "sportskart.click",
+    "streamhub.to",
+    "streamvid.net",
+    "tvshows88.live",
+    "uploadbank.com",
+    "wecast.to",
+    "worldstreams.click"
    ],
    "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https?:\\/\\/[0-9a-z]{7,}\\.com\\/[0-9a-z]{8,}\\?(?:adb|key|shu)=[0-9a-z]+",
+   "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.xyz\\/.*",
    "resourceTypes": [
-    "sub_frame"
+    "xmlhttprequest"
    ]
   },
-  "id": 17169
+  "id": 15191
  },
  {
   "action": {
@@ -2329,7 +2532,7 @@
     "sub_frame"
    ]
   },
-  "id": 17174
+  "id": 15201
  },
  {
   "action": {
@@ -2342,7 +2545,7 @@
     "sub_frame"
    ]
   },
-  "id": 17175
+  "id": 15202
  },
  {
   "action": {
@@ -2356,7 +2559,7 @@
     "sub_frame"
    ]
   },
-  "id": 17182
+  "id": 15208
  },
  {
   "action": {
@@ -2364,60 +2567,63 @@
   },
   "condition": {
    "domainType": "thirdParty",
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "([0-9]{1,3}\\.){3}[0-9]{1,3}.*(\\/proxy|\\.wasm|\\.wsm|\\.wa)$",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.buzz\\/[+\\/0-9a-zA-Z]{400,}$",
    "resourceTypes": [
-    "websocket"
+    "sub_frame"
    ]
   },
-  "id": 17202
+  "id": 15209
  },
  {
   "action": {
-   "type": "allow"
+   "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "dragontea.ink"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "\\/openrtb2\\/auction$",
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.info\\/[+\\/0-9a-zA-Z]{400,}$",
    "resourceTypes": [
-    "xmlhttprequest"
+    "sub_frame"
    ]
   },
-  "id": 19028
+  "id": 15210
  },
  {
   "action": {
-   "type": "allow"
+   "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "dragontea.ink"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "\\/openrtb$",
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.lol\\/[+\\/0-9a-zA-Z]{400,}$",
    "resourceTypes": [
-    "xmlhttprequest"
+    "sub_frame"
    ]
   },
-  "id": 19029
+  "id": 15211
  },
  {
   "action": {
-   "type": "allow"
+   "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "dragontea.ink"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "\\/prebid$",
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.one\\/[+\\/0-9a-zA-Z]{400,}$",
    "resourceTypes": [
-    "xmlhttprequest"
+    "sub_frame"
    ]
   },
-  "id": 19030
+  "id": 15212
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "regexFilter": "^https?:\\/\\/[a-z]{7,16}\\.xyz\\/[+\\/0-9a-zA-Z]{400,}$",
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 15213
  }
 ]

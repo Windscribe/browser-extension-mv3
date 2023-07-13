@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2019-present Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,67 +18,67 @@
 
     Home: https://github.com/gorhill/uBlock
 
-    The scriptlets below are meant to be injected only into a
-    web page context.
 */
 
 /* jshint esversion:11 */
 
 'use strict';
 
-/******************************************************************************/
-
-/// name abort-current-script
-/// alias acs
-/// alias abort-current-inline-script
-/// alias acis
+// ruleset: rus-0
 
 /******************************************************************************/
 
 // Important!
 // Isolate from global scope
+
 (function uBOL_abortCurrentScript() {
 
 /******************************************************************************/
 
-// rus-0
+const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = [{"a":["document.createElement","/ru-n4p|ua-n4p|загрузка.../"]},{"a":["setInterval","reload"]},{"a":["atob","void"]},{"a":["$","contextmenu"]},{"a":["document.oncontextmenu"]},{"a":["$","append"]},{"a":["$","mainContainer"]},{"a":["decodeURIComponent","/63cc63/"]},{"a":["String.fromCharCode","var _0x"]},{"a":["Math.floor","AdSense"]},{"a":["decodeURIComponent","getAdBlockStatus"]},{"a":["document.querySelector","/banner/"]},{"a":["Math.floor","adregain_wall"]},{"a":["document.createElement","Math.random"],"n":["new.fastpic.org"]},{"a":["addEventListener","DOMContentLoaded"],"n":["new.fastpic.org"]},{"a":["document.querySelector","contentDocument"],"n":["new.fastpic.org"]},{"a":["JSON.parse","atob"]},{"a":["decodeURIComponent","fromCharCode"]},{"a":["XMLHttpRequest","document.querySelectorAll"]},{"a":["JSON.parse"]},{"a":["__require","/clickunder/"]},{"a":["fuckAdBlock","undefined"]},{"a":["jQuery","backgroundImage"]},{"a":["document.createElement","isBlob"]},{"a":["document.createElement"]},{"a":["$","get"]},{"a":["setTimeout","adblockwarn"]},{"a":["document.createElement","delete window"]},{"a":["redram","/загрузка.../"]},{"a":["document.addEventListener","adsBlocked"]},{"a":["disableSelection","reEnable"]},{"a":["document.getElementsByTagName","unselectable"]},{"a":["$","divWrapper"]},{"a":["document.querySelectorAll","popMagic"]},{"a":["clickExplorer"]},{"a":["document.createElement","ExternalChromePop"]},{"a":["$","1xbet"]},{"a":["document.createElement","atob"]},{"a":["document.getElementById","composedPath"]},{"a":["document.onkeydown"]},{"a":["Math.random"]},{"a":["$","init_x_place"]},{"a":["document.createElement","String.fromCharCode"]}];
+const argsList = ["[\"$\",\"1xbet\"]","[\"$\",\"append\"]","[\"$\",\"contextmenu\"]","[\"$\",\"divWrapper\"]","[\"$\",\"get\"]","[\"$\",\"init_x_place\"]","[\"$\",\"mainContainer\"]","[\"$\",\"showPopupextra\"]","[\"JSON.parse\"]","[\"JSON.parse\",\"atob\"]","[\"Math.floor\",\"adregain_wall\"]","[\"Math.random\"]","[\"Object.defineProperty\",\"rcBuf\"]","[\"String.fromCharCode\",\"var _0x\"]","[\"XMLHttpRequest\",\"document.querySelectorAll\"]","[\"XMLHttpRequest\",\"llasalbbubrrl\"]","[\"__require\",\"/clickunder/\"]","[\"addEventListener\",\"DOMContentLoaded\"]","[\"atob\",\"void\"]","[\"clickExplorer\"]","[\"decodeURIComponent\",\"/63cc63/\"]","[\"decodeURIComponent\",\"fromCharCode\"]","[\"disableSelection\",\"reEnable\"]","[\"document.addEventListener\",\"adsBlocked\"]","[\"document.createElement\"]","[\"document.createElement\",\"/ru-n4p|ua-n4p|загрузка.../\"]","[\"document.createElement\",\"ExternalChromePop\"]","[\"document.createElement\",\"Math.random\"]","[\"document.createElement\",\"atob\"]","[\"document.createElement\",\"delete window\"]","[\"document.getElementsByTagName\",\"unselectable\"]","[\"document.oncontextmenu\"]","[\"document.onkeydown\"]","[\"encodeURIComponent\",\"rcBuf\"]","[\"fetch\"]","[\"fuckAdBlock\",\"undefined\"]","[\"jQuery\",\"backgroundImage\"]","[\"redram\",\"/загрузка.../\"]","[\"setInterval\",\"Math.random\"]","[\"setInterval\",\"reload\"]","[\"setTimeout\",\"adblockwarn\"]","[\"window.onload\",\"_uWnd\"]","[\"Math.floor\",\"AdSense\"]","[\"document.getElementById\",\"composedPath\"]","[\"document.getElementsByTagName\",\"AMSP.loadAsset\"]","[\"document.querySelectorAll\",\"popMagic\"]","[\"$\",\"blockWarnClass\"]","[\"$\",\"mimicTopClass\"]","[\"dispatchEvent\",\"zoomdecorate\"]"];
 
-const hostnamesMap = new Map([["1news.com.ua",0],["365news.biz",0],["4mama.ua",0],["4studio.com.ua",0],["7days-ua.com",0],["agroter.com.ua",0],["alter-science.info",0],["apnews.com.ua",0],["argumentiru.com",0],["asiaplustj.info",0],["autotema.org.ua",0],["autotheme.info",0],["beauty.ua",0],["begemot-media.com",0],["begemot.media",0],["chas.cv.ua",0],["cheline.com.ua",0],["cikavosti.com",0],["ck.ua",0],["cn.ua",0],["comments.ua",0],["cvnews.cv.ua",0],["day.kyiv.ua",0],["depo.ua",0],["dnews.dn.ua",0],["dv-gazeta.info",0],["dyvys.info",0],["economistua.com",0],["edinstvennaya.ua",0],["ekovolga.com",0],["expert.in.ua",0],["fedpress.ru",0],["firtka.if.ua",0],["forpost.media",0],["fraza.com",0],["glavnoe.ua",0],["glavnoe24.ru",0],["glavpost.ua",0],["golosinfo.com.ua",0],["gorodkiev.com.ua",0],["gov.ua",0],["grad.ua",0],["greenpost.ua",0],["ifnews.org.ua",0],["inforpost.com",0],["inkorr.com",0],["itechua.com",0],["iz.com.ua",0],["kh.ua",0],["khersonline.net",0],["kolizhanka.com.ua",0],["kr.ua",0],["krymr.com",0],["kurskcity.ru",0],["liga.net",[0,10,11]],["lvnews.org.ua",0],["mega-music.pro",0],["mi100.info",0],["mignews.com.ua",0],["mind.ua",0],["moirebenok.ua",0],["mycompplus.ru",0],["nakanune.ru",0],["narodna-pravda.ua",0],["nashbryansk.ru",0],["news24today.info",0],["newsua.one",0],["ngp-ua.info",0],["nnews.com.ua",0],["novavlada.info",0],["novynarnia.com",0],["np.pl.ua",0],["odessa-life.od.ua",0],["ogo.ua",0],["oukr.info",0],["panoptikon.org",0],["pg11.ru",0],["pik.net.ua",0],["pingvin.pro",0],["pl.com.ua",0],["planetanovosti.com",0],["podpricelom.com.ua",0],["politnavigator.net",0],["poltava365.com",0],["portal.lviv.ua",0],["praktika-vlasti.com.ua",0],["prm.ua",0],["procherk.info",0],["profootball.ua",0],["promin.cv.ua",0],["radiosvoboda.org",0],["ratel.kz",0],["real-vin.com",0],["reporter.ua",0],["risu.ua",0],["rivne.media",0],["rivnenews.com.ua",0],["rusjev.net",0],["russianshowbiz.info",0],["rv.ua",0],["rvnews.rv.ua",0],["semobile.com.ua",0],["showdream.org",0],["sport-kr.com.ua",0],["strana.news",0],["strana.today",0],["sud.ua",0],["superdom.ua",0],["te.ua",0],["telekritika.ua",0],["tenews.org.ua",[0,40]],["theageoffootball.com",0],["treebuna.info",0],["tverigrad.ru",0],["tverisport.ru",0],["tvoymalysh.com.ua",0],["uainfo.org",0],["uanews.org.ua",0],["uatv.ua",0],["ukranews.com",0],["ukrrain.com",0],["unn.com.ua",0],["vchaspik.ua",0],["versii.if.ua",0],["viva.ua",0],["vlast.kz",0],["vnn24.ru",0],["volnorez.com.ua",0],["volyninfa.com.ua",0],["volyninfo.com",0],["volynpost.com",0],["volynua.com",0],["vsviti.com.ua",0],["westnews.info",0],["womo.ua",0],["wworld.com.ua",0],["zbirna.com",0],["zp.ua",0],["24boxing.com.ua",1],["bilshe.com",1],["businessua.com",1],["f1analytic.com",1],["football-ukraine.com",1],["footballgazeta.com",1],["footballtransfer.com.ua",1],["glianec.com",1],["nashamama.com",1],["sportanalytic.com",1],["stravy.net",1],["zdorovia.com.ua",1],["allboxing.ru",2],["asn.in.ua",3],["brigadtv.ru",4],["castle-serial.ru",4],["ehlita.ru",4],["gameout.ru",4],["itevonklass.ru",4],["izmailovtv.xyz",4],["karateltv.ru",4],["lyucifer.tv",4],["m-z.tv",4],["my-expert.ru",[4,30,31]],["pokazuha.ru",4],["samomdele.tv",4],["saske.tv",4],["sorvigolovatv.ru",4],["taynyeistiny.ru",4],["transformator220.ru",4],["budport.com.ua",5],["conversion.im",6],["daz3d.ru",7],["dc-marvel.org",8],["gidonline.eu",8],["dmod.cc",9],["draug.ru",9],["modsforwot.ru",9],["dynamo.kiev.ua",[10,11]],["epravda.com.ua",[10,11]],["football.ua",[10,11]],["isport.ua",[10,11]],["pravda.com.ua",[10,11]],["www.i.ua",[10,11]],["electric-house.ru",12],["euro-football.ru",12],["forums.rusmedserv.com",12],["liveresult.ru",12],["smolensk-auto.ru",12],["smolensk-auto.site",12],["stroi-help.ru",12],["fastpic.org",[13,14,15]],["karpatnews.in.ua",13],["kaztorka.org",13],["kg-portal.ru",13],["fenglish.site",16],["mp3spy.cc",16],["filmisub.com",[17,18]],["kinofen.net",[17,18]],["freescreens.ru",19],["imgbase.ru",19],["imgcach.ru",19],["imgclick.ru",19],["payforpic.ru",19],["picclick.ru",19],["picclock.ru",19],["picforall.ru",19],["gdespaces.com",20],["gdespaces.net",20],["spac.me",20],["spac1.com",20],["spac1.info",20],["spac1.me",20],["spac1.net",20],["spac1.org",20],["spac1.ru",20],["spaces-blogs.com",20],["spaces.im",20],["spcs.me",20],["spcs.social",20],["strip2.in",20],["strip2.xxx",20],["gwss.ru",21],["hardwareluxx.ru",22],["kinogo.cc",23],["livesx.online",23],["xn--80aikhbrhr.xn--j1amh",23],["krolik.biz",24],["l2top.ru",25],["livesport.ws",26],["lrepacks.net",27],["marieclaire.ua",28],["mod-wot.ru",29],["penzainform.ru",32],["pornopuk.com",33],["huyamba.tv",33],["piratam.net",33],["piratca.net",33],["porn720.biz",33],["sexitorrent.com",33],["sextor.org",33],["domahatv.com",33],["torrent-pirat.com",33],["xtorrent.net",33],["rapidzona.tv",33],["xxxrip.net",33],["xxxtor.com",33],["hentai-share.one",33],["pravvest.ru",34],["rutor.in",35],["shaiba.kz",36],["shanson320.ru",37],["vesti.ua",37],["skam.online",38],["stalker-mods.clan.su",39],["stalker-mods.su",39],["tut.by",41],["www.vesti.ru",42]]);
+const hostnamesMap = new Map([["shaiba.kz",0],["budport.com.ua",1],["asn.in.ua",2],["penzainform.ru",3],["l2top.ru",4],["tut.by",5],["conversion.im",6],["bez-smenki.ru",7],["freescreens.ru",8],["imgbase.ru",8],["imgcach.ru",8],["imgclick.ru",8],["payforpic.ru",8],["picclick.ru",8],["picclock.ru",8],["picforall.ru",8],["fenglish.site",9],["mp3spy.cc",9],["electric-house.ru",10],["euro-football.ru",10],["forums.rusmedserv.com",10],["liveresult.ru",10],["smolensk-auto.ru",10],["smolensk-auto.site",10],["stroi-help.ru",10],["tenews.org.ua",[11,25]],["agroreview.com",[12,33]],["dc-marvel.org",13],["gidonline.eu",13],["filmisub.com",[14,21]],["kinofen.net",[14,21]],["pikabu.ru",15],["gdespaces.com",16],["gdespaces.net",16],["google-cloud.services",16],["spac.me",16],["spac.run",16],["spac.wtf",16],["spac1.com",16],["spac1.info",16],["spac1.me",16],["spac1.net",16],["spac1.org",16],["spac1.ru",16],["spaces-blogs.com",16],["spaces.im",16],["spcs-files.xyz",16],["spcs.bio",16],["spcs.global",16],["spcs.life",16],["spcs.me",16],["spcs.network",16],["spcs.news",16],["spcs.pro",16],["spcs.pub",16],["spcs.reviews",16],["spcs.social",16],["strip2.in",16],["strip2.xxx",16],["usersporn.com",16],["fastpic.org",[17,27]],["allboxing.ru",18],["pravvest.ru",19],["daz3d.ru",20],["my-expert.ru",[22,30,31]],["mod-wot.ru",23],["krolik.biz",24],["1news.com.ua",25],["365news.biz",25],["4mama.ua",25],["4studio.com.ua",25],["7days-ua.com",25],["agroter.com.ua",25],["alter-science.info",25],["apnews.com.ua",25],["argumentiru.com",25],["asiaplustj.info",25],["autotema.org.ua",25],["autotheme.info",25],["avtodream.org",25],["beauty.ua",25],["begemot-media.com",25],["begemot.media",25],["chas.cv.ua",25],["cheline.com.ua",25],["cikavosti.com",25],["ck.ua",25],["cn.ua",25],["comments.ua",25],["cvnews.cv.ua",25],["day.kyiv.ua",25],["depo.ua",25],["dv-gazeta.info",25],["dyvys.info",25],["economistua.com",25],["edinstvennaya.ua",25],["ekovolga.com",25],["expert.in.ua",25],["fedpress.ru",25],["firtka.if.ua",25],["forpost.media",25],["fraza.com",25],["gazeta1.com",25],["glavnoe.ua",25],["glavnoe24.ru",25],["glavpost.ua",25],["golosinfo.com.ua",25],["gorodkiev.com.ua",25],["gov.ua",25],["grad.ua",25],["greenpost.ua",25],["ifnews.org.ua",25],["inforpost.com",25],["inkorr.com",25],["itechua.com",25],["kh.ua",25],["khersonline.net",25],["kolizhanka.com.ua",25],["kop.net.ua",25],["kr.ua",25],["krymr.com",25],["kurskcity.ru",25],["liga.net",25],["lvnews.org.ua",25],["mega-music.pro",25],["mi100.info",25],["mind.ua",25],["moirebenok.ua",25],["mycompplus.ru",25],["nakanune.ru",25],["narodna-pravda.ua",25],["nashbryansk.ru",25],["news24today.info",25],["newsua.one",25],["ngp-ua.info",25],["nnews.com.ua",25],["novavlada.info",25],["novynarnia.com",25],["np.pl.ua",25],["odessa-life.od.ua",25],["ogo.ua",25],["oukr.info",25],["panoptikon.org",25],["pg11.ru",25],["pik.net.ua",25],["pingvin.pro",25],["pl.com.ua",25],["planetanovosti.com",25],["podpricelom.com.ua",25],["politnavigator.net",25],["poltava365.com",25],["portal.lviv.ua",25],["prm.ua",25],["procherk.info",25],["profootball.ua",25],["promin.cv.ua",25],["radiosvoboda.org",25],["ratel.kz",25],["real-vin.com",25],["reporter.ua",25],["risu.ua",25],["rivne.media",25],["rivnenews.com.ua",25],["rusjev.net",25],["russianshowbiz.info",25],["rv.ua",25],["rvnews.rv.ua",25],["showdream.org",25],["sport-kr.com.ua",25],["strana.news",25],["strana.today",25],["sud.ua",25],["te.ua",25],["telekritika.ua",25],["theageoffootball.com",25],["treebuna.info",25],["tverigrad.ru",25],["tverisport.ru",25],["tvoymalysh.com.ua",25],["uainfo.org",25],["uanews.org.ua",25],["uatv.ua",25],["ukranews.com",25],["ukrrain.com",25],["unn.com.ua",25],["vchaspik.ua",25],["versii.if.ua",25],["viva.ua",25],["vlast.kz",25],["vnn24.ru",25],["volnorez.com.ua",25],["volyninfa.com.ua",25],["volyninfo.com",25],["volynpost.com",25],["volynua.com",25],["vsviti.com.ua",25],["westnews.info",25],["womo.ua",25],["wworld.com.ua",25],["zbirna.com",25],["zp.ua",25],["rutor.in",26],["kaztorka.org",27],["kg-portal.ru",27],["nnm-club.lib",[27,38]],["nnm-club.me",[27,38]],["nnmclub.ro",[27,38]],["nnmclub.to",[27,38]],["shanson320.ru",28],["vesti.ua",28],["lrepacks.net",29],["brigadtv.ru",31],["castle-serial.ru",31],["ehlita.ru",31],["gameout.ru",31],["itevonklass.ru",31],["izmailovtv.xyz",31],["karateltv.ru",31],["lyucifer.tv",31],["m-z.tv",31],["pokazuha.ru",31],["samomdele.tv",31],["saske.tv",31],["sorvigolovatv.ru",31],["taynyeistiny.ru",31],["transformator220.ru",31],["stalker-mods.clan.su",32],["stalker-mods.su",32],["ritsatv.ru",34],["gwss.ru",35],["hardwareluxx.ru",36],["marieclaire.ua",37],["24boxing.com.ua",39],["bilshe.com",39],["businessua.com",39],["f1analytic.com",39],["football-ukraine.com",39],["footballgazeta.com",39],["footballtransfer.com.ua",39],["glianec.com",39],["nashamama.com",39],["sportanalytic.com",39],["stravy.net",39],["zdorovia.com.ua",39],["livesport.ws",40],["techmusic.ru",41],["dmod.cc",42],["draug.ru",42],["modsforwot.ru",42],["skam.online",43],["pornopuk.com",45],["huyamba.tv",45],["piratam.net",45],["piratca.net",45],["porn720.biz",45],["sexitorrent.com",45],["sextor.org",45],["domahatv.com",45],["torrent-pirat.com",45],["xtorrent.net",45],["rapidzona.tv",45],["xxxrip.net",45],["xxxtor.com",45],["hentai-share.one",45],["minigames.mail.ru",46],["mmminigames.mail.ru",47],["afisha.ru",48],["autorambler.ru",48],["championat.com",48],["eda.ru",48],["gazeta.ru",48],["lenta.ru",48],["letidor.ru",48],["moslenta.ru",48],["motor.ru",48],["passion.ru",48],["quto.ru",48],["rambler.ru",48],["wmj.ru",48]]);
+
+const entitiesMap = new Map([["hdrezka",44],["rezka",44],["pornoakt",45]]);
+
+const exceptionsMap = new Map([["new.fastpic.org",[17,27]]]);
 
 /******************************************************************************/
 
-// Issues to mind before changing anything:
-//  https://github.com/uBlockOrigin/uBlock-issues/issues/2154
+function abortCurrentScript(
+    arg1,
+    arg2,
+    arg3
+) {
+    runAtHtmlElement(( ) => {
+        abortCurrentScriptCore(arg1, arg2, arg3);
+    });
+}
 
-const scriptlet = (
-    target = '',
-    needle = '',
-    context = ''
-) => {
+function abortCurrentScriptCore(
+    arg1 = '',
+    arg2 = '',
+    arg3 = ''
+) {
+    const details = typeof arg1 !== 'object'
+        ? { target: arg1, needle: arg2, context: arg3 }
+        : arg1;
+    const { target = '', needle = '', context = '' } = details;
+    if ( typeof target !== 'string' ) { return; }
     if ( target === '' ) { return; }
-    const reRegexEscape = /[.*+?^${}()|[\]\\]/g;
-    const reNeedle = (( ) => {
-        if ( needle === '' ) { return /^/; }
-        if ( /^\/.+\/$/.test(needle) ) {
-            return new RegExp(needle.slice(1,-1));
-        }
-        return new RegExp(needle.replace(reRegexEscape, '\\$&'));
-    })();
-    const reContext = (( ) => {
-        if ( context === '' ) { return; }
-        if ( /^\/.+\/$/.test(context) ) {
-            return new RegExp(context.slice(1,-1));
-        }
-        return new RegExp(context.replace(reRegexEscape, '\\$&'));
-    })();
+    const safe = safeSelf();
+    const reNeedle = patternToRegex(needle);
+    const reContext = patternToRegex(context);
+    const thisScript = document.currentScript;
     const chain = target.split('.');
     let owner = window;
     let prop;
     for (;;) {
         prop = chain.shift();
         if ( chain.length === 0 ) { break; }
+        if ( prop in owner === false ) { break; }
         owner = owner[prop];
         if ( owner instanceof Object === false ) { return; }
     }
@@ -91,8 +91,9 @@ const scriptlet = (
         value = owner[prop];
         desc = undefined;
     }
-    const magic = String.fromCharCode(Date.now() % 26 + 97) +
-                  Math.floor(Math.random() * 982451653 + 982451653).toString(36);
+    const log = shouldLog(details);
+    const debug = shouldDebug(details);
+    const exceptionToken = getExceptionToken();
     const scriptTexts = new WeakMap();
     const getScriptText = elem => {
         let text = elem.textContent;
@@ -116,69 +117,176 @@ const scriptlet = (
         return text;
     };
     const validate = ( ) => {
+        if ( debug ) { debugger; }  // jshint ignore: line
         const e = document.currentScript;
         if ( e instanceof HTMLScriptElement === false ) { return; }
-        if ( reContext !== undefined && reContext.test(e.src) === false ) {
-            return;
-        }
-        if ( reNeedle.test(getScriptText(e)) === false ) { return; }
-        throw new ReferenceError(magic);
+        if ( e === thisScript ) { return; }
+        if ( context !== '' && reContext.test(e.src) === false ) { return; }
+        if ( log && e.src !== '' ) { safe.uboLog(`matched src: ${e.src}`); }
+        const scriptText = getScriptText(e);
+        if ( reNeedle.test(scriptText) === false ) { return; }
+        if ( log ) { safe.uboLog(`matched script text: ${scriptText}`); }
+        throw new ReferenceError(exceptionToken);
     };
-    Object.defineProperty(owner, prop, {
-        get: function() {
-            validate();
-            return desc instanceof Object
-                ? desc.get.call(owner)
-                : value;
-        },
-        set: function(a) {
-            validate();
-            if ( desc instanceof Object ) {
-                desc.set.call(owner, a);
-            } else {
-                value = a;
+    if ( debug ) { debugger; }  // jshint ignore: line
+    try {
+        Object.defineProperty(owner, prop, {
+            get: function() {
+                validate();
+                return desc instanceof Object
+                    ? desc.get.call(owner)
+                    : value;
+            },
+            set: function(a) {
+                validate();
+                if ( desc instanceof Object ) {
+                    desc.set.call(owner, a);
+                } else {
+                    value = a;
+                }
             }
-        }
-    });
-    const oe = window.onerror;
-    window.onerror = function(msg) {
-        if ( typeof msg === 'string' && msg.includes(magic) ) {
-            return true;
-        }
-        if ( oe instanceof Function ) {
-            return oe.apply(this, arguments);
-        }
-    }.bind();
-};
-
-/******************************************************************************/
-
-let hn;
-try { hn = document.location.hostname; } catch(ex) { }
-while ( hn ) {
-    if ( hostnamesMap.has(hn) ) {
-        let argsIndices = hostnamesMap.get(hn);
-        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
-        for ( const argsIndex of argsIndices ) {
-            const details = argsList[argsIndex];
-            if ( details.n && details.n.includes(hn) ) { continue; }
-            try { scriptlet(...details.a); } catch(ex) {}
-        }
-    }
-    if ( hn === '*' ) { break; }
-    const pos = hn.indexOf('.');
-    if ( pos !== -1 ) {
-        hn = hn.slice(pos + 1);
-    } else {
-        hn = '*';
+        });
+    } catch(ex) {
+        if ( log ) { safe.uboLog(ex); }
     }
 }
 
+function runAtHtmlElement(fn) {
+    if ( document.documentElement ) {
+        fn();
+        return;
+    }
+    const observer = new MutationObserver(( ) => {
+        observer.disconnect();
+        fn();
+    });
+    observer.observe(document, { childList: true });
+}
+
+function patternToRegex(pattern, flags = undefined) {
+    if ( pattern === '' ) { return /^/; }
+    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+    if ( match !== null ) {
+        return new RegExp(match[1], match[2] || flags);
+    }
+    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+}
+
+function getExceptionToken() {
+    const token =
+        String.fromCharCode(Date.now() % 26 + 97) +
+        Math.floor(Math.random() * 982451653 + 982451653).toString(36);
+    const oe = self.onerror;
+    self.onerror = function(msg, ...args) {
+        if ( typeof msg === 'string' && msg.includes(token) ) { return true; }
+        if ( oe instanceof Function ) {
+            return oe.call(this, msg, ...args);
+        }
+    }.bind();
+    return token;
+}
+
+function safeSelf() {
+    if ( scriptletGlobals.has('safeSelf') ) {
+        return scriptletGlobals.get('safeSelf');
+    }
+    const safe = {
+        'Object_defineProperty': Object.defineProperty.bind(Object),
+        'RegExp': self.RegExp,
+        'RegExp_test': self.RegExp.prototype.test,
+        'RegExp_exec': self.RegExp.prototype.exec,
+        'addEventListener': self.EventTarget.prototype.addEventListener,
+        'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'log': console.log.bind(console),
+        'uboLog': function(...args) {
+            if ( args.length === 0 ) { return; }
+            if ( `${args[0]}` === '' ) { return; }
+            this.log('[uBO]', ...args);
+        },
+    };
+    scriptletGlobals.set('safeSelf', safe);
+    return safe;
+}
+
+function shouldDebug(details) {
+    if ( details instanceof Object === false ) { return false; }
+    return scriptletGlobals.has('canDebug') && details.debug;
+}
+
+function shouldLog(details) {
+    if ( details instanceof Object === false ) { return false; }
+    return scriptletGlobals.has('canDebug') && details.log;
+}
+
+/******************************************************************************/
+
+const hnParts = [];
+try { hnParts.push(...document.location.hostname.split('.')); }
+catch(ex) { }
+const hnpartslen = hnParts.length;
+if ( hnpartslen === 0 ) { return; }
+
+const todoIndices = new Set();
+const tonotdoIndices = [];
+
+// Exceptions
+if ( exceptionsMap.size !== 0 ) {
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        const excepted = exceptionsMap.get(hn);
+        if ( excepted ) { tonotdoIndices.push(...excepted); }
+    }
+    exceptionsMap.clear();
+}
+
+// Hostname-based
+if ( hostnamesMap.size !== 0 ) {
+    const collectArgIndices = hn => {
+        let argsIndices = hostnamesMap.get(hn);
+        if ( argsIndices === undefined ) { return; }
+        if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+        for ( const argsIndex of argsIndices ) {
+            if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+            todoIndices.add(argsIndex);
+        }
+    };
+    for ( let i = 0; i < hnpartslen; i++ ) {
+        const hn = hnParts.slice(i).join('.');
+        collectArgIndices(hn);
+    }
+    collectArgIndices('*');
+    hostnamesMap.clear();
+}
+
+// Entity-based
+if ( entitiesMap.size !== 0 ) {
+    const n = hnpartslen - 1;
+    for ( let i = 0; i < n; i++ ) {
+        for ( let j = n; j > i; j-- ) {
+            const en = hnParts.slice(i,j).join('.');
+            let argsIndices = entitiesMap.get(en);
+            if ( argsIndices === undefined ) { continue; }
+            if ( typeof argsIndices === 'number' ) { argsIndices = [ argsIndices ]; }
+            for ( const argsIndex of argsIndices ) {
+                if ( tonotdoIndices.includes(argsIndex) ) { continue; }
+                todoIndices.add(argsIndex);
+            }
+        }
+    }
+    entitiesMap.clear();
+}
+
+// Apply scriplets
+for ( const i of todoIndices ) {
+    try { abortCurrentScript(...JSON.parse(argsList[i])); }
+    catch(ex) {}
+}
 argsList.length = 0;
-hostnamesMap.clear();
 
 /******************************************************************************/
 
 })();
 
 /******************************************************************************/
+
+void 0;

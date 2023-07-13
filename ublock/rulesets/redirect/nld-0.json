@@ -8,26 +8,6 @@
   },
   "condition": {
    "initiatorDomains": [
-    "goplay.be"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||imasdk.googleapis.com/js/sdkloader/ima3.js"
-  },
-  "id": 641,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
     "spel.nl"
    ],
    "isUrlFilterCaseSensitive": false,
@@ -36,8 +16,8 @@
    ],
    "urlFilter": "||googlesyndication.com/pagead/show_ads.js"
   },
-  "id": 642,
-  "priority": 1
+  "id": 619,
+  "priority": 2
  },
  {
   "action": {
@@ -56,7 +36,7 @@
    ],
    "urlFilter": "||medialaancdn.be/vtm_od/prerolls/"
   },
-  "id": 643,
-  "priority": 1
+  "id": 620,
+  "priority": 2
  }
 ]

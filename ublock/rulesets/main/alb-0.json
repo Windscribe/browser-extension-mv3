@@ -287,8 +287,9 @@
   },
   "condition": {
    "domainType": "thirdParty",
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||gjc.gjirafa.com"
+   "requestDomains": [
+    "gjc.gjirafa.com"
+   ]
   },
   "id": 23
  },

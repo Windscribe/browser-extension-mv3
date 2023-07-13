@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "minimum_chrome_version": "96",
+  "minimum_chrome_version": "105",
   "name": "Windscribe - Free Proxy and Ad Blocker",
   "description": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
   "background": { "service_worker": "backgroundScripts.js", "type": "module" },
@@ -35,46 +35,6 @@
     "128": "icon128.png"
   },
   "default_locale": "en",
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "icon16.png",
-        "icon48.png",
-        "icon128.png",
-        "/web_accessible_resources/empty",
-        "/web_accessible_resources/noop.js",
-        "/web_accessible_resources/2x2.png",
-        "/web_accessible_resources/1x1.gif",
-        "/web_accessible_resources/32x32.png",
-        "/web_accessible_resources/3x2.png",
-        "/web_accessible_resources/nofab.js",
-        "/web_accessible_resources/hd-main.js",
-        "/web_accessible_resources/ligatus_angular-tag.js",
-        "/web_accessible_resources/popads.js",
-        "/web_accessible_resources/google-analytics_analytics.js",
-        "/web_accessible_resources/amazon_apstag.js",
-        "/web_accessible_resources/google-analytics_cx_api.js",
-        "/web_accessible_resources/googletagservices_gpt.js",
-        "/web_accessible_resources/scorecardresearch_beacon.js",
-        "/web_accessible_resources/google-analytics_ga.js",
-        "/web_accessible_resources/addthis_widget.js",
-        "/web_accessible_resources/outbrain-widget.js",
-        "/web_accessible_resources/fingerprint2.js",
-        "/web_accessible_resources/amazon_ads.js",
-        "/web_accessible_resources/noop.txt",
-        "/web_accessible_resources/noop-vmap1.0.xml",
-        "/web_accessible_resources/noop.html",
-        "/web_accessible_resources/noop-0.1s.mp3",
-        "/web_accessible_resources/noop-1s.mp4",
-        "/web_accessible_resources/noop-0.5s.mp3",
-        "/web_accessible_resources/googlesyndication_adsbygoogle.js",
-        "/web_accessible_resources/click2load.html",
-        "/web_accessible_resources/noeval-silent.js"
-      ],
-      "matches": ["<all_urls>"],
-      "use_dynamic_url": true
-    }
-  ],
   "declarative_net_request": {
     "rule_resources": [
       {
@@ -121,6 +81,11 @@
         "id": "grc-0",
         "enabled": false,
         "path": "/rulesets/main/grc-0.json"
+      },
+      {
+        "id": "hrv-0",
+        "enabled": false,
+        "path": "/rulesets/main/hrv-0.json"
       },
       {
         "id": "hun-0",
@@ -176,6 +141,11 @@
         "id": "lva-0",
         "enabled": false,
         "path": "/rulesets/main/lva-0.json"
+      },
+      {
+        "id": "mkd-0",
+        "enabled": false,
+        "path": "/rulesets/main/mkd-0.json"
       },
       {
         "id": "nld-0",
@@ -253,9 +223,29 @@
         "path": "/rulesets/main/adguard-spyware-url.json"
       },
       {
-        "id": "cname-trackers",
-        "enabled": true,
-        "path": "/rulesets/main/cname-trackers.json"
+        "id": "annoyances-cookies",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-cookies.json"
+      },
+      {
+        "id": "annoyances-overlays",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-overlays.json"
+      },
+      {
+        "id": "annoyances-social",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-social.json"
+      },
+      {
+        "id": "annoyances-widgets",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-widgets.json"
+      },
+      {
+        "id": "annoyances-others",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-others.json"
       },
       {
         "id": "stevenblack-hosts",
@@ -263,5 +253,46 @@
         "path": "/rulesets/main/stevenblack-hosts.json"
       }
     ]
-  }
+  },
+  "storage": {
+    "managed_schema": "managed_storage.json"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "/web_accessible_resources/empty",
+        "/web_accessible_resources/noop.txt",
+        "/web_accessible_resources/noop.js",
+        "/web_accessible_resources/noop.css",
+        "/web_accessible_resources/2x2.png",
+        "/web_accessible_resources/1x1.gif",
+        "/web_accessible_resources/32x32.png",
+        "/web_accessible_resources/nofab.js",
+        "/web_accessible_resources/hd-main.js",
+        "/web_accessible_resources/google-ima.js",
+        "/web_accessible_resources/popads.js",
+        "/web_accessible_resources/google-analytics_analytics.js",
+        "/web_accessible_resources/googlesyndication_adsbygoogle.js",
+        "/web_accessible_resources/amazon_apstag.js",
+        "/web_accessible_resources/doubleclick_instream_ad_status.js",
+        "/web_accessible_resources/google-analytics_cx_api.js",
+        "/web_accessible_resources/googletagservices_gpt.js",
+        "/web_accessible_resources/scorecardresearch_beacon.js",
+        "/web_accessible_resources/google-analytics_ga.js",
+        "/web_accessible_resources/addthis_widget.js",
+        "/web_accessible_resources/outbrain-widget.js",
+        "/web_accessible_resources/fingerprint2.js",
+        "/web_accessible_resources/amazon_ads.js",
+        "/web_accessible_resources/noop-vmap1.0.xml",
+        "/web_accessible_resources/noop-0.1s.mp3",
+        "/web_accessible_resources/noop.html",
+        "/web_accessible_resources/noop-1s.mp4",
+        "/web_accessible_resources/nobab2.js",
+        "/web_accessible_resources/click2load.html",
+        "/web_accessible_resources/noeval-silent.js"
+      ],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": true
+    }
+  ]
 }

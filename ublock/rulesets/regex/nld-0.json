@@ -10,20 +10,7 @@
     "image"
    ]
   },
-  "id": 266
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https\\:\\/\\/executive-people\\.nl\\/media\\/[\\d]{6}\\/[\\d]+\\.jpg$",
-   "resourceTypes": [
-    "image"
-   ]
-  },
-  "id": 323
+  "id": 341
  },
  {
   "action": {
@@ -36,6 +23,62 @@
     "script"
    ]
   },
-  "id": 489
+  "id": 477
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https?:\\/\\/(?:www\\.)?webcams?\\-?[a-z]+\\.nl\\/media\\/banners2?\\/",
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 501
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "https\\:\\/\\/pt\\.[\\w]{6}\\.com\\/embed\\/tbplyr\\/",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 573
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "https\\:\\/\\/pt\\.[\\w]{6}\\.com\\/api\\/video-promotion\\/v1\\/get-content-url\\/",
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "undefined": [
+    "/pt\\.[\\w]{6}\\.com/"
+   ]
+  },
+  "id": 594
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "https\\:\\/\\/pt\\.[\\w]{6}\\.com\\/tube-player\\/",
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 602
  }
 ]

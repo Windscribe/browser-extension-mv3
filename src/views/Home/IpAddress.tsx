@@ -63,7 +63,7 @@ const IpAddress: ThemeUiElement = () => {
             sx={{
               position: 'absolute',
               ml: '4px',
-              fill: 'secondaryText',
+              fill: 'halfWhite',
             }}
           />
         )}

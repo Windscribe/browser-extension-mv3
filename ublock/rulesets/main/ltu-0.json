@@ -24,6 +24,9 @@
    "type": "block"
   },
   "condition": {
+   "excludedInitiatorDomains": [
+    "pigubeakcijos.lt"
+   ],
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/baneriai^"
   },
@@ -94,6 +97,10 @@
    "type": "block"
   },
   "condition": {
+   "excludedInitiatorDomains": [
+    "procolor.lt",
+    "rde.lt"
+   ],
    "isUrlFilterCaseSensitive": false,
    "urlFilter": ".lt/images/banners^"
   },
@@ -3703,6 +3710,10 @@
   },
   "condition": {
    "initiatorDomains": [
+    "ermitazas.lt",
+    "gitana.lt",
+    "itwork.lt",
+    "kmobiles.lt",
     "www.topocentras.lt"
    ],
    "requestDomains": [
@@ -4316,11 +4327,8 @@
    "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "lnk.lt"
-   ],
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||p.jwpcdn.com/*/vast.js"
+   "urlFilter": "||vilniausskelbimai.lt/adv^"
   },
   "id": 426
  },
@@ -4329,8 +4337,11 @@
    "type": "block"
   },
   "condition": {
+   "initiatorDomains": [
+    "lnk.lt"
+   ],
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||serveris.lnk.lt/*/ad.js?"
+   "urlFilter": "||p.jwpcdn.com/*/vast.js"
   },
   "id": 427
  },
@@ -4340,7 +4351,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||serveris.lnk.lt/*ad.xml?"
+   "urlFilter": "||serveris.lnk.lt/*/ad.js?"
   },
   "id": 428
  },
@@ -4350,9 +4361,19 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.vz.lt/files/antsrauto/countsjs.php^"
+   "urlFilter": "||serveris.lnk.lt/*ad.xml?"
   },
   "id": 429
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||static.vz.lt/files/antsrauto/countsjs.php^"
+  },
+  "id": 430
  },
  {
   "action": {
@@ -4365,7 +4386,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||v.fwmrm.net/ad/g/1?"
   },
-  "id": 430
+  "id": 431
  },
  {
   "action": {
@@ -4381,12 +4402,23 @@
     "rkl.draugas.lt",
     "skpiramide.lt",
     "trackers.adtarget.me",
-    "trafficbass.com",
-    "tygafso.com",
-    "vswcdns.com"
+    "trafficbass.com"
    ]
   },
-  "id": 431
+  "id": 432
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "/reklamjuostes^"
+  },
+  "id": 433
  },
  {
   "action": {
@@ -4402,7 +4434,7 @@
    ],
    "urlFilter": "/images/texts/"
   },
-  "id": 432
+  "id": 434
  },
  {
   "action": {
@@ -4418,7 +4450,7 @@
    ],
    "urlFilter": "images/banners/"
   },
-  "id": 433
+  "id": 435
  },
  {
   "action": {
@@ -4434,7 +4466,7 @@
    ],
    "urlFilter": "pav/"
   },
-  "id": 434
+  "id": 436
  },
  {
   "action": {
@@ -4450,7 +4482,7 @@
    ],
    "urlFilter": "uploads/images/"
   },
-  "id": 435
+  "id": 437
  },
  {
   "action": {
@@ -4463,7 +4495,7 @@
    ],
    "urlFilter": "||15min.lt/*_300x400-"
   },
-  "id": 436
+  "id": 438
  },
  {
   "action": {
@@ -4476,7 +4508,7 @@
    ],
    "urlFilter": "||15min.lt/*_300x400px-*.jpg^"
   },
-  "id": 437
+  "id": 439
  },
  {
   "action": {
@@ -4489,7 +4521,7 @@
    ],
    "urlFilter": "||15min.lt/*_baneriai_*.jpg^"
   },
-  "id": 438
+  "id": 440
  },
  {
   "action": {
@@ -4502,7 +4534,7 @@
    ],
    "urlFilter": "||15min.lt/static/*/200x300_*.jpg^"
   },
-  "id": 439
+  "id": 441
  },
  {
   "action": {
@@ -4515,7 +4547,7 @@
    ],
    "urlFilter": "||15min.lt/static/*/300x400-*.jpg^"
   },
-  "id": 440
+  "id": 442
  },
  {
   "action": {
@@ -4528,7 +4560,7 @@
    ],
    "urlFilter": "||15min.lt/static/cache/*-adblock-banner-*.jpg^"
   },
-  "id": 441
+  "id": 443
  },
  {
   "action": {
@@ -4541,7 +4573,7 @@
    ],
    "urlFilter": "||www.technologijos.lt/upload/image/iliustracijos/11/980-lt.gif"
   },
-  "id": 442
+  "id": 444
  },
  {
   "action": {
@@ -4554,7 +4586,7 @@
    ],
    "urlFilter": "||elektronika.lt/*150x32_"
   },
-  "id": 443
+  "id": 445
  },
  {
   "action": {
@@ -4567,7 +4599,20 @@
    ],
    "urlFilter": "||elektronika.lt/*150x32."
   },
-  "id": 444
+  "id": 446
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||zarasuose.lt/reklama_"
+  },
+  "id": 448
  },
  {
   "action": {
@@ -4585,7 +4630,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 446
+  "id": 449
  },
  {
   "action": {
@@ -4593,7 +4638,39 @@
   },
   "condition": {
    "initiatorDomains": [
-    "skytech.lt"
+    "baitukas.lt",
+    "kilobaitas.lt",
+    "primtech.lt",
+    "technoringas.lt",
+    "trajektorija.lt",
+    "valmanta.lt"
+   ],
+   "requestDomains": [
+    "mokilizingas.lt"
+   ],
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 450
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "avitela.lt",
+    "bigbox.lt",
+    "ermitazas.lt",
+    "fortakas.lt",
+    "itsupply.lt",
+    "iwow.lt",
+    "kilobaitas.lt",
+    "primtech.lt",
+    "skytech.lt",
+    "technorama.lt",
+    "topocentras.lt"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
@@ -4601,7 +4678,7 @@
    ],
    "urlFilter": "||sblizingas.lt/skaiciuokle/"
   },
-  "id": 447
+  "id": 451
  },
  {
   "action": {
@@ -4617,18 +4694,7 @@
    ],
    "urlFilter": "||serveris.lnk.lt/files/x/*/*.mp4"
   },
-  "id": 448
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||15min.lt/cached/tgif"
-  },
-  "id": 449
+  "id": 452
  },
  {
   "action": {
@@ -4642,7 +4708,7 @@
    ],
    "urlFilter": "pakalne.lt/wp-content/uploads/"
   },
-  "id": 450
+  "id": 453
  },
  {
   "action": {
@@ -4656,7 +4722,7 @@
    ],
    "urlFilter": "||elektromarkt.lt/assets/img/marketing/940x450/"
   },
-  "id": 451
+  "id": 454
  },
  {
   "action": {
@@ -4670,7 +4736,7 @@
    ],
    "urlFilter": "||imones.lt/companies/banners/*.gif"
   },
-  "id": 452
+  "id": 455
  },
  {
   "action": {
@@ -4684,7 +4750,7 @@
    ],
    "urlFilter": "||imones.lt/companies/sponsors/*.gif"
   },
-  "id": 453
+  "id": 456
  },
  {
   "action": {
@@ -4698,7 +4764,7 @@
    ],
    "urlFilter": "||itiketini-faktai.online/reklamos/"
   },
-  "id": 454
+  "id": 457
  },
  {
   "action": {
@@ -4712,7 +4778,7 @@
    ],
    "urlFilter": "||lkl.lt/banners_new/"
   },
-  "id": 455
+  "id": 458
  },
  {
   "action": {
@@ -4726,7 +4792,7 @@
    ],
    "urlFilter": "||static.autoplius.lt/static/images/desktop/landing_page/featured_promotion/ap_loan_promotion_08.png"
   },
-  "id": 456
+  "id": 459
  },
  {
   "action": {
@@ -4740,7 +4806,7 @@
    ],
    "urlFilter": "||technologijos.lt/upload/image/*/980x200.jpg"
   },
-  "id": 457
+  "id": 460
  },
  {
   "action": {
@@ -4754,7 +4820,7 @@
    ],
    "urlFilter": "||vela.lt/images/additional/footmate3.jpg"
   },
-  "id": 458
+  "id": 461
  },
  {
   "action": {
@@ -4771,7 +4837,21 @@
    ],
    "urlFilter": "||plus.lrytas.lt/staticbanners/*1200x250_300x370.jpg"
   },
-  "id": 459
+  "id": 462
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||aktualu.com/pop.js"
+  },
+  "id": 463
  },
  {
   "action": {
@@ -4786,35 +4866,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 460
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "media"
-   ],
-   "urlFilter": "||kinas.tv/info.mp4"
-  },
-  "id": 461
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "domainType": "firstParty",
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "media"
-   ],
-   "urlFilter": "||161.97.106.129/info.mp4"
-  },
-  "id": 462
+  "id": 464
  },
  {
   "action": {
@@ -4834,18 +4886,16 @@
     "aleja.lt",
     "banners.adnetmedia.lt",
     "darnipora.lt",
-    "eads.lt",
     "keliones.lt",
     "komi.lt",
     "on-line.lt",
     "revive.imones.lt",
     "skaitliukas.eu",
     "static.grupinis.lt",
-    "top100.lt",
-    "xlixpdhpfpnlor.xyz"
+    "top100.lt"
    ]
   },
-  "id": 463
+  "id": 465
  },
  {
   "action": {
@@ -4860,7 +4910,7 @@
     "plius.lt"
    ]
   },
-  "id": 464
+  "id": 466
  },
  {
   "action": {
@@ -4871,7 +4921,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "://ad.admitad.com^"
   },
-  "id": 465
+  "id": 467
  },
  {
   "action": {
@@ -4882,7 +4932,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||imones.lt/searchblocks/"
   },
-  "id": 466
+  "id": 468
  },
  {
   "action": {
@@ -4894,32 +4944,6 @@
    ],
    "isUrlFilterCaseSensitive": false,
    "urlFilter": ".png#"
-  },
-  "id": 467
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "manomeskeres.lt"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/advertisment."
-  },
-  "id": 468
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "manomeskeres.lt"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/advertisments/"
   },
   "id": 469
  },

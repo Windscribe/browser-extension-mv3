@@ -13,8 +13,8 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||fast.fonts.net/*/1.css"
   },
-  "id": 1140,
-  "priority": 1
+  "id": 1209,
+  "priority": 2
  },
  {
   "action": {
@@ -30,8 +30,8 @@
    ],
    "urlFilter": "||mediacreeper.com/image"
   },
-  "id": 1141,
-  "priority": 1
+  "id": 1210,
+  "priority": 2
  },
  {
   "action": {
@@ -47,8 +47,8 @@
    ],
    "urlFilter": "||mediacreeper.se/image"
   },
-  "id": 1142,
-  "priority": 1
+  "id": 1211,
+  "priority": 2
  },
  {
   "action": {
@@ -70,8 +70,8 @@
    ],
    "urlFilter": "/aab/tv4play"
   },
-  "id": 1143,
-  "priority": 1
+  "id": 1212,
+  "priority": 2
  },
  {
   "action": {
@@ -91,29 +91,42 @@
     "script"
    ]
   },
-  "id": 1144,
-  "priority": 1
+  "id": 1213,
+  "priority": 2
  },
  {
   "action": {
    "redirect": {
-    "extensionPath": "/web_accessible_resources/click2load.html"
+    "extensionPath": "/web_accessible_resources/noop.js"
    },
    "type": "redirect"
   },
   "condition": {
-   "initiatorDomains": [
-    "spelrum.net"
-   ],
-   "requestDomains": [
-    "discord.com"
-   ],
+   "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
-    "sub_frame"
-   ]
+    "script"
+   ],
+   "urlFilter": "||widget.playoncenter.com/newplayer/js/pb_"
   },
-  "id": 1148,
-  "priority": 1
+  "id": 1214,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/empty"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||kyrkanstidning.se/firstvisit"
+  },
+  "id": 1215,
+  "priority": 2
  },
  {
   "action": {
@@ -133,8 +146,8 @@
     "sub_frame"
    ]
   },
-  "id": 1149,
-  "priority": 1
+  "id": 1220,
+  "priority": 2
  },
  {
   "action": {
@@ -154,27 +167,27 @@
     "sub_frame"
    ]
   },
-  "id": 1150,
-  "priority": 1
+  "id": 1221,
+  "priority": 2
  },
  {
   "action": {
    "redirect": {
-    "extensionPath": "/web_accessible_resources/noop-1s.mp4"
+    "extensionPath": "/web_accessible_resources/click2load.html"
    },
    "type": "redirect"
   },
   "condition": {
    "initiatorDomains": [
-    "gamereactor.se"
+    "ordfrontmagasin.se"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
-    "media"
+    "sub_frame"
    ],
-   "urlFilter": "/prerolls"
+   "urlFilter": "||youtube.com/embed"
   },
-  "id": 1153,
-  "priority": 1
+  "id": 1222,
+  "priority": 2
  }
 ]

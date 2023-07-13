@@ -2,6 +2,23 @@
  {
   "action": {
    "redirect": {
+    "extensionPath": "/web_accessible_resources/32x32.png"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||clustrmaps.com/counter/"
+  },
+  "id": 5778,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
     "extensionPath": "/web_accessible_resources/1x1.gif"
    },
    "type": "redirect"
@@ -13,8 +30,8 @@
    ],
    "urlFilter": "||mc.admetrica.ru/sync_cookie_image_check"
   },
-  "id": 5851,
-  "priority": 1
+  "id": 5779,
+  "priority": 2
  },
  {
   "action": {
@@ -32,8 +49,29 @@
    ],
    "urlFilter": "||ad.mail.ru/"
   },
-  "id": 5852,
-  "priority": 1
+  "id": 5780,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/1x1.gif"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "mail.ru",
+    "sportmail.ru"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||ru/count/"
+  },
+  "id": 5781,
+  "priority": 12
  },
  {
   "action": {
@@ -50,8 +88,42 @@
     "script"
    ]
   },
-  "id": 5853,
-  "priority": 1
+  "id": 5782,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||dominantroute.com/bens/vinos.js"
+  },
+  "id": 5784,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.js"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||franecki.net/js/lib.js"
+  },
+  "id": 5785,
+  "priority": 12
  },
  {
   "action": {
@@ -68,8 +140,8 @@
     "script"
    ]
   },
-  "id": 5854,
-  "priority": 11
+  "id": 5786,
+  "priority": 12
  },
  {
   "action": {
@@ -89,40 +161,8 @@
    ],
    "urlFilter": "||strm.yandex.ru/get/"
   },
-  "id": 5855,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop.js"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "afisha.ru",
-    "autorambler.ru",
-    "championat.com",
-    "eda.ru",
-    "gazeta.ru",
-    "lenta.ru",
-    "letidor.ru",
-    "motor.ru",
-    "passion.ru",
-    "quto.ru",
-    "rambler.ru",
-    "wmj.ru"
-   ],
-   "requestDomains": [
-    "zoomdecorate.rambler.ru"
-   ],
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 5856,
-  "priority": 1
+  "id": 5787,
+  "priority": 2
  },
  {
   "action": {
@@ -138,8 +178,25 @@
    ],
    "urlFilter": "||r.mradx.net/img/*.js|"
   },
-  "id": 5857,
-  "priority": 1
+  "id": 5788,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||v*.plrjs.org/*.xml|"
+  },
+  "id": 5789,
+  "priority": 12
  },
  {
   "action": {
@@ -159,36 +216,8 @@
     "sub_frame"
    ]
   },
-  "id": 5900,
-  "priority": 1
- },
- {
-  "action": {
-   "redirect": {
-    "extensionPath": "/web_accessible_resources/noop-0.1s.mp3"
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "anidub.club",
-    "anidub.life",
-    "anidub.link",
-    "anime.anidub.com",
-    "loveanime.live",
-    "myanime.online",
-    "online.anidub.com",
-    "rusanime.ru"
-   ],
-   "requestDomains": [
-    "loveanime.live"
-   ],
-   "resourceTypes": [
-    "media"
-   ]
-  },
-  "id": 5905,
-  "priority": 1
+  "id": 5825,
+  "priority": 2
  },
  {
   "action": {
@@ -207,8 +236,8 @@
    ],
    "urlFilter": "||s-cdn.org/promo/*.mp4"
   },
-  "id": 5906,
-  "priority": 1
+  "id": 5833,
+  "priority": 2
  },
  {
   "action": {
@@ -227,8 +256,8 @@
    ],
    "urlFilter": "||s-club.tv/promo/*.mp4"
   },
-  "id": 5907,
-  "priority": 1
+  "id": 5834,
+  "priority": 2
  },
  {
   "action": {
@@ -251,8 +280,8 @@
     "media"
    ]
   },
-  "id": 5908,
-  "priority": 1
+  "id": 5835,
+  "priority": 2
  },
  {
   "action": {
@@ -268,7 +297,7 @@
    ],
    "urlFilter": "||ts.kg/olol*.mp4"
   },
-  "id": 5909,
-  "priority": 1
+  "id": 5836,
+  "priority": 2
  }
 ]
