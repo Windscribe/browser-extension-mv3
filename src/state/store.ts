@@ -47,6 +47,7 @@ import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
 import iconVariantReducer from './slices/iconVariant'
 import autoConnectAfterLoginReducer from './slices/autoConnectAfterLogin'
 import isRightAfterLoginReducer from './slices/isRightAfterLogin'
+import firstInstallDateReducer from './slices/firstInstallDate'
 
 const reducers = {
   allowlist: allowlistReducer,
@@ -60,6 +61,7 @@ const reducers = {
   currentDataCenter: currentDataCenterReducer,
   currentLocation: currentLocationReducer,
   favoriteLocations: favoriteLocationsReducer,
+  firstInstallDate: firstInstallDateReducer,
   iconVariant: iconVariantReducer,
   isOnline: isOnlineReducer,
   isRightAfterLogin: isRightAfterLoginReducer,
