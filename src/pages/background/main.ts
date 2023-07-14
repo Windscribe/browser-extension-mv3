@@ -1,12 +1,12 @@
 import { initializeWrappedStore } from 'state'
 import { chooseIcon } from 'state/slices/iconVariant'
 import { pushToDebugLog } from 'services/debugLog'
-import { addContextMenuItem } from 'services/contextMenu'
 import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 import {
   alarmHandler,
   authRequiredHandler,
   connectionChangedHandler,
+  onInstalledHandler,
   navigationCommittedHandler,
   proxyErrorHandler,
   startupHandler,
@@ -23,11 +23,7 @@ try {
     return store
   })
 
-  chrome.runtime.onInstalled.addListener(async () => {
-    const store = await bgStore
-    if (!store.getState().contextMenu) return
-    addContextMenuItem()
-  })
+  chrome.runtime.onInstalled.addListener(onInstalledHandler(bgStore))
 
   chrome.runtime.onStartup.addListener(startupHandler(bgStore))
 
