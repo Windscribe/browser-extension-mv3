@@ -5,8 +5,11 @@ import { addContextMenuItem } from 'services/contextMenu'
 export function onInstalledHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {
     const store = await bgStore
-    store.dispatch(setFirstInstallDate(Date.now()))
-    if (!store.getState().contextMenu) return
+    const state = store.getState()
+    if (!state.firstInstallDate) {
+      store.dispatch(setFirstInstallDate(Date.now()))
+    }
+    if (!state.contextMenu) return
     addContextMenuItem()
   }
 }
