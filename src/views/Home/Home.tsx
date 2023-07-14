@@ -53,9 +53,6 @@ const Home: ThemeUiElement = () => {
     .map(n => n.id)
     .filter(id => !viewedNewsIds.includes(id)).length
 
-  const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null)
-  const [lastClick, setLastClick] = useState(Date.now())
-
   const proxyFailure = status === 'on' && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
@@ -72,10 +69,12 @@ const Home: ThemeUiElement = () => {
 
   useInitialDataFetching()
 
-  const setProxy = async () => {
+  const toggleProxy = async () => {
     if (status === 'on' || status === 'connecting') {
+      dispatch(setStatus('disconnecting'))
       await sendMessage({ what: 'disconnectProxy' })
     } else {
+      dispatch(setStatus('connecting'))
       const hosts = currentDataCenter?.hosts
       if (!autopilotSelected && hosts) {
         await sendMessage({ what: 'connectProxy', hosts: hosts })
@@ -83,29 +82,6 @@ const Home: ThemeUiElement = () => {
         await sendMessage({ what: 'connectAutopilot' })
       }
     }
-  }
-
-  const toggleProxy = async () => {
-    if (status === 'on' || status === 'connecting') {
-      dispatch(setStatus('disconnecting'))
-    } else {
-      dispatch(setStatus('connecting'))
-    }
-
-    if (clickTimeout) {
-      clearTimeout(clickTimeout)
-      setClickTimeout(null)
-    }
-
-    if (Date.now() - lastClick > 1000) {
-      setProxy()
-    } else {
-      const newTimeout = setTimeout(() => {
-        setProxy()
-      }, 1000)
-      setClickTimeout(newTimeout)
-    }
-    setLastClick(Date.now())
   }
 
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
