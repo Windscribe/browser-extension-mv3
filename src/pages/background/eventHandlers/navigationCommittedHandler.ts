@@ -27,6 +27,9 @@ export function navigationCommittedHandler(bgStore: Promise<StoreType>) {
     // We do not inject any scripts in subsidiary chrome tabs.
     if (details.url?.startsWith('chrome://')) return undefined
     if (details.url?.startsWith('chrome-extension://')) return undefined
+    // Execute scripts on extensions catalog page is restricted by Google for security reasons
+    if (details.url?.startsWith('https://chrome.google.com/webstore/category/extensions'))
+      return undefined
 
     const store = await bgStore
 
