@@ -1,6 +1,6 @@
 import { keyframes } from '@emotion/react'
 import { Box, Button, Flex } from 'theme-ui'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'

@@ -28,8 +28,9 @@ export const addToAllowlist = createAsyncThunk(
   ADD_TO_ALLOWLIST,
   async (domainWithSettings: AllowlistPayload, { dispatch, getState }) => {
     dispatch(addDomain(domainWithSettings))
-    const hosts = getState().proxy.hosts
-    if (hosts) await connect(getState, dispatch, hosts)
+    const { hosts, status } = getState().proxy
+
+    if (hosts && status === 'on') await connect(getState, dispatch, hosts)
   },
 )
 
@@ -40,8 +41,8 @@ export const removeFromAllowlist = createAsyncThunk(
   REMOVE_FROM_ALLOWLIST,
   async (domain: string, { dispatch, getState }) => {
     await dispatch(removeDomain(domain))
-    const hosts = getState().proxy.hosts
-    if (hosts) await connect(getState, dispatch, hosts)
+    const { hosts, status } = getState().proxy
+    if (hosts && status === 'on') await connect(getState, dispatch, hosts)
   },
 )
 
