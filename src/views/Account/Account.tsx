@@ -7,6 +7,8 @@ import EditIcon from 'assets/img/edit.svg'
 import { useSelector } from 'state/hooks'
 import { useWindowOpening } from 'components/hooks'
 import ToolTip from 'components/ToolTip'
+import ConfirmEmail from 'components/ConfirmEmail'
+import { EMAIL } from 'utils/constants'
 
 const addOneMonthToDate = (date?: string) => {
   if (!date) return
@@ -80,12 +82,18 @@ const Account: ThemeUiElement = () => {
               {sessionData?.is_premium ? (
                 'Pro'
               ) : (
-                <Button
-                  onClick={openUpgradePage}
-                  sx={{ all: 'unset', cursor: 'pointer', color: 'lakeBlue' }}
-                >
-                  Upgrade
-                </Button>
+                <>
+                  {sessionData?.email && sessionData?.email_status === EMAIL.UNCONFIRMED ? (
+                    <ConfirmEmail />
+                  ) : (
+                    <Button
+                      onClick={openUpgradePage}
+                      sx={{ all: 'unset', cursor: 'pointer', color: 'lakeBlue' }}
+                    >
+                      Upgrade
+                    </Button>
+                  )}
+                </>
               )}
             </Box>
           </ListItem>

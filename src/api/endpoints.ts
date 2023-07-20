@@ -98,6 +98,15 @@ const getWebSession = async (
     session_type_id: 1,
   })
 
+const sendEmailConfirmation = async (
+  dispatch: AppDispatch,
+  session_auth_hash: string,
+): Promise<ApiResponse<WebSessionData>> =>
+  await sendRequest(dispatch, 'PUT', buildQueryString('Users'), {
+    session_auth_hash,
+    resend_confirmation: 1,
+  })
+
 const reportAppLog = async (
   dispatch: AppDispatch,
   session_auth_hash: string,
@@ -154,4 +163,5 @@ export {
   getCruiseControlDomains,
   getUserAgents,
   reportAppLog,
+  sendEmailConfirmation,
 }

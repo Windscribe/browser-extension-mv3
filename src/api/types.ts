@@ -57,6 +57,7 @@ export type Endpoint =
   | 'Report/applog'
   | 'ExtBlocklists'
   | 'CruiseControlDomains'
+  | 'Users'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
