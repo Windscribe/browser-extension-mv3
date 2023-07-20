@@ -14,6 +14,12 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
   searchText = '',
   dataCenters = [],
 }) => {
+  const sortedDataCenters = dataCenters.sort((a, b) => {
+    if (a.city < b.city) return -1
+    if (a.city > b.city) return 1
+    return 0
+  })
+
   return (
     <Box
       data-testid="accordion-details-list"
@@ -26,7 +32,7 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
         borderBottomRightRadius: '8px',
       }}
     >
-      {dataCenters.map(dataCenter => (
+      {sortedDataCenters.map(dataCenter => (
         <DataCenterItem key={dataCenter.id} isPremium={isPremium} {...{ dataCenter, searchText }} />
       ))}
     </Box>
