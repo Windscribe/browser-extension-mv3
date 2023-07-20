@@ -30,6 +30,11 @@ export const ACCOUNT_STATES = {
   BANNED: 3,
 }
 
+export const EMAIL = {
+  VERIFIED: 1,
+  UNCONFIRMED: 0,
+}
+
 export const SESSION_ERRORS = {
   COULD_NOT_CREATE_USER_SESSION: 700, //"400::Could not create user session"
   SESSION_INVALID: 701, //"403::Submitted session is invalid. Please re-log in"

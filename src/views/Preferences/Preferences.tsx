@@ -8,9 +8,10 @@ import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import { useGoTo } from 'services/navigation'
 import { useDispatch, useSelector, useDispatchAlias } from 'state/hooks'
 import { useWindowOpening } from 'components/hooks'
-import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
+import { ACCOUNT_PLAN, EMAIL, ENVS } from 'utils/constants'
 import { type ThemeUiElement } from 'utils/types'
 import ToolTip from 'components/ToolTip'
+import ConfirmEmail from 'components/ConfirmEmail'
 
 import NewsfeedIcon from 'assets/img/newsfeed.svg'
 import GeneralIcon from 'assets/img/general.svg'
@@ -57,6 +58,9 @@ const Preferences: ThemeUiElement = () => {
   const traffic_max = useSelector(s => s.session?.sessionData?.traffic_max) || 0
   const traffic_used = useSelector(s => s.session?.sessionData?.traffic_used) || 0
   const is_premium = useSelector(s => s.session?.sessionData?.is_premium)
+  const email_status = useSelector(s => s.session?.sessionData?.email_status)
+  const email = useSelector(s => s.session?.sessionData?.email)
+
   const remainingDataBytes = bytes(traffic_max - traffic_used)
   const [isWebSessionPending, setIsWebSessionPending] = useState(false)
 
@@ -85,13 +89,17 @@ const Preferences: ThemeUiElement = () => {
         {is_premium || traffic_max === ACCOUNT_PLAN.UNLIMITED ? null : (
           <SpaceBetween mb="16px">
             <Text sx={{ color: 'primaryText', fontWeight: '600' }}>{remainingDataBytes} Left</Text>
-            <Link
-              sx={{ textDecoration: 'none', color: 'lakeBlue' }}
-              href={`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`}
-              target="_blank"
-            >
-              Upgrade
-            </Link>
+            {email && email_status === EMAIL.UNCONFIRMED ? (
+              <ConfirmEmail />
+            ) : (
+              <Link
+                sx={{ textDecoration: 'none', color: 'lakeBlue' }}
+                href={`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`}
+                target="_blank"
+              >
+                Upgrade
+              </Link>
+            )}
           </SpaceBetween>
         )}
         <RoundedBox>
