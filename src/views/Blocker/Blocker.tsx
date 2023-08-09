@@ -11,8 +11,8 @@ import sendMessage from 'services/runtime/sendMessage'
 
 import AdblockIcon from 'assets/img/adblock.svg'
 import TrackerIcon from 'assets/img/trackers.svg'
-import MalwareIcon from 'assets/img/malware.svg'
 import SocialDistancingIcon from 'assets/img/socialDistancing.svg'
+import CookieGoAwayIcon from 'assets/img/cookieGoAway.svg'
 import LinkIcon from 'assets/img/link.svg'
 
 const Blocker: ThemeUiElement = () => {
@@ -52,7 +52,12 @@ const Blocker: ThemeUiElement = () => {
     <Box data-testid="blocker-page" bg="background">
       <Header title="Blocker" {...{ shouldShowReloadAlert, showReloadAlert }} />
       <ScrollableBox>
-        <OptionBox Icon={AdblockIcon} title="Default" subTitle="Ads, Trackers, Miners, And More">
+        <OptionBox
+          Icon={AdblockIcon}
+          title="Ad Crusher"
+          subTitle="Ads, Malware, Trackers, Miners, And More"
+          path={'features/ad-blocking'}
+        >
           <ToggleSwitch
             onChange={() => {
               handleBlockListToggle('default')
@@ -62,38 +67,41 @@ const Blocker: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={TrackerIcon}
-          title="Block LAN"
-          subTitle="Block Outsider Intrusion Into LAN"
+          title="Tracker Eradicator"
+          subTitle="Stop trackers in their filthy tracks"
+          path={'features/ad-blocking'}
         >
           <ToggleSwitch
             onChange={() => {
-              handleBlockListToggle('block-lan')
+              handleBlockListToggle('adguard-spyware-url')
             }}
-            checked={blockLists.includes('block-lan')}
-          />
-        </OptionBox>
-        <OptionBox
-          Icon={MalwareIcon}
-          title="Dan Pollock’s Hosts File"
-          subTitle="Dan Pollock’s Hosts File"
-        >
-          <ToggleSwitch
-            onChange={() => {
-              handleBlockListToggle('dpollock-0')
-            }}
-            checked={blockLists.includes('dpollock-0')}
+            checked={blockLists.includes('adguard-spyware-url')}
           />
         </OptionBox>
         <OptionBox
           Icon={SocialDistancingIcon}
-          title="Steven Black's Hosts File"
-          subTitle="Steven Black's Hosts File"
+          title="Social Distancing"
+          subTitle="Blocks tracking social network widgets and buttons"
+          path={'features/ad-blocking'}
         >
           <ToggleSwitch
             onChange={() => {
-              handleBlockListToggle('stevenblack-hosts')
+              handleBlockListToggle('annoyances-social')
             }}
-            checked={blockLists.includes('stevenblack-hosts')}
+            checked={blockLists.includes('annoyances-social')}
+          />
+        </OptionBox>
+        <OptionBox
+          Icon={CookieGoAwayIcon}
+          title="Cookie Go Away"
+          subTitle='Blocks annoying "We use cookies" banners on all websites'
+          path={'features/ad-blocking'}
+        >
+          <ToggleSwitch
+            onChange={() => {
+              handleBlockListToggle('annoyances-cookies')
+            }}
+            checked={blockLists.includes('annoyances-cookies')}
           />
         </OptionBox>
         <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
