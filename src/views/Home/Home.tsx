@@ -67,6 +67,18 @@ const Home: ThemeUiElement = () => {
     }
   }, [isRightAfterLogin, dispatch])
 
+  useEffect(() => {
+    const handleKeyboardPress = (e: { keyCode: number }) => {
+      if (e.keyCode === 32) {
+        goToLocations()
+      }
+    }
+    window.addEventListener('keyup', handleKeyboardPress)
+    return () => {
+      window.removeEventListener('keyup', handleKeyboardPress)
+    }
+  }, [goToLocations])
+
   useInitialDataFetching()
 
   const toggleProxy = async () => {
