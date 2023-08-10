@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import debounce from 'lodash.debounce'
 import { Column } from 'components/Flexbox'
 import { ScrollableBox } from 'components'
@@ -11,7 +11,7 @@ import type { DebouncedInputOnChangeHandler, Tab, SetTab } from './types'
 const Locations: ThemeUiElement = () => {
   const [currentTab, setCurrentTab] = useState<Tab>('locations')
   // used to track the first key press to pass as initial input to search field
-  const [focusInitKey, setFocusInitKey] = useState(null)
+  const [focusInitKey, setFocusInitKey] = useState<string | null>(null)
   const [searchText, setSearchText] = useState<string>('')
 
   // debounce to prevent lagginess from spamming searches on every keypress
@@ -27,6 +27,21 @@ const Locations: ThemeUiElement = () => {
   const handleTabSwitch: SetTab = (tab: Tab) => setCurrentTab(tab)
 
   const isSearching = !!searchText.length
+
+  // if the user types an alphabetical character it sets focus to the search input
+  useEffect(() => {
+    const isLetter = (keyCode: number) =>
+      (keyCode > 64 && keyCode < 91) || (keyCode > 96 && keyCode < 123) || keyCode === 8
+
+    const onKeypress = (e: { key: string; keyCode: number }) => {
+      const validKey = isLetter(e.keyCode)
+      if (validKey) {
+        setFocusInitKey(e.key)
+      }
+    }
+    window.addEventListener('keypress', onKeypress)
+    return () => window.removeEventListener('keypress', onKeypress)
+  }, [])
 
   return (
     <Column data-testid="locations-page" bg="background">
