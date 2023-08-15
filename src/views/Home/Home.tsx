@@ -59,6 +59,11 @@ const Home: ThemeUiElement = () => {
 
   useEffect(() => {
     if (isRightAfterLogin) {
+      sendMessage({
+        what: 'setDefaultFilteringMode',
+        from: 'popup',
+        level: 3,
+      })
       dispatch(setIsRightAfterLogin(false))
       detectUblock().then(isUblockInstalled => {
         isUblockInstalled && dispatch(addOverlay('ublockDetected'))
