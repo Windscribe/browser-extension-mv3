@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_setConstant() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_setConstant = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"window.consentManagementEnabled\",\"false\"]","[\"BrockmanAllowedCookies.targeting\",\"true\"]","[\"BrockmanAllowedCookies.functional\",\"true\"]","[\"settings.consent\",\"true\"]","[\"HB.CookieSettings.init\",\"noopFunc\"]","[\"WHT.ShowConsentForm\",\"trueFunc\"]","[\"useGDPR\",\"false\"]","[\"realCookieBanner\",\"undefined\"]","[\"amw.isCookieConsentAccepted\",\"true\"]","[\"amw.isMarketingCookiesAccepted\",\"false\"]","[\"amw.isAnalyticsCookiesAccepted\",\"false\"]","[\"window.cmpmngr.setConsentViaBtn\",\"noopFunc\"]","[\"jwAlmaCMPLoaded\",\"true\"]","[\"tcfAllowUseCookies\",\"true\"]","[\"cicc.cookie_cat_functional\",\"true\"]","[\"cicc.cookie_cat_statistic\",\"true\"]","[\"cicc.cookie_cat_marketing\",\"true\"]","[\"tweakersConfig.userConfiguredConsent.youtube.approved\",\"true\"]","[\"tweakersConfig.userConfiguredConsent.omny.approved\",\"true\"]","[\"tweakersConfig.userConfiguredConsent.pcnltelecom.approved\",\"true\"]","[\"tweakersConfig.userConfiguredConsent.googlemaps.approved\",\"true\"]","[\"tweakersConfig.userConfiguredConsent.streamable.approved\",\"true\"]","[\"tweakersConfig.userConfiguredConsent.soundcloud.approved\",\"true\"]","[\"tweakersConfig.userConfiguredConsent.knightlab.approved\",\"true\"]","[\"yleConsentSdk._consentSdk._embedded_social_media\",\"true\"]","[\"yleConsentSdk.show\",\"noopFunc\"]","[\"window.scrollTo\",\"noopFunc\"]","[\"flagTcfLoaded\",\"true\"]"];
+const argsList = [["cicc.cookie_cat_statistic","true"],["window.consentManagementEnabled","false"],["BrockmanAllowedCookies.targeting","true"],["BrockmanAllowedCookies.functional","true"],["settings.consent","true"],["HB.CookieSettings.init","noopFunc"],["WHT.ShowConsentForm","trueFunc"],["useGDPR","false"],["xv.disclaimer.displayCookiePopup","noopFunc"],["realCookieBanner","undefined"],["amw.isCookieConsentAccepted","true"],["amw.isMarketingCookiesAccepted","false"],["amw.isAnalyticsCookiesAccepted","false"],["window.cmpmngr.setConsentViaBtn","noopFunc"],["jwAlmaCMPLoaded","true"],["tcfAllowUseCookies","true"],["cicc.cookie_cat_functional","true"],["cicc.cookie_cat_marketing","true"],["tweakersConfig.userConfiguredConsent.youtube.approved","true"],["tweakersConfig.userConfiguredConsent.omny.approved","true"],["tweakersConfig.userConfiguredConsent.pcnltelecom.approved","true"],["tweakersConfig.userConfiguredConsent.googlemaps.approved","true"],["tweakersConfig.userConfiguredConsent.streamable.approved","true"],["tweakersConfig.userConfiguredConsent.soundcloud.approved","true"],["tweakersConfig.userConfiguredConsent.knightlab.approved","true"],["yleConsentSdk._consentSdk._embedded_social_media","true"],["yleConsentSdk.show","noopFunc"],["window.scrollTo","noopFunc"],["flagTcfLoaded","true"]];
 
-const hostnamesMap = new Map([["fruugo.at",0],["fruugo.be",0],["fruugo.cz",0],["fruugo.de",0],["fruugo.dk",0],["fruugo.es",0],["fruugo.fi",0],["fruugo.gr",0],["fruugo.hu",0],["fruugo.ie",0],["fruugo.it",0],["fruugo.lu",0],["fruugo.nl",0],["fruugo.pl",0],["fruugo.pt",0],["fruugo.ro",0],["fruugo.sk",0],["eurogamer.nl",[1,2]],["eurogamer.es",[1,2]],["eurogamer.cz",[1,2]],["eurogamer.net",[1,2]],["eurogamer.pl",[1,2]],["eurogamer.pt",[1,2]],["rockpapershotgun.com",[1,2]],["vg247.com",[1,2]],["vadhander.hogakusten.com",3],["vadhander.kramfors.se",3],["stewes.de",4],["gadgethacks.com",5],["qastack.fr",6],["philosophia-perennis.com",7],["tecsafe.de",7],["devm.io",7],["schnittmuster-datenbank.de",7],["rosgovas.com",7],["blu-ray-rezensionen.net",7],["bricksforge.io",7],["lenovocampus.de",7],["rotlichtaus.de",7],["louisreynier.com",7],["stricken-online.com",7],["haarausfall-stopp.com",7],["cargoe.at",7],["pandore-gendarmerie.org",7],["pureselfmade.com",7],["fild.de",7],["m-m-m.de",7],["yogainspires.co.uk",7],["youngimages.de",7],["katzenbaumdesign.de",7],["goerlach-gmbh.com",7],["lichtempfindlich.org",7],["gasthaus-schmidmayer.de",7],["narrwalla.de",7],["efg-passau.de",7],["gefahrgutjaeger.de",7],["locafrique-sf.com",7],["financeads.com",7],["tutonaut.de",7],["freegossip.gr",7],["ltmemory.de",7],["randombrick.de",7],["playcentral.de",7],["nachbelichtet.com",7],["philosophenlexikon.de",7],["schulebruetten.ch",7],["almacenessanagustin.com",7],["autoverwertung-berk.de",7],["gosch.de",7],["ousuca.com",7],["stw-langenfeld.de",7],["yurishop.it",7],["europace.de",7],["autobrinkmann.de",7],["move-ment.at",7],["techniknews.net",7],["epages.com",7],["thinkingwithyou.com",7],["mfu-pilotenclub.at",7],["artkon.de",7],["running-green.de",7],["danielederosa.de",7],["ivfp.de",7],["bs-achern.de",7],["swiss-commerce.ch",7],["asga.ch",7],["ellasblog.de",7],["gamenite.de",7],["mmo-sankar.de",7],["istaf-indoor.de",7],["iqskitchen.de",7],["ekiwi.de",7],["nordlicht-ev.de",7],["zimmerwetter.de",7],["pinel-netzwerk.de",7],["bierspot.de",7],["lightcon.com",7],["roschmann.de",7],["simtarife.de",7],["egon-w-kreutzer.de",7],["terra-natur.com",7],["devowl.io",7],["cleverpush.com",7],["subitec.com",7],["kwerfeldein.de",7],["tecalliance.net",7],["viel-unterwegs.de",7],["madame-lenormand.de",7],["4kfilme.de",7],["gymnasium-hochdahl.de",7],["popp.eu",7],["maniac.de",7],["supertipp-online.de",7],["winlocal.de",7],["schiffe-und-kreuzfahrten.de",7],["guiademayores.com",7],["jankarres.de",7],["nahrungsmittel-intoleranz.com",7],["branson-germany.de",7],["miriamkreativ.de",7],["zaunbau-koch.de",7],["bsk-consulting.de",7],["windata.de",7],["prodopa.de",7],["zahnarzt-kuboth.de",7],["audiovision.de",7],["brachmannofficial.com",7],["compari.net",7],["computer-und-technik-im-wohnmobil.de",7],["seifriz-preis.de",7],["suitapp.de",7],["rossoft.co.uk",7],["wind-craft.eu",7],["manyanet.org",7],["mack-design.com",7],["pocket-pirates-prt.de",7],["project-creative.de",7],["tanzschulebogner.de",7],["toplink.de",7],["vg-veitsbronn-seukendorf.de",7],["skiweltcup.tv",7],["desser.co.uk",7],["symposium.org",7],["manneskraft-gesteigert.com",7],["barracred.com.br",7],["tv-sport.de",7],["boheme-schwabing.de",7],["spherity.com",7],["tc-equipment.de",7],["webfactory-i4.de",7],["webtimiser.de",7],["wp-ninjas.de",7],["profiel.de",7],["goeltzschtal-reisen.de",7],["everbloom.eu",7],["myclim8.com",7],["smiley.blue",7],["tulipize.com",7],["burzaucebnic.sk",7],["komm-mit.com",7],["istdasvegan.eu",7],["openforests.com",7],["industriemedien.at",7],["torinostoria.com",7],["igvm.de",7],["pinel.de",7],["music-service-geiger.de",7],["insidetrading.de",7],["ls-service.at",7],["blogyourthing.com",7],["bildung-ab-50.de",7],["teilzeitreisender.de",7],["vivoil.com",7],["borderline-plattform.de",7],["accace.ro",7],["lang-ag.com",7],["reise-zikaden.de",7],["restaurant-lindenhof.at",7],["nmmn.com",7],["exitroom.berlin",7],["weiterbildungsfinder.de",7],["erfurt-touristinformation.de",7],["elisazunder.de",7],["visconti.partners",7],["plr-paket.de",7],["spytunes.com",7],["schneelaeuferzunft.de",7],["flaviamelissa.com.br",7],["flughafen.tips",7],["webtapete.de",7],["erbsenprinzessin.com",7],["cranimax.com",7],["ac-grimmen.de",7],["floristasgarcia.es",7],["monikabirknerfreedombusiness.de",7],["lattinepersonalizzate.it",7],["olmatic.de",7],["die-werbeschmiede.de",7],["supereight.net",7],["visitmedia.de",7],["egro-direktwerbung.de",7],["alleingeborener-zwilling.com",7],["actrento.com",7],["antik-shop.de",7],["accace.cz",7],["happiness-bundles.com",7],["classic-emaille.de",7],["fakturia.de",7],["beeze.de",7],["brunozimmer.de",7],["derhoerbuchblog.de",7],["udo-lermann.de",7],["ciss.de",7],["volksfest-nuernberg.de",7],["ubisys.de",7],["wildbits.de",7],["softedu.pl",7],["maxkoch.de",7],["mario-kaps.de",7],["salzstreuner.de",7],["goessential.com",7],["tiesse.com",7],["compagniefruitiere.fr",7],["motivationstipp.de",7],["holzkisten-fabrik.de",7],["dasmagazin.de",7],["akademie-management.de",7],["salzerkfz.de",7],["aglini.com",7],["m38a1.de",7],["thomasschlechter.de",7],["smorfianapoletanaweb.it",7],["vzm.de",7],["proofing.de",7],["kbmv-matting.de",7],["vitalplus.com",7],["karver-systems.com",7],["boeser-chinese.de",7],["reinhardstrempel.de",7],["bewusstes-zentrum.de",7],["wildpark-ortenburg.de",7],["24hessen.de",7],["janamaenz.photography",7],["prodottidellapiazza.it",7],["continentale-hannover.de",7],["accace.sk",7],["wzl-zwickau.de",7],["picipix.com",7],["tkm-systemtechnik.de",7],["drive4brands.de",7],["brancaia.com",7],["trirhena-consulting.de",7],["pferde-hunde-therapie.de",7],["ffzblossin.de",7],["coyagaming.de",7],["cocktailsworld.net",7],["forum-koepenick.de",7],["immobilien-skiba.de",7],["penzkofer-bau.de",7],["fitnesscenter-schardt.de",7],["abcteile24.de",7],["wohnmobilcenter-drechsler.de",7],["crossculture-academy.com",7],["blhv.de",7],["blindbild.com",7],["zouboulis.com",7],["esderaiz.com",7],["ichbindochnichthierumbeliebtzusein.com",7],["von-zinsen-leben.de",7],["c-parts.de",7],["accademiainformatica.com",7],["lobetalarbeit.de",7],["hannover-living.de",7],["tsg6209weinheim.de",7],["stefaniegoldmarie.com",7],["dictum-shop.de",7],["oakbeardcare.com",7],["patchbox.com",7],["lazyinvestors.de",7],["frohreich.de",7],["transport-versicherungen.info",7],["mummelito.de",7],["reisekontakte.at",7],["ojas.de",7],["stadt-schoeneck.de",7],["piazzadeimestieri.it",7],["fasteninfos.de",7],["brodbeck-dd.de",7],["hundewelpe.de",7],["jadent.de",7],["duft-werk.de",7],["wunderpen.com",7],["crazeuk.com",7],["drhorvath.de",7],["weingut-knipser.de",7],["donostiroller.com",7],["roemermann.com",7],["bestwig.de",7],["tango-flores.de",7],["china-central-consultants.com",7],["lacasadavantialsole.org",7],["naturseifen-moosmed.de",7],["akzent-magazin.com",7],["wp-loft.de",7],["welte-glasuren.com",7],["balsamico.shop",7],["sl-landschaftsgestaltung.de",7],["betec.de",7],["alquilerordenadores.com",7],["bayern-kreativ.de",7],["tim-ehling.com",7],["signisalc.org",7],["coworkingrepublic.com",7],["dacsa.com",7],["plzenoviny.cz",7],["odw-journal.de",7],["kasteninblau.de",7],["lichttraeumer.de",7],["missinfogeek.net",7],["automatiksysteme.com",7],["adzurro.de",7],["vectorsoft.de",7],["suedafrika-wein.de",7],["noaf.de",7],["hundgemacht.net",7],["testefiorite.it",7],["klsys.com",7],["feuerhexen.de",7],["lemarit.com",7],["lameerooftop.com",7],["ideentitaet.com",7],["kaiser-mania.de",7],["accace.com",7],["naku.at",7],["goldpreis24.de",7],["ejwleo.de",7],["josefbergs.com",7],["caucasus-naturefund.org",7],["energiemetropole-leipzig.de",7],["von-neindorff-stiftung.de",7],["locandazita.com",7],["samadhi-vegetarian.de",7],["host.pl",7],["pentadoc-radar.com",7],["kd-slovenija.de",7],["accace.hu",7],["stilweb.it",7],["wolfgangallgaeuer.com",7],["kohlkg.de",7],["rechtsanwalt-nierfeld.de",7],["karlhoeffkes.de",7],["verstehepferde.de",7],["socceressen.de",7],["dcore.de",7],["edr-software.com",7],["denk-doch-mal.de",7],["meinstream.net",7],["stefan-froescher.eu",7],["zabel-group.de",7],["photofloh.de",7],["annabeauty-stuttgart.de",7],["swg-chemnitz.de",7],["klicks-kaufen.de",7],["levne-sauny.cz",7],["versicherungsmakler-leistenschneider.de",7],["arsdigita.de",7],["flugschule-hochries.de",7],["osmc.de",7],["zumkutscher.de",7],["evkirche-eilsen.de",7],["thingybob.de",7],["inicionet.com",7],["feucht-obsttechnik.de",7],["weimar-touristinformation.de",7],["yplay.de",7],["vcfrankfurt.de",7],["derklassiker.de",7],["lepetitmarchedauvergne.fr",7],["gooloo.de",7],["pizzeria-algusto.de",7],["presto-personaldienste.de",7],["wallygusto.de",7],["frigge-dinstak.de",7],["klangmassage-moser.de",7],["grupo-loma.com",7],["samenbank-berlin.de",7],["flow-in-yoga.de",7],["lb-consultores.com",7],["b757.info",7],["luegeten.ch",7],["hof-droste.de",7],["aachen50plus.de",7],["arabesque-essen.de",7],["grid.de",7],["canvascga.com",7],["mallorca-unternehmen.com",7],["hauspanorama.de",7],["vienna-interiors.at",7],["music-on-net.de",7],["baumarkt-vogl.at",7],["knoblauch.de",7],["rissland-kunststoffe.de",7],["fahrstil.cc",7],["hallesches-fotoatelier.de",7],["dollenberg-isolierung.de",7],["timo-bernhard.de",7],["feuerwehr-oberau.de",7],["kuechenboerse.de",7],["erlebnispark-ziegenhagen.de",7],["frauzuckerbroetchen.com",7],["hopfner.info",7],["tiermasseur-mannsberger.at",7],["gcol.de",7],["blueoceangaming.com",7],["pinel-medizin.de",7],["knauer-galabau.de",7],["zahnarzt-dr-henkel.de",7],["tonispizza-rastatt.de",7],["wichmann.biz",7],["schuetzendepot.de",7],["horizonte.com",7],["dayspamainz.de",7],["gerdes-reisen.de",7],["dg-pw.de",7],["brill-art.de",7],["carbon.ag",7],["199-euro-computer.de",7],["pndracingteam.net",7],["sv-langenfeld.de",7],["steinway-park-seesen.de",7],["sonderversum.com",7],["forwardis.com",7],["verein-fairbund.de",7],["hs-soft.com",7],["backstagefrankfurt.de",7],["hans-engelke.de",7],["vapecoco.com",7],["imprints.de",7],["rolandgermany.com",7],["fschemie-goettingen.de",7],["hypnose.ac",7],["estudio-nous.com",7],["kunstmuseum-heidenheim.de",7],["htvb.org",7],["ridee.bike",7],["zur-glocke.com",7],["hotelkristall.it",7],["babiceurican.cz",7],["farbenherz.com",7],["it-koehler.com",7],["bklm-ahaus.de",7],["gesundheitsladen-online.de",7],["createchange.me",7],["amway-estonia.com",[8,9,10]],["amway-latvia.com",[8,9,10]],["amway-lithuania.com",[8,9,10]],["amway.es",[8,9,10]],["amway.no",[8,9,10]],["amway.nl",[8,9,10]],["amway.co.uk",[8,9,10]],["amway.com.tr",[8,9,10]],["amway.pt",[8,9,10]],["amway.be",[8,9,10]],["amway.sk",[8,9,10]],["amway.de",[8,9,10]],["amway.ch",[8,9,10]],["amway.gr",[8,9,10]],["amway.ie",[8,9,10]],["amway.se",[8,9,10]],["amway.pl",[8,9,10]],["amway.bg",[8,9,10]],["amway.hr",[8,9,10]],["amway.dk",[8,9,10]],["amway.cz",[8,9,10]],["amway.si",[8,9,10]],["amway.ro",[8,9,10]],["amway.fr",[8,9,10]],["amway.fi",[8,9,10]],["amway.it",[8,9,10]],["sourceforge.net",11],["iltalehti.fi",12],["anna.fi",13],["historianet.fi",[14,15,16]],["tieku.fi",[14,15,16]],["tweakers.net",[17,18,19,20,21,22,23]],["yle.fi",[24,25]],["podimo.com",26],["express.co.uk",27]]);
+const hostnamesMap = new Map([["elgiganten.dk",0],["elgiganten.se",0],["elkjop.no",0],["gigantti.fi",0],["historianet.fi",[0,16,17]],["tieku.fi",[0,16,17]],["fruugo.at",1],["fruugo.be",1],["fruugo.cz",1],["fruugo.de",1],["fruugo.dk",1],["fruugo.es",1],["fruugo.fi",1],["fruugo.gr",1],["fruugo.hu",1],["fruugo.ie",1],["fruugo.it",1],["fruugo.lu",1],["fruugo.nl",1],["fruugo.pl",1],["fruugo.pt",1],["fruugo.ro",1],["fruugo.sk",1],["eurogamer.nl",[2,3]],["eurogamer.es",[2,3]],["eurogamer.cz",[2,3]],["eurogamer.net",[2,3]],["eurogamer.pl",[2,3]],["eurogamer.pt",[2,3]],["rockpapershotgun.com",[2,3]],["vg247.com",[2,3]],["vadhander.hogakusten.com",4],["vadhander.kramfors.se",4],["stewes.de",5],["gadgethacks.com",6],["qastack.fr",7],["xvideos.com",8],["philosophia-perennis.com",9],["tecsafe.de",9],["devm.io",9],["schnittmuster-datenbank.de",9],["rosgovas.com",9],["blu-ray-rezensionen.net",9],["bricksforge.io",9],["lenovocampus.de",9],["rotlichtaus.de",9],["louisreynier.com",9],["stricken-online.com",9],["haarausfall-stopp.com",9],["cargoe.at",9],["pandore-gendarmerie.org",9],["pureselfmade.com",9],["fild.de",9],["m-m-m.de",9],["yogainspires.co.uk",9],["youngimages.de",9],["katzenbaumdesign.de",9],["goerlach-gmbh.com",9],["lichtempfindlich.org",9],["gasthaus-schmidmayer.de",9],["narrwalla.de",9],["efg-passau.de",9],["gefahrgutjaeger.de",9],["locafrique-sf.com",9],["financeads.com",9],["tutonaut.de",9],["freegossip.gr",9],["ltmemory.de",9],["randombrick.de",9],["playcentral.de",9],["nachbelichtet.com",9],["philosophenlexikon.de",9],["schulebruetten.ch",9],["almacenessanagustin.com",9],["autoverwertung-berk.de",9],["gosch.de",9],["ousuca.com",9],["stw-langenfeld.de",9],["yurishop.it",9],["europace.de",9],["autobrinkmann.de",9],["move-ment.at",9],["techniknews.net",9],["epages.com",9],["thinkingwithyou.com",9],["mfu-pilotenclub.at",9],["artkon.de",9],["running-green.de",9],["danielederosa.de",9],["ivfp.de",9],["bs-achern.de",9],["swiss-commerce.ch",9],["asga.ch",9],["ellasblog.de",9],["gamenite.de",9],["mmo-sankar.de",9],["istaf-indoor.de",9],["iqskitchen.de",9],["ekiwi.de",9],["nordlicht-ev.de",9],["zimmerwetter.de",9],["pinel-netzwerk.de",9],["bierspot.de",9],["lightcon.com",9],["roschmann.de",9],["simtarife.de",9],["egon-w-kreutzer.de",9],["terra-natur.com",9],["devowl.io",9],["cleverpush.com",9],["subitec.com",9],["kwerfeldein.de",9],["tecalliance.net",9],["viel-unterwegs.de",9],["madame-lenormand.de",9],["4kfilme.de",9],["gymnasium-hochdahl.de",9],["popp.eu",9],["maniac.de",9],["supertipp-online.de",9],["winlocal.de",9],["schiffe-und-kreuzfahrten.de",9],["guiademayores.com",9],["jankarres.de",9],["nahrungsmittel-intoleranz.com",9],["branson-germany.de",9],["miriamkreativ.de",9],["zaunbau-koch.de",9],["bsk-consulting.de",9],["windata.de",9],["prodopa.de",9],["zahnarzt-kuboth.de",9],["audiovision.de",9],["brachmannofficial.com",9],["compari.net",9],["computer-und-technik-im-wohnmobil.de",9],["seifriz-preis.de",9],["suitapp.de",9],["rossoft.co.uk",9],["wind-craft.eu",9],["manyanet.org",9],["mack-design.com",9],["pocket-pirates-prt.de",9],["tanzschulebogner.de",9],["toplink.de",9],["vg-veitsbronn-seukendorf.de",9],["skiweltcup.tv",9],["desser.co.uk",9],["symposium.org",9],["manneskraft-gesteigert.com",9],["barracred.com.br",9],["tv-sport.de",9],["boheme-schwabing.de",9],["spherity.com",9],["tc-equipment.de",9],["webfactory-i4.de",9],["webtimiser.de",9],["wp-ninjas.de",9],["profiel.de",9],["goeltzschtal-reisen.de",9],["everbloom.eu",9],["myclim8.com",9],["smiley.blue",9],["tulipize.com",9],["burzaucebnic.sk",9],["komm-mit.com",9],["istdasvegan.eu",9],["openforests.com",9],["industriemedien.at",9],["torinostoria.com",9],["igvm.de",9],["pinel.de",9],["music-service-geiger.de",9],["insidetrading.de",9],["ls-service.at",9],["blogyourthing.com",9],["bildung-ab-50.de",9],["teilzeitreisender.de",9],["vivoil.com",9],["borderline-plattform.de",9],["accace.ro",9],["lang-ag.com",9],["reise-zikaden.de",9],["restaurant-lindenhof.at",9],["nmmn.com",9],["exitroom.berlin",9],["weiterbildungsfinder.de",9],["erfurt-touristinformation.de",9],["elisazunder.de",9],["visconti.partners",9],["plr-paket.de",9],["spytunes.com",9],["schneelaeuferzunft.de",9],["flaviamelissa.com.br",9],["flughafen.tips",9],["webtapete.de",9],["erbsenprinzessin.com",9],["cranimax.com",9],["ac-grimmen.de",9],["floristasgarcia.es",9],["monikabirknerfreedombusiness.de",9],["lattinepersonalizzate.it",9],["olmatic.de",9],["die-werbeschmiede.de",9],["supereight.net",9],["visitmedia.de",9],["egro-direktwerbung.de",9],["alleingeborener-zwilling.com",9],["actrento.com",9],["antik-shop.de",9],["accace.cz",9],["happiness-bundles.com",9],["classic-emaille.de",9],["fakturia.de",9],["beeze.de",9],["brunozimmer.de",9],["derhoerbuchblog.de",9],["udo-lermann.de",9],["ciss.de",9],["volksfest-nuernberg.de",9],["ubisys.de",9],["wildbits.de",9],["softedu.pl",9],["maxkoch.de",9],["mario-kaps.de",9],["salzstreuner.de",9],["goessential.com",9],["tiesse.com",9],["compagniefruitiere.fr",9],["motivationstipp.de",9],["holzkisten-fabrik.de",9],["dasmagazin.de",9],["akademie-management.de",9],["salzerkfz.de",9],["aglini.com",9],["m38a1.de",9],["thomasschlechter.de",9],["smorfianapoletanaweb.it",9],["vzm.de",9],["proofing.de",9],["kbmv-matting.de",9],["vitalplus.com",9],["karver-systems.com",9],["boeser-chinese.de",9],["reinhardstrempel.de",9],["bewusstes-zentrum.de",9],["wildpark-ortenburg.de",9],["24hessen.de",9],["janamaenz.photography",9],["prodottidellapiazza.it",9],["continentale-hannover.de",9],["accace.sk",9],["wzl-zwickau.de",9],["picipix.com",9],["tkm-systemtechnik.de",9],["drive4brands.de",9],["brancaia.com",9],["trirhena-consulting.de",9],["pferde-hunde-therapie.de",9],["ffzblossin.de",9],["coyagaming.de",9],["cocktailsworld.net",9],["forum-koepenick.de",9],["immobilien-skiba.de",9],["penzkofer-bau.de",9],["fitnesscenter-schardt.de",9],["abcteile24.de",9],["wohnmobilcenter-drechsler.de",9],["crossculture-academy.com",9],["blhv.de",9],["blindbild.com",9],["zouboulis.com",9],["esderaiz.com",9],["ichbindochnichthierumbeliebtzusein.com",9],["von-zinsen-leben.de",9],["c-parts.de",9],["accademiainformatica.com",9],["lobetalarbeit.de",9],["hannover-living.de",9],["tsg6209weinheim.de",9],["stefaniegoldmarie.com",9],["dictum-shop.de",9],["oakbeardcare.com",9],["patchbox.com",9],["lazyinvestors.de",9],["frohreich.de",9],["transport-versicherungen.info",9],["mummelito.de",9],["reisekontakte.at",9],["ojas.de",9],["stadt-schoeneck.de",9],["piazzadeimestieri.it",9],["fasteninfos.de",9],["brodbeck-dd.de",9],["hundewelpe.de",9],["jadent.de",9],["duft-werk.de",9],["wunderpen.com",9],["crazeuk.com",9],["drhorvath.de",9],["weingut-knipser.de",9],["donostiroller.com",9],["roemermann.com",9],["bestwig.de",9],["tango-flores.de",9],["china-central-consultants.com",9],["lacasadavantialsole.org",9],["naturseifen-moosmed.de",9],["akzent-magazin.com",9],["wp-loft.de",9],["welte-glasuren.com",9],["balsamico.shop",9],["sl-landschaftsgestaltung.de",9],["betec.de",9],["alquilerordenadores.com",9],["bayern-kreativ.de",9],["tim-ehling.com",9],["signisalc.org",9],["coworkingrepublic.com",9],["dacsa.com",9],["plzenoviny.cz",9],["odw-journal.de",9],["kasteninblau.de",9],["lichttraeumer.de",9],["missinfogeek.net",9],["automatiksysteme.com",9],["adzurro.de",9],["vectorsoft.de",9],["suedafrika-wein.de",9],["noaf.de",9],["hundgemacht.net",9],["testefiorite.it",9],["klsys.com",9],["feuerhexen.de",9],["lemarit.com",9],["lameerooftop.com",9],["ideentitaet.com",9],["kaiser-mania.de",9],["accace.com",9],["naku.at",9],["goldpreis24.de",9],["ejwleo.de",9],["josefbergs.com",9],["caucasus-naturefund.org",9],["energiemetropole-leipzig.de",9],["von-neindorff-stiftung.de",9],["locandazita.com",9],["samadhi-vegetarian.de",9],["host.pl",9],["pentadoc-radar.com",9],["kd-slovenija.de",9],["accace.hu",9],["stilweb.it",9],["wolfgangallgaeuer.com",9],["kohlkg.de",9],["rechtsanwalt-nierfeld.de",9],["karlhoeffkes.de",9],["verstehepferde.de",9],["socceressen.de",9],["dcore.de",9],["edr-software.com",9],["denk-doch-mal.de",9],["meinstream.net",9],["stefan-froescher.eu",9],["zabel-group.de",9],["photofloh.de",9],["annabeauty-stuttgart.de",9],["swg-chemnitz.de",9],["klicks-kaufen.de",9],["levne-sauny.cz",9],["versicherungsmakler-leistenschneider.de",9],["arsdigita.de",9],["flugschule-hochries.de",9],["osmc.de",9],["zumkutscher.de",9],["evkirche-eilsen.de",9],["thingybob.de",9],["inicionet.com",9],["feucht-obsttechnik.de",9],["weimar-touristinformation.de",9],["yplay.de",9],["vcfrankfurt.de",9],["derklassiker.de",9],["lepetitmarchedauvergne.fr",9],["gooloo.de",9],["pizzeria-algusto.de",9],["presto-personaldienste.de",9],["wallygusto.de",9],["frigge-dinstak.de",9],["klangmassage-moser.de",9],["grupo-loma.com",9],["samenbank-berlin.de",9],["flow-in-yoga.de",9],["lb-consultores.com",9],["b757.info",9],["luegeten.ch",9],["hof-droste.de",9],["aachen50plus.de",9],["arabesque-essen.de",9],["grid.de",9],["canvascga.com",9],["mallorca-unternehmen.com",9],["hauspanorama.de",9],["vienna-interiors.at",9],["music-on-net.de",9],["baumarkt-vogl.at",9],["knoblauch.de",9],["rissland-kunststoffe.de",9],["fahrstil.cc",9],["hallesches-fotoatelier.de",9],["dollenberg-isolierung.de",9],["timo-bernhard.de",9],["feuerwehr-oberau.de",9],["kuechenboerse.de",9],["erlebnispark-ziegenhagen.de",9],["frauzuckerbroetchen.com",9],["hopfner.info",9],["tiermasseur-mannsberger.at",9],["gcol.de",9],["blueoceangaming.com",9],["pinel-medizin.de",9],["knauer-galabau.de",9],["zahnarzt-dr-henkel.de",9],["tonispizza-rastatt.de",9],["wichmann.biz",9],["schuetzendepot.de",9],["horizonte.com",9],["dayspamainz.de",9],["gerdes-reisen.de",9],["dg-pw.de",9],["brill-art.de",9],["carbon.ag",9],["199-euro-computer.de",9],["pndracingteam.net",9],["sv-langenfeld.de",9],["steinway-park-seesen.de",9],["sonderversum.com",9],["forwardis.com",9],["verein-fairbund.de",9],["hs-soft.com",9],["backstagefrankfurt.de",9],["hans-engelke.de",9],["vapecoco.com",9],["imprints.de",9],["rolandgermany.com",9],["fschemie-goettingen.de",9],["hypnose.ac",9],["estudio-nous.com",9],["kunstmuseum-heidenheim.de",9],["htvb.org",9],["ridee.bike",9],["zur-glocke.com",9],["hotelkristall.it",9],["babiceurican.cz",9],["farbenherz.com",9],["it-koehler.com",9],["bklm-ahaus.de",9],["gesundheitsladen-online.de",9],["createchange.me",9],["amway-estonia.com",[10,11,12]],["amway-latvia.com",[10,11,12]],["amway-lithuania.com",[10,11,12]],["amway.es",[10,11,12]],["amway.no",[10,11,12]],["amway.nl",[10,11,12]],["amway.co.uk",[10,11,12]],["amway.com.tr",[10,11,12]],["amway.pt",[10,11,12]],["amway.be",[10,11,12]],["amway.sk",[10,11,12]],["amway.de",[10,11,12]],["amway.ch",[10,11,12]],["amway.gr",[10,11,12]],["amway.ie",[10,11,12]],["amway.se",[10,11,12]],["amway.pl",[10,11,12]],["amway.bg",[10,11,12]],["amway.hr",[10,11,12]],["amway.dk",[10,11,12]],["amway.cz",[10,11,12]],["amway.si",[10,11,12]],["amway.ro",[10,11,12]],["amway.fr",[10,11,12]],["amway.fi",[10,11,12]],["amway.it",[10,11,12]],["sourceforge.net",13],["iltalehti.fi",14],["anna.fi",15],["tweakers.net",[18,19,20,21,22,23,24]],["yle.fi",[25,26]],["podimo.com",27],["express.co.uk",28]]);
 
 const entitiesMap = new Map([]);
 
@@ -116,7 +121,7 @@ function setConstantCore(
             cValue = true;
         } else if ( cValue === 'null' ) {
             cValue = null;
-        } else if ( cValue === "''" ) {
+        } else if ( cValue === "''" || cValue === '' ) {
             cValue = '';
         } else if ( cValue === '[]' ) {
             cValue = [];
@@ -134,7 +139,7 @@ function setConstantCore(
             if ( Math.abs(cValue) > 0x7FFF ) { return; }
         } else if ( trusted ) {
             if ( cValue.startsWith('{') && cValue.endsWith('}') ) {
-                try { cValue = JSON.parse(cValue).value; } catch(ex) { return; }
+                try { cValue = safe.jsonParse(cValue).value; } catch(ex) { return; }
             }
         } else {
             return;
@@ -279,17 +284,79 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -356,13 +423,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { setConstant(...JSON.parse(argsList[i])); }
+    try { setConstant(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_setConstant();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_setConstant = cloneInto([
+            [ '(', uBOL_setConstant.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_setConstant);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_setConstant;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

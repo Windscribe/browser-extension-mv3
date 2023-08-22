@@ -17,7 +17,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "banners.*\\/go\\/page"
   },
-  "id": 2489
+  "id": 2127
  },
  {
   "action": {
@@ -27,7 +27,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)104\\.154\\..{100,}"
   },
-  "id": 5081
+  "id": 4346
  },
  {
   "action": {
@@ -37,7 +37,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)104\\.197\\..{100,}"
   },
-  "id": 5082
+  "id": 4347
  },
  {
   "action": {
@@ -47,7 +47,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)104\\.198\\..{100,}"
   },
-  "id": 5083
+  "id": 4348
  },
  {
   "action": {
@@ -57,7 +57,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)130\\.211\\..{100,}"
   },
-  "id": 5084
+  "id": 4349
  },
  {
   "action": {
@@ -67,7 +67,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)142\\.91\\.159\\..{100,}"
   },
-  "id": 5085
+  "id": 4350
  },
  {
   "action": {
@@ -77,7 +77,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)213\\.32\\.115\\..{100,}"
   },
-  "id": 5086
+  "id": 4351
  },
  {
   "action": {
@@ -87,7 +87,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)216\\.21\\..{100,}"
   },
-  "id": 5087
+  "id": 4352
  },
  {
   "action": {
@@ -97,7 +97,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)217\\.182\\.11\\..{100,}"
   },
-  "id": 5088
+  "id": 4353
  },
  {
   "action": {
@@ -107,7 +107,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "(https?:\\/\\/)51\\.195\\.31\\..{100,}"
   },
-  "id": 5089
+  "id": 4354
  },
  {
   "action": {
@@ -139,7 +139,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*bit(ly)?\\.(com|ly)\\/"
   },
-  "id": 5823
+  "id": 5103
  },
  {
   "action": {
@@ -181,7 +181,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*\\.(club|news|live|online|store|tech|guru|cloud|bid|xyz|site|pro|info|online|icu|monster|buzz|fun|website|photos|re|casa|top|today|space|network|live|work|systems|ml|world|life)\\/.*"
   },
-  "id": 6227
+  "id": 5519
  },
  {
   "action": {
@@ -194,7 +194,7 @@
     "image"
    ]
   },
-  "id": 13205
+  "id": 12347
  },
  {
   "action": {
@@ -210,7 +210,7 @@
     "image"
    ]
   },
-  "id": 13285
+  "id": 12429
  },
  {
   "action": {
@@ -226,7 +226,7 @@
     "image"
    ]
   },
-  "id": 13286
+  "id": 12430
  },
  {
   "action": {
@@ -242,7 +242,7 @@
     "image"
    ]
   },
-  "id": 13287
+  "id": 12431
  },
  {
   "action": {
@@ -258,7 +258,7 @@
     "image"
    ]
   },
-  "id": 13288
+  "id": 12432
  },
  {
   "action": {
@@ -274,7 +274,7 @@
     "image"
    ]
   },
-  "id": 13289
+  "id": 12433
  },
  {
   "action": {
@@ -290,7 +290,7 @@
     "image"
    ]
   },
-  "id": 13290
+  "id": 12434
  },
  {
   "action": {
@@ -306,7 +306,7 @@
     "image"
    ]
   },
-  "id": 13291
+  "id": 12435
  },
  {
   "action": {
@@ -322,7 +322,7 @@
     "image"
    ]
   },
-  "id": 13292
+  "id": 12436
  },
  {
   "action": {
@@ -338,7 +338,7 @@
     "image"
    ]
   },
-  "id": 13293
+  "id": 12437
  },
  {
   "action": {
@@ -375,7 +375,7 @@
     "image"
    ]
   },
-  "id": 13294
+  "id": 12438
  },
  {
   "action": {
@@ -390,6 +390,7 @@
     "blackporn.tube",
     "hclips.com",
     "imzog.com",
+    "in-porn.com",
     "inporn.com",
     "javdaddy.com",
     "mrgay.tube",
@@ -407,6 +408,7 @@
     "puporn.com",
     "see.xxx",
     "senzuri.tube",
+    "sextu.com",
     "shemalez.com",
     "sss.xxx",
     "teenorgy.video",
@@ -422,7 +424,7 @@
     "script"
    ]
   },
-  "id": 13505
+  "id": 12644
  },
  {
   "action": {
@@ -435,25 +437,7 @@
     "script"
    ]
   },
-  "id": 13557
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "nowy.tlen.pl",
-    "poczta.o2.pl",
-    "profil.wp.pl"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "^https:\\/\\/[a-z]{2,14}\\.wp\\.pl\\/[a-zA-Z0-9_-]{200,915}$",
-   "resourceTypes": [
-    "script"
-   ]
-  },
-  "id": 13636
+  "id": 12697
  },
  {
   "action": {
@@ -462,7 +446,6 @@
   "condition": {
    "initiatorDomains": [
     "1337x.to",
-    "anonfiles.com",
     "cashurl.in",
     "clicknupload.click",
     "cloudvideo.tv",
@@ -517,7 +500,7 @@
     "script"
    ]
   },
-  "id": 13677
+  "id": 12823
  },
  {
   "action": {
@@ -571,7 +554,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 13683
+  "id": 12832
  },
  {
   "action": {
@@ -586,7 +569,6 @@
     "alrincon.com",
     "amateur8.com",
     "anyporn.com",
-    "anysex.com",
     "badjojo.com",
     "bdsmstreak.com",
     "bestfreetube.xxx",
@@ -673,7 +655,7 @@
     "sub_frame"
    ]
   },
-  "id": 13684
+  "id": 12833
  },
  {
   "action": {
@@ -689,7 +671,7 @@
     "script"
    ]
   },
-  "id": 13685
+  "id": 12834
  },
  {
   "action": {
@@ -705,7 +687,7 @@
     "script"
    ]
   },
-  "id": 13738
+  "id": 12883
  },
  {
   "action": {
@@ -721,7 +703,7 @@
     "script"
    ]
   },
-  "id": 13739
+  "id": 12884
  },
  {
   "action": {
@@ -738,7 +720,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 13740
+  "id": 12885
  },
  {
   "action": {
@@ -756,7 +738,7 @@
     "script"
    ]
   },
-  "id": 13741
+  "id": 12886
  },
  {
   "action": {
@@ -772,7 +754,7 @@
     "script"
    ]
   },
-  "id": 13742
+  "id": 12887
  },
  {
   "action": {
@@ -789,7 +771,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 13743
+  "id": 12888
  },
  {
   "action": {
@@ -803,33 +785,33 @@
     "sub_frame"
    ]
   },
-  "id": 13877
+  "id": 13020
  },
  {
   "action": {
    "type": "block"
   },
   "condition": {
-   "regexFilter": "^https?:\\/\\/[0-9a-z]*\\.?[-0-9a-z]{4,}\\.[a-z]{2,11}\\/(?:[0-9a-z]{6,8}\\/)?\\/?\\?u=[0-9a-z]{7}&o=[0-9a-z]{7}",
+   "regexFilter": "^https?:\\/\\/[0-9a-z]*\\.?[-0-9a-z]{4,}\\.[a-z]{2,11}\\/(?:[0-9a-z]{6,8}\\/)?\\/?(?:article\\d{4}\\.doc)?\\?u=[0-9a-z]{7}&o=[0-9a-z]{7}",
    "resourceTypes": [
     "main_frame",
     "sub_frame"
    ]
   },
-  "id": 13882
+  "id": 13026
  },
  {
   "action": {
    "type": "block"
   },
   "condition": {
-   "regexFilter": "^https?:\\/\\/[0-9a-z]*\\.?[-0-9a-z]{4,}\\.[a-z]{2,11}\\/(?:[0-9a-z]{6,8}\\/)?\\/?\\?o=[0-9a-z]{7}&u=[0-9a-z]{7}",
+   "regexFilter": "^https?:\\/\\/[0-9a-z]*\\.?[-0-9a-z]{4,}\\.[a-z]{2,11}\\/(?:[0-9a-z]{6,8}\\/)?\\/?(?:article\\d{4}\\.doc)?\\?o=[0-9a-z]{7}&u=[0-9a-z]{7}",
    "resourceTypes": [
     "main_frame",
     "sub_frame"
    ]
   },
-  "id": 13883
+  "id": 13027
  },
  {
   "action": {
@@ -842,7 +824,7 @@
     "main_frame"
    ]
   },
-  "id": 13937
+  "id": 13083
  },
  {
   "action": {
@@ -855,7 +837,7 @@
     "main_frame"
    ]
   },
-  "id": 13984
+  "id": 13132
  },
  {
   "action": {
@@ -868,7 +850,7 @@
     "main_frame"
    ]
   },
-  "id": 13985
+  "id": 13133
  },
  {
   "action": {
@@ -881,7 +863,7 @@
     "main_frame"
    ]
   },
-  "id": 14013
+  "id": 13161
  },
  {
   "action": {
@@ -899,7 +881,7 @@
     "main_frame"
    ]
   },
-  "id": 14018
+  "id": 13172
  },
  {
   "action": {
@@ -915,7 +897,7 @@
     "main_frame"
    ]
   },
-  "id": 14019
+  "id": 13173
  },
  {
   "action": {
@@ -931,7 +913,7 @@
     "main_frame"
    ]
   },
-  "id": 14020
+  "id": 13174
  },
  {
   "action": {
@@ -947,7 +929,7 @@
     "main_frame"
    ]
   },
-  "id": 14023
+  "id": 13178
  },
  {
   "action": {
@@ -962,7 +944,7 @@
     "main_frame"
    ]
   },
-  "id": 14028
+  "id": 13183
  },
  {
   "action": {
@@ -975,7 +957,7 @@
     "main_frame"
    ]
   },
-  "id": 14039
+  "id": 13194
  },
  {
   "action": {
@@ -991,7 +973,43 @@
     "main_frame"
    ]
   },
-  "id": 14053
+  "id": 13208
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "site",
+    "top",
+    "website"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https:\\/\\/[-a-z]{12,20}\\.[a-z]{3,7}\\/[-0-9A-Za-z]{60,}\\d{4}\\/001\\/",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 13215
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "site",
+    "top",
+    "website"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https:\\/\\/[-a-z]{12,20}\\.[a-z]{3,7}\\/[-0-9A-Za-z]{60,}\\d{4}\\/004\\/",
+   "resourceTypes": [
+    "main_frame"
+   ]
+  },
+  "id": 13216
  },
  {
   "action": {
@@ -1008,7 +1026,7 @@
     "image"
    ]
   },
-  "id": 14085
+  "id": 13245
  },
  {
   "action": {
@@ -1025,7 +1043,7 @@
     "image"
    ]
   },
-  "id": 14091
+  "id": 13252
  },
  {
   "action": {
@@ -1042,7 +1060,7 @@
     "image"
    ]
   },
-  "id": 14100
+  "id": 13261
  },
  {
   "action": {
@@ -1059,7 +1077,7 @@
     "image"
    ]
   },
-  "id": 14101
+  "id": 13262
  },
  {
   "action": {
@@ -1076,7 +1094,7 @@
     "image"
    ]
   },
-  "id": 14103
+  "id": 13264
  },
  {
   "action": {
@@ -1089,7 +1107,7 @@
     "script"
    ]
   },
-  "id": 14141
+  "id": 13302
  },
  {
   "action": {
@@ -1109,7 +1127,7 @@
     "script"
    ]
   },
-  "id": 14144
+  "id": 13305
  },
  {
   "action": {
@@ -1126,7 +1144,7 @@
     "script"
    ]
   },
-  "id": 14180
+  "id": 13341
  },
  {
   "action": {
@@ -1143,7 +1161,7 @@
     "script"
    ]
   },
-  "id": 14186
+  "id": 13347
  },
  {
   "action": {
@@ -1160,7 +1178,7 @@
     "script"
    ]
   },
-  "id": 14326
+  "id": 13483
  },
  {
   "action": {
@@ -1177,7 +1195,7 @@
     "script"
    ]
   },
-  "id": 14330
+  "id": 13487
  },
  {
   "action": {
@@ -1194,7 +1212,7 @@
     "script"
    ]
   },
-  "id": 14338
+  "id": 13494
  },
  {
   "action": {
@@ -1213,7 +1231,7 @@
     "script"
    ]
   },
-  "id": 14342
+  "id": 13498
  },
  {
   "action": {
@@ -1230,7 +1248,7 @@
     "script"
    ]
   },
-  "id": 14360
+  "id": 13516
  },
  {
   "action": {
@@ -1247,7 +1265,7 @@
     "script"
    ]
   },
-  "id": 14372
+  "id": 13528
  },
  {
   "action": {
@@ -1261,7 +1279,7 @@
     "script"
    ]
   },
-  "id": 14373
+  "id": 13529
  },
  {
   "action": {
@@ -1275,7 +1293,7 @@
     "script"
    ]
   },
-  "id": 14377
+  "id": 13533
  },
  {
   "action": {
@@ -1292,7 +1310,24 @@
     "script"
    ]
   },
-  "id": 14379
+  "id": 13535
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "joysporn.sex"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\/js\\/[a-z]j\\.js$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 13543
  },
  {
   "action": {
@@ -1309,7 +1344,7 @@
     "script"
    ]
   },
-  "id": 14389
+  "id": 13546
  },
  {
   "action": {
@@ -1323,7 +1358,7 @@
     "script"
    ]
   },
-  "id": 14390
+  "id": 13547
  },
  {
   "action": {
@@ -1337,7 +1372,7 @@
     "script"
    ]
   },
-  "id": 14391
+  "id": 13548
  },
  {
   "action": {
@@ -1351,7 +1386,7 @@
     "script"
    ]
   },
-  "id": 14392
+  "id": 13549
  },
  {
   "action": {
@@ -1365,7 +1400,7 @@
     "script"
    ]
   },
-  "id": 14393
+  "id": 13550
  },
  {
   "action": {
@@ -1379,7 +1414,7 @@
     "script"
    ]
   },
-  "id": 14394
+  "id": 13551
  },
  {
   "action": {
@@ -1393,7 +1428,7 @@
     "script"
    ]
   },
-  "id": 14395
+  "id": 13552
  },
  {
   "action": {
@@ -1407,7 +1442,7 @@
     "script"
    ]
   },
-  "id": 14396
+  "id": 13553
  },
  {
   "action": {
@@ -1425,7 +1460,23 @@
     "script"
    ]
   },
-  "id": 14398
+  "id": 13554
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "initiatorDomains": [
+    "kick.com"
+   ],
+   "regexFilter": "^https:\\/\\/kick\\.com\\/[0-9A-z]{16}\\/[0-9A-z]{16}\\?apiKey=",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 13557
  },
  {
   "action": {
@@ -1439,7 +1490,7 @@
     "script"
    ]
   },
-  "id": 14403
+  "id": 13561
  },
  {
   "action": {
@@ -1473,7 +1524,23 @@
     "script"
    ]
   },
-  "id": 14404
+  "id": 13562
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "regexFilter": "^https:\\/\\/www\\.reddit\\.com\\/svc\\/shreddit\\/[a-z0-9]{8}$",
+   "requestMethods": [
+    "post"
+   ],
+   "resourceTypes": [
+    "xmlhttprequest"
+   ]
+  },
+  "id": 13614
  },
  {
   "action": {
@@ -1493,7 +1560,7 @@
     "sub_frame"
    ]
   },
-  "id": 14467
+  "id": 13625
  },
  {
   "action": {
@@ -1529,8 +1596,6 @@
     "dulu.to",
     "embedstream.me",
     "eplayvid.net",
-    "flashx.net",
-    "flashx.tv",
     "fmovies.ps",
     "fmovies.to",
     "gdriveplayer.us",
@@ -1564,7 +1629,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*\\.(club|bid|biz|xyz|site|pro|info|online|icu|monster|buzz|website|biz|re|casa|top|one|space|network|live|systems|ml|world|life|co)\\/.*"
   },
-  "id": 14682
+  "id": 13839
  },
  {
   "action": {
@@ -1639,7 +1704,6 @@
     "filemoon.sx",
     "files.im",
     "filmy4wap.ink",
-    "flashx.net",
     "flexy.stream",
     "fmovies.ps",
     "footyhunter3.xyz",
@@ -1702,7 +1766,7 @@
     "putlocker-website.com",
     "reputationsheriffkennethsand.com",
     "rintor.space",
-    "rojadirecta.watch",
+    "rojadirecta.direct",
     "scloud.online",
     "send.cm",
     "sflix.to",
@@ -1730,6 +1794,7 @@
     "streamta.site",
     "streamtape.com",
     "streamtape.to",
+    "streamtape.xyz",
     "streamtapeadblock.art",
     "streamtapeadblockuser.art",
     "streamtapeadblockuser.homes",
@@ -1782,13 +1847,12 @@
     "watchkobe.info",
     "watchserieshd.live",
     "yesmovies.mn",
-    "youtube4kdownloader.com",
-    "zoro.to"
+    "youtube4kdownloader.com"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/[0-9a-z]{5,}\\.com\\/.*"
   },
-  "id": 14683
+  "id": 13840
  },
  {
   "action": {
@@ -1799,7 +1863,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/.*(com|net|top|xyz)\\/(bundle|warning|style|bootstrap|brand|reset|jquery-ui|styles|error|logo|index|favicon|star|header)\\.(png|css)\\?[A-Za-z0-9]{30,}.*"
   },
-  "id": 14684
+  "id": 13841
  },
  {
   "action": {
@@ -1812,7 +1876,7 @@
     "stylesheet"
    ]
   },
-  "id": 14855
+  "id": 14012
  },
  {
   "action": {
@@ -1825,7 +1889,7 @@
     "stylesheet"
    ]
   },
-  "id": 14856
+  "id": 14013
  },
  {
   "action": {
@@ -1838,7 +1902,7 @@
     "image"
    ]
   },
-  "id": 14865
+  "id": 14022
  },
  {
   "action": {
@@ -1851,7 +1915,7 @@
     "image"
    ]
   },
-  "id": 14866
+  "id": 14023
  },
  {
   "action": {
@@ -1864,7 +1928,7 @@
     "image"
    ]
   },
-  "id": 14868
+  "id": 14025
  },
  {
   "action": {
@@ -1877,7 +1941,7 @@
     "image"
    ]
   },
-  "id": 14869
+  "id": 14026
  },
  {
   "action": {
@@ -1890,7 +1954,7 @@
     "image"
    ]
   },
-  "id": 14870
+  "id": 14027
  },
  {
   "action": {
@@ -1903,7 +1967,7 @@
     "image"
    ]
   },
-  "id": 14871
+  "id": 14028
  },
  {
   "action": {
@@ -1916,7 +1980,7 @@
     "image"
    ]
   },
-  "id": 14872
+  "id": 14029
  },
  {
   "action": {
@@ -1930,7 +1994,7 @@
     "script"
    ]
   },
-  "id": 14964
+  "id": 14123
  },
  {
   "action": {
@@ -1945,7 +2009,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 14965
+  "id": 14124
  },
  {
   "action": {
@@ -1960,7 +2024,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 14966
+  "id": 14125
  },
  {
   "action": {
@@ -1974,7 +2038,7 @@
     "script"
    ]
   },
-  "id": 14967
+  "id": 14126
  },
  {
   "action": {
@@ -1988,7 +2052,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 14968
+  "id": 14127
  },
  {
   "action": {
@@ -2002,7 +2066,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 14969
+  "id": 14128
  },
  {
   "action": {
@@ -2016,7 +2080,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 14970
+  "id": 14129
  },
  {
   "action": {
@@ -2030,7 +2094,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 14971
+  "id": 14130
  },
  {
   "action": {
@@ -2044,7 +2108,7 @@
     "script"
    ]
   },
-  "id": 14995
+  "id": 14154
  },
  {
   "action": {
@@ -2058,7 +2122,7 @@
     "script"
    ]
   },
-  "id": 14996
+  "id": 14155
  },
  {
   "action": {
@@ -2072,7 +2136,7 @@
     "script"
    ]
   },
-  "id": 15018
+  "id": 14177
  },
  {
   "action": {
@@ -2086,7 +2150,7 @@
     "script"
    ]
   },
-  "id": 15019
+  "id": 14178
  },
  {
   "action": {
@@ -2100,7 +2164,7 @@
     "script"
    ]
   },
-  "id": 15020
+  "id": 14179
  },
  {
   "action": {
@@ -2114,7 +2178,7 @@
     "script"
    ]
   },
-  "id": 15021
+  "id": 14180
  },
  {
   "action": {
@@ -2126,12 +2190,12 @@
     "edu",
     "gov"
    ],
-   "regexFilter": "^https:\\/\\/[a-z]{5,6}\\.com\\/script\\/[a-z]{3,8}\\d?(\\.min)?\\.js$",
+   "regexFilter": "^https?:\\/\\/[a-z]{5,7}\\.com\\/script\\/[-_0-9a-z]+(\\.min)?\\.js$",
    "resourceTypes": [
     "script"
    ]
   },
-  "id": 15057
+  "id": 14215
  },
  {
   "action": {
@@ -2145,7 +2209,7 @@
     "script"
    ]
   },
-  "id": 15058
+  "id": 14217
  },
  {
   "action": {
@@ -2162,7 +2226,7 @@
     "script"
    ]
   },
-  "id": 15065
+  "id": 14224
  },
  {
   "action": {
@@ -2176,7 +2240,7 @@
     "script"
    ]
   },
-  "id": 15079
+  "id": 14238
  },
  {
   "action": {
@@ -2193,7 +2257,7 @@
     "script"
    ]
   },
-  "id": 15098
+  "id": 14256
  },
  {
   "action": {
@@ -2206,7 +2270,7 @@
     "script"
    ]
   },
-  "id": 15099
+  "id": 14257
  },
  {
   "action": {
@@ -2219,7 +2283,7 @@
     "script"
    ]
   },
-  "id": 15106
+  "id": 14264
  },
  {
   "action": {
@@ -2232,7 +2296,7 @@
     "script"
    ]
   },
-  "id": 15107
+  "id": 14265
  },
  {
   "action": {
@@ -2245,7 +2309,7 @@
     "script"
    ]
   },
-  "id": 15108
+  "id": 14266
  },
  {
   "action": {
@@ -2259,7 +2323,7 @@
     "script"
    ]
   },
-  "id": 15109
+  "id": 14267
  },
  {
   "action": {
@@ -2273,7 +2337,7 @@
     "script"
    ]
   },
-  "id": 15110
+  "id": 14268
  },
  {
   "action": {
@@ -2287,7 +2351,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15122
+  "id": 14280
  },
  {
   "action": {
@@ -2300,7 +2364,7 @@
     "script"
    ]
   },
-  "id": 15133
+  "id": 14301
  },
  {
   "action": {
@@ -2314,7 +2378,7 @@
     "script"
    ]
   },
-  "id": 15139
+  "id": 14307
  },
  {
   "action": {
@@ -2332,7 +2396,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15142
+  "id": 14310
  },
  {
   "action": {
@@ -2352,7 +2416,7 @@
     "script"
    ]
   },
-  "id": 15144
+  "id": 14312
  },
  {
   "action": {
@@ -2364,10 +2428,13 @@
     "127.0.0.1",
     "bitrix24.life",
     "ccc.ac",
+    "jacksonchen666.com",
+    "lemmy.world",
     "localhost",
     "mempool.space",
     "scribble.ninja",
     "scribble.website",
+    "spacepub.space",
     "traineast.co.uk"
    ],
    "isUrlFilterCaseSensitive": false,
@@ -2377,7 +2444,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15145
+  "id": 14313
  },
  {
   "action": {
@@ -2391,7 +2458,7 @@
     "script"
    ]
   },
-  "id": 15146
+  "id": 14314
  },
  {
   "action": {
@@ -2414,7 +2481,7 @@
     "script"
    ]
   },
-  "id": 15152
+  "id": 14320
  },
  {
   "action": {
@@ -2428,7 +2495,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15170
+  "id": 14337
  },
  {
   "action": {
@@ -2442,7 +2509,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15171
+  "id": 14338
  },
  {
   "action": {
@@ -2455,7 +2522,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15172
+  "id": 14339
  },
  {
   "action": {
@@ -2468,7 +2535,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15173
+  "id": 14340
  },
  {
   "action": {
@@ -2482,7 +2549,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15176
+  "id": 14343
  },
  {
   "action": {
@@ -2519,7 +2586,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 15191
+  "id": 14357
  },
  {
   "action": {
@@ -2532,7 +2599,7 @@
     "sub_frame"
    ]
   },
-  "id": 15201
+  "id": 14368
  },
  {
   "action": {
@@ -2545,7 +2612,21 @@
     "sub_frame"
    ]
   },
-  "id": 15202
+  "id": 14369
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "^https:\\/\\/(?:cdn77\\.)?aj[0-9a-z]{2}\\d{2}\\.online\\/[-_0-9a-zA-Z]{70,}$",
+   "resourceTypes": [
+    "sub_frame"
+   ]
+  },
+  "id": 14371
  },
  {
   "action": {
@@ -2559,7 +2640,7 @@
     "sub_frame"
    ]
   },
-  "id": 15208
+  "id": 14376
  },
  {
   "action": {
@@ -2572,7 +2653,7 @@
     "sub_frame"
    ]
   },
-  "id": 15209
+  "id": 14377
  },
  {
   "action": {
@@ -2585,7 +2666,7 @@
     "sub_frame"
    ]
   },
-  "id": 15210
+  "id": 14378
  },
  {
   "action": {
@@ -2598,7 +2679,7 @@
     "sub_frame"
    ]
   },
-  "id": 15211
+  "id": 14379
  },
  {
   "action": {
@@ -2611,7 +2692,7 @@
     "sub_frame"
    ]
   },
-  "id": 15212
+  "id": 14380
  },
  {
   "action": {
@@ -2624,6 +2705,6 @@
     "sub_frame"
    ]
   },
-  "id": 15213
+  "id": 14381
  }
 ]

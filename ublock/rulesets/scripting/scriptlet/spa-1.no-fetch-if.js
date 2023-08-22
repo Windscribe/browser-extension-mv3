@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_noFetchIf() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_noFetchIf = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"pagead2.googlesyndication.com\"]","[\"method:HEAD\"]","[\"call-zone-adxs\"]","[\"securepubads.g.doubleclick.net/pagead/ppub_config\"]","[\"/pagead2\\\\.googlesyndication\\\\.com|ads-api\\\\.twitter\\\\.com/\"]","[\"ads-twitter.com\"]","[\"static.ads-twitter.com\"]","[\"www3.doubleclick.net\"]","[\"/adsbygoogle.js\"]"];
+const argsList = [["method:HEAD"],["securepubads.g.doubleclick.net/pagead/ppub_config"],["pagead2.googlesyndication.com"],["adsbygoogle"],["call-zone-adxs"],["/pagead2\\.googlesyndication\\.com|ads-api\\.twitter\\.com/"],["ads-twitter.com"],["static.ads-twitter.com"],["www3.doubleclick.net"],["/adsbygoogle.js"]];
 
-const hostnamesMap = new Map([["los40.com",0],["negociosecommerce.com",[0,2]],["puromarketing.com",[0,2]],["todostartups.com",[0,2]],["pobre.wtf",0],["suaurl.com",0],["acortalo.net",0],["link-descarga.site",0],["meutimao.com.br",0],["discografias.net",0],["listas.pro",0],["emperorscan.com",0],["lawebdelprogramador.com",0],["yesmangas1.com",0],["mangahost4.com",0],["mangahosted.com",0],["mangahost2.com",0],["mangahost1.com",0],["mangahostbr.net",0],["mangahostbr.com",0],["acortame-esto.com",1],["netcine.to",1],["independentespanol.com",3],["nptmedia.tv",4],["costumbresmexico.com",5],["desbloqueador.site",5],["notipostingt.com",6],["tivify.tv",7],["netmovies.com.br",8]]);
+const hostnamesMap = new Map([["mega-enlace.com",0],["enlacito.com",0],["acortame-esto.com",0],["netcine.to",0],["reidoplacar.com",0],["suaurl.com",0],["redbolivision.tv.bo",1],["independentespanol.com",1],["animesonline.nz",2],["los40.com",2],["negociosecommerce.com",[2,4]],["puromarketing.com",[2,4]],["todostartups.com",[2,4]],["pobre.wtf",2],["acortalo.net",2],["link-descarga.site",2],["meutimao.com.br",2],["discografias.net",2],["listas.pro",2],["emperorscan.com",2],["lawebdelprogramador.com",2],["dicasgostosas.com",2],["yesmangas1.com",2],["mangahost4.com",2],["mangahosted.com",2],["mangahost2.com",2],["mangahost1.com",2],["mangahostbr.net",2],["mangahostbr.com",2],["downloads.sayrodigital.com",3],["teleculinaria.pt",3],["nptmedia.tv",5],["costumbresmexico.com",6],["desbloqueador.site",6],["notipostingt.com",7],["tivify.tv",8],["netmovies.com.br",9]]);
 
 const entitiesMap = new Map([]);
 
@@ -51,6 +56,7 @@ function noFetchIf(
     arg1 = '',
 ) {
     if ( typeof arg1 !== 'string' ) { return; }
+    const safe = safeSelf();
     const needles = [];
     for ( const condition of arg1.split(/\s+/) ) {
         if ( condition === '' ) { continue; }
@@ -63,7 +69,7 @@ function noFetchIf(
             key = 'url';
             value = condition;
         }
-        needles.push({ key, re: patternToRegex(value) });
+        needles.push({ key, re: safe.patternToRegex(value) });
     }
     const log = needles.length === 0 ? console.log.bind(console) : undefined;
     self.fetch = new Proxy(self.fetch, {
@@ -111,13 +117,88 @@ function noFetchIf(
     });
 }
 
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
+function safeSelf() {
+    if ( scriptletGlobals.has('safeSelf') ) {
+        return scriptletGlobals.get('safeSelf');
     }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+    const safe = {
+        'Error': self.Error,
+        'Object_defineProperty': Object.defineProperty.bind(Object),
+        'RegExp': self.RegExp,
+        'RegExp_test': self.RegExp.prototype.test,
+        'RegExp_exec': self.RegExp.prototype.exec,
+        'addEventListener': self.EventTarget.prototype.addEventListener,
+        'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
+        'log': console.log.bind(console),
+        uboLog(...args) {
+            if ( args.length === 0 ) { return; }
+            if ( `${args[0]}` === '' ) { return; }
+            this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
+        },
+    };
+    scriptletGlobals.set('safeSelf', safe);
+    return safe;
 }
 
 /******************************************************************************/
@@ -180,13 +261,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { noFetchIf(...JSON.parse(argsList[i])); }
+    try { noFetchIf(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_noFetchIf();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_noFetchIf = cloneInto([
+            [ '(', uBOL_noFetchIf.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_noFetchIf);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_noFetchIf;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

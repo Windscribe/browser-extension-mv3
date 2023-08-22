@@ -31,6 +31,7 @@ import {
     runtime,
     localRead, localWrite,
     sessionRead, sessionWrite,
+    adminRead,
 } from './ext.js';
 
 import {
@@ -158,7 +159,7 @@ function onMessage(request, sender, callback) {
         break;
     }
 
-    // Does requires trusted origin.
+    // Does require trusted origin.
 
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/MessageSender
     //   Firefox API does not set `sender.origin`
@@ -191,6 +192,7 @@ function onMessage(request, sender, callback) {
             callback({
                 defaultFilteringMode,
                 enabledRulesets,
+                maxNumberOfEnabledRulesets: dnr.MAX_NUMBER_OF_ENABLED_STATIC_RULESETS,
                 rulesetDetails: Array.from(rulesetDetails.values()),
                 autoReload: rulesetConfig.autoReload === 1,
                 firstRun,
@@ -315,9 +317,12 @@ async function start() {
         ( ) => { onPermissionsRemoved(); }
     );
 
-    // if ( firstRun ) {
-    //     runtime.openOptionsPage();
-    // }
+    if ( firstRun ) {
+        const disableFirstRunPage = await adminRead('disableFirstRunPage');
+        if ( disableFirstRunPage !== true ) {
+            // runtime.openOptionsPage();
+        }
+    }
 }
 
 try {

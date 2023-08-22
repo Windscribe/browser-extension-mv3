@@ -7,7 +7,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "afiliasi\\/*\\/banners"
   },
-  "id": 1021
+  "id": 1022
  },
  {
   "action": {
@@ -17,7 +17,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "anuncy\\/*\\/ads"
   },
-  "id": 1035
+  "id": 1036
  },
  {
   "action": {
@@ -27,7 +27,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "images\\/*_ads"
   },
-  "id": 1466
+  "id": 1467
  },
  {
   "action": {
@@ -37,7 +37,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "static\\/*\\/ads"
   },
-  "id": 2073
+  "id": 2074
  },
  {
   "action": {

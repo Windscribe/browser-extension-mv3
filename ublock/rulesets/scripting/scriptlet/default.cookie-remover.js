@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_cookieRemover() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_cookieRemover = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"video_view_count\"]","[\"da325\"]","[\"ref_cookie\"]","[\"/^/\"]","[\"PageCount\"]","[]","[\"/vs|to|vs_spon|tgpOut|current_click/\"]","[\"realm.cookiesAndJavascript\"]","[\"kt_qparams\"]","[\"kt_ips\"]","[\"kt_referer\"]","[\"blaize_tracking_id\"]","[\"akaclientip\"]","[\"hive_geoloc\"]"];
+const argsList = [["video_view_count"],["da325"],["ref_cookie"],["/^/"],["PageCount"],[],["45grw1567"],["/vs|to|vs_spon|tgpOut|current_click/"],["realm.cookiesAndJavascript"],["kt_qparams"],["kt_ips"],["kt_referer"],["blaize_tracking_id"],["akaclientip"],["hive_geoloc"],["MicrosoftApplicationsTelemetryDeviceId"]];
 
-const hostnamesMap = new Map([["fullxh.com",0],["megaxh.com",0],["unlockxh4.com",0],["xhadult2.com",0],["xhadult3.com",0],["xhadult4.com",0],["xhadult5.com",0],["xhamster46.com",0],["xhday.com",0],["xhday1.com",0],["xhmoon5.com",0],["xhplanet1.com",0],["xhplanet2.com",0],["xhreal2.com",0],["xhreal3.com",0],["xhtab2.com",0],["xhvictory.com",0],["xhwebsite.com",0],["xhwebsite2.com",0],["xhwide1.com",0],["xhwide8.com",0],["zootube1.com",1],["subdivx.com",2],["adultasianporn.com",3],["jetpunk.com",4],["xxxxsx.com",5],["sexvideos.host",6],["beaumontenterprise.com",7],["chron.com",7],["ctinsider.com",7],["ctpost.com",7],["expressnews.com",7],["houstonchronicle.com",7],["lmtonline.com",7],["middletownpress.com",7],["mrt.com",7],["newstimes.com",7],["nhregister.com",7],["registercitizen.com",7],["sfchronicle.com",7],["stamfordadvocate.com",7],["thehour.com",7],["timesunion.com",7],["heavyfetish.com",[8,9,10]],["nypost.com",11],["pagesix.com",11],["factable.com",[12,13]]]);
+const hostnamesMap = new Map([["fullxh.com",0],["megaxh.com",0],["unlockxh4.com",0],["xhadult2.com",0],["xhadult3.com",0],["xhadult4.com",0],["xhadult5.com",0],["xhamster46.com",0],["xhday.com",0],["xhday1.com",0],["xhmoon5.com",0],["xhplanet1.com",0],["xhplanet2.com",0],["xhreal2.com",0],["xhreal3.com",0],["xhtab2.com",0],["xhvictory.com",0],["xhwebsite.com",0],["xhwebsite2.com",0],["xhwide1.com",0],["xhwide8.com",0],["zootube1.com",1],["subdivx.com",2],["adultasianporn.com",3],["jetpunk.com",4],["xxxxsx.com",5],["autosport.com",6],["motorsport.com",6],["sexvideos.host",7],["beaumontenterprise.com",8],["chron.com",8],["ctinsider.com",8],["ctpost.com",8],["expressnews.com",8],["houstonchronicle.com",8],["lmtonline.com",8],["middletownpress.com",8],["mrt.com",8],["newstimes.com",8],["nhregister.com",8],["registercitizen.com",8],["sfchronicle.com",8],["stamfordadvocate.com",8],["thehour.com",8],["timesunion.com",8],["heavyfetish.com",[9,10,11]],["watchporn.to",10],["columbian.com",12],["nypost.com",12],["pagesix.com",12],["factable.com",[13,14]],["bing.com",15]]);
 
 const entitiesMap = new Map([["hamsterix",0],["xhamster",0],["xhamster1",0],["xhamster10",0],["xhamster11",0],["xhamster12",0],["xhamster13",0],["xhamster14",0],["xhamster15",0],["xhamster16",0],["xhamster17",0],["xhamster18",0],["xhamster19",0],["xhamster20",0],["xhamster2",0],["xhamster3",0],["xhamster4",0],["xhamster5",0],["xhamster7",0],["xhamster8",0]]);
 
@@ -51,7 +56,8 @@ function cookieRemover(
     needle = ''
 ) {
     if ( typeof needle !== 'string' ) { return; }
-    const reName = patternToRegex(needle);
+    const safe = safeSelf();
+    const reName = safe.patternToRegex(needle);
     const removeCookie = function() {
         document.cookie.split(';').forEach(cookieStr => {
             let pos = cookieStr.indexOf('=');
@@ -91,13 +97,88 @@ function cookieRemover(
     window.addEventListener('beforeunload', removeCookie);
 }
 
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
+function safeSelf() {
+    if ( scriptletGlobals.has('safeSelf') ) {
+        return scriptletGlobals.get('safeSelf');
     }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+    const safe = {
+        'Error': self.Error,
+        'Object_defineProperty': Object.defineProperty.bind(Object),
+        'RegExp': self.RegExp,
+        'RegExp_test': self.RegExp.prototype.test,
+        'RegExp_exec': self.RegExp.prototype.exec,
+        'addEventListener': self.EventTarget.prototype.addEventListener,
+        'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
+        'log': console.log.bind(console),
+        uboLog(...args) {
+            if ( args.length === 0 ) { return; }
+            if ( `${args[0]}` === '' ) { return; }
+            this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
+        },
+    };
+    scriptletGlobals.set('safeSelf', safe);
+    return safe;
 }
 
 /******************************************************************************/
@@ -160,13 +241,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { cookieRemover(...JSON.parse(argsList[i])); }
+    try { cookieRemover(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_cookieRemover();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_cookieRemover = cloneInto([
+            [ '(', uBOL_cookieRemover.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_cookieRemover);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_cookieRemover;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

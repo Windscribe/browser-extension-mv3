@@ -37,8 +37,11 @@
    "type": "block"
   },
   "condition": {
+   "initiatorDomains": [
+    "karpathir.com"
+   ],
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||444.hu/*/ease/"
+   "urlFilter": "||floweryoperation.com/v2/0/"
   },
   "id": 4
  },
@@ -48,7 +51,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||affiliation.arukereso.hu/pbox/"
+   "urlFilter": "||444.hu/*/ease/"
   },
   "id": 5
  },
@@ -57,12 +60,8 @@
    "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "gyakorikerdesek.hu",
-    "hoxa.hu"
-   ],
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||aghtag.tech/libs/projectagora.min.js^"
+   "urlFilter": "||affiliation.arukereso.hu/pbox/"
   },
   "id": 6
  },
@@ -291,11 +290,8 @@
    "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "karpathir.com"
-   ],
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||floweryoperation.com/v2/0/"
+   "urlFilter": "||freeweb.hu/*_banner*."
   },
   "id": 29
  },
@@ -305,7 +301,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||freeweb.hu/*_banner*."
+   "urlFilter": "||gamepod.hu/ajanlo/lapcsalad.html"
   },
   "id": 30
  },
@@ -315,7 +311,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||gamepod.hu/ajanlo/lapcsalad.html"
+   "urlFilter": "||geeks.hu/*body-bg-*."
   },
   "id": 31
  },
@@ -325,7 +321,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||geeks.hu/*body-bg-*."
+   "urlFilter": "||harmonet.hu/*hirdetes"
   },
   "id": 32
  },
@@ -335,7 +331,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||harmonet.hu/*hirdetes"
+   "urlFilter": "||hasznaltgsm.hu/gsm/iframes/"
   },
   "id": 33
  },
@@ -345,7 +341,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||hasznaltgsm.hu/gsm/iframes/"
+   "urlFilter": "||hatarido-szamitas.hu/partnerek/"
   },
   "id": 34
  },
@@ -355,7 +351,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||hatarido-szamitas.hu/partnerek/"
+   "urlFilter": "||hazipatika.com/sponsoredbys/"
   },
   "id": 35
  },
@@ -365,7 +361,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||hazipatika.com/sponsoredbys/"
+   "urlFilter": "||hircsarda.hu/ads/"
   },
   "id": 36
  },
@@ -375,7 +371,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||hircsarda.hu/ads/"
+   "urlFilter": "||hungariantop1000.com/cgi-bin/counter.cgi"
   },
   "id": 37
  },
@@ -385,7 +381,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||hungariantop1000.com/cgi-bin/counter.cgi"
+   "urlFilter": "||hupont.hu/hirdetes/"
   },
   "id": 38
  },
@@ -395,7 +391,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||hupont.hu/hirdetes/"
+   "urlFilter": "||hwsw.hu/images/bodybgs2/"
   },
   "id": 39
  },
@@ -405,7 +401,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||hwsw.hu/images/bodybgs2/"
+   "urlFilter": "||i.cdn29.hu/apix_collect/ads"
   },
   "id": 40
  },
@@ -415,7 +411,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||i.cdn29.hu/apix_collect/ads"
+   "urlFilter": "||iho.hu/img/banner/"
   },
   "id": 41
  },
@@ -425,7 +421,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||iho.hu/img/banner/"
+   "urlFilter": "||infogyor.hu/*_banners/"
   },
   "id": 42
  },
@@ -435,7 +431,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||infogyor.hu/*_banners/"
+   "urlFilter": "||informed.hu/*banner"
   },
   "id": 43
  },
@@ -445,7 +441,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||informed.hu/*banner"
+   "urlFilter": "||ingyenweb.hu/felso/*."
   },
   "id": 44
  },
@@ -455,7 +451,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||ingyenweb.hu/felso/*."
+   "urlFilter": "||ingyenweb.hu/smsbanner/"
   },
   "id": 45
  },
@@ -465,7 +461,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||ingyenweb.hu/smsbanner/"
+   "urlFilter": "||jogiforum.hu/files/partner/"
   },
   "id": 46
  },
@@ -475,7 +471,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||jogiforum.hu/files/partner/"
+   "urlFilter": "||keymedia.hu/keymediajs.cgi"
   },
   "id": 47
  },
@@ -485,7 +481,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||ketyerepark.hu/banner/"
+   "urlFilter": "||koponyeg.hu/skins/k4/hirdetes/"
   },
   "id": 48
  },
@@ -495,7 +491,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||keymedia.hu/keymediajs.cgi"
+   "urlFilter": "||lapok.hu/felso/felso.php"
   },
   "id": 49
  },
@@ -505,7 +501,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||koponyeg.hu/skins/k4/hirdetes/"
+   "urlFilter": "||libri.hu/export/prodbann/"
   },
   "id": 50
  },
@@ -515,7 +511,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||lapok.hu/felso/felso.php"
+   "urlFilter": "||lifemagazin.hu/ads/"
   },
   "id": 51
  },
@@ -525,7 +521,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||libri.hu/export/prodbann/"
+   "urlFilter": "||love.hu/design/*hirdetes*."
   },
   "id": 52
  },
@@ -535,7 +531,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||lifemagazin.hu/ads/"
+   "urlFilter": "||medicalonline.hu/*hirdetes"
   },
   "id": 53
  },
@@ -545,7 +541,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||love.hu/design/*hirdetes*."
+   "urlFilter": "||miabonyunk.hu/hirdetesek/"
   },
   "id": 54
  },
@@ -555,7 +551,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||medicalonline.hu/*hirdetes"
+   "urlFilter": "||mkbnetbankar.hu/banner"
   },
   "id": 55
  },
@@ -565,7 +561,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||miabonyunk.hu/hirdetesek/"
+   "urlFilter": "||mobilarena.hu/ajanlo/lapcsalad.html"
   },
   "id": 56
  },
@@ -575,7 +571,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||mkbnetbankar.hu/banner"
+   "urlFilter": "||napidroid.hu/*/*hird"
   },
   "id": 57
  },
@@ -585,7 +581,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||mobilarena.hu/ajanlo/lapcsalad.html"
+   "urlFilter": "||nso.hu/*/sponsoration/*."
   },
   "id": 58
  },
@@ -595,7 +591,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||napidroid.hu/*/*hird"
+   "urlFilter": "||okmanyiroda.hu/banner.html"
   },
   "id": 59
  },
@@ -605,7 +601,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||nso.hu/*/sponsoration/*."
+   "urlFilter": "||p3k.hu/*szponz*."
   },
   "id": 60
  },
@@ -615,7 +611,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||okmanyiroda.hu/banner.html"
+   "urlFilter": "||pornolize.com/*?clicktag="
   },
   "id": 61
  },
@@ -625,7 +621,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||p3k.hu/*szponz*."
+   "urlFilter": "||port-network.com/sponsoration_elements/"
   },
   "id": 62
  },
@@ -635,7 +631,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||pornolize.com/*?clicktag="
+   "urlFilter": "||randihely.hu/adnews/"
   },
   "id": 63
  },
@@ -645,7 +641,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||port-network.com/sponsoration_elements/"
+   "urlFilter": "||revizoronline.com/*banner"
   },
   "id": 64
  },
@@ -655,7 +651,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||randihely.hu/adnews/"
+   "urlFilter": "||sg.hu/sg.wgt"
   },
   "id": 65
  },
@@ -665,7 +661,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||revizoronline.com/*banner"
+   "urlFilter": "||static.love.hu/design/ad/"
   },
   "id": 66
  },
@@ -675,7 +671,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sg.hu/sg.wgt"
+   "urlFilter": "||static.nemzetisport.hu//style/nso/i/*banner"
   },
   "id": 67
  },
@@ -685,7 +681,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.love.hu/design/ad/"
+   "urlFilter": "||stylemagazin.hu/static/template_settings/"
   },
   "id": 68
  },
@@ -695,42 +691,9 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.nemzetisport.hu//style/nso/i/*banner"
-  },
-  "id": 69
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "szeretlekmagyarorszag.hu"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.quantcast.mgr.consensu.org/v30/cmpui-popup.js^"
-  },
-  "id": 70
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||stylemagazin.hu/static/template_settings/"
-  },
-  "id": 71
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
    "urlFilter": "||szegeder.hu/get-ads"
   },
-  "id": 72
+  "id": 69
  },
  {
   "action": {
@@ -740,7 +703,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||szegedma.hu/*banners/*."
   },
-  "id": 73
+  "id": 70
  },
  {
   "action": {
@@ -750,7 +713,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||talalka.hu/hirdetes/"
   },
-  "id": 74
+  "id": 71
  },
  {
   "action": {
@@ -760,7 +723,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||telefonguru.hu/iframes/"
   },
-  "id": 75
+  "id": 72
  },
  {
   "action": {
@@ -770,7 +733,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||ultraweb.hu/ad*.php"
   },
-  "id": 76
+  "id": 73
  },
  {
   "action": {
@@ -780,7 +743,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||utcakereso.hu/hirdetes/"
   },
-  "id": 77
+  "id": 74
  },
  {
   "action": {
@@ -790,7 +753,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||zeneszoveg.hu/gfx/skin-*/*."
   },
-  "id": 78
+  "id": 75
  },
  {
   "action": {
@@ -800,7 +763,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||ad*.gyaloglo.hu^"
   },
-  "id": 79
+  "id": 76
  },
  {
   "action": {
@@ -810,7 +773,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||ad*.mellesleg.hu^"
   },
-  "id": 80
+  "id": 77
  },
  {
   "action": {
@@ -820,7 +783,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||advert*.ultraweb.hu^"
   },
-  "id": 81
+  "id": 78
  },
  {
   "action": {
@@ -830,7 +793,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||adverticum.*.hu^"
   },
-  "id": 82
+  "id": 79
  },
  {
   "action": {
@@ -840,7 +803,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||as*.prog.hu^"
   },
-  "id": 83
+  "id": 80
  },
  {
   "action": {
@@ -850,7 +813,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||etargetnet.*.hu^"
   },
-  "id": 84
+  "id": 81
  },
  {
   "action": {
@@ -860,7 +823,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||rehs.*.hu^"
   },
-  "id": 85
+  "id": 82
  },
  {
   "action": {
@@ -870,7 +833,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||sher.*.hu^"
   },
-  "id": 86
+  "id": 83
  },
  {
   "action": {
@@ -880,90 +843,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||szemezgeto*.ingatlan.com^"
   },
-  "id": 87
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "infostart.hu"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/js/push.js"
-  },
-  "id": 88
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||money.hu/assets-new/js/calculator-widget-init.js"
-  },
-  "id": 89
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/gemius.js^"
-  },
-  "id": 90
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/gemius.min.js^"
-  },
-  "id": 91
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/traffic.js"
-  },
-  "id": 92
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/traffic.min.js"
-  },
-  "id": 93
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/xgemius.js^"
-  },
-  "id": 94
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "/xgemius.min.js^"
-  },
-  "id": 95
+  "id": 84
  },
  {
   "action": {
@@ -973,17 +853,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": ".hu/userip.php"
   },
-  "id": 96
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||infostart.hu/js/ga.js"
-  },
-  "id": 97
+  "id": 85
  },
  {
   "action": {
@@ -993,17 +863,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||websas.hu/statistics/"
   },
-  "id": 98
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||beam.telex.hu"
-  },
-  "id": 99
+  "id": 86
  },
  {
   "action": {
@@ -1013,7 +873,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||beam-tracker.telex.hu"
   },
-  "id": 100
+  "id": 87
  },
  {
   "action": {
@@ -1021,9 +881,9 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||onlinestream.live/js/adb.js"
+   "urlFilter": "||beam.telex.hu"
   },
-  "id": 101
+  "id": 88
  },
  {
   "action": {
@@ -1046,7 +906,6 @@
     "adat.freemail.hu",
     "adfair.hu",
     "adfree-stat.p3g.hu",
-    "adk2x.com",
     "ads.geeks.hu",
     "ads.nepszava.com",
     "adtrackeraa.com",
@@ -1064,7 +923,6 @@
     "chatrobot.mia.gov.hu",
     "chimpstatic.com",
     "counter.megagroup.ru",
-    "ctnsnet.com",
     "daserver.ultraweb.hu",
     "doubleclick.net",
     "et.twyn.com",
@@ -1098,11 +956,10 @@
     "up-banner.wavecdn.de",
     "vid4u.org",
     "widget.block4d.com",
-    "wstat.ozon.ru",
-    "zanox.com"
+    "wstat.ozon.ru"
    ]
   },
-  "id": 102
+  "id": 89
  },
  {
   "action": {
@@ -1115,7 +972,7 @@
    ],
    "urlFilter": "||static.origos.hu/s/css/responsive-ads/hangar/hangar-investor-web.css"
   },
-  "id": 103
+  "id": 90
  },
  {
   "action": {
@@ -1128,7 +985,7 @@
    ],
    "urlFilter": "||0i.hu/files/images/"
   },
-  "id": 105
+  "id": 92
  },
  {
   "action": {
@@ -1141,7 +998,7 @@
    ],
    "urlFilter": "||888.hu^*/autoalkatreszek24"
   },
-  "id": 106
+  "id": 93
  },
  {
   "action": {
@@ -1154,7 +1011,7 @@
    ],
    "urlFilter": "||ado.hu/banners/"
   },
-  "id": 107
+  "id": 94
  },
  {
   "action": {
@@ -1167,7 +1024,7 @@
    ],
    "urlFilter": "||alfahir.hu^*/hirdetesfoto/"
   },
-  "id": 108
+  "id": 95
  },
  {
   "action": {
@@ -1180,7 +1037,7 @@
    ],
    "urlFilter": "||asva.info/wp-content/themes/branfordmagazine/images/banners/"
   },
-  "id": 109
+  "id": 96
  },
  {
   "action": {
@@ -1193,7 +1050,7 @@
    ],
    "urlFilter": "||autopro.hu/uploads/banners/"
   },
-  "id": 110
+  "id": 97
  },
  {
   "action": {
@@ -1206,7 +1063,7 @@
    ],
    "urlFilter": "||bitport.hu/images/szponzoracio/"
   },
-  "id": 111
+  "id": 98
  },
  {
   "action": {
@@ -1219,7 +1076,7 @@
    ],
    "urlFilter": "||bkv.hu/public/assets/img/banner/"
   },
-  "id": 112
+  "id": 99
  },
  {
   "action": {
@@ -1232,7 +1089,7 @@
    ],
    "urlFilter": "||blog.hu/media/image/hird/"
   },
-  "id": 113
+  "id": 100
  },
  {
   "action": {
@@ -1245,7 +1102,7 @@
    ],
    "urlFilter": "||chat.hu/imgadverts"
   },
-  "id": 114
+  "id": 101
  },
  {
   "action": {
@@ -1258,20 +1115,7 @@
    ],
    "urlFilter": "||csongradihirek.hu/portal/images/stories/_reklamok/"
   },
-  "id": 115
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "image"
-   ],
-   "urlFilter": "||demotivalo.net/*banner_*."
-  },
-  "id": 116
+  "id": 102
  },
  {
   "action": {
@@ -1284,7 +1128,7 @@
    ],
    "urlFilter": "||dijnet.hu/ekonto/images/news/"
   },
-  "id": 117
+  "id": 103
  },
  {
   "action": {
@@ -1297,7 +1141,7 @@
    ],
    "urlFilter": "||dijnet.hu/ekonto/images/szolg_logo/adomany_logo.jpg"
   },
-  "id": 118
+  "id": 104
  },
  {
   "action": {
@@ -1310,7 +1154,7 @@
    ],
    "urlFilter": "||dijnet.hu/ekonto/images/szolg_logo/hu/adomany_logo.jpg"
   },
-  "id": 119
+  "id": 105
  },
  {
   "action": {
@@ -1323,7 +1167,7 @@
    ],
    "urlFilter": "||est.hu/design/img/szponzoracio/"
   },
-  "id": 120
+  "id": 106
  },
  {
   "action": {
@@ -1336,7 +1180,7 @@
    ],
    "urlFilter": "||fototrend.hu/design/hatter.jpg"
   },
-  "id": 121
+  "id": 107
  },
  {
   "action": {
@@ -1349,7 +1193,7 @@
    ],
    "urlFilter": "||gigasex.hu/bannerek/"
   },
-  "id": 122
+  "id": 108
  },
  {
   "action": {
@@ -1362,7 +1206,7 @@
    ],
    "urlFilter": "||gyakorikerdesek.hu/pic/bannerek/"
   },
-  "id": 123
+  "id": 109
  },
  {
   "action": {
@@ -1375,7 +1219,7 @@
    ],
    "urlFilter": "||hirado.hu*/microsites/*wallpaper*."
   },
-  "id": 124
+  "id": 110
  },
  {
   "action": {
@@ -1388,7 +1232,7 @@
    ],
    "urlFilter": "||hirado.hu/newsreel/*_bg_*."
   },
-  "id": 125
+  "id": 111
  },
  {
   "action": {
@@ -1401,7 +1245,7 @@
    ],
    "urlFilter": "||hirdetes.ingatlan.com/banner/"
   },
-  "id": 126
+  "id": 112
  },
  {
   "action": {
@@ -1414,7 +1258,7 @@
    ],
    "urlFilter": "||hirek.sk/banner/"
   },
-  "id": 127
+  "id": 113
  },
  {
   "action": {
@@ -1427,7 +1271,7 @@
    ],
    "urlFilter": "||hosszupuskasub.com/css/*skin.jpg"
   },
-  "id": 128
+  "id": 114
  },
  {
   "action": {
@@ -1440,7 +1284,7 @@
    ],
    "urlFilter": "||hrportal.hu/images/banner/"
   },
-  "id": 129
+  "id": 115
  },
  {
   "action": {
@@ -1453,7 +1297,7 @@
    ],
    "urlFilter": "||hu-swingers.com/img/banners/"
   },
-  "id": 130
+  "id": 116
  },
  {
   "action": {
@@ -1466,7 +1310,7 @@
    ],
    "urlFilter": "||hwsw.hu/images/bodybgs/"
   },
-  "id": 131
+  "id": 117
  },
  {
   "action": {
@@ -1479,7 +1323,7 @@
    ],
    "urlFilter": "||image.arukereso.hu/ad"
   },
-  "id": 132
+  "id": 118
  },
  {
   "action": {
@@ -1492,7 +1336,7 @@
    ],
    "urlFilter": "||img.hunbasket.webpont.com/kosarsport/art/*banner"
   },
-  "id": 133
+  "id": 119
  },
  {
   "action": {
@@ -1505,7 +1349,7 @@
    ],
    "urlFilter": "||klasszikradio.hu/uploads/banner/"
   },
-  "id": 134
+  "id": 120
  },
  {
   "action": {
@@ -1518,7 +1362,7 @@
    ],
    "urlFilter": "||klubradio.hu/data/files/banner"
   },
-  "id": 135
+  "id": 121
  },
  {
   "action": {
@@ -1531,7 +1375,7 @@
    ],
    "urlFilter": "||konkretkonyvek.hu/data/banners/"
   },
-  "id": 136
+  "id": 122
  },
  {
   "action": {
@@ -1544,7 +1388,7 @@
    ],
    "urlFilter": "||libri.hu/html/images/skin/"
   },
-  "id": 137
+  "id": 123
  },
  {
   "action": {
@@ -1557,7 +1401,7 @@
    ],
    "urlFilter": "||lolmarkt.hu/banner/"
   },
-  "id": 138
+  "id": 124
  },
  {
   "action": {
@@ -1570,7 +1414,7 @@
    ],
    "urlFilter": "||magyar-elektronika.hu/images/banners/"
   },
-  "id": 139
+  "id": 125
  },
  {
   "action": {
@@ -1583,7 +1427,7 @@
    ],
    "urlFilter": "||magyarszo.com/images/banner/"
   },
-  "id": 140
+  "id": 126
  },
  {
   "action": {
@@ -1596,7 +1440,7 @@
    ],
    "urlFilter": "||mandiner.hu/*/banner/"
   },
-  "id": 141
+  "id": 127
  },
  {
   "action": {
@@ -1609,7 +1453,7 @@
    ],
    "urlFilter": "||mandiner.hu/images/design/*-bg."
   },
-  "id": 142
+  "id": 128
  },
  {
   "action": {
@@ -1622,7 +1466,7 @@
    ],
    "urlFilter": "||metropol.hu/*/images/sponsor_*."
   },
-  "id": 143
+  "id": 129
  },
  {
   "action": {
@@ -1635,7 +1479,7 @@
    ],
    "urlFilter": "||mindmegette.hu/images/294/o/nyerjagyulaival_2020_background_300x300.jpg"
   },
-  "id": 144
+  "id": 130
  },
  {
   "action": {
@@ -1648,7 +1492,7 @@
    ],
    "urlFilter": "||mlzphoto.hu/bannerek/"
   },
-  "id": 145
+  "id": 131
  },
  {
   "action": {
@@ -1661,7 +1505,7 @@
    ],
    "urlFilter": "||napidroid.hu/*/*logo"
   },
-  "id": 146
+  "id": 132
  },
  {
   "action": {
@@ -1674,7 +1518,7 @@
    ],
    "urlFilter": "||napocska.hu/images/*_advert*."
   },
-  "id": 147
+  "id": 133
  },
  {
   "action": {
@@ -1687,7 +1531,7 @@
    ],
    "urlFilter": "||net-solutions.hu/banner/"
   },
-  "id": 148
+  "id": 134
  },
  {
   "action": {
@@ -1700,7 +1544,7 @@
    ],
    "urlFilter": "||noplaza.hu/banner/"
   },
-  "id": 149
+  "id": 135
  },
  {
   "action": {
@@ -1713,7 +1557,7 @@
    ],
    "urlFilter": "||p3k.hu/*_hatter*."
   },
-  "id": 150
+  "id": 136
  },
  {
   "action": {
@@ -1726,7 +1570,7 @@
    ],
    "urlFilter": "||partyzoo.hu/banner/"
   },
-  "id": 151
+  "id": 137
  },
  {
   "action": {
@@ -1739,7 +1583,7 @@
    ],
    "urlFilter": "||pcguru.hu/uploads/banners/*.jpg"
   },
-  "id": 152
+  "id": 138
  },
  {
   "action": {
@@ -1752,7 +1596,7 @@
    ],
    "urlFilter": "||pcpult.hu/*/banner/"
   },
-  "id": 153
+  "id": 139
  },
  {
   "action": {
@@ -1765,7 +1609,7 @@
    ],
    "urlFilter": "||pcworld.hu/bannerek/"
   },
-  "id": 154
+  "id": 140
  },
  {
   "action": {
@@ -1778,7 +1622,7 @@
    ],
    "urlFilter": "||piacesprofit.hu/files/skin/"
   },
-  "id": 155
+  "id": 141
  },
  {
   "action": {
@@ -1791,7 +1635,7 @@
    ],
    "urlFilter": "||portfolio.hu/img/partner/"
   },
-  "id": 156
+  "id": 142
  },
  {
   "action": {
@@ -1804,7 +1648,7 @@
    ],
    "urlFilter": "||preissuchmaschine.de/banner/"
   },
-  "id": 157
+  "id": 143
  },
  {
   "action": {
@@ -1817,7 +1661,7 @@
    ],
    "urlFilter": "||prohardver.hu/dl/cnt/*/background.png"
   },
-  "id": 158
+  "id": 144
  },
  {
   "action": {
@@ -1830,7 +1674,7 @@
    ],
    "urlFilter": "||sg.hu/images/hirdetes.gif"
   },
-  "id": 159
+  "id": 145
  },
  {
   "action": {
@@ -1843,7 +1687,7 @@
    ],
    "urlFilter": "||sielok.hu/kampanybanner/"
   },
-  "id": 160
+  "id": 146
  },
  {
   "action": {
@@ -1856,7 +1700,7 @@
    ],
    "urlFilter": "||sikerado.hu/banner/"
   },
-  "id": 161
+  "id": 147
  },
  {
   "action": {
@@ -1869,7 +1713,7 @@
    ],
    "urlFilter": "||stat.profession.hu/static/assets/images/prize-game"
   },
-  "id": 162
+  "id": 148
  },
  {
   "action": {
@@ -1882,7 +1726,7 @@
    ],
    "urlFilter": "||static.lhp.hu/lhp.hu/bannerek/"
   },
-  "id": 163
+  "id": 149
  },
  {
   "action": {
@@ -1895,7 +1739,7 @@
    ],
    "urlFilter": "||static.nemzetisport.hu//style/nso/i/betclic.gif"
   },
-  "id": 164
+  "id": 150
  },
  {
   "action": {
@@ -1908,7 +1752,7 @@
    ],
    "urlFilter": "||szepsegbroker.hu/banner/"
   },
-  "id": 165
+  "id": 151
  },
  {
   "action": {
@@ -1921,7 +1765,7 @@
    ],
    "urlFilter": "||talilap.hu/banner/"
   },
-  "id": 166
+  "id": 152
  },
  {
   "action": {
@@ -1934,7 +1778,7 @@
    ],
    "urlFilter": "||telefonguru.hu/banners/"
   },
-  "id": 167
+  "id": 153
  },
  {
   "action": {
@@ -1947,7 +1791,7 @@
    ],
    "urlFilter": "||tvn.hu/tvn/kepek/xpoker.hu/"
   },
-  "id": 168
+  "id": 154
  },
  {
   "action": {
@@ -1960,7 +1804,7 @@
    ],
    "urlFilter": "||vatera.hu/affiliate/images/banner/"
   },
-  "id": 169
+  "id": 155
  },
  {
   "action": {
@@ -1973,7 +1817,7 @@
    ],
    "urlFilter": "||vezess.hu/data/files/bannerek/"
   },
-  "id": 170
+  "id": 156
  },
  {
   "action": {
@@ -1986,7 +1830,7 @@
    ],
    "urlFilter": "||vezess.hu/data/files/kapcsolodo_anyagok/szponz_hatterek/"
   },
-  "id": 171
+  "id": 157
  },
  {
   "action": {
@@ -1999,7 +1843,7 @@
    ],
    "urlFilter": "||vg.hu/banners/"
   },
-  "id": 172
+  "id": 158
  },
  {
   "action": {
@@ -2012,7 +1856,7 @@
    ],
    "urlFilter": "||webminute.hu/bannerek/"
   },
-  "id": 173
+  "id": 159
  },
  {
   "action": {
@@ -2025,7 +1869,7 @@
    ],
    "urlFilter": "||webtraffic.hu/banner/"
   },
-  "id": 174
+  "id": 160
  },
  {
   "action": {
@@ -2038,7 +1882,7 @@
    ],
    "urlFilter": "||yayo.hu/static/banner/"
   },
-  "id": 175
+  "id": 161
  },
  {
   "action": {
@@ -2051,7 +1895,24 @@
    ],
    "urlFilter": "||hestore.hu/pic/cookie.png"
   },
-  "id": 176
+  "id": 162
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "gyakorikerdesek.hu",
+    "hoxa.hu"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||aghtag.tech/libs/projectagora.min.js^"
+  },
+  "id": 163
  },
  {
   "action": {
@@ -2064,20 +1925,7 @@
    ],
    "urlFilter": "||glassdoor.com/app/static/js/gd-fj-ads-init"
   },
-  "id": 177
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||online.filmek-sorozatok.info/java.js"
-  },
-  "id": 178
+  "id": 164
  },
  {
   "action": {
@@ -2090,7 +1938,7 @@
    ],
    "urlFilter": "||szegeder.hu/js/ads-prebid.js^"
   },
-  "id": 179
+  "id": 165
  },
  {
   "action": {
@@ -2103,7 +1951,7 @@
    ],
    "urlFilter": "||szepsegbroker.hu/elements/bannerz.2019.js^"
   },
-  "id": 180
+  "id": 166
  },
  {
   "action": {
@@ -2111,15 +1959,15 @@
   },
   "condition": {
    "initiatorDomains": [
-    "starity.hu"
+    "infostart.hu"
    ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
     "script"
    ],
-   "urlFilter": "||widget.blck4d.com/js/block/widget.js^"
+   "urlFilter": "/js/push.js"
   },
-  "id": 181
+  "id": 167
  },
  {
   "action": {
@@ -2127,15 +1975,47 @@
   },
   "condition": {
    "initiatorDomains": [
+    "agrarszektor.hu",
+    "autoszektor.hu",
+    "bacsmegye.hu",
+    "bama.hu",
+    "baon.hu",
+    "beol.hu",
+    "boon.hu",
+    "bpiautosok.hu",
+    "budapestkornyeke.hu",
+    "civishir.hu",
+    "delmagyar.hu",
+    "duol.hu",
+    "feol.hu",
+    "g7.hu",
+    "haon.hu",
     "hazipatika.com",
+    "hellovidek.hu",
+    "heol.hu",
     "hrportal.hu",
     "index.hu",
+    "kemma.hu",
+    "kisalfold.hu",
+    "magyarnarancs.hu",
+    "mandiner.hu",
+    "nool.hu",
+    "pestisracok.hu",
     "player.hu",
     "port.hu",
+    "portfolio.hu",
+    "sonline.hu",
     "szeretlekmagyarorszag.hu",
+    "szoljon.hu",
+    "szon.hu",
     "telex.hu",
+    "teol.hu",
     "totalbike.hu",
-    "totalcar.hu"
+    "totalcar.hu",
+    "twice.hu",
+    "vaol.hu",
+    "veol.hu",
+    "zaol.hu"
    ],
    "requestDomains": [
     "cmp.quantcast.com",
@@ -2145,20 +2025,7 @@
     "script"
    ]
   },
-  "id": 182
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||itthonrolhaza.hu/wp-content/plugins/wp-popups-lite/src/assets/js/wppopups.js^"
-  },
-  "id": 183
+  "id": 168
  },
  {
   "action": {
@@ -2174,7 +2041,78 @@
    ],
    "urlFilter": "||medinfo.ocdn.eu/hu/consent_v2/choice.js^"
   },
-  "id": 184
+  "id": 169
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "szeretlekmagyarorszag.hu"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||static.quantcast.mgr.consensu.org/v30/cmpui-popup.js^"
+  },
+  "id": 170
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "starity.hu"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||widget.blck4d.com/js/block/widget.js^"
+  },
+  "id": 171
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||itthonrolhaza.hu/wp-content/plugins/wp-popups-lite/src/assets/js/wppopups.js^"
+  },
+  "id": 172
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||money.hu/assets-new/js/calculator-widget-init.js"
+  },
+  "id": 173
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||penzcentrum.hu/assets/js/bioep.min.js"
+  },
+  "id": 174
  },
  {
   "action": {
@@ -2187,23 +2125,20 @@
    ],
    "urlFilter": "||szepsegbroker.hu/items/jquery.floating_popup*.js^"
   },
-  "id": 185
+  "id": 175
  },
  {
   "action": {
    "type": "block"
   },
   "condition": {
-   "initiatorDomains": [
-    "kiskegyed.hu"
-   ],
    "isUrlFilterCaseSensitive": false,
    "resourceTypes": [
     "script"
    ],
-   "urlFilter": "||widget.ex1tp.com/js/ep/v2/widget.js^"
+   "urlFilter": "||liked.hu/choice/*/cmp2*.js^"
   },
-  "id": 186
+  "id": 176
  },
  {
   "action": {
@@ -2219,7 +2154,111 @@
    ],
    "urlFilter": "||cdn.performax.cz/acc/insert_rtb.js"
   },
-  "id": 187
+  "id": 177
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "/gemius.js^"
+  },
+  "id": 178
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "/gemius.min.js^"
+  },
+  "id": 179
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "/traffic.js"
+  },
+  "id": 180
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "/traffic.min.js"
+  },
+  "id": 181
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "/xgemius.js^"
+  },
+  "id": 182
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "/xgemius.min.js^"
+  },
+  "id": 183
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||infostart.hu/js/ga.js"
+  },
+  "id": 184
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||onlinestream.live/js/adb.js"
+  },
+  "id": 185
  },
  {
   "action": {
@@ -2234,7 +2273,7 @@
     "sub_frame"
    ]
   },
-  "id": 188
+  "id": 186
  },
  {
   "action": {
@@ -2264,6 +2303,7 @@
     "counter.hitslink.com",
     "ctnetwork.hu",
     "data.bookline.hu",
+    "ex1tp.com",
     "google-analytics.com",
     "gravity.com",
     "head-clickfusion.com",
@@ -2300,7 +2340,7 @@
     "xxxshort.com"
    ]
   },
-  "id": 189
+  "id": 187
  },
  {
   "action": {
@@ -2311,7 +2351,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||m2mzona.hu/ads^"
   },
-  "id": 190
+  "id": 188
  },
  {
   "action": {
@@ -2322,7 +2362,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||megaclick.com/ad.code"
   },
-  "id": 191
+  "id": 189
  },
  {
   "action": {
@@ -2337,30 +2377,7 @@
     "script"
    ]
   },
-  "id": 192
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||meszotar.hu/scripts/advertising.js"
-  },
-  "id": 193
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "embed.rtl.hu"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||pro.hit.gemius.pl/gstream.js"
-  },
-  "id": 194
+  "id": 190
  },
  {
   "action": {
@@ -2377,20 +2394,7 @@
    ],
    "urlFilter": "/js/adx_blacklist.js"
   },
-  "id": 195
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "script"
-   ],
-   "urlFilter": "||777blog.hu/wp-content/themes/florence/js/dfp.min.js^"
-  },
-  "id": 196
+  "id": 191
  },
  {
   "action": {
@@ -2406,7 +2410,20 @@
    ],
    "urlFilter": "||assets.portfolio.hu/js/ad_300x250.js"
   },
-  "id": 197
+  "id": 192
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||777blog.hu/wp-content/themes/florence/js/dfp.min.js^"
+  },
+  "id": 193
  },
  {
   "action": {
@@ -2419,7 +2436,7 @@
    ],
    "urlFilter": "||bitepito.hu/rejtveny/data/ads/pagead/js/adsbygoogle.js^"
   },
-  "id": 198
+  "id": 194
  },
  {
   "action": {
@@ -2432,7 +2449,7 @@
    ],
    "urlFilter": "||bitepito.hu/rejtveny/data/ads/adsense.js^"
   },
-  "id": 199
+  "id": 195
  },
  {
   "action": {
@@ -2445,6 +2462,35 @@
    ],
    "urlFilter": "||bitepito.hu/rejtveny/data/ads/googleads.js^"
   },
-  "id": 200
+  "id": 196
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||meszotar.hu/scripts/advertising.js"
+  },
+  "id": 197
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "embed.rtl.hu"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "script"
+   ],
+   "urlFilter": "||pro.hit.gemius.pl/gstream.js"
+  },
+  "id": 198
  }
 ]

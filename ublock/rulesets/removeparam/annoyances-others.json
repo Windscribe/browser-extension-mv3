@@ -24,7 +24,7 @@
    ],
    "urlFilter": "||player.octivid.com/*/video?*&autoplay="
   },
-  "id": 385
+  "id": 393
  },
  {
   "action": {
@@ -48,6 +48,6 @@
    ],
    "urlFilter": "||dailymotion.com/embed/video/"
   },
-  "id": 386
+  "id": 394
  }
 ]

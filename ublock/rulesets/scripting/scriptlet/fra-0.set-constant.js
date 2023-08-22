@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,17 +32,21 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_setConstant() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_setConstant = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"moneyAbovePrivacy\",\"true\"]","[\"bAdBlocker\",\"false\"]","[\"noPub\",\"1\"]","[\"canRunAds\",\"true\"]","[\"adClasses\",\"[]\"]","[\"adblockdetected\",\"false\"]","[\"fabActive\",\"false\"]","[\"integrityObserver.corrupted\",\"false\"]","[\"dA\",\"true\"]","[\"window.adsapp\",\"true\"]","[\"ujloijdkhjkwus\",\"false\"]","[\"wIsAdBlocked\",\"false\"]","[\"initDetectAdBlock\",\"noopFunc\"]","[\"adBlockDetected\",\"false\"]","[\"google_jobrunner\",\"noopFunc\"]","[\"ptv.Data.uniroll\",\"{}\"]","[\"pmd.Data.uniroll\",\"{}\"]","[\"OAS_AD\",\"noopFunc\"]","[\"Object.prototype.isBlockerDetected\",\"false\"]","[\"__TF1_CONFIG__.featureFlag.contentAccess.isAdblockCheckRequired\",\"false\"]","[\"__TF1_CONFIG__.adblock.display\",\"false\"]","[\"__NEXT_DATA__.runtimeConfig.adBlock.enable\",\"false\"]","[\"__TF1_CONFIG__.adblock.serverRequest\",\"false\"]","[\"__NEXT_DATA__.runtimeConfig.adBlock.serverRequest\",\"false\"]","[\"empire.data\",\"[]):matches-path(/iframe_ad\"]","[\"AC.config.ads\",\"{}\"]","[\"getAudioAdUrl\",\"noopFunc\"]","[\"aEteAffiche\",\"true\"]","[\"__data.application.settings.featPlayerAds\",\"false\"]","[\"tv.freewheel.SDK.Util.pingURLWithForm\",\"trueFunc\"]","[\"tv.freewheel.SDK.Util.pingURLWithImage\",\"trueFunc\"]","[\"tv.freewheel.SDK.Util.pingURLWithScript\",\"trueFunc\"]","[\"tv.freewheel.SDK.Util.pingURLWithXMLHTTPRequest\",\"trueFunc\"]","[\"tv.freewheel.SDK.Util.sendAdRequestWithXMLHTTPRequest\",\"trueFunc\"]","[\"__NEXT_DATA__.runtimeConfig.playerTF1.ads.enable\",\"false\"]"];
+const argsList = [["navigator.brave","undefined"],["adBlocked","false"],["moneyAbovePrivacy","true"],["bAdBlocker","false"],["noPub","1"],["canRunAds","true"],["adClasses","[]"],["adblockdetected","false"],["fabActive","false"],["integrityObserver.corrupted","false"],["dA","true"],["window.adsapp","true"],["ujloijdkhjkwus","false"],["wIsAdBlocked","false"],["initDetectAdBlock","noopFunc"],["adBlockDetected","false"],["google_jobrunner","noopFunc"],["ptv.Data.uniroll","{}"],["pmd.Data.uniroll","{}"],["OAS_AD","noopFunc"],["Object.prototype.isBlockerDetected","false"],["__TF1_CONFIG__.featureFlag.contentAccess.isAdblockCheckRequired","false"],["__TF1_CONFIG__.adblock.display","false"],["__TF1_CONFIG__.adblock.serverRequest","false"],["adsConfig","[]"],["isSetupAccess","true"],["AC.config.ads","{}"],["getAudioAdUrl","noopFunc"],["aEteAffiche","true"],["__data.application.settings.featPlayerAds","false"],["tv.freewheel.SDK.Util.pingURLWithForm","trueFunc"],["tv.freewheel.SDK.Util.pingURLWithImage","trueFunc"],["tv.freewheel.SDK.Util.pingURLWithScript","trueFunc"],["tv.freewheel.SDK.Util.pingURLWithXMLHTTPRequest","trueFunc"],["tv.freewheel.SDK.Util.sendAdRequestWithXMLHTTPRequest","trueFunc"],["__NEXT_DATA__.runtimeConfig.playerTF1.ads.enable","false"]];
 
-const hostnamesMap = new Map([["signal-arnaques.com",0],["dhnet.be",1],["sudinfo.be",1],["7sur7.be",1],["rtl.be",1],["pianoweb.fr",2],["parlons-basket.com",3],["mac4ever.com",3],["jaitoutcompris.com",4],["varmatin.com",5],["nicematin.com",5],["stream-zone.fr",6],["commentcamarche.net",7],["cookomix.com",8],["20minutes.fr",9],["hollywoodpq.com",10],["jardiner-malin.fr",11],["salutbonjour.ca",12],["hack-life.net",13],["jtrouver.com",14],["playtv.fr",[15,16]],["skyrock.com",17],["skyrock.fr",17],["6play.fr",[18,29,30,31,32,33]],["tf1.fr",[19,20,22,29,30,31,32,33]],["tf1info.fr",[21,23,34]],["allocine.fr",25],["funradio.fr",26],["rtl2.fr",26],["rtl.fr",26],["reflectim.fr",27],["e-sushi.fr",27],["canalplus.com",28]]);
+const hostnamesMap = new Map([["empire-stream.net",0],["cinefil.com",1],["signal-arnaques.com",2],["dhnet.be",3],["sudinfo.be",3],["7sur7.be",3],["rtl.be",3],["pianoweb.fr",4],["parlons-basket.com",5],["mac4ever.com",5],["jaitoutcompris.com",6],["varmatin.com",7],["nicematin.com",7],["stream-zone.fr",8],["commentcamarche.net",9],["cookomix.com",10],["20minutes.fr",11],["hollywoodpq.com",12],["jardiner-malin.fr",13],["salutbonjour.ca",14],["hack-life.net",15],["jtrouver.com",16],["playtv.fr",[17,18]],["skyrock.com",19],["skyrock.fr",19],["6play.fr",[20,30,31,32,33,34]],["tf1.fr",[21,22,23,30,31,32,33,34]],["e-player-stream.app",25],["allocine.fr",26],["funradio.fr",27],["rtl2.fr",27],["rtl.fr",27],["reflectim.fr",28],["e-sushi.fr",28],["canalplus.com",29],["tf1info.fr",35]]);
 
-const entitiesMap = new Map([["empire-streaming",24]]);
+const entitiesMap = new Map([["empire-streaming",0],["e-player-stream",24]]);
 
 const exceptionsMap = new Map([]);
 
@@ -116,7 +121,7 @@ function setConstantCore(
             cValue = true;
         } else if ( cValue === 'null' ) {
             cValue = null;
-        } else if ( cValue === "''" ) {
+        } else if ( cValue === "''" || cValue === '' ) {
             cValue = '';
         } else if ( cValue === '[]' ) {
             cValue = [];
@@ -134,7 +139,7 @@ function setConstantCore(
             if ( Math.abs(cValue) > 0x7FFF ) { return; }
         } else if ( trusted ) {
             if ( cValue.startsWith('{') && cValue.endsWith('}') ) {
-                try { cValue = JSON.parse(cValue).value; } catch(ex) { return; }
+                try { cValue = safe.jsonParse(cValue).value; } catch(ex) { return; }
             }
         } else {
             return;
@@ -279,17 +284,79 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -356,13 +423,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { setConstant(...JSON.parse(argsList[i])); }
+    try { setConstant(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_setConstant();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_setConstant = cloneInto([
+            [ '(', uBOL_setConstant.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_setConstant);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_setConstant;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

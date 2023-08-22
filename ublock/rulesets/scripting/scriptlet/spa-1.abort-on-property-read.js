@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortOnPropertyRead() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortOnPropertyRead = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"Object.prototype.autoRecov\"]","[\"ad_nodes\"]","[\"hb_now\"]","[\"adblock\"]","[\"adsBlocked\"]","[\"adblockDetected\"]","[\"gothamBatAdblock\"]","[\"Bl0ckAdBl0ckCo\"]","[\"ppAdblocks\"]","[\"mMCheckAgainBlock\"]","[\"cJsEdge\"]","[\"_pop\"]","[\"lolaop\"]","[\"adk_pdisp\"]","[\"__clientAHV\"]","[\"redirectpage\"]","[\"initPopunder\"]","[\"_cpp\"]","[\"popurl\"]","[\"the_crakien\"]","[\"allclick_Public\"]","[\"zoneSett\"]","[\"checkCookieClick\"]","[\"_0x4e52\"]","[\"Redirecionar\"]","[\"scriptwz_url\"]","[\"smrtSB\"]","[\"asgPopScript\"]","[\"Object.prototype.Focm\"]","[\"smrtSP\"]","[\"adbClick\"]","[\"pub\"]","[\"Pub2\"]"];
+const argsList = [["Object.prototype.autoRecov"],["ad_nodes"],["hb_now"],["adblock"],["adsBlocked"],["adblockDetected"],["gothamBatAdblock"],["Bl0ckAdBl0ckCo"],["ppAdblocks"],["mMCheckAgainBlock"],["cJsEdge"],["_pop"],["lolaop"],["adk_pdisp"],["__clientAHV"],["redirectpage"],["initPopunder"],["_cpp"],["popurl"],["the_crakien"],["allclick_Public"],["zoneSett"],["checkCookieClick"],["_0x4e52"],["Redirecionar"],["scriptwz_url"],["smrtSB"],["asgPopScript"],["Object.prototype.Focm"],["smrtSP"],["adbClick"],["pub"],["Pub2"]];
 
-const hostnamesMap = new Map([["pcworld.es",0],["tunovelaligera.com",1],["20minutos.es",2],["comando.to",3],["porno-japones.top",4],["tvplusgratis.com",5],["hobbugs.com",5],["seriesretro.com",6],["cozinha.minhasdelicias.com",7],["diariodegoias.com.br",8],["outerspace.com.br",8],["1f1.in",9],["1i1.in",9],["cuevana.run",10],["repelispluss.tv",11],["fiuxy2.com",12],["pelispop.me",13],["pelisplus.icu",14],["baixartorrents.org",[15,16]],["pctmix1.com",17],["aquariumgays.com",17],["allfeeds.live",18],["grantorrent.nl",21],["hentaistube.com",22],["libertinga.net",23],["mrpiracy.top",24],["seireshd.com",25],["cinetux.to",[26,27]],["holanime.com",28],["pirlotv.es",29],["repelisplus.vip",30],["descargaranimehentai.com",31],["tuhentaionline.com",32]]);
+const hostnamesMap = new Map([["pcworld.es",0],["tunovelaligera.com",1],["20minutos.es",2],["comando.to",3],["porno-japones.top",4],["tvplusgratis.com",5],["hobbugs.com",5],["seriesretro.com",6],["cozinha.minhasdelicias.com",7],["diariodegoias.com.br",8],["outerspace.com.br",8],["1f1.in",9],["1i1.in",9],["cuevana.biz",10],["cuevana.run",10],["repelispluss.tv",11],["fiuxy2.com",12],["pelispop.me",13],["pelisplus.icu",14],["baixartorrents.org",[15,16]],["pctmix1.com",17],["aquariumgays.com",17],["allfeeds.live",18],["grantorrent.nl",21],["hentaistube.com",22],["libertinga.net",23],["mrpiracy.top",24],["seireshd.com",25],["cinetux.to",[26,27]],["holanime.com",28],["pirlotv.es",29],["repelisplus.vip",30],["descargaranimehentai.com",31],["tuhentaionline.com",32]]);
 
 const entitiesMap = new Map([["cinecalidad2",19],["cine-calidad",20]]);
 
@@ -165,13 +170,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortOnPropertyRead(...JSON.parse(argsList[i])); }
+    try { abortOnPropertyRead(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortOnPropertyRead();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortOnPropertyRead = cloneInto([
+            [ '(', uBOL_abortOnPropertyRead.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortOnPropertyRead);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortOnPropertyRead;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_m3uPrune() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_m3uPrune = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"tvessaiprod.nbcuni.com\",\"/theplatform\\\\.com\\\\/.*?\\\\.m3u8/\"]","[\"/^https?:\\\\/\\\\/redirector\\\\.googlevideo\\\\.com.*/\",\"/.*m3u8/\"]","[\"/is_ad|ohash=\\\\w{300}/\",\".m3u8\"]","[\"/#EXT-X-DISCONTINUITY.{1,100}#EXT-X-DISCONTINUITY/gm\",\"mixed.m3u8\"]"];
+const argsList = [["/^https?:\\/\\/redirector\\.googlevideo\\.com.*/","/.*m3u8/"],["/,ad\\n.+?(?=#UPLYNK-SEGMENT)/gm",".m3u8"],["/#EXT-X-DISCONTINUITY.{1,100}#EXT-X-DISCONTINUITY/gm","mixed.m3u8"],["tvessaiprod.nbcuni.com","/theplatform\\.com\\/.*?\\.m3u8/"]];
 
-const hostnamesMap = new Map([["player.theplatform.com",0],["10play.com.au",1],["fox.com",2],["mephimtv.cc",3]]);
+const hostnamesMap = new Map([["10play.com.au",0],["fox.com",1],["foxsports.com",1],["mephimtv.cc",2],["player.theplatform.com",3]]);
 
 const entitiesMap = new Map([]);
 
@@ -52,9 +57,10 @@ function m3uPrune(
     urlPattern = ''
 ) {
     if ( typeof m3uPattern !== 'string' ) { return; }
-    const options = getExtraArgs(Array.from(arguments), 2);
-    const logLevel = shouldLog(options);
     const safe = safeSelf();
+    const options = safe.getExtraArgs(Array.from(arguments), 2);
+    const logLevel = shouldLog(options);
+    const uboLog = logLevel ? ((...args) => safe.uboLog(...args)) : (( ) => { });
     const regexFromArg = arg => {
         if ( arg === '' ) { return /^/; }
         const match = /^\/(.+)\/([gms]*)$/.exec(arg);
@@ -73,17 +79,22 @@ function m3uPrune(
         if ( lines[i].startsWith('#EXT-X-CUE:TYPE="SpliceOut"') === false ) {
             return false;
         }
+        uboLog('m3u-prune: discarding', `\n\t${lines[i]}`);
         lines[i] = undefined; i += 1;
         if ( lines[i].startsWith('#EXT-X-ASSET:CAID') ) {
+            uboLog(`\t${lines[i]}`);
             lines[i] = undefined; i += 1;
         }
         if ( lines[i].startsWith('#EXT-X-SCTE35:') ) {
+            uboLog(`\t${lines[i]}`);
             lines[i] = undefined; i += 1;
         }
         if ( lines[i].startsWith('#EXT-X-CUE-IN') ) {
+            uboLog(`\t${lines[i]}`);
             lines[i] = undefined; i += 1;
         }
         if ( lines[i].startsWith('#EXT-X-SCTE35:') ) {
+            uboLog(`\t${lines[i]}`);
             lines[i] = undefined; i += 1;
         }
         return true;
@@ -91,8 +102,10 @@ function m3uPrune(
     const pruneInfBlock = (lines, i) => {
         if ( lines[i].startsWith('#EXTINF') === false ) { return false; }
         if ( reM3u.test(lines[i+1]) === false ) { return false; }
+        uboLog('m3u-prune: discarding', `\n\t${lines[i]}, \n\t${lines[i+1]}`);
         lines[i] = lines[i+1] = undefined; i += 2;
         if ( lines[i].startsWith('#EXT-X-DISCONTINUITY') ) {
+            uboLog(`\t${lines[i]}`);
             lines[i] = undefined; i += 1;
         }
         return true;
@@ -129,11 +142,9 @@ function m3uPrune(
                 }
                 text = before.trim() + '\n' + after.trim();
                 reM3u.lastIndex = before.length + 1;
-                if ( logLevel ) {
-                    safe.uboLog('m3u-prune: discarding\n',
-                        discard.split(/\n+/).map(s => `\t${s}`).join('\n')
-                    );
-                }
+                uboLog('m3u-prune: discarding\n',
+                    discard.split(/\n+/).map(s => `\t${s}`).join('\n')
+                );
                 if ( reM3u.global === false ) { break; }
             }
             return text;
@@ -188,26 +199,84 @@ function m3uPrune(
     });
 }
 
-function getExtraArgs(args, offset = 0) {
-    return Object.fromEntries(getExtraArgsEntries(args, offset));
-}
-
 function safeSelf() {
     if ( scriptletGlobals.has('safeSelf') ) {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -217,19 +286,6 @@ function safeSelf() {
 function shouldLog(details) {
     if ( details instanceof Object === false ) { return false; }
     return scriptletGlobals.has('canDebug') && details.log;
-}
-
-function getExtraArgsEntries(args, offset) {
-    return args.slice(offset).reduce((out, v, i, a) => {
-        if ( (i & 1) === 0 ) {
-            const rawValue = a[i+1];
-            const value = /^\d+$/.test(rawValue)
-                ? parseInt(rawValue, 10)
-                : rawValue;
-            out.push([ a[i], value ]);
-        }
-        return out;
-    }, []);
 }
 
 /******************************************************************************/
@@ -292,13 +348,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { m3uPrune(...JSON.parse(argsList[i])); }
+    try { m3uPrune(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_m3uPrune();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_m3uPrune = cloneInto([
+            [ '(', uBOL_m3uPrune.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_m3uPrune);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_m3uPrune;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

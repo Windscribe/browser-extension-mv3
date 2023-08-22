@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_disableNewtabLinks() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_disableNewtabLinks = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[]"];
+const argsList = [[]];
 
-const hostnamesMap = new Map([["porntrex.com",0],["player.theplatform.com",0],["fembed.com",0],["xrares.com",0],["uploadbox.cc",0],["daftporn.com",0],["gplinks.co",0],["mynewsmedia.co",0],["boost.ink",0],["wootly.ch",0],["vcdn2.space",0],["sexlist.tv",0],["movies7.pro",0],["link.paid4link.net",0]]);
+const hostnamesMap = new Map([["porntrex.com",0],["fembed.com",0],["xrares.com",0],["uploadbox.cc",0],["daftporn.com",0],["gplinks.co",0],["mynewsmedia.co",0],["boost.ink",0],["wootly.ch",0],["sexlist.tv",0],["movies7.pro",0],["link.paid4link.net",0],["player.theplatform.com",0]]);
 
 const entitiesMap = new Map([["europixhd",0],["hdeuropix",0],["hindipix",0],["topeuropix",0],["pelisplay",0],["earnload",0]]);
 
@@ -121,13 +126,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { disableNewtabLinks(...JSON.parse(argsList[i])); }
+    try { disableNewtabLinks(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_disableNewtabLinks();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_disableNewtabLinks = cloneInto([
+            [ '(', uBOL_disableNewtabLinks.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_disableNewtabLinks);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_disableNewtabLinks;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

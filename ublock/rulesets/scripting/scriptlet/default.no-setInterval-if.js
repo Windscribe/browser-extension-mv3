@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,17 +32,21 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_noSetIntervalIf() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_noSetIntervalIf = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"fireEvent\",\"500\"]","[\"abvsLowerThirdVisible\"]","[\"nrWrapper\"]","[\"break\"]","[\"debug\"]","[\"document['write']\"]","[\"/devtools|0x/\"]","[\"/0x|google|ecoded|==/\"]","[\"readyState\"]","[\"_0x\"]","[\"()\",\"500\"]","[\"visibility\",\"1000\"]","[\"adblockerModal\",\"1000\"]","[\"user=null\",\"1000\"]","[\"_checkBait\"]","[\"ads\"]","[\"()\",\"5000\"]","[\"_$\",\"12345\"]","[\".append\",\"1000\"]","[\"AdBlock\"]","[\"onAdVideoStart\"]","[\"/_0x|debug/\"]","[\"complete\",\"50\"]","[\"document.readyState\"]","[\".submit\"]","[\"0x\"]","[\"adblocker\"]","[\"visibility\"]","[\"iframe\"]","[\"href\"]","[\"/^/\"]","[\"adsbygoogle\"]","[\"length\"]","[\"innerHTML\"]","[\"height\"]","[\"adblock\"]","[\"debugger\"]","[\"DevToolsOpen\"]","[\"clearInterval(i)\",\"1000\"]","[\"length\",\"1000\"]","[\"document.getElementById\",\"10000\"]","[\"daadb\"]","[\"Adblocker\"]","[\"afStorage\"]","[\"adb\"]","[\"Click\"]","[\"console\"]","[\".hide\"]","[\"goog\"]","[\"show\"]","[\"offsetHeight\"]","[\"verificarLargura\"]","[\"location\"]","[\"blogherads\"]","[\"setInterval\"]","[\"a0b\"]"];
+const argsList = [["fireEvent","500"],["abvsLowerThirdVisible"],["nrWrapper"],["break"],["debug"],["/devtools|0x/"],["/0x|google|ecoded|==/"],["readyState"],["_0x"],["()","500"],["visibility","1000"],["adblockerModal","1000"],["user=null","1000"],["_checkBait"],["ads"],["()","5000"],["_$","12345"],[".append","1000"],["AdBlock"],["onAdVideoStart"],["/_0x|debug/"],["complete","50"],["document.readyState"],[".submit"],["0x"],["adblocker"],["visibility"],["iframe"],["a0b"],["href"],["/^/"],["adsbygoogle"],["length"],["innerHTML"],["height"],["adblock"],["debugger"],["DevToolsOpen"],["clearInterval(i)","1000"],["length","1000"],["document.getElementById","10000"],["daadb"],["Adblocker"],["afStorage"],["adb"],["Click"],["console"],["atob","1000"],[".hide"],["goog"],["show"],["offsetHeight"],["onerror"],["verificarLargura"],["location"],["AB.html"],["analytics.initialized"],["blogherads"],["setInterval"]];
 
-const hostnamesMap = new Map([["tvtoday.de",0],["vaughn.live",1],["mcloud.to",3],["vidstream.pro",3],["nolive.me",4],["thedigitalfix.com",4],["ninjastream.to",5],["frprn.com",8],["xsanime.com",9],["javfull.net",9],["f2movies.to",9],["jaanmusic.in",9],["rtxkeeda.com",9],["ipalibrary.me",[9,50]],["ipacrack.com",9],["fembed.com",10],["o2tvseries.com",11],["hackyouriphone.org",11],["leonardolatella.it",11],["pluslive.live",11],["shareappscrack.com",11],["sopasti.com",11],["zone-telechargement2.net",11],["ovagames.com",11],["programasvirtualespc.net",11],["kimochi.info",11],["sombex.com",11],["shrinkurl.org",11],["cheatsquad.gg",11],["forex-trnd.com",11],["vidlii.com",11],["fontyukle.net",11],["wplink.online",11],["zuketcreation.net",11],["watchtvseries.video",11],["linkshrnk.com",11],["verteleseriesonline.com",11],["akbardwi.my.id",11],["hdmp4mania1.net",11],["arabnaar.com",11],["sukidesuost.info",11],["ricettafitness.com",11],["kantotero.net",11],["freenote.biz",11],["erai-ddl.info",11],["erai-ddl2.info",11],["erai-ddl3.info",11],["womenreality.com",11],["portable4pc.com",11],["localizaagencia.com",11],["downloaderzone.com",11],["themes-dl.com",11],["freegetdownloader.com",11],["oncam.me",11],["anomize.xyz",11],["casos-aislados.com",11],["freeomovie.to",11],["myviptuto.com",11],["novelasligera.com",11],["hightqualityshop.com",11],["mondainai.moe",11],["rahim-soft.com",11],["faucethub.top",11],["dayoftheweek.org",11],["utorrentgamesps2.blogspot.com",11],["vstplugs.com",11],["freedeepweb.blogspot.com",11],["text2voice.org",11],["lookimg.com",11],["graphicdesignresources.net",11],["veryfiles.com",11],["aemenstore.com",11],["aloass.com",11],["alobyt.com",11],["alogum.com",11],["alohdd.com",11],["anhdep24.com",11],["byboe.com",11],["cazzette.com",11],["dataf.pro",11],["hookeaudio.com",11],["jncojeans.com",11],["kiemlua.com",11],["kingsleynyc.com",11],["lucidcam.com",11],["marharo.com",11],["medcpu.com",11],["nguyenvanbao.com",11],["nousdecor.com",11],["pennbookcenter.com",11],["restorbio.com",11],["staaker.com",11],["thegoneapp.com",11],["uebnews.online",11],["necksdesign.com",11],["bioskopkaca21.com",11],["larvelfaucet.com",11],["quicasting.it",11],["ihaxk.com",11],["iptunnels.com",11],["appsfullversion.com",11],["davidgalaxia.com",11],["anonymous-links.com",11],["planet-streaming1.com",11],["unionmanga.xyz",11],["vviruslove.com",11],["koreanaddict.net",11],["unity3diy.blogspot.com",11],["hakie.net",11],["checkfiletype.com",11],["santoinferninho.com",11],["gurl.pw",11],["webzews.com",11],["sociadrive.com",11],["blowxtube.com",11],["adltc.cc",11],["angeloyeo.github.io",11],["csgo-ranks.com",11],["royalkom.com",11],["super-ethanol.com",11],["surf-trx.com",11],["samapkstore.com",11],["satoshiquiz.com",11],["shortenbuddy.com",11],["adeth.cc",11],["submitclimb.com",11],["addoge.cc",11],["softairbay.com",11],["swift4claim.com",11],["best-shopme.com",11],["tw-hkt.blogspot.com",11],["hugo3c.tw",11],["ohmygirl.ml",11],["androidtunado.com.br",11],["midiextreme.com",11],["tellygossips.net",11],["newsiqra.com",11],["dota2freaks.com",11],["how2pc.com",11],["weviral.org",11],["alltechnerd.com",11],["shoppinglys.blogspot.com",11],["fxlap.com",11],["komiktap.in",11],["janusnotes.com",11],["adobezii.com",11],["8tm.net",11],["afasiaarchzine.com",11],["ashort1a.xyz",11],["lolowall.com",11],["getpczone.com",11],["secretsdeepweb.blogspot.com",11],["kiwiexploits.com",11],["tecnomusic-evolution.com",11],["freemiumaccounts.net",11],["jaysndees.com",11],["paidtomoney.com",11],["doctor-groups.com",11],["mailocal2.xyz",11],["tqanime.com",11],["devcourseweb.com",11],["anime-saikou.com",11],["donghuanosekai.com",11],["1shorten.com",11],["publicananker.com",11],["rodjulian.com",11],["jagoanssh.com",11],["clickscoin.com",11],["dogeclick.net",11],["pcso-lottoresults.com",11],["coinurl.net",11],["ltc24.com",11],["todoseriales1.blogspot.com",11],["cryptslice.com",11],["crypto-faucet.xyz",11],["omgexploits.com",11],["nusantaraproject.my.id",11],["crazyblog.in",11],["cblinks.xyz",11],["galaxycrypto.net",11],["short-zero.com",11],["cubehosting.me",11],["gifans.com",11],["shortlink.prz.pw",11],["xanimehub.com",11],["short.mcmcryptos.xyz",11],["goldenmanga.top",11],["bshopme.site",11],["melodelaa.link",11],["watchdoge.xyz",11],["sakastau.com",11],["clk.asia",11],["imperialstudy.com",11],["skincarie.com",11],["jpoplibs.us",11],["reit-tirement.com",11],["claimtrx.com",11],["riadlink.top",11],["autocoin.in",11],["techmart4u.in",11],["urlfiles.com",11],["fztvseries.mobi",11],["lecturel.com",11],["khsm.io",11],["hulkshare.com",12],["faucetcrypto.com",13],["giveawayoftheday.com",14],["duplichecker.com",15],["plagiarismchecker.co",15],["plagiarismdetector.net",15],["searchenginereports.net",15],["smallseotools.com",15],["erofound.com",15],["uploadbox.io",16],["megafile.io",16],["myjest.com",17],["4shared.com",18],["mad4wheels.com",19],["crunchyroll.com",20],["extremereportbot.com",21],["tubepornclassic.com",[22,23]],["shemalez.com",23],["mangalist.org",25],["javcl.com",25],["goalup.live",25],["gats.io",25],["upvideo.to",25],["oxl.one",25],["sbplay1.com",25],["sbvideo.net",25],["embedsb.com",25],["streamlare.com",25],["freereceivesms.com",25],["plhqtvhay.xyz",25],["himovies.to",25],["live.dragaoconnect.net",25],["techmuzz.com",26],["lecourrier-du-soir.com",28],["gplinks.co",29],["canale.live",29],["zhlednito.cz",30],["thgss.com",31],["moviemakeronline.com",31],["pstream.net",32],["premid.app",33],["vrcmods.com",34],["adblockplustape.com",35],["tapewithadblock.org",35],["gamezop.com",36],["ngelmat.net",37],["laptrinhx.com",38],["freemc.host",39],["sunhope.it",40],["openculture.com",41],["schoolcheats.net",42],["coinsearns.com",43],["luckydice.net",43],["coinsurl.com",43],["radiowereld.nl",44],["artunnel57.com",44],["fastconverter.net",45],["allcryptoz.net",46],["crewbase.net",46],["crewus.net",46],["shinbhu.net",46],["shinchu.net",46],["thumb8.net",46],["thumb9.net",46],["topcryptoz.net",46],["uniqueten.net",46],["ultraten.net",46],["oxy.st",47],["molotov.tv",48],["igay69.com",49],["davescomputertips.com",49],["shortlinks.tech",51],["chat.nrj.fr",52],["knowyourmeme.com",53],["businessinsider.com",54],["work.ink",55]]);
+const hostnamesMap = new Map([["tvtoday.de",0],["vaughn.live",1],["mcloud.to",3],["vidstream.pro",3],["nolive.me",4],["thedigitalfix.com",4],["frprn.com",7],["xsanime.com",8],["javfull.net",8],["f2movies.to",8],["jaanmusic.in",8],["rtxkeeda.com",8],["ipalibrary.me",[8,51]],["ipacrack.com",8],["fembed.com",9],["o2tvseries.com",10],["hackyouriphone.org",10],["leonardolatella.it",10],["pluslive.live",10],["shareappscrack.com",10],["sopasti.com",10],["zone-telechargement2.net",10],["ovagames.com",10],["programasvirtualespc.net",10],["kimochi.info",10],["sombex.com",10],["shrinkurl.org",10],["cheatsquad.gg",10],["forex-trnd.com",10],["vidlii.com",10],["fontyukle.net",10],["wplink.online",10],["zuketcreation.net",10],["watchtvseries.video",10],["linkshrnk.com",10],["verteleseriesonline.com",10],["akbardwi.my.id",10],["hdmp4mania1.net",10],["arabnaar.com",10],["sukidesuost.info",10],["ricettafitness.com",10],["freenote.biz",10],["womenreality.com",10],["portable4pc.com",10],["localizaagencia.com",10],["downloaderzone.com",10],["themes-dl.com",10],["freegetdownloader.com",10],["oncam.me",10],["anomize.xyz",10],["casos-aislados.com",10],["freeomovie.to",10],["myviptuto.com",10],["novelasligera.com",10],["hightqualityshop.com",10],["mondainai.moe",10],["rahim-soft.com",10],["faucethub.top",10],["dayoftheweek.org",10],["utorrentgamesps2.blogspot.com",10],["vstplugs.com",10],["freedeepweb.blogspot.com",10],["text2voice.org",10],["lookimg.com",10],["graphicdesignresources.net",10],["veryfiles.com",10],["aemenstore.com",10],["alogum.com",10],["anhdep24.com",10],["byboe.com",10],["cazzette.com",10],["dataf.pro",10],["hookeaudio.com",10],["jncojeans.com",10],["kiemlua.com",10],["kingsleynyc.com",10],["lucidcam.com",10],["marharo.com",10],["medcpu.com",10],["nguyenvanbao.com",10],["nousdecor.com",10],["pennbookcenter.com",10],["restorbio.com",10],["staaker.com",10],["thegoneapp.com",10],["uebnews.online",10],["necksdesign.com",10],["bioskopkaca21.com",10],["larvelfaucet.com",10],["quicasting.it",10],["ihaxk.com",10],["iptunnels.com",10],["appsfullversion.com",10],["davidgalaxia.com",10],["anonymous-links.com",10],["planet-streaming1.com",10],["unionmanga.xyz",10],["vviruslove.com",10],["koreanaddict.net",10],["unity3diy.blogspot.com",10],["hakie.net",10],["checkfiletype.com",10],["santoinferninho.com",10],["gurl.pw",10],["webzews.com",10],["sociadrive.com",10],["blowxtube.com",10],["adltc.cc",10],["angeloyeo.github.io",10],["csgo-ranks.com",10],["royalkom.com",10],["super-ethanol.com",10],["surf-trx.com",10],["samapkstore.com",10],["satoshiquiz.com",10],["shortenbuddy.com",10],["adeth.cc",10],["submitclimb.com",10],["addoge.cc",10],["softairbay.com",10],["swift4claim.com",10],["best-shopme.com",10],["tw-hkt.blogspot.com",10],["hugo3c.tw",10],["androidtunado.com.br",10],["midiextreme.com",10],["tellygossips.net",10],["newsiqra.com",10],["dota2freaks.com",10],["how2pc.com",10],["weviral.org",10],["alltechnerd.com",10],["shoppinglys.blogspot.com",10],["fxlap.com",10],["komiktap.in",10],["janusnotes.com",10],["adobezii.com",10],["8tm.net",10],["afasiaarchzine.com",10],["ashort1a.xyz",10],["lolowall.com",10],["getpczone.com",10],["secretsdeepweb.blogspot.com",10],["kiwiexploits.com",10],["tecnomusic-evolution.com",10],["freemiumaccounts.net",10],["jaysndees.com",10],["paidtomoney.com",10],["doctor-groups.com",10],["mailocal2.xyz",10],["tqanime.com",10],["devcourseweb.com",10],["anime-saikou.com",10],["donghuanosekai.com",10],["1shorten.com",10],["publicananker.com",10],["rodjulian.com",10],["jagoanssh.com",10],["clickscoin.com",10],["dogeclick.net",10],["pcso-lottoresults.com",10],["coinurl.net",10],["ltc24.com",10],["todoseriales1.blogspot.com",10],["cryptslice.com",10],["crypto-faucet.xyz",10],["omgexploits.com",10],["nusantaraproject.my.id",10],["crazyblog.in",10],["cblinks.xyz",10],["galaxycrypto.net",10],["short-zero.com",10],["cubehosting.me",10],["gifans.com",10],["shortlink.prz.pw",10],["xanimehub.com",10],["goldenmanga.top",10],["bshopme.site",10],["melodelaa.link",10],["watchdoge.xyz",10],["clk.asia",10],["imperialstudy.com",10],["skincarie.com",10],["jpoplibs.us",10],["reit-tirement.com",10],["techmart4u.in",10],["urlfiles.com",10],["fztvseries.mobi",10],["lecturel.com",10],["khsm.io",10],["hulkshare.com",11],["faucetcrypto.com",12],["giveawayoftheday.com",13],["duplichecker.com",14],["plagiarismchecker.co",14],["plagiarismdetector.net",14],["searchenginereports.net",14],["smallseotools.com",14],["erofound.com",14],["uploadbox.io",15],["megafile.io",15],["myjest.com",16],["4shared.com",17],["mad4wheels.com",18],["crunchyroll.com",19],["extremereportbot.com",20],["tubepornclassic.com",[21,22]],["shemalez.com",22],["mangalist.org",24],["javcl.com",24],["goalup.live",24],["gats.io",24],["upvideo.to",24],["oxl.one",24],["sbplay1.com",24],["sbvideo.net",24],["embedsb.com",24],["streamlare.com",24],["freereceivesms.com",24],["plhqtvhay.xyz",24],["himovies.to",24],["live.dragaoconnect.net",24],["techmuzz.com",25],["lecourrier-du-soir.com",27],["work.ink",28],["gplinks.co",29],["canale.live",29],["zhlednito.cz",30],["thgss.com",31],["moviemakeronline.com",31],["pstream.net",32],["premid.app",33],["vrcmods.com",34],["adblockplustape.com",35],["tapewithadblock.org",35],["gamezop.com",36],["ngelmat.net",37],["laptrinhx.com",38],["freemc.host",39],["sunhope.it",40],["openculture.com",41],["schoolcheats.net",42],["coinsearns.com",43],["luckydice.net",43],["coinsurl.com",43],["radiowereld.nl",44],["artunnel57.com",44],["fastconverter.net",45],["allcryptoz.net",46],["crewbase.net",46],["crewus.net",46],["shinbhu.net",46],["shinchu.net",46],["thumb8.net",46],["thumb9.net",46],["topcryptoz.net",46],["uniqueten.net",46],["ultraten.net",46],["mdn.lol",47],["oxy.st",48],["molotov.tv",49],["igay69.com",50],["davescomputertips.com",50],["wheelofgold.com",52],["shortlinks.tech",53],["chat.nrj.fr",54],["tchatche.com",55],["dvm360.com",56],["knowyourmeme.com",57],["businessinsider.com",58]]);
 
-const entitiesMap = new Map([["finanzen",2],["vidsrc",6],["mylink",7],["my1ink",7],["myl1nk",7],["myli3k",7],["gogoanimetv",9],["file-upload",11],["claimdoge",11],["freecourselab",11],["seriehd",11],["streameast",11],["thestreameast",11],["getfreecourses",11],["freetutorials",11],["vstx",11],["bg-gledai",11],["link1s",11],["pasend",11],["shortzzy",11],["fzm",11],["fzmovies",11],["akwam",11],["multiup",24],["videovard",25],["rmcmv",27],["adblockeronstape",35],["adblockstreamtape",35],["adblockstrtape",35],["adblockstrtech",35],["stapadblockuser",35],["stape",35],["strcloud",35],["streamadblocker",35],["streamadblockplus",35],["streamta",35],["streamtape",35],["streamtapeadblockuser",35],["strtape",35],["strtapeadblock",35],["strtapeadblocker",35],["strtpe",35],["sushiscan",41]]);
+const entitiesMap = new Map([["finanzen",2],["vidsrc",5],["mylink",6],["my1ink",6],["myl1nk",6],["myli3k",6],["gogoanimetv",8],["file-upload",10],["claimdoge",10],["freecourselab",10],["seriehd",10],["streameast",10],["thestreameast",10],["getfreecourses",10],["freetutorials",10],["vstx",10],["bg-gledai",10],["link1s",10],["pasend",10],["shortzzy",10],["fzm",10],["fzmovies",10],["akwam",10],["multiup",23],["videovard",24],["rmcmv",26],["adblockeronstape",35],["adblockstreamtape",35],["adblockstrtape",35],["adblockstrtech",35],["antiadtape",35],["stapadblockuser",35],["stape",35],["strcloud",35],["streamadblocker",35],["streamadblockplus",35],["streamta",35],["streamtape",35],["streamtapeadblockuser",35],["strtape",35],["strtapeadblock",35],["strtapeadblocker",35],["strtpe",35],["sushiscan",41]]);
 
 const exceptionsMap = new Map([]);
 
@@ -52,6 +57,7 @@ function noSetIntervalIf(
     delay = ''
 ) {
     if ( typeof needle !== 'string' ) { return; }
+    const safe = safeSelf();
     const needleNot = needle.charAt(0) === '!';
     if ( needleNot ) { needle = needle.slice(1); }
     if ( delay === '' ) { delay = undefined; }
@@ -64,8 +70,8 @@ function noSetIntervalIf(
     const log = needleNot === false && needle === '' && delay === undefined
         ? console.log
         : undefined;
-    const reNeedle = patternToRegex(needle);
-    window.setInterval = new Proxy(window.setInterval, {
+    const reNeedle = safe.patternToRegex(needle);
+    self.setInterval = new Proxy(self.setInterval, {
         apply: function(target, thisArg, args) {
             const a = String(args[0]);
             const b = args[1];
@@ -83,7 +89,7 @@ function noSetIntervalIf(
                     args[0] = function(){};
                 }
             }
-            return target.apply(thisArg, args);
+            return Reflect.apply(target, thisArg, args);
         },
         get(target, prop, receiver) {
             if ( prop === 'toString' ) {
@@ -94,13 +100,88 @@ function noSetIntervalIf(
     });
 }
 
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
+function safeSelf() {
+    if ( scriptletGlobals.has('safeSelf') ) {
+        return scriptletGlobals.get('safeSelf');
     }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+    const safe = {
+        'Error': self.Error,
+        'Object_defineProperty': Object.defineProperty.bind(Object),
+        'RegExp': self.RegExp,
+        'RegExp_test': self.RegExp.prototype.test,
+        'RegExp_exec': self.RegExp.prototype.exec,
+        'addEventListener': self.EventTarget.prototype.addEventListener,
+        'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
+        'log': console.log.bind(console),
+        uboLog(...args) {
+            if ( args.length === 0 ) { return; }
+            if ( `${args[0]}` === '' ) { return; }
+            this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
+        },
+    };
+    scriptletGlobals.set('safeSelf', safe);
+    return safe;
 }
 
 /******************************************************************************/
@@ -163,13 +244,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { noSetIntervalIf(...JSON.parse(argsList[i])); }
+    try { noSetIntervalIf(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_noSetIntervalIf();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_noSetIntervalIf = cloneInto([
+            [ '(', uBOL_noSetIntervalIf.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_noSetIntervalIf);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_noSetIntervalIf;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

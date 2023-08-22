@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,13 +32,17 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortOnPropertyRead() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortOnPropertyRead = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"WP.inline\"]","[\"__headpayload\"]","[\"Object.prototype.bodyCode\"]","[\"launchOpenWindow\"]","[\"o6c6e\"]","[\"uabpd3\"]","[\"checkAds\"]","[\"zfgformats\"]","[\"mdpDeBlocker\"]","[\"HateAdBlock\"]","[\"adBlockDetected\"]","[\"abask\"]"];
+const argsList = [["WP.inline"],["__headpayload"],["Object.prototype.bodyCode"],["launchOpenWindow"],["o6c6e"],["uabpd3"],["checkAds"],["zfgformats"],["mdpDeBlocker"],["HateAdBlock"],["adBlockDetected"],["abask"]];
 
 const hostnamesMap = new Map([["wp.pl",0],["www.wp.pl",1],["sportowefakty.wp.pl",2],["anyfiles.pl",3],["animezone.pl",4],["pcworld.pl",5],["astroweb.pl",6],["exdb.net",[7,8]],["epidemia-koronawirus.pl",8],["trojmiasto.pl",[9,10]],["kurnik.pl",11]]);
 
@@ -165,13 +170,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortOnPropertyRead(...JSON.parse(argsList[i])); }
+    try { abortOnPropertyRead(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortOnPropertyRead();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortOnPropertyRead = cloneInto([
+            [ '(', uBOL_abortOnPropertyRead.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortOnPropertyRead);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortOnPropertyRead;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

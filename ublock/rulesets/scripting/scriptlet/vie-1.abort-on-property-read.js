@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortOnPropertyRead() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortOnPropertyRead = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"parseInt\"]","[\"adsBlocked\"]","[\"document.cookie\"]","[\"Math.round\"]","[\"localStorage\"]","[\"matchMedia\"]","[\"ads\"]","[\"adsPlayer\"]","[\"adsPopupPlayer\"]","[\"adsTvc\"]","[\"keyPlayer\"]","[\"sessionStorage\"]","[\"open\"]","[\"__Y\"]","[\"atob\"]","[\"adtimaConfig\"]"];
+const argsList = [["parseInt"],["adsBlocked"],["document.cookie"],["Math.round"],["matchMedia"],["ads"],["adsPlayer"],["adsPopupPlayer"],["adsTvc"],["keyPlayer"],["localStorage"],["sessionStorage"],["open"],["atob"],["adtimaConfig"]];
 
-const hostnamesMap = new Map([["aoe.vn",0],["azrom.net",1],["cafenau.com",1],["blog.abit.vn",2],["truyensieuhay.com",2],["phimmoivn.pro",2],["tvhaye.org",2],["phimmoipro.net",2],["quangcaoyenbai.com",2],["javnong.cc",3],["phim1080tv.net",4],["subnhanhvl.pro",4],["subnhanh.vip",4],["phimmoi4s.com",4],["phimdinhcao.net",4],["phimlongtieng.net",4],["phimdinhcao.com",4],["phimhot365.vip",5],["plvb.xyz",[6,7,8,9,10]],["tinsoikeo.vip",11],["viettoons.tv",12],["phimmoiaz.cc",12],["zo3x.us",12],["m.blogtruyen.vn",12],["watchsb.com",13],["ytstv.me",14],["yts.do",14],["yts.mx",14],["yts.movie",14],["yts.rs",14],["zingnews.vn",15]]);
+const hostnamesMap = new Map([["aoe.vn",0],["azrom.net",1],["cafenau.com",1],["blog.abit.vn",2],["truyensieuhay.com",2],["phimmoivn.pro",2],["tvhaye.org",2],["phimmoipro.net",2],["quangcaoyenbai.com",2],["javnong.cc",3],["phimhot365.vip",4],["plvb.xyz",[5,6,7,8,9]],["subnhanhvl.pro",10],["subnhanh.vip",10],["phimmoi4s.com",10],["phimdinhcao.net",10],["phimlongtieng.net",10],["phimdinhcao.com",10],["ophim.vip",10],["tinsoikeo.vip",11],["viettoons.tv",12],["phimmoiaz.cc",12],["zo3x.us",12],["m.blogtruyen.vn",12],["ytstv.me",13],["yts.do",13],["yts.mx",13],["yts.movie",13],["yts.rs",13],["zingnews.vn",14]]);
 
 const entitiesMap = new Map([]);
 
@@ -165,13 +170,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortOnPropertyRead(...JSON.parse(argsList[i])); }
+    try { abortOnPropertyRead(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortOnPropertyRead();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortOnPropertyRead = cloneInto([
+            [ '(', uBOL_abortOnPropertyRead.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortOnPropertyRead);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortOnPropertyRead;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

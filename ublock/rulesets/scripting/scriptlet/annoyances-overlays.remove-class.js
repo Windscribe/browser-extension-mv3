@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,17 +32,21 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_removeClass() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_removeClass = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"cookie-paywall-visible\",\"article\"]","[\"video-flyout--fixed\",\".video-flyout\"]","[\"jw-flag-floating|jw-flag-small-player\"]","[\"show\",\".widget-mini-player\"]","[\"StickyVideoPlayer\",\".OTVVideoPlayer\"]","[\"mfp-popup-exit-quiz-v2\",\"body\"]","[\"header-infobar-active\",\"body\"]","[\"is-benefit\",\"div#homepagePage\"]","[\"js-main-header\",\".header\"]","[\"vlog-sticky-video\",\".video.vlog-sticky-video\"]","[\"fancybox-lock\",\"html\"]","[\"jw-flag-floating\",\".jwplayer.jw-flag-floating\"]","[\"with-ticker\",\"body\"]","[\"randomplayer--fixed\",\".randomplayer.randomplayer--fixed\"]","[\"State--CountrySelectorModal\",\"html\"]","[\"tos-opened\",\"body.tos-opened\"]","[\"hustle-no-scroll\",\"html\"]","[\"open-popup\",\"body.open-popup\"]","[\"popup-active\",\"body[class=\\\"popup-active\\\"]\"]","[\"js_show-android\",\".wrapper\"]","[\"tp-modal-open\",\"body\"]","[\"frozen-mobile-body\",\"body\"]","[\"hasAdAlert\",\"header\"]","[\"click-to-scroll\",\"body\"]","[\"disable-selection\",\"body\"]"];
+const argsList = [["cookie-paywall-visible","article"],["stuck",".video-page__player > div.sinparty-player > div"],["oxy-modal-active","body"],["md:pt-[54px]",".z-50.overflow-hidden:not(.group)"],["pt-[64px]",".z-50.overflow-hidden:not(.group)"],["video-flyout--fixed",".video-flyout"],["jw-flag-floating|jw-flag-small-player"],["show",".widget-mini-player"],["StickyVideoPlayer",".OTVVideoPlayer"],["mfp-popup-exit-quiz-v2","body"],["header-infobar-active","body"],["is-benefit","div#homepagePage"],["js-main-header",".header"],["vlog-sticky-video",".video.vlog-sticky-video"],["fancybox-lock","html"],["jw-flag-floating",".jwplayer.jw-flag-floating"],["with-ticker","body"],["randomplayer--fixed",".randomplayer.randomplayer--fixed"],["State--CountrySelectorModal","html"],["tos-opened","body.tos-opened"],["hustle-no-scroll","html"],["open-popup","body.open-popup"],["popup-active","body[class=\"popup-active\"]"],["js_show-android",".wrapper"],["tp-modal-open","body"],["frozen-mobile-body","body"],["hasAdAlert","header"],["click-to-scroll","body"],["disable-selection","body"]];
 
-const hostnamesMap = new Map([["postimees.ee",0],["nbcnewyork.com",1],["healthline.com",2],["haberturk.com",3],["abc7.com",4],["neilpatel.com",5],["teknosa.com",6],["rogervivier.com",7],["kino.tricolor.tv",8],["whatifshow.com",9],["thestreet.com",10],["qa.opensooq.com",10],["komandacard.ru",10],["dailystar.co.uk",11],["spiegel.de",11],["besthealthmag.ca",11],["videosxgays.com",12],["sportowefakty.wp.pl",13],["hamamatsu.com",14],["autostrada-a4.com.pl",15],["fastbikesmag.com",16],["hindustantimes.com",17],["medobr.com",18],["mycredit.ua",19],["bloomberglinea.com",[20,21]],["bloomberglinea.com.br",[20,21]],["novelza.com",23],["postype.com",24]]);
+const hostnamesMap = new Map([["postimees.ee",0],["sinparty.com",1],["gamberorosso.it",2],["internxt.com",[3,4]],["nbcnewyork.com",5],["healthline.com",6],["haberturk.com",7],["abc7.com",8],["neilpatel.com",9],["teknosa.com",10],["rogervivier.com",11],["kino.tricolor.tv",12],["whatifshow.com",13],["thestreet.com",14],["qa.opensooq.com",14],["komandacard.ru",14],["dailystar.co.uk",15],["spiegel.de",15],["besthealthmag.ca",15],["videosxgays.com",16],["sportowefakty.wp.pl",17],["hamamatsu.com",18],["autostrada-a4.com.pl",19],["fastbikesmag.com",20],["hindustantimes.com",21],["medobr.com",22],["mycredit.ua",23],["bloomberglinea.com",[24,25]],["bloomberglinea.com.br",[24,25]],["novelza.com",27],["postype.com",28]]);
 
-const entitiesMap = new Map([["pornhub",22]]);
+const entitiesMap = new Map([["pornhub",26]]);
 
 const exceptionsMap = new Map([]);
 
@@ -54,20 +59,24 @@ function removeClass(
 ) {
     if ( typeof token !== 'string' ) { return; }
     if ( token === '' ) { return; }
-    const tokens = token.split(/\s*\|\s*/);
+    const classTokens = token.split(/\s*\|\s*/);
     if ( selector === '' ) {
-        selector = '.' + tokens.map(a => CSS.escape(a)).join(',.');
+        selector = '.' + classTokens.map(a => CSS.escape(a)).join(',.');
     }
+    const mustStay = /\bstay\b/.test(behavior);
     let timer;
     const rmclass = function() {
         timer = undefined;
         try {
             const nodes = document.querySelectorAll(selector);
             for ( const node of nodes ) {
-                node.classList.remove(...tokens);
+                node.classList.remove(...classTokens);
             }
         } catch(ex) {
         }
+        if ( mustStay ) { return; }
+        if ( document.readyState !== 'complete' ) { return; }
+        observer.disconnect();
     };
     const mutationHandler = mutations => {
         if ( timer !== undefined ) { return; }
@@ -85,10 +94,9 @@ function removeClass(
         if ( skip ) { return; }
         timer = self.requestIdleCallback(rmclass, { timeout: 67 });
     };
+    const observer = new MutationObserver(mutationHandler);
     const start = ( ) => {
         rmclass();
-        if ( /\bstay\b/.test(behavior) === false ) { return; }
-        const observer = new MutationObserver(mutationHandler);
         observer.observe(document, {
             attributes: true,
             attributeFilter: [ 'class' ],
@@ -98,7 +106,7 @@ function removeClass(
     };
     runAt(( ) => {
         start();
-    }, /\bcomplete\b/.test(behavior) ? 'idle' : 'interactive');
+    }, /\bcomplete\b/.test(behavior) ? 'idle' : 'loading');
 }
 
 function runAt(fn, when) {
@@ -135,17 +143,79 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -212,13 +282,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { removeClass(...JSON.parse(argsList[i])); }
+    try { removeClass(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_removeClass();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_removeClass = cloneInto([
+            [ '(', uBOL_removeClass.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_removeClass);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_removeClass;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

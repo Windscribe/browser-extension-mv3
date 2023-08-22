@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,17 +32,21 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_nanoSetIntervalBooster() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_nanoSetIntervalBooster = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"after-ads\",\"*\",\"0.001\"]","[\"money--skip\",\"\",\"0.02\"]","[\"#rekgecyen\",\"*\",\"0.02\"]","[\"reklam\",\"*\",\"0.02\"]","[\"timeleft\",\"*\",\"0.02\"]","[\"timer\"]","[]","[\"window.money_interval\"]","[\"advert\",\"*\",\"0.001\"]"];
+const argsList = [["money--skip","","0.02"],["after-ads","*","0.001"],["#rekgecyen","*","0.02"],["reklam","*","0.02"],["timeleft","*","0.02"],["timer"],[],["window.money_interval"],["advert","*","0.001"]];
 
-const hostnamesMap = new Map([["tafdi3.com",0],["elzemfilmhdizle.com",1],["filmizletv2.com",2],["filmizletv3.com",2],["filmizletv4.com",2],["filmizletv5.com",2],["filmizletv6.com",2],["filmizletv7.com",2],["filmizletv8.com",2],["filmizletv9.com",2],["filmizletv10.com",2],["filmizletv11.com",2],["filmizletv12.com",2],["filmizletv13.com",2],["filmizletv14.com",2],["filmizletv15.com",2],["filmizletv16.com",2],["filmizletv17.com",2],["filmizletv18.com",2],["filmizletv19.com",2],["filmizletv20.com",2],["fullhdfilm.pro",3],["hdfilmifullizle.com",3],["yabancidizi.pro",4],["hdfilmfullizle.com",5],["turkturk.org",6],["turkturk.net",6],["itemci.com",8]]);
+const hostnamesMap = new Map([["hdsinemax.com",0],["elzemfilm.org",0],["tafdi3.com",1],["tafdi4.com",1],["tafdi5.com",1],["filmizletv2.com",2],["filmizletv3.com",2],["filmizletv4.com",2],["filmizletv5.com",2],["filmizletv6.com",2],["filmizletv7.com",2],["filmizletv8.com",2],["filmizletv9.com",2],["filmizletv10.com",2],["filmizletv11.com",2],["filmizletv12.com",2],["filmizletv13.com",2],["filmizletv14.com",2],["filmizletv15.com",2],["filmizletv16.com",2],["filmizletv17.com",2],["filmizletv18.com",2],["filmizletv19.com",2],["filmizletv20.com",2],["fullhdfilm.pro",3],["hdfilmifullizle.com",3],["yabancidizi.pro",4],["hdfilmfullizle.com",5],["turkturk.org",6],["turkturk.net",6],["itemci.com",8]]);
 
-const entitiesMap = new Map([["hdfilmcehennemi2",[1,7]],["filmizletv",2],["fullhdfilmizle5",3],["hdfilmcehennemi",7]]);
+const entitiesMap = new Map([["hdfilmcehennemi2",[0,7]],["filmizletv",2],["fullhdfilmizle5",3],["hdfilmcehennemi",7]]);
 
 const exceptionsMap = new Map([]);
 
@@ -53,7 +58,8 @@ function nanoSetIntervalBooster(
     boostArg = ''
 ) {
     if ( typeof needleArg !== 'string' ) { return; }
-    const reNeedle = patternToRegex(needleArg);
+    const safe = safeSelf();
+    const reNeedle = safe.patternToRegex(needleArg);
     let delay = delayArg !== '*' ? parseInt(delayArg, 10) : -1;
     if ( isNaN(delay) || isFinite(delay) === false ) { delay = 1000; }
     let boost = parseFloat(boostArg);
@@ -74,13 +80,88 @@ function nanoSetIntervalBooster(
     });
 }
 
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
+function safeSelf() {
+    if ( scriptletGlobals.has('safeSelf') ) {
+        return scriptletGlobals.get('safeSelf');
     }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+    const safe = {
+        'Error': self.Error,
+        'Object_defineProperty': Object.defineProperty.bind(Object),
+        'RegExp': self.RegExp,
+        'RegExp_test': self.RegExp.prototype.test,
+        'RegExp_exec': self.RegExp.prototype.exec,
+        'addEventListener': self.EventTarget.prototype.addEventListener,
+        'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
+        'log': console.log.bind(console),
+        uboLog(...args) {
+            if ( args.length === 0 ) { return; }
+            if ( `${args[0]}` === '' ) { return; }
+            this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
+        },
+    };
+    scriptletGlobals.set('safeSelf', safe);
+    return safe;
 }
 
 /******************************************************************************/
@@ -143,13 +224,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { nanoSetIntervalBooster(...JSON.parse(argsList[i])); }
+    try { nanoSetIntervalBooster(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_nanoSetIntervalBooster();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_nanoSetIntervalBooster = cloneInto([
+            [ '(', uBOL_nanoSetIntervalBooster.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_nanoSetIntervalBooster);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_nanoSetIntervalBooster;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

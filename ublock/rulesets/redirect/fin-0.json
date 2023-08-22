@@ -8,6 +8,26 @@
   },
   "condition": {
    "initiatorDomains": [
+    "telsu.fi"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||adservice.google.com/adsid/integrator.js"
+  },
+  "id": 154,
+  "priority": 2
+ },
+ {
+  "action": {
+   "redirect": {
+    "extensionPath": "/web_accessible_resources/noop.txt"
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
     "puhekupla.com"
    ],
    "requestDomains": [
@@ -17,7 +37,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 156,
+  "id": 155,
   "priority": 2
  },
  {
@@ -39,7 +59,7 @@
     "media"
    ]
   },
-  "id": 157,
+  "id": 156,
   "priority": 2
  },
  {
@@ -60,7 +80,7 @@
    ],
    "urlFilter": "||nelonenmedia-pmd-ads-*.nm-stream.nelonenmedia.fi^"
   },
-  "id": 158,
+  "id": 157,
   "priority": 2
  }
 ]

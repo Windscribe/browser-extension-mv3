@@ -1645,7 +1645,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||samimag.no/wp-content/uploads/2019/11/screenshot-2020-03-21-at-12.40.32.png^"
+   "urlFilter": "||gaysir.no/rek^"
   },
   "id": 157
  },
@@ -1655,7 +1655,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||f.nordiskemedier.dk/*.gif^"
+   "urlFilter": "||samimag.no/wp-content/uploads/2019/11/screenshot-2020-03-21-at-12.40.32.png^"
   },
   "id": 158
  },
@@ -1665,7 +1665,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||f.nordiskemedier.dk/banner^"
+   "urlFilter": "||f.nordiskemedier.dk/*.gif^"
   },
   "id": 159
  },
@@ -1675,9 +1675,19 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||static.polarismedia.no/*/cxense.js"
+   "urlFilter": "||f.nordiskemedier.dk/banner^"
   },
   "id": 160
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||static.polarismedia.no/*/cxense.js"
+  },
+  "id": 161
  },
  {
   "action": {
@@ -1713,7 +1723,7 @@
     "82.221.81.9"
    ]
   },
-  "id": 161
+  "id": 162
  },
  {
   "action": {
@@ -1723,7 +1733,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||gulindex.no/-/js/spring.js^"
   },
-  "id": 162
+  "id": 163
  },
  {
   "action": {
@@ -1733,7 +1743,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||static.vg.no/css/admark_top.gif"
   },
-  "id": 163
+  "id": 164
  },
  {
   "action": {
@@ -1743,7 +1753,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||yrkesbil.no/gifs/1pix.gif^"
   },
-  "id": 164
+  "id": 165
  },
  {
   "action": {
@@ -1753,7 +1763,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||ytresogn.no/ete/index.html^"
   },
-  "id": 165
+  "id": 166
  },
  {
   "action": {
@@ -1763,7 +1773,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||erotikmix.dk/mixads300.html^"
   },
-  "id": 166
+  "id": 167
  },
  {
   "action": {
@@ -1777,7 +1787,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/gifs/*emty.gif^"
   },
-  "id": 167
+  "id": 168
  },
  {
   "action": {
@@ -1787,7 +1797,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "_980banner_"
   },
-  "id": 168
+  "id": 169
  },
  {
   "action": {
@@ -1797,7 +1807,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||s.api.no/mittari/c/article/*/sectionid/*.gif^"
   },
-  "id": 169
+  "id": 170
  },
  {
   "action": {
@@ -1807,7 +1817,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||ktg-content.cdn.prismic.io/api/*/documents/*(my.newsletter_popup.uid"
   },
-  "id": 170
+  "id": 171
  },
  {
   "action": {
@@ -1821,7 +1831,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||googletagmanager.com/gtm.js^"
   },
-  "id": 171
+  "id": 172
  },
  {
   "action": {
@@ -1831,7 +1841,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/advisibility_*.js^"
   },
-  "id": 172
+  "id": 173
  },
  {
   "action": {
@@ -1844,7 +1854,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||cloudfront.net/v*/liveoddsen.aspx^"
   },
-  "id": 173
+  "id": 174
  },
  {
   "action": {
@@ -1854,7 +1864,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||gamereactor.*/ads^"
   },
-  "id": 174
+  "id": 175
  },
  {
   "action": {
@@ -1864,7 +1874,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||gamereactor.*/exclusive.json^"
   },
-  "id": 175
+  "id": 176
  },
  {
   "action": {
@@ -1874,7 +1884,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||deiligejenter.com/testfile23.js"
   },
-  "id": 176
+  "id": 177
  },
  {
   "action": {
@@ -1884,7 +1894,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||gratisxxx.no/*.php?bn="
   },
-  "id": 177
+  "id": 178
  },
  {
   "action": {
@@ -1894,7 +1904,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||nakenprat.com/adfirst*.js"
   },
-  "id": 178
+  "id": 179
  },
  {
   "action": {
@@ -1904,7 +1914,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||nakenprat.com/adlast*.php^"
   },
-  "id": 179
+  "id": 180
  },
  {
   "action": {
@@ -1914,7 +1924,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||appleid.*.no^"
   },
-  "id": 180
+  "id": 181
  },
  {
   "action": {
@@ -1924,7 +1934,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||itunesconnect-*.no^"
   },
-  "id": 181
+  "id": 182
  },
  {
   "action": {
@@ -1934,16 +1944,6 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||bankid-sperret."
   },
-  "id": 182
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "-norge.co.no^"
-  },
   "id": 183
  },
  {
@@ -1951,8 +1951,65 @@
    "type": "block"
   },
   "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*skodanmark.com^"
+   "excludedResourceTypes": [
+    "main_frame"
+   ],
+   "requestDomains": [
+    "altrasgshoes.com",
+    "altrask.com",
+    "bershka-norge.com",
+    "bershkadenmark.com",
+    "blundstoneskooslo.com",
+    "brunateskonorge.com",
+    "dsbuhw.shop",
+    "dscvsb.shop",
+    "dsjifs.shop",
+    "dswuxd.shop",
+    "g-ymsharknorge.com",
+    "gantdanmark.com",
+    "gantnorge.com",
+    "gym-shark-norge.com",
+    "gymshark-danmarkudsalg.com",
+    "gymshark-no.com",
+    "gymsharkbutikdanmark.com",
+    "gymsharkbutikkoslo.com",
+    "gymsharkdanmark.com",
+    "gymsharkidanmark.com",
+    "gymsharkiesale.com",
+    "gymsharkldanmark.com",
+    "gymsharklnorge.com",
+    "gymsharkno.com",
+    "gymsharknorge.com",
+    "gymsharkoutletsnorge.com",
+    "gymsharksalg.com",
+    "gymsharktightsnorge.com",
+    "gymsharnorge.com",
+    "hilfigerdenmark.com",
+    "hilfigernorge.com",
+    "hugobossbutikk.com",
+    "hunterstovlerbutikk.com",
+    "josefseibeloutletnorge.com",
+    "joyaskobutikk.com",
+    "kybunskodanmark.com",
+    "louboutinnorge.com",
+    "montec-danmark.com",
+    "montecnorge.com",
+    "montecsalg.com",
+    "nauticadanmark.com",
+    "nauticanorge.com",
+    "salgvejanorge.com",
+    "sanukdk.com",
+    "sanuksandaler.com",
+    "umbrodk.com",
+    "umbrono.com",
+    "underarmour-dk.com",
+    "underarmourdk.com",
+    "underarmourdks.com",
+    "vejadanmarkudsalg.com",
+    "xeroshoes-danmark.com",
+    "xeroshoesdanmark.com",
+    "xn--gymsharkklrnorge-3ob.com"
+   ]
   },
   "id": 184
  },
@@ -1962,7 +2019,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*norgeskosalg."
+   "urlFilter": "-norge.co.no^"
   },
   "id": 185
  },
@@ -1972,7 +2029,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*norge-salg.com^"
+   "urlFilter": "*skodanmark.com^"
   },
   "id": 186
  },
@@ -1982,7 +2039,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*norgesalgs.com^"
+   "urlFilter": "*norgeskosalg."
   },
   "id": 187
  },
@@ -1992,7 +2049,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*danmarkdk.com^"
+   "urlFilter": "*norge-salg.com^"
   },
   "id": 188
  },
@@ -2002,7 +2059,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*skodktilbud."
+   "urlFilter": "*norgesalgs.com^"
   },
   "id": 189
  },
@@ -2012,7 +2069,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*skonorgeeu.com^"
+   "urlFilter": "*danmarkdk.com^"
   },
   "id": 190
  },
@@ -2022,7 +2079,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*sneakersnorgeshop."
+   "urlFilter": "*skodktilbud."
   },
   "id": 191
  },
@@ -2032,7 +2089,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*sneakersdkshop.com^"
+   "urlFilter": "*skonorgeeu.com^"
   },
   "id": 192
  },
@@ -2042,9 +2099,29 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "urlFilter": "*skodanmarks."
+   "urlFilter": "*sneakersnorgeshop."
   },
   "id": 193
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "*sneakersdkshop.com^"
+  },
+  "id": 194
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "*skodanmarks."
+  },
+  "id": 195
  },
  {
   "action": {
@@ -2057,7 +2134,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||104.160.10."
   },
-  "id": 194
+  "id": 196
  },
  {
   "action": {
@@ -2070,7 +2147,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||165.231.154."
   },
-  "id": 195
+  "id": 197
  },
  {
   "action": {
@@ -2079,6 +2156,7 @@
   "condition": {
    "requestDomains": [
     "1.14.61.188",
+    "212.27.60.108",
     "24-news.online",
     "336.linux1.testsider.dk",
     "52.216.146.90",
@@ -2164,6 +2242,7 @@
     "quiksilverdanmark.com",
     "quiksilvernorge.com",
     "quiksilvertilbud.com",
+    "s.free.fr",
     "salomomnorgeoutlet.com",
     "salomon-danmark.net",
     "salomonbutikdanmark.com",
@@ -2180,6 +2259,7 @@
     "tevanorgeshop.com",
     "thenorthfacenorge.co.no",
     "trafikkskoleapp.no",
+    "trmff.wpengine.com",
     "underarmourdanmarkdk.com",
     "vansnorge.co.no",
     "vanssnorge.com",
@@ -2189,7 +2269,7 @@
     "y6.no"
    ]
   },
-  "id": 196
+  "id": 198
  },
  {
   "action": {
@@ -2203,7 +2283,7 @@
    ],
    "urlFilter": "||gfx.no^*/refererpromo"
   },
-  "id": 197
+  "id": 199
  },
  {
   "action": {
@@ -2216,7 +2296,7 @@
    ],
    "urlFilter": "/banners/casinotop"
   },
-  "id": 198
+  "id": 200
  },
  {
   "action": {
@@ -2229,7 +2309,7 @@
    ],
    "urlFilter": "*galleri.dk/content/images/fixed^"
   },
-  "id": 199
+  "id": 201
  },
  {
   "action": {
@@ -2242,7 +2322,7 @@
    ],
    "urlFilter": "/annonse_"
   },
-  "id": 200
+  "id": 202
  },
  {
   "action": {
@@ -2255,7 +2335,7 @@
    ],
    "urlFilter": "/annonse-"
   },
-  "id": 201
+  "id": 203
  },
  {
   "action": {
@@ -2268,7 +2348,7 @@
    ],
    "urlFilter": "/wp-content/uploads/*_annonse_"
   },
-  "id": 202
+  "id": 204
  },
  {
   "action": {
@@ -2281,7 +2361,7 @@
    ],
    "urlFilter": "_toppbanner_"
   },
-  "id": 203
+  "id": 205
  },
  {
   "action": {
@@ -2294,7 +2374,7 @@
    ],
    "urlFilter": "/_annonser^"
   },
-  "id": 204
+  "id": 206
  },
  {
   "action": {
@@ -2307,7 +2387,7 @@
    ],
    "urlFilter": "/nettbanner-"
   },
-  "id": 205
+  "id": 207
  },
  {
   "action": {
@@ -2320,7 +2400,7 @@
    ],
    "urlFilter": "||lh3.googleusercontent.com/*=w468-h60-"
   },
-  "id": 206
+  "id": 208
  },
  {
   "action": {
@@ -2333,7 +2413,7 @@
    ],
    "urlFilter": "||lh3.googleusercontent.com/*=w970-h250-"
   },
-  "id": 207
+  "id": 209
  },
  {
   "action": {
@@ -2346,7 +2426,7 @@
    ],
    "urlFilter": "/getbanner.php^"
   },
-  "id": 208
+  "id": 210
  },
  {
   "action": {
@@ -2359,7 +2439,7 @@
    ],
    "urlFilter": "_nettbanner_"
   },
-  "id": 209
+  "id": 211
  },
  {
   "action": {
@@ -2372,7 +2452,7 @@
    ],
    "urlFilter": "_visittkortannonse_"
   },
-  "id": 210
+  "id": 212
  },
  {
   "action": {
@@ -2385,7 +2465,7 @@
    ],
    "urlFilter": "-visittkortannonse-"
   },
-  "id": 211
+  "id": 213
  },
  {
   "action": {
@@ -2398,7 +2478,7 @@
    ],
    "urlFilter": ".is/static/strevda/"
   },
-  "id": 212
+  "id": 214
  },
  {
   "action": {
@@ -2411,7 +2491,7 @@
    ],
    "urlFilter": "/images/bannere^"
   },
-  "id": 213
+  "id": 215
  },
  {
   "action": {
@@ -2424,7 +2504,7 @@
    ],
    "urlFilter": "-skyskraper-annonse."
   },
-  "id": 214
+  "id": 216
  },
  {
   "action": {
@@ -2437,7 +2517,7 @@
    ],
    "urlFilter": "|blob:https://www.veier24.no/"
   },
-  "id": 215
+  "id": 217
  },
  {
   "action": {
@@ -2450,7 +2530,7 @@
    ],
    "urlFilter": "||1819.is/infosmall/"
   },
-  "id": 216
+  "id": 218
  },
  {
   "action": {
@@ -2463,7 +2543,7 @@
    ],
    "urlFilter": "||austevollforlag.no/wp-content/*/yachtmarine2014."
   },
-  "id": 217
+  "id": 219
  },
  {
   "action": {
@@ -2480,7 +2560,7 @@
    ],
    "urlFilter": "/images/banners"
   },
-  "id": 218
+  "id": 220
  },
  {
   "action": {
@@ -2493,7 +2573,7 @@
    ],
    "urlFilter": "||biip.no/wp-content/uploads/*320x250.jpg^"
   },
-  "id": 219
+  "id": 221
  },
  {
   "action": {
@@ -2506,7 +2586,7 @@
    ],
    "urlFilter": "||bornholm.nu/nonsec/banner"
   },
-  "id": 220
+  "id": 222
  },
  {
   "action": {
@@ -2519,7 +2599,7 @@
    ],
    "urlFilter": "||dust2.dk/img/banners/"
   },
-  "id": 221
+  "id": 223
  },
  {
   "action": {
@@ -2532,7 +2612,7 @@
    ],
    "urlFilter": "||feltet.dk/octo_cms/files/feltet.dk//"
   },
-  "id": 222
+  "id": 224
  },
  {
   "action": {
@@ -2549,7 +2629,7 @@
     "image"
    ]
   },
-  "id": 223
+  "id": 225
  },
  {
   "action": {
@@ -2562,7 +2642,7 @@
    ],
    "urlFilter": "||hnytt.no/wp-content/uploads/*/fluffy.jpg^"
   },
-  "id": 224
+  "id": 226
  },
  {
   "action": {
@@ -2575,7 +2655,7 @@
    ],
    "urlFilter": "||karfan.is/wp-content/uploads/*-vefbor%c3%b0i-"
   },
-  "id": 225
+  "id": 227
  },
  {
   "action": {
@@ -2588,7 +2668,7 @@
    ],
    "urlFilter": "||leikjaland.is/*/bannerstopright/"
   },
-  "id": 226
+  "id": 228
  },
  {
   "action": {
@@ -2601,7 +2681,7 @@
    ],
    "urlFilter": "||magasinetreiselyst.no/wp-content/*_annonse*promo"
   },
-  "id": 227
+  "id": 229
  },
  {
   "action": {
@@ -2614,7 +2694,7 @@
    ],
    "urlFilter": "||melkoghonning.no/wp-content/uploads/*_banner_"
   },
-  "id": 228
+  "id": 230
  },
  {
   "action": {
@@ -2627,7 +2707,7 @@
    ],
    "urlFilter": "||nvnytt.no/images/*annonse-"
   },
-  "id": 229
+  "id": 231
  },
  {
   "action": {
@@ -2640,7 +2720,7 @@
    ],
    "urlFilter": "||oyggjatidindi.com/vev_banners/*l%c3%bdsing"
   },
-  "id": 230
+  "id": 232
  },
  {
   "action": {
@@ -2653,7 +2733,7 @@
    ],
    "urlFilter": "||rett24.no*/_/attachment/inline/"
   },
-  "id": 231
+  "id": 233
  },
  {
   "action": {
@@ -2666,7 +2746,7 @@
    ],
    "urlFilter": "||travservice.dk/wp-content^"
   },
-  "id": 232
+  "id": 234
  },
  {
   "action": {
@@ -2679,7 +2759,7 @@
    ],
    "urlFilter": "||trolli.is/wp-content/*/banner"
   },
-  "id": 233
+  "id": 235
  },
  {
   "action": {
@@ -2692,7 +2772,7 @@
    ],
    "urlFilter": "||trolli.is/wp-content/*/hollin_olafsfirdi"
   },
-  "id": 234
+  "id": 236
  },
  {
   "action": {
@@ -2705,7 +2785,7 @@
    ],
    "urlFilter": "||trolli.is/wp-content/*/syngjum-kubbur"
   },
-  "id": 235
+  "id": 237
  },
  {
   "action": {
@@ -2718,7 +2798,7 @@
    ],
    "urlFilter": "||trolli.is/wp-content/*/vefsmarinn"
   },
-  "id": 236
+  "id": 238
  },
  {
   "action": {
@@ -2731,7 +2811,7 @@
    ],
    "urlFilter": "||trolli.is/wp-content/*/videoval_logo"
   },
-  "id": 237
+  "id": 239
  },
  {
   "action": {
@@ -2744,7 +2824,7 @@
    ],
    "urlFilter": "||tunnelsyn1.files.wordpress.com/*/sotra-trelast-isolasjon"
   },
-  "id": 238
+  "id": 240
  },
  {
   "action": {
@@ -2757,7 +2837,7 @@
    ],
    "urlFilter": "||tvkampen.com/media/*/banner*"
   },
-  "id": 239
+  "id": 241
  },
  {
   "action": {
@@ -2770,7 +2850,7 @@
    ],
    "urlFilter": "||tvkampen.com/media/partners/unibet-lo"
   },
-  "id": 240
+  "id": 242
  },
  {
   "action": {
@@ -2783,7 +2863,7 @@
    ],
    "urlFilter": "||utrop.no/wp-content/uploads/*/banner_utrop"
   },
-  "id": 241
+  "id": 243
  },
  {
   "action": {
@@ -2800,7 +2880,7 @@
    ],
    "urlFilter": "/bannere/"
   },
-  "id": 242
+  "id": 244
  },
  {
   "action": {
@@ -2817,7 +2897,7 @@
    ],
    "urlFilter": "/partners/*_ad_icon"
   },
-  "id": 243
+  "id": 245
  },
  {
   "action": {
@@ -2834,7 +2914,7 @@
    ],
    "urlFilter": "/wp-content/banners^"
   },
-  "id": 244
+  "id": 246
  },
  {
   "action": {
@@ -2847,7 +2927,7 @@
    ],
    "urlFilter": "||teknologiskmatforum.no/viewimage.aspx?*width=343^"
   },
-  "id": 245
+  "id": 247
  },
  {
   "action": {
@@ -2860,7 +2940,7 @@
    ],
    "urlFilter": "||healthtalkweb.s3.amazonaws.com/images/*_560x210."
   },
-  "id": 246
+  "id": 248
  },
  {
   "action": {
@@ -2873,7 +2953,7 @@
    ],
    "urlFilter": "||oppdrettstorget.no/images/cms^"
   },
-  "id": 247
+  "id": 249
  },
  {
   "action": {
@@ -2886,7 +2966,7 @@
    ],
    "urlFilter": "||appetitt.no/uploads/library/1150*"
   },
-  "id": 248
+  "id": 250
  },
  {
   "action": {
@@ -2899,7 +2979,7 @@
    ],
    "urlFilter": "||appetitt.no/uploads/library/*_bannere_"
   },
-  "id": 249
+  "id": 251
  },
  {
   "action": {
@@ -2912,7 +2992,7 @@
    ],
    "urlFilter": "||canariposten.no/wp-content/uploads/300x1500"
   },
-  "id": 250
+  "id": 252
  },
  {
   "action": {
@@ -2925,7 +3005,7 @@
    ],
    "urlFilter": "||thainytt.no/files/160_"
   },
-  "id": 251
+  "id": 253
  },
  {
   "action": {
@@ -2938,7 +3018,7 @@
    ],
    "urlFilter": "||nyteknikk.no/images.php/180x^"
   },
-  "id": 252
+  "id": 254
  },
  {
   "action": {
@@ -2951,7 +3031,7 @@
    ],
    "urlFilter": "||nyteknikk.no/images.php/x150^"
   },
-  "id": 253
+  "id": 255
  },
  {
   "action": {
@@ -2968,7 +3048,7 @@
    ],
    "urlFilter": "/images/banners^"
   },
-  "id": 254
+  "id": 256
  },
  {
   "action": {
@@ -2981,7 +3061,7 @@
    ],
    "urlFilter": "||malviknytt.no/wp-content/uploads/*-firkant-*e1*."
   },
-  "id": 255
+  "id": 257
  },
  {
   "action": {
@@ -2994,7 +3074,7 @@
    ],
    "urlFilter": "||reiseliv.no/wp-content/uploads/*-annons%c3%b8rinnhold-*-aksjer-*."
   },
-  "id": 256
+  "id": 258
  },
  {
   "action": {
@@ -3007,7 +3087,7 @@
    ],
    "urlFilter": "||escort46.dk/bg_images^"
   },
-  "id": 257
+  "id": 259
  },
  {
   "action": {
@@ -3023,7 +3103,7 @@
    ],
    "urlFilter": "-banner_"
   },
-  "id": 258
+  "id": 260
  },
  {
   "action": {
@@ -3036,7 +3116,7 @@
    ],
    "urlFilter": "||detailersclub.no/uploads/*_banner."
   },
-  "id": 259
+  "id": 261
  },
  {
   "action": {
@@ -3049,7 +3129,7 @@
    ],
    "urlFilter": "||reavisa.blob.core.windows.net/*_300x100"
   },
-  "id": 260
+  "id": 262
  },
  {
   "action": {
@@ -3062,7 +3142,7 @@
    ],
    "urlFilter": "||reavisa.blob.core.windows.net/*visittkort"
   },
-  "id": 261
+  "id": 263
  },
  {
   "action": {
@@ -3075,7 +3155,7 @@
    ],
    "urlFilter": "||reavisa.blob.core.windows.net/*_annonse_"
   },
-  "id": 262
+  "id": 264
  },
  {
   "action": {
@@ -3088,7 +3168,7 @@
    ],
    "urlFilter": "||reavisa.blob.core.windows.net/*-annonse-"
   },
-  "id": 263
+  "id": 265
  },
  {
   "action": {
@@ -3101,7 +3181,7 @@
    ],
    "urlFilter": "||isolor.no/wp-content/uploads/*-toppbanner-"
   },
-  "id": 264
+  "id": 266
  },
  {
   "action": {
@@ -3117,7 +3197,7 @@
    ],
    "urlFilter": "_930x180pix"
   },
-  "id": 265
+  "id": 267
  },
  {
   "action": {
@@ -3133,7 +3213,7 @@
    ],
    "urlFilter": "_300x500pix"
   },
-  "id": 266
+  "id": 268
  },
  {
   "action": {
@@ -3146,7 +3226,7 @@
    ],
    "urlFilter": "||vaktin.is/grkuk^"
   },
-  "id": 267
+  "id": 269
  },
  {
   "action": {
@@ -3159,7 +3239,7 @@
    ],
    "urlFilter": "||indblik.net/wp-content/uploads/angwp^"
   },
-  "id": 268
+  "id": 270
  },
  {
   "action": {
@@ -3172,7 +3252,7 @@
    ],
    "urlFilter": "||s3-eu-west-1.amazonaws.com/froya/*-980x500-"
   },
-  "id": 269
+  "id": 271
  },
  {
   "action": {
@@ -3185,7 +3265,7 @@
    ],
    "urlFilter": "||s3-eu-west-1.amazonaws.com/froya/*-toppannonse-"
   },
-  "id": 270
+  "id": 272
  },
  {
   "action": {
@@ -3198,7 +3278,7 @@
    ],
    "urlFilter": "||s3-eu-west-1.amazonaws.com/froya/*nettannonse-"
   },
-  "id": 271
+  "id": 273
  },
  {
   "action": {
@@ -3211,7 +3291,7 @@
    ],
    "urlFilter": "||seksualitet24.no/wp-content/uploads/*/sinful_"
   },
-  "id": 272
+  "id": 274
  },
  {
   "action": {
@@ -3224,7 +3304,7 @@
    ],
    "urlFilter": "||levmeddiabetes.no/content/uploads/*/accu-"
   },
-  "id": 273
+  "id": 275
  },
  {
   "action": {
@@ -3237,7 +3317,7 @@
    ],
    "urlFilter": "||tv2.no/prod/sponsor^"
   },
-  "id": 274
+  "id": 276
  },
  {
   "action": {
@@ -3250,7 +3330,7 @@
    ],
    "urlFilter": "/lykill_banner"
   },
-  "id": 275
+  "id": 277
  },
  {
   "action": {
@@ -3263,7 +3343,7 @@
    ],
    "urlFilter": "||images.sprinklecontent.com/*.amazonaws.com%2fimages%"
   },
-  "id": 276
+  "id": 278
  },
  {
   "action": {
@@ -3276,7 +3356,7 @@
    ],
    "urlFilter": "||fcbarcelona.dk/*/images/footerbg.jpg^"
   },
-  "id": 277
+  "id": 279
  },
  {
   "action": {
@@ -3289,7 +3369,7 @@
    ],
    "urlFilter": "||danishfamilysearch.dk/images/xp2^"
   },
-  "id": 278
+  "id": 280
  },
  {
   "action": {
@@ -3305,7 +3385,7 @@
    ],
    "urlFilter": "-l%c3%bdsing-"
   },
-  "id": 279
+  "id": 281
  },
  {
   "action": {
@@ -3318,7 +3398,7 @@
    ],
    "urlFilter": ".fo/css/img/banner2x1.png"
   },
-  "id": 280
+  "id": 282
  },
  {
   "action": {
@@ -3331,7 +3411,7 @@
    ],
    "urlFilter": "||images.media.xxlsports.com/images/h90/h9d/9339713159198/bg.jpg"
   },
-  "id": 281
+  "id": 283
  },
  {
   "action": {
@@ -3344,7 +3424,7 @@
    ],
    "urlFilter": "||platekompaniet.no/assets/img/background.png"
   },
-  "id": 282
+  "id": 284
  },
  {
   "action": {
@@ -3357,7 +3437,7 @@
    ],
    "urlFilter": "||pepcall.no/wp-content/uploads/2015/04/bakgrunn-forside.jpg"
   },
-  "id": 283
+  "id": 285
  },
  {
   "action": {
@@ -3370,7 +3450,7 @@
    ],
    "urlFilter": "||tv2.no/s/lab/2.5/p/img/tv2-background.svg"
   },
-  "id": 284
+  "id": 286
  },
  {
   "action": {
@@ -3383,7 +3463,7 @@
    ],
    "urlFilter": "||dagligvarehandelen.no/sites/all/themes/custom/ledelseas/gfx/veil.png"
   },
-  "id": 285
+  "id": 287
  },
  {
   "action": {
@@ -3396,7 +3476,7 @@
    ],
    "urlFilter": "||vg.no/vgc/pool/tipster.png^"
   },
-  "id": 286
+  "id": 288
  },
  {
   "action": {
@@ -3409,7 +3489,7 @@
    ],
    "urlFilter": "/pustehullet/betting-header.png^"
   },
-  "id": 287
+  "id": 289
  },
  {
   "action": {
@@ -3422,7 +3502,7 @@
    ],
    "urlFilter": "||inputmag.dk/wp-content/uploads/*/*_galaxy-_takeover_"
   },
-  "id": 288
+  "id": 290
  },
  {
   "action": {
@@ -3435,7 +3515,7 @@
    ],
    "urlFilter": "||akamai.vgc.no/drfront3^"
   },
-  "id": 289
+  "id": 291
  },
  {
   "action": {
@@ -3453,7 +3533,7 @@
     "image"
    ]
   },
-  "id": 290
+  "id": 292
  },
  {
   "action": {
@@ -3466,7 +3546,7 @@
    ],
    "urlFilter": ".no/vendor/apx^"
   },
-  "id": 291
+  "id": 293
  },
  {
   "action": {
@@ -3479,7 +3559,7 @@
    ],
    "urlFilter": "||viasport-assets.mtg-api.com/*/prod/comscore-*.js"
   },
-  "id": 292
+  "id": 294
  },
  {
   "action": {
@@ -3495,7 +3575,7 @@
    ],
    "urlFilter": "/bazaar/"
   },
-  "id": 293
+  "id": 295
  },
  {
   "action": {
@@ -3511,7 +3591,7 @@
    ],
    "urlFilter": "-bazaar-"
   },
-  "id": 294
+  "id": 296
  },
  {
   "action": {
@@ -3524,7 +3604,7 @@
    ],
    "urlFilter": "||aftenposten.no/seksjon/dist/ads-"
   },
-  "id": 295
+  "id": 297
  },
  {
   "action": {
@@ -3537,7 +3617,7 @@
    ],
    "urlFilter": "||aa-cdn.mytaste.org/js/ad.js"
   },
-  "id": 296
+  "id": 298
  },
  {
   "action": {
@@ -3551,7 +3631,7 @@
    ],
    "urlFilter": "||boost.manatee.dk/srx/srx_lib_block_"
   },
-  "id": 297
+  "id": 299
  },
  {
   "action": {
@@ -3567,7 +3647,7 @@
    ],
    "urlFilter": "||api.frende.no/webshop/log"
   },
-  "id": 298
+  "id": 300
  },
  {
   "action": {
@@ -3583,7 +3663,7 @@
    ],
    "urlFilter": "contentmarketing"
   },
-  "id": 299
+  "id": 301
  },
  {
   "action": {
@@ -3596,7 +3676,7 @@
    ],
    "urlFilter": "||auglysingar.*.is^"
   },
-  "id": 300
+  "id": 302
  },
  {
   "action": {
@@ -3609,7 +3689,7 @@
    ],
    "urlFilter": "||banner.landbrugsavisen.dk/reklame.aspx"
   },
-  "id": 301
+  "id": 303
  },
  {
   "action": {
@@ -3626,7 +3706,7 @@
     "sub_frame"
    ]
   },
-  "id": 302
+  "id": 304
  },
  {
   "action": {
@@ -3639,7 +3719,7 @@
    ],
    "urlFilter": "||nordlysid.fo/lysing^"
   },
-  "id": 303
+  "id": 305
  },
  {
   "action": {
@@ -3652,7 +3732,7 @@
    ],
    "urlFilter": "||youtube.com/embed/*&origin=https%3a%2f%2fwww.feltet.dk&widgetid=1"
   },
-  "id": 304
+  "id": 306
  },
  {
   "action": {
@@ -3665,7 +3745,7 @@
    ],
    "urlFilter": "||thaiguiden.no/tg-980.html"
   },
-  "id": 305
+  "id": 307
  },
  {
   "action": {
@@ -3678,7 +3758,7 @@
    ],
    "urlFilter": "||forum.flyprat.no/images/r/header^"
   },
-  "id": 306
+  "id": 308
  },
  {
   "action": {
@@ -3691,7 +3771,7 @@
    ],
    "urlFilter": "||730.no/banner/*/sonymusic/"
   },
-  "id": 307
+  "id": 309
  },
  {
   "action": {
@@ -3704,7 +3784,7 @@
    ],
    "urlFilter": "||gaysir.no/rek/bb_inline"
   },
-  "id": 308
+  "id": 310
  },
  {
   "action": {
@@ -3717,7 +3797,7 @@
    ],
    "urlFilter": "||mmm.dk/safeframe^"
   },
-  "id": 309
+  "id": 311
  },
  {
   "action": {
@@ -3734,7 +3814,7 @@
     "sub_frame"
    ]
   },
-  "id": 310
+  "id": 312
  },
  {
   "action": {
@@ -3747,7 +3827,7 @@
    ],
    "urlFilter": "||tipster.no/embed"
   },
-  "id": 311
+  "id": 313
  },
  {
   "action": {
@@ -3761,7 +3841,7 @@
     "sub_frame"
    ]
   },
-  "id": 312
+  "id": 314
  },
  {
   "action": {
@@ -3778,7 +3858,7 @@
     "media"
    ]
   },
-  "id": 313
+  "id": 315
  },
  {
   "action": {
@@ -3787,6 +3867,7 @@
   "condition": {
    "requestDomains": [
     "102.112.2o7.net",
+    "212.27.60.108",
     "24-news.online",
     "a2ics.eu",
     "addmoviesnow.com",
@@ -3922,6 +4003,7 @@
     "replicarolexyachtmaster.com",
     "rigspolitiet.com",
     "rnbinance.com",
+    "s.free.fr",
     "salomomnorgeoutlet.com",
     "salomon-danmark.net",
     "salomonbutikdanmark.com",
@@ -3946,6 +4028,7 @@
     "tevanorgeshop.com",
     "thenorthfacenorge.co.no",
     "trackvoluum.com",
+    "trmff.wpengine.com",
     "tromselementbygg.no",
     "ultimate-tech-products.myshopify.com",
     "um-bs.com",
@@ -3964,7 +4047,7 @@
     "main_frame"
    ]
   },
-  "id": 314
+  "id": 316
  },
  {
   "action": {
@@ -3977,7 +4060,7 @@
    ],
    "urlFilter": "/begrensede-tilbudet/"
   },
-  "id": 315
+  "id": 317
  },
  {
   "action": {
@@ -3990,7 +4073,7 @@
    ],
    "urlFilter": "/bli-avbrutt-bor-du-oppdater/"
   },
-  "id": 316
+  "id": 318
  },
  {
   "action": {
@@ -4003,7 +4086,7 @@
    ],
    "urlFilter": "/dnb11111^"
   },
-  "id": 317
+  "id": 319
  },
  {
   "action": {
@@ -4016,7 +4099,7 @@
    ],
    "urlFilter": "/kiwierbjudanden1/"
   },
-  "id": 318
+  "id": 320
  },
  {
   "action": {
@@ -4029,7 +4112,7 @@
    ],
    "urlFilter": "/norgesecure/"
   },
-  "id": 319
+  "id": 321
  },
  {
   "action": {
@@ -4042,7 +4125,7 @@
    ],
    "urlFilter": "/pakkerlevering/"
   },
-  "id": 320
+  "id": 322
  },
  {
   "action": {
@@ -4058,7 +4141,7 @@
    ],
    "urlFilter": "/finn.no/finno.htm"
   },
-  "id": 321
+  "id": 323
  },
  {
   "action": {
@@ -4071,7 +4154,7 @@
    ],
    "urlFilter": ".gratis-reisebilletter."
   },
-  "id": 322
+  "id": 324
  },
  {
   "action": {
@@ -4084,7 +4167,7 @@
    ],
    "urlFilter": "||coop.no."
   },
-  "id": 323
+  "id": 325
  },
  {
   "action": {
@@ -4097,7 +4180,7 @@
    ],
    "urlFilter": "||danskebank.no."
   },
-  "id": 324
+  "id": 326
  },
  {
   "action": {
@@ -4110,7 +4193,7 @@
    ],
    "urlFilter": "||djurs.com-*."
   },
-  "id": 325
+  "id": 327
  },
  {
   "action": {
@@ -4123,7 +4206,7 @@
    ],
    "urlFilter": "||dnb.no."
   },
-  "id": 326
+  "id": 328
  },
  {
   "action": {
@@ -4136,7 +4219,7 @@
    ],
    "urlFilter": "||elkjop.no."
   },
-  "id": 327
+  "id": 329
  },
  {
   "action": {
@@ -4149,7 +4232,7 @@
    ],
    "urlFilter": "||finn.no."
   },
-  "id": 328
+  "id": 330
  },
  {
   "action": {
@@ -4162,7 +4245,7 @@
    ],
    "urlFilter": "||flysas-no."
   },
-  "id": 329
+  "id": 331
  },
  {
   "action": {
@@ -4175,7 +4258,7 @@
    ],
    "urlFilter": "||komplett.no."
   },
-  "id": 330
+  "id": 332
  },
  {
   "action": {
@@ -4188,7 +4271,7 @@
    ],
    "urlFilter": "||nordea.no."
   },
-  "id": 331
+  "id": 333
  },
  {
   "action": {
@@ -4201,7 +4284,7 @@
    ],
    "urlFilter": "||nordnet.no."
   },
-  "id": 332
+  "id": 334
  },
  {
   "action": {
@@ -4214,7 +4297,7 @@
    ],
    "urlFilter": "||norwegian.com."
   },
-  "id": 333
+  "id": 335
  },
  {
   "action": {
@@ -4227,7 +4310,7 @@
    ],
    "urlFilter": "||paypal.*.no^"
   },
-  "id": 334
+  "id": 336
  },
  {
   "action": {
@@ -4240,7 +4323,7 @@
    ],
    "urlFilter": "||posten.no."
   },
-  "id": 335
+  "id": 337
  },
  {
   "action": {
@@ -4253,7 +4336,7 @@
    ],
    "urlFilter": "||postnord.no."
   },
-  "id": 336
+  "id": 338
  },
  {
   "action": {
@@ -4266,7 +4349,7 @@
    ],
    "urlFilter": "||sbanken.no."
   },
-  "id": 337
+  "id": 339
  },
  {
   "action": {
@@ -4279,7 +4362,7 @@
    ],
    "urlFilter": "||shell.no."
   },
-  "id": 338
+  "id": 340
  },
  {
   "action": {
@@ -4292,7 +4375,7 @@
    ],
    "urlFilter": "||skatteetaten.no."
   },
-  "id": 339
+  "id": 341
  },
  {
   "action": {
@@ -4305,7 +4388,7 @@
    ],
    "urlFilter": "||sparebank1.no."
   },
-  "id": 340
+  "id": 342
  },
  {
   "action": {
@@ -4318,7 +4401,7 @@
    ],
    "urlFilter": "||tusenfryd-com."
   },
-  "id": 341
+  "id": 343
  },
  {
   "action": {
@@ -4331,7 +4414,7 @@
    ],
    "urlFilter": "||vg.no."
   },
-  "id": 342
+  "id": 344
  },
  {
   "action": {
@@ -4344,7 +4427,7 @@
    ],
    "urlFilter": "||vipps-sikkerhet."
   },
-  "id": 343
+  "id": 345
  },
  {
   "action": {
@@ -4357,32 +4440,6 @@
    ],
    "urlFilter": "/?finn.no/login"
   },
-  "id": 344
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "main_frame"
-   ],
-   "urlFilter": "||kongeparken.com-"
-  },
-  "id": 345
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "main_frame"
-   ],
-   "urlFilter": "||kiwi.com-"
-  },
   "id": 346
  },
  {
@@ -4394,7 +4451,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||getmail-no."
+   "urlFilter": "-norgesalg.com^"
   },
   "id": 347
  },
@@ -4407,7 +4464,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||elkjop*.club^"
+   "urlFilter": "*danmarks.com^"
   },
   "id": 348
  },
@@ -4420,7 +4477,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "/css/*sparebank1.no^"
+   "urlFilter": "*norgno.com^"
   },
   "id": 349
  },
@@ -4433,7 +4490,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||faarup.com-*."
+   "urlFilter": "*norges.com^"
   },
   "id": 350
  },
@@ -4446,7 +4503,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||legoland.com-*."
+   "urlFilter": "*norgebutikk.com^"
   },
   "id": 351
  },
@@ -4459,7 +4516,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||ekstrabiadet."
+   "urlFilter": "*norgestore.com^"
   },
   "id": 352
  },
@@ -4472,7 +4529,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||fintechnow*.buzz^"
+   "urlFilter": "*norge-no.com^"
   },
   "id": 353
  },
@@ -4485,7 +4542,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||wealthnews*.xyz^"
+   "urlFilter": "*norgestores.com^"
   },
   "id": 354
  },
@@ -4498,7 +4555,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||norge.*.icu^"
+   "urlFilter": "*skobutikks.com^"
   },
   "id": 355
  },
@@ -4511,7 +4568,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||euronews*.buzz^"
+   "urlFilter": "*butikksoslo.com^"
   },
   "id": 356
  },
@@ -4524,7 +4581,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||softwaredaily*.monster^"
+   "urlFilter": "||kongeparken.com-"
   },
   "id": 357
  },
@@ -4537,7 +4594,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||stalknews*.buzz^"
+   "urlFilter": "||kiwi.com-"
   },
   "id": 358
  },
@@ -4550,7 +4607,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||goldupdates*.xyz^"
+   "urlFilter": "||getmail-no."
   },
   "id": 359
  },
@@ -4563,7 +4620,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||sikre-vipps-konto."
+   "urlFilter": "||elkjop*.club^"
   },
   "id": 360
  },
@@ -4576,7 +4633,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "/cop-no/index.htm"
+   "urlFilter": "/css/*sparebank1.no^"
   },
   "id": 361
  },
@@ -4589,7 +4646,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "/survey/heldige^"
+   "urlFilter": "||faarup.com-*."
   },
   "id": 362
  },
@@ -4602,7 +4659,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||sites.google.*/halaman-muka^"
+   "urlFilter": "||legoland.com-*."
   },
   "id": 363
  },
@@ -4615,7 +4672,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||sites.google.com/view/truls-svendsen^"
+   "urlFilter": "||ekstrabiadet."
   },
   "id": 364
  },
@@ -4628,7 +4685,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||signup-*vpns.com^"
+   "urlFilter": "||fintechnow*.buzz^"
   },
   "id": 365
  },
@@ -4641,7 +4698,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||telenors.*.cx^"
+   "urlFilter": "||wealthnews*.xyz^"
   },
   "id": 366
  },
@@ -4654,7 +4711,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "-sparebank1.*.net^"
+   "urlFilter": "||norge.*.icu^"
   },
   "id": 367
  },
@@ -4667,7 +4724,20 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": ".com/vg.no|"
+   "urlFilter": "||euronews*.buzz^"
+  },
+  "id": 368
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "||softwaredaily*.monster^"
   },
   "id": 369
  },
@@ -4680,7 +4750,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||minklubshop.dk/dk^"
+   "urlFilter": "||stalknews*.buzz^"
   },
   "id": 370
  },
@@ -4693,7 +4763,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": ".cx/nordea|"
+   "urlFilter": "||goldupdates*.xyz^"
   },
   "id": 371
  },
@@ -4706,7 +4776,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": ".cx/sparebank"
+   "urlFilter": "||sikre-vipps-konto."
   },
   "id": 372
  },
@@ -4719,7 +4789,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": ".cx/sbanken|"
+   "urlFilter": "/cop-no/index.htm"
   },
   "id": 373
  },
@@ -4732,7 +4802,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "*norgesalg.com^"
+   "urlFilter": "/survey/heldige^"
   },
   "id": 374
  },
@@ -4745,7 +4815,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "*salgnorge.com^"
+   "urlFilter": "||sites.google.*/halaman-muka^"
   },
   "id": 375
  },
@@ -4758,7 +4828,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "-med.footeo.com^"
+   "urlFilter": "||sites.google.com/view/truls-svendsen^"
   },
   "id": 376
  },
@@ -4771,7 +4841,7 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "*medisin*.over-blog.com^"
+   "urlFilter": "||signup-*vpns.com^"
   },
   "id": 377
  },
@@ -4784,9 +4854,152 @@
    "resourceTypes": [
     "main_frame"
    ],
-   "urlFilter": "||xanax*.over-blog.com^"
+   "urlFilter": "||telenors.*.cx^"
   },
   "id": 378
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "-sparebank1.*.net^"
+  },
+  "id": 379
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": ".com/vg.no|"
+  },
+  "id": 381
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "||minklubshop.dk/dk^"
+  },
+  "id": 382
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": ".cx/nordea|"
+  },
+  "id": 383
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": ".cx/sparebank"
+  },
+  "id": 384
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": ".cx/sbanken|"
+  },
+  "id": 385
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "*norgesalg.com^"
+  },
+  "id": 386
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "*salgnorge.com^"
+  },
+  "id": 387
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "-med.footeo.com^"
+  },
+  "id": 388
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "*medisin*.over-blog.com^"
+  },
+  "id": 389
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "main_frame"
+   ],
+   "urlFilter": "||xanax*.over-blog.com^"
+  },
+  "id": 390
  },
  {
   "action": {
@@ -4797,7 +5010,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||bluesnews.no/files/images/video/blues-promo-2021.mp4^"
   },
-  "id": 379
+  "id": 391
  },
  {
   "action": {
@@ -4811,7 +5024,37 @@
    ],
    "urlFilter": "||vg.no/cnp-assets/src/sites/vg/components/adblockmodal"
   },
-  "id": 380
+  "id": 392
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "ping",
+    "xmlhttprequest"
+   ],
+   "urlFilter": ".no/app/aas^"
+  },
+  "id": 393
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "firstParty",
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "ping",
+    "xmlhttprequest"
+   ],
+   "urlFilter": "://aas.*.no/a/|"
+  },
+  "id": 394
  },
  {
   "action": {
@@ -4822,7 +5065,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||vefbordar.*.is^"
   },
-  "id": 381
+  "id": 395
  },
  {
   "action": {
@@ -4833,7 +5076,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||vevlysingar.*.com^"
   },
-  "id": 382
+  "id": 396
  },
  {
   "action": {
@@ -4844,7 +5087,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||bcm.interactives.dk/script^"
   },
-  "id": 384
+  "id": 398
  },
  {
   "action": {
@@ -4855,7 +5098,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||services.api.no/api/bazaar^"
   },
-  "id": 385
+  "id": 399
  },
  {
   "action": {
@@ -4866,7 +5109,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||ni.dk/ni-news/*feed/*-bottom.html^"
   },
-  "id": 386
+  "id": 400
  },
  {
   "action": {
@@ -4882,7 +5125,7 @@
     "norsktippingpartner.no"
    ]
   },
-  "id": 387
+  "id": 401
  },
  {
   "action": {
@@ -4922,7 +5165,7 @@
     "widget.tippebannere.no"
    ]
   },
-  "id": 388
+  "id": 402
  },
  {
   "action": {
@@ -4938,7 +5181,7 @@
     "image"
    ]
   },
-  "id": 389
+  "id": 403
  },
  {
   "action": {
@@ -4952,7 +5195,7 @@
    ],
    "urlFilter": "||finn.no/distribution-carousel?"
   },
-  "id": 390
+  "id": 404
  },
  {
   "action": {
@@ -4967,7 +5210,7 @@
     "sub_frame"
    ]
   },
-  "id": 391
+  "id": 405
  },
  {
   "action": {
@@ -4984,7 +5227,7 @@
    ],
    "urlFilter": "||cdn.rikstoto.no/expert/gameshop^"
   },
-  "id": 392
+  "id": 406
  },
  {
   "action": {
@@ -4998,7 +5241,7 @@
    ],
    "urlFilter": "||deals.innocode.no/api^"
   },
-  "id": 393
+  "id": 407
  },
  {
   "action": {
@@ -5012,7 +5255,7 @@
    ],
    "urlFilter": "||media.sonymusic.no/marketing/*.html"
   },
-  "id": 394
+  "id": 408
  },
  {
   "action": {
@@ -5022,7 +5265,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||cdnboligkanalen.azureedge.net/*width=2000^"
   },
-  "id": 395
+  "id": 409
  },
  {
   "action": {
@@ -5032,7 +5275,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||n247.no/salg/an_%7b40"
   },
-  "id": 396
+  "id": 410
  },
  {
   "action": {
@@ -5042,7 +5285,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||n247.no/salg/an_%7b6c"
   },
-  "id": 397
+  "id": 411
  },
  {
   "action": {
@@ -5052,7 +5295,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||n247.no/salg/karusell_17"
   },
-  "id": 398
+  "id": 412
  },
  {
   "action": {
@@ -5062,7 +5305,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/*/alfred.jpg^"
   },
-  "id": 399
+  "id": 413
  },
  {
   "action": {
@@ -5072,7 +5315,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/*/dame.jpg^"
   },
-  "id": 400
+  "id": 414
  },
  {
   "action": {
@@ -5082,7 +5325,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/*/komentar*.jpg^"
   },
-  "id": 401
+  "id": 415
  },
  {
   "action": {
@@ -5092,7 +5335,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/*/les*bilete*.jpg^"
   },
-  "id": 402
+  "id": 416
  },
  {
   "action": {
@@ -5102,7 +5345,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/*/m_vinje.jpg^"
   },
-  "id": 403
+  "id": 417
  },
  {
   "action": {
@@ -5112,7 +5355,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/*/tafjord*.jpg^"
   },
-  "id": 404
+  "id": 418
  },
  {
   "action": {
@@ -5122,7 +5365,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/*300x300.jpg^"
   },
-  "id": 405
+  "id": 419
  },
  {
   "action": {
@@ -5132,7 +5375,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/2*/1*.jpg^"
   },
-  "id": 406
+  "id": 420
  },
  {
   "action": {
@@ -5142,7 +5385,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/2*/2*.jpg^"
   },
-  "id": 407
+  "id": 421
  },
  {
   "action": {
@@ -5152,7 +5395,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||storfjordnytt.no/wp-content/uploads/2*/3*.jpg^"
   },
-  "id": 408
+  "id": 422
  },
  {
   "action": {
@@ -5162,7 +5405,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||musikknyheter.no/banners/skribent"
   },
-  "id": 409
+  "id": 423
  },
  {
   "action": {
@@ -5172,7 +5415,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||radiohallingdal.no/abanners/img/facebook."
   },
-  "id": 410
+  "id": 424
  },
  {
   "action": {
@@ -5182,7 +5425,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||via.placeholder.com/1|"
   },
-  "id": 411
+  "id": 425
  },
  {
   "action": {
@@ -5192,7 +5435,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||stillingledig.*.no^"
   },
-  "id": 412
+  "id": 426
  },
  {
   "action": {
@@ -5205,7 +5448,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||schibsted.com/autotracker"
   },
-  "id": 413
+  "id": 427
  },
  {
   "action": {
@@ -5218,7 +5461,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/images/*youtube.jpg"
   },
-  "id": 414
+  "id": 428
  },
  {
   "action": {
@@ -5232,7 +5475,7 @@
     "api.instagram.com"
    ]
   },
-  "id": 415
+  "id": 429
  },
  {
   "action": {
@@ -5249,7 +5492,7 @@
     "cookieinformation.com"
    ]
   },
-  "id": 416
+  "id": 430
  },
  {
   "action": {
@@ -5263,7 +5506,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/newsletter/newsletter_popup.gif^"
   },
-  "id": 417
+  "id": 431
  },
  {
   "action": {
@@ -5276,7 +5519,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "_prebid_"
   },
-  "id": 418
+  "id": 432
  },
  {
   "action": {
@@ -5289,7 +5532,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/images/ads-db/right-tower/vipps-sponsor-"
   },
-  "id": 419
+  "id": 433
  },
  {
   "action": {
@@ -5302,7 +5545,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/adnetwork/"
   },
-  "id": 420
+  "id": 434
  },
  {
   "action": {
@@ -5312,7 +5555,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "://billink*.blob.core.windows.net/*/annonser^"
   },
-  "id": 421
+  "id": 435
  },
  {
   "action": {
@@ -5322,7 +5565,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||bluesnews.no/files/images/annonser^"
   },
-  "id": 422
+  "id": 436
  },
  {
   "action": {
@@ -5332,7 +5575,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||lnk.no/wp-content/uploads/*/ads"
   },
-  "id": 423
+  "id": 437
  },
  {
   "action": {
@@ -5342,7 +5585,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||marketingfabrikken.dk/page-data/google-ads/page-data.json^"
   },
-  "id": 424
+  "id": 438
  },
  {
   "action": {
@@ -5355,7 +5598,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "_980x100."
   },
-  "id": 425
+  "id": 439
  },
  {
   "action": {
@@ -5368,7 +5611,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "://imasdk.googleapis.com/js/sdkloader/ima3.js^"
   },
-  "id": 426
+  "id": 440
  },
  {
   "action": {
@@ -5453,7 +5696,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||fe.adstate.net/assets/common/img/web_ad^"
   },
-  "id": 427
+  "id": 441
  },
  {
   "action": {
@@ -5538,7 +5781,17 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||fe.adstate.net/stream_file.php?type=ad_preview_image"
   },
-  "id": 428
+  "id": 442
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||ad.amediakreativ.no/widgets/stillingskarusell^"
+  },
+  "id": 443
  },
  {
   "action": {
@@ -5548,7 +5801,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||politainment.no^*/cookieconsent.min.js"
   },
-  "id": 429
+  "id": 444
  },
  {
   "action": {
@@ -5561,7 +5814,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||fwmrm.net/crossdomain.xml"
   },
-  "id": 430
+  "id": 445
  },
  {
   "action": {
@@ -5571,7 +5824,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||sumo.cdn.tv2.no/ads^"
   },
-  "id": 431
+  "id": 446
  },
  {
   "action": {
@@ -5581,7 +5834,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": ".v.fwmrm.net/ad/g^*:mtg_play_"
   },
-  "id": 432
+  "id": 447
  },
  {
   "action": {
@@ -5592,7 +5845,7 @@
     "oddstips.norsktippingpartner.no"
    ]
   },
-  "id": 433
+  "id": 448
  },
  {
   "action": {
@@ -5605,7 +5858,7 @@
    ],
    "urlFilter": "||siglo.is/static/strevda/*upphafssida"
   },
-  "id": 434
+  "id": 449
  },
  {
   "action": {
@@ -5693,7 +5946,7 @@
    ],
    "urlFilter": "||easy-ads.com/subscriber^"
   },
-  "id": 435
+  "id": 450
  },
  {
   "action": {
@@ -5714,7 +5967,7 @@
    ],
    "urlFilter": ".dk/assets/templates/*/ads.png^"
   },
-  "id": 436
+  "id": 451
  },
  {
   "action": {
@@ -5802,7 +6055,7 @@
    ],
    "urlFilter": "||cdn.easy-ads.com/js/swipemod.js^"
   },
-  "id": 438
+  "id": 453
  },
  {
   "action": {
@@ -5818,7 +6071,7 @@
    ],
    "urlFilter": "||dialogue.sp-prod.net/messagingwithoutdetection.js"
   },
-  "id": 439
+  "id": 454
  },
  {
   "action": {
@@ -5835,7 +6088,7 @@
     "sub_frame"
    ]
   },
-  "id": 440
+  "id": 455
  },
  {
   "action": {
@@ -5848,7 +6101,7 @@
    ],
    "urlFilter": ".isdownorblocked.com^"
   },
-  "id": 441
+  "id": 456
  },
  {
   "action": {
@@ -5863,7 +6116,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "/js/ads.js"
   },
-  "id": 442
+  "id": 457
  },
  {
   "action": {
@@ -5877,7 +6130,7 @@
    ],
    "urlFilter": "||www.tv2.no/s/js/ads.js"
   },
-  "id": 444
+  "id": 459
  },
  {
   "action": {
@@ -5891,7 +6144,7 @@
    ],
    "urlFilter": "||glow.posten.no/api/tracking/"
   },
-  "id": 445
+  "id": 460
  },
  {
   "action": {
@@ -5905,7 +6158,7 @@
    ],
    "urlFilter": "||tv2.no/*/config/analytics.json"
   },
-  "id": 446
+  "id": 461
  },
  {
   "action": {
@@ -5919,7 +6172,7 @@
    ],
    "urlFilter": "||cmp.ekstrabladet.dk/get_site_data"
   },
-  "id": 447
+  "id": 462
  },
  {
   "action": {
@@ -5934,6 +6187,6 @@
     "sixscissors.com"
    ]
   },
-  "id": 448
+  "id": 463
  }
 ]

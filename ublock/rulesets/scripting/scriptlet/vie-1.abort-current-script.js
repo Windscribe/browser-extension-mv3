@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortCurrentScript() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortCurrentScript = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"decodeURIComponent\",\"escape\"]","[\"atob\",\"ai_block_class\"]","[\"JSON.parse\",\"break;case $.\"]","[\"$\",\"homeModal\"]","[\"navigator\",\"devtoolsDetector\"]","[\"document.createElement\",\";break;case\"]","[\"setInterval\",\"offsetHeight\"]","[\"jQuery\",\"click_time\"]","[\"document.getElementById\",\"chpadblock\"]","[\"$\",\"open\"]","[\"document.createElement\",\"script\"]","[\"encodeURIComponent\",\"popunder\"]","[\"jQuery\",\"popurl\"]","[\"i6H\",\"Math\"]","[\"$\",\"urlAdsMbIntro\"]","[\"$\",\"youtube-modal\"]","[\"document.documentElement\",\"break;case $.\"]","[\"document.querySelectorAll\",\"popMagic\"]","[\"$\",\"window.open\"]","[\"eval\"]","[\"document.createElement\",\"checkIntersection\"]","[\"$\",\"btpop\"]","[\"WebAssembly\",\"instantiate\"]","[\"document.write\",\"snow\"]","[\"setTimeout\",\"window.location\"]","[\"jQuery\",\"overlay\"]"];
+const argsList = [["decodeURIComponent","escape"],["atob","ai_block_class"],["JSON.parse","break;case $."],["document.addEventListener","popunder"],["$","homeModal"],["navigator","devtoolsDetector"],["document.createElement",";break;case"],["setInterval","offsetHeight"],["addEvent","popunder"],["jQuery","click_time"],["document.getElementById","chpadblock"],["$","open"],["document.createElement","script"],["$","PopUnder"],["encodeURIComponent","popunder"],["jQuery","popurl"],["i6H","Math"],["$","urlAdsMbIntro"],["$","youtube-modal"],["document.documentElement","break;case $."],["document.querySelectorAll","popMagic"],["$","window.open"],["eval"],["jQuery","click_ads"],["document.createElement","checkIntersection"],["$","btpop"],["WebAssembly","instantiate"],["document.write","snow"],["setTimeout","window.location"],["jQuery","overlay"]];
 
-const hostnamesMap = new Map([["anonyviet.com",[0,8]],["azrom.net",1],["downloadsachmienphi.com",2],["gametv.vn",3],["gotphim.com",4],["hh3dhay.com",5],["hh3dhay.xyz",5],["ios.codevn.net",6],["khoaiphim.com",7],["khohieu.com",8],["linkneverdie.net",[9,10]],["nguontv1.com",11],["phimgihd.net",12],["ophimhdvn.net",12],["mephimnhe.net",12],["phimlau.online",13],["phimmoipro.net",14],["plus.gtv.vn",15],["protruyen.com",16],["animevietsub.moe",16],["rphang.tv",17],["mrcong.com",17],["tinsoikeo.vip",18],["truyen2u.net",19],["truyengihotday.com",20],["truyentuan.com",21],["viet69.vc",22],["ungtycomicsvip.com",22],["vlxx.moe",22],["vungoctuan.vn",23],["xnxx-sex-videos.com",24],["xoilac78.tv",25]]);
+const hostnamesMap = new Map([["anonyviet.com",[0,10]],["azrom.net",1],["downloadsachmienphi.com",2],["dualeotruyenk.com",[3,26]],["gametv.vn",4],["gotphim.com",5],["hh3dhay.com",6],["hh3dhay.xyz",6],["ios.codevn.net",7],["khoaiphim.com",[8,9]],["khohieu.com",10],["linkneverdie.net",[11,12]],["lxmanga.net",13],["nguontv1.com",14],["phimgivn.net",15],["ophimhdvn1.net",15],["mephimnhez.net",15],["phimlau.online",16],["phimmoipro.net",17],["plus.gtv.vn",18],["protruyen.com",19],["animevietsub.moe",19],["rphang.tv",20],["mrcong.com",20],["tinsoikeo.vip",21],["truyen2u.net",22],["truyen35.vn",23],["truyengihotday.com",24],["truyentuan.com",25],["viet69.vc",26],["ungtycomicsvip.com",26],["vlxx.moe",26],["vungoctuan.vn",27],["xnxx-sex-videos.com",28],["xoilac78.tv",29]]);
 
 const entitiesMap = new Map([]);
 
@@ -47,30 +52,23 @@ const exceptionsMap = new Map([]);
 
 /******************************************************************************/
 
-function abortCurrentScript(
-    arg1,
-    arg2,
-    arg3
-) {
+function abortCurrentScript(...args) {
     runAtHtmlElement(( ) => {
-        abortCurrentScriptCore(arg1, arg2, arg3);
+        abortCurrentScriptCore(...args);
     });
 }
 
 function abortCurrentScriptCore(
-    arg1 = '',
-    arg2 = '',
-    arg3 = ''
+    target = '',
+    needle = '',
+    context = ''
 ) {
-    const details = typeof arg1 !== 'object'
-        ? { target: arg1, needle: arg2, context: arg3 }
-        : arg1;
-    const { target = '', needle = '', context = '' } = details;
     if ( typeof target !== 'string' ) { return; }
     if ( target === '' ) { return; }
     const safe = safeSelf();
-    const reNeedle = patternToRegex(needle);
-    const reContext = patternToRegex(context);
+    const reNeedle = safe.patternToRegex(needle);
+    const reContext = safe.patternToRegex(context);
+    const extraArgs = safe.getExtraArgs(Array.from(arguments), 3);
     const thisScript = document.currentScript;
     const chain = target.split('.');
     let owner = window;
@@ -91,8 +89,8 @@ function abortCurrentScriptCore(
         value = owner[prop];
         desc = undefined;
     }
-    const log = shouldLog(details);
-    const debug = shouldDebug(details);
+    const log = shouldLog(extraArgs);
+    const debug = shouldDebug(extraArgs);
     const exceptionToken = getExceptionToken();
     const scriptTexts = new WeakMap();
     const getScriptText = elem => {
@@ -163,15 +161,6 @@ function runAtHtmlElement(fn) {
     observer.observe(document, { childList: true });
 }
 
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
-    }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
-}
-
 function getExceptionToken() {
     const token =
         String.fromCharCode(Date.now() % 26 + 97) +
@@ -191,17 +180,79 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -278,13 +329,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortCurrentScript(...JSON.parse(argsList[i])); }
+    try { abortCurrentScript(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortCurrentScript();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortCurrentScript = cloneInto([
+            [ '(', uBOL_abortCurrentScript.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortCurrentScript);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortCurrentScript;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

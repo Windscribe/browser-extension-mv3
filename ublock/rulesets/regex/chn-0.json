@@ -10,7 +10,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "meitui.org\\/[a-z][a-z].js"
   },
-  "id": 189
+  "id": 197
  },
  {
   "action": {
@@ -23,20 +23,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "meitui.org\\/[a-z].js"
   },
-  "id": 190
- },
- {
-  "action": {
-   "type": "block"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "91ron.org"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "regexFilter": "tuuu.me\\/\\d*.gif"
-  },
-  "id": 315
+  "id": 198
  },
  {
   "action": {
@@ -49,7 +36,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "\\/upload\\/[a-z0-9]{7}\\/[0-9]+-[0-9]?\\/[a-z0-9]{32}\\.gif"
   },
-  "id": 317
+  "id": 323
  },
  {
   "action": {
@@ -62,7 +49,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "dngz.net\\/g\\d+.js"
   },
-  "id": 339
+  "id": 345
  },
  {
   "action": {
@@ -75,7 +62,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "\\/theme\\/js\\/[a-z0-9]{5,}\\.js\\?v="
   },
-  "id": 1055
+  "id": 1068
  },
  {
   "action": {
@@ -91,7 +78,7 @@
     "script"
    ]
   },
-  "id": 5439
+  "id": 5433
  },
  {
   "action": {
@@ -103,16 +90,15 @@
     "00ksw.com",
     "0794.org",
     "114zww.com",
-    "123duw.com",
+    "123du.vip",
     "123wx.cc",
     "126shu.org",
     "12zw.net",
-    "138txt.net",
+    "13txt.net",
     "147xiaoshuo.com",
     "16kxsw.com",
     "17k.com",
     "1biqu.com",
-    "1biqug.com",
     "1kanshu.org",
     "1pwx.com",
     "230book.net",
@@ -123,21 +109,19 @@
     "23us.tw",
     "23wxx.com",
     "23xstxt.net",
-    "24kwx.net",
-    "2kxs.org",
+    "2kxs.info",
     "33yq.org",
     "360xs.com",
     "3yt.com",
     "477zw.com",
     "4gxs.cc",
+    "4xiaoshuo.net",
     "50zw.co",
     "50zw.com",
     "50zww.net",
     "52biquge.com",
-    "52bqg.net",
-    "52shuku123.net",
     "52xs.net",
-    "56shuku.la",
+    "56shuku.info",
     "59xs.com",
     "630shu.net",
     "6666xsw.com",
@@ -151,16 +135,14 @@
     "81book.com",
     "81new.cc",
     "81zw.me",
-    "8yydstxt226.com",
     "91zww.com",
     "93xscc.com",
-    "98xiaoshuo.com",
-    "99mk.info",
+    "99mk.net",
     "9tiefu.com",
     "a6ksw.net",
     "abcxs.net",
-    "aixiaxs.com",
-    "aixiaxs.net",
+    "aiwx.info",
+    "aixiashu.net",
     "aixs.la",
     "anshuge.com",
     "b520.cc",
@@ -168,7 +150,7 @@
     "bamxs.com",
     "baoshuu.com",
     "bbiquge.cc",
-    "bequgew.com",
+    "bbiquge8.net",
     "bequmo.com",
     "bimixsw.com",
     "biqiuge8.cc",
@@ -184,17 +166,14 @@
     "biqugse.com",
     "biquka.com",
     "biqukt.com",
-    "biquluo.org",
+    "biquluo.net",
     "biqupai.com",
     "biququ.info",
     "biqusk.com",
     "biqutsxs.com",
-    "biquzw.la",
-    "bisowx.com",
-    "bixia66.com",
+    "biquzw.info",
     "bjsxjy.com",
     "bodekang.net",
-    "bookbao.me",
     "boquku.com",
     "bqg999.net",
     "bqwxg8.com",
@@ -207,36 +186,33 @@
     "clwx666.com",
     "damengzhu1.com",
     "ddbqgtxt.cc",
-    "disixs.com",
     "diyibanzhu9.pro",
     "dizishu.com",
     "dobiez.com",
-    "doupocangqiong.la",
+    "doupocangqiong.info",
     "dpcq1.com",
     "dpcq1.net",
     "duanwenxue.com",
-    "etongxs.com",
     "fx11.cc",
     "fyxfcw.com",
     "gaofuwu.org",
+    "gdbzkz.com",
     "gdbzkz.org",
-    "gllmh.com",
-    "guanshu.cc",
     "hongyeshuzhai.com",
     "huanyue1234.com",
     "ibiqu.org",
-    "ibiquge.la",
-    "ibiquta.com",
-    "ibotaodz.com",
+    "ibiquges.com",
+    "ibiquta.net",
+    "ibotaodz.org",
     "idzs.org",
     "ijjjxs.net",
+    "imianhuatang.info",
     "ishisetianxia.com",
     "ishubao.org",
     "ivipxs.com",
-    "iwurexs.com",
+    "iwurexs.info",
     "ixs.la",
-    "ixsw.org",
-    "ixuanshu.org",
+    "ixuanshu.net",
     "jcdf99.com",
     "jianlaixiaoshuo.com",
     "jieshengit.com",
@@ -245,41 +221,31 @@
     "jmshuwu.net",
     "kanshu5.net",
     "kanshushi.com",
-    "kbiquge8.com",
-    "kbqg5200.com",
-    "kchao.net",
     "lansezw.com",
     "lewen123.com",
-    "lewenge.org",
+    "lewenge.info",
     "lewxs.com",
     "liewenn.com",
+    "liudatxt.org",
     "longzu5.net",
     "luoqiu.io",
     "luoqiuzw.com",
     "maxreader.la",
     "mcmssc.net",
-    "meiguixsw.com",
-    "mhtxs.la",
-    "mijiashe.com",
     "mingrenteahouse.com",
-    "mishug.com",
-    "mozhua2.com",
     "mqxs.com",
-    "nbw.la",
     "nuanyuehanxing.com",
     "oldtimesxs.cc",
-    "panqis.cc",
     "paoshu8.com",
     "paoshuzw.com",
     "piaotian.la",
-    "piaotian5.net",
     "pksge.com",
     "prpcoin.com",
     "qianrenge.cc",
     "qiqidu.net",
     "qishula.com",
     "qishuta.info",
-    "qiuyelou.com",
+    "qiuyelou.net",
     "qqxsnew.net",
     "qqxsw.so",
     "qr1234.com",
@@ -293,9 +259,8 @@
     "sdhckt.com",
     "sdhear.com",
     "shanhaimiwenlu.com",
-    "shenshuxs.net",
+    "shenshuxs.org",
     "shenzu.org",
-    "shixiaolong.com",
     "shu008.com",
     "shubaowang.cc",
     "shuhaiwu.com",
@@ -314,14 +279,12 @@
     "sxcnw.net",
     "sytxt.cc",
     "ting56.cc",
-    "tpsge.com",
+    "tpsge.info",
     "trxs.cc",
     "ttzw.tv",
     "tutengzw.com",
     "txtduo.com",
-    "txtshuku.org",
     "txtwan.com",
-    "tycqzw.com",
     "tysk.cc",
     "u33.cc",
     "u33.me",
@@ -334,7 +297,6 @@
     "x23us.me",
     "x23us.us",
     "x81zw.co",
-    "xbiquge.so",
     "xbiqugela.com",
     "xbiqugexx.com",
     "xbiquke.com",
@@ -342,18 +304,15 @@
     "xdingdian.cc",
     "xhtxt.cc",
     "xhytd.com",
-    "xiaoshuwu5.com",
     "xiashuyun.com",
-    "xiaxs.la",
+    "xiaxs.info",
     "xinqingdou.net",
     "xinremenxs.com",
     "xinxs.la",
     "xiushukong.com",
-    "xqianqian.com",
     "xquge6.com",
     "xs5200.com",
     "xs7788.com",
-    "xs98.com",
     "xsb-xs.com",
     "xstt5.com",
     "xszww8.net",
@@ -364,7 +323,6 @@
     "xxbiqudu.com",
     "xygwh.cc",
     "xyuanzunxs.com",
-    "xyusk.com",
     "yemancomic.com",
     "ygshu.com",
     "yingsx.com",
@@ -372,11 +330,11 @@
     "yqd6.com",
     "ysxs8.vip",
     "yunhaixianzong.com",
-    "yunxs.com",
+    "yunxs.info",
     "yuyougu.com",
     "zhuishubox.com",
     "zydu3.com",
-    "zzs5.com"
+    "zzs5.info"
    ],
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "\\/\\w{8}\\/\\w{10}\\.",
@@ -384,7 +342,7 @@
     "script"
    ]
   },
-  "id": 5446
+  "id": 5440
  },
  {
   "action": {
@@ -398,7 +356,7 @@
     "image"
    ]
   },
-  "id": 5503
+  "id": 5498
  },
  {
   "action": {
@@ -412,7 +370,7 @@
     "script"
    ]
   },
-  "id": 5554
+  "id": 5551
  },
  {
   "action": {
@@ -426,7 +384,7 @@
     "script"
    ]
   },
-  "id": 5555
+  "id": 5552
  },
  {
   "action": {
@@ -440,6 +398,6 @@
     "xmlhttprequest"
    ]
   },
-  "id": 5587
+  "id": 5585
  }
 ]

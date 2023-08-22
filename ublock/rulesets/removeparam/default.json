@@ -21,7 +21,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17659
+  "id": 16883
  },
  {
   "action": {
@@ -49,7 +49,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17660
+  "id": 16884
  },
  {
   "action": {
@@ -74,7 +74,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17662
+  "id": 16886
  },
  {
   "action": {
@@ -102,7 +102,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17663
+  "id": 16887
  },
  {
   "action": {
@@ -127,7 +127,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17665
+  "id": 16889
  },
  {
   "action": {
@@ -153,7 +153,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17666
+  "id": 16890
  },
  {
   "action": {
@@ -177,7 +177,7 @@
    ],
    "urlFilter": "||play.google.com/store/apps/*referrer"
   },
-  "id": 17667
+  "id": 16891
  },
  {
   "action": {
@@ -201,7 +201,7 @@
    ],
    "urlFilter": "||apps.apple.com/*/app/*referrer"
   },
-  "id": 17668
+  "id": 16892
  },
  {
   "action": {
@@ -225,7 +225,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17669
+  "id": 16893
  },
  {
   "action": {
@@ -250,7 +250,51 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17671
+  "id": 16896
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "query": ""
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "client.falixnodes.net"
+   ],
+   "requestDomains": [
+    "3lift.com",
+    "securepubads.g.doubleclick.net"
+   ],
+   "resourceTypes": [
+    "image"
+   ]
+  },
+  "id": 16916
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "query": ""
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "client.falixnodes.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||track1.aniview.com/track?"
+  },
+  "id": 16917
  },
  {
   "action": {
@@ -274,82 +318,7 @@
    ],
    "urlFilter": "||hktvmall.com/yuicombo?"
   },
-  "id": 17780
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "caid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "cnn.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||warnermediacdn.com/csm/*&caid="
-  },
-  "id": 17821
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "afid"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "initiatorDomains": [
-    "cnn.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||warnermediacdn.com/csm/*afid="
-  },
-  "id": 17822
- },
- {
-  "action": {
-   "redirect": {
-    "transform": {
-     "queryTransform": {
-      "removeParams": [
-       "ssaiProfile"
-      ]
-     }
-    }
-   },
-   "type": "redirect"
-  },
-  "condition": {
-   "excludedInitiatorDomains": [
-    "cnn.com"
-   ],
-   "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "xmlhttprequest"
-   ],
-   "urlFilter": "||medium.ngtv.io/v2/media/*&ssaiprofile="
-  },
-  "id": 17823
+  "id": 17021
  },
  {
   "action": {
@@ -375,7 +344,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17832
+  "id": 17071
  },
  {
   "action": {
@@ -401,7 +370,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17834
+  "id": 17073
  },
  {
   "action": {
@@ -426,7 +395,7 @@
    ],
    "urlFilter": "||brightcove.com/playback/*/*?ad_config_id"
   },
-  "id": 17848
+  "id": 17088
  },
  {
   "action": {
@@ -451,7 +420,7 @@
    ],
    "urlFilter": "||brightcovecdn.com/playback/*/*?ad_config_id"
   },
-  "id": 17849
+  "id": 17089
  },
  {
   "action": {
@@ -474,7 +443,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17850
+  "id": 17090
  },
  {
   "action": {
@@ -502,7 +471,7 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17851
+  "id": 17091
  },
  {
   "action": {
@@ -524,7 +493,7 @@
    ],
    "urlFilter": "||cxm-api.fifa.com/fifaplusweb/api/video/"
   },
-  "id": 17852
+  "id": 17092
  },
  {
   "action": {
@@ -549,7 +518,7 @@
    ],
    "urlFilter": "||hbo.yspsvc-na.net/csm/*&caid="
   },
-  "id": 17854
+  "id": 17094
  },
  {
   "action": {
@@ -574,7 +543,7 @@
    ],
    "urlFilter": "&caid="
   },
-  "id": 17855
+  "id": 17095
  },
  {
   "action": {
@@ -600,7 +569,132 @@
     "xmlhttprequest"
    ]
   },
-  "id": 17857
+  "id": 17097
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "caid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "cnn.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||warnermediacdn.com/csm/*&caid="
+  },
+  "id": 17099
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "afid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "cnn.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||warnermediacdn.com/csm/*afid="
+  },
+  "id": 17100
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "app_csid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "cnn.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||warnermediacdn.com/csm/*app_csid="
+  },
+  "id": 17101
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "conf_csid"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "cnn.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||warnermediacdn.com/csm/*conf_csid="
+  },
+  "id": 17102
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "queryTransform": {
+      "removeParams": [
+       "ssaiProfile"
+      ]
+     }
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "excludedInitiatorDomains": [
+    "cnn.com"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": "||medium.ngtv.io/v2/media/*&ssaiprofile="
+  },
+  "id": 17103
  },
  {
   "action": {
@@ -625,7 +719,7 @@
    ],
    "urlFilter": "||googleads.g.doubleclick.net/pagead/ads"
   },
-  "id": 17898
+  "id": 17143
  },
  {
   "action": {
@@ -648,7 +742,7 @@
    ],
    "urlFilter": "||hentai-party.com/*?view="
   },
-  "id": 17992
+  "id": 17238
  },
  {
   "action": {
@@ -671,7 +765,7 @@
    ],
    "urlFilter": "||hentaicomics.pro/*?code="
   },
-  "id": 17993
+  "id": 17239
  },
  {
   "action": {
@@ -694,7 +788,7 @@
    ],
    "urlFilter": "||xxx-comics.pro/*?view="
   },
-  "id": 17994
+  "id": 17240
  },
  {
   "action": {
@@ -720,6 +814,28 @@
     "xmlhttprequest"
    ]
   },
-  "id": 18037
+  "id": 17283
+ },
+ {
+  "action": {
+   "redirect": {
+    "transform": {
+     "query": ""
+    }
+   },
+   "type": "redirect"
+  },
+  "condition": {
+   "domainType": "thirdParty",
+   "initiatorDomains": [
+    "client.falixnodes.net"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "*gdpr_consent"
+  },
+  "id": 17287
  }
 ]

@@ -20,7 +20,20 @@
     "image"
    ]
   },
-  "id": 270
+  "id": 265
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "regexFilter": "\\w{2}\\.\\w+\\.com\\/\\w{15,}\\/\\w{5}$",
+   "resourceTypes": [
+    "script"
+   ]
+  },
+  "id": 364
  },
  {
   "action": {
@@ -33,6 +46,6 @@
     "script"
    ]
   },
-  "id": 378
+  "id": 369
  }
 ]

@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,17 +32,21 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_removeAttr() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_removeAttr = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"style\",\"#over\"]","[\"data-ad-img|data-ad-target\",\"\",\"stay\"]","[\"checked\",\"input#chkIsAdd\"]","[\"checked\",\"#addon\"]","[\"onclick\"]","[\"href|target\",\"a[href=\\\"https://imgprime.com/view.php\\\"][target=\\\"_blank\\\"]\",\"complete\"]","[\"href\",\"a[href=\\\"https://vpn-choice.com\\\"]\"]","[\"src\",\"iframe#claimAd\"]","[\"href\",\"#opfk\"]","[\"disabled\",\"input\"]","[\"srcdoc\",\"iframe\"]","[\"onmousemove\",\"button\"]","[\"onclick\",\"button[id][onclick*=\\\".html\\\"]\"]","[\"onclick\",\"button[name=\\\"imgContinue\\\"][onclick]\"]","[\"target\",\"#continuetoimage > [href]\"]","[\"href|target\",\"#continuetoimage > [href][onclick], #overlayera > #ajax_load_indicator > #page_effect > [href][onclick]\"]","[\"target\"]","[\"href\",\"[href*=\\\"ccbill\\\"]\"]","[\"disabled\",\"button\"]","[\"onclick\",\"[onclick^=\\\"window.open\\\"]\"]","[\"onclick\",\"[onclick^=\\\"pop\\\"]\"]","[\"disabled\",\"button[id=\\\"invisibleCaptchaShortlink\\\"]\"]","[\"onmouseover|onclick|onmouseout\",\".save-btn.pull-right\"]","[\"href\",\"#clickfakeplayer\"]","[\"onclick\",\"\",\"stay\"]","[\"type\",\"input[value^=\\\"http\\\"]\"]","[\"oncontextmenu\"]","[\"class\",\"div.intAdX\"]","[\"class\",\"div[class^=\\\"img\\\"][class$=\\\"ad\\\"]\"]","[\"data-ff-code\"]","[\"data-ivad-preroll-adtag\",\"video\",\"stay\"]","[\"style\",\"ins\",\"complete\"]","[\"href\",\"a#clickfakeplayer\"]","[\"href\",\".fake_player > [href][target]\"]","[\"href\",\".link\"]","[\"href\",\".fake_player > a[href]\"]","[\"target\",\".clickbutton\"]","[\"onclick\",\".btn-success.get-link\",\"stay\"]","[\"disabled\",\".btn-primary\"]","[\"oncontextmenu\",\"body\"]","[\"data-ppcnt_ads\",\"main[onclick]\"]","[\"onClick\"]","[\"target\",\"#downloadvideo\"]","[\"href\",\"[rel^=\\\"noopener\\\"]\"]","[\"data-item\",\"a[href='']\"]","[\"href\",\"a[href][target=\\\"_blank\\\"]\"]","[\"data-ppcnt_ads|onclick\",\"#main\"]","[\"href\",\"a[href*=\\\"/ads.php\\\"][target=\\\"_blank\\\"]\"]","[\"onclick\",\"[onclick*=\\\"window.open\\\"]\"]","[\"target|href\",\"a[href^=\\\"//\\\"]\"]","[\"onclick\",\"a[href^=\\\"magnet:\\\"][onclick]\"]","[\"target\",\"#SafelinkGenerate\"]","[\"onclick\",\"a[href][onclick^=\\\"getFullStory\\\"]\"]","[\"onclick\",\".player > div[onclick]\"]","[\"onclick\",\"body\"]","[\"onclick\",\".previewhd > a\"]","[\"onclick\",\"a.thumb.mvi-cover\"]","[\"href|target\",\"a[href^=\\\"https://tipstertube.com/bookmaker/\\\"][target=\\\"_blank\\\"]\",\"stay\"]","[\"href|target|data-ipshover-target|data-ipshover|data-autolink|rel\",\"a[href^=\\\"https://thumpertalk.com/link/click/\\\"][target=\\\"_blank\\\"]\"]","[\"href\",\"#continue\"]","[\"href\",\".button[href^=\\\"javascript\\\"]\"]","[\"disabled\",\"input[id=\\\"button1\\\"][class=\\\"btn btn-primary\\\"][disabled]\"]","[\"style\",\"div[style=\\\"display: none;\\\"]\"]","[\"type\",\"[src*=\\\"SPOT\\\"]\",\"asap stay\"]","[\"class\",\"div#player\"]","[\"onclick\",\"#invisibleCaptchaShortlink\"]","[\"onclick\",\"a.btn-success.get-link\"]","[\"href|target|data-onclick\",\"a[id=\\\"dl\\\"][data-onclick^=\\\"window.open\\\"]\",\"stay\"]","[\"href\",\"a#clickfkplayer\"]","[\"onclick\",\"a[onclick^=\\\"setTimeout\\\"]\"]","[\"href\",\".mvi-cover\"]","[\"href\",\".t-out-span [href*=\\\"utm_source\\\"]\",\"stay\"]","[\"src\",\".t-out-span [src*=\\\".gif\\\"]\",\"stay\"]","[\"disabled\",\".panel-body > .text-center > button\"]","[\"href\",\"[onclick]\",\"stay\"]","[\"disabled\",\"#downloadbtn\"]","[\"onmousedown\",\".ob-dynamic-rec-link\",\"stay\"]","[\"disabled\",\"a#redirect-btn\"]","[\"onclick\",\"form > button\"]","[\"href\",\".unlock-step-link\"]","[\"href\",\"[href*=\\\"discord\\\"]\"]","[\"uk-sticky\",\"header\",\"stay\"]","[\"style\",\"body\",\"stay\"]","[\"href\",\".MediaStep\",\"stay\"]","[\"disabled\",\"button#myClickButton\"]","[\"style\",\"button#finalButton\"]","[\"onclick\",\".btn\"]","[\"href\",\"[href=\\\"/bestporn.html\\\"]\"]","[\"disabled\",\"button#getlink\"]","[\"disabled\",\"button#gotolink\"]","[\"id\",\"#div-gpt-ad-footer\"]","[\"id\",\"#div-gpt-ad-pagebottom\"]","[\"id\",\"#div-gpt-ad-relatedbottom-1\"]","[\"id\",\"#div-gpt-ad-sidebottom\"]","[\"disabled\",\".downloadbtn\"]","[\"onclick\",\"#direct_link > a[onclick]\"]","[\"disabled\",\".get-link\"]","[\"href\",\"[onclick^=\\\"pop\\\"]\"]","[\"disabled\",\"#gotolink\"]","[\"href\",\".atas > a[href*=\\\"/redirect\\\"][onclick]\"]","[\"type\",\"[type=\\\"hidden\\\"]\",\"stay\"]","[\"action\",\"[action*=\\\"multinews\\\"]\",\"stay\"]","[\"class\",\"[class=\\\"hidden\\\"]\",\"stay\"]","[\"onload\",\"[onload^=\\\"window.open\\\"]\"]","[\"onclick\",\"button[onclick^=\\\"window.open\\\"]\"]","[\"onclick\",\"a[href][onclick^=\\\"window.open\\\"]\"]","[\"onclick\",\"[type=\\\"submit\\\"]\"]","[\"class|style\",\"div[id^=\\\"los40_gpt\\\"]\"]","[\"onclick\",\"a[href][onclick^=\\\"trackOutboundLink\\\"]\"]","[\"data-woman-ex\",\"a[href][data-woman-ex]\"]","[\"data-trm-action|data-trm-category|data-trm-label\",\".trm_event\",\"stay\"]","[\"class|id\",\".breadcrumb + div\",\"asap\"]","[\"href\",\"[href*=\\\"jump\\\"]\",\"stay\"]"];
+const argsList = [["style","#over"],["data-img|data-target","","stay"],["checked","input#chkIsAdd"],["checked","#addon"],["onclick"],["href|target","a[href=\"https://imgprime.com/view.php\"][target=\"_blank\"]","complete"],["href","a[href=\"https://vpn-choice.com\"]"],["src","iframe#claimAd"],["href","#opfk"],["disabled","input"],["srcdoc","iframe"],["onmousemove","button"],["onclick","button[id][onclick*=\".html\"]"],["onclick","button[name=\"imgContinue\"][onclick]"],["target","#continuetoimage > [href]"],["href|target","#continuetoimage > [href][onclick], #overlayera > #ajax_load_indicator > #page_effect > [href][onclick]"],["target"],["href","[href*=\"ccbill\"]"],["onclick","[onclick^=\"window.open\"]"],["onclick","[onclick^=\"pop\"]"],["disabled","button[id=\"invisibleCaptchaShortlink\"]"],["onmouseover|onclick|onmouseout",".save-btn.pull-right"],["href","#clickfakeplayer"],["onclick","","stay"],["type","input[value^=\"http\"]"],["oncontextmenu"],["class","div.intAdX"],["class","div[class^=\"img\"][class$=\"ad\"]"],["data-ff-code"],["data-ivad-preroll-adtag","video","stay"],["style","ins","complete"],["href","[href*=\"jump\"]","stay"],["href","a#clickfakeplayer"],["href",".fake_player > [href][target]"],["href",".link"],["href",".fake_player > a[href]"],["target",".clickbutton"],["onclick",".btn-success.get-link","stay"],["disabled",".btn-primary"],["oncontextmenu","body"],["disabled","button"],["data-ppcnt_ads","main[onclick]"],["onClick"],["target","#downloadvideo"],["href","[rel^=\"noopener\"]"],["data-item","a[href='']"],["href","a[href][target=\"_blank\"]"],["data-ppcnt_ads|onclick","#main"],["href","a[href*=\"/ads.php\"][target=\"_blank\"]"],["onclick","[onclick*=\"window.open\"]"],["target|href","a[href^=\"//\"]"],["onclick","a[href^=\"magnet:\"][onclick]"],["target","#SafelinkGenerate"],["onclick","a[href][onclick^=\"getFullStory\"]"],["onclick",".player > div[onclick]"],["onclick","body"],["onclick",".previewhd > a"],["onclick","a.thumb.mvi-cover"],["href|target","a[href^=\"https://tipstertube.com/bookmaker/\"][target=\"_blank\"]","stay"],["href|target|data-ipshover-target|data-ipshover|data-autolink|rel","a[href^=\"https://thumpertalk.com/link/click/\"][target=\"_blank\"]"],["href","#continue"],["href",".button[href^=\"javascript\"]"],["disabled","input[id=\"button1\"][class=\"btn btn-primary\"][disabled]"],["style","div[style=\"display: none;\"]"],["type","[src*=\"SPOT\"]","asap stay"],["class","div#player"],["href|target|data-onclick","a[id=\"dl\"][data-onclick^=\"window.open\"]","stay"],["href","a#clickfkplayer"],["onclick","a[onclick^=\"setTimeout\"]"],["href",".mvi-cover"],["href",".t-out-span [href*=\"utm_source\"]","stay"],["src",".t-out-span [src*=\".gif\"]","stay"],["disabled",".panel-body > .text-center > button"],["href","[onclick]","stay"],["disabled","#downloadbtn"],["onmousedown",".ob-dynamic-rec-link","stay"],["disabled","a#redirect-btn"],["onclick","form > button"],["href",".unlock-step-link"],["href","[href*=\"discord\"]"],["uk-sticky","header","stay"],["style","body","stay"],["href",".MediaStep","stay"],["disabled","button#myClickButton"],["style","button#finalButton"],["onclick",".btn"],["onmouseover",".g-recaptcha"],["href","[href=\"/bestporn.html\"]"],["disabled","button#getlink"],["disabled","button#gotolink"],["id","#div-gpt-ad-footer"],["id","#div-gpt-ad-pagebottom"],["id","#div-gpt-ad-relatedbottom-1"],["id","#div-gpt-ad-sidebottom"],["disabled",".downloadbtn"],["onclick","#direct_link > a[onclick]"],["disabled",".get-link"],["href","[onclick^=\"pop\"]"],["disabled","#gotolink"],["href",".atas > a[href*=\"/redirect\"][onclick]"],["type","[type=\"hidden\"]","stay"],["action","[action*=\"multinews\"]","stay"],["class","[class=\"hidden\"]","stay"],["onload","[onload^=\"window.open\"]"],["onclick","button[onclick^=\"window.open\"]"],["onclick","a[href][onclick^=\"window.open\"]"],["onclick","[type=\"submit\"]"],["href",".MyAd > a[target=\"_blank\"]"],["class|style","div[id^=\"los40_gpt\"]"],["onclick","a[href][onclick^=\"trackOutboundLink\"]"],["data-woman-ex","a[href][data-woman-ex]"],["data-trm-action|data-trm-category|data-trm-label",".trm_event","stay"]];
 
-const hostnamesMap = new Map([["freeplayervideo.com",0],["nazarickol.com",0],["player-cdn.com",0],["mcloud.to",1],["dailyuploads.net",2],["userupload.net",3],["bs.to",4],["payskip.org",4],["dozarte.com",4],["goalup.live",4],["pornoborshch.com",4],["imgprime.com",5],["magnetdl.com",6],["magnetdl.org",6],["moondoge.co.in",7],["dogefaucet.com",9],["igg-games.com",10],["newscon.org",10],["22pixx.xyz",[13,14,15]],["wowescape.com",16],["games2rule.com",16],["games4king.com",16],["sexykittenporn.com",17],["errotica-archives.com",17],["mac-torrent-download.net",18],["fcc.lc",18],["apps2app.com",18],["appsmodz.com",18],["note1s.com",18],["paste1s.com",18],["shon.xyz",19],["go.fire-link.net",19],["megaurl.in",20],["megafly.in",20],["donpelis.com",20],["noweconomy.live",21],["elil.cc",22],["amyscans.com",23],["dvdgayonline.com",23],["supergoku.com",23],["streampourvous.com",23],["openloading.com",23],["thewatchseries.live",23],["dvdgayporn.com",23],["latinohentai.com",23],["hdmovie20.com",23],["vumoo.cc",23],["gum-gum-stream.com",23],["cinefunhd.com",23],["eegybest.xyz",23],["filerio.in",24],["fastconverter.net",24],["xxx-image.com",26],["1001tracklists.com",[27,28]],["opensubtitles.org",29],["desired.de",30],["forum.release-apk.com",31],["premiumstream.live",34],["verepeliculas.com",35],["newsonthegotoday.com",36],["satoshi-win.xyz",37],["promo-visits.site",38],["coinscap.info",38],["cryptowidgets.net",38],["greenenez.com",38],["insurancegold.in",38],["webfreetools.net",38],["wiki-topia.com",38],["findandfound.ga",39],["tr.link",40],["notube.net",41],["notube.cc",41],["popimed.com",43],["iseekgirls.com",44],["shrinkme.in",45],["aylink.co",46],["gitizle.vip",46],["shtms.co",46],["tio.ch",47],["ondebaixo.com",50],["ondebaixa.com",50],["ondeeubaixo.org",50],["torrentool.org",50],["egao.in",51],["hindustantimes.com",52],["xxxhardcoretube.com",53],["e-sushi.fr",54],["itsfuck.com",55],["stilltube.com",55],["hitmovies4u.com",56],["123moviefree4u.com",56],["tipstertube.com",57],["thumpertalk.com",58],["adz7short.space",59],["allwpworld.com",61],["maxstream.video",62],["veoplanet.com",63],["blogdatecnologia.net",64],["diariodecasamento.com",64],["eusaudavel.net",64],["modaestiloeafins.com",64],["portalmundocurioso.com",64],["receitasabores.com",64],["turismoeviagem.com",64],["go.mozlink.net",[65,66]],["bowfile.com",67],["av01.tv",69],["film01stream.ws",70],["firstpost.com",[71,72]],["so1.asia",73],["methodspoint.com",74],["xubster.com",75],["welt.de",76],["top1iq.com",77],["sh2rt.com",78],["sub1s.com",79],["utopiascans.com",80],["mboost.me",83],["referus.in",[84,85]],["oii.io",86],["watchanime.video",87],["adzz.in",[88,89,98]],["soranews24.com",[90,91,92,93]],["datanodes.to",94],["mega4upload.com",95],["freebrightsoft.com",96],["javchill.com",97],["proappapk.com",98],["link.idblog.eu.org",99],["multiup.eu",[100,101,102]],["multiup.org",[100,101,102]],["jockantv.com",103],["stagatvfiles.com",104],["domaha.tv",105],["xxxrip.net",105],["timestamp.fr",106],["los40.com",107],["pioneer.eu",108],["woman.excite.co.jp",109],["demae-can.com",110],["rjno1.com",111],["work.ink",112]]);
+const hostnamesMap = new Map([["freeplayervideo.com",0],["nazarickol.com",0],["player-cdn.com",0],["mcloud.to",1],["vidstream.pro",1],["dailyuploads.net",2],["userupload.net",3],["bs.to",4],["payskip.org",4],["dozarte.com",4],["goalup.live",4],["pornoborshch.com",4],["imgprime.com",5],["magnetdl.com",6],["magnetdl.org",6],["moondoge.co.in",7],["dogefaucet.com",9],["igg-games.com",10],["newscon.org",10],["22pixx.xyz",[13,14,15]],["wowescape.com",16],["games2rule.com",16],["games4king.com",16],["sexykittenporn.com",17],["errotica-archives.com",17],["shon.xyz",18],["go.fire-link.net",18],["megaurl.in",19],["megafly.in",19],["donpelis.com",19],["noweconomy.live",20],["elil.cc",21],["amyscans.com",22],["dvdgayonline.com",22],["supergoku.com",22],["streampourvous.com",22],["openloading.com",22],["thewatchseries.live",22],["dvdgayporn.com",22],["latinohentai.com",22],["hdmovie20.com",22],["vumoo.cc",22],["gum-gum-stream.com",22],["cinefunhd.com",22],["eegybest.xyz",22],["animesgratis.org",22],["filerio.in",23],["fastconverter.net",23],["xxx-image.com",25],["1001tracklists.com",[26,27]],["opensubtitles.org",28],["desired.de",29],["forum.release-apk.com",30],["work.ink",31],["premiumstream.live",34],["verepeliculas.com",35],["newsonthegotoday.com",36],["satoshi-win.xyz",37],["promo-visits.site",38],["coinscap.info",38],["cryptowidgets.net",38],["greenenez.com",38],["insurancegold.in",38],["webfreetools.net",38],["wiki-topia.com",38],["findandfound.ga",39],["apps2app.com",40],["appsmodz.com",40],["note1s.com",40],["paste1s.com",40],["tr.link",41],["notube.net",42],["notube.cc",42],["popimed.com",44],["iseekgirls.com",45],["shrinkme.in",46],["aylink.co",47],["gitizle.vip",47],["shtms.co",47],["tio.ch",48],["ondebaixo.com",51],["ondebaixa.com",51],["ondeeubaixo.org",51],["torrentool.org",51],["egao.in",52],["hindustantimes.com",53],["xxxhardcoretube.com",54],["e-sushi.fr",55],["itsfuck.com",56],["stilltube.com",56],["hitmovies4u.com",57],["123moviefree4u.com",57],["tipstertube.com",58],["thumpertalk.com",59],["adz7short.space",60],["allwpworld.com",62],["maxstream.video",63],["veoplanet.com",64],["blogdatecnologia.net",65],["diariodecasamento.com",65],["eusaudavel.net",65],["modaestiloeafins.com",65],["portalmundocurioso.com",65],["receitasabores.com",65],["turismoeviagem.com",65],["bowfile.com",66],["av01.tv",68],["film01stream.ws",69],["firstpost.com",[70,71]],["so1.asia",72],["methodspoint.com",73],["xubster.com",74],["welt.de",75],["top1iq.com",76],["sh2rt.com",77],["sub1s.com",78],["utopiascans.com",79],["mboost.me",82],["referus.in",[83,84]],["oii.io",85],["mdn.lol",86],["watchanime.video",87],["adzz.in",[88,89,98]],["soranews24.com",[90,91,92,93]],["datanodes.to",94],["mega4upload.com",95],["freebrightsoft.com",96],["javchill.com",97],["proappapk.com",98],["link.idblog.eu.org",99],["multiup.eu",[100,101,102]],["multiup.org",[100,101,102]],["jockantv.com",103],["stagatvfiles.com",104],["domaha.tv",105],["xxxrip.net",105],["timestamp.fr",106],["bitzite.com",107],["los40.com",108],["pioneer.eu",109],["woman.excite.co.jp",110],["demae-can.com",111]]);
 
-const entitiesMap = new Map([["vizcloud",1],["douploads",2],["adbull",4],["burningseries",4],["nextorrent",4],["sportlive",4],["wstream",4],["pelisplus",8],["pelispedia",[8,32,33]],["cine-calidad",8],["vinaurl",11],["filecrypt",12],["mega4up",19],["zeefiles",19],["cinetux",23],["dpstream",23],["allcalidad",23],["pelis28",23],["jetanimes",23],["anxcinema",23],["hdmovie5",23],["pelishouse",23],["hdmovie2",23],["mlwbd",25],["pelispedia24",32],["strcloud",42],["streamtape",42],["streamta",42],["strtape",42],["strtapeadblock",42],["fzm",48],["fzmovies",48],["lite-link",49],["waploaded",60],["onionplay",68],["90phut2",[81,82]]]);
+const entitiesMap = new Map([["vizcloud",1],["douploads",2],["adbull",4],["burningseries",4],["nextorrent",4],["sportlive",4],["wstream",4],["pelisplus",8],["pelispedia",[8,32,33]],["cine-calidad",8],["vinaurl",11],["filecrypt",12],["mega4up",18],["zeefiles",18],["cinetux",22],["dpstream",22],["allcalidad",22],["pelis28",22],["jetanimes",22],["anxcinema",22],["hdmovie5",22],["pelishouse",22],["hdmovie2",22],["mlwbd",24],["pelispedia24",32],["strcloud",43],["streamtape",43],["streamta",43],["strtape",43],["strtapeadblock",43],["fzm",49],["fzmovies",49],["lite-link",50],["waploaded",61],["onionplay",67],["90phut2",[80,81]]]);
 
 const exceptionsMap = new Map([]);
 
@@ -137,17 +142,79 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -214,13 +281,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { removeAttr(...JSON.parse(argsList[i])); }
+    try { removeAttr(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_removeAttr();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_removeAttr = cloneInto([
+            [ '(', uBOL_removeAttr.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_removeAttr);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_removeAttr;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,19 +32,23 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_setConstant() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_setConstant = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"Object.prototype.changeVisible\",\"noopFunc\"]","[\"ADV_BLOCKED\",\"false\"]","[\"Clicks._test_meta_referer\",\"null\"]","[\"JSON.parse\",\"noopFunc\"]","[\"Object.prototype.AdvObject\",\"noopFunc\"]","[\"Object.prototype.AdvertisementManager\",\"undefined\"]","[\"Object.prototype.IS_CHECK_REGISTRATION\",\"false\"]","[\"Object.prototype.MediaReady\",\"noopFunc\"]","[\"Object.prototype.PLAYED\",\"null\"]","[\"Object.prototype.adUsageStorageVars\",\"undefined\"]","[\"Object.prototype.adblockSettings\",\"undefined\"]","[\"Object.prototype.advert\",\"null\"]","[\"Object.prototype.advertObject\",\"null\"]","[\"Object.prototype.afg\",\"true\"]","[\"Object.prototype.autoPlay\",\"false\"]","[\"Object.prototype.autoPlay\",\"null\"]","[\"Object.prototype.autoPopups\",\"undefined\"]","[\"Object.prototype.autoplay\",\"false\"]","[\"Object.prototype.autoplay\",\"null\"]","[\"Object.prototype.autostart\",\"noopFunc\"]","[\"Object.prototype.compactMode\",\"true\"]","[\"Object.prototype.createBannerItem\",\"null\"]","[\"Object.prototype.detectAdb\",\"noopFunc\"]","[\"Object.prototype.detectAdblock\",\"noopFunc\"]","[\"Object.prototype.disableAutoplay\",\"true\"]","[\"Object.prototype.disablePaste\",\"false\"]","[\"Object.prototype.disableSeek\",\"noopFunc\"]","[\"Object.prototype.disableSelection\",\"noopFunc\"]","[\"Object.prototype.getAutoplay\",\"noopFunc\"]","[\"Object.prototype.isCustomBannerTypeAndExp\",\"undefined\"]","[\"Object.prototype.isNoAds\",\"{}\"]","[\"Object.prototype.livetv-state\",\"true\"]","[\"Object.prototype.manualAutoplay_\",\"null\"]","[\"Object.prototype.minPlayingVisibleHeight\",\"noopFunc\"]","[\"Object.prototype.onIntersected\",\"noopFunc\"]","[\"Object.prototype.openstatCb\",\"undefined\"]","[\"Object.prototype.playVideo\",\"noopFunc\"]","[\"Object.prototype.sendCHParams\",\"noopFunc\"]","[\"Object.prototype.utm_campaign\",\"undefined\"]","[\"Object.prototype.utm_source\",\"undefined\"]","[\"Object.prototype.videoAd\",\"noopFunc\"]","[\"String.fromCharCode\",\"trueFunc\"]","[\"accept18\",\"true\"]","[\"adBlock\",\"false\"]","[\"adBlockFunction\",\"trueFunc\"]","[\"adblock\",\"true\"]","[\"app.book.external\",\"null\"]","[\"cadb\",\"false\"]","[\"clicks\",\"2\"]","[\"g_GazetaNoExchange\",\"true\"]","[\"home.export.complex-feed\",\"undefined\"]","[\"isAdFree\",\"noopFunc\"]","[\"localStorage.localstorageGameData\",\"\"]","[\"main_air_closed\",\"true\"]","[\"noAdsAtAll\",\"{}\"]","[\"pl.getParams.isPlay\",\"null\"]","[\"player.options.scroll\",\"false\"]","[\"playerOptions.behaviour.autoPlay\",\"false\"]","[\"sectionConfig.adBlock\",\"null\"]","[\"timeEnd\",\"1\"]","[\"top100Counter\",\"false\"]","[\"window.EUMP.plugins.antiblock\",\"noopFunc\"]","[\"window.ab\",\"false\"]","[\"Object.prototype.preroll\",\"undefined\"]","[\"biads.initCli\",\"undefined\"]","[\"NO_ADV\",\"1\"]","[\"Object.prototype.ENABLE_SMOKESCREEN\",\"undefined\"]","[\"Object.prototype._Mimic\",\"undefined\"]","[\"Object.prototype.adblock\",\"null\"]","[\"Object.prototype.autoPlayParams\",\"false\"]","[\"Object.prototype.autoplayScrollHandler\",\"noopFunc\"]","[\"Object.prototype.getAds\",\"undefined\"]","[\"Object.prototype.mimic\",\"undefined\"]","[\"Object.prototype.onLinkClick\",\"noopFunc\"]","[\"Object.prototype.onLinkMouseDown\",\"noopFunc\"]","[\"Object.prototype.runMimic\",\"noopFunc\"]","[\"Object.prototype.useMimic\",\"noopFunc\"]","[\"document.title\",\"null\"]","[\"mr.mimic\",\"undefined\"]","[\"Object.prototype.hasAdBlockWhiteList\",\"null\"]","[\"Object.prototype.AdvertisingManager\",\"noopFunc\"]"];
+const argsList = [["Object.prototype.changeVisible","noopFunc"],["ADV_BLOCKED","false"],["Clicks._test_meta_referer","null"],["JSON.parse","noopFunc"],["Object.prototype.AdvObject","noopFunc"],["Object.prototype.AdvertisementManager","undefined"],["Object.prototype.IS_CHECK_REGISTRATION","false"],["Object.prototype.MediaReady","noopFunc"],["Object.prototype.PLAYED","null"],["Object.prototype._currentAgeRestriction","null"],["Object.prototype.adUsageStorageVars","undefined"],["Object.prototype.adblockSettings","undefined"],["Object.prototype.advert","null"],["Object.prototype.advertObject","null"],["Object.prototype.afg","true"],["Object.prototype.autoPlay","false"],["Object.prototype.autoPlay","null"],["Object.prototype.autoPopups","undefined"],["Object.prototype.autoplay","false"],["Object.prototype.autoplay","null"],["Object.prototype.autostart","noopFunc"],["Object.prototype.compactMode","true"],["Object.prototype.createBannerItem","null"],["Object.prototype.detect","noopFunc"],["Object.prototype.detectAdb","noopFunc"],["Object.prototype.detectAdblock","noopFunc"],["Object.prototype.disableAutoplay","true"],["Object.prototype.disablePaste","false"],["Object.prototype.disableSeek","noopFunc"],["Object.prototype.disableSelection","noopFunc"],["Object.prototype.getAutoplay","noopFunc"],["Object.prototype.isNoAds","{}"],["Object.prototype.livetv-state","true"],["Object.prototype.manualAutoplay_","null"],["Object.prototype.minPlayingVisibleHeight","noopFunc"],["Object.prototype.onIntersected","noopFunc"],["Object.prototype.openstatCb","undefined"],["Object.prototype.playVideo","noopFunc"],["Object.prototype.sendCHParams","noopFunc"],["Object.prototype.setAdfoxContainerId","undefined"],["Object.prototype.utm_campaign","undefined"],["Object.prototype.utm_source","undefined"],["Object.prototype.videoAd","noopFunc"],["String.fromCharCode","trueFunc"],["accept18","true"],["adBlock","false"],["adblock","true"],["app.book.external","null"],["cadb","false"],["clicks","2"],["g_GazetaNoExchange","true"],["home.export.complex-feed","undefined"],["isAdFree","noopFunc"],["localStorage.localstorageGameData",""],["main_air_closed","true"],["noAdsAtAll","{}"],["pl.getParams.isPlay","null"],["player.options.scroll","false"],["playerOptions.behaviour.autoPlay","false"],["sectionConfig.adBlock","null"],["timeEnd","1"],["top100Counter","false"],["window.EUMP.plugins.antiblock","noopFunc"],["window.ab","false"],["Object.prototype.preroll","undefined"],["biads.initCli","undefined"],["NO_ADV","1"],["Object.prototype.ENABLE_SMOKESCREEN","undefined"],["Object.prototype._Mimic","undefined"],["Object.prototype.adblock","null"],["Object.prototype.autoPlayParams","false"],["Object.prototype.autoplayScrollHandler","noopFunc"],["Object.prototype.getAds","undefined"],["Object.prototype.mimic","undefined"],["Object.prototype.onLinkClick","noopFunc"],["Object.prototype.onLinkMouseDown","noopFunc"],["Object.prototype.runMimic","noopFunc"],["Object.prototype.useMimic","noopFunc"],["document.title","null"],["mr.mimic","undefined"],["Object.prototype.hasAdBlockWhiteList","false"],["Object.prototype.AdvertisingManager","noopFunc"]];
 
-const hostnamesMap = new Map([["116.ru",0],["14.ru",0],["161.ru",0],["164.ru",0],["178.ru",0],["26.ru",0],["29.ru",0],["35.ru",0],["43.ru",0],["45.ru",0],["48.ru",0],["51.ru",0],["53.ru",0],["56.ru",0],["59.ru",0],["60.ru",0],["62.ru",0],["63.ru",0],["68.ru",0],["71.ru",0],["72.ru",0],["74.ru",0],["76.ru",0],["86.ru",0],["89.ru",0],["93.ru",0],["chita.ru",0],["e1.ru",0],["ircity.ru",0],["mgorsk.ru",0],["msk1.ru",0],["ngs.ru",0],["ngs22.ru",0],["ngs24.ru",0],["ngs42.ru",0],["ngs55.ru",0],["ngs70.ru",0],["nn.ru",0],["proizhevsk.ru",0],["provoronezh.ru",0],["sochi1.ru",0],["sterlitamak1.ru",0],["tolyatty.ru",0],["ufa1.ru",0],["v1.ru",0],["www.fontanka.ru",0],["peers.tv",1],["www.ukr.net",2],["animelend.info",3],["ivi.ru",[4,12]],["ictv.ua",5],["inter.ua",5],["k1.ua",5],["novy.tv",5],["ntn.ua",5],["starlight.digital",5],["stb.ua",5],["teleportal.ua",5],["player.vgtrk.com",6],["tv-gubernia.ru",[7,53]],["xsport.ua",8],["music.yandex.by",9],["music.yandex.kz",9],["music.yandex.ru",9],["music.yandex.uz",9],["api-video.khl.ru",10],["razlozhi.ru",[11,47]],["igroutka.ru",13],["cdnvideo.ru",14],["eda.ru",14],["mania.gcdn.co",14],["vp.rambler.ru",[14,33]],["www.rambler.ru",14],["afisha.ru",15],["partnerkin.com",16],["iz.ru",17],["bonus-tv.ru",18],["eagleplatform.com",[18,56]],["embed.dugout.com",19],["7days.ru",0],["doctorpiter.ru",0],["dom.mail.ru",0],["kp.kg",0],["kp.kz",0],["kp.md",0],["kp.ru",0],["lady.mail.ru",0],["mk.ru",0],["ohotniki.ru",0],["radiokp.ru",0],["spletnik.ru",0],["sportkp.ru",0],["wday.ru",0],["woman.ru",0],["tass.ru",20],["ati.su",21],["russia-tv.online",22],["examenpdd.com",23],["embed.twitch.tv",24],["player.twitch.tv",24],["www.mos.ru",25],["1tv.ru",[26,61]],["kinokong.pro",27],["dzen.ru",[28,29]],["play.tv3.lt",30],["play.tv3.lv",30],["tv3play.skaties.lv",30],["rbc.ru",31],["sportrbc.ru",31],["tenews.org.ua",32],["rg.ru",[34,35]],["3dnews.kz",36],["3dnews.ru",36],["vm.ru",36],["gismeteo.by",37],["gismeteo.kz",37],["gismeteo.lt",37],["gismeteo.lv",37],["gismeteo.md",37],["gismeteo.ru",37],["gismeteo.ua",37],["meteofor.com.ua",37],["forbes.ru",[38,39]],["frontend.vh.yandex.ru",40],["widgets.kinopoisk.ru",40],["yastatic.net",40],["free-tor.info",41],["korsars.info",41],["vo-dela.su",42],["hentai-share.one",43],["dracon-zet.ru",44],["anidub.vip",45],["anidubonline.com",45],["loveanime.live",45],["gdz-putina.fun",46],["gdz.ninja",46],["gdz.ru",46],["gdzotputina.club",46],["gdzputina.net",46],["megaresheba.com",46],["megaresheba.ru",46],["resheba.me",46],["spishi.fun",46],["zoobrilka.net",46],["audioportal.su",48],["gazeta.ru",[49,51]],["ya.ru",50],["playground.ru",52],["vk.com",54],["vk.ru",54],["player.smotrim.ru",55],["kinescope.io",57],["apollo.lv",58],["tvnet.lv",58],["softportal.com",59],["rambler.ru",60],["remont-aud.net",62],["okminigames.mail.ru",65],["e.mail.ru",[66,73,74,79]],["octavius.mail.ru",[66,73,74,79]],["otvet.mail.ru",67],["mail.ru",[68,72,77,78]],["player-smotri.mail.ru",69],["ok.ru",[70,71]],["sportmail.ru",[72,76]],["my.mail.ru",75],["news.mail.ru",76],["pogoda.mail.ru",76],["mail.ukr.net",80]]);
+const hostnamesMap = new Map([["116.ru",0],["14.ru",0],["161.ru",0],["164.ru",0],["178.ru",0],["26.ru",0],["29.ru",0],["35.ru",0],["43.ru",0],["45.ru",0],["48.ru",0],["51.ru",0],["53.ru",0],["56.ru",0],["59.ru",0],["60.ru",0],["62.ru",0],["63.ru",0],["68.ru",0],["71.ru",0],["72.ru",0],["74.ru",0],["76.ru",0],["86.ru",0],["89.ru",0],["93.ru",0],["chita.ru",0],["e1.ru",0],["ircity.ru",0],["mgorsk.ru",0],["msk1.ru",0],["ngs.ru",0],["ngs22.ru",0],["ngs24.ru",0],["ngs42.ru",0],["ngs55.ru",0],["ngs70.ru",0],["nn.ru",0],["proizhevsk.ru",0],["provoronezh.ru",0],["sochi1.ru",0],["sterlitamak1.ru",0],["tolyatty.ru",0],["ufa1.ru",0],["v1.ru",0],["www.fontanka.ru",0],["peers.tv",1],["www.ukr.net",2],["animelend.info",3],["ivi.ru",[4,13]],["ictv.ua",5],["inter.ua",5],["k1.ua",5],["novy.tv",5],["ntn.ua",5],["starlight.digital",5],["stb.ua",5],["teleportal.ua",5],["player.vgtrk.com",6],["tv-gubernia.ru",[7,54]],["xsport.ua",8],["1tv.ru",[9,28,62]],["music.yandex.by",10],["music.yandex.kz",10],["music.yandex.ru",10],["music.yandex.uz",10],["api-video.khl.ru",11],["razlozhi.ru",[12,48]],["igroutka.ru",14],["cdnvideo.ru",15],["eda.ru",15],["mania.gcdn.co",15],["vp.rambler.ru",[15,34]],["www.rambler.ru",15],["afisha.ru",16],["partnerkin.com",17],["iz.ru",18],["bonus-tv.ru",19],["eagleplatform.com",[19,57]],["embed.dugout.com",20],["7days.ru",0],["doctorpiter.ru",0],["dom.mail.ru",0],["kp.kg",0],["kp.kz",0],["kp.md",0],["kp.ru",0],["lady.mail.ru",0],["mk.ru",0],["ohotniki.ru",0],["portalvirtualreality.ru",0],["radiokp.ru",0],["spletnik.ru",0],["sportkp.ru",0],["wday.ru",0],["woman.ru",0],["tass.ru",21],["ati.su",22],["24smi.org",23],["russia-tv.online",24],["examenpdd.com",25],["embed.twitch.tv",26],["player.twitch.tv",26],["www.mos.ru",27],["kinokong.pro",29],["dzen.ru",[30,39]],["play.tv3.lt",31],["play.tv3.lv",31],["tv3play.skaties.lv",31],["rbc.ru",32],["sportrbc.ru",32],["tenews.org.ua",33],["rg.ru",[35,36]],["3dnews.kz",37],["3dnews.ru",37],["vm.ru",37],["gismeteo.by",38],["gismeteo.kz",38],["gismeteo.lt",38],["gismeteo.lv",38],["gismeteo.md",38],["gismeteo.ru",38],["gismeteo.ua",38],["meteofor.com.ua",38],["forbes.ru",[40,41]],["frontend.vh.yandex.ru",42],["widgets.kinopoisk.ru",42],["yastatic.net",42],["free-tor.info",43],["korsars.info",43],["vo-dela.su",44],["hentai-share.one",45],["anidub.vip",46],["anidubonline.com",46],["loveanime.live",46],["gdz-putina.fun",47],["gdz.ninja",47],["gdz.ru",47],["gdzotputina.club",47],["gdzputina.net",47],["megaresheba.com",47],["megaresheba.ru",47],["resheba.me",47],["spishi.fun",47],["zoobrilka.net",47],["audioportal.su",49],["gazeta.ru",[50,52]],["ya.ru",51],["playground.ru",53],["vk.com",55],["vk.ru",55],["player.smotrim.ru",56],["kinescope.io",58],["apollo.lv",59],["tvnet.lv",59],["softportal.com",60],["rambler.ru",61],["remont-aud.net",63],["okminigames.mail.ru",66],["e.mail.ru",[67,74,75,80]],["octavius.mail.ru",[67,74,75,80]],["otvet.mail.ru",68],["mail.ru",[69,73,78,79]],["player-smotri.mail.ru",70],["ok.ru",[71,72]],["sportmail.ru",[73,77]],["my.mail.ru",76],["news.mail.ru",77],["pogoda.mail.ru",77],["mail.ukr.net",81]]);
 
-const entitiesMap = new Map([["hdrezka",63],["rezka",63],["mult-porno",64],["sex-studentki",64],["cosplay-porn",64]]);
+const entitiesMap = new Map([["hdrezka",64],["rezka",64],["mult-porno",65],["sex-studentki",65],["cosplay-porn",65]]);
 
-const exceptionsMap = new Map([["1yar.tv",[18]],["3igames.mail.ru",[68,77,78]],["auto.mail.ru",[68,77,78]],["biz.mail.ru",[68,77,78]],["bonus.mail.ru",[68,77,78]],["calendar.mail.ru",[68,77,78]],["calls.mail.ru",[68,72,77,78]],["cloud.mail.ru",[68,77,78]],["deti.mail.ru",[68,77,78]],["dobro.mail.ru",[68,77,78]],["e.mail.ru",[68,72,77,78]],["esports.mail.ru",[68,77,78]],["games.mail.ru",[68,77,78]],["gibdd.mail.ru",[68,77,78]],["go.mail.ru",[68,77,78]],["health.mail.ru",[68,77,78]],["help.mail.ru",[68,77,78]],["hi-tech.mail.ru",[68,77,78]],["horo.mail.ru",[68,77,78]],["kino.mail.ru",[68,77,78]],["lady.mail.ru",[68,77,78]],["love.mail.ru",[68,77,78]],["mailblog.mail.ru",[68,77,78]],["mcs.mail.ru",[68,77,78]],["minigames.mail.ru",[68,77,78]],["my.mail.ru",[68,72,77,78]],["news.mail.ru",[68,77,78]],["octavius.mail.ru",[68,72,77,78]],["okminigames.mail.ru",[68,77,78]],["otvet.mail.ru",[68,77,78]],["pets.mail.ru",[68,77,78]],["player-smotri.mail.ru",[68,77,78]],["pogoda.mail.ru",[68,77,78]],["top.mail.ru",[68,77,78]],["touch.mail.ru",[68,72,77,78]],["tv.mail.ru",[68,77,78]]]);
+const exceptionsMap = new Map([["1yar.tv",[19]],["m.vk.com",[55]],["3igames.mail.ru",[69,78,79]],["auto.mail.ru",[69,78,79]],["biz.mail.ru",[69,78,79]],["bonus.mail.ru",[69,78,79]],["calendar.mail.ru",[69,78,79]],["calls.mail.ru",[69,73,78,79]],["cloud.mail.ru",[69,78,79]],["deti.mail.ru",[69,78,79]],["dobro.mail.ru",[69,78,79]],["e.mail.ru",[69,73,78,79]],["esports.mail.ru",[69,78,79]],["games.mail.ru",[69,78,79]],["gibdd.mail.ru",[69,78,79]],["go.mail.ru",[69,78,79]],["health.mail.ru",[69,78,79]],["help.mail.ru",[69,78,79]],["hi-tech.mail.ru",[69,78,79]],["horo.mail.ru",[69,78,79]],["kino.mail.ru",[69,78,79]],["lady.mail.ru",[69,78,79]],["love.mail.ru",[69,78,79]],["mailblog.mail.ru",[69,78,79]],["mcs.mail.ru",[69,78,79]],["minigames.mail.ru",[69,78,79]],["my.mail.ru",[69,73,78,79]],["news.mail.ru",[69,78,79]],["octavius.mail.ru",[69,73,78,79]],["okminigames.mail.ru",[69,78,79]],["otvet.mail.ru",[69,78,79]],["pets.mail.ru",[69,78,79]],["player-smotri.mail.ru",[69,78,79]],["pogoda.mail.ru",[69,78,79]],["top.mail.ru",[69,78,79]],["touch.mail.ru",[69,73,78,79]],["tv.mail.ru",[69,78,79]]]);
 
 /******************************************************************************/
 
@@ -116,7 +121,7 @@ function setConstantCore(
             cValue = true;
         } else if ( cValue === 'null' ) {
             cValue = null;
-        } else if ( cValue === "''" ) {
+        } else if ( cValue === "''" || cValue === '' ) {
             cValue = '';
         } else if ( cValue === '[]' ) {
             cValue = [];
@@ -134,7 +139,7 @@ function setConstantCore(
             if ( Math.abs(cValue) > 0x7FFF ) { return; }
         } else if ( trusted ) {
             if ( cValue.startsWith('{') && cValue.endsWith('}') ) {
-                try { cValue = JSON.parse(cValue).value; } catch(ex) { return; }
+                try { cValue = safe.jsonParse(cValue).value; } catch(ex) { return; }
             }
         } else {
             return;
@@ -279,17 +284,79 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -356,13 +423,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { setConstant(...JSON.parse(argsList[i])); }
+    try { setConstant(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_setConstant();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_setConstant = cloneInto([
+            [ '(', uBOL_setConstant.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_setConstant);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_setConstant;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,17 +32,21 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_setConstant() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_setConstant = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"adManagerBlocked\",\"undefined\"]","[\"$MICROSITE_INFO.blockAdBlock\",\"false\"]","[\"adblock.check\",\"noopFunc\"]","[\"adBlockerActive\",\"false\"]","[\"canRunAds\",\"true\"]","[\"eazy_ad_unblocker_msg_var\",\"\"]","[\"antiAdBlockerStyle\",\"noopFunc\"]","[\"Object.prototype.adblockerEnabled\",\"false\"]","[\"adsbygoogle.loaded\",\"true\"]","[\"adBlockCheck\",\"true\"]","[\"pp_show_popupmessage\",\"noopFunc\"]","[\"easySettings.adblock\",\"0\"]","[\"onload\",\"null\"]","[\"adblockDetector.init\",\"noopFunc\"]","[\"adsbygoogle.length\",\"undefined\"]","[\"WSL2.config.enableAdblockEcommerce\",\"0\"]","[\"ads_unblocked\",\"true\"]","[\"adblock\",\"true\"]","[\"better_ads_adblock\",\"true\"]","[\"adBlockDetected\",\"false\"]","[\"isAdsDisplayed\",\"true\"]","[\"ATESTADO\",\"1\"]","[\"Lata\",\"1\"]","[\"loadingAds\",\"true\"]","[\"goog_pvsid\",\"1\"]","[\"Goog_Osd_UnloadAdBlock\",\"1\"]","[\"google_osd_loaded\",\"1\"]","[\"stopMan\",\"false\"]","[\"google_unique_id\",\"1\"]","[\"googleIMState\",\"{}\"]","[\"Object.prototype.adSlot\",\"\"]","[\"google.ima.OmidVerificationVendor\",\"{}\"]","[\"ads\",\"false\"]","[\"acdl\",\"undefined\"]","[\"global.noobMaxTry\",\"0\"]","[\"player.preroll\",\"noopFunc\"]","[\"anunciotag\",\"noopFunc\"]","[\"_mvnxp\",\"noopFunc\"]","[\"loadingAds\",\"undefined\"]","[\"click\",\"1\"]","[\"clickd\",\"1\"]","[\"xxxStore\",\"undefined\"]","[\"vidorev_jav_plugin_video_ads_object.vid_ads_m_video_ads\",\"\"]","[\"clicked\",\"true\"]","[\"eClicked\",\"true\"]","[\"number\",\"0\"]","[\"sync\",\"true\"]","[\"a_consola\",\"noopFunc\"]"];
+const argsList = [["googletag._loaded_","true"],["canRunAds","true"],["blockAdBlock._options","noopFunc"],["adManagerBlocked","undefined"],["$MICROSITE_INFO.blockAdBlock","false"],["adblock.check","noopFunc"],["adBlockerActive","false"],["eazy_ad_unblocker_msg_var",""],["antiAdBlockerStyle","noopFunc"],["Object.prototype.adblockerEnabled","false"],["adsbygoogle.loaded","true"],["adBlockCheck","true"],["pp_show_popupmessage","noopFunc"],["easySettings.adblock","0"],["onload","null"],["adblockDetector.init","noopFunc"],["adsbygoogle.length","undefined"],["WSL2.config.enableAdblockEcommerce","0"],["ads_unblocked","true"],["adblock","true"],["better_ads_adblock","true"],["adBlockDetected","false"],["isAdsDisplayed","true"],["ATESTADO","1"],["Lata","1"],["loadingAds","true"],["goog_pvsid","1"],["Goog_Osd_UnloadAdBlock","1"],["google_osd_loaded","1"],["stopMan","false"],["google_unique_id","1"],["googleIMState","{}"],["runningAdsAllowed","true"],["contadorClics","1"],["Object.prototype.adSlot",""],["google.ima.OmidVerificationVendor","{}"],["ads","false"],["acdl","undefined"],["global.noobMaxTry","0"],["player.preroll","noopFunc"],["anunciotag","noopFunc"],["_mvnxp","noopFunc"],["loadingAds","undefined"],["click","1"],["clickd","1"],["xxxStore","undefined"],["vidorev_jav_plugin_video_ads_object.vid_ads_m_video_ads",""],["clicked","true"],["eClicked","true"],["number","0"],["sync","true"],["a_consola","noopFunc"]];
 
-const hostnamesMap = new Map([["fichajes.com",0],["niusdiario.es",[1,31]],["xerifetech.com",2],["pobre.wtf",[3,32]],["impactoespananoticias.com",4],["skynovels.net",4],["botinnifit.com",4],["minhasdelicias.com",4],["luchaonline.com",4],["legendei.net",5],["mangacrab.com",6],["cadenaser.com",7],["texto.kom.gt",8],["infojobs.com.br",9],["maringapost.com.br",10],["bandab.com.br",10],["ouniversodatv.com",11],["tribunaavila.com",12],["deportealdia.live",13],["elquintobeatle.com",14],["empregoestagios.com",14],["satcesc.com",14],["applesfera.com",15],["bebesymas.com",15],["compradiccion.com",15],["diariodelviajero.com",15],["directoalpaladar.com",15],["elblogsalmon.com",15],["espinof.com",15],["genbeta.com",15],["motorpasion.com",15],["motorpasionmoto.com",15],["pymesyautonomos.com",15],["trendencias.com",15],["trendenciashombre.com",15],["vidaextra.com",15],["vitonica.com",15],["xataka.com",15],["xatakaciencia.com",15],["xatakafoto.com",15],["xatakahome.com",15],["xatakamovil.com",15],["xatakandroid.com",15],["xatakawindows.com",15],["doceru.com",16],["docero.com.br",16],["comandotorrents.org",17],["adslayuda.com",18],["outerspace.com.br",19],["doramasmp4.com",20],["file4go.net",22],["seriesdonghua.com",23],["mundodonghua.com",23],["yesmangas1.com",[24,25,26,27,28,29]],["mangahost4.com",[24,25,26,27,28,29]],["mangahosted.com",[24,25,26,27,28,29]],["mangahost2.com",[24,25,26,27,28,29]],["mangahost1.com",29],["mangahostbr.net",29],["mangahostbr.com",29],["elmundo.es",30],["suaurl.com",33],["safepc.online",34],["solopc.net",34],["player.hentaistube.com",35],["playnewserie.xyz",36],["vizer.vip",37],["tiohentai.xyz",38],["otakustv.com",[39,40]],["pornolandia.xxx",41],["hentaiporno.xxx",42],["megadescarga.net",[43,44,45,46]],["fakings.com",47]]);
+const hostnamesMap = new Map([["redbolivision.tv.bo",0],["mdr.ar",1],["impactoespananoticias.com",1],["skynovels.net",1],["botinnifit.com",1],["minhasdelicias.com",1],["luchaonline.com",1],["meocloud.pt",2],["fichajes.com",3],["niusdiario.es",[4,35]],["xerifetech.com",5],["pobre.wtf",[6,36]],["legendei.net",7],["mangacrab.com",8],["cadenaser.com",9],["texto.kom.gt",10],["infojobs.com.br",11],["maringapost.com.br",12],["bandab.com.br",12],["ouniversodatv.com",13],["tribunaavila.com",14],["deportealdia.live",15],["elquintobeatle.com",16],["empregoestagios.com",16],["satcesc.com",16],["applesfera.com",17],["bebesymas.com",17],["compradiccion.com",17],["diariodelviajero.com",17],["directoalpaladar.com",17],["elblogsalmon.com",17],["espinof.com",17],["genbeta.com",17],["motorpasion.com",17],["motorpasionmoto.com",17],["pymesyautonomos.com",17],["trendencias.com",17],["trendenciashombre.com",17],["vidaextra.com",17],["vitonica.com",17],["xataka.com",17],["xatakaciencia.com",17],["xatakafoto.com",17],["xatakahome.com",17],["xatakamovil.com",17],["xatakandroid.com",17],["xatakawindows.com",17],["doceru.com",18],["docero.com.br",18],["comandotorrents.org",19],["adslayuda.com",20],["outerspace.com.br",21],["doramasmp4.com",22],["file4go.net",24],["seriesdonghua.com",25],["mundodonghua.com",25],["yesmangas1.com",[26,27,28,29,30,31]],["mangahost4.com",[26,27,28,29,30,31]],["mangahosted.com",[26,27,28,29,30,31]],["mangahost2.com",[26,27,28,29,30,31]],["mangahost1.com",31],["mangahostbr.net",31],["mangahostbr.com",31],["playview.io",32],["megafire.net",33],["elmundo.es",34],["suaurl.com",37],["safepc.online",38],["solopc.net",38],["player.hentaistube.com",39],["playnewserie.xyz",40],["vizer.vip",41],["tiohentai.xyz",42],["otakustv.com",[43,44]],["pornolandia.xxx",45],["hentaiporno.xxx",46],["megadescarga.net",[47,48,49,50]],["fakings.com",51]]);
 
-const entitiesMap = new Map([["anitube",21]]);
+const entitiesMap = new Map([["anitube",23]]);
 
 const exceptionsMap = new Map([]);
 
@@ -116,7 +121,7 @@ function setConstantCore(
             cValue = true;
         } else if ( cValue === 'null' ) {
             cValue = null;
-        } else if ( cValue === "''" ) {
+        } else if ( cValue === "''" || cValue === '' ) {
             cValue = '';
         } else if ( cValue === '[]' ) {
             cValue = [];
@@ -134,7 +139,7 @@ function setConstantCore(
             if ( Math.abs(cValue) > 0x7FFF ) { return; }
         } else if ( trusted ) {
             if ( cValue.startsWith('{') && cValue.endsWith('}') ) {
-                try { cValue = JSON.parse(cValue).value; } catch(ex) { return; }
+                try { cValue = safe.jsonParse(cValue).value; } catch(ex) { return; }
             }
         } else {
             return;
@@ -279,17 +284,79 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -356,13 +423,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { setConstant(...JSON.parse(argsList[i])); }
+    try { setConstant(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_setConstant();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_setConstant = cloneInto([
+            [ '(', uBOL_setConstant.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_setConstant);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_setConstant;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

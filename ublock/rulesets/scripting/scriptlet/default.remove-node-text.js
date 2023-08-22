@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,17 +32,21 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_removeNodeText() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_removeNodeText = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"script\",\"Number.isSafeInteger\"]","[\"script\",\".adslot:empty\"]","[\"script\",\"Reflect\"]","[\"script\",\"self == top\"]","[\"script\",\"exdynsrv\"]","[\"script\",\"FingerprintJS\"]","[\"script\",\"document.createElement\"]","[\"script\",\"/myreadCookie|my_inter/\"]","[\"script\",\"ExoLoader\"]","[\"script\",\"fakeAd\"]","[\"script\",\"break;case $\"]","[\"script\",\"Adblock\"]","[\"script\",\"break;case $.\"]","[\"style\",\"text-decoration\"]","[\"script\",\"htmls\"]","[\"script\",\"popUnder\"]","[\"#text\",\"/スポンサーリンク|Sponsored Link|广告/\"]","[\"#text\",\"スポンサーリンク\"]","[\"#text\",\"スポンサードリンク\"]","[\"#text\",\"/^Advertisement$/\"]","[\"script\",\"navigator.brave\"]","[\"script\",\"zfgloaded\"]","[\"script\",\"ai_adb\"]","[\"script\",\"HTMLAllCollection\"]","[\"script\",\"liedetector\"]","[\"script\",\"/window\\\\.open|window\\\\.location\\\\.href|\\\\$\\\\(document\\\\)\\\\.ready.*show/\"]","[\"script\",\"-engaged\"]","[\"script\",\"end_click\"]","[\"script\",\"ad blocker\"]","[\"script\",\"closeAd\"]","[\"script\",\"/modal|popupads/\"]","[\"script\",\"adConfigUrl\"]","[\"script\",\"AdblockDetector\"]","[\"script\",\"/onerror|adsbygoogle/\"]","[\"script\",\"homad\"]","[\"script\",\"/check_if_blocking|XMLHttpRequest|adkiller/\"]"];
+const argsList = [["script","Number.isSafeInteger"],["script","style:last-of-type"],["script","Reflect"],["script","self == top"],["script","exdynsrv"],["script","/onerror|adsbygoogle|popup/"],["script","FingerprintJS"],["script","/check_if_blocking|XMLHttpRequest|adkiller/"],["script","/document\\.createElement|\\.banner-in/"],["script","/block-adb|-0x/"],["script","/myreadCookie|my_inter/"],["script","ExoLoader"],["script","homad"],["script","fakeAd"],["script","break;case $"],["script","Adblock"],["script","break;case $."],["style","text-decoration"],["script","htmls"],["script","googlesyndication"],["script","numberPages"],["script","adBlockDetected"],["script","/window\\.location|Adblock/"],["script","window.top"],["script","adb_detected"],["script","await fetch"],["script","popUnder"],["#text","/スポンサーリンク|Sponsored Link|广告/"],["#text","スポンサーリンク"],["#text","スポンサードリンク"],["#text","/\\[vkExUnit_ad area=(after|before)\\]/"],["#text","【広告】"],["script","leave_recommend"],["#text","/^Advertisement$/"],["script","navigator.brave"],["script","zfgloaded"],["script","ai_adb"],["script","HTMLAllCollection"],["script","liedetector"],["script","/window\\.open|window\\.location\\.href|\\$\\(document\\)\\.ready.*show/"],["script","_name+\"-engaged\""],["script","end_click"],["script","ad blocker"],["script","closeAd"],["script","/modal|popupads/"],["script","/adconfig/i"],["script","AdblockDetector"],["script","is_antiblock_refresh"],["script","/userAgent|adb|htmls/"],["script","myModal"],["script","popunder"],["script","ad_block"],["script","app_checkext"],["script","shown_at"],["script","clientHeight"],["script","/url_key|adHtml/"],["script","pop.target"],["script","adblock"],["script","/RegExp\\(\\'/","condition","RegExp"],["script","/_date|Date()|parseInt|banana|adblock|window.location|getElementsByClassName|google_global_correlator|window.onload|nextElementSibling|getElementsByTagName|parentNode.innerHTML/"],["script","/'.adsbygoogle'|text-danger|warning|Adblock|_0x/"]];
 
-const hostnamesMap = new Map([["apkmirror.com",1],["oko.sh",6],["gosexpod.com",7],["sexo5k.com",8],["mynewsmedia.co",9],["revadvert.com",9],["123enjoy.net",10],["kiemlua.com",11],["kienthucrangmieng.com",14],["coin-free.com",14],["btc25.org",14],["btcbitco.in",14],["btcsatoshi.net",14],["cempakajaya.com",14],["crypto4yu.com",14],["gainl.ink",14],["manofadan.com",14],["readbitcoin.org",14],["wiour.com",14],["bitsmagic.fun",14],["vidello.net",15],["resizer.myct.jp",16],["gametohkenranbu.sakuraweb.com",17],["jisakuhibi.jp",18],["rank1-media.com",18],["ghacks.net",19],["leak.sx",20],["pornleaks.in",20],["songspk2.info",21],["truyentranhfull.net",22],["actvid.com",23],["iwatchfriendsonline.net",24],["suaurl.com",25],["liveandletsfly.com",26],["khoaiphim.com",27],["haafedk2.com",28],["jovemnerd.com.br",29],["nicomanga.com",30],["totalcsgo.com",31],["moviehab.asia",32],["next-episode.net",33],["spiegel.de",34],["searchenginereports.net",35]]);
+const hostnamesMap = new Map([["apkmirror.com",1],["next-episode.net",5],["searchenginereports.net",7],["oko.sh",8],["bigbtc.win",9],["gosexpod.com",10],["sexo5k.com",11],["spiegel.de",12],["mynewsmedia.co",13],["revadvert.com",13],["123enjoy.net",14],["kiemlua.com",15],["ak.sv",16],["atglinks.com",16],["playertv.net",16],["kienthucrangmieng.com",18],["coin-free.com",18],["btc25.org",18],["btcbitco.in",18],["btcsatoshi.net",18],["cempakajaya.com",18],["crypto4yu.com",18],["gainl.ink",18],["manofadan.com",18],["readbitcoin.org",18],["wiour.com",18],["bitsmagic.fun",18],["ourcoincash.xyz",18],["hynews.biz",18],["beatsnoop.com",19],["fetchpik.com",19],["teachoo.com",20],["cryptowidgets.net",21],["carsmania.net",22],["carstopia.net",22],["coinsvalue.net",22],["cookinguide.net",22],["freeoseocheck.com",22],["makeupguide.net",22],["ntuplay.xyz",23],["tii.la",24],["hacoos.com",25],["vidello.net",26],["resizer.myct.jp",27],["gametohkenranbu.sakuraweb.com",28],["jisakuhibi.jp",29],["rank1-media.com",29],["lifematome.blog",30],["fm.sekkaku.net",31],["nft-media.net",32],["ghacks.net",33],["leak.sx",34],["pornleaks.in",34],["songspk2.info",35],["truyentranhfull.net",36],["iwatchfriendsonline.net",38],["suaurl.com",39],["calculator-online.net",40],["howtogeek.com",40],["liveandletsfly.com",40],["milestomemories.com",40],["momtastic.com",40],["nordot.app",40],["qtoptens.com",40],["timesnews.net",40],["khoaiphim.com",41],["haafedk2.com",42],["fordownloader.com",42],["jovemnerd.com.br",43],["nicomanga.com",44],["totalcsgo.com",45],["moviehab.asia",46],["manysex.com",47],["gaminginfos.com",48],["tinxahoivn.com",49],["freeroms.com",50],["forums-fastunlock.com",51],["automoto.it",52],["sekaikomik.bio",53],["codelivly.com",54],["ophim.vip",55],["touguatize.monster",56],["miniwebtool.com",57],["tapewithadblock.org",58],["rjno1.com",59],["zefoy.com",60]]);
 
-const entitiesMap = new Map([["kimcartoon",0],["pahe",2],["soap2day",2],["hqq",3],["pixhost",4],["viprow",5],["eplayvid",10],["cricstream",12],["kickass",13]]);
+const entitiesMap = new Map([["kimcartoon",0],["pahe",2],["soap2day",2],["hqq",3],["waaw",3],["pixhost",4],["viprow",6],["eplayvid",14],["cricstream",16],["kickass",17],["actvid",37]]);
 
 const exceptionsMap = new Map([]);
 
@@ -60,12 +65,12 @@ function replaceNodeTextCore(
     pattern = '',
     replacement = ''
 ) {
-    const reNodeName = patternToRegex(nodeName, 'i');
-    const rePattern = patternToRegex(pattern, 'gms');
-    const extraArgs = getExtraArgs(Array.from(arguments), 3);
-    const shouldLog = scriptletGlobals.has('canDebug') && extraArgs.log || 0;
-    const reCondition = patternToRegex(extraArgs.condition || '', 'gms');
     const safe = safeSelf();
+    const reNodeName = safe.patternToRegex(nodeName, 'i');
+    const rePattern = safe.patternToRegex(pattern, 'gms');
+    const extraArgs = safe.getExtraArgs(Array.from(arguments), 3);
+    const shouldLog = scriptletGlobals.has('canDebug') && extraArgs.log || 0;
+    const reCondition = safe.patternToRegex(extraArgs.condition || '', 'gms');
     const stop = (takeRecord = true) => {
         if ( takeRecord ) {
             handleMutations(observer.takeRecords());
@@ -130,19 +135,6 @@ function replaceNodeTextCore(
     }, 'interactive');
 }
 
-function getExtraArgs(args, offset = 0) {
-    return Object.fromEntries(getExtraArgsEntries(args, offset));
-}
-
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
-    }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
-}
-
 function runAt(fn, when) {
     const intFromReadyState = state => {
         const targets = {
@@ -177,34 +169,83 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
         },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
+        },
     };
     scriptletGlobals.set('safeSelf', safe);
     return safe;
-}
-
-function getExtraArgsEntries(args, offset) {
-    return args.slice(offset).reduce((out, v, i, a) => {
-        if ( (i & 1) === 0 ) {
-            const rawValue = a[i+1];
-            const value = /^\d+$/.test(rawValue)
-                ? parseInt(rawValue, 10)
-                : rawValue;
-            out.push([ a[i], value ]);
-        }
-        return out;
-    }, []);
 }
 
 /******************************************************************************/
@@ -267,13 +308,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { removeNodeText(...JSON.parse(argsList[i])); }
+    try { removeNodeText(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_removeNodeText();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_removeNodeText = cloneInto([
+            [ '(', uBOL_removeNodeText.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_removeNodeText);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_removeNodeText;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_trustedSetLocalStorageItem() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_trustedSetLocalStorageItem = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"CMPList\",\"$currentDate$\"]","[\"cookieConsent\",\"{\\\"spem\\\":1}\"]"];
+const argsList = [["CMPList","$currentDate$"],["cookieConsent","{\"spem\":1}"],["didomi_token","eyJ1c2VyX2lkIjoiIiwiY3JlYXRlZCI6IjIwMjMtMDctMDVUMTY6MTI6MzcuMjA5WiIsInVwZGF0ZWQiOiIyMDIzLTA3LTA1VDE2OjEyOjM3LjIwOVoiLCJ2ZW5kb3JzIjp7ImVuYWJsZWQiOlsidHdpdHRlciIsImdvb2dsZSIsImM6YmF0Y2giLCJjOm5vbmxpIiwiYzp0eXBlZm9ybSJdfSwidmVyc2lvbiI6MiwiYWMiOiIifQ=="]];
 
-const hostnamesMap = new Map([["express.co.uk",0],["aamulehti.fi",1],["etlehti.fi",1],["gloria.fi",1],["hs.fi",1],["hyvaterveys.fi",1],["is.fi",1],["jamsanseutu.fi",1],["janakkalansanomat.fi",1],["kankaanpaanseutu.fi",1],["kmvlehti.fi",1],["kodinkuvalehti.fi",1],["merikarvialehti.fi",1],["nokianuutiset.fi",1],["rannikkoseutu.fi",1],["satakunnankansa.fi",1],["soppa365.fi",1],["suurkeuruu.fi",1],["sydansatakunta.fi",1],["tyrvaansanomat.fi",1],["valkeakoskensanomat.fi",1],["vauva.fi",1]]);
+const hostnamesMap = new Map([["express.co.uk",0],["aamulehti.fi",1],["etlehti.fi",1],["gloria.fi",1],["hs.fi",1],["hyvaterveys.fi",1],["is.fi",1],["jamsanseutu.fi",1],["janakkalansanomat.fi",1],["kankaanpaanseutu.fi",1],["kmvlehti.fi",1],["kodinkuvalehti.fi",1],["merikarvialehti.fi",1],["nokianuutiset.fi",1],["rannikkoseutu.fi",1],["satakunnankansa.fi",1],["soppa365.fi",1],["suurkeuruu.fi",1],["sydansatakunta.fi",1],["tyrvaansanomat.fi",1],["valkeakoskensanomat.fi",1],["vauva.fi",1],["rfi.fr",2]]);
 
 const entitiesMap = new Map([]);
 
@@ -73,9 +78,11 @@ function setLocalStorageItemCore(
             value = Date.now();
         } else if ( value === '$currentDate$' ) {
             value = `${Date()}`;
+        } else if ( value === '$currentISODate$' ) {
+            value = (new Date()).toISOString();
         }
     } else {
-        if ( trustedValues.includes(value) === false ) {
+        if ( trustedValues.includes(value.toLowerCase()) === false ) {
             if ( /^\d+$/.test(value) === false ) { return; }
             value = parseInt(value, 10);
             if ( value > 32767 ) { return; }
@@ -153,13 +160,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { trustedSetLocalStorageItem(...JSON.parse(argsList[i])); }
+    try { trustedSetLocalStorageItem(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_trustedSetLocalStorageItem();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_trustedSetLocalStorageItem = cloneInto([
+            [ '(', uBOL_trustedSetLocalStorageItem.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_trustedSetLocalStorageItem);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_trustedSetLocalStorageItem;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

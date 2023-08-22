@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortOnPropertyWrite() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortOnPropertyWrite = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"adregain_wall\"]","[\"adsBlocked\"]","[\"ai_front\"]","[\"document.oncontextmenu\"]","[\"document.ondragstart\"]","[\"document.onselectstart\"]","[\"fetch\"]","[\"keepAdblock\"]","[\"window.yaProxy\"]","[\"mailruEnabled\"]"];
+const argsList = [["adregain_wall"],["adsBlocked"],["ai_front"],["disableSelection"],["disable_keystrokes"],["document.oncontextmenu"],["document.ondragstart"],["document.onselectstart"],["fetch"],["keepAdblock"],["window.yaProxy"],["mailruEnabled"]];
 
-const hostnamesMap = new Map([["meteoservice.ru",0],["24pdd.ru",1],["doctorrouter.ru",2],["ranobe-novels.ru",2],["fssp.gov.ru",[3,4,5]],["southpark.su",[3,4,5]],["stroi-help.ru",[3,4,5]],["turkcinema.org",[3,4,5]],["phys-kids.com",6],["gamemag.ru",7],["kakprosto.ru",8],["ok.ru",9]]);
+const hostnamesMap = new Map([["meteoservice.ru",0],["24pdd.ru",1],["doctorrouter.ru",2],["ranobe-novels.ru",2],["ufchgu.ru",[3,4]],["fssp.gov.ru",[5,6,7]],["southpark.su",[5,6,7]],["stroi-help.ru",[5,6,7]],["turkcinema.org",[5,6,7]],["phys-kids.com",8],["gamemag.ru",9],["kakprosto.ru",10],["ok.ru",11]]);
 
 const entitiesMap = new Map([]);
 
@@ -143,13 +148,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortOnPropertyWrite(...JSON.parse(argsList[i])); }
+    try { abortOnPropertyWrite(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortOnPropertyWrite();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortOnPropertyWrite = cloneInto([
+            [ '(', uBOL_abortOnPropertyWrite.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortOnPropertyWrite);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortOnPropertyWrite;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

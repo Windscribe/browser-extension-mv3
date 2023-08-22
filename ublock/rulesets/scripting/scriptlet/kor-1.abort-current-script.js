@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortCurrentScript() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortCurrentScript = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"popMagic.init\"]","[\"jQuery\",\"coupang_dont_show_prompty_interval\"]","[\"jQuery.prototype.on\",\"is_coupang\"]","[\"$.prototype.html\",\"/\\\\/images\\\\/[A-z0-9-_]+\\\\.(jpg|gif)/\"]","[\"open\",\"/\\\\/popup\\\\//\"]","[\"bannerpop.popup\"]","[\"window.open\",\"/gears/popup/default.aspx\"]","[\"window.open\",\"notice_view_html.php\"]","[\"$\",\"/danawa-dpg-common-sponsorBanner-/\"]","[\"$\",\"myScript[myScript.length - 1 ]\"]","[\"document.addEventListener\",\"/adscale_slot_id/\"]","[\"ai_adb.init\"]","[\"ai_run_scripts\"]","[\"document.createElement\",\"hasAdblock\"]","[\"chp_ads_blocker_detector\"]","[\"document.getElementById\",\"adblock\"]","[\"$\",\".adsense-area\"]","[\"addEventListener\",\"fuckadblock.min.js\"]","[\"$\",\"#ad_center\"]"];
+const argsList = [["popMagic.init"],["jQuery.prototype.load","is_coupang"],["jQuery","link.coupang.com"],["jQuery","coupang_dont_show_prompty_interval"],["jQuery.prototype.on","is_coupang"],["$.prototype.html","/\\/images\\/[A-z0-9-_]+\\.(jpg|gif)/"],["open","/\\/popup\\//"],["bannerpop.popup"],["window.open","/gears/popup/default.aspx"],["window.open","notice_view_html.php"],["$","/danawa-dpg-common-sponsorBanner-/"],["$","myScript[myScript.length - 1 ]"],["document.addEventListener","/adscale_slot_id/"],["ai_adb.init"],["ai_run_scripts"],["document.createElement","hasAdblock"],["chp_ads_blocker_detector"],["document.getElementById","adblock"],["$",".adsense-area"],["addEventListener","fuckadblock.min.js"],["$","#ad_center"]];
 
-const hostnamesMap = new Map([["watchfreejavonline.co",0],["aannm.cafe24.com",1],["beomil09121.cafe24.com",1],["jiwootube.com",2],["news.ssongyi.co.kr",2],["xn--wh1b751afvcpsb.com",2],["m.humoruniv.com",3],["nesin.com",4],["mjmedi.com",5],["cfnews.kr",6],["sjtoday.kr",7],["dpg.danawa.com",[8,9]],["asdn.kr",10],["healthfeed.co.kr",10],["bikesell.co.kr",10],["remiz.co.kr",10],["enjoytaiwan.co.kr",10],["poketory.com",10],["withukor.com",10],["tistory.com",10],["love.asdn.kr",10],["avjamak.net",10],["untitle.org",10],["seo-marketing.co.kr",10],["plankim.com",11],["jootc.com",12],["ehpub.co.kr",12],["luckyquiz3.blogspot.com",13],["3dpchip.com",14],["ssulwar.com",15],["ilsangt.tistory.com",16],["focuskr.tistory.com",17],["singingdalong.blogspot.com",18]]);
+const hostnamesMap = new Map([["watchfreejavonline.co",0],["smartinpress.com",1],["newsn24.com",1],["yachuk.com",2],["aannm.cafe24.com",3],["beomil09121.cafe24.com",3],["actingbaum.co.kr",4],["picknpicker.com",4],["moneyissues.co.kr",4],["sotrychatter.com",4],["skysky138.com",4],["keela.co.kr",4],["jiwootube.com",4],["news.ssongyi.co.kr",4],["xn--wh1b751afvcpsb.com",4],["m.humoruniv.com",5],["nesin.com",6],["mjmedi.com",7],["cfnews.kr",8],["sjtoday.kr",9],["dpg.danawa.com",[10,11]],["asdn.kr",12],["healthfeed.co.kr",12],["bikesell.co.kr",12],["remiz.co.kr",12],["enjoytaiwan.co.kr",12],["poketory.com",12],["withukor.com",12],["tistory.com",12],["love.asdn.kr",12],["avjamak.net",12],["untitle.org",12],["seo-marketing.co.kr",12],["plankim.com",13],["jootc.com",14],["ehpub.co.kr",14],["luckyquiz3.blogspot.com",15],["3dpchip.com",16],["ssulwar.com",17],["ilsangt.tistory.com",18],["focuskr.tistory.com",19],["singingdalong.blogspot.com",20]]);
 
 const entitiesMap = new Map([]);
 
@@ -47,30 +52,23 @@ const exceptionsMap = new Map([]);
 
 /******************************************************************************/
 
-function abortCurrentScript(
-    arg1,
-    arg2,
-    arg3
-) {
+function abortCurrentScript(...args) {
     runAtHtmlElement(( ) => {
-        abortCurrentScriptCore(arg1, arg2, arg3);
+        abortCurrentScriptCore(...args);
     });
 }
 
 function abortCurrentScriptCore(
-    arg1 = '',
-    arg2 = '',
-    arg3 = ''
+    target = '',
+    needle = '',
+    context = ''
 ) {
-    const details = typeof arg1 !== 'object'
-        ? { target: arg1, needle: arg2, context: arg3 }
-        : arg1;
-    const { target = '', needle = '', context = '' } = details;
     if ( typeof target !== 'string' ) { return; }
     if ( target === '' ) { return; }
     const safe = safeSelf();
-    const reNeedle = patternToRegex(needle);
-    const reContext = patternToRegex(context);
+    const reNeedle = safe.patternToRegex(needle);
+    const reContext = safe.patternToRegex(context);
+    const extraArgs = safe.getExtraArgs(Array.from(arguments), 3);
     const thisScript = document.currentScript;
     const chain = target.split('.');
     let owner = window;
@@ -91,8 +89,8 @@ function abortCurrentScriptCore(
         value = owner[prop];
         desc = undefined;
     }
-    const log = shouldLog(details);
-    const debug = shouldDebug(details);
+    const log = shouldLog(extraArgs);
+    const debug = shouldDebug(extraArgs);
     const exceptionToken = getExceptionToken();
     const scriptTexts = new WeakMap();
     const getScriptText = elem => {
@@ -163,15 +161,6 @@ function runAtHtmlElement(fn) {
     observer.observe(document, { childList: true });
 }
 
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
-    }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
-}
-
 function getExceptionToken() {
     const token =
         String.fromCharCode(Date.now() % 26 + 97) +
@@ -191,17 +180,79 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
         },
     };
     scriptletGlobals.set('safeSelf', safe);
@@ -278,13 +329,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortCurrentScript(...JSON.parse(argsList[i])); }
+    try { abortCurrentScript(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortCurrentScript();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortCurrentScript = cloneInto([
+            [ '(', uBOL_abortCurrentScript.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortCurrentScript);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortCurrentScript;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

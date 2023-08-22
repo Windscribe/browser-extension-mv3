@@ -20,7 +20,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "\\/img\\/(160600|72890)\\.png"
   },
-  "id": 282
+  "id": 287
  },
  {
   "action": {
@@ -33,7 +33,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "qvncc.tvcanales.cf\\/js\\/[_-a-zA-Z0-9]{5,}.js"
   },
-  "id": 345
+  "id": 350
  },
  {
   "action": {
@@ -49,7 +49,7 @@
     "script"
    ]
   },
-  "id": 629
+  "id": 634
  },
  {
   "action": {
@@ -65,7 +65,7 @@
     "script"
    ]
   },
-  "id": 630
+  "id": 635
  },
  {
   "action": {
@@ -81,6 +81,6 @@
     "script"
    ]
   },
-  "id": 631
+  "id": 636
  }
 ]

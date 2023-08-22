@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,13 +32,17 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_adflyDefuser() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_adflyDefuser = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[]"];
+const argsList = [[]];
 
 const hostnamesMap = new Map([["coaptoov.net",0],["bee.anime-loads.org",0],["gdanstum.net",0],["taraa.xyz",0],["mineiroloko.co",0],["aporasal.net",0],["hurirk.net",0],["regecish.net",0],["zeybui.net",0],["download.cracksurl.com",0],["darenjarvis.pro",0],["xervoo.net",0]]);
 
@@ -167,13 +172,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { adflyDefuser(...JSON.parse(argsList[i])); }
+    try { adflyDefuser(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_adflyDefuser();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_adflyDefuser = cloneInto([
+            [ '(', uBOL_adflyDefuser.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_adflyDefuser);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_adflyDefuser;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

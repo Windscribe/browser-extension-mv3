@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,13 +32,17 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortOnPropertyRead() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortOnPropertyRead = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"__cmpGdprAppliesGlobally\"]","[\"cookieconsent.Popup\"]","[\"cookieman\"]","[\"tancarModal\"]"];
+const argsList = [["__cmpGdprAppliesGlobally"],["cookieconsent.Popup"],["cookieman"],["tancarModal"]];
 
 const hostnamesMap = new Map([["al.com",0],["allkpop.com",0],["calendarpedia.co.uk",0],["ccn.com",0],["cinemablend.com",0],["cleveland.com",0],["comicsands.com",0],["duffelblog.com",0],["foxvalleyfoodie.com",0],["gamepur.com",0],["gamerevolution.com",0],["interestingengineering.com",0],["keengamer.com",0],["listenonrepeat.com",0],["mandatory.com",0],["merriam-webster.com",0],["mlive.com",0],["musicfeeds.com.au",0],["newatlas.com",0],["pgatour.com",0],["playstationlifestyle.net",0],["readlightnovel.org",0],["secondnexus.com",0],["sevenforums.com",0],["sport24.co.za",0],["sportsnaut.com",0],["superherohype.com",0],["thefashionspot.com",0],["theodysseyonline.com",0],["toledoblade.com",0],["totalbeauty.com",0],["westernjournal.com",0],["windows101tricks.com",0],["claritin.ca",1],["podleze-piekielko.pl",2],["deutsche-bank.es",3]]);
 
@@ -165,13 +170,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortOnPropertyRead(...JSON.parse(argsList[i])); }
+    try { abortOnPropertyRead(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortOnPropertyRead();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortOnPropertyRead = cloneInto([
+            [ '(', uBOL_abortOnPropertyRead.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortOnPropertyRead);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortOnPropertyRead;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

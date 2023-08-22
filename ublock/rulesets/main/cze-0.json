@@ -1059,6 +1059,17 @@
   },
   "condition": {
    "domainType": "thirdParty",
+   "isUrlFilterCaseSensitive": false,
+   "urlFilter": "||storage.googleapis.com/tivio-production.appspot.com/ads/"
+  },
+  "id": 99
+ },
+ {
+  "action": {
+   "type": "block"
+  },
+  "condition": {
+   "domainType": "thirdParty",
    "requestDomains": [
     "001shop.cz",
     "10.im.cz",
@@ -1133,7 +1144,7 @@
     "zumail.cz"
    ]
   },
-  "id": 99
+  "id": 100
  },
  {
   "action": {
@@ -1143,7 +1154,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "-reklama.cz"
   },
-  "id": 100
+  "id": 101
  },
  {
   "action": {
@@ -1153,7 +1164,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||heureka.*/crossdomain.xml"
   },
-  "id": 101
+  "id": 102
  },
  {
   "action": {
@@ -1163,7 +1174,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||heureka.*/direct/vyvoj-cen/"
   },
-  "id": 102
+  "id": 103
  },
  {
   "action": {
@@ -1173,7 +1184,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||iboys.cz/advert-list.php"
   },
-  "id": 103
+  "id": 104
  },
  {
   "action": {
@@ -1186,7 +1197,7 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||static.cz.prg.cmestatic.com/static/cz/shared/js/advert.js"
   },
-  "id": 104
+  "id": 105
  },
  {
   "action": {
@@ -1196,16 +1207,6 @@
    "isUrlFilterCaseSensitive": false,
    "urlFilter": "||warforum.cz/ads.js"
   },
-  "id": 105
- },
- {
-  "action": {
-   "type": "allow"
-  },
-  "condition": {
-   "isUrlFilterCaseSensitive": false,
-   "urlFilter": "||sledujserialy.to/theme/js/ads.js"
-  },
   "id": 106
  },
  {
@@ -1214,10 +1215,7 @@
   },
   "condition": {
    "isUrlFilterCaseSensitive": false,
-   "resourceTypes": [
-    "image"
-   ],
-   "urlFilter": "||opti.cz/wp-content/uploads/*/reklama_*.jpg"
+   "urlFilter": "||sledujserialy.to/theme/js/ads.js"
   },
   "id": 107
  },
@@ -1230,9 +1228,22 @@
    "resourceTypes": [
     "image"
    ],
-   "urlFilter": "||optika-opti.cz/wp-content/uploads/*/reklama_*.jpg"
+   "urlFilter": "||opti.cz/wp-content/uploads/*/reklama_*.jpg"
   },
   "id": 108
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "image"
+   ],
+   "urlFilter": "||optika-opti.cz/wp-content/uploads/*/reklama_*.jpg"
+  },
+  "id": 109
  },
  {
   "action": {
@@ -1248,7 +1259,7 @@
    ],
    "urlFilter": "||decko.ceskatelevize.cz/cms/layouts/js/analytics.js"
   },
-  "id": 109
+  "id": 110
  },
  {
   "action": {
@@ -1264,7 +1275,7 @@
    ],
    "urlFilter": "||netusers.cz/js/"
   },
-  "id": 110
+  "id": 111
  },
  {
   "action": {
@@ -1277,7 +1288,31 @@
    ],
    "urlFilter": "||api.youradio.cz/v2/ads/preroll"
   },
-  "id": 111
+  "id": 112
+ },
+ {
+  "action": {
+   "type": "allow"
+  },
+  "condition": {
+   "initiatorDomains": [
+    "firmy.cz",
+    "garaz.cz",
+    "novinky.cz",
+    "sbazar.cz",
+    "seznam.cz",
+    "seznamzpravy.cz",
+    "sport.cz",
+    "stream.cz",
+    "super.cz"
+   ],
+   "isUrlFilterCaseSensitive": false,
+   "resourceTypes": [
+    "xmlhttprequest"
+   ],
+   "urlFilter": ".png"
+  },
+  "id": 113
  },
  {
   "action": {
@@ -1293,7 +1328,7 @@
    ],
    "urlFilter": "||admedia.joj.sk/outstream/embed?iframe"
   },
-  "id": 112
+  "id": 114
  },
  {
   "action": {
@@ -1305,6 +1340,6 @@
     "www.top-reklama.sk"
    ]
   },
-  "id": 113
+  "id": 115
  }
 ]

@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,15 +32,19 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_removeNodeText() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_removeNodeText = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"style\",\"/body[\\\\s]{1}{[\\\\s][\\\\t][\\\\t]*background-color:|body{background-color:/\"]","[\"script\",\"\\\"Shadow\"]"];
+const argsList = [["script","AdBlocker"],["script","hidemy.name"],["style","/body[\\s]{1}{[\\s][\\t][\\t]*background-color:|body{background-color:/"],["script","\"Shadow"]];
 
-const hostnamesMap = new Map([["root-nation.com",0],["avtovod.com.ua",1],["bigmir.net",1],["buhgalter.com.ua",1],["buhgalter911.com",1],["censor.net",1],["dengi.ua",1],["ditey.com",1],["epravda.com.ua",1],["eurointegration.com.ua",1],["facenews.ua",1],["gazeta.ua",1],["gismeteo.ua",1],["gorod.dp.ua",1],["hvylya.net",1],["i.ua",1],["inforesist.org",1],["isport.ua",1],["ivona.ua",1],["kolobok.ua",1],["kriminal.tv",1],["meteo.ua",1],["meteofor.com.ua",1],["nnovosti.info",1],["nv.ua",1],["panno4ka.net",1],["pogodaua.com",1],["pravda.com.ua",1],["real-vin.com",1],["smak.ua",1],["stravy.net",1],["tochka.net",1],["tv.ua",1],["viva.ua",1],["vsetv.com",1],["www.ukr.net",1]]);
+const hostnamesMap = new Map([["sports.ru",0],["2ip.ua",1],["root-nation.com",2],["avtovod.com.ua",3],["bigmir.net",3],["buhgalter.com.ua",3],["buhgalter911.com",3],["censor.net",3],["dengi.ua",3],["ditey.com",3],["epravda.com.ua",3],["eurointegration.com.ua",3],["facenews.ua",3],["gazeta.ua",3],["gismeteo.ua",3],["gorod.dp.ua",3],["hvylya.net",3],["i.ua",3],["inforesist.org",3],["isport.ua",3],["ivona.ua",3],["kolobok.ua",3],["kriminal.tv",3],["meteo.ua",3],["meteofor.com.ua",3],["nnovosti.info",3],["nv.ua",3],["panno4ka.net",3],["pogodaua.com",3],["pravda.com.ua",3],["real-vin.com",3],["smak.ua",3],["stravy.net",3],["tochka.net",3],["tv.ua",3],["viva.ua",3],["vsetv.com",3],["www.ukr.net",3]]);
 
 const entitiesMap = new Map([]);
 
@@ -60,12 +65,12 @@ function replaceNodeTextCore(
     pattern = '',
     replacement = ''
 ) {
-    const reNodeName = patternToRegex(nodeName, 'i');
-    const rePattern = patternToRegex(pattern, 'gms');
-    const extraArgs = getExtraArgs(Array.from(arguments), 3);
-    const shouldLog = scriptletGlobals.has('canDebug') && extraArgs.log || 0;
-    const reCondition = patternToRegex(extraArgs.condition || '', 'gms');
     const safe = safeSelf();
+    const reNodeName = safe.patternToRegex(nodeName, 'i');
+    const rePattern = safe.patternToRegex(pattern, 'gms');
+    const extraArgs = safe.getExtraArgs(Array.from(arguments), 3);
+    const shouldLog = scriptletGlobals.has('canDebug') && extraArgs.log || 0;
+    const reCondition = safe.patternToRegex(extraArgs.condition || '', 'gms');
     const stop = (takeRecord = true) => {
         if ( takeRecord ) {
             handleMutations(observer.takeRecords());
@@ -130,19 +135,6 @@ function replaceNodeTextCore(
     }, 'interactive');
 }
 
-function getExtraArgs(args, offset = 0) {
-    return Object.fromEntries(getExtraArgsEntries(args, offset));
-}
-
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
-    }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
-}
-
 function runAt(fn, when) {
     const intFromReadyState = state => {
         const targets = {
@@ -177,34 +169,83 @@ function safeSelf() {
         return scriptletGlobals.get('safeSelf');
     }
     const safe = {
+        'Error': self.Error,
         'Object_defineProperty': Object.defineProperty.bind(Object),
         'RegExp': self.RegExp,
         'RegExp_test': self.RegExp.prototype.test,
         'RegExp_exec': self.RegExp.prototype.exec,
         'addEventListener': self.EventTarget.prototype.addEventListener,
         'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
         'log': console.log.bind(console),
-        'uboLog': function(...args) {
+        uboLog(...args) {
             if ( args.length === 0 ) { return; }
             if ( `${args[0]}` === '' ) { return; }
             this.log('[uBO]', ...args);
         },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
+        },
     };
     scriptletGlobals.set('safeSelf', safe);
     return safe;
-}
-
-function getExtraArgsEntries(args, offset) {
-    return args.slice(offset).reduce((out, v, i, a) => {
-        if ( (i & 1) === 0 ) {
-            const rawValue = a[i+1];
-            const value = /^\d+$/.test(rawValue)
-                ? parseInt(rawValue, 10)
-                : rawValue;
-            out.push([ a[i], value ]);
-        }
-        return out;
-    }, []);
 }
 
 /******************************************************************************/
@@ -267,13 +308,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { removeNodeText(...JSON.parse(argsList[i])); }
+    try { removeNodeText(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_removeNodeText();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_removeNodeText = cloneInto([
+            [ '(', uBOL_removeNodeText.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_removeNodeText);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_removeNodeText;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

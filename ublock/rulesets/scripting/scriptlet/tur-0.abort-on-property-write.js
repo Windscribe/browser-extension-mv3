@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,13 +32,17 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortOnPropertyWrite() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortOnPropertyWrite = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"ai_front\"]","[\"ipsDebug\"]","[\"adregain_wall\"]","[\"rInt\"]","[\"onPopUnderLoaded\"]","[\"window.onload\"]","[\"coreWorker\"]","[\"popcent_config\"]","[\"yeniSekmeAdresi\"]","[\"adx\"]"];
+const argsList = [["ai_front"],["ipsDebug"],["adregain_wall"],["rInt"],["onPopUnderLoaded"],["window.onload"],["coreWorker"],["popcent_config"],["yeniSekmeAdresi"],["adx"]];
 
 const hostnamesMap = new Map([["okanuzun.com",0],["ipbdestek.com",1],["memoryhackers.org",2],["r10.net",3],["birasyadizi.com",4],["seyredeger.com",4],["indirmedenfilmizle.vip",4],["dizilost.com",[4,5]],["dizilla2.org",6],["xbox360torrent.com",7],["mixizle.com",8],["fullhdabifilm.com",8],["hdmixfilim.com",8],["4kfilmizlesene.xyz",9]]);
 
@@ -143,13 +148,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortOnPropertyWrite(...JSON.parse(argsList[i])); }
+    try { abortOnPropertyWrite(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortOnPropertyWrite();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortOnPropertyWrite = cloneInto([
+            [ '(', uBOL_abortOnPropertyWrite.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortOnPropertyWrite);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortOnPropertyWrite;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

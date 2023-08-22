@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,13 +32,17 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_abortOnPropertyRead() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_abortOnPropertyRead = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"btoa\"]","[\"isMobileasokita\"]","[\"googletag.cmd\"]","[\"mdp_deblocker\"]"];
+const argsList = [["btoa"],["isMobileasokita"],["googletag.cmd"],["mdp_deblocker"]];
 
 const hostnamesMap = new Map([["6days.walla.co.il",0],["animals.walla.co.il",0],["astrology.walla.co.il",0],["b.walla.co.il",0],["buzzit.walla.co.il",0],["cars.walla.co.il",0],["celebs.walla.co.il",0],["e.walla.co.il",0],["elections.walla.co.il",0],["euro.walla.co.il",0],["fashion.walla.co.il",0],["finance.walla.co.il",0],["food.walla.co.il",0],["healthy.walla.co.il",0],["home.walla.co.il",0],["judaism.walla.co.il",0],["kids.walla.co.il",0],["mag.walla.co.il",0],["movies.walla.co.il",0],["mundial.walla.co.il",0],["nadlan.walla.co.il",0],["news.walla.co.il",0],["nick.walla.co.il",0],["olympics.walla.co.il",0],["sports.walla.co.il",0],["tags.walla.co.il",0],["tech.walla.co.il",0],["travel.walla.co.il",0],["tv-guide.walla.co.il",0],["usaelections.walla.co.il",0],["viva.walla.co.il",0],["vod.walla.co.il",0],["weather.walla.co.il",0],["www.walla.co.il",0],["walla.co.il",[1,2]],["sheee.co.il",2],["jmusic.me",3]]);
 
@@ -165,13 +170,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { abortOnPropertyRead(...JSON.parse(argsList[i])); }
+    try { abortOnPropertyRead(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_abortOnPropertyRead();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_abortOnPropertyRead = cloneInto([
+            [ '(', uBOL_abortOnPropertyRead.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_abortOnPropertyRead);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_abortOnPropertyRead;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

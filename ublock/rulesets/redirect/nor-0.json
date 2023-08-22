@@ -16,7 +16,7 @@
    ],
    "urlFilter": "||acdn.adnxs.com/ast/ast.js"
   },
-  "id": 474,
+  "id": 489,
   "priority": 12
  },
  {
@@ -36,7 +36,7 @@
    ],
    "urlFilter": "||damoh.vgtv.no/hic_qos"
   },
-  "id": 475,
+  "id": 490,
   "priority": 2
  },
  {
@@ -56,7 +56,7 @@
    ],
    "urlFilter": "||googletagservices.com/tag/js/gpt.js"
   },
-  "id": 476,
+  "id": 491,
   "priority": 12
  },
  {
@@ -77,7 +77,7 @@
     "media"
    ]
   },
-  "id": 478,
+  "id": 493,
   "priority": 2
  },
  {
@@ -97,7 +97,7 @@
    ],
    "urlFilter": "||freewheel-mtgx-tv.akamaized.net/*.mp4"
   },
-  "id": 479,
+  "id": 494,
   "priority": 2
  }
 ]

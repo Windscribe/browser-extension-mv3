@@ -21,6 +21,7 @@
 */
 
 /* jshint esversion:11 */
+/* global cloneInto */
 
 'use strict';
 
@@ -31,17 +32,21 @@
 // Important!
 // Isolate from global scope
 
-(function uBOL_noSetTimeoutIf() {
+// Start of local scope
+(( ) => {
 
 /******************************************************************************/
 
+// Start of code to inject
+const uBOL_noSetTimeoutIf = function() {
+
 const scriptletGlobals = new Map(); // jshint ignore: line
 
-const argsList = ["[\"0===o.offsetLeft&&0===o.offsetTop\"]","[\"$('body').empty().append\"]","[\"kanews-modal-adblock\",\"5000\"]","[\"test.offsetHeight\"]","[\"/filmizletv\\\\..*\\\\/uploads\\\\/Psk\\\\//\"]","[\"wt()\",\"100\"]"];
+const argsList = [["0===o.offsetLeft&&0===o.offsetTop"],["ad_block_detected"],["$('body').empty().append"],["kanews-modal-adblock","5000"],["test.offsetHeight"],["/filmizletv\\..*\\/uploads\\/Psk\\//"],["wt()","100"]];
 
-const hostnamesMap = new Map([["zamaninvarken.com",0],["kredi.biz.tr",0],["kriptoradar.com",0],["morlevha.com",0],["bakimlikadin.net",0],["korsanedebiyat.com",0],["ozbeceriksizler.co",0],["genelpara.com",0],["azbuz.org",0],["mustafabukulmez.com",0],["kuponuna143.com",1],["kuponuna144.com",1],["kuponuna145.com",1],["kuponuna146.com",1],["kuponuna147.com",1],["kuponuna148.com",1],["kuponuna149.com",1],["kuponuna150.com",1],["kuponuna151.com",1],["kuponuna152.com",1],["kuponuna153.com",1],["kuponuna154.com",1],["kuponuna155.com",1],["kuponuna156.com",1],["kuponuna157.com",1],["kuponuna158.com",1],["kuponuna159.com",1],["kuponuna160.com",1],["kuponuna161.com",1],["kuponuna162.com",1],["kuponuna163.com",1],["kuponuna164.com",1],["kuponuna165.com",1],["kuponuna166.com",1],["kuponuna167.com",1],["kuponuna168.com",1],["kuponuna169.com",1],["kuponuna170.com",1],["veryansintv.com",2],["apathe.net",3],["filmizletv2.com",4],["filmizletv3.com",4],["filmizletv4.com",4],["filmizletv5.com",4],["filmizletv6.com",4],["filmizletv7.com",4],["filmizletv8.com",4],["filmizletv9.com",4],["filmizletv10.com",4],["filmizletv11.com",4],["filmizletv12.com",4],["filmizletv13.com",4],["filmizletv14.com",4],["filmizletv15.com",4],["filmizletv16.com",4],["filmizletv17.com",4],["filmizletv18.com",4],["filmizletv19.com",4],["filmizletv20.com",4],["eksisozluk1923.com",5]]);
+const hostnamesMap = new Map([["zamaninvarken.com",0],["kredi.biz.tr",0],["kriptoradar.com",0],["morlevha.com",0],["bakimlikadin.net",0],["korsanedebiyat.com",0],["ozbeceriksizler.co",0],["genelpara.com",0],["azbuz.org",0],["mustafabukulmez.com",0],["intekno.net",1],["kuponuna148.com",2],["kuponuna149.com",2],["kuponuna150.com",2],["kuponuna151.com",2],["kuponuna152.com",2],["kuponuna153.com",2],["kuponuna154.com",2],["kuponuna155.com",2],["kuponuna156.com",2],["kuponuna157.com",2],["kuponuna158.com",2],["kuponuna159.com",2],["kuponuna160.com",2],["kuponuna161.com",2],["kuponuna162.com",2],["kuponuna163.com",2],["kuponuna164.com",2],["kuponuna165.com",2],["kuponuna166.com",2],["kuponuna167.com",2],["kuponuna168.com",2],["kuponuna169.com",2],["kuponuna170.com",2],["veryansintv.com",3],["apathe.net",4],["filmizletv2.com",5],["filmizletv3.com",5],["filmizletv4.com",5],["filmizletv5.com",5],["filmizletv6.com",5],["filmizletv7.com",5],["filmizletv8.com",5],["filmizletv9.com",5],["filmizletv10.com",5],["filmizletv11.com",5],["filmizletv12.com",5],["filmizletv13.com",5],["filmizletv14.com",5],["filmizletv15.com",5],["filmizletv16.com",5],["filmizletv17.com",5],["filmizletv18.com",5],["filmizletv19.com",5],["filmizletv20.com",5],["eksisozluk1923.com",6]]);
 
-const entitiesMap = new Map([["filmizletv",4]]);
+const entitiesMap = new Map([["filmizletv",5]]);
 
 const exceptionsMap = new Map([]);
 
@@ -52,6 +57,7 @@ function noSetTimeoutIf(
     delay = ''
 ) {
     if ( typeof needle !== 'string' ) { return; }
+    const safe = safeSelf();
     const needleNot = needle.charAt(0) === '!';
     if ( needleNot ) { needle = needle.slice(1); }
     if ( delay === '' ) { delay = undefined; }
@@ -64,8 +70,8 @@ function noSetTimeoutIf(
     const log = needleNot === false && needle === '' && delay === undefined
         ? console.log
         : undefined;
-    const reNeedle = patternToRegex(needle);
-    window.setTimeout = new Proxy(window.setTimeout, {
+    const reNeedle = safe.patternToRegex(needle);
+    self.setTimeout = new Proxy(self.setTimeout, {
         apply: function(target, thisArg, args) {
             const a = String(args[0]);
             const b = args[1];
@@ -83,7 +89,7 @@ function noSetTimeoutIf(
                     args[0] = function(){};
                 }
             }
-            return target.apply(thisArg, args);
+            return Reflect.apply(target, thisArg, args);
         },
         get(target, prop, receiver) {
             if ( prop === 'toString' ) {
@@ -94,13 +100,88 @@ function noSetTimeoutIf(
     });
 }
 
-function patternToRegex(pattern, flags = undefined) {
-    if ( pattern === '' ) { return /^/; }
-    const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
-    if ( match !== null ) {
-        return new RegExp(match[1], match[2] || flags);
+function safeSelf() {
+    if ( scriptletGlobals.has('safeSelf') ) {
+        return scriptletGlobals.get('safeSelf');
     }
-    return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+    const safe = {
+        'Error': self.Error,
+        'Object_defineProperty': Object.defineProperty.bind(Object),
+        'RegExp': self.RegExp,
+        'RegExp_test': self.RegExp.prototype.test,
+        'RegExp_exec': self.RegExp.prototype.exec,
+        'addEventListener': self.EventTarget.prototype.addEventListener,
+        'removeEventListener': self.EventTarget.prototype.removeEventListener,
+        'fetch': self.fetch,
+        'jsonParse': self.JSON.parse.bind(self.JSON),
+        'jsonStringify': self.JSON.stringify.bind(self.JSON),
+        'log': console.log.bind(console),
+        uboLog(...args) {
+            if ( args.length === 0 ) { return; }
+            if ( `${args[0]}` === '' ) { return; }
+            this.log('[uBO]', ...args);
+        },
+        initPattern(pattern, options = {}) {
+            if ( pattern === '' ) {
+                return { matchAll: true };
+            }
+            const expect = (options.canNegate === true && pattern.startsWith('!') === false);
+            if ( expect === false ) {
+                pattern = pattern.slice(1);
+            }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match !== null ) {
+                return {
+                    pattern,
+                    re: new this.RegExp(
+                        match[1],
+                        match[2] || options.flags
+                    ),
+                    expect,
+                };
+            }
+            return {
+                pattern,
+                re: new this.RegExp(pattern.replace(
+                    /[.*+?^${}()|[\]\\]/g, '\\$&'),
+                    options.flags
+                ),
+                expect,
+            };
+        },
+        testPattern(details, haystack) {
+            if ( details.matchAll ) { return true; }
+            return this.RegExp_test.call(details.re, haystack) === details.expect;
+        },
+        patternToRegex(pattern, flags = undefined) {
+            if ( pattern === '' ) { return /^/; }
+            const match = /^\/(.+)\/([gimsu]*)$/.exec(pattern);
+            if ( match === null ) {
+                return new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            }
+            try {
+                return new RegExp(match[1], match[2] || flags);
+            }
+            catch(ex) {
+            }
+            return /^/;
+        },
+        getExtraArgs(args, offset = 0) {
+            const entries = args.slice(offset).reduce((out, v, i, a) => {
+                if ( (i & 1) === 0 ) {
+                    const rawValue = a[i+1];
+                    const value = /^\d+$/.test(rawValue)
+                        ? parseInt(rawValue, 10)
+                        : rawValue;
+                    out.push([ a[i], value ]);
+                }
+                return out;
+            }, []);
+            return Object.fromEntries(entries);
+        },
+    };
+    scriptletGlobals.set('safeSelf', safe);
+    return safe;
 }
 
 /******************************************************************************/
@@ -163,13 +244,58 @@ if ( entitiesMap.size !== 0 ) {
 
 // Apply scriplets
 for ( const i of todoIndices ) {
-    try { noSetTimeoutIf(...JSON.parse(argsList[i])); }
+    try { noSetTimeoutIf(...argsList[i]); }
     catch(ex) {}
 }
 argsList.length = 0;
 
 /******************************************************************************/
 
+};
+// End of code to inject
+
+/******************************************************************************/
+
+// Inject code
+
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1736575
+//   `MAIN` world not yet supported in Firefox, so we inject the code into
+//   'MAIN' ourself when enviroment in Firefox.
+
+// Not Firefox
+if ( typeof wrappedJSObject !== 'object' ) {
+    return uBOL_noSetTimeoutIf();
+}
+
+// Firefox
+{
+    const page = self.wrappedJSObject;
+    let script, url;
+    try {
+        page.uBOL_noSetTimeoutIf = cloneInto([
+            [ '(', uBOL_noSetTimeoutIf.toString(), ')();' ],
+            { type: 'text/javascript; charset=utf-8' },
+        ], self);
+        const blob = new page.Blob(...page.uBOL_noSetTimeoutIf);
+        url = page.URL.createObjectURL(blob);
+        const doc = page.document;
+        script = doc.createElement('script');
+        script.async = false;
+        script.src = url;
+        (doc.head || doc.documentElement || doc).append(script);
+    } catch (ex) {
+        console.error(ex);
+    }
+    if ( url ) {
+        if ( script ) { script.remove(); }
+        page.URL.revokeObjectURL(url);
+    }
+    delete page.uBOL_noSetTimeoutIf;
+}
+
+/******************************************************************************/
+
+// End of local scope
 })();
 
 /******************************************************************************/

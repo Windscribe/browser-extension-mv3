@@ -13,7 +13,7 @@
     "image"
    ]
   },
-  "id": 561
+  "id": 527
  },
  {
   "action": {
@@ -38,7 +38,7 @@
     "sub_frame"
    ]
   },
-  "id": 563
+  "id": 529
  },
  {
   "action": {
@@ -58,7 +58,7 @@
     "script"
    ]
   },
-  "id": 568
+  "id": 534
  },
  {
   "action": {
@@ -74,7 +74,7 @@
     "script"
    ]
   },
-  "id": 569
+  "id": 535
  },
  {
   "action": {
@@ -108,6 +108,7 @@
     "pelisplushd.nu",
     "pirlotv.fr",
     "pirlotvonline.org",
+    "pormega.com",
     "pornotorrent.es",
     "pornstarsyfamosas.es",
     "rojadirectaenvivo.club",
@@ -125,7 +126,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.com\\/.*"
   },
-  "id": 590
+  "id": 554
  },
  {
   "action": {
@@ -144,6 +145,7 @@
     "gnula.nu",
     "gnula.se",
     "nickelodeonplus.online",
+    "pormega.com",
     "seriesperu.com",
     "telenovelas-turcas.com.es",
     "verificandoarch2.blogspot.com",
@@ -152,7 +154,7 @@
    "isUrlFilterCaseSensitive": false,
    "regexFilter": "^https?:\\/\\/[0-9a-z]{8,}\\.xyz\\/.*"
   },
-  "id": 591
+  "id": 555
  },
  {
   "action": {
@@ -166,7 +168,7 @@
     "script"
    ]
   },
-  "id": 595
+  "id": 559
  },
  {
   "action": {
@@ -180,6 +182,6 @@
     "script"
    ]
   },
-  "id": 596
+  "id": 560
  }
 ]

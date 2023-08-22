@@ -33,7 +33,7 @@
 
 // irn-0
 
-const toImport = [[4298988,".zxc"],[687178,".zxc-m"],[11918799,".zxc-stik"],[5194391,".zxc_home"],[5255191,".zxc_news"],[5323427,".zxc_left"],[14353422,".zxc_matni"],[10341886,".zxc-mobile"],[7765280,".zxc-header-zxc"],[7634644,".zxc-visible-fixed"],[13791830,".zxc-padding-custom"],[15329921,".main-zxc"],[15974757,".home-zxc"],[956828,".top_zxc"],[5820437,".side_txt_zxc"],[5035099,"#kaprila_linktable"]];
+const toImport = [[4298988,".zxc"],[687178,".zxc-m"],[11918799,".zxc-stik"],[5194391,".zxc_home"],[5255191,".zxc_news"],[5323427,".zxc_left"],[14353422,".zxc_matni"],[10341886,".zxc-mobile"],[7765280,".zxc-header-zxc"],[7634644,".zxc-visible-fixed"],[13791830,".zxc-padding-custom"],[15329921,".main-zxc"],[15974757,".home-zxc"],[956828,".top_zxc"],[14368092,".zxc_top"],[5820437,".side_txt_zxc"],[5035099,"#kaprila_linktable"]];
 
 const genericSelectorMap = self.genericSelectorMap || new Map();
 
