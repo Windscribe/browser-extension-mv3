@@ -22,7 +22,7 @@ export async function initializeWrappedStore(): Promise<StoreType> {
    * in Chrome.store.local, clearState will remove any older cache versions
    * preventing us from exceeding its max quota allocation.
    */
-  await browserApi.clearStateInStorage()
+  // await browserApi.clearStateInStorage()
 
   await browserApi.saveStateInStorage(store.getState())
   store.subscribe(async () => {
