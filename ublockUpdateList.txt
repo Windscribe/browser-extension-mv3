@@ -14,3 +14,9 @@
 - comment out openOptionsPage in background.js
 
 - const out = [ 'default', 'cname-trackers' ]; to const out = [ ]; in ruleset-manager
+
+-  remove in settings.js:
+
+    await browser.permissions.remove({
+        origins: [ '<all_urls>' ]
+    });

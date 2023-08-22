@@ -250,9 +250,9 @@ async function onFilteringModeChange(ev) {
 
     switch ( newLevel ) {
     case 1: { // Revoke broad permissions
-        await browser.permissions.remove({
-            origins: [ '<all_urls>' ]
-        });
+        // await browser.permissions.remove({
+        //     origins: [ '<all_urls>' ]
+        // });
         cachedRulesetData.defaultFilteringMode = 1;
         break;
     }
