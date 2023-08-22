@@ -5,7 +5,6 @@ import { ENVS } from 'utils/constants'
 import { sendDebugLog } from 'services/debugLog'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
-import { setAutoConnect } from 'state/slices/connection'
 import { Header, OptionBox, ToggleSwitch, ScrollableBox } from 'components'
 import { showDebugContextMenu } from 'state/slices/contextMenu'
 import { setAllowSystemNotifications } from 'state/slices/allowSystemNotifications'
@@ -15,14 +14,12 @@ import LinkIcon from 'assets/img/link.svg'
 import EllipseIcon from 'assets/img/ellipse.svg'
 import DebugLogIcon from 'assets/img/debugLog.svg'
 import DebugMenuIcon from 'assets/img/debugMenu.svg'
-import AutoConnectIcon from 'assets/img/autoconnecticon.svg'
 import NotificationsIcon from 'assets/img/notifications.svg'
 import LocationLoadIcon from 'assets/img/locationLoad.svg'
 
 const General: ThemeUiElement = () => {
   const dispatch = useDispatch()
 
-  const autoConnect = useSelector(s => s.connection.autoConnect)
   const contextMenu = useSelector(s => s.contextMenu)
   const sessionData = useSelector(s => s.session.sessionData)
   const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
@@ -34,16 +31,6 @@ const General: ThemeUiElement = () => {
     <Box data-testid="general-page" bg="background">
       <Header title="General" />
       <ScrollableBox>
-        <OptionBox
-          Icon={AutoConnectIcon}
-          title="Auto-Connect"
-          subTitle="Automatically connect on browser start."
-        >
-          <ToggleSwitch
-            onChange={() => dispatch(setAutoConnect(!autoConnect))}
-            checked={autoConnect}
-          />
-        </OptionBox>
         <OptionBox
           Icon={NotificationsIcon}
           title="Notifications"
