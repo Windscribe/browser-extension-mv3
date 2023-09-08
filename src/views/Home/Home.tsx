@@ -162,11 +162,13 @@ const Home: ThemeUiElement = () => {
               onClick={goToNewsfeed}
             >
               <Logo sx={{ fill: 'white' }} />
-              <Badge
-                data-testid="newsfeed-badge"
-                count={unreadNewsAmount}
-                sx={{ top: '-7px', right: '-14px' }}
-              />
+              {unreadNewsAmount > 0 && (
+                <Badge
+                  data-testid="newsfeed-badge"
+                  count={unreadNewsAmount}
+                  sx={{ top: '-7px', right: '-14px' }}
+                />
+              )}
             </Button>
           </Flex>
           <HeaderBlade

@@ -80,7 +80,9 @@ const Preferences: ThemeUiElement = () => {
             Icon={NewsfeedIcon}
             sx={{ position: 'relative' }}
           >
-            <Badge count={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
+            {unreadNewsAmount > 0 && (
+              <Badge count={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
+            )}
           </CircleButton>
         </ToolTip>
       </Header>
