@@ -1,35 +1,47 @@
 import { useEffect, useState } from 'react'
-
 import { Column } from 'components/Flexbox'
 import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
-import type { ServerList, Location, DataCenter } from 'api/types'
-
+import type { ServerList } from 'api/types'
 import { selectSortedLocation } from 'state/slices/servers'
+import Fuse from 'fuse.js'
 
 const filterServerListBySearchText = (serverList: ServerList, searchText: string): ServerList => {
-  const searchTextLowerCase = searchText.toLowerCase()
+  // Setup Fuse.js for searching
+  const fuseOptions = {
+    keys: ['name', 'groups.city', 'groups.nick'],
+    threshold: 0.3,
+    includeMatches: true,
+  }
 
-  const searchedServerList = serverList.filter((location: Location) => {
-    if (location.name.toLowerCase().includes(searchTextLowerCase)) {
-      return location
-    }
-    if (location.groups) {
-      const dataCenters = location.groups.filter((dataCenter: DataCenter) => {
-        if (
-          dataCenter.city.toLowerCase().includes(searchTextLowerCase) ||
-          dataCenter.nick.toLowerCase().includes(searchTextLowerCase)
-        ) {
-          return dataCenter
-        }
-      })
-      if (dataCenters.length) {
-        return location
+  const fuse = new Fuse(serverList, fuseOptions)
+  const results = fuse.search(searchText)
+
+  return results.map(({ item, matches }) => {
+    if (!matches) return item // Return the item unchanged if there are no matches
+
+    const nameMatches = matches.some(match => match.key && match.key === 'name')
+    const matchedGroupIndices = matches
+      .filter(match => match.key && match.key.startsWith('groups.'))
+      .map(match => match.refIndex)
+
+    let groupsModified = false
+
+    const filteredGroups = item.groups.filter((group, index) => {
+      if (matchedGroupIndices.includes(index)) {
+        groupsModified = true
+        return true
       }
+      return nameMatches
+    })
+
+    return {
+      ...item,
+      groups: filteredGroups,
+      groupsModified,
     }
   })
-  return searchedServerList
 }
 
 const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
@@ -43,8 +55,13 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
   const [serverList, setServerList] = useState<ServerList>(serverListSorted)
 
   useEffect(() => {
-    const searchedServerList = filterServerListBySearchText(serverListSorted, searchText)
-    setServerList(searchedServerList)
+    if (searchText.length > 0) {
+      const searchedServerList = filterServerListBySearchText(serverListSorted, searchText)
+
+      setServerList(searchedServerList)
+    } else {
+      setServerList(serverListSorted)
+    }
   }, [searchText, serverListSorted])
 
   /*
@@ -85,7 +102,7 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
               key={location.id}
               location={location}
               isPremium={!!isPremium}
-              searchText={searchText}
+              currentlySelected={location.groupsModified}
             />
           ))}
         </>

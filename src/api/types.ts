@@ -149,6 +149,7 @@ export interface Location {
   country_code: CountryCodeType
   force_expand: number
   groups: DataCenter[]
+  groupsModified?: boolean
   id: number
   loc_type: string
   name: string

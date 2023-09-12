@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
-import Highlighter from 'react-highlight-words'
+import { useState } from 'react'
 import { Box, Text, Flex, type BoxProps } from 'theme-ui'
-
 import { FlagIcon, Rectangle } from 'components'
 import flags from 'assets/flags'
 import { useGoTo } from 'services/navigation'
@@ -16,30 +14,21 @@ import ArrowRightIcon from 'assets/img/arrowRight.svg'
 type LocationsListItemProps = BoxProps & {
   location: Location
   isPremium: boolean
-  searchText?: string
   isAutopilot?: boolean
+  dataCenters?: DataCenter[] | null
   currentlySelected?: boolean
 }
 
 const LocationsListItem: React.FC<LocationsListItemProps> = ({
   location,
   isPremium,
-  searchText = '',
   isAutopilot = false,
+  dataCenters = null,
   currentlySelected = false,
   ...props
 }) => {
   const [isExpanded, setIsExpanded] = useState(currentlySelected && !isAutopilot)
   const goToHome = useGoTo('Home')
-
-  useEffect(() => {
-    const isFoundIn = (str: string) => str.toLowerCase().includes(searchText.toLowerCase())
-
-    const hasSearchTextInName = (dataCenter: DataCenter) =>
-      isFoundIn(dataCenter.city) || isFoundIn(dataCenter.nick)
-
-    if (searchText && location.groups.some(hasSearchTextInName)) setIsExpanded(true)
-  }, [searchText, location.groups])
 
   const Flag: React.ElementType = flags[isAutopilot ? 'AUTO' : location.country_code]
 
@@ -93,11 +82,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
               marginLeft: '16px',
             }}
           >
-            {isAutopilot ? (
-              'Autopilot'
-            ) : (
-              <Highlighter searchWords={[searchText]} textToHighlight={location?.name} />
-            )}
+            {isAutopilot ? 'Autopilot' : location?.name}
           </Text>
         </Flex>
         <Box
@@ -112,8 +97,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
       {isExpanded && (
         <LocationsListItemDetails
           isPremium={isPremium}
-          dataCenters={location.groups}
-          searchText={searchText}
+          dataCenters={dataCenters || location.groups}
         />
       )}
     </Box>

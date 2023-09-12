@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { Text, Flex, Button, Box, type ButtonProps } from 'theme-ui'
 import { alpha } from '@theme-ui/color'
-import Highlighter from 'react-highlight-words'
-
 import { selectLocationByDataCenterId } from 'state/slices/servers'
 import { setCurrentLocation } from 'state/slices/currentLocation'
 import { setAutopilotSelected } from 'state/slices/autopilot'
@@ -31,14 +29,12 @@ import StarIcon from 'assets/img/star.svg'
 type DataCenterItem = ButtonProps & {
   isPremium?: boolean
   dataCenter: DataCenter
-  searchText?: string
   isFavorite?: boolean
 }
 
 const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
   isPremium,
   dataCenter,
-  searchText = '',
   isFavorite = false,
 }) => {
   const dispatch = useDispatch()
@@ -153,19 +149,11 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
             {showPro ? (
               <StarIcon sx={{ height: '16px', mr: '24px', p: 0, fill: 'secondaryText' }} />
             ) : null}
-            <Box sx={{ fontWeight: '600', mr: '4px' }}>
-              <Highlighter
-                data-testid="data-center-city"
-                searchWords={[searchText]}
-                textToHighlight={dataCenter.city}
-              />
+            <Box sx={{ fontWeight: '600', mr: '4px' }} data-testid="data-center-city">
+              {dataCenter.city}
             </Box>
-            <Box sx={{ fontWeight: '400', whiteSpace: 'nowrap' }}>
-              <Highlighter
-                data-testid="data-center-nick"
-                searchWords={[searchText]}
-                textToHighlight={dataCenter.nick}
-              />
+            <Box sx={{ fontWeight: '400', whiteSpace: 'nowrap' }} data-testid="data-center-nick">
+              {dataCenter.nick}
             </Box>
           </Flex>
           {showPro ? (
