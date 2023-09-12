@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "1.0.7",
+  "version": "1.0.8",
   "minimum_chrome_version": "105.0",
   "name": "Windscribe - Free Proxy and Ad Blocker",
   "description": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
