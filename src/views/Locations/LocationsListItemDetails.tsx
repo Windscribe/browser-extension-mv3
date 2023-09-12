@@ -5,13 +5,11 @@ import DataCenterItem from './DataCenterItem'
 
 type LocationsListItemDetailsProps = {
   isPremium: boolean
-  searchText?: string
   dataCenters?: DataCenter[]
 }
 
 const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
   isPremium,
-  searchText = '',
   dataCenters = [],
 }) => {
   const sortedDataCenters = dataCenters.sort((a, b) => {
@@ -33,7 +31,7 @@ const LocationsListItemDetails: React.FC<LocationsListItemDetailsProps> = ({
       }}
     >
       {sortedDataCenters.map(dataCenter => (
-        <DataCenterItem key={dataCenter.id} isPremium={isPremium} {...{ dataCenter, searchText }} />
+        <DataCenterItem key={dataCenter.id} isPremium={isPremium} {...{ dataCenter }} />
       ))}
     </Box>
   )
