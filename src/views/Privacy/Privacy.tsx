@@ -13,6 +13,7 @@ import {
 import { setTimeWarpEnabled } from 'state/slices/timeWarpEnabled'
 import { setLocationWarp } from 'state/slices/locationWarp'
 import { setWorkerBlock } from 'state/slices/workerBlock'
+import { setAdPrivacyEnabled } from 'state/slices/adPrivacyEnabled'
 import ToolTip from 'components/ToolTip'
 import getTimeZoneInfo from 'utils/getTimeZoneInfo'
 
@@ -37,6 +38,7 @@ const Privacy: ThemeUiElement = () => {
   const workerBlockEnabled = useSelector(s => s.workerBlock)
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
+  const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -169,6 +171,20 @@ const Privacy: ThemeUiElement = () => {
               dispatch(setWorkerBlock(!workerBlockEnabled))
             }}
             checked={workerBlockEnabled}
+          />
+        </OptionBox>
+        <OptionBox
+          Icon={WorkerBlockIcon}
+          // path={'features/worker-block'}
+          title="Ad Privacy"
+          subTitle="Disable contextual ad topics and suggestions."
+        >
+          <ToggleSwitch
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(setAdPrivacyEnabled(!adPrivacyEnabled))
+            }}
+            checked={adPrivacyEnabled}
           />
         </OptionBox>
       </ScrollableBox>

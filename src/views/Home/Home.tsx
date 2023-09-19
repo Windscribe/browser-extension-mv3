@@ -11,6 +11,7 @@ import FlagBackground from './FlagBackground'
 import DomainControlBar from './DomainControlBar'
 import { useGoTo } from 'services/navigation'
 import { setIsRightAfterLogin } from 'state/slices/isRightAfterLogin'
+import { setAdPrivacyEnabled } from 'state/slices/adPrivacyEnabled'
 import { addOverlay } from 'state/slices/overlay'
 import { useInitialDataFetching } from 'components/hooks'
 import Onboarding from 'components/Onboarding'
@@ -65,6 +66,7 @@ const Home: ThemeUiElement = () => {
         level: 3,
       })
       dispatch(setIsRightAfterLogin(false))
+      dispatch(setAdPrivacyEnabled(true))
       detectUblock().then(isUblockInstalled => {
         isUblockInstalled && dispatch(addOverlay('ublockDetected'))
         dispatch(addOverlay('welcome'))

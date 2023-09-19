@@ -48,8 +48,10 @@ import iconVariantReducer from './slices/iconVariant'
 import autoConnectAfterLoginReducer from './slices/autoConnectAfterLogin'
 import isRightAfterLoginReducer from './slices/isRightAfterLogin'
 import firstInstallDateReducer from './slices/firstInstallDate'
+import adPrivacyEnabledReducer from './slices/adPrivacyEnabled'
 
 const reducers = {
+  adPrivacyEnabled: adPrivacyEnabledReducer,
   allowlist: allowlistReducer,
   allowSystemNotifications: allowSystemNotificationsReducer,
   autoConnectAfterLogin: autoConnectAfterLoginReducer,

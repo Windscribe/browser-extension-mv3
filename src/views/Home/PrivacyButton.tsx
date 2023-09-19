@@ -18,6 +18,7 @@ const privacyCount = createSelector(
     (state: RootState) => state.languageWarpEnabled,
     (state: RootState) => state.splitPersonalityEnabled,
     (state: RootState) => state.workerBlock,
+    (state: RootState) => state.adPrivacyEnabled,
   ],
   (...arg) => {
     return arg.filter(Boolean).length
