@@ -13,6 +13,7 @@ import {
 import { setTimeWarpEnabled } from 'state/slices/timeWarpEnabled'
 import { setLocationWarp } from 'state/slices/locationWarp'
 import { setWorkerBlock } from 'state/slices/workerBlock'
+import { setAdPrivacyEnabled } from 'state/slices/adPrivacyEnabled'
 import ToolTip from 'components/ToolTip'
 import getTimeZoneInfo from 'utils/getTimeZoneInfo'
 
@@ -24,6 +25,7 @@ import LocationWarpIcon from 'assets/img/locationWarp.svg'
 import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
+import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -37,6 +39,7 @@ const Privacy: ThemeUiElement = () => {
   const workerBlockEnabled = useSelector(s => s.workerBlock)
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
+  const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -169,6 +172,20 @@ const Privacy: ThemeUiElement = () => {
               dispatch(setWorkerBlock(!workerBlockEnabled))
             }}
             checked={workerBlockEnabled}
+          />
+        </OptionBox>
+        <OptionBox
+          Icon={AdPrivacyIcon}
+          // path={'features/worker-block'}
+          title="Ad Privacy"
+          subTitle="Disable contextual ad topics and suggestions."
+        >
+          <ToggleSwitch
+            onChange={() => {
+              showReloadAlert(true)
+              dispatch(setAdPrivacyEnabled(!adPrivacyEnabled))
+            }}
+            checked={adPrivacyEnabled}
           />
         </OptionBox>
       </ScrollableBox>
