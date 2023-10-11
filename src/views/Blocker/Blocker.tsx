@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Box, Button } from 'theme-ui'
-
+import { Box } from 'theme-ui'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
-import { ScrollableBox, Header, OptionBox, ToggleSwitch } from 'components'
+import { ScrollableBox, Header, OptionBox, ToggleSwitch, OptionLinkBox } from 'components'
 import { setBlockLists, setShowUblockWarning } from 'state/slices/blocker'
 import { addOverlay } from 'state/slices/overlay'
 import detectUblock from 'services/detectUblock'
@@ -13,7 +12,6 @@ import AdblockIcon from 'assets/img/adblock.svg'
 import TrackerIcon from 'assets/img/trackers.svg'
 import SocialDistancingIcon from 'assets/img/socialDistancing.svg'
 import CookieGoAwayIcon from 'assets/img/cookieGoAway.svg'
-import LinkIcon from 'assets/img/link.svg'
 
 const Blocker: ThemeUiElement = () => {
   const blockLists = useSelector(s => s.blocker.blockLists)
@@ -104,40 +102,18 @@ const Blocker: ThemeUiElement = () => {
             checked={blockLists.includes('annoyances-cookies')}
           />
         </OptionBox>
-        <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
-          <Button
-            onClick={() => window.open(chrome.runtime.getURL('dashboard.html'))}
-            variant="simple"
-            sx={{
-              display: 'flex',
-              borderRadius: '8px',
-              border: '1px',
-              borderColor: 'foreground',
-              borderStyle: 'solid',
-              width: '100%',
-              color: 'secondaryText',
-              fontSize: '14px',
-              alignItems: 'center',
-              px: '16px',
-              fontWeight: 'bold',
-              height: '48px',
-              justifyContent: 'space-between',
-              transition: '0.3s',
-              'svg > path': {
-                transition: '0.3s',
-              },
-              ':hover': {
-                color: 'primaryText',
-              },
-              '&:hover > svg > path': {
-                fill: 'primaryText',
-              },
-            }}
-          >
-            uBlock Settings
-            <LinkIcon sx={{ fill: 'secondaryText' }} />
-          </Button>
-        </Box>
+        <OptionLinkBox
+          url={chrome.runtime.getURL('dashboard.html')}
+          text="uBlock Settings"
+          sx={{
+            fontSize: '14px',
+            fontWeight: 'bold',
+          }}
+        />
+        <OptionLinkBox
+          url="https://chrome.google.com/webstore/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone"
+          text="Check out the SponsorBlock extension to skip sponsorships on YouTube videos."
+        />
       </ScrollableBox>
     </Box>
   )

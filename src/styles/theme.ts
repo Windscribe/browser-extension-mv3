@@ -42,6 +42,30 @@ export const theme: Theme = {
       transition: '0.3s',
       '&:hover': { color: 'primaryText' },
     },
+    optionBlock: {
+      textDecoration: 'none',
+      display: 'flex',
+      borderRadius: '8px',
+      border: '1px',
+      borderColor: 'foreground',
+      borderStyle: 'solid',
+      color: 'secondaryText',
+      fontSize: '12px',
+      alignItems: 'center',
+      px: '16px',
+      height: '48px',
+      justifyContent: 'space-between',
+      transition: '0.3s',
+      'svg > path': {
+        transition: '0.3s',
+      },
+      ':hover': {
+        color: 'primaryText',
+      },
+      '&:hover > svg > path': {
+        fill: 'primaryText',
+      },
+    },
   },
   buttons: {
     simple: {
