@@ -25,6 +25,7 @@ import LocationWarpIcon from 'assets/img/locationWarp.svg'
 import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
+import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -174,7 +175,7 @@ const Privacy: ThemeUiElement = () => {
           />
         </OptionBox>
         <OptionBox
-          Icon={WorkerBlockIcon}
+          Icon={AdPrivacyIcon}
           // path={'features/worker-block'}
           title="Ad Privacy"
           subTitle="Disable contextual ad topics and suggestions."
