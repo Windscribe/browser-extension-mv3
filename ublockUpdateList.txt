@@ -1,0 +1,22 @@
+- Delete popup.html and manifest.json
+- Comment out in background.js:
+
+  if ( firstRun ) {
+    runtime.openOptionsPage();
+  }
+
+- Comment out in background.js:
+
+   if (wakeupRun === false && dnr.setExtensionActionOptions) {
+     dnr.setExtensionActionOptions({ displayActionCountAsBadgeText: true })
+   }
+
+- comment out openOptionsPage in background.js
+
+- const out = [ 'default', 'cname-trackers' ]; to const out = [ ]; in ruleset-manager
+
+-  remove in settings.js:
+
+    await browser.permissions.remove({
+        origins: [ '<all_urls>' ]
+    });

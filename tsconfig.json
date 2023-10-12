@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "jsxImportSource": "theme-ui",
+    "baseUrl": "./src"
+  },
+  "include": ["src", "tests/responsesMocks"],
+  "exclude": ["build", "node_modules"],
+  "files": ["custom.d.ts"]
+}

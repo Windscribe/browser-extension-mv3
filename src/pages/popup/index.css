@@ -1,0 +1,63 @@
+@font-face {
+  font-family: 'IBMPlexSans';
+  src: local('IBMPlexSans-Regular'),
+    url('../../assets/fonts/IBMPlexSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: 'IBMPlexSans';
+  src: local('IBMPlexSans-SemiBold'),
+    url('../../assets/fonts/IBMPlexSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+}
+@font-face {
+  font-family: 'IBMPlexSans';
+  src: local('IBMPlexSans-Bold'), url('../../assets/fonts/IBMPlexSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: 'IBMPlexSans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  position: relative;
+  overflow: hidden;
+  width: 324px;
+  max-height: 450px;
+  min-height: 208px;
+  background-color: #1a2432;
+}
+
+body {
+  background-image: url(/src/assets/img/spinningLogo.gif);
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.__floater .__floater__body {
+  font-size: 13px;
+  min-width: 130px;
+}
+
+.__floater .__floater__body p {
+  margin: 0px;
+  color: black;
+}
+
+#react-joyride-step-1 .__floater .__floater__body:first-of-type {
+  margin-bottom: -30px;
+}
+
+#react-joyride-step-1 .__floater__arrow span {
+  margin: 12px 0;
+}
