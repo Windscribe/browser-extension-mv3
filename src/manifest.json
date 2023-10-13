@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "version": "1.0.10",
+  "version": "1.0.11",
   "minimum_chrome_version": "105.0",
   "name": "Windscribe - Experimental MV3",
-  "description": "Windscribe MV3 is an experimental extension that masks your physical location, circumvents censorship, and block ads and trackers",
+  "description": "Windscribe MV3 is an experimental extension that masks your physical location, circumvents censorship, and blocks ads and trackers",
   "background": { "service_worker": "backgroundScripts.js", "type": "module" },
   "action": {
     "default_popup": "popup.html",
@@ -13,8 +13,6 @@
     "activeTab",
     "contentSettings",
     "contextMenus",
-    "debugger",
-    "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
     "privacy",
     "proxy",
