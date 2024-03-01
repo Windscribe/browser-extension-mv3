@@ -22,14 +22,14 @@ const filterServerListBySearchText = (serverList: ServerList, searchText: string
     if (!matches) return item // Return the item unchanged if there are no matches
 
     const nameMatches = matches.some(match => match.key && match.key === 'name')
-    const matchedGroupIndices = matches
+    const matchedGroupIndexes = matches
       .filter(match => match.key && match.key.startsWith('groups.'))
       .map(match => match.refIndex)
 
     let groupsModified = false
 
-    const filteredGroups = item.groups.filter((group, index) => {
-      if (matchedGroupIndices.includes(index)) {
+    const filteredGroups = item.groups?.filter((group, index) => {
+      if (matchedGroupIndexes.includes(index)) {
         groupsModified = true
         return true
       }
@@ -96,15 +96,17 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
               currentlySelected={currentLocationId === autopilotLocation.id && autopilotSelected}
             />
           )}
-          {serverList.map((location, i) => (
-            <LocationsListItem
-              data-testid={`locations-list-item-${i}`}
-              key={location.id}
-              location={location}
-              isPremium={!!isPremium}
-              currentlySelected={location.groupsModified}
-            />
-          ))}
+          {serverList
+            .filter(location => location?.groups?.length)
+            .map((location, i) => (
+              <LocationsListItem
+                data-testid={`locations-list-item-${i}`}
+                key={location.id}
+                location={location}
+                isPremium={!!isPremium}
+                currentlySelected={location.groupsModified}
+              />
+            ))}
         </>
       )}
     </>

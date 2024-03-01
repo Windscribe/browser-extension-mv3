@@ -19,9 +19,11 @@ export default (
     .filter(location => Object.keys(cruiseControlDomains).includes(location.short_name))
     .map(location => ({
       domains: cruiseControlDomains[location.short_name],
-      hosts: Object.values(location.groups)
-        ?.map(group => group.hosts)
-        .filter(Boolean)
-        .flat(),
+      hosts: location?.groups
+        ? Object.values(location?.groups)
+            ?.map(({ hosts = [] }) => hosts)
+            .filter(i => i)
+            .flat()
+        : [],
     }))
 }
