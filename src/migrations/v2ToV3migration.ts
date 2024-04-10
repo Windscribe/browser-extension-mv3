@@ -61,12 +61,8 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
       })
 
       if (data && data.state && data.reducer) {
-        // not transferring errors from v2
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { error, ...rest } = data.state
-
         // zod will strip unrecognized keys from the object being validated
-        const parsedSessionStateV2 = SessionDataValidatorManifestV2.safeParse(rest)
+        const parsedSessionStateV2 = SessionDataValidatorManifestV2.safeParse(data.state)
 
         if (parsedSessionStateV2.success) {
           if (
@@ -82,11 +78,16 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
             })
             return
           }
+
+          // dont pass loading or error
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { loading, error, ...rest } = data.state
+
           // apply migration
           await store.dispatch(
             replaceSession({
               //  fix for type mismatch
-              ...(parsedSessionStateV2.data as unknown as SessionDataV2),
+              ...(rest as unknown as SessionDataV2),
             }),
           )
           await store.dispatch(setMigrationStatus({ migrationId: MIGRATION_ID, completed: true }))

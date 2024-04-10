@@ -95,7 +95,7 @@ export interface SessionData {
   username?: string
 }
 
-// keeps true to know session data interface in extension with manifest v2
+// keeps true to known session data interface in extension with manifest v2
 export interface SessionDataV2 extends Omit<SessionData, 'our_dc'> {
   error?: {
     data?: {
@@ -104,6 +104,7 @@ export interface SessionDataV2 extends Omit<SessionData, 'our_dc'> {
       errorCode?: number
     }
   }
+  loading?: boolean
 }
 
 export interface WebSessionData {
