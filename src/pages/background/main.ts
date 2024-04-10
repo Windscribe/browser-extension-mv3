@@ -13,6 +13,8 @@ import {
   messageHandler,
 } from './eventHandlers'
 
+import { runMigrationFromManifestV2ToV3 } from 'migrations/v2ToV3migration'
+
 declare const self: ServiceWorkerGlobalScope
 
 try {
@@ -22,6 +24,11 @@ try {
     store.dispatch(chooseIcon())
     return store
   })
+
+  ;(async () => {
+    const store = await bgStore
+    await runMigrationFromManifestV2ToV3(store)
+  })()
 
   chrome.runtime.onInstalled.addListener(onInstalledHandler(bgStore))
 

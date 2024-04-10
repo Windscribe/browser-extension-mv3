@@ -42,6 +42,7 @@ export const saveUserStash = createAsyncThunk(
       'serverCredentials',
       'view',
       'userStashes',
+      'migrations',
     ] as Array<keyof typeof state>
 
     const toStash = Object.assign({}, state)

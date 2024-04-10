@@ -9,16 +9,31 @@ import { type StoreType } from 'state'
 import { setMigrationStatus } from 'state/slices/migration'
 
 const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> => {
+  // never change this id
   const MIGRATION_ID = 'V2_TO_V3_MIGRATION'
 
   try {
+    const doesDBExist = await Dexie.exists(DB_NAME)
+
+    // do nothing if we have nothing to import from
+    if (!doesDBExist) {
+      await pushToDebugLog({
+        level: 'INFO',
+        message: 'DB does not exist, skipping migration',
+        tag: 'background',
+      })
+      return
+    }
+
+    // db does exist keep on migrating
+
     const migrations = store.getState().migrations
     const migration = migrations.migrations.find(i => i.id === MIGRATION_ID)
 
     await pushToDebugLog({
       level: 'INFO',
-      message: 'migration is found',
-      data: JSON.stringify(migrations),
+      message: 'Migration object',
+      data: JSON.stringify(migration),
       tag: 'background',
     })
 
@@ -42,39 +57,48 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
       await pushToDebugLog({
         level: 'INFO',
         message: 'Manifest V3 extension state BEFORE migration',
-        data: store.getState(),
+        data: JSON.stringify(store.getState()),
         tag: 'background',
       })
 
-      // not transferring errors from v2
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { error, ...rest } = data.state
+      if (data && data.state && data.reducer) {
+        // not transferring errors from v2
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { error, ...rest } = data.state
 
-      // zod will strip unrecognized keys from the object being validated
-      const parsedSessionStateV2 = SessionDataValidatorManifestV2.safeParse(rest)
+        // zod will strip unrecognized keys from the object being validated
+        const parsedSessionStateV2 = SessionDataValidatorManifestV2.safeParse(rest)
 
-      if (parsedSessionStateV2.success) {
-        await store.dispatch(
-          replaceSession({
-            //  fix for type mismatch
-            ...(parsedSessionStateV2.data as unknown as SessionDataV2),
-          }),
-        )
-        await store.dispatch(setMigrationStatus({ migrationId: MIGRATION_ID, completed: true }))
-        await store.dispatch(checkSessionStatus())
+        if (parsedSessionStateV2.success) {
+          // apply migration
+          await store.dispatch(
+            replaceSession({
+              //  fix for type mismatch
+              ...(parsedSessionStateV2.data as unknown as SessionDataV2),
+            }),
+          )
+          await store.dispatch(setMigrationStatus({ migrationId: MIGRATION_ID, completed: true }))
+          await store.dispatch(checkSessionStatus())
 
+          await pushToDebugLog({
+            level: 'INFO',
+            message: 'Migration completed',
+            data: JSON.stringify(store.getState().session),
+            tag: 'background',
+          })
+        } else {
+          const message = getErrorMessage(parsedSessionStateV2.error)
+          pushToDebugLog({
+            level: 'ERROR',
+            message,
+            data: JSON.stringify(parsedSessionStateV2.error),
+            tag: 'background',
+          })
+        }
+      } else {
         await pushToDebugLog({
           level: 'INFO',
-          message: 'Migration completed',
-          data: store.getState(),
-          tag: 'background',
-        })
-      } else {
-        const message = getErrorMessage(parsedSessionStateV2.error)
-        pushToDebugLog({
-          level: 'ERROR',
-          message,
-          data: JSON.stringify(parsedSessionStateV2.error),
+          message: `No existing db found to perform migration on.`,
           tag: 'background',
         })
       }
