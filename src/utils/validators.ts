@@ -39,4 +39,5 @@ export const SessionDataValidatorManifestV2 = zod.object({
     })
     .optional()
     .nullable(),
+  loading: zod.boolean().optional().nullable(),
 })

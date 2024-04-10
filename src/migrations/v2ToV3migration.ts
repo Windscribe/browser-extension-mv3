@@ -15,7 +15,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
   try {
     const doesDBExist = await Dexie.exists(DB_NAME)
 
-    // do nothing if we have nothing to import from
+    // do nothing if we have nothing to import from i.e this is the first ever install of the new extension
     if (!doesDBExist) {
       await pushToDebugLog({
         level: 'INFO',
@@ -24,8 +24,6 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
       })
       return
     }
-
-    // db does exist keep on migrating
 
     const migrations = store.getState().migrations
     const migration = migrations.migrations.find(i => i.id === MIGRATION_ID)
@@ -37,6 +35,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
       tag: 'background',
     })
 
+    // first run of the migration
     if (!migration) {
       const db = new Dexie(DB_NAME)
 
@@ -70,6 +69,19 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
         const parsedSessionStateV2 = SessionDataValidatorManifestV2.safeParse(rest)
 
         if (parsedSessionStateV2.success) {
+          if (
+            parsedSessionStateV2.data.error === null &&
+            parsedSessionStateV2.data.loading === false &&
+            !parsedSessionStateV2.data.username
+          ) {
+            await pushToDebugLog({
+              level: 'INFO',
+              message: 'User is logged out, skipping migration',
+              data: JSON.stringify(parsedSessionStateV2.data),
+              tag: 'background',
+            })
+            return
+          }
           // apply migration
           await store.dispatch(
             replaceSession({
