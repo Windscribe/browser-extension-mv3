@@ -54,14 +54,14 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
   const handleClick = async (dataCenter: DataCenter) => {
     if (showPro) {
       await openWindowUsingTempSession('upgrade?pcpid=upgrade_ext1')
-    } else if (!dataCenter.hosts || dataCenter.hosts.length === 0) {
+    } else if (!dataCenter?.hosts || dataCenter?.hosts?.length === 0) {
       dispatch(addOverlay('locationDown'))
     } else {
       location && dispatch(setCurrentLocation(location))
       goToHome()
       dispatch(setCurrentDataCenter(dataCenter))
       dispatch(setAutopilotSelected(false))
-      await sendMessage({ what: 'connectProxy', hosts: dataCenter.hosts })
+      await sendMessage({ what: 'connectProxy', hosts: dataCenter?.hosts })
     }
   }
 

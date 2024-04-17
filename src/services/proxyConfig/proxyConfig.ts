@@ -100,7 +100,7 @@ const stringifyCruiseControlList = (
 export const connect = async (
   getState: GetState,
   dispatch: AppDispatch,
-  hosts: Host[],
+  hosts?: Host[],
 ): Promise<void> => {
   try {
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')

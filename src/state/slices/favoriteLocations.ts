@@ -19,6 +19,7 @@ export const favoriteLocationsSlice = createSlice({
     refreshFavorites(state: FavoriteLocationsState, action: PayloadAction<ServerList>) {
       const dataCenters = action.payload.flatMap(location => location.groups)
       dataCenters.forEach(dataCenter => {
+        if (!dataCenter) return
         const index = state.findIndex(favoriteLocation => dataCenter.id === favoriteLocation.id)
         if (index >= 0) state[index] = dataCenter
       })
