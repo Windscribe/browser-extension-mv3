@@ -97,7 +97,7 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
             />
           )}
           {serverList
-            .filter(location => location?.groups?.length)
+            .filter(location => location.groups?.length)
             .map((location, i) => (
               <LocationsListItem
                 data-testid={`locations-list-item-${i}`}
