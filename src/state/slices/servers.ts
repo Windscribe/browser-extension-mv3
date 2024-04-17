@@ -96,7 +96,7 @@ export const selectLocationByDataCenterId = createSelector(
   (_: RootState, dataCenterId: number) => dataCenterId,
   (serverList, dataCenterId): Location | undefined => {
     return serverList.find(location =>
-      location.groups.some(dataCenter => dataCenter.id === dataCenterId),
+      location.groups?.some(dataCenter => dataCenter.id === dataCenterId),
     )
   },
 )

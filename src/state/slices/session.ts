@@ -148,7 +148,7 @@ export const checkSessionStatus = createAsyncThunk(
           dispatch(refreshFavorites(serverList))
 
           const locationNewList = serverList.find(location => location.id === currentLocation.id)
-          const dataCenterNewList = locationNewList?.groups.find(
+          const dataCenterNewList = locationNewList?.groups?.find(
             dataCenter => dataCenter.id === currentDataCenter.id,
           )
 
