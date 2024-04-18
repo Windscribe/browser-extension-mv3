@@ -25,7 +25,8 @@
     "webRequestAuthProvider",
     "management",
     "alarms",
-    "offscreen"
+    "offscreen",
+    "unlimitedStorage"
   ],
   "host_permissions": ["<all_urls>"],
   "icons": {
