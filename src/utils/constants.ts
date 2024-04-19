@@ -53,3 +53,10 @@ export const DEVTOOL_PROTOCOL = '1.3'
 export const platforms = ['Windows', 'Macintosh', 'Linux']
 
 export const PROXY_PORT = Number(process.env.PROXY_PORT) || 443
+
+// Index DB for migration
+export const SYNC_KEY = 'WS_DATA_'
+export const DB_NAME = 'WS_EXT_DB'
+export const DB_VERSION = 1
+export const DB_STATE_TABLE = 'WS_STATE'
+export const SESSION_REDUCER = 'session'

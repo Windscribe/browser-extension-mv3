@@ -186,6 +186,11 @@ export const sessionSlice = createSlice({
         session_auth_hash: state.sessionData?.session_auth_hash,
       }
     },
+    replaceSession(state, action: PayloadAction<SessionData>) {
+      state.sessionData = {
+        ...action.payload,
+      }
+    },
   },
   extraReducers: builder => {
     builder
@@ -211,5 +216,5 @@ export const sessionSlice = createSlice({
   },
 })
 
-export const { setSession } = sessionSlice.actions
+export const { setSession, replaceSession } = sessionSlice.actions
 export default sessionSlice.reducer

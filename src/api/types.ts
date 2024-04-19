@@ -95,6 +95,18 @@ export interface SessionData {
   username?: string
 }
 
+// keeps true to known session data interface in extension with manifest v2
+export interface SessionDataV2 extends Omit<SessionData, 'our_dc'> {
+  error?: {
+    data?: {
+      // dont allow login via email address
+      errorMessage?: string
+      errorCode?: number
+    }
+  }
+  loading?: boolean
+}
+
 export interface WebSessionData {
   temp_session: string
 }
@@ -215,4 +227,9 @@ export interface CruiseControlDomainsData {
 export type CruiseControlItem = {
   domains: string[]
   hosts: Host[]
+}
+
+export interface ReducerStateV2 {
+  reducer: string
+  state: SessionDataV2
 }
