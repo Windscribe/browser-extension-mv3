@@ -65,3 +65,10 @@ export const SESSION_REDUCER = 'session'
 export const LOCATION_LOAD_REDUCER = 'locationLoadEnabled'
 export const NOTIFICATION_BLOCKER_REDUCER = 'allowSystemNotifications'
 export const DEBUG_CONTEXT_REDUCER = 'showDebugContextMenu'
+
+// Privacy Settings
+
+export const AUTO_CONNECT_REDUCER = 'autoConnect'
+export const SMOKE_WALL_REDUCER = 'smokewall'
+export const FAIL_OVER_REDUCER = 'failover'
+export const PROXY_PORT_REDUCER = 'proxyPort'
