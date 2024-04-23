@@ -1,4 +1,4 @@
-import { BooleanSettingReducerStateV2 } from 'api/types'
+import { BooleanSettingReducerStateV2, LiteralOptionsReducerStateV2 } from 'api/types'
 import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
@@ -12,7 +12,7 @@ import {
   SMOKE_WALL_REDUCER,
   SYNC_KEY,
 } from 'utils/constants'
-import { ProxyPort } from 'utils/types'
+import { FailoverOption, ProxyPort } from 'utils/types'
 import {
   AutoConnectValidatorManifestV2,
   FailOverValidatorManifestV2,
@@ -20,7 +20,7 @@ import {
   SmokeWallValidatorManifestV2,
 } from 'utils/validators'
 
-export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promise<void> => {
+export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Promise<void> => {
   const smokeWallData: BooleanSettingReducerStateV2 = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + SMOKE_WALL_REDUCER)
@@ -29,11 +29,11 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + AUTO_CONNECT_REDUCER)
 
-  const proxyPortData: BooleanSettingReducerStateV2 = await db
+  const proxyPortData: LiteralOptionsReducerStateV2<ProxyPort> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + PROXY_PORT_REDUCER)
 
-  const failOverData: BooleanSettingReducerStateV2 = await db
+  const failOverData: LiteralOptionsReducerStateV2<FailoverOption> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + FAIL_OVER_REDUCER)
 

@@ -240,3 +240,7 @@ export interface SessionReducerStateV2 extends ManifestV2Reducer {
 export interface BooleanSettingReducerStateV2 extends ManifestV2Reducer {
   state: boolean
 }
+
+export interface LiteralOptionsReducerStateV2<P> extends ManifestV2Reducer {
+  state: P
+}

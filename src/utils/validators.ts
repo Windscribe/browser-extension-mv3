@@ -68,7 +68,7 @@ export const DebugViewValidatorManifestV2 = zod.object({
   state: zod.boolean(),
 })
 
-// Privacy Settings
+// Connection Settings
 
 export const SmokeWallValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + SMOKE_WALL_REDUCER),
