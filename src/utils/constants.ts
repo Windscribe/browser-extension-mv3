@@ -63,5 +63,15 @@ export const SESSION_REDUCER = 'session'
 
 // General Settings
 export const LOCATION_LOAD_REDUCER = 'locationLoadEnabled'
-export const NOTIFICATION_BLOCKER_REDUCER = 'allowSystemNotifications'
+export const SYSTEM_NOTIFICATIONS_REDUCER = 'allowSystemNotifications'
 export const DEBUG_CONTEXT_REDUCER = 'showDebugContextMenu'
+
+// Privacy Settings
+export const WORKER_BLOCK_REDUCER = 'workerBlockEnabled'
+export const SPLIT_PERSONALITY_REDUCER = 'splitPersonalityEnabled'
+export const LANGUAGE_SWITCH_REDUCER = 'languageSwitchEnabled'
+export const PROXY_TIME_REDUCER = 'proxyTimeEnabled'
+export const LOCATION_SPOOFER_REDUCER = 'locationSpooferEnabled'
+export const WEB_RTC_REDUCER = 'webRTCEnabled'
+export const NOTIFICATION_BLOCKER_REDUCER = 'notificationBlockerEnabled'
+export const AD_PRIVACY_REDUCER = 'notificationBlockerEnabled'
