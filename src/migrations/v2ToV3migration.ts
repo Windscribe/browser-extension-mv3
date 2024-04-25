@@ -3,10 +3,11 @@ import { pushToDebugLog } from 'services/debugLog'
 import getErrorMessage from 'utils/getErrorMessage'
 import { DB_NAME, DB_STATE_TABLE, DB_VERSION, SESSION_REDUCER, SYNC_KEY } from 'utils/constants'
 import { checkSessionStatus, replaceSession } from 'state/slices/session'
-import { ReducerStateV2, SessionDataV2 } from 'api/types'
+import { SessionReducerStateV2, SessionDataV2 } from 'api/types'
 import { SessionDataValidatorManifestV2 } from 'utils/validators'
 import { type StoreType } from 'state'
 import { setMigrationStatus } from 'state/slices/migration'
+import { migrateGeneralSettings } from './migrateGeneralSettings'
 
 const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> => {
   // never change this id
@@ -44,7 +45,9 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
         WS_LOGS: '++id, [timestamp+activity]',
       })
 
-      const data: ReducerStateV2 = await db.table(DB_STATE_TABLE).get(SYNC_KEY + SESSION_REDUCER)
+      const data: SessionReducerStateV2 = await db
+        .table(DB_STATE_TABLE)
+        .get(SYNC_KEY + SESSION_REDUCER)
 
       await pushToDebugLog({
         level: 'INFO',
@@ -90,6 +93,9 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
               ...(rest as unknown as SessionDataV2),
             }),
           )
+
+          // only migrate other settings if there is a valid session
+          await migrateGeneralSettings(db, store)
           await store.dispatch(setMigrationStatus({ migrationId: MIGRATION_ID, completed: true }))
           await store.dispatch(checkSessionStatus())
 
@@ -111,7 +117,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
       } else {
         await pushToDebugLog({
           level: 'INFO',
-          message: `No existing db found to perform migration on.`,
+          message: `Session reducer not found`,
           tag: 'background',
         })
       }

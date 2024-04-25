@@ -60,3 +60,8 @@ export const DB_NAME = 'WS_EXT_DB'
 export const DB_VERSION = 1
 export const DB_STATE_TABLE = 'WS_STATE'
 export const SESSION_REDUCER = 'session'
+
+// General Settings
+export const LOCATION_LOAD_REDUCER = 'locationLoadEnabled'
+export const NOTIFICATION_BLOCKER_REDUCER = 'allowSystemNotifications'
+export const DEBUG_CONTEXT_REDUCER = 'showDebugContextMenu'

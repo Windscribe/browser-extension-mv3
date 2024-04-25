@@ -1,4 +1,10 @@
 import zod from 'zod'
+import {
+  SYNC_KEY,
+  LOCATION_LOAD_REDUCER,
+  NOTIFICATION_BLOCKER_REDUCER,
+  DEBUG_CONTEXT_REDUCER,
+} from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
 
@@ -40,4 +46,19 @@ export const SessionDataValidatorManifestV2 = zod.object({
     .optional()
     .nullable(),
   loading: zod.boolean().optional().nullable(),
+})
+
+export const LocationLoadValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + LOCATION_LOAD_REDUCER),
+  state: zod.boolean(),
+})
+
+export const NotificationBlockerValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + NOTIFICATION_BLOCKER_REDUCER),
+  state: zod.boolean(),
+})
+
+export const DebugViewValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + DEBUG_CONTEXT_REDUCER),
+  state: zod.boolean(),
 })
