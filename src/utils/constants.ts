@@ -65,3 +65,7 @@ export const SESSION_REDUCER = 'session'
 export const LOCATION_LOAD_REDUCER = 'locationLoadEnabled'
 export const NOTIFICATION_BLOCKER_REDUCER = 'allowSystemNotifications'
 export const DEBUG_CONTEXT_REDUCER = 'showDebugContextMenu'
+
+// Blocker Settings
+export const BLOCK_LISTS_REDUCER = 'blockListsEnabled'
+export const ADVANCED_MODE_REDUCER = 'advancedModeEnabled'

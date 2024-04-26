@@ -4,6 +4,7 @@ import {
   LOCATION_LOAD_REDUCER,
   NOTIFICATION_BLOCKER_REDUCER,
   DEBUG_CONTEXT_REDUCER,
+  BLOCK_LISTS_REDUCER,
 } from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
@@ -61,4 +62,11 @@ export const NotificationBlockerValidatorManifestV2 = zod.object({
 export const DebugViewValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + DEBUG_CONTEXT_REDUCER),
   state: zod.boolean(),
+})
+
+// Blocker settings
+
+export const BlockListsValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + BLOCK_LISTS_REDUCER),
+  state: zod.array(zod.string()),
 })
