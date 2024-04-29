@@ -9,13 +9,13 @@ import {
   DB_STATE_TABLE,
   DEBUG_CONTEXT_REDUCER,
   LOCATION_LOAD_REDUCER,
-  NOTIFICATION_BLOCKER_REDUCER,
+  SYSTEM_NOTIFICATIONS_REDUCER,
   SYNC_KEY,
 } from 'utils/constants'
 import {
   DebugViewValidatorManifestV2,
   LocationLoadValidatorManifestV2,
-  NotificationBlockerValidatorManifestV2,
+  SystemNotificationsValidatorManifestV2,
 } from 'utils/validators'
 
 export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promise<void> => {
@@ -25,7 +25,7 @@ export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promi
 
   const notificationBlockerData: BooleanSettingReducerStateV2 = await db
     .table(DB_STATE_TABLE)
-    .get(SYNC_KEY + NOTIFICATION_BLOCKER_REDUCER)
+    .get(SYNC_KEY + SYSTEM_NOTIFICATIONS_REDUCER)
 
   const debugViewEnabledData: BooleanSettingReducerStateV2 = await db
     .table(DB_STATE_TABLE)
@@ -44,7 +44,7 @@ export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promi
 
   const parsedLocationLoadStateV2 = LocationLoadValidatorManifestV2.safeParse(locationLoadData)
   const parsedNotificationBlockerStateV2 =
-    NotificationBlockerValidatorManifestV2.safeParse(notificationBlockerData)
+    SystemNotificationsValidatorManifestV2.safeParse(notificationBlockerData)
   const parsedDebugViewEnabledStateV2 = DebugViewValidatorManifestV2.safeParse(debugViewEnabledData)
 
   if (parsedLocationLoadStateV2.success) {

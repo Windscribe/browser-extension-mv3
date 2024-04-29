@@ -9,6 +9,7 @@ import { type StoreType } from 'state'
 import { setMigrationStatus } from 'state/slices/migration'
 import { migrateGeneralSettings } from './migrateGeneralSettings'
 import { migrateBlockerSettings } from './migrateBlockerSettings'
+import { migratePrivacySettings } from './migratePrivacySettings'
 import { migrateConnectionSettings } from './migrateConnectionSettings'
 
 const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> => {
@@ -99,6 +100,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
           // only migrate other settings if there is a valid session
           await migrateGeneralSettings(db, store)
           await migrateBlockerSettings(db, store)
+          await migratePrivacySettings(db, store)
           await migrateConnectionSettings(db, store)
           await store.dispatch(setMigrationStatus({ migrationId: MIGRATION_ID, completed: true }))
           await store.dispatch(checkSessionStatus())
