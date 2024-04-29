@@ -9,8 +9,7 @@ import { BlockListsValidatorManifestV2 } from 'utils/validators'
 
 // left side (key) is the blocker enabled list for v2 and right side (value) is the same but for v3
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const BLOCKER_SETTINGS_MAPPER: Dictionary<any> = {
+const BLOCKER_SETTINGS_MAPPER = {
   adblock: 'default',
   trackers: 'adguard-spyware-url',
   social: 'annoyances-social',
@@ -34,7 +33,7 @@ export const migrateBlockerSettings = async (db: Dexie, store: StoreType): Promi
   if (parsedBlockListsStateV2.success) {
     const newBlocklist: string[] = parsedBlockListsStateV2.data.state
       .map(blockList => {
-        return BLOCKER_SETTINGS_MAPPER[blockList]
+        return BLOCKER_SETTINGS_MAPPER[blockList as keyof typeof BLOCKER_SETTINGS_MAPPER]
       })
       .filter(blockList => !!blockList)
 
