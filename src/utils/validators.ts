@@ -2,8 +2,15 @@ import zod from 'zod'
 import {
   SYNC_KEY,
   LOCATION_LOAD_REDUCER,
-  NOTIFICATION_BLOCKER_REDUCER,
+  SYSTEM_NOTIFICATIONS_REDUCER,
   DEBUG_CONTEXT_REDUCER,
+  WORKER_BLOCK_REDUCER,
+  SPLIT_PERSONALITY_REDUCER,
+  LANGUAGE_SWITCH_REDUCER,
+  LOCATION_SPOOFER_REDUCER,
+  NOTIFICATION_BLOCKER_REDUCER,
+  PROXY_TIME_REDUCER,
+  WEB_RTC_REDUCER,
   SMOKE_WALL_REDUCER,
   AUTO_CONNECT_REDUCER,
   PROXY_PORT_REDUCER,
@@ -52,20 +59,59 @@ export const SessionDataValidatorManifestV2 = zod.object({
   loading: zod.boolean().optional().nullable(),
 })
 
+const booleanState = zod.boolean()
+
 // General Settings
+
 export const LocationLoadValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + LOCATION_LOAD_REDUCER),
-  state: zod.boolean(),
+  state: booleanState,
 })
 
-export const NotificationBlockerValidatorManifestV2 = zod.object({
-  reducer: zod.literal(SYNC_KEY + NOTIFICATION_BLOCKER_REDUCER),
-  state: zod.boolean(),
+export const SystemNotificationsValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + SYSTEM_NOTIFICATIONS_REDUCER),
+  state: booleanState,
 })
 
 export const DebugViewValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + DEBUG_CONTEXT_REDUCER),
-  state: zod.boolean(),
+  state: booleanState,
+})
+
+// Privacy Settings
+export const WorkerBlockValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + WORKER_BLOCK_REDUCER),
+  state: booleanState,
+})
+
+export const SplitPersonalityValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + SPLIT_PERSONALITY_REDUCER),
+  state: booleanState,
+})
+
+export const LanguageWarpValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + LANGUAGE_SWITCH_REDUCER),
+  state: booleanState,
+})
+
+export const ProxyTimeValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + PROXY_TIME_REDUCER),
+  state: booleanState,
+})
+
+export const LocationWarpValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + LOCATION_SPOOFER_REDUCER),
+  state: booleanState,
+})
+
+export const WebRtcValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + WEB_RTC_REDUCER),
+  state: booleanState,
+})
+
+export const NotificationBlockerValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + NOTIFICATION_BLOCKER_REDUCER),
+  state: booleanState,
 })
 
 // Connection Settings
