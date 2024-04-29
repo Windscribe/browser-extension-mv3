@@ -4,6 +4,10 @@ import {
   LOCATION_LOAD_REDUCER,
   NOTIFICATION_BLOCKER_REDUCER,
   DEBUG_CONTEXT_REDUCER,
+  SMOKE_WALL_REDUCER,
+  AUTO_CONNECT_REDUCER,
+  PROXY_PORT_REDUCER,
+  FAIL_OVER_REDUCER,
 } from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
@@ -48,6 +52,7 @@ export const SessionDataValidatorManifestV2 = zod.object({
   loading: zod.boolean().optional().nullable(),
 })
 
+// General Settings
 export const LocationLoadValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + LOCATION_LOAD_REDUCER),
   state: zod.boolean(),
@@ -61,4 +66,26 @@ export const NotificationBlockerValidatorManifestV2 = zod.object({
 export const DebugViewValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + DEBUG_CONTEXT_REDUCER),
   state: zod.boolean(),
+})
+
+// Connection Settings
+
+export const SmokeWallValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + SMOKE_WALL_REDUCER),
+  state: zod.boolean(),
+})
+
+export const AutoConnectValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + AUTO_CONNECT_REDUCER),
+  state: zod.boolean(),
+})
+
+export const ProxyPortValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + PROXY_PORT_REDUCER),
+  state: zod.enum(['443', '9443']),
+})
+
+export const FailOverValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + FAIL_OVER_REDUCER),
+  state: zod.enum(['Auto / Best', 'Same Country', 'None']),
 })
