@@ -69,3 +69,9 @@ export const DEBUG_CONTEXT_REDUCER = 'showDebugContextMenu'
 // Blocker Settings
 export const BLOCK_LISTS_REDUCER = 'blockListsEnabled'
 export const ADVANCED_MODE_REDUCER = 'advancedModeEnabled'
+
+// Connection Settings
+export const AUTO_CONNECT_REDUCER = 'autoConnect'
+export const SMOKE_WALL_REDUCER = 'smokewall'
+export const FAIL_OVER_REDUCER = 'failover'
+export const PROXY_PORT_REDUCER = 'proxyPort'
