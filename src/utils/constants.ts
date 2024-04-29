@@ -75,3 +75,9 @@ export const LOCATION_SPOOFER_REDUCER = 'locationSpooferEnabled'
 export const WEB_RTC_REDUCER = 'webRTCEnabled'
 export const NOTIFICATION_BLOCKER_REDUCER = 'notificationBlockerEnabled'
 export const AD_PRIVACY_REDUCER = 'notificationBlockerEnabled'
+
+// Connection Settings
+export const AUTO_CONNECT_REDUCER = 'autoConnect'
+export const SMOKE_WALL_REDUCER = 'smokewall'
+export const FAIL_OVER_REDUCER = 'failover'
+export const PROXY_PORT_REDUCER = 'proxyPort'

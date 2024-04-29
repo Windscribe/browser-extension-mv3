@@ -11,6 +11,10 @@ import {
   NOTIFICATION_BLOCKER_REDUCER,
   PROXY_TIME_REDUCER,
   WEB_RTC_REDUCER,
+  SMOKE_WALL_REDUCER,
+  AUTO_CONNECT_REDUCER,
+  PROXY_PORT_REDUCER,
+  FAIL_OVER_REDUCER,
 } from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
@@ -108,4 +112,26 @@ export const WebRtcValidatorManifestV2 = zod.object({
 export const NotificationBlockerValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + NOTIFICATION_BLOCKER_REDUCER),
   state: booleanState,
+})
+
+// Connection Settings
+
+export const SmokeWallValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + SMOKE_WALL_REDUCER),
+  state: zod.boolean(),
+})
+
+export const AutoConnectValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + AUTO_CONNECT_REDUCER),
+  state: zod.boolean(),
+})
+
+export const ProxyPortValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + PROXY_PORT_REDUCER),
+  state: zod.enum(['443', '9443']),
+})
+
+export const FailOverValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + FAIL_OVER_REDUCER),
+  state: zod.enum(['Auto / Best', 'Same Country', 'None']),
 })
