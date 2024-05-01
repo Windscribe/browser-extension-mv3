@@ -98,7 +98,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
   } else {
     await pushToDebugLog({
       level: 'INFO',
-      message: `Location load reducer not found`,
+      message: `Language warp reducer not found`,
       data: languageWarpStateV2.error,
       tag: 'background',
     })
@@ -109,7 +109,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
   } else {
     await pushToDebugLog({
       level: 'INFO',
-      message: `Notification blocker reducer not found`,
+      message: `Location spoofer reducer not found`,
       data: locationSpooferStateV2.error,
       tag: 'background',
     })
