@@ -233,14 +233,6 @@ interface ManifestV2Reducer {
   reducer: string
 }
 
-export interface SessionReducerStateV2 extends ManifestV2Reducer {
-  state: SessionDataV2
-}
-
-export interface BooleanSettingReducerStateV2 extends ManifestV2Reducer {
-  state: boolean
-}
-
-export interface LiteralOptionsReducerStateV2<P> extends ManifestV2Reducer {
+export interface ReducerStateV2<P> extends ManifestV2Reducer {
   state: P
 }

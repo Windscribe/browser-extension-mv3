@@ -81,3 +81,8 @@ export const AUTO_CONNECT_REDUCER = 'autoConnect'
 export const SMOKE_WALL_REDUCER = 'smokewall'
 export const FAIL_OVER_REDUCER = 'failover'
 export const PROXY_PORT_REDUCER = 'proxyPort'
+
+// Other Settings
+export const THEME_REDUCER = 'theme'
+export const ALLOW_LIST_REDUCER = 'allowList'
+export const FIRST_INSTALL_DATE_REDUCER = 'firstInstallDate'

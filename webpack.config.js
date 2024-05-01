@@ -36,6 +36,14 @@ const options = {
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
     background: path.join(__dirname, 'src', 'pages', 'background', 'main.ts'),
     debugLog: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.tsx'),
+    migrateTheme: path.join(
+      __dirname,
+      'src',
+      'services',
+      'migrateTheme',
+      'offscreen',
+      'migrateThemeOffscreen.ts',
+    ),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'popup'], // TODO check
@@ -230,6 +238,19 @@ const options = {
       template: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.html'),
       filename: 'debugLog.html',
       chunks: ['debugLog'],
+      cache: false,
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(
+        __dirname,
+        'src',
+        'services',
+        'migrateTheme',
+        'offscreen',
+        'migrateTheme.html',
+      ),
+      filename: 'migrateTheme.html',
+      chunks: ['migrateTheme'],
       cache: false,
     }),
     ...maybeProgressPlugin,

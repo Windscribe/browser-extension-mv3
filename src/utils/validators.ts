@@ -15,6 +15,8 @@ import {
   AUTO_CONNECT_REDUCER,
   PROXY_PORT_REDUCER,
   FAIL_OVER_REDUCER,
+  FIRST_INSTALL_DATE_REDUCER,
+  THEME_REDUCER,
 } from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
@@ -134,4 +136,16 @@ export const ProxyPortValidatorManifestV2 = zod.object({
 export const FailOverValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + FAIL_OVER_REDUCER),
   state: zod.enum(['Auto / Best', 'Same Country', 'None']),
+})
+
+// Other settings
+
+export const ThemeValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + THEME_REDUCER),
+  state: zod.enum(['light', 'dark']),
+})
+
+export const FirstInstalledDateValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + FIRST_INSTALL_DATE_REDUCER),
+  state: zod.number(),
 })
