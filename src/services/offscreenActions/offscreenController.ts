@@ -4,10 +4,6 @@ import { pushToDebugLog } from 'services/debugLog'
 export default null
 declare let self: ServiceWorkerGlobalScope
 
-chrome.runtime.onMessage.addListener(handleMessages)
-
-const OFFSCREEN_DOCUMENT_PATH = 'migrateTheme.html'
-
 async function hasOffscreenDocument(path: string) {
   if ('getContexts' in chrome.runtime) {
     const contexts = await chrome.runtime.getContexts({
@@ -26,7 +22,10 @@ async function hasOffscreenDocument(path: string) {
 // A global promise to avoid concurrency issues
 let creating: Promise<void> | null
 
-async function setupOffscreenDocument(path: string) {
+async function setupOffscreenDocument(
+  path: string,
+  reasons: chrome.offscreen.Reason[],
+): Promise<void> {
   const offscreenDocumentExists = await hasOffscreenDocument(path)
 
   if (offscreenDocumentExists) {
@@ -44,51 +43,31 @@ async function setupOffscreenDocument(path: string) {
   } else {
     creating = chrome.offscreen.createDocument({
       url: path,
-      reasons: [chrome.offscreen.Reason.LOCAL_STORAGE],
-      justification: 'To migrate theme from IndexedDB to Local storage',
+      reasons,
+      justification: 'To migrate settings',
     })
     await creating
     creating = null
   }
+
+  await pushToDebugLog({
+    level: 'INFO',
+    message: `Setup offscreen document with path ${path}`,
+    tag: 'background',
+  })
 }
 
-async function closeOffscreenDocument() {
-  if (!(await hasOffscreenDocument(OFFSCREEN_DOCUMENT_PATH))) {
+// not necessary but leaving in place for debugging purposes
+async function closeOffscreenDocument(path: string): Promise<void> {
+  if (!(await hasOffscreenDocument(path))) {
     return
   }
+  await pushToDebugLog({
+    level: 'INFO',
+    message: `Closing offscreen document ${path}`,
+    tag: 'background',
+  })
   await chrome.offscreen.closeDocument()
 }
 
-export async function migrateTheme(): Promise<void> {
-  await pushToDebugLog({
-    level: 'INFO',
-    message: `Opening offscreen document`,
-    tag: 'background',
-  })
-
-  await setupOffscreenDocument(OFFSCREEN_DOCUMENT_PATH)
-}
-
-async function handleMessages(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  message: any,
-) {
-  // Return early if this message isn't meant for the background script
-  if (message.target !== 'background') {
-    return
-  }
-
-  // Dispatch the message to an appropriate handler.
-  switch (message.type) {
-    case 'closeOffscreenDocument':
-      await pushToDebugLog({
-        level: 'INFO',
-        message: `Closing offscreen document`,
-        tag: 'background',
-      })
-      await closeOffscreenDocument()
-      break
-    default:
-      console.warn(`Unexpected message type received: '${message.type}'.`)
-  }
-}
+export { setupOffscreenDocument, closeOffscreenDocument }

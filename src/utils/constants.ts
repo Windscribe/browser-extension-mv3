@@ -84,5 +84,5 @@ export const PROXY_PORT_REDUCER = 'proxyPort'
 
 // Other Settings
 export const THEME_REDUCER = 'theme'
-export const ALLOW_LIST_REDUCER = 'allowList'
+export const ALLOW_LIST_REDUCER = 'allowlist'
 export const FIRST_INSTALL_DATE_REDUCER = 'firstInstallDate'

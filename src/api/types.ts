@@ -1,4 +1,6 @@
-import type { CountryCodeType, Either } from 'utils/types'
+import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
+import { AllowlistPayload } from 'state/slices/allowlist'
+import type { CountryCodeType, Either, LogItem } from 'utils/types'
 
 export type LoginParameters = {
   username: string
@@ -236,3 +238,29 @@ interface ManifestV2Reducer {
 export interface ReducerStateV2<P> extends ManifestV2Reducer {
   state: P
 }
+
+interface AllowListItemV2 {
+  allowAds?: boolean
+  allowCookies?: boolean
+  allowDirectConnect?: boolean
+  domain?: string
+  includeAllSubdomains?: boolean
+}
+export interface AllowListV2 extends AllowListItemV2 {
+  [key: string]: AllowListItemV2 | boolean | string | undefined
+}
+
+export type MessageTypes = 'migrateAllowlist' | 'migrateTheme'
+export type Targets = 'offscreen'
+
+export interface Message<T = unknown> {
+  target: Targets
+  type: MessageTypes
+  data?: T
+}
+
+export interface LogItemResponse {
+  logs: LogItem[]
+}
+
+export type CombinedAllowlistItem = AllowlistPayload & Partial<SetFilteringModeArgs>
