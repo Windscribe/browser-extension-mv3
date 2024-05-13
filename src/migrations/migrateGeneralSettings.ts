@@ -1,4 +1,4 @@
-import { BooleanSettingReducerStateV2 } from 'api/types'
+import { ReducerStateV2 } from 'api/types'
 import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
@@ -19,15 +19,15 @@ import {
 } from 'utils/validators'
 
 export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promise<void> => {
-  const locationLoadData: BooleanSettingReducerStateV2 = await db
+  const locationLoadData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + LOCATION_LOAD_REDUCER)
 
-  const notificationBlockerData: BooleanSettingReducerStateV2 = await db
+  const notificationBlockerData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + SYSTEM_NOTIFICATIONS_REDUCER)
 
-  const debugViewEnabledData: BooleanSettingReducerStateV2 = await db
+  const debugViewEnabledData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + DEBUG_CONTEXT_REDUCER)
 

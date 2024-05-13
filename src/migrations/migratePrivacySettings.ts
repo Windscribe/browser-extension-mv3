@@ -1,4 +1,4 @@
-import { BooleanSettingReducerStateV2 } from 'api/types'
+import { ReducerStateV2 } from 'api/types'
 import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
@@ -39,31 +39,31 @@ import {
 
 // Note: adPrivacy under privacy settings is not stored in the db, we cannot migrate it.
 export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promise<void> => {
-  const languageWarpData: BooleanSettingReducerStateV2 = await db
+  const languageWarpData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + LANGUAGE_SWITCH_REDUCER)
 
-  const locationWarpData: BooleanSettingReducerStateV2 = await db
+  const locationWarpData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + LOCATION_SPOOFER_REDUCER)
 
-  const workerBlockData: BooleanSettingReducerStateV2 = await db
+  const workerBlockData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + WORKER_BLOCK_REDUCER)
 
-  const splitPersonalityData: BooleanSettingReducerStateV2 = await db
+  const splitPersonalityData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + SPLIT_PERSONALITY_REDUCER)
 
-  const proxyTimeData: BooleanSettingReducerStateV2 = await db
+  const proxyTimeData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + PROXY_TIME_REDUCER)
 
-  const webRTCData: BooleanSettingReducerStateV2 = await db
+  const webRTCData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + WEB_RTC_REDUCER)
 
-  const notificationBlockerData: BooleanSettingReducerStateV2 = await db
+  const notificationBlockerData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + NOTIFICATION_BLOCKER_REDUCER)
 

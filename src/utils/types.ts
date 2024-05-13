@@ -75,7 +75,7 @@ export type LogItem = {
   message: string
 }
 
-export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript'
+export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript' | 'offscreen'
 
 export type LogLevel = 'INFO' | 'ERROR' | 'WARN'
 

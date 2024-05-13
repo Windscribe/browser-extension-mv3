@@ -1,4 +1,4 @@
-type SetFilteringModeArgs = { hostname: string; level: number }
+export type SetFilteringModeArgs = { hostname: string; level: number }
 
 // It sends message to event listeners within ublock service worker background script.
 // This function could NOT be used in background service worker execution context,

@@ -3,7 +3,7 @@ import { pushToDebugLog } from 'services/debugLog'
 import getErrorMessage from 'utils/getErrorMessage'
 import { DB_NAME, DB_STATE_TABLE, DB_VERSION, SESSION_REDUCER, SYNC_KEY } from 'utils/constants'
 import { checkSessionStatus, replaceSession } from 'state/slices/session'
-import { SessionReducerStateV2, SessionDataV2 } from 'api/types'
+import { SessionDataV2, ReducerStateV2 } from 'api/types'
 import { SessionDataValidatorManifestV2 } from 'utils/validators'
 import { type StoreType } from 'state'
 import { setMigrationStatus } from 'state/slices/migration'
@@ -11,6 +11,7 @@ import { migrateGeneralSettings } from './migrateGeneralSettings'
 import { migrateBlockerSettings } from './migrateBlockerSettings'
 import { migratePrivacySettings } from './migratePrivacySettings'
 import { migrateConnectionSettings } from './migrateConnectionSettings'
+import { migrateOtherSettings } from './migrateOtherSettings'
 
 const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> => {
   // never change this id
@@ -48,7 +49,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
         WS_LOGS: '++id, [timestamp+activity]',
       })
 
-      const data: SessionReducerStateV2 = await db
+      const data: ReducerStateV2<SessionDataV2> = await db
         .table(DB_STATE_TABLE)
         .get(SYNC_KEY + SESSION_REDUCER)
 
@@ -102,6 +103,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
           await migrateBlockerSettings(db, store)
           await migratePrivacySettings(db, store)
           await migrateConnectionSettings(db, store)
+          await migrateOtherSettings(db, store)
           await store.dispatch(setMigrationStatus({ migrationId: MIGRATION_ID, completed: true }))
           await store.dispatch(checkSessionStatus())
 

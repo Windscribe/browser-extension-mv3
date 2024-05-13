@@ -16,6 +16,9 @@ import {
   AUTO_CONNECT_REDUCER,
   PROXY_PORT_REDUCER,
   FAIL_OVER_REDUCER,
+  FIRST_INSTALL_DATE_REDUCER,
+  THEME_REDUCER,
+  ALLOW_LIST_REDUCER,
 } from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
@@ -141,4 +144,36 @@ export const ProxyPortValidatorManifestV2 = zod.object({
 export const FailOverValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + FAIL_OVER_REDUCER),
   state: zod.enum(['Auto / Best', 'Same Country', 'None']),
+})
+
+// Other settings
+
+export const ThemeValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + THEME_REDUCER),
+  state: zod.enum(['light', 'dark']),
+})
+
+export const FirstInstalledDateValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + FIRST_INSTALL_DATE_REDUCER),
+  state: zod.number(),
+})
+
+const AllowlistItemValidatorManifestV2 = zod.object({
+  allowAds: zod.boolean().optional(),
+  allowCookies: zod.boolean().optional(),
+  allowDirectConnect: zod.boolean().optional(),
+  domain: zod.string().optional(),
+  includeAllSubdomains: zod.boolean().optional(),
+})
+export const AllowListValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + ALLOW_LIST_REDUCER),
+  state: zod.array(
+    zod.intersection(
+      AllowlistItemValidatorManifestV2,
+      zod.record(
+        zod.string(),
+        zod.union([AllowlistItemValidatorManifestV2, zod.string(), zod.boolean()]),
+      ),
+    ),
+  ),
 })
