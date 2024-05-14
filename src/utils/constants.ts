@@ -59,32 +59,32 @@ export const SYNC_KEY = 'WS_DATA_'
 export const DB_NAME = 'WS_EXT_DB'
 export const DB_VERSION = 1
 export const DB_STATE_TABLE = 'WS_STATE'
-export const SESSION_REDUCER = 'session' // done
+export const SESSION_REDUCER = 'session'
 
 // General Settings
-export const LOCATION_LOAD_REDUCER = 'locationLoadEnabled' // done
-export const SYSTEM_NOTIFICATIONS_REDUCER = 'allowSystemNotifications' // done
-export const DEBUG_CONTEXT_REDUCER = 'showDebugContextMenu' // done
+export const LOCATION_LOAD_REDUCER = 'locationLoadEnabled'
+export const SYSTEM_NOTIFICATIONS_REDUCER = 'allowSystemNotifications'
+export const DEBUG_CONTEXT_REDUCER = 'showDebugContextMenu'
 
 // Privacy Settings
-export const WORKER_BLOCK_REDUCER = 'workerBlockEnabled' // done
-export const SPLIT_PERSONALITY_REDUCER = 'splitPersonalityEnabled' // done
-export const LANGUAGE_SWITCH_REDUCER = 'languageSwitchEnabled' // done
-export const PROXY_TIME_REDUCER = 'proxyTimeEnabled' // done
-export const LOCATION_SPOOFER_REDUCER = 'locationSpooferEnabled' // done
-export const WEB_RTC_REDUCER = 'webRTCEnabled' // done
-export const NOTIFICATION_BLOCKER_REDUCER = 'notificationBlockerEnabled' // done
+export const WORKER_BLOCK_REDUCER = 'workerBlockEnabled'
+export const SPLIT_PERSONALITY_REDUCER = 'splitPersonalityEnabled'
+export const LANGUAGE_SWITCH_REDUCER = 'languageSwitchEnabled'
+export const PROXY_TIME_REDUCER = 'proxyTimeEnabled'
+export const LOCATION_SPOOFER_REDUCER = 'locationSpooferEnabled'
+export const WEB_RTC_REDUCER = 'webRTCEnabled'
+export const NOTIFICATION_BLOCKER_REDUCER = 'notificationBlockerEnabled'
 
 // Connection Settings
-export const AUTO_CONNECT_REDUCER = 'autoConnect' // done
-export const SMOKE_WALL_REDUCER = 'smokewall' // done
-export const FAIL_OVER_REDUCER = 'failover' // done
-export const PROXY_PORT_REDUCER = 'proxyPort' // done
+export const AUTO_CONNECT_REDUCER = 'autoConnect'
+export const SMOKE_WALL_REDUCER = 'smokewall'
+export const FAIL_OVER_REDUCER = 'failover'
+export const PROXY_PORT_REDUCER = 'proxyPort'
 
 // Other Settings
-export const THEME_REDUCER = 'theme' // done
-export const ALLOW_LIST_REDUCER = 'allowlist' //  done
-export const FIRST_INSTALL_DATE_REDUCER = 'firstInstallDate' //  done
-export const LOCATION_SORTING_REDUCER = 'locationSorting' // done
-export const NEWSFEED_IDS_ALREADY_VIEWED_REDUCER = 'newsfeedIdsAlreadyViewed' // done
-export const FAVORITE_LOCATIONS_REDUCER = 'favoriteLocations' // done
+export const THEME_REDUCER = 'theme'
+export const ALLOW_LIST_REDUCER = 'allowlist'
+export const FIRST_INSTALL_DATE_REDUCER = 'firstInstallDate'
+export const LOCATION_SORTING_REDUCER = 'locationSorting'
+export const NEWSFEED_IDS_ALREADY_VIEWED_REDUCER = 'newsfeedIdsAlreadyViewed'
+export const FAVORITE_LOCATIONS_REDUCER = 'favoriteLocations'
