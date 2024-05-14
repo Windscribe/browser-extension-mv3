@@ -61,6 +61,7 @@ export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Pr
       level: 'INFO',
       message: `Smokewall reducer not found`,
       tag: 'background',
+      data: JSON.stringify(parsedSmokeWallStateV2.error),
     })
   }
 
@@ -71,6 +72,7 @@ export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Pr
       level: 'INFO',
       message: `Auto Connect reducer not found`,
       tag: 'background',
+      data: JSON.stringify(parsedAutoConnectStateV2.error),
     })
   }
 
@@ -82,6 +84,7 @@ export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Pr
       level: 'INFO',
       message: `Proxy port reducer not found`,
       tag: 'background',
+      data: JSON.stringify(parsedProxyPortStateV2.error),
     })
   }
 
@@ -92,6 +95,7 @@ export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Pr
       level: 'INFO',
       message: `Failover reducer not found`,
       tag: 'background',
+      data: JSON.stringify(parsedFailOverStateV2.error),
     })
   }
 }

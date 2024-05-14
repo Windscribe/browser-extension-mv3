@@ -158,7 +158,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       level: 'INFO',
       message: `Allowlist reducer not found`,
       tag: 'background',
-      data: parsedallowListStateV2.error,
+      data: JSON.stringify(parsedallowListStateV2.error),
     })
   }
 
@@ -182,7 +182,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       level: 'INFO',
       message: `Theme reducer not found`,
       tag: 'background',
-      data: parsedThemeStateV2.error,
+      data: JSON.stringify(parsedThemeStateV2.error),
     })
   }
 
@@ -193,7 +193,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       level: 'INFO',
       message: `First Installed Date reducer not found`,
       tag: 'background',
-      data: parsedFirstInstalledDateStateV2.error,
+      data: JSON.stringify(parsedFirstInstalledDateStateV2.error),
     })
   }
 
@@ -204,7 +204,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       level: 'INFO',
       message: `Location sorting reducer not found`,
       tag: 'background',
-      data: parsedLocationSortingStateV2.error,
+      data: JSON.stringify(parsedLocationSortingStateV2.error),
     })
   }
 
@@ -217,7 +217,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       level: 'INFO',
       message: `NewsFeed Ids Already Viewed reducer not found`,
       tag: 'background',
-      data: parsedNewsFeedIdsStateV2.error,
+      data: JSON.stringify(parsedNewsFeedIdsStateV2.error),
     })
   }
 
@@ -236,7 +236,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       level: 'INFO',
       message: `Favourite Locations reducer not found`,
       tag: 'background',
-      data: parsedFavouriteLocationsStateV2.error,
+      data: JSON.stringify(parsedFavouriteLocationsStateV2.error),
     })
   }
 }

@@ -99,7 +99,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     await pushToDebugLog({
       level: 'INFO',
       message: `Location load reducer not found`,
-      data: languageWarpStateV2.error,
+      data: JSON.stringify(languageWarpStateV2.error),
       tag: 'background',
     })
   }
@@ -110,7 +110,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     await pushToDebugLog({
       level: 'INFO',
       message: `Notification blocker reducer not found`,
-      data: locationSpooferStateV2.error,
+      data: JSON.stringify(locationSpooferStateV2.error),
       tag: 'background',
     })
   }
@@ -121,7 +121,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     await pushToDebugLog({
       level: 'INFO',
       message: `Worker Block reducer not found`,
-      data: workerBlockStateV2.error,
+      data: JSON.stringify(workerBlockStateV2.error),
       tag: 'background',
     })
   }
@@ -132,7 +132,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     await pushToDebugLog({
       level: 'INFO',
       message: `Proxy Time reducer not found`,
-      data: proxyTimeStateV2.error,
+      data: JSON.stringify(proxyTimeStateV2.error),
       tag: 'background',
     })
   }
@@ -147,7 +147,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     await pushToDebugLog({
       level: 'INFO',
       message: `WebRTC reducer not found`,
-      data: webRTCStateV2.error,
+      data: JSON.stringify(webRTCStateV2.error),
       tag: 'background',
     })
   }
@@ -162,7 +162,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     await pushToDebugLog({
       level: 'INFO',
       message: `Split Personality reducer not found`,
-      data: splitPersonalityStateV2.error,
+      data: JSON.stringify(splitPersonalityStateV2.error),
       tag: 'background',
     })
   }
@@ -177,7 +177,7 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     await pushToDebugLog({
       level: 'INFO',
       message: `Notification Blocker reducer not found`,
-      data: notificationBlockerStateV2.error,
+      data: JSON.stringify(notificationBlockerStateV2.error),
       tag: 'background',
     })
   }
