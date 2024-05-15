@@ -15,21 +15,20 @@ const FavoritesList: React.FC = () => {
 
   // migrate the server list ids
   useEffect(() => {
-    if (migratedFavouriteLocations.isMigrated) {
-      return
-    }
-    for (const id of migratedFavouriteLocations.favouriteLocationIds) {
-      for (const server of serverList.serverList) {
-        if (server.groups) {
-          for (const dataCenter of server.groups) {
-            if (id === dataCenter.id) {
-              dispatch(addLocationToFavorite(dataCenter))
+    if (!migratedFavouriteLocations.isMigrated && serverList.serverList) {
+      for (const id of migratedFavouriteLocations.favouriteLocationIds) {
+        for (const server of serverList.serverList) {
+          if (server.groups) {
+            for (const dataCenter of server.groups) {
+              if (id === dataCenter.id) {
+                dispatch(addLocationToFavorite(dataCenter))
+              }
             }
           }
         }
       }
+      dispatch(setFavouriteLocationMigrationStatus())
     }
-    dispatch(setFavouriteLocationMigrationStatus())
   }, [serverList.serverList, migratedFavouriteLocations, dispatch])
 
   return favorites.length ? (
