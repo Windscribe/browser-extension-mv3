@@ -15,7 +15,12 @@ const FavoritesList: React.FC = () => {
 
   // migrate the server list ids
   useEffect(() => {
-    if (!migratedFavouriteLocations.isMigrated && serverList.serverList) {
+    if (
+      !migratedFavouriteLocations.isMigrated &&
+      serverList.serverList &&
+      !serverList.error &&
+      !serverList.loading
+    ) {
       for (const id of migratedFavouriteLocations.favouriteLocationIds) {
         for (const server of serverList.serverList) {
           if (server.groups) {
@@ -29,7 +34,13 @@ const FavoritesList: React.FC = () => {
       }
       dispatch(setFavouriteLocationMigrationStatus())
     }
-  }, [serverList.serverList, migratedFavouriteLocations, dispatch])
+  }, [
+    serverList.serverList,
+    migratedFavouriteLocations,
+    dispatch,
+    serverList.error,
+    serverList.loading,
+  ])
 
   return favorites.length ? (
     <Box pb="16px">
