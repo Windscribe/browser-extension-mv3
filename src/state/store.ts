@@ -51,6 +51,7 @@ import firstInstallDateReducer from './slices/firstInstallDate'
 import adPrivacyEnabledReducer from './slices/adPrivacyEnabled'
 import migratedFavouriteLocations from './slices/migratedFavoriteLocations'
 import migrationReducer from './slices/migration'
+import themeReducer from './slices/theme'
 
 const reducers = {
   adPrivacyEnabled: adPrivacyEnabledReducer,
@@ -92,6 +93,7 @@ const reducers = {
   workingApi: workingApiReducer,
   migrations: migrationReducer,
   migratedFavouriteLocations,
+  theme: themeReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

@@ -58,16 +58,16 @@ async function setupOffscreenDocument(
 }
 
 // not necessary but leaving in place for debugging purposes
-async function closeOffscreenDocument(path: string): Promise<void> {
-  if (!(await hasOffscreenDocument(path))) {
-    return
-  }
-  await pushToDebugLog({
-    level: 'INFO',
-    message: `Closing offscreen document ${path}`,
-    tag: 'background',
-  })
-  await chrome.offscreen.closeDocument()
-}
+// async function closeOffscreenDocument(path: string): Promise<void> {
+//   if (!(await hasOffscreenDocument(path))) {
+//     return
+//   }
+//   await pushToDebugLog({
+//     level: 'INFO',
+//     message: `Closing offscreen document ${path}`,
+//     tag: 'background',
+//   })
+//   await chrome.offscreen.closeDocument()
+// }
 
-export { setupOffscreenDocument, closeOffscreenDocument }
+export { setupOffscreenDocument }

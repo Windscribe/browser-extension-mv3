@@ -19,7 +19,7 @@ const FavoritesList: React.FC = () => {
       !migratedFavouriteLocations.isMigrated &&
       serverList.serverList &&
       !serverList.error &&
-      !serverList.loading
+      serverList.loading === 'fulfilled'
     ) {
       for (const id of migratedFavouriteLocations.favouriteLocationIds) {
         for (const server of serverList.serverList) {

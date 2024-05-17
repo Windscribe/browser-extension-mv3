@@ -62,8 +62,27 @@ export const userStashesSlice = createSlice({
     setUsername(state, action: PayloadAction<string>) {
       state.username = action.payload
     },
+    setAndMergeStashes(
+      state,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      action: PayloadAction<{ hashedID: string; data: { [key: string]: any } }>,
+    ) {
+      // merges the properties for the same hashed user, looks funky
+      state.store = {
+        ...state.store,
+        [action.payload.hashedID]: {
+          toStash: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ...((state.store[action.payload.hashedID] as any)?.toStash ?? {}),
+            // Warning: if data is an object, multiple updates will replace the same object
+            // better to combine updates and send only one object
+            ...action.payload.data,
+          },
+        },
+      }
+    },
   },
 })
 
-export const { setUserStashes, setUsername } = userStashesSlice.actions
+export const { setUserStashes, setUsername, setAndMergeStashes } = userStashesSlice.actions
 export default userStashesSlice.reducer
