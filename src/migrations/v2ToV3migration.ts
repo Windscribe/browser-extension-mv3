@@ -25,6 +25,7 @@ import { migrateStashedPrivacySettings } from './migrateStashedPrivacySettings'
 import { migrateStashedGeneralSettings } from './migrateStashedGeneralSettings'
 import { migrateStashedConnectionSettings } from './migrateStashedConnectionSettings'
 import { migrateStashedOtherSettings } from './migrateStashedOtherSettings'
+import { migrateStashedBlockerSettings } from './migrateStashedBlockerSettings'
 
 const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> => {
   // never change this id
@@ -193,6 +194,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
         await migrateStashedPrivacySettings(store, validatedUserStashes.data, hashedUserId)
         await migrateStashedConnectionSettings(store, validatedUserStashes.data, hashedUserId)
         await migrateStashedOtherSettings(store, validatedUserStashes.data, hashedUserId)
+        await migrateStashedBlockerSettings(store, validatedUserStashes.data, hashedUserId)
       }
     }
 

@@ -382,3 +382,15 @@ export const StashedAllowListValidatorManifestV2 = zod.object({
     }),
   ),
 })
+
+// Blocker settings
+
+export const StashedBlockListsValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      blockListsEnabled: zod.array(zod.string()),
+    }),
+  ),
+})
