@@ -15,6 +15,7 @@ import { SessionDataValidatorManifestV2, UserStashesValidatorManifestV2 } from '
 import { type StoreType } from 'state'
 import { setMigrationStatus } from 'state/slices/migration'
 import { migrateGeneralSettings } from './migrateGeneralSettings'
+import { migrateBlockerSettings } from './migrateBlockerSettings'
 import { migratePrivacySettings } from './migratePrivacySettings'
 import { migrateConnectionSettings } from './migrateConnectionSettings'
 import { migrateOtherSettings } from './migrateOtherSettings'
@@ -169,6 +170,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
       await migratePrivacySettings(db, store)
       await migrateConnectionSettings(db, store)
       await migrateOtherSettings(db, store)
+      await migrateBlockerSettings(db, store)
       await store.dispatch(checkSessionStatus())
     }
 
