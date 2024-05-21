@@ -70,7 +70,14 @@ const SiteControlBar: React.FC = () => {
           {allowlist[currentTabHostname] ? (
             <AllowlistOn />
           ) : (
-            <AllowlistOff sx={{ fill: 'halfWhite' }} />
+            <AllowlistOff
+              sx={{
+                '& > path': {
+                  transition: 'all 0.3s ease 0s',
+                  fill: 'halfWhite',
+                },
+              }}
+            />
           )}
         </IconButton>
       </ToolTip>
