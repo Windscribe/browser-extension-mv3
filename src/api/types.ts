@@ -264,3 +264,15 @@ export interface LogItemResponse {
 }
 
 export type CombinedAllowlistItem = AllowlistPayload & Partial<SetFilteringModeArgs>
+
+export interface DataCenterMV2 {
+  dataCenterId?: number
+  gps?: string
+  name?: string
+  nickname?: string
+  hosts?: string[]
+  countryCode?: string
+  isCenterPro?: boolean
+  locationId?: number
+  health?: number
+}

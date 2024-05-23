@@ -16,17 +16,26 @@ import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode
 import { StoreType } from 'state'
 import { ADD_TO_ALLOWLIST, AllowlistPayload } from 'state/slices/allowlist'
 import { setFirstInstallDate } from 'state/slices/firstInstallDate'
+import { setLocationSorting } from 'state/slices/locationSorting'
+import { saveFavouriteLocationId } from 'state/slices/migratedFavoriteLocations'
+import { markNewsAsViewed } from 'state/slices/newsfeed'
 import {
   DB_STATE_TABLE,
   SYNC_KEY,
   THEME_REDUCER,
   ALLOW_LIST_REDUCER,
   FIRST_INSTALL_DATE_REDUCER,
+  LOCATION_SORTING_REDUCER,
+  NEWSFEED_IDS_ALREADY_VIEWED_REDUCER,
+  FAVORITE_LOCATIONS_REDUCER,
 } from 'utils/constants'
-import { LogItem } from 'utils/types'
+import { LocationSorting } from 'utils/types'
 import {
   AllowListValidatorManifestV2,
+  FavouriteLocationsValidatorManifestV2,
   FirstInstalledDateValidatorManifestV2,
+  LocationSortingValidatorManifestV2,
+  NewsFeedIdsAlreadyViewedValidatorManifestV2,
   ThemeValidatorManifestV2,
 } from 'utils/validators'
 
@@ -43,6 +52,18 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + FIRST_INSTALL_DATE_REDUCER)
 
+  const locationSortingData: ReducerStateV2<LocationSorting> = await db
+    .table(DB_STATE_TABLE)
+    .get(SYNC_KEY + LOCATION_SORTING_REDUCER)
+
+  const newsfeedIdsAlreadyViewedData: ReducerStateV2<number[]> = await db
+    .table(DB_STATE_TABLE)
+    .get(SYNC_KEY + NEWSFEED_IDS_ALREADY_VIEWED_REDUCER)
+
+  const favoriteLocationsData: ReducerStateV2<unknown> = await db
+    .table(DB_STATE_TABLE)
+    .get(SYNC_KEY + FAVORITE_LOCATIONS_REDUCER)
+
   await pushToDebugLog({
     level: 'INFO',
     message: `general settings`,
@@ -51,40 +72,53 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       themeData,
       firstInstallDateData,
       allowListData,
+      locationSortingData,
+      newsfeedIdsAlreadyViewedData,
+      favoriteLocationsData,
     }),
   })
 
   const parsedThemeStateV2 = ThemeValidatorManifestV2.safeParse(themeData)
-  const parsedallowListDataStateV2 = AllowListValidatorManifestV2.safeParse(allowListData)
-  const firstInstalledDateStateV2 =
+  const parsedallowListStateV2 = AllowListValidatorManifestV2.safeParse(allowListData)
+
+  const parsedFirstInstalledDateStateV2 =
     FirstInstalledDateValidatorManifestV2.safeParse(firstInstallDateData)
+
+  const parsedLocationSortingStateV2 =
+    LocationSortingValidatorManifestV2.safeParse(locationSortingData)
+
+  const parsedNewsFeedIdsStateV2 = NewsFeedIdsAlreadyViewedValidatorManifestV2.safeParse(
+    newsfeedIdsAlreadyViewedData,
+  )
+
+  const parsedFavouriteLocationsStateV2 =
+    FavouriteLocationsValidatorManifestV2.safeParse(favoriteLocationsData)
 
   // no equivalent settings in mv3 for allowCookies in mv2
   // allowPrivacyFeatures is only mv3 exclusive, no equivalent in mv2, default to true
-  if (parsedallowListDataStateV2.success) {
+  if (parsedallowListStateV2.success) {
     try {
-      const collection: (CombinedAllowlistItem | undefined)[] =
-        parsedallowListDataStateV2.data.state
-          .map(allowListData => {
-            if (!allowListData.domain) return
-            if (!isValidDomain(allowListData.domain)) return
+      const collection: (CombinedAllowlistItem | undefined)[] = parsedallowListStateV2.data.state
+        .map(allowListData => {
+          if (!allowListData.domain) return
+          if (!isValidDomain(allowListData.domain)) return
 
-            const mappedDomainSettings: AllowlistPayload & Partial<SetFilteringModeArgs> = {
-              domain: allowListData.domain,
-              allowAds: allowListData.allowAds ?? false,
-              allowDirectConnections: allowListData.allowDirectConnect ?? false,
-              includeAllSubdomains: allowListData.includeAllSubdomains ?? false,
-              allowPrivacyFeatures: true,
-            }
+          const mappedDomainSettings: AllowlistPayload & Partial<SetFilteringModeArgs> = {
+            domain: allowListData.domain,
+            allowAds: allowListData.allowAds ?? false,
+            allowDirectConnections: allowListData.allowDirectConnect ?? false,
+            includeAllSubdomains: allowListData.includeAllSubdomains ?? false,
+            allowPrivacyFeatures: true,
+          }
 
-            if (allowListData.allowAds === true) {
-              const level = allowListData.allowAds ? 0 : 3
-              mappedDomainSettings.hostname = allowListData.domain
-              mappedDomainSettings.level = level
-            }
-            return mappedDomainSettings
-          })
-          .filter(item => !!item)
+          if (allowListData.allowAds === true) {
+            const level = allowListData.allowAds ? 0 : 3
+            mappedDomainSettings.hostname = allowListData.domain
+            mappedDomainSettings.level = level
+          }
+          return mappedDomainSettings
+        })
+        .filter(item => !!item)
 
       await setupOffscreenDocument('migrateAllowlist.html', [
         chrome.offscreen.Reason.IFRAME_SCRIPTING,
@@ -124,12 +158,13 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       level: 'INFO',
       message: `Allowlist reducer not found`,
       tag: 'background',
-      data: parsedallowListDataStateV2.error,
+      data: JSON.stringify(parsedallowListStateV2.error),
     })
   }
 
   if (parsedThemeStateV2.success) {
-    // uses offscreen document to access local storage and indexedDB because service workersdo not have access to local storage api
+    // uses offscreen document to access local storage and indexedDB because
+    // service workers do not  have access to local storage api
     await setupOffscreenDocument('migrateTheme.html', [chrome.offscreen.Reason.LOCAL_STORAGE])
 
     const response = await chrome.runtime.sendMessage<Message, LogItemResponse>({
@@ -147,18 +182,61 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       level: 'INFO',
       message: `Theme reducer not found`,
       tag: 'background',
-      data: parsedThemeStateV2.error,
+      data: JSON.stringify(parsedThemeStateV2.error),
     })
   }
 
-  if (firstInstalledDateStateV2.success) {
-    await store.dispatch(setFirstInstallDate(firstInstalledDateStateV2.data.state))
+  if (parsedFirstInstalledDateStateV2.success) {
+    await store.dispatch(setFirstInstallDate(parsedFirstInstalledDateStateV2.data.state))
   } else {
     await pushToDebugLog({
       level: 'INFO',
       message: `First Installed Date reducer not found`,
       tag: 'background',
-      data: firstInstalledDateStateV2.error,
+      data: JSON.stringify(parsedFirstInstalledDateStateV2.error),
+    })
+  }
+
+  if (parsedLocationSortingStateV2.success) {
+    await store.dispatch(setLocationSorting(parsedLocationSortingStateV2.data.state))
+  } else {
+    await pushToDebugLog({
+      level: 'INFO',
+      message: `Location sorting reducer not found`,
+      tag: 'background',
+      data: JSON.stringify(parsedLocationSortingStateV2.error),
+    })
+  }
+
+  if (parsedNewsFeedIdsStateV2.success) {
+    for (const id of parsedNewsFeedIdsStateV2.data.state) {
+      await store.dispatch(markNewsAsViewed(id))
+    }
+  } else {
+    await pushToDebugLog({
+      level: 'INFO',
+      message: `NewsFeed Ids Already Viewed reducer not found`,
+      tag: 'background',
+      data: JSON.stringify(parsedNewsFeedIdsStateV2.error),
+    })
+  }
+
+  if (parsedFavouriteLocationsStateV2.success) {
+    // data formats incompatible b/w mv2 and mv3 so we store id's
+    // when the favourites view is shown we set the favourites then using the
+    // stored id's, reason to do it this way is serverlist may not be
+    // available at install time. So we migrate fully at a later time.
+    for (const dataCenter of parsedFavouriteLocationsStateV2.data.state) {
+      if (dataCenter.dataCenterId) {
+        await store.dispatch(saveFavouriteLocationId(dataCenter.dataCenterId))
+      }
+    }
+  } else {
+    await pushToDebugLog({
+      level: 'INFO',
+      message: `Favourite Locations reducer not found`,
+      tag: 'background',
+      data: JSON.stringify(parsedFavouriteLocationsStateV2.error),
     })
   }
 }

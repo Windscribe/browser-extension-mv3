@@ -19,6 +19,9 @@ import {
   FIRST_INSTALL_DATE_REDUCER,
   THEME_REDUCER,
   ALLOW_LIST_REDUCER,
+  LOCATION_SORTING_REDUCER,
+  NEWSFEED_IDS_ALREADY_VIEWED_REDUCER,
+  FAVORITE_LOCATIONS_REDUCER,
 } from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
@@ -175,5 +178,32 @@ export const AllowListValidatorManifestV2 = zod.object({
         zod.union([AllowlistItemValidatorManifestV2, zod.string(), zod.boolean()]),
       ),
     ),
+  ),
+})
+
+export const LocationSortingValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + LOCATION_SORTING_REDUCER),
+  state: zod.enum(['alphabet', 'geography']),
+})
+
+export const NewsFeedIdsAlreadyViewedValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + NEWSFEED_IDS_ALREADY_VIEWED_REDUCER),
+  state: zod.array(zod.number()),
+})
+
+export const FavouriteLocationsValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + FAVORITE_LOCATIONS_REDUCER),
+  state: zod.array(
+    zod.object({
+      dataCenterId: zod.number().optional(),
+      gps: zod.string().optional(),
+      name: zod.string().optional(),
+      nickname: zod.string().optional(),
+      hosts: zod.array(zod.string()).optional(),
+      countryCode: zod.string().optional(),
+      isCenterPro: zod.boolean().optional(),
+      locationId: zod.number().optional(),
+      health: zod.number().optional(),
+    }),
   ),
 })
