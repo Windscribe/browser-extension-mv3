@@ -66,6 +66,9 @@ export const LOCATION_LOAD_REDUCER = 'locationLoadEnabled'
 export const SYSTEM_NOTIFICATIONS_REDUCER = 'allowSystemNotifications'
 export const DEBUG_CONTEXT_REDUCER = 'showDebugContextMenu'
 
+// Blocker Settings
+export const BLOCK_LISTS_REDUCER = 'blockListsEnabled'
+
 // Privacy Settings
 export const WORKER_BLOCK_REDUCER = 'workerBlockEnabled'
 export const SPLIT_PERSONALITY_REDUCER = 'splitPersonalityEnabled'

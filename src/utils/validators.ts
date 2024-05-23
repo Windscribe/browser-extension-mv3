@@ -4,6 +4,7 @@ import {
   LOCATION_LOAD_REDUCER,
   SYSTEM_NOTIFICATIONS_REDUCER,
   DEBUG_CONTEXT_REDUCER,
+  BLOCK_LISTS_REDUCER,
   WORKER_BLOCK_REDUCER,
   SPLIT_PERSONALITY_REDUCER,
   LANGUAGE_SWITCH_REDUCER,
@@ -120,8 +121,14 @@ export const NotificationBlockerValidatorManifestV2 = zod.object({
   state: booleanState,
 })
 
-// Connection Settings
+// Blocker settings
 
+export const BlockListsValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + BLOCK_LISTS_REDUCER),
+  state: zod.array(zod.string()),
+})
+
+// Connection Settings
 export const SmokeWallValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + SMOKE_WALL_REDUCER),
   state: zod.boolean(),
