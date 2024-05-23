@@ -52,13 +52,8 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
   const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
   const isPremium = useSelector(s => s.session.sessionData?.is_premium)
-  const dispatch = useDispatch()
-  const [serverList, setServerList] = useState<ServerList>(serverListSorted)
 
-  useEffect(() => {
-    dispatch(fetchServerList())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch])
+  const [serverList, setServerList] = useState<ServerList>(serverListSorted)
 
   useEffect(() => {
     if (searchText.length > 0) {

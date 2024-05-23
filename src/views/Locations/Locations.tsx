@@ -7,12 +7,15 @@ import LocationsList from './LocationsList'
 import FavoritesList from './FavoritesList'
 import type { ThemeUiElement } from 'utils/types'
 import type { DebouncedInputOnChangeHandler, Tab, SetTab } from './types'
+import { fetchServerList } from 'state/slices/servers'
+import { useDispatch } from 'react-redux'
 
 const Locations: ThemeUiElement = () => {
   const [currentTab, setCurrentTab] = useState<Tab>('locations')
   // used to track the first key press to pass as initial input to search field
   const [focusInitKey, setFocusInitKey] = useState<string | null>(null)
   const [searchText, setSearchText] = useState<string>('')
+  const dispatch = useDispatch()
 
   // debounce to prevent lagginess from spamming searches on every keypress
   const debouncedSetSearchText: DebouncedInputOnChangeHandler = debounce(event => {
@@ -42,6 +45,11 @@ const Locations: ThemeUiElement = () => {
     window.addEventListener('keypress', onKeypress)
     return () => window.removeEventListener('keypress', onKeypress)
   }, [])
+
+  useEffect(() => {
+    dispatch(fetchServerList())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch])
 
   return (
     <Column data-testid="locations-page" bg="background">
