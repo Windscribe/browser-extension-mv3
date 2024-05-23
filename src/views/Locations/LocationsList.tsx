@@ -4,8 +4,9 @@ import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
 import type { ServerList } from 'api/types'
-import { selectSortedLocation } from 'state/slices/servers'
+import { fetchServerList, selectSortedLocation } from 'state/slices/servers'
 import Fuse from 'fuse.js'
+import { useDispatch } from 'react-redux'
 
 const filterServerListBySearchText = (serverList: ServerList, searchText: string): ServerList => {
   // Setup Fuse.js for searching
@@ -51,8 +52,13 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
   const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
   const isPremium = useSelector(s => s.session.sessionData?.is_premium)
-
+  const dispatch = useDispatch()
   const [serverList, setServerList] = useState<ServerList>(serverListSorted)
+
+  useEffect(() => {
+    dispatch(fetchServerList())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch])
 
   useEffect(() => {
     if (searchText.length > 0) {
