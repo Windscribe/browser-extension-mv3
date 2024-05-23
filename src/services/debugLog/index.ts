@@ -48,7 +48,6 @@ const parseLogToStrings = (log: LogItem[]): string[] => {
   })
 }
 
-// Function to clear logs older than one week
 const clearLogsOlderThanWeek = async (): Promise<void> => {
   const debugLog = await getStorage('debugLog')
   if (!debugLog) return
