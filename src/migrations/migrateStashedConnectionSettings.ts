@@ -26,7 +26,7 @@ export const migrateStashedConnectionSettings = async (
   } else {
     await pushToDebugLog({
       level: 'INFO',
-      message: `Smokewall stashed state not found`,
+      message: `Auto Connect in Connection Settings stashed state not found.`,
       tag: 'background',
       data: JSON.stringify(parsedAutoConnectStateV2.error),
     })
