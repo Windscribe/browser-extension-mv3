@@ -80,7 +80,7 @@ const UsageBar: React.FC<ButtonProps> = () => {
                 fontWeight: 'bold',
               }}
             >
-              {trafficDifference < 0 ? 'Out of Data' : `${remainingDataBytes} Left`}
+              {trafficDifference < 0 ? 'Out of data' : `${remainingDataBytes} Left`}
             </Text>
           )}
         </Flex>

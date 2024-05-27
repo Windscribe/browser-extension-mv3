@@ -91,7 +91,7 @@ const Preferences: ThemeUiElement = () => {
         {is_premium || traffic_max === ACCOUNT_PLAN.UNLIMITED ? null : (
           <SpaceBetween mb="16px">
             <Text sx={{ color: 'primaryText', fontWeight: '600' }}>
-              {trafficDifference < 0 ? 'Out of Data' : `${remainingDataBytes} Left`}
+              {trafficDifference < 0 ? 'Out of data' : `${remainingDataBytes} Left`}
             </Text>
             {email && email_status === EMAIL.UNCONFIRMED ? (
               <ConfirmEmail />
