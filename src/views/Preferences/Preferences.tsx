@@ -60,8 +60,8 @@ const Preferences: ThemeUiElement = () => {
   const is_premium = useSelector(s => s.session?.sessionData?.is_premium)
   const email_status = useSelector(s => s.session?.sessionData?.email_status)
   const email = useSelector(s => s.session?.sessionData?.email)
-
-  const remainingDataBytes = bytes(traffic_max - traffic_used)
+  const trafficDifference = traffic_max - traffic_used
+  const remainingDataBytes = bytes(trafficDifference)
   const [isWebSessionPending, setIsWebSessionPending] = useState(false)
 
   const openKnowledgeBase = async () => {
@@ -90,7 +90,9 @@ const Preferences: ThemeUiElement = () => {
       <Box sx={{ mx: '16px' }}>
         {is_premium || traffic_max === ACCOUNT_PLAN.UNLIMITED ? null : (
           <SpaceBetween mb="16px">
-            <Text sx={{ color: 'primaryText', fontWeight: '600' }}>{remainingDataBytes} Left</Text>
+            <Text sx={{ color: 'primaryText', fontWeight: '600' }}>
+              {trafficDifference < 0 ? 'Out of Data' : `${remainingDataBytes} Left`}
+            </Text>
             {email && email_status === EMAIL.UNCONFIRMED ? (
               <ConfirmEmail />
             ) : (
