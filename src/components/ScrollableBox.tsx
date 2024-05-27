@@ -1,6 +1,5 @@
-import { Box, useThemeUI, type BoxProps } from 'theme-ui'
+import { Box, ColorModesScale, useThemeUI, type BoxProps } from 'theme-ui'
 import { useEffect, useRef } from 'react'
-import { css } from '@emotion/react'
 import { ThemeUiElement } from 'utils/types'
 
 type ScrollableBoxProps = React.PropsWithChildren<
@@ -15,7 +14,7 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
   ...restProps
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const { theme, colorMode } = useThemeUI()
+  const { colorMode } = useThemeUI()
 
   useEffect(() => {
     if (scrollContainerRef.current) {
@@ -24,44 +23,43 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
   }, [scrollTop])
 
   const scrollbarWidth = 7
-
-  const { background, quarterWhite, quarterSoftBlack } = theme.colors || {}
-  const scrollbarThumbColor = colorMode === 'dark' ? quarterWhite : quarterSoftBlack
+  const scrollbarColor = (colors: ColorModesScale | undefined) =>
+    colorMode === 'dark' ? colors?.quarterWhite : colors?.quarterSoftBlack
 
   return (
     <Box
       // `react-custom-scrollbars` is a pure Javascript custom scrollbar solution and while it
       // enables OS X style scrollbars (overlay) on Windows, pure CSS is much more performant
       // so we use a thin, fixed-gutter custom scrollbar for this list
-      //use raw css as sx props dont work with vendor prefixes
+
       pl="16px"
-      pr="16px"
-      css={css`
-        position: relative;
-        height: auto;
-        max-height: 378px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        scrollbar-gutter: stable;
+      pr={`${16 - scrollbarWidth}px`}
+      sx={{
+        position: 'relative',
+        height: 'auto',
+        maxHeight: '378px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        scrollbarGutter: 'stable', // reserve space for the scrollbar
         /* For firefox */
-        scrollbar-color: ${scrollbarThumbColor} ${background};
-        scrollbar-width: thin;
-        /*for chrome */
-        &::-webkit-scrollbar: {
-          width: ${scrollbarWidth}px;
-        }
+        scrollbarColor: ({ colors }) => `${scrollbarColor(colors)} ${colors?.background}`,
+        scrollbarWidth: 'thin',
 
-        &::-webkit-scrollbar-thumb: {
-          backgroundcolor: ${scrollbarThumbColor};
-          borderbottom: 2px solid;
-          bordercolor: ${background};
-        }
-
-        &::-webkit-scrollbar-track: {
-          borderbottom: 2px solid;
-          bordercolor: ${background};
-        }
-      `}
+        '&::-webkit-scrollbar': {
+          width: `${scrollbarWidth}px`,
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: ({ colors }) => `${scrollbarColor(colors)}`,
+          borderBottom: '2px solid',
+          borderColor: theme => {
+            return `${theme.colors}`
+          },
+        },
+        '&::-webkit-scrollbar-track': {
+          borderBottom: '2px solid',
+          borderColor: ({ colors }) => `${colors?.background}`,
+        },
+      }}
       ref={scrollContainerRef}
       {...restProps}
     >
