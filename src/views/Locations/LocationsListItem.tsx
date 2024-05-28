@@ -10,6 +10,7 @@ import sendMessage from 'services/runtime/sendMessage'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import AirplaneIcon from 'assets/img/airplane.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
+import { css } from '@emotion/react'
 
 type LocationsListItemProps = BoxProps & {
   location: Location
@@ -45,17 +46,37 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
     <Box pb="16px" {...props}>
       <Rectangle
         onClick={handleLocationItemClick}
+        css={css`
+          * .plane {
+            animation-name: planemoves;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            transform-origin: 50% 50%;
+            animation-play-state: paused;
+            
+          }
+          &:hover .plane {
+            animation-play-state: running;
+          }
+          @keyframes planemoves {
+            0% {
+              transform: translate(0, -2px);
+            }
+            50% {
+              transform: translate(0, 2px);
+            }
+            100% {
+              transform: translate(0, -2px);
+            }
+        `}
         sx={{
+          display: 'flex',
+          flexDirection: 'column',
           cursor: 'pointer',
           fill: currentlySelected || isExpanded ? 'primaryText' : 'secondaryText',
           color: currentlySelected || isExpanded ? 'primaryText' : 'secondaryText',
-          ...(isExpanded && {
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
-            borderBottomWidth: '2px',
-            borderBottomColor: 'border',
-            borderBottomStyle: 'solid',
-          }),
+          padding: 0,
+          height: 'initial',
           transition: 'color 0.3s',
           'svg > path': {
             transition: 'fill 0.3s',
@@ -68,38 +89,49 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
           },
         }}
       >
-        <Flex>
-          {isAutopilot ? (
-            <AirplaneIcon
-              sx={{ fill: currentlySelected || isExpanded ? 'primaryText' : 'secondaryText' }}
-            />
-          ) : (
-            <FlagIcon Svg={Flag} />
-          )}
-          <Text
-            sx={{
-              fontWeight: '600',
-              marginLeft: '16px',
-            }}
-          >
-            {isAutopilot ? 'Autopilot' : location?.name}
-          </Text>
-        </Flex>
-        <Box
+        <Flex
           sx={{
-            transition: 'transform ease-in-out 0.2s',
-            transform: isExpanded ? 'rotate(45deg)  translateX(2px)' : 'rotate(0)',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: 14,
           }}
         >
-          {isAutopilot ? <ArrowRightIcon /> : <PlusIcon />}
-        </Box>
-      </Rectangle>
-      {isExpanded && (
+          <Flex>
+            {isAutopilot ? (
+              <AirplaneIcon
+                className="plane"
+                sx={{ fill: currentlySelected || isExpanded ? 'primaryText' : 'secondaryText' }}
+              />
+            ) : (
+              <FlagIcon isExpanded={isExpanded} Svg={Flag} />
+            )}
+            <Text
+              sx={{
+                fontWeight: '600',
+                marginLeft: '16px',
+              }}
+            >
+              {isAutopilot ? 'Autopilot' : location?.name}
+            </Text>
+          </Flex>
+          <Flex
+            sx={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'transform ease-in-out 0.2s',
+              transform: isExpanded ? 'rotate(45deg)' : 'rotate(0)',
+            }}
+          >
+            {isAutopilot ? <ArrowRightIcon /> : <PlusIcon />}
+          </Flex>
+        </Flex>
+
         <LocationsListItemDetails
+          isExpanded={isExpanded}
           isPremium={isPremium}
           dataCenters={dataCenters || location.groups}
         />
-      )}
+      </Rectangle>
     </Box>
   )
 }
