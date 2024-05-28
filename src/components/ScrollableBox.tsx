@@ -22,28 +22,27 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
     }
   }, [scrollTop])
 
-  const scrollbarWidth = 7
+  const padding = 16
+  const scrollbarWidth = padding / 2
+  const scrollbarGutterPadding = padding / 4
   const scrollbarColor = (colors: ColorModesScale | undefined) =>
     colorMode === 'dark' ? colors?.quarterWhite : colors?.quarterSoftBlack
 
   return (
     <Box
-      // `react-custom-scrollbars` is a pure Javascript custom scrollbar solution and while it
-      // enables OS X style scrollbars (overlay) on Windows, pure CSS is much more performant
-      // so we use a thin, fixed-gutter custom scrollbar for this list
-
-      pl="16px"
-      pr={`${16 - scrollbarWidth}px`}
       sx={{
+        pl: `${padding}px`,
+        pr: `${scrollbarGutterPadding}px`,
+        mr: `${scrollbarGutterPadding}px`,
         position: 'relative',
         height: 'auto',
         maxHeight: '378px',
         overflowY: 'auto',
         overflowX: 'hidden',
-        scrollbarGutter: 'stable', // reserve space for the scrollbar
-        /* For firefox */
-        scrollbarColor: ({ colors }) => `${scrollbarColor(colors)} ${colors?.background}`,
-        scrollbarWidth: 'thin',
+        /* For firefox (note that we don't currently support firefox for the mv3 extension) */
+        // scrollbarGutter: 'auto', // reserve space for the scrollbar
+        // scrollbarColor: ({ colors }) => `${scrollbarColor(colors)} ${colors?.background}`,
+        // scrollbarWidth: 'thin',
 
         '&::-webkit-scrollbar': {
           width: `${scrollbarWidth}px`,
@@ -54,6 +53,7 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
           borderColor: theme => {
             return `${theme.colors}`
           },
+          borderRadius: '4px',
         },
         '&::-webkit-scrollbar-track': {
           borderBottom: '2px solid',
