@@ -49,15 +49,10 @@ const ScrollableBox: ThemeUiElement<ScrollableBoxProps> = ({
         },
         '&::-webkit-scrollbar-thumb': {
           backgroundColor: ({ colors }) => `${scrollbarColor(colors)}`,
-          borderBottom: '2px solid',
-          borderColor: theme => {
-            return `${theme.colors}`
-          },
           borderRadius: '4px',
         },
         '&::-webkit-scrollbar-track': {
-          borderBottom: '2px solid',
-          borderColor: ({ colors }) => `${colors?.background}`,
+          marginBottom: '4px',
         },
       }}
       ref={scrollContainerRef}
