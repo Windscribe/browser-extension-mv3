@@ -42,7 +42,6 @@ const Header: ThemeUiElement<HeaderProps> = ({
     >
       <GoBackButton />
       <AlertButton
-        data-testid="refresh-to-see-changes"
         text="Refresh to see changes"
         onClick={handleClick}
         sx={{
