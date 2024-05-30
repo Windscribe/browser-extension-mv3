@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 interface Migration {
   id: string
   completed: boolean
+  reason?: string
 }
 
 interface MigrationsState {
@@ -17,16 +18,13 @@ export const migrationSlice = createSlice({
   name: 'migrations',
   initialState,
   reducers: {
-    setMigrationStatus: (
-      state,
-      action: PayloadAction<{ migrationId: string; completed: boolean }>,
-    ) => {
-      const { migrationId, completed } = action.payload
-      const migrationIndex = state.migrations.findIndex(m => m.id === migrationId)
+    setMigrationStatus: (state, action: PayloadAction<Migration>) => {
+      const { id, completed, reason } = action.payload
+      const migrationIndex = state.migrations.findIndex(m => m.id === id)
       if (migrationIndex !== -1) {
         state.migrations[migrationIndex].completed = completed
       } else {
-        state.migrations.push({ id: migrationId, completed })
+        state.migrations.push({ id, completed, reason })
       }
     },
   },

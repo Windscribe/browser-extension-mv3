@@ -91,3 +91,6 @@ export const FIRST_INSTALL_DATE_REDUCER = 'firstInstallDate'
 export const LOCATION_SORTING_REDUCER = 'locationSorting'
 export const NEWSFEED_IDS_ALREADY_VIEWED_REDUCER = 'newsfeedIdsAlreadyViewed'
 export const FAVORITE_LOCATIONS_REDUCER = 'favoriteLocations'
+
+// Logged out user stash i.e redux state data dumps in both mv2 and mv3
+export const USER_STASHES_REDUCER = 'userStashes'

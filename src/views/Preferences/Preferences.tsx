@@ -25,9 +25,10 @@ import LightModeIcon from 'assets/img/lightMode.svg'
 import TutorialIcon from 'assets/img/tutorial.svg'
 import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
+import { setTheme } from 'state/slices/theme'
 
 const Preferences: ThemeUiElement = () => {
-  const [colorMode, setColorMode] = useColorMode()
+  const [colorMode] = useColorMode()
   const goToGeneral = useGoTo('General')
   const goToConnection = useGoTo('Connection')
   const goToBlocker = useGoTo('Blocker')
@@ -126,7 +127,9 @@ const Preferences: ThemeUiElement = () => {
             <ToolTip message="Change Theme">
               <CircleButton
                 Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
-                onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
+                onClick={() => {
+                  dispatch(setTheme(colorMode === 'light' ? 'dark' : 'light'))
+                }}
               />
             </ToolTip>
             <ToolTip message="Restart Onboarding">

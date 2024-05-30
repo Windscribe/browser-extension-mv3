@@ -8,10 +8,7 @@ import {
 import Dexie from 'dexie'
 import isValidDomain from 'is-valid-domain'
 import { pushToDebugLog } from 'services/debugLog'
-import {
-  closeOffscreenDocument,
-  setupOffscreenDocument,
-} from 'services/offscreenActions/offscreenController'
+import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
 import { StoreType } from 'state'
 import { ADD_TO_ALLOWLIST, AllowlistPayload } from 'state/slices/allowlist'
@@ -19,6 +16,7 @@ import { setFirstInstallDate } from 'state/slices/firstInstallDate'
 import { setLocationSorting } from 'state/slices/locationSorting'
 import { saveFavouriteLocationId } from 'state/slices/migratedFavoriteLocations'
 import { markNewsAsViewed } from 'state/slices/newsfeed'
+import { setTheme } from 'state/slices/theme'
 import {
   DB_STATE_TABLE,
   SYNC_KEY,
@@ -163,20 +161,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
   }
 
   if (parsedThemeStateV2.success) {
-    // uses offscreen document to access local storage and indexedDB because
-    // service workers do not  have access to local storage api
-    await setupOffscreenDocument('migrateTheme.html', [chrome.offscreen.Reason.LOCAL_STORAGE])
-
-    const response = await chrome.runtime.sendMessage<Message, LogItemResponse>({
-      target: 'offscreen',
-      type: 'migrateTheme',
-    })
-
-    for (const log of response.logs) {
-      await pushToDebugLog(log)
-    }
-
-    await closeOffscreenDocument('migrateTheme.html')
+    await store.dispatch(setTheme(parsedThemeStateV2.data.state))
   } else {
     await pushToDebugLog({
       level: 'INFO',
