@@ -49,7 +49,9 @@ import autoConnectAfterLoginReducer from './slices/autoConnectAfterLogin'
 import isRightAfterLoginReducer from './slices/isRightAfterLogin'
 import firstInstallDateReducer from './slices/firstInstallDate'
 import adPrivacyEnabledReducer from './slices/adPrivacyEnabled'
+import migratedFavouriteLocations from './slices/migratedFavoriteLocations'
 import migrationReducer from './slices/migration'
+import themeReducer from './slices/theme'
 
 const reducers = {
   adPrivacyEnabled: adPrivacyEnabledReducer,
@@ -90,6 +92,8 @@ const reducers = {
   workerBlock: workerBlockReducer,
   workingApi: workingApiReducer,
   migrations: migrationReducer,
+  migratedFavouriteLocations,
+  theme: themeReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

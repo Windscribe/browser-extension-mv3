@@ -25,9 +25,10 @@ import LightModeIcon from 'assets/img/lightMode.svg'
 import TutorialIcon from 'assets/img/tutorial.svg'
 import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
+import { setTheme } from 'state/slices/theme'
 
 const Preferences: ThemeUiElement = () => {
-  const [colorMode, setColorMode] = useColorMode()
+  const [colorMode] = useColorMode()
   const goToGeneral = useGoTo('General')
   const goToConnection = useGoTo('Connection')
   const goToBlocker = useGoTo('Blocker')
@@ -60,8 +61,8 @@ const Preferences: ThemeUiElement = () => {
   const is_premium = useSelector(s => s.session?.sessionData?.is_premium)
   const email_status = useSelector(s => s.session?.sessionData?.email_status)
   const email = useSelector(s => s.session?.sessionData?.email)
-
-  const remainingDataBytes = bytes(traffic_max - traffic_used)
+  const trafficDifference = traffic_max - traffic_used
+  const remainingDataBytes = bytes(trafficDifference)
   const [isWebSessionPending, setIsWebSessionPending] = useState(false)
 
   const openKnowledgeBase = async () => {
@@ -90,7 +91,9 @@ const Preferences: ThemeUiElement = () => {
       <Box sx={{ mx: '16px' }}>
         {is_premium || traffic_max === ACCOUNT_PLAN.UNLIMITED ? null : (
           <SpaceBetween mb="16px">
-            <Text sx={{ color: 'primaryText', fontWeight: '600' }}>{remainingDataBytes} Left</Text>
+            <Text sx={{ color: 'primaryText', fontWeight: '600' }}>
+              {trafficDifference < 0 ? 'Out of data' : `${remainingDataBytes} Left`}
+            </Text>
             {email && email_status === EMAIL.UNCONFIRMED ? (
               <ConfirmEmail />
             ) : (
@@ -126,7 +129,9 @@ const Preferences: ThemeUiElement = () => {
             <ToolTip message="Change Theme">
               <CircleButton
                 Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
-                onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')}
+                onClick={() => {
+                  dispatch(setTheme(colorMode === 'light' ? 'dark' : 'light'))
+                }}
               />
             </ToolTip>
             <ToolTip message="Restart Onboarding">

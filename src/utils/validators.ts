@@ -19,6 +19,10 @@ import {
   FIRST_INSTALL_DATE_REDUCER,
   THEME_REDUCER,
   ALLOW_LIST_REDUCER,
+  LOCATION_SORTING_REDUCER,
+  NEWSFEED_IDS_ALREADY_VIEWED_REDUCER,
+  FAVORITE_LOCATIONS_REDUCER,
+  USER_STASHES_REDUCER,
 } from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
@@ -175,5 +179,218 @@ export const AllowListValidatorManifestV2 = zod.object({
         zod.union([AllowlistItemValidatorManifestV2, zod.string(), zod.boolean()]),
       ),
     ),
+  ),
+})
+
+export const LocationSortingValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + LOCATION_SORTING_REDUCER),
+  state: zod.enum(['alphabet', 'geography']),
+})
+
+export const NewsFeedIdsAlreadyViewedValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + NEWSFEED_IDS_ALREADY_VIEWED_REDUCER),
+  state: zod.array(zod.number()),
+})
+
+const FavouriteLocationObjectValidatorManifestV2 = zod.object({
+  dataCenterId: zod.number().optional(),
+  gps: zod.string().optional(),
+  name: zod.string().optional(),
+  nickname: zod.string().optional(),
+  hosts: zod.array(zod.string()).optional(),
+  countryCode: zod.string().optional(),
+  isCenterPro: zod.boolean().optional(),
+  locationId: zod.number().optional(),
+  health: zod.number().optional(),
+})
+export const FavouriteLocationsValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + FAVORITE_LOCATIONS_REDUCER),
+  state: zod.array(FavouriteLocationObjectValidatorManifestV2),
+})
+
+// validate overall shape first
+// then we validate the shape again but this time
+// for each individual property, reason to do it this way
+// is to avoid gigantic zod validators and the
+// need to go over the entire object by hand to validate
+// everything at once, which is manual and time taking
+
+const reducer = zod.literal(SYNC_KEY + USER_STASHES_REDUCER)
+export const UserStashesValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(zod.string(), zod.any()),
+})
+
+// validators for the stashed object
+
+// general settings
+
+// showDebugMenu is not stashed in mv2, cannot
+// migrate it in this case, mv3 will use default settings
+export const StashedLocationLoadValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      locationLoadEnabled: zod.boolean(),
+    }),
+  ),
+})
+
+export const StashedSystemNotificationsValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.object({
+      allowSystemNotifications: zod.boolean(),
+    }),
+  ),
+})
+
+// Privacy settings
+export const StashedWorkerBlockValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      workerBlockEnabled: zod.boolean(),
+    }),
+  ),
+})
+
+export const StashedSplitPersonalityValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      splitPersonalityEnabled: zod.boolean(),
+    }),
+  ),
+})
+
+export const StashedLanguageWarpValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      languageSwitchEnabled: zod.boolean(),
+    }),
+  ),
+})
+
+export const StashedProxyTimeValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      proxyTimeEnabled: zod.boolean(),
+    }),
+  ),
+})
+
+export const StashedLocationWarpValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      locationSpooferEnabled: zod.boolean(),
+    }),
+  ),
+})
+
+export const StashedWebRtcValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      webRTCEnabled: zod.boolean(),
+    }),
+  ),
+})
+
+export const StashedNotificationBlockerValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      notificationBlockerEnabled: zod.boolean(),
+    }),
+  ),
+})
+
+// Connection settings
+// smokewall, failover and proxyPort are not stashed in mv2, cannot migrate
+
+export const StashedAutoConnectValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      autoConnect: zod.boolean(),
+    }),
+  ),
+})
+
+// Other Settings
+// Cannot migrate theme of logged out user, as that is not stored in mv3 stash, i.e one user
+// can set the theme for all other users, since its taken from a single key in local storage.
+// A future update, for per user theme settings, just like in mv2 would be nice.
+
+export const StashedThemeValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      theme: zod.enum(['light', 'dark']),
+    }),
+  ),
+})
+
+export const StashedNewsFeedIdsAlreadyViewedValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      newsfeedIdsAlreadyViewed: zod.array(zod.number()),
+    }),
+  ),
+})
+
+export const StashedFavouriteLocationsValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      favoriteLocations: zod.array(FavouriteLocationObjectValidatorManifestV2),
+    }),
+  ),
+})
+
+export const StashedAllowListValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      allowlist: zod.array(
+        zod.intersection(
+          AllowlistItemValidatorManifestV2,
+          zod.record(
+            zod.string(),
+            zod.union([AllowlistItemValidatorManifestV2, zod.string(), zod.boolean()]),
+          ),
+        ),
+      ),
+    }),
+  ),
+})
+
+// Blocker settings
+
+export const StashedBlockListsValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      blockListsEnabled: zod.array(zod.string()),
+    }),
   ),
 })

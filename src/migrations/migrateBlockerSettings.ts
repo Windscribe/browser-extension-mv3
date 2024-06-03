@@ -8,7 +8,7 @@ import { BlockListsValidatorManifestV2 } from 'utils/validators'
 
 // left side (key) is the blocker enabled list for v2 and right side (value) is the same but for v3
 
-const BLOCKER_SETTINGS_MAPPER = {
+export const BLOCKER_SETTINGS_MAPPER = {
   adblock: 'default',
   trackers: 'adguard-spyware-url',
   social: 'annoyances-social',
@@ -38,7 +38,7 @@ export const migrateBlockerSettings = async (db: Dexie, store: StoreType): Promi
 
     store.dispatch(setBlockLists(newBlocklist))
 
-    sendMessage({
+    await sendMessage({
       what: 'applyRulesets',
       from: 'popup',
       enabledRulesets: newBlocklist,

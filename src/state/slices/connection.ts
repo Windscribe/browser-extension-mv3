@@ -2,13 +2,13 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { type FailoverOption } from 'utils/types'
 
-interface ConnectionState {
+export interface ConnectionState {
   smokeWall: boolean
   failover: FailoverOption
   autoConnect: boolean
 }
 
-const initialState: ConnectionState = {
+export const initialState: ConnectionState = {
   smokeWall: true,
   failover: 'Auto / Best',
   autoConnect: true,
