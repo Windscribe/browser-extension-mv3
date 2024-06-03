@@ -77,6 +77,7 @@ const Home: ThemeUiElement = () => {
   }, [isRightAfterLogin, dispatch])
 
   useEffect(() => {
+    // 0 means server list was not fetched, pending is to prevent double requests
     if (serverList.length === 0 && loading !== 'pending') {
       dispatch(fetchServerList())
     }
