@@ -48,4 +48,34 @@ const parseLogToStrings = (log: LogItem[]): string[] => {
   })
 }
 
-export { pushToDebugLog, sendDebugLog, parseLogToStrings }
+const clearLogsOlderThanWeek = async (): Promise<void> => {
+  const debugLog = await getStorage('debugLog')
+  if (!debugLog) return
+  if (!Array.isArray(debugLog)) return
+
+  const weekInMilliseconds = 604_800_000
+  const currentTime = Date.now()
+  const cutoffTime = currentTime - weekInMilliseconds
+
+  // Filter logs to keep only those within the last week
+  const newDebugLog = debugLog.filter((logItem: LogItem) => {
+    // no date means remove from logs
+    if (!logItem.date) {
+      console.warn('Log item missing date:', logItem)
+      return false
+    }
+
+    const logTime = new Date(logItem.date).getTime()
+
+    if (isNaN(logTime)) {
+      console.warn('Invalid date format in log item:', logItem)
+      return false
+    }
+
+    return logTime >= cutoffTime
+  })
+
+  await setStorage({ debugLog: newDebugLog })
+}
+
+export { pushToDebugLog, sendDebugLog, parseLogToStrings, clearLogsOlderThanWeek }
