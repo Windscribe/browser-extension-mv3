@@ -32,6 +32,7 @@ import Globe from 'assets/img/globe.svg'
 import ArrowRight from 'assets/img/arrowRight.svg'
 import ConnectingRing from 'assets/img/connectingRing.svg'
 import ProxyFailureRing from 'assets/img/proxyFailureRing.svg'
+import { fetchServerList } from 'state/slices/servers'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -50,6 +51,7 @@ const Home: ThemeUiElement = () => {
   const isRightAfterLogin = useSelector(state => state.isRightAfterLogin)
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
+  const { loading, serverList } = useSelector(state => state.servers)
   const unreadNewsAmount = notifications
     .map(n => n.id)
     .filter(id => !viewedNewsIds.includes(id)).length
@@ -73,6 +75,13 @@ const Home: ThemeUiElement = () => {
       })
     }
   }, [isRightAfterLogin, dispatch])
+
+  useEffect(() => {
+    if (serverList.length === 0 && loading !== 'pending') {
+      dispatch(fetchServerList())
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     const handleKeyboardPress = (e: { keyCode: number }) => {
