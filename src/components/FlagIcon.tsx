@@ -1,6 +1,7 @@
-import ProCountryIconDark from 'assets/img/pro-flag-icon-dark.svg'
-import { Box, Theme } from 'theme-ui'
+import { Box, Theme, useColorMode } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
+import ProCountryIconDark from 'assets/img/proFlagIconDark.svg'
+import ProCountryIconLight from 'assets/img/proFlagIconLight.svg'
 
 type FlagIconProps = {
   shouldShowProOnlyIcon?: boolean
@@ -13,8 +14,9 @@ const FlagIcon: ThemeUiElement<FlagIconProps> = ({
   shouldShowProOnlyIcon = false,
   isExpanded,
 }) => {
-  // const ProOnlyIcon = lightOrDark === 'light' ? ProCountryIconDark : ProCountryIconLight
-  const ProOnlyIcon = ProCountryIconDark
+  const [colorMode] = useColorMode()
+  const ProOnlyIcon = colorMode === 'light' ? ProCountryIconDark : ProCountryIconLight
+
   return (
     <Box
       sx={{
@@ -37,9 +39,9 @@ const FlagIcon: ThemeUiElement<FlagIconProps> = ({
           {shouldShowProOnlyIcon && (
             <ProOnlyIcon
               sx={{
-                position: 'absolute',
+                position: 'relative',
                 left: '-4px',
-                bottom: '6px',
+                bottom: '26px',
               }}
             />
           )}

@@ -5,7 +5,7 @@ type MigratedFavoriteLocationsState = {
   favouriteLocationIds: number[]
 }
 
-const initialState: MigratedFavoriteLocationsState = {
+export const initialState: MigratedFavoriteLocationsState = {
   isMigrated: false,
   favouriteLocationIds: [],
 }

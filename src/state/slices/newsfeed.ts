@@ -10,7 +10,7 @@ interface NewsfeedState {
   error?: ErrorState
 }
 
-const initialState: NewsfeedState = {
+export const initialState: NewsfeedState = {
   notifications: [],
   viewedNewsIds: [],
   loading: 'idle',

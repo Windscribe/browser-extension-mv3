@@ -5,7 +5,7 @@ interface BlockerState {
   showUblockWarning: boolean
 }
 
-const initialState: BlockerState = {
+export const initialState: BlockerState = {
   blockLists: ['default'],
   showUblockWarning: true,
 }

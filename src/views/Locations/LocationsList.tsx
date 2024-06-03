@@ -104,6 +104,7 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
                 key={location.id}
                 location={location}
                 isPremium={!!isPremium}
+                proOnly={location.premium_only === 1}
                 currentlySelected={location.groupsModified}
               />
             ))}

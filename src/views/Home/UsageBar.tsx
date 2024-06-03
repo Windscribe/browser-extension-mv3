@@ -17,7 +17,8 @@ const UsageBar: React.FC<ButtonProps> = () => {
   const username = useSelector(s => s.session.sessionData?.username)
 
   const percentageUsed = (traffic_used / traffic_max) * 100
-  const remainingDataBytes = bytes(traffic_max - traffic_used)
+  const trafficDifference = traffic_max - traffic_used
+  const remainingDataBytes = bytes(trafficDifference)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async () => {
     const url = `${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`
@@ -79,7 +80,7 @@ const UsageBar: React.FC<ButtonProps> = () => {
                 fontWeight: 'bold',
               }}
             >
-              {`${remainingDataBytes} ${'Left'}`}
+              {trafficDifference < 0 ? 'Out of data' : `${remainingDataBytes} Left`}
             </Text>
           )}
         </Flex>

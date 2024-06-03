@@ -25,6 +25,7 @@ import HeartOutlineIcon from 'assets/img/heartOutline.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
 import StarIcon from 'assets/img/star.svg'
+import GigabitSpeedIcon from 'assets/img/gigabitSpeed.svg'
 
 type DataCenterItem = ButtonProps & {
   isPremium?: boolean
@@ -50,6 +51,8 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
   const { openWindowUsingTempSession } = useWindowOpening()
 
   const showPro = !isPremium && dataCenter.pro
+
+  const isSpeedy = dataCenter.link_speed === '10000' // 10_000 mbps is 10 Gbit
 
   const handleClick = async (dataCenter: DataCenter) => {
     if (showPro) {
@@ -157,38 +160,58 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
             </Box>
           </Flex>
           {showPro ? (
-            <Flex
-              sx={{
-                visibility: 'hidden',
-                opacity: 0,
-                position: 'absolute',
-                right: '0',
-                transition: '0.3s',
-              }}
-            >
-              <Box
+            <>
+              {isSpeedy && (
+                <GigabitSpeedIcon
+                  sx={{
+                    fill: 'secondaryText',
+                  }}
+                />
+              )}
+              <Flex
                 sx={{
-                  width: '60px',
-                  backgroundImage: t => `
+                  visibility: 'hidden',
+                  opacity: 0,
+                  position: 'absolute',
+                  right: '0',
+                  transition: '0.3s',
+                }}
+              >
+                <Box
+                  sx={{
+                    width: '60px',
+                    backgroundImage: t => `
                     linear-gradient(
                       to right,
                       ${alpha(`${isFavorite ? 'background' : 'foreground'}`, 0)(t)},
                       ${alpha(`${isFavorite ? 'background' : 'foreground'}`, 1)(t)}
                     )
                   `,
-                }}
-              />
-              <Text
-                sx={{
-                  fontWeight: '600',
-                  backgroundColor: isFavorite ? 'background' : 'foreground',
-                }}
-              >
-                UPGRADE
-              </Text>
-            </Flex>
+                  }}
+                />
+                <Text
+                  sx={{
+                    fontWeight: '600',
+                    backgroundColor: isFavorite ? 'background' : 'foreground',
+                  }}
+                >
+                  UPGRADE
+                </Text>
+              </Flex>
+            </>
           ) : (
-            <>
+            <Flex
+              sx={{
+                gap: '8px',
+              }}
+            >
+              {isSpeedy && (
+                <GigabitSpeedIcon
+                  sx={{
+                    fill: 'secondaryText',
+                  }}
+                />
+              )}
               {currentlySelected ? (
                 <CheckmarkIcon
                   data-testid="checkmark-icon"
@@ -204,7 +227,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
                   }}
                 />
               )}
-            </>
+            </Flex>
           )}
         </Button>
       </Flex>
