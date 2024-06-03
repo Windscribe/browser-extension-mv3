@@ -4,9 +4,8 @@ import withSpinner from 'utils/withSpinner'
 import LocationsListItem from './LocationsListItem'
 import { useSelector } from 'state/hooks'
 import type { ServerList } from 'api/types'
-import { fetchServerList, selectSortedLocation } from 'state/slices/servers'
+import { selectSortedLocation } from 'state/slices/servers'
 import Fuse from 'fuse.js'
-import { useDispatch } from 'react-redux'
 
 const filterServerListBySearchText = (serverList: ServerList, searchText: string): ServerList => {
   // Setup Fuse.js for searching

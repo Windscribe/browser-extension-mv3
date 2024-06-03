@@ -1,4 +1,3 @@
-import { Dictionary } from '@reduxjs/toolkit'
 import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
 import sendMessage from 'services/runtime/sendMessage'

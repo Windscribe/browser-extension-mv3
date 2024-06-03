@@ -23,7 +23,6 @@ import {
   ALLOW_LIST_REDUCER,
   FIRST_INSTALL_DATE_REDUCER,
 } from 'utils/constants'
-import { LogItem } from 'utils/types'
 import {
   AllowListValidatorManifestV2,
   FirstInstalledDateValidatorManifestV2,
