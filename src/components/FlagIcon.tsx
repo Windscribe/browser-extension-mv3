@@ -20,7 +20,7 @@ const FlagIcon: ThemeUiElement<FlagIconProps> = ({
   return (
     <Box
       sx={{
-        width: '32px',
+        position: 'relative',
       }}
     >
       {Svg && (
@@ -39,9 +39,9 @@ const FlagIcon: ThemeUiElement<FlagIconProps> = ({
           {shouldShowProOnlyIcon && (
             <ProOnlyIcon
               sx={{
-                position: 'relative',
+                position: 'absolute',
                 left: '-4px',
-                bottom: '26px',
+                bottom: '10px',
               }}
             />
           )}

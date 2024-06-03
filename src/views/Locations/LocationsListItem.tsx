@@ -105,7 +105,11 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
                 sx={{ fill: currentlySelected || isExpanded ? 'primaryText' : 'secondaryText' }}
               />
             ) : (
-              <FlagIcon isExpanded={isExpanded} Svg={Flag} />
+              <FlagIcon
+                isExpanded={isExpanded}
+                Svg={Flag}
+                shouldShowProOnlyIcon={proOnly && !isPremium}
+              />
             )}
             <Text
               sx={{
