@@ -85,9 +85,9 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
           },
           '&:hover': {
             color: 'primaryText',
-            'svg > path': {
-              fill: 'primaryText',
-            },
+          },
+          '& > div:hover svg > path': {
+            fill: 'primaryText',
           },
         }}
       >
