@@ -97,7 +97,7 @@ export const checkSessionStatus = createAsyncThunk(
           updatedSession.data.status === ACCOUNT_STATES.EXPIRED
         ) {
           dispatch(addOverlay('noData'))
-          await disconnect(getState, dispatch)
+          await disconnect(getState, dispatch, false)
         }
 
         if (updatedSession.data.status === ACCOUNT_STATES.BANNED) {

@@ -195,7 +195,11 @@ export const connect = async (
   }
 }
 
-export const disconnect = async (getState: GetState, dispatch: AppDispatch): Promise<void> => {
+export const disconnect = async (
+  getState: GetState,
+  dispatch: AppDispatch,
+  showNotification = true,
+): Promise<void> => {
   dispatch(setStatus('disconnecting'))
 
   const config = {
@@ -213,7 +217,7 @@ export const disconnect = async (getState: GetState, dispatch: AppDispatch): Pro
 
   dispatch(setStatus('off'))
 
-  if (getState().allowSystemNotifications) {
+  if (getState().allowSystemNotifications && showNotification) {
     createNotification({
       iconUrl: proxyOffIcon,
       message: 'Connection to Windscribe has been terminated',
