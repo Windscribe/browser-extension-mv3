@@ -14,7 +14,7 @@ type AllowlistPopupProps = {
   domain: string
   isOpen: boolean
   isEditMode: boolean
-  closePopup: () => void
+  closePopup: (showRefreshHeader: boolean) => void
 }
 
 const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
@@ -82,14 +82,12 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   const handleSubmit = async () => {
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
-      closePopup()
+      closePopup(true)
       return
     }
 
     const isValid = checkIfDomainValid(domainValue)
     if (!isValid) return
-
-    closePopup()
 
     const level = isAdsAllowed ? 0 : 3
     const domainWithSettings = {
@@ -101,6 +99,8 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     }
 
     await addToAllowlist({ hostname: domainValue, level, domainWithSettings })
+
+    closePopup(true)
   }
 
   const checkIfDomainValid = (domainValue: string) => {
@@ -111,7 +111,7 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
   const handleCancel = () => {
     setIsDomainValid(true)
-    closePopup()
+    closePopup(false)
   }
 
   return (

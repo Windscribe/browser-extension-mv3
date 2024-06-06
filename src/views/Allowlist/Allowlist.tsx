@@ -33,14 +33,19 @@ const Allowlist: ThemeUiElement = () => {
     openSettingsFor(candidate)
   }
 
-  const closePopup = () => {
+  const closePopup = (showRefreshHeader: boolean) => {
+    if (showRefreshHeader) {
+      showReloadAlert(true)
+    }
     setIsEditMode(false)
     setIsPopupOpen(false)
   }
 
+  const [shouldShowReloadAlert, showReloadAlert] = useState(false)
+
   return (
     <Column data-testid="allowlist-page" bg="background">
-      <Header title="Allowlist">
+      <Header title="Allowlist" {...{ shouldShowReloadAlert, showReloadAlert }}>
         <CircleButton
           data-testid="add-to-allowlist-button"
           Icon={PlusIcon}
