@@ -94,7 +94,10 @@ const Allowlist: ThemeUiElement = () => {
                   <EditIcon />
                 </IconButton>
                 <IconButton
-                  onClick={async () => await removeFromAllowlist({ hostname: domain, level: 3 })}
+                  onClick={async () => {
+                    await removeFromAllowlist({ hostname: domain, level: 3 })
+                    showReloadAlert(true)
+                  }}
                   sx={{ p: 0, ml: '16px' }}
                 >
                   <GarbageIcon />
