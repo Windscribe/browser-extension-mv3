@@ -213,7 +213,9 @@ export const disconnect = async (getState: GetState, dispatch: AppDispatch): Pro
 
   dispatch(setStatus('off'))
 
-  if (getState().allowSystemNotifications) {
+  const noData = getState().overlay.templates.includes('noData')
+
+  if (getState().allowSystemNotifications && !noData) {
     createNotification({
       iconUrl: proxyOffIcon,
       message: 'Connection to Windscribe has been terminated',
