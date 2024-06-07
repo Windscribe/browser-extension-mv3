@@ -33,8 +33,8 @@ const Allowlist: ThemeUiElement = () => {
     openSettingsFor(candidate)
   }
 
-  const closePopup = (showRefreshHeader: boolean) => {
-    if (showRefreshHeader) {
+  const closePopup = (showRefreshHeader: boolean, currentDomain: string) => {
+    if (showRefreshHeader && currentDomain === currentTabHostname) {
       showReloadAlert(true)
     }
     setIsEditMode(false)
@@ -96,7 +96,10 @@ const Allowlist: ThemeUiElement = () => {
                 <IconButton
                   onClick={async () => {
                     await removeFromAllowlist({ hostname: domain, level: 3 })
-                    showReloadAlert(true)
+                    // only show alerts if changes are made to the domain that is in the currently active tab
+                    if (currentTabHostname === domain) {
+                      showReloadAlert(true)
+                    }
                   }}
                   sx={{ p: 0, ml: '16px' }}
                 >
