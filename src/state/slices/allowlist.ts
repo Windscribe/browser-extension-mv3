@@ -30,7 +30,7 @@ export const addToAllowlist = createAsyncThunk(
     dispatch(addDomain(domainWithSettings))
     const { hosts, status } = getState().proxy
 
-    if (hosts && status === 'on') await connect(getState, dispatch, hosts)
+    if (hosts && status === 'on') await connect(getState, dispatch, hosts, true)
   },
 )
 
@@ -42,7 +42,7 @@ export const removeFromAllowlist = createAsyncThunk(
   async (domain: string, { dispatch, getState }) => {
     await dispatch(removeDomain(domain))
     const { hosts, status } = getState().proxy
-    if (hosts && status === 'on') await connect(getState, dispatch, hosts)
+    if (hosts && status === 'on') await connect(getState, dispatch, hosts, true)
   },
 )
 

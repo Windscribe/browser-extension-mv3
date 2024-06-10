@@ -101,10 +101,11 @@ export const connect = async (
   getState: GetState,
   dispatch: AppDispatch,
   hosts?: Host[],
+  silent = false,
 ): Promise<void> => {
   try {
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
-    dispatch(setStatus('connecting'))
+    dispatch(setStatus(silent ? 'on' : 'connecting'))
 
     const traffic_max = getState().session?.sessionData?.traffic_max
     const traffic_used = getState().session?.sessionData?.traffic_used
@@ -173,7 +174,7 @@ export const connect = async (
       if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
       dispatch(setStatus('on'))
 
-      if (getState().allowSystemNotifications) {
+      if (getState().allowSystemNotifications && !silent) {
         const autopilotSelected = getState().autopilot.autopilotSelected
         const { city = '', nick = '' } = getState().currentDataCenter
         const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
