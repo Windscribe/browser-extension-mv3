@@ -50,7 +50,7 @@ export const migrateStashedOtherSettings = async (
             allowAds: allowListData.allowAds ?? false,
             allowDirectConnections: allowListData.allowDirectConnect ?? false,
             includeAllSubdomains: allowListData.includeAllSubdomains ?? false,
-            allowPrivacyFeatures: true,
+            allowPrivacyFeatures: false,
           }
           if (allowListData.allowAds === true) {
             const level = allowListData.allowAds ? 0 : 3
