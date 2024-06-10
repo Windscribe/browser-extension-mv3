@@ -1,21 +1,26 @@
-import { Box, useColorMode } from 'theme-ui'
+import { Box, Theme, useColorMode } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import ProCountryIconDark from 'assets/img/proFlagIconDark.svg'
 import ProCountryIconLight from 'assets/img/proFlagIconLight.svg'
 
 type FlagIconProps = {
   shouldShowProOnlyIcon?: boolean
+  isExpanded: boolean
   Svg: React.ElementType // Should be more specific - SVG element only. Don't know how to do it yet
 }
 
-const FlagIcon: ThemeUiElement<FlagIconProps> = ({ Svg, shouldShowProOnlyIcon = false }) => {
+const FlagIcon: ThemeUiElement<FlagIconProps> = ({
+  Svg,
+  shouldShowProOnlyIcon = false,
+  isExpanded,
+}) => {
   const [colorMode] = useColorMode()
   const ProOnlyIcon = colorMode === 'light' ? ProCountryIconDark : ProCountryIconLight
 
   return (
     <Box
       sx={{
-        width: '32px',
+        position: 'relative',
       }}
     >
       {Svg && (
@@ -24,9 +29,9 @@ const FlagIcon: ThemeUiElement<FlagIconProps> = ({ Svg, shouldShowProOnlyIcon = 
             sx={{
               height: '16px',
               width: '32px',
-              boxShadow: `2px 2px 0px`,
+              boxShadow: ({ colors }: Theme) =>
+                `2px 2px 0px ${isExpanded ? colors?.secondaryText : colors?.ghostWhite}`,
               color: 'halfWhite',
-
               left: '0px',
               transition: 'box-shadow 0.2s',
             }}
@@ -34,9 +39,9 @@ const FlagIcon: ThemeUiElement<FlagIconProps> = ({ Svg, shouldShowProOnlyIcon = 
           {shouldShowProOnlyIcon && (
             <ProOnlyIcon
               sx={{
-                position: 'relative',
+                position: 'absolute',
                 left: '-4px',
-                bottom: '26px',
+                bottom: '10px',
               }}
             />
           )}

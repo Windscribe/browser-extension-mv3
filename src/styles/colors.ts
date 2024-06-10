@@ -26,6 +26,7 @@ export const colors = {
   iconBgSolid: '#323a47',
   disabledButtonText: '#020d1c',
   allowListSwitch: '#fff',
+  ghostWhite: 'rgba(255, 255, 255, 0.1)',
 
   modes: {
     light: {
@@ -38,6 +39,7 @@ export const colors = {
       border: 'rgba(2, 13, 28, 0.05)',
       iconBgSolid: '#e5e6e8',
       allowListSwitch: '#e5e6e8',
+      ghostWhite: 'rgba(2, 13, 28, 0.1)',
     },
   },
 }

@@ -22,7 +22,7 @@ const locations = async popupPage => {
       children = await locationsList.evaluate(el => el.children.length)
       expect(children).to.equal(1)
       let expectedLocation = await locationsList.evaluate(el => el.textContent)
-      expect(expectedLocation).to.equal('Canada East')
+      expect(expectedLocation).to.equal('Canada EastTorontoSkydome')
 
       // Reset input field value
       await popupPage.focus('[data-testid=location-search-input]')
@@ -73,7 +73,7 @@ const locations = async popupPage => {
       let locationsList = await popupPage.$('[data-testid=locations-list]')
       let expectedLocation = await locationsList.evaluate(el => el.textContent)
       expect(expectedLocation).to.equal(
-        'AutopilotCanada EastUnited StatesUnited KingdomColombiaThe Best Korea',
+        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeUnited StatesBostonThe WahlbergUnited KingdomLondonspɹɐʍʞɔɐqColombiaBogota -White CoffeeThe Best KoreaPyongyangHennessey',
       )
 
       await popupPage.click('[data-testid=sort-locations-button]')
@@ -83,7 +83,7 @@ const locations = async popupPage => {
       locationsList = await popupPage.$('[data-testid=locations-list]')
       expectedLocation = await locationsList.evaluate(el => el.textContent)
       expect(expectedLocation).to.equal(
-        'AutopilotCanada EastColombiaThe Best KoreaUnited KingdomUnited States',
+        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeColombiaBogota -White CoffeeThe Best KoreaPyongyangHennesseyUnited KingdomLondonspɹɐʍʞɔɐqUnited StatesBostonThe Wahlberg',
       )
 
       await popupPage.click('[data-testid=sort-locations-button]')
@@ -93,7 +93,7 @@ const locations = async popupPage => {
       locationsList = await popupPage.$('[data-testid=locations-list]')
       expectedLocation = await locationsList.evaluate(el => el.textContent)
       expect(expectedLocation).to.equal(
-        'AutopilotCanada EastUnited StatesUnited KingdomColombiaThe Best Korea',
+        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeUnited StatesBostonThe WahlbergUnited KingdomLondonspɹɐʍʞɔɐqColombiaBogota -White CoffeeThe Best KoreaPyongyangHennessey',
       )
       await popupPage.waitForTimeout(1000)
     })
@@ -104,7 +104,7 @@ const locations = async popupPage => {
 
       // Click on Accordion Summary element
       const locationsListFirstItem = await popupPage.waitForSelector(
-        '[data-testid=locations-list-item-0]',
+        '[data-testid=locations-list-item-1]',
       )
       await locationsListFirstItem.click()
 
@@ -138,6 +138,7 @@ const locations = async popupPage => {
         '[data-testid=locations-list-item-1]',
       )
       let accordionChildrenAmount = await locationsListFirstItem.evaluate(el => el.children.length)
+      // details are always visible and hidden via css only
       expect(accordionChildrenAmount).to.equal(1)
 
       // Click on Accordion Summary element
@@ -145,15 +146,21 @@ const locations = async popupPage => {
 
       // Verify that both Summary section and Details dropdown are displayed
       accordionChildrenAmount = await locationsListFirstItem.evaluate(el => el.children.length)
-      expect(accordionChildrenAmount).to.equal(2)
+      expect(accordionChildrenAmount).to.equal(1)
 
       // Choose a location
-      let locationsFirstItem = await popupPage.$('[data-testid=accordion-details-list] > li')
-      let cityElement = await locationsFirstItem.$('[data-testid=data-center-city]')
+      let locationsFirstItem = await locationsListFirstItem.$(
+        '[data-testid=accordion-details-list] > li',
+      )
+
+      let cityElement = await locationsFirstItem.$('[data-testid=data-center-city]', {
+        visible: true,
+      })
       let nickElement = await locationsFirstItem.$('[data-testid=data-center-nick]')
       const expectedCity = await cityElement.evaluate(el => el.textContent)
       const expectedNick = await nickElement.evaluate(el => el.textContent)
 
+      console.log(expectedCity, expectedNick)
       await cityElement.click()
 
       // Verify that we were redirected on Home page after a location was chosen
@@ -174,7 +181,9 @@ const locations = async popupPage => {
         '[data-testid=locations-list-item-1]',
       )
       await locationsListFirstItem.click()
-      locationsFirstItem = await popupPage.$('[data-testid=accordion-details-list] > li')
+      locationsFirstItem = await locationsListFirstItem.$(
+        '[data-testid=accordion-details-list] > li',
+      )
       const arrowIcon = await locationsFirstItem.$('[data-testid=arrow-right-icon]')
       const checkmarkIcon = await locationsFirstItem.$('[data-testid=checkmark-icon]')
       expect(!!checkmarkIcon).to.equal(true)
