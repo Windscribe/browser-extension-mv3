@@ -25,6 +25,8 @@ export default (): {
     try {
       if (domainWithSettings.allowAds === true) {
         await setUblockFilteringMode({ hostname, level })
+      } else {
+        await setUblockFilteringMode({ hostname, level: 3 })
       }
       await dispatchAlias(ADD_TO_ALLOWLIST, domainWithSettings)
     } catch (err) {
