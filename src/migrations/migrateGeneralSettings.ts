@@ -54,6 +54,7 @@ export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promi
       level: 'INFO',
       message: `Location load reducer not found`,
       tag: 'background',
+      data: JSON.stringify(parsedLocationLoadStateV2.error),
     })
   }
 
@@ -64,6 +65,7 @@ export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promi
       level: 'INFO',
       message: `Notification blocker reducer not found`,
       tag: 'background',
+      data: JSON.stringify(parsedNotificationBlockerStateV2.error),
     })
   }
 
@@ -74,6 +76,7 @@ export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promi
       level: 'INFO',
       message: `Debug view reducer not found`,
       tag: 'background',
+      data: JSON.stringify(parsedDebugViewEnabledStateV2.error),
     })
   }
 }

@@ -17,6 +17,7 @@ type LocationsListItemProps = BoxProps & {
   isAutopilot?: boolean
   dataCenters?: DataCenter[] | null
   currentlySelected?: boolean
+  proOnly?: boolean
 }
 
 const LocationsListItem: React.FC<LocationsListItemProps> = ({
@@ -25,6 +26,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
   isAutopilot = false,
   dataCenters = null,
   currentlySelected = false,
+  proOnly,
   ...props
 }) => {
   const [isExpanded, setIsExpanded] = useState(currentlySelected && !isAutopilot)
@@ -74,7 +76,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
               sx={{ fill: currentlySelected || isExpanded ? 'primaryText' : 'secondaryText' }}
             />
           ) : (
-            <FlagIcon Svg={Flag} />
+            <FlagIcon Svg={Flag} shouldShowProOnlyIcon={proOnly && !isPremium} />
           )}
           <Text
             sx={{

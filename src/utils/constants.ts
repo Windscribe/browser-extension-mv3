@@ -77,7 +77,6 @@ export const PROXY_TIME_REDUCER = 'proxyTimeEnabled'
 export const LOCATION_SPOOFER_REDUCER = 'locationSpooferEnabled'
 export const WEB_RTC_REDUCER = 'webRTCEnabled'
 export const NOTIFICATION_BLOCKER_REDUCER = 'notificationBlockerEnabled'
-export const AD_PRIVACY_REDUCER = 'notificationBlockerEnabled'
 
 // Connection Settings
 export const AUTO_CONNECT_REDUCER = 'autoConnect'
@@ -89,3 +88,9 @@ export const PROXY_PORT_REDUCER = 'proxyPort'
 export const THEME_REDUCER = 'theme'
 export const ALLOW_LIST_REDUCER = 'allowlist'
 export const FIRST_INSTALL_DATE_REDUCER = 'firstInstallDate'
+export const LOCATION_SORTING_REDUCER = 'locationSorting'
+export const NEWSFEED_IDS_ALREADY_VIEWED_REDUCER = 'newsfeedIdsAlreadyViewed'
+export const FAVORITE_LOCATIONS_REDUCER = 'favoriteLocations'
+
+// Logged out user stash i.e redux state data dumps in both mv2 and mv3
+export const USER_STASHES_REDUCER = 'userStashes'

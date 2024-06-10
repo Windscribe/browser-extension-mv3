@@ -8,11 +8,11 @@ interface AllowlistItemSettings {
   includeAllSubdomains: boolean
 }
 
-type AllowlistState = {
+export type AllowlistState = {
   [key in string]: AllowlistItemSettings
 }
 
-const initialState: AllowlistState = {}
+export const initialState: AllowlistState = {}
 
 export type AllowlistPayload = {
   domain: string

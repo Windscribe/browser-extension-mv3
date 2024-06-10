@@ -19,7 +19,7 @@ const privacyOptions = async (popupPage, browser) => {
 
       const locale = await appPage.evaluate(() => Intl.DateTimeFormat().resolvedOptions().locale)
 
-      expect(locale === 'en-CA').to.equal(true)
+      expect(locale === 'en-US').to.equal(true)
 
       appPage.close()
 

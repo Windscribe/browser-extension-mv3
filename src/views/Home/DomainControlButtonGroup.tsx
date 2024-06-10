@@ -163,7 +163,7 @@ export const StyledIconButton: React.FC<StyledIconButtonProps> = ({ children, ..
         p: 0,
         height: '24px',
         width: '24px',
-        '&:hover svg > path': {
+        '&:hover svg ': {
           fill: 'white',
         },
       }}
