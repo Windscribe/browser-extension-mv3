@@ -176,7 +176,7 @@ const Privacy: ThemeUiElement = () => {
               dispatch(setWorkerBlock(isWorkerBlockEnabled))
 
               if (isWorkerBlockEnabled) {
-                await registerScript(workerBlockScriptId, ['workerBlock.bundle.js'])
+                await registerScript(workerBlockScriptId, ['workerBlockContentScript.bundle.js'])
               } else {
                 await unregisterScript(workerBlockScriptId)
               }

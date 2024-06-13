@@ -14,4 +14,6 @@
     value: {},
     configurable: true,
   })
+
+  console.log('workerBlock runned')
 })()

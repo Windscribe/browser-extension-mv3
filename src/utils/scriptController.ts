@@ -2,11 +2,8 @@ import { pushToDebugLog } from 'services/debugLog'
 import getErrorMessage from './getErrorMessage'
 
 const matches: string[] = ['<all_urls>']
-const excludeMatches: string[] = [
-  'chrome://*',
-  'https://chrome.google.com/webstore/category/extensions',
-  'devtools://*',
-]
+// no devtools:// or chrome:// as these are not valid url schemes
+const excludeMatches: string[] = ['https://chrome.google.com/webstore/category/extensions']
 
 async function registerScript(scriptId: string, jsFileNames: string[]): Promise<void> {
   try {
@@ -43,6 +40,7 @@ async function registerScript(scriptId: string, jsFileNames: string[]): Promise<
       level: 'ERROR',
       data: JSON.stringify(err),
     })
+    console.log(err)
   }
 }
 
@@ -59,6 +57,7 @@ async function unregisterScript(id: string): Promise<void> {
       level: 'ERROR',
       data: JSON.stringify(err),
     })
+    console.log(err)
   }
 }
 
