@@ -15,5 +15,5 @@
     configurable: true,
   })
 
-  console.log('workerBlock runned')
+  console.log('workerBlock active')
 })()
