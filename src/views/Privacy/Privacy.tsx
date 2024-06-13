@@ -26,6 +26,9 @@ import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
+import { registerScript, unregisterScript } from 'utils/scriptController'
+
+const workerBlockScriptId = 'workerBlock'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -167,9 +170,16 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Blocks web workers from running in the background."
         >
           <ToggleSwitch
-            onChange={() => {
+            onChange={async () => {
               showReloadAlert(true)
-              dispatch(setWorkerBlock(!workerBlockEnabled))
+              const isWorkerBlockEnabled = !workerBlockEnabled
+              dispatch(setWorkerBlock(isWorkerBlockEnabled))
+
+              if (isWorkerBlockEnabled) {
+                await registerScript(workerBlockScriptId, ['workerBlock.bundle.js'])
+              } else {
+                await unregisterScript(workerBlockScriptId)
+              }
             }}
             checked={workerBlockEnabled}
           />

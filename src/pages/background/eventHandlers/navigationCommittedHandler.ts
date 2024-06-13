@@ -2,7 +2,7 @@ import locales from 'utils/locales'
 import getTimeWarp from 'utils/getTimeWarp'
 import { type StoreType } from 'state/store'
 import type { Coords, TimeWarp } from 'utils/types'
-import { locationWarp, languageWarp, splitPersonality, timeWarp, workerBlock } from 'pages/content'
+import { locationWarp, languageWarp, splitPersonality, timeWarp } from 'pages/content'
 
 const executeScript = async <Data extends string | Coords | TimeWarp | object>(
   tabId: number,
@@ -38,10 +38,6 @@ export function navigationCommittedHandler(bgStore: Promise<StoreType>) {
 
     // We do not inject any spoofing script if this domain is in an allowlist.
     if (allowlistItem?.allowPrivacyFeatures) return
-
-    if (store.getState().workerBlock) {
-      executeScript(details.tabId, workerBlock, '')
-    }
 
     if (store.getState().splitPersonalityEnabled && store.getState().userAgent.spoofed) {
       const spoofedUserAgent = store.getState().userAgent.spoofed

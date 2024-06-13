@@ -52,6 +52,14 @@ const options = {
       'migrateAllowlist',
       'migrateAllowlist.ts',
     ),
+
+    workerBlockContentScript: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'workerBlock.ts',
+    ),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'popup'], // TODO check
