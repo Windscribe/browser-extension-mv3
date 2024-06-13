@@ -14,6 +14,4 @@
     value: {},
     configurable: true,
   })
-
-  console.log('workerBlock active')
 })()
