@@ -27,8 +27,7 @@ import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
 import { registerScript, unregisterScript } from 'utils/scriptController'
-
-const workerBlockScriptId = 'workerBlock'
+import { workerBlockScriptId } from 'utils/constants'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()

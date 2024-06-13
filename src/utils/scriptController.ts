@@ -16,7 +16,7 @@ async function registerScript(scriptId: string, jsFileNames: string[]): Promise<
       await unregisterScript(scriptId)
     }
 
-    await chrome.scripting.registerContentScripts([
+    const res = await chrome.scripting.registerContentScripts([
       {
         id: scriptId,
         world: 'MAIN',
@@ -31,6 +31,7 @@ async function registerScript(scriptId: string, jsFileNames: string[]): Promise<
     await pushToDebugLog({
       message: `registered script with id ${scriptId}`,
       tag: 'popup',
+      data: JSON.stringify(res),
     })
   } catch (err) {
     const message = getErrorMessage(err)
