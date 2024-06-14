@@ -62,7 +62,6 @@ export const bestLocationSlice = createSlice({
         state.loading = 'pending'
       })
       .addCase(fetchBestLocation.fulfilled, (state, action) => {
-        debugger
         if (action.payload.errorMessage) {
           return { ...initialState, error: action.payload }
         }
