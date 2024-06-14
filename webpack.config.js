@@ -52,6 +52,14 @@ const options = {
       'migrateAllowlist',
       'migrateAllowlist.ts',
     ),
+    migrateBlockerSettings: path.join(
+      __dirname,
+      'src',
+      'services',
+      'offscreenActions',
+      'migrateBlockerSettings',
+      'migrateBlockerSettings.ts',
+    ),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'popup'], // TODO check
@@ -273,6 +281,20 @@ const options = {
       ),
       filename: 'migrateAllowlist.html',
       chunks: ['migrateAllowlist'],
+      cache: false,
+    }),
+
+    new HtmlWebpackPlugin({
+      template: path.join(
+        __dirname,
+        'src',
+        'services',
+        'offscreenActions',
+        'migrateBlockerSettings',
+        'migrateBlockerSettings.html',
+      ),
+      filename: 'migrateBlockerSettings.html',
+      chunks: ['migrateBlockerSettings'],
       cache: false,
     }),
     ...maybeProgressPlugin,
