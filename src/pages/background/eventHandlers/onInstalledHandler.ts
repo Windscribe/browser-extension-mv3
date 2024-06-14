@@ -15,8 +15,7 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
     await runMigrationFromManifestV2ToV3(store)
     /* https://groups.google.com/a/chromium.org/g/chromium-extensions/c/ZM0Vzb_vuIs/m/acTHqizZAQAJ
 
-    dynamicaly registerd scripts are unloaded on each update, we have to manually tell chrome
-    to re-register the scripts
+    Dynamicaly registered scripts are unloaded on each update, we have to re-register each time after updates/install
 
     */
     await registerScripts(store)

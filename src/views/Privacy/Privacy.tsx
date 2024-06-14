@@ -26,7 +26,12 @@ import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
-import { registerScript, unregisterScript } from 'utils/scriptController'
+import {
+  getExcludeMatches,
+  registerScript,
+  toExcludeMatchesURL,
+  unregisterScript,
+} from 'utils/scriptController'
 import { workerBlockScriptId } from 'utils/constants'
 
 const Privacy: ThemeUiElement = () => {
@@ -42,6 +47,7 @@ const Privacy: ThemeUiElement = () => {
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
   const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
+  const allowList = useSelector(s => s.allowlist)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -173,9 +179,18 @@ const Privacy: ThemeUiElement = () => {
               showReloadAlert(true)
               const isWorkerBlockEnabled = !workerBlockEnabled
               dispatch(setWorkerBlock(isWorkerBlockEnabled))
+              const excludeMatchesFromAllowList = Object.entries(allowList)
+                .filter(([, value]) => {
+                  return value.allowPrivacyFeatures === true
+                })
+                .map(([domainKey]) => toExcludeMatchesURL(domainKey))
 
               if (isWorkerBlockEnabled) {
-                await registerScript(workerBlockScriptId, ['workerBlockContentScript.bundle.js'])
+                await registerScript(
+                  workerBlockScriptId,
+                  ['workerBlockContentScript.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
               } else {
                 await unregisterScript(workerBlockScriptId)
               }
