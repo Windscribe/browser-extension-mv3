@@ -16,13 +16,11 @@ async function sendApplyRulesSetMessageToUblock(rulesSets: string[]) {
   })
 
   try {
-    const res = await sendMessage({
+    await sendMessage({
       what: 'applyRulesets',
       from: 'popup',
       enabledRulesets: rulesSets,
     })
-
-    console.log(rulesSets, 'applyRulesets', res)
 
     logs.push({
       level: 'INFO',
@@ -76,7 +74,6 @@ function handleMessages(
       const rulesSets = message.data
 
       sendApplyRulesSetMessageToUblock(rulesSets).then(logs => {
-        console.log(rulesSets, 'send back resp')
         sendResponse({
           logs,
         })
