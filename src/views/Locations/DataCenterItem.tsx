@@ -107,7 +107,8 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
           listStyleType: 'none',
         }}
       >
-        {!showPro ? (
+        {/* only show in location list if user is pro, and show in fav list regardless if user is pro or not */}
+        {(!isFavorite && !showPro) || isFavorite ? (
           <IconButton
             data-testid="heart-icon-button"
             onClick={handleHeartIconClick}
