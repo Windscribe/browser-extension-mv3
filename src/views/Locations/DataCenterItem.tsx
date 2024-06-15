@@ -149,15 +149,32 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
             },
           }}
         >
-          <Flex sx={{ alignItems: 'center', minWidth: 'auto' }}>
+          <Flex
+            sx={{ alignItems: 'center', minWidth: 'auto', display: 'flex', overflow: 'hidden' }}
+          >
             {showPro ? (
-              <StarIcon sx={{ height: '16px', mr: '24px', p: 0, fill: 'secondaryText' }} />
+              <StarIcon
+                sx={{ height: '16px', mr: '24px', p: 0, fill: 'secondaryText', flexShrink: 0 }}
+              />
             ) : null}
-            <Box sx={{ fontWeight: '600', mr: '4px' }} data-testid="data-center-city">
+            <Box
+              sx={{ fontWeight: '600', mr: '4px', flexShrink: 0 }}
+              data-testid="data-center-city"
+            >
               {dataCenter.city}
             </Box>
-            <Box sx={{ fontWeight: '400', whiteSpace: 'nowrap' }} data-testid="data-center-nick">
-              {dataCenter.nick}
+            <Box
+              sx={{
+                fontWeight: '400',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+              data-testid="data-center-nick"
+            >
+              {
+                'klsadljkdsjklsadjkladslkjdasjladslkakljsdjkldasljkadsjkladjlkadsljkadljkadslkjadslkjadljkadslkaldsjkljkads'
+              }
             </Box>
           </Flex>
           {showPro ? (
@@ -166,6 +183,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
                 <GigabitSpeedIcon
                   sx={{
                     fill: 'secondaryText',
+                    flexShrink: 0,
                   }}
                 />
               )}
@@ -204,6 +222,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
             <Flex
               sx={{
                 gap: '8px',
+                flexShrink: 0,
               }}
             >
               {isSpeedy && (
