@@ -172,9 +172,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
               }}
               data-testid="data-center-nick"
             >
-              {
-                'klsadljkdsjklsadjkladslkjdasjladslkakljsdjkldasljkadsjkladjlkadsljkadljkadslkjadslkjadljkadslkaldsjkljkads'
-              }
+              {dataCenter.nick}
             </Box>
           </Flex>
           {showPro ? (
