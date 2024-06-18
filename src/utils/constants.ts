@@ -97,4 +97,5 @@ export const USER_STASHES_REDUCER = 'userStashes'
 
 // Content Script Ids
 
-export const workerBlockScriptId = 'workerBlock'
+export const workerBlockScriptId = 'workerBlockScript'
+export const splitPersonalityScriptId = 'splitPersonalityScript'

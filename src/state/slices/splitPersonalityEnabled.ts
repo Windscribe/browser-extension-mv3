@@ -6,6 +6,15 @@ import {
   spoofUserAgentHeader,
   resetSpoofUserAgentHeader,
 } from 'services/declarativeNetRequest/updateDynamicRules'
+import { registerScripts } from 'pages/background/eventHandlers/registerScripts'
+import {
+  getScriptForId,
+  registerScript,
+  unregisterScript,
+  updateScript,
+} from 'utils/scriptController'
+import { splitPersonalityScriptId } from 'utils/constants'
+import { SHA256 } from 'crypto-js'
 
 type SplitPersonalityEnabledState = boolean
 const initialState: SplitPersonalityEnabledState = false
@@ -29,6 +38,7 @@ export const deactivateSplitPersonality = createAsyncThunk(
     try {
       await resetSpoofUserAgentHeader()
       dispatch(setSplitPersonalityEnabled(false))
+      await unregisterScript(splitPersonalityScriptId)
     } catch (err) {
       const { cause, message } = err as Error
       pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })
@@ -46,6 +56,19 @@ export const activateSplitPersonality = createAsyncThunk(
       const spoofedUserAgent = getState().userAgent.spoofed
       await spoofUserAgentHeader(spoofedUserAgent)
       dispatch(setSplitPersonalityEnabled(true))
+      const matchingScript = await getScriptForId(splitPersonalityScriptId)
+
+      if (matchingScript) {
+        updateScript({
+          id: splitPersonalityScriptId,
+          // this will replace the existing js array
+          js: [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
+        })
+      } else {
+        await registerScript(splitPersonalityScriptId, [
+          SHA256(spoofedUserAgent).toString() + '.bundle.js',
+        ])
+      }
     } catch (err) {
       const { cause, message } = err as Error
       pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })

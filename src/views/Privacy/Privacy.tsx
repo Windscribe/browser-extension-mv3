@@ -26,12 +26,7 @@ import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
-import {
-  getExcludeMatches,
-  registerScript,
-  toExcludeMatchesURL,
-  unregisterScript,
-} from 'utils/scriptController'
+import { registerScript, toExcludeMatchesURL, unregisterScript } from 'utils/scriptController'
 import { workerBlockScriptId } from 'utils/constants'
 
 const Privacy: ThemeUiElement = () => {

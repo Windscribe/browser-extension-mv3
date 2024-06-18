@@ -1,9 +1,5 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
-
-import { getBlocklists, getUserAgents } from 'api/endpoints'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { platforms } from 'utils/constants'
-import type { LoadingState, ErrorState } from 'utils/types'
-import { pushToDebugLog } from 'services/debugLog'
 import { getRandomIntInclusive } from 'utils/getRandomNumber'
 import type { AppDispatch, GetState } from 'state'
 
@@ -11,56 +7,98 @@ type UserAgentState = {
   list: string[]
   original?: string
   spoofed: string
-  loading: LoadingState
-  error?: ErrorState
 }
 
 const initialState: UserAgentState = {
-  list: [],
+  list: [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (X11; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0',
+    'Mozilla/5.0 (Windows NT 10.0; rv:105.0) Gecko/20100101 Firefox/105.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:105.0) Gecko/20100101 Firefox/105.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15',
+    'Mozilla/5.0 (X11; Linux x86_64; rv:104.0) Gecko/20100101 Firefox/104.0',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:105.0) Gecko/20100101 Firefox/105.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:104.0) Gecko/20100101 Firefox/104.0',
+    'Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0',
+    'Mozilla/5.0 (X11; Linux x86_64; rv:103.0) Gecko/20100101 Firefox/103.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.42',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.42',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.53',
+    'Mozilla/5.0 (Windows NT 10.0; rv:104.0) Gecko/20100101 Firefox/104.0',
+    'Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6.1 Safari/605.1.15',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.37',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101 Firefox/91.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50',
+    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:104.0) Gecko/20100101 Firefox/104.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 OPR/90.0.4480.117',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.47',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.34',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 OPR/90.0.4480.84',
+    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15',
+    'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:105.0) Gecko/20100101 Firefox/105.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.4 Safari/605.1.15',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:106.0) Gecko/20100101 Firefox/106.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:103.0) Gecko/20100101 Firefox/103.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:107.0) Gecko/20100101 Firefox/107.0',
+    'Mozilla/5.0 (X11; Linux x86_64; rv:106.0) Gecko/20100101 Firefox/106.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; rv:103.0) Gecko/20100101 Firefox/103.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.126 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Safari/605.1.15',
+    'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:100.0) Gecko/20100101 Firefox/100.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 OPR/91.0.4516.65',
+    'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+  ],
   original: undefined,
   spoofed: '',
-  error: undefined,
-  loading: 'idle',
+  // error: undefined,
+  // loading: 'idle',
 }
 
-export const FETCH_USER_AGENTS_LIST = 'userAgent/fetchUserAgentsList'
-export const fetchUserAgentsList = createAsyncThunk(
-  FETCH_USER_AGENTS_LIST,
-  async (_, { getState, dispatch }) => {
-    try {
-      const sessionAuthHash = getState().session.sessionData?.session_auth_hash
-      if (!sessionAuthHash) {
-        throw Error('No session auth hash is available')
-      }
-
-      const blocklists = await getBlocklists(dispatch, sessionAuthHash)
-      const userAgentsUrl = blocklists?.data?.useragents
-      let userAgents = ''
-      if (userAgentsUrl) {
-        userAgents = await getUserAgents(userAgentsUrl)
-      } else {
-        throw Error('No userAgents url is available')
-      }
-
-      const originalUa = navigator.userAgent
-      const currentPlatform = platforms.find(pl => originalUa.includes(pl))
-      const uaList = userAgents
-        .split(/\r?\n/)
-        .filter(ua => ua !== originalUa)
-        .reduce<string[]>((acc, ua) => {
-          if (currentPlatform && ua.includes(currentPlatform)) {
-            acc.push(ua)
-          }
-          return acc
-        }, [])
-      return uaList
-    } catch (err) {
-      const { cause, message } = err as Error
-      pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })
-      throw new Error(message)
-    }
-  },
-)
+// export const FETCH_USER_AGENTS_LIST = 'userAgent/fetchUserAgentsList'
+// export const SETUP_USER_AGENTS_LIST = 'userAgent/setupUserAgentsList'
+// export const fetchUserAgentsList = createAsyncThunk(
+//   FETCH_USER_AGENTS_LIST,
+//   async (_, { getState }) => {
+//     try {
+//       const originalUa = navigator.userAgent
+//       const currentPlatform = platforms.find(pl => originalUa.includes(pl))
+//       const uaList = getState()
+//         .userAgent.list.filter(ua => ua !== originalUa)
+//         .reduce<string[]>((acc, ua) => {
+//           if (currentPlatform && ua.includes(currentPlatform)) {
+//             acc.push(ua)
+//           }
+//           return acc
+//         }, [])
+//       return uaList
+//     } catch (err) {
+//       const { cause, message } = err as Error
+//       pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })
+//       throw new Error(message)
+//     }
+//   },
+// )
 
 export const setRandomSpoofedUserAgent = (dispatch: AppDispatch, getState: GetState): void => {
   const userAgentList = getState().userAgent.list
@@ -71,6 +109,7 @@ export const setRandomSpoofedUserAgent = (dispatch: AppDispatch, getState: GetSt
     //  if new random UA equals to the one currently spoofed than get a new random UA
   } while (randomizedUserAgent === spoofedUserAgent)
   dispatch(setSpoofedUserAgent(randomizedUserAgent))
+  console.log(randomizedUserAgent)
 }
 
 export const userAgentSlice = createSlice({
@@ -83,24 +122,23 @@ export const userAgentSlice = createSlice({
     setSpoofedUserAgent(state: UserAgentState, action: PayloadAction<string>) {
       state.spoofed = action.payload
     },
-  },
-  extraReducers: builder => {
-    builder
-      .addCase(fetchUserAgentsList.pending, state => {
-        state.error = undefined
-        state.loading = 'pending'
-      })
-      .addCase(fetchUserAgentsList.fulfilled, (state, action) => {
-        return { ...state, error: undefined, ...{ loading: 'fulfilled' }, list: action.payload }
-      })
-      .addCase(fetchUserAgentsList.rejected, (state, action) => {
-        state.loading = 'rejected'
-        if (action.error.message) {
-          state.error = { errorMessage: action.error.message }
-        }
-      })
+    initializeUserAgentsList(state: UserAgentState) {
+      const originalUa = navigator.userAgent
+      const currentPlatform = platforms.find(pl => originalUa.includes(pl))
+      const uaList = state.list
+        .filter(ua => ua !== originalUa)
+        .reduce<string[]>((acc, ua) => {
+          if (currentPlatform && ua.includes(currentPlatform)) {
+            acc.push(ua)
+          }
+          return acc
+        }, [])
+      state.list = uaList
+    },
   },
 })
 
-export const { setOriginalUserAgent, setSpoofedUserAgent } = userAgentSlice.actions
+export const { setOriginalUserAgent, setSpoofedUserAgent, initializeUserAgentsList } =
+  userAgentSlice.actions
 export default userAgentSlice.reducer
+

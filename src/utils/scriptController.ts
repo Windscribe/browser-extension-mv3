@@ -55,17 +55,23 @@ async function registerScript(
       level: 'ERROR',
       data: JSON.stringify(err),
     })
-    console.log(err)
   }
 }
 
-async function getExcludeMatches(scriptId: string): Promise<string[] | undefined> {
+/** This can potentially wipe existing script config for the script id you pass,
+ *  all the properties are replaced for the particular script with with passed in script id.
+ *  To keep your old properties you will need to find the script with the id you want using code like this
+ *
+ * `const matchingScript = await getScriptForId(scriptId)`
+ *
+ *  Then keep or remove what you want call `updateScript` with the updated script
+ *
+ *  see [getScriptForId](./#getScriptForId)
+ *
+ */
+async function updateScript(script: chrome.scripting.RegisteredContentScript): Promise<void> {
   try {
-    const matchingScript = (await chrome.scripting.getRegisteredContentScripts()).find(
-      script => script.id === scriptId,
-    )
-
-    return matchingScript?.excludeMatches
+    await chrome.scripting.updateContentScripts([script])
   } catch (err) {
     const message = getErrorMessage(err)
     await pushToDebugLog({
@@ -74,27 +80,6 @@ async function getExcludeMatches(scriptId: string): Promise<string[] | undefined
       level: 'ERROR',
       data: JSON.stringify(err),
     })
-    console.log(err)
-  }
-}
-
-async function updateExcludeMatches(scriptId: string, excludeMatches: string[]): Promise<void> {
-  try {
-    await chrome.scripting.updateContentScripts([
-      {
-        id: scriptId,
-        excludeMatches,
-      },
-    ])
-  } catch (err) {
-    const message = getErrorMessage(err)
-    await pushToDebugLog({
-      message,
-      tag: 'popup',
-      level: 'ERROR',
-      data: JSON.stringify(err),
-    })
-    console.log(err)
   }
 }
 
@@ -111,18 +96,17 @@ async function unregisterScript(id: string): Promise<void> {
       level: 'ERROR',
       data: JSON.stringify(err),
     })
-    console.log(err)
   }
+}
+
+async function getScriptForId(
+  id: string,
+): Promise<chrome.scripting.RegisteredContentScript | undefined> {
+  return (await chrome.scripting.getRegisteredContentScripts()).find(script => script.id === id)
 }
 
 function toExcludeMatchesURL(domain: string): string {
   return `*://${domain}/*`
 }
 
-export {
-  unregisterScript,
-  registerScript,
-  updateExcludeMatches,
-  getExcludeMatches,
-  toExcludeMatchesURL,
-}
+export { unregisterScript, registerScript, updateScript, getScriptForId, toExcludeMatchesURL }

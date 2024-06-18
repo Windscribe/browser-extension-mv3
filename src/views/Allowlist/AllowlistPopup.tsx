@@ -9,13 +9,8 @@ import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
-// import { updateScript } from 'utils/scriptController'
 import { workerBlockScriptId } from 'utils/constants'
-import {
-  getExcludeMatches,
-  toExcludeMatchesURL,
-  updateExcludeMatches,
-} from 'utils/scriptController'
+import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 
 type AllowlistPopupProps = {
   domain: string
@@ -87,16 +82,19 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   }
 
   const handleSubmit = async () => {
-    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
+    const matchingScript = await getScriptForId(workerBlockScriptId)
+    const excludeMatches = matchingScript?.excludeMatches
 
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup(true, domain)
       if (excludeMatches && excludeMatches.length > 0) {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domain)),
-        )
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: excludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+          ),
+        })
       }
       return
     }
@@ -117,15 +115,17 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
     if (excludeMatches) {
       if (isPrivacyFeaturesAllowed) {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.concat(toExcludeMatchesURL(domainValue)),
-        )
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: excludeMatches.concat(toExcludeMatchesURL(domainValue)),
+        })
       } else {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domainValue)),
-        )
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: excludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          ),
+        })
       }
     }
 

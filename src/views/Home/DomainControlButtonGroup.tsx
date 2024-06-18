@@ -16,11 +16,7 @@ import PrivacySelected from 'assets/img/privacySelected.svg'
 import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
-import {
-  getExcludeMatches,
-  toExcludeMatchesURL,
-  updateExcludeMatches,
-} from 'utils/scriptController'
+import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 import { workerBlockScriptId } from 'utils/constants'
 
 type DomainControlButtonGroupProps = {
@@ -57,7 +53,8 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   }) => {
     setWasSettingsUpdated(true)
 
-    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
+    const matchingScript = await getScriptForId(workerBlockScriptId)
+    const excludeMatches = matchingScript?.excludeMatches
     // If parameter was not passed, use value from redux store
     isAdsAllowed ??= allowAdsState
     isPrivacyFeaturesAllowed ??= allowPrivacyFeaturesState
@@ -75,26 +72,28 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
       await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
       if (excludeMatches) {
         if (isPrivacyFeaturesAllowed) {
-          await updateExcludeMatches(
-            workerBlockScriptId,
-            excludeMatches.concat(toExcludeMatchesURL(currentTabHostname)),
-          )
+          await updateScript({
+            id: workerBlockScriptId,
+            excludeMatches: excludeMatches.concat(toExcludeMatchesURL(currentTabHostname)),
+          })
         } else {
-          await updateExcludeMatches(
-            workerBlockScriptId,
-            excludeMatches.filter(
+          await updateScript({
+            id: workerBlockScriptId,
+            excludeMatches: excludeMatches.filter(
               urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
             ),
-          )
+          })
         }
       }
     } else {
       await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
       if (excludeMatches && excludeMatches.length > 0) {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname)),
-        )
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: excludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+          ),
+        })
       }
     }
   }
