@@ -9,7 +9,7 @@ import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
-import { workerBlockScriptId } from 'utils/constants'
+import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 
 type AllowlistPopupProps = {
@@ -114,19 +114,19 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     await addToAllowlist({ hostname: domainValue, level, domainWithSettings })
 
     if (excludeMatches) {
-      if (isPrivacyFeaturesAllowed) {
-        await updateScript({
-          id: workerBlockScriptId,
-          excludeMatches: excludeMatches.concat(toExcludeMatchesURL(domainValue)),
-        })
-      } else {
-        await updateScript({
-          id: workerBlockScriptId,
-          excludeMatches: excludeMatches.filter(
-            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
-          ),
-        })
-      }
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? excludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domainValue))
+
+      await updateScript({
+        id: workerBlockScriptId,
+        excludeMatches: newExcludeMatches,
+      })
+
+      await updateScript({
+        id: splitPersonalityScriptId,
+        excludeMatches: newExcludeMatches,
+      })
     }
 
     closePopup(true, domain)

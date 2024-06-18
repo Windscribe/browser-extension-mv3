@@ -6,10 +6,10 @@ import {
   spoofUserAgentHeader,
   resetSpoofUserAgentHeader,
 } from 'services/declarativeNetRequest/updateDynamicRules'
-import { registerScripts } from 'pages/background/eventHandlers/registerScripts'
 import {
   getScriptForId,
   registerScript,
+  toExcludeMatchesURL,
   unregisterScript,
   updateScript,
 } from 'utils/scriptController'
@@ -57,17 +57,25 @@ export const activateSplitPersonality = createAsyncThunk(
       await spoofUserAgentHeader(spoofedUserAgent)
       dispatch(setSplitPersonalityEnabled(true))
       const matchingScript = await getScriptForId(splitPersonalityScriptId)
+      const excludeMatchesFromAllowList = Object.entries(getState().allowlist)
+        .filter(([, value]) => {
+          return value.allowPrivacyFeatures === true
+        })
+        .map(([domainKey]) => toExcludeMatchesURL(domainKey))
 
       if (matchingScript) {
         updateScript({
           id: splitPersonalityScriptId,
           // this will replace the existing js array
           js: [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
+          excludeMatches: excludeMatchesFromAllowList,
         })
       } else {
-        await registerScript(splitPersonalityScriptId, [
-          SHA256(spoofedUserAgent).toString() + '.bundle.js',
-        ])
+        await registerScript(
+          splitPersonalityScriptId,
+          [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
+          excludeMatchesFromAllowList,
+        )
       }
     } catch (err) {
       const { cause, message } = err as Error

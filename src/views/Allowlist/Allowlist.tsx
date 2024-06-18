@@ -13,7 +13,7 @@ import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
+import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
 
 const Allowlist: ThemeUiElement = () => {
   const allowlist = useSelector(s => s.allowlist)
@@ -107,11 +107,18 @@ const Allowlist: ThemeUiElement = () => {
                     const excludeMatches = matchingScript?.excludeMatches
 
                     if (excludeMatches && excludeMatches.length > 0) {
+                      const newExcludeMatches = excludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                      )
+
                       updateScript({
                         id: workerBlockScriptId,
-                        excludeMatches: excludeMatches.filter(
-                          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
-                        ),
+                        excludeMatches: newExcludeMatches,
+                      })
+
+                      updateScript({
+                        id: splitPersonalityScriptId,
+                        excludeMatches: newExcludeMatches,
                       })
                     }
                   }}
