@@ -12,11 +12,7 @@ import { useSelector } from 'state/hooks'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
-import {
-  getExcludeMatches,
-  toExcludeMatchesURL,
-  updateExcludeMatches,
-} from 'utils/scriptController'
+import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 import { workerBlockScriptId } from 'utils/constants'
 
 const Allowlist: ThemeUiElement = () => {
@@ -107,15 +103,16 @@ const Allowlist: ThemeUiElement = () => {
                       showReloadAlert(true)
                     }
 
-                    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
+                    const matchingScript = await getScriptForId(workerBlockScriptId)
+                    const excludeMatches = matchingScript?.excludeMatches
 
                     if (excludeMatches && excludeMatches.length > 0) {
-                      updateExcludeMatches(
-                        workerBlockScriptId,
-                        excludeMatches.filter(
+                      updateScript({
+                        id: workerBlockScriptId,
+                        excludeMatches: excludeMatches.filter(
                           urlScheme => urlScheme !== toExcludeMatchesURL(domain),
                         ),
-                      )
+                      })
                     }
                   }}
                   sx={{ p: 0, ml: '16px' }}

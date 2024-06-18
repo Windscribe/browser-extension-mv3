@@ -6,7 +6,7 @@ const splitPersonalityContentScriptTemplate = require('./buildUtils/templates/sp
 const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
 const getEndpoint = require('./buildUtils/api/getEndpoint')
 
-async function embedUserAgentForSplitPersonality(config) {
+async function embedUserAgentsForSplitPersonality(config) {
   const body = {
     password: process.env.BUILD_USER_PASSWORD,
     session_type_id: 2,
@@ -51,7 +51,7 @@ async function embedUserAgentForSplitPersonality(config) {
     throw Error('No user agents list is available')
   }
 
-  // generate file hashes based on user agent strings
+  // generate intermediate format based on user agent strings
   const uaList = userAgentsData.split(/\r?\n/).map(userAgent => {
     return {
       filename: sha256(userAgent).toString(),
@@ -60,14 +60,15 @@ async function embedUserAgentForSplitPersonality(config) {
     }
   })
 
+  // using fixed paths
   const directory = 'src/pages/contentScripts/splitPersonality/'
   const splitPersonalityReducerDirectory = 'src/state/slices/userAgent.ts'
 
   // write to src folder which will be included in the build
-
   for (let uaItem of uaList) {
     const filePath = directory + uaItem.filename + '.ts'
     await fs.writeFile(filePath, uaItem.content)
+    //  update webpack config entry object to inlcude the newly generated files
     config.entry[uaItem.filename] = path.join(
       __dirname,
       '..',
@@ -85,4 +86,4 @@ async function embedUserAgentForSplitPersonality(config) {
   )
 }
 
-module.exports = embedUserAgentForSplitPersonality
+module.exports = embedUserAgentsForSplitPersonality
