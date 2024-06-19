@@ -2,6 +2,9 @@ const fetch = require('node-fetch-commonjs')
 const sha256 = require('crypto-js/sha256')
 const fs = require('node:fs/promises')
 const path = require('path')
+const util = require('node:util')
+const exec = util.promisify(require('node:child_process').exec)
+
 const splitPersonalityContentScriptTemplate = require('./buildUtils/templates/splitPersonalityContentScript')
 const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
 const getEndpoint = require('./buildUtils/api/getEndpoint')
@@ -63,12 +66,12 @@ async function embedUserAgentsForSplitPersonality(config) {
   })
 
   // using fixed paths
-  const directory = 'src/pages/contentScripts/splitPersonality/'
-  const splitPersonalityReducerDirectory = 'src/state/slices/userAgent.ts'
+  const splitPersonalityGeneratedScriptFolderPath = 'src/pages/contentScripts/splitPersonality/'
+  const userAgentSlicePath = 'src/state/slices/userAgent.ts'
 
   // write to src folder which will be included in the build
   for (let uaItem of uaList) {
-    const filePath = directory + uaItem.filename + '.ts'
+    const filePath = splitPersonalityGeneratedScriptFolderPath + uaItem.filename + '.ts'
     await fs.writeFile(filePath, uaItem.content)
     //  update webpack config entry object to inlcude the newly generated files
     config.entry[uaItem.filename] = path.join(
@@ -83,9 +86,15 @@ async function embedUserAgentsForSplitPersonality(config) {
   }
 
   await fs.writeFile(
-    splitPersonalityReducerDirectory,
+    userAgentSlicePath,
     userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),
   )
+
+  const command1 = `eslint --fix ${userAgentSlicePath}`
+  const command2 = `eslint --fix ${splitPersonalityGeneratedScriptFolderPath}`
+
+  await exec(command1)
+  await exec(command2)
 
   console.log('User Agent content scripts embedded into build')
 }

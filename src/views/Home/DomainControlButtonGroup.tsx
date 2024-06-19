@@ -53,8 +53,6 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   }) => {
     setWasSettingsUpdated(true)
 
-    const matchingScript = await getScriptForId(workerBlockScriptId)
-    const excludeMatches = matchingScript?.excludeMatches
     // If parameter was not passed, use value from redux store
     isAdsAllowed ??= allowAdsState
     isPrivacyFeaturesAllowed ??= allowPrivacyFeaturesState
