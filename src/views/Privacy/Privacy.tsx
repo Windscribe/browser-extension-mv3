@@ -26,8 +26,9 @@ import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
-import { registerScript, toExcludeMatchesURL, unregisterScript } from 'utils/scriptController'
+import { registerScript, unregisterScript } from 'utils/scriptController'
 import { workerBlockScriptId } from 'utils/constants'
+import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -174,11 +175,7 @@ const Privacy: ThemeUiElement = () => {
               showReloadAlert(true)
               const isWorkerBlockEnabled = !workerBlockEnabled
               dispatch(setWorkerBlock(isWorkerBlockEnabled))
-              const excludeMatchesFromAllowList = Object.entries(allowList)
-                .filter(([, value]) => {
-                  return value.allowPrivacyFeatures === true
-                })
-                .map(([domainKey]) => toExcludeMatchesURL(domainKey))
+              const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
 
               if (isWorkerBlockEnabled) {
                 await registerScript(

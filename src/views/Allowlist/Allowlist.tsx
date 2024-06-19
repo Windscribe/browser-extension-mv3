@@ -103,11 +103,16 @@ const Allowlist: ThemeUiElement = () => {
                       showReloadAlert(true)
                     }
 
-                    const matchingScript = await getScriptForId(workerBlockScriptId)
-                    const excludeMatches = matchingScript?.excludeMatches
+                    const workerBlockScriptExcludeMatches = (
+                      await getScriptForId(workerBlockScriptId)
+                    )?.excludeMatches
 
-                    if (excludeMatches && excludeMatches.length > 0) {
-                      const newExcludeMatches = excludeMatches.filter(
+                    const splitPersonalityScriptExcludeMatches = (
+                      await getScriptForId(splitPersonalityScriptId)
+                    )?.excludeMatches
+
+                    if (workerBlockScriptExcludeMatches) {
+                      const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
                         urlScheme => urlScheme !== toExcludeMatchesURL(domain),
                       )
 
@@ -115,6 +120,12 @@ const Allowlist: ThemeUiElement = () => {
                         id: workerBlockScriptId,
                         excludeMatches: newExcludeMatches,
                       })
+                    }
+
+                    if (splitPersonalityScriptExcludeMatches) {
+                      const newExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                      )
 
                       updateScript({
                         id: splitPersonalityScriptId,

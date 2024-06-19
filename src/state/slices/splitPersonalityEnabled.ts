@@ -9,12 +9,12 @@ import {
 import {
   getScriptForId,
   registerScript,
-  toExcludeMatchesURL,
   unregisterScript,
   updateScript,
 } from 'utils/scriptController'
 import { splitPersonalityScriptId } from 'utils/constants'
 import { SHA256 } from 'crypto-js'
+import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 
 type SplitPersonalityEnabledState = boolean
 const initialState: SplitPersonalityEnabledState = false
@@ -56,19 +56,18 @@ export const activateSplitPersonality = createAsyncThunk(
       const spoofedUserAgent = getState().userAgent.spoofed
       await spoofUserAgentHeader(spoofedUserAgent)
       dispatch(setSplitPersonalityEnabled(true))
-      const matchingScript = await getScriptForId(splitPersonalityScriptId)
-      const excludeMatchesFromAllowList = Object.entries(getState().allowlist)
-        .filter(([, value]) => {
-          return value.allowPrivacyFeatures === true
-        })
-        .map(([domainKey]) => toExcludeMatchesURL(domainKey))
+      const splitPersonalityScript = await getScriptForId(splitPersonalityScriptId)
+      const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(getState().allowlist)
 
-      if (matchingScript) {
+      if (splitPersonalityScript) {
         updateScript({
           id: splitPersonalityScriptId,
           // this will replace the existing js array
           js: [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
-          excludeMatches: excludeMatchesFromAllowList,
+          excludeMatches: [
+            ...(splitPersonalityScript?.excludeMatches ?? []),
+            ...excludeMatchesFromAllowList,
+          ],
         })
       } else {
         await registerScript(

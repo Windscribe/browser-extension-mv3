@@ -33,6 +33,7 @@ async function registerScript(
         persistAcrossSessions: true,
         js: jsFileNames,
         matches,
+        allFrames: true,
         excludeMatches: exclusions,
       },
     ])
@@ -59,19 +60,25 @@ async function registerScript(
 }
 
 /** This can potentially wipe existing script config for the script id you pass,
- *  all the properties are replaced for the particular script with with passed in script id.
+ *  any property you change is replaced for the particular script with with passed in script id.
  *  To keep your old properties you will need to find the script with the id you want using code like this
  *
  * `const matchingScript = await getScriptForId(scriptId)`
  *
- *  Then keep or remove what you want call `updateScript` with the updated script
- *
- *  see [getScriptForId](./#getScriptForId)
+ *  Then keep or remove what you want and then call `updateScript` with the updated script
  *
  */
 async function updateScript(script: chrome.scripting.RegisteredContentScript): Promise<void> {
   try {
     await chrome.scripting.updateContentScripts([script])
+
+    await pushToDebugLog({
+      message: `Updated script with id ${script.id}`,
+      tag: 'popup',
+      data: JSON.stringify({
+        script,
+      }),
+    })
   } catch (err) {
     const message = getErrorMessage(err)
     await pushToDebugLog({
@@ -87,6 +94,11 @@ async function unregisterScript(id: string): Promise<void> {
   try {
     await chrome.scripting.unregisterContentScripts({
       ids: [id],
+    })
+
+    await pushToDebugLog({
+      message: `Unregisterd script with id ${id}`,
+      tag: 'popup',
     })
   } catch (err) {
     const message = getErrorMessage(err)

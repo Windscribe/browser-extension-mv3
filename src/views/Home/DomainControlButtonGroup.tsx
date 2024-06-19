@@ -17,7 +17,7 @@ import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
+import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -60,6 +60,11 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     isPrivacyFeaturesAllowed ??= allowPrivacyFeaturesState
     isDirectConnectionsAllowed ??= allowDirectConnectionsState
 
+    const workerBlockExcludeMatches = (await getScriptForId(workerBlockScriptId))?.excludeMatches
+
+    const splitPersonalityExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
+      ?.excludeMatches
+
     if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
       const level = isAdsAllowed ? 0 : 3
       const domainWithSettings = {
@@ -70,29 +75,52 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         includeAllSubdomains: false,
       }
       await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
-      if (excludeMatches) {
-        if (isPrivacyFeaturesAllowed) {
-          await updateScript({
-            id: workerBlockScriptId,
-            excludeMatches: excludeMatches.concat(toExcludeMatchesURL(currentTabHostname)),
-          })
-        } else {
-          await updateScript({
-            id: workerBlockScriptId,
-            excludeMatches: excludeMatches.filter(
+
+      if (workerBlockExcludeMatches) {
+        const newExcludeMatches = isPrivacyFeaturesAllowed
+          ? workerBlockExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
+          : workerBlockExcludeMatches.filter(
               urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
-            ),
-          })
-        }
+            )
+
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (splitPersonalityExcludeMatches) {
+        const newExcludeMatches = isPrivacyFeaturesAllowed
+          ? splitPersonalityExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
+          : splitPersonalityExcludeMatches.filter(
+              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+            )
+
+        await updateScript({
+          id: splitPersonalityScriptId,
+          excludeMatches: newExcludeMatches,
+        })
       }
     } else {
       await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
-      if (excludeMatches && excludeMatches.length > 0) {
+
+      if (workerBlockExcludeMatches) {
+        const newExcludeMatches = workerBlockExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+        )
         await updateScript({
           id: workerBlockScriptId,
-          excludeMatches: excludeMatches.filter(
-            urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
-          ),
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (splitPersonalityExcludeMatches) {
+        const newExcludeMatches = splitPersonalityExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+        )
+        await updateScript({
+          id: splitPersonalityScriptId,
+          excludeMatches: newExcludeMatches,
         })
       }
     }

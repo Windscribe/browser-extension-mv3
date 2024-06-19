@@ -14,6 +14,8 @@ async function embedUserAgentsForSplitPersonality(config) {
     // cannot use 2fa flow during build process, so its not included and shouldn't be used
   }
 
+  console.log(`process.env.BUILD_USER_NAME: ${body.username}`)
+
   const sessionResponse = await fetch(getEndpoint('Session'), {
     method: 'POST',
     body: JSON.stringify(body),
@@ -84,6 +86,8 @@ async function embedUserAgentsForSplitPersonality(config) {
     splitPersonalityReducerDirectory,
     userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),
   )
+
+  console.log('User Agent content scripts embedded into build')
 }
 
 module.exports = embedUserAgentsForSplitPersonality

@@ -82,20 +82,35 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   }
 
   const handleSubmit = async () => {
-    const matchingScript = await getScriptForId(workerBlockScriptId)
-    const excludeMatches = matchingScript?.excludeMatches
+    const workerBlockScriptExcludeMatches = (await getScriptForId(workerBlockScriptId))
+      ?.excludeMatches
+
+    const splitPersonalityScriptExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
+      ?.excludeMatches
 
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup(true, domain)
-      if (excludeMatches && excludeMatches.length > 0) {
+      if (workerBlockScriptExcludeMatches) {
+        const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
         await updateScript({
           id: workerBlockScriptId,
-          excludeMatches: excludeMatches.filter(
-            urlScheme => urlScheme !== toExcludeMatchesURL(domain),
-          ),
+          excludeMatches: newExcludeMatches,
         })
       }
+
+      if (splitPersonalityScriptExcludeMatches) {
+        const newExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
+        await updateScript({
+          id: splitPersonalityScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
       return
     }
 
@@ -113,15 +128,25 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
     await addToAllowlist({ hostname: domainValue, level, domainWithSettings })
 
-    if (excludeMatches) {
+    if (workerBlockScriptExcludeMatches) {
       const newExcludeMatches = isPrivacyFeaturesAllowed
-        ? excludeMatches.concat(toExcludeMatchesURL(domainValue))
-        : excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domainValue))
+        ? workerBlockScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : workerBlockScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
 
       await updateScript({
         id: workerBlockScriptId,
         excludeMatches: newExcludeMatches,
       })
+    }
+
+    if (splitPersonalityScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? splitPersonalityScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : splitPersonalityScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
 
       await updateScript({
         id: splitPersonalityScriptId,
