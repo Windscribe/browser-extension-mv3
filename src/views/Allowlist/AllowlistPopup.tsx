@@ -9,7 +9,11 @@ import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
-import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
+import {
+  locationWarpScriptId,
+  splitPersonalityScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 
 type AllowlistPopupProps = {
@@ -88,6 +92,9 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     const splitPersonalityScriptExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
       ?.excludeMatches
 
+    const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
+      ?.excludeMatches
+
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup(true, domain)
@@ -107,6 +114,17 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
         )
         await updateScript({
           id: splitPersonalityScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (locationWarpScriptExcludeMatches) {
+        const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
+
+        updateScript({
+          id: locationWarpScriptId,
           excludeMatches: newExcludeMatches,
         })
       }
@@ -150,6 +168,19 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
       await updateScript({
         id: splitPersonalityScriptId,
+        excludeMatches: newExcludeMatches,
+      })
+    }
+
+    if (locationWarpScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? locationWarpScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : locationWarpScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
+
+      await updateScript({
+        id: locationWarpScriptId,
         excludeMatches: newExcludeMatches,
       })
     }

@@ -9,27 +9,7 @@ const splitPersonalityContentScriptTemplate = require('./buildUtils/templates/sp
 const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
 const getEndpoint = require('./buildUtils/api/getEndpoint')
 
-async function embedUserAgentsForSplitPersonality(config) {
-  const body = {
-    password: process.env.BUILD_USER_PASSWORD,
-    session_type_id: 2,
-    username: process.env.BUILD_USER_NAME,
-    // cannot use 2fa flow during build process, so its not included and shouldn't be used
-  }
-
-  console.log(`process.env.BUILD_USER_NAME: ${body.username}`)
-
-  const sessionResponse = await fetch(getEndpoint('Session'), {
-    method: 'POST',
-    body: JSON.stringify(body),
-  })
-
-  const sessionData = await sessionResponse.json()
-
-  if (!sessionData.data || !sessionData.data.session_auth_hash) {
-    throw Error('No session auth hash is available')
-  }
-
+async function embedUserAgentsForSplitPersonality(config, sessionData) {
   const blockListsResponse = await fetch(
     getEndpoint('ExtBlocklists', {
       session_auth_hash: sessionData.data.session_auth_hash,
@@ -43,7 +23,7 @@ async function embedUserAgentsForSplitPersonality(config) {
   const blockListsResponseData = await blockListsResponse.json()
 
   if (!blockListsResponseData.data || !blockListsResponseData.data.useragents) {
-    throw Error('No blocklist/useragents link  is available')
+    throw Error('No blocklist/useragents link is available')
   }
 
   const userAgentsResponse = await fetch(blockListsResponseData.data.useragents, {
@@ -59,7 +39,7 @@ async function embedUserAgentsForSplitPersonality(config) {
   // generate intermediate format based on user agent strings
   const uaList = userAgentsData.split(/\r?\n/).map(userAgent => {
     return {
-      filename: sha256(userAgent).toString(),
+      fileName: sha256(userAgent.toString()).toString(),
       content: splitPersonalityContentScriptTemplate(userAgent),
       userAgent,
     }
@@ -70,18 +50,18 @@ async function embedUserAgentsForSplitPersonality(config) {
   const userAgentSlicePath = 'src/state/slices/userAgent.ts'
 
   // write to src folder which will be included in the build
-  for (let uaItem of uaList) {
-    const filePath = splitPersonalityGeneratedScriptFolderPath + uaItem.filename + '.ts'
+  for (const uaItem of uaList) {
+    const filePath = splitPersonalityGeneratedScriptFolderPath + uaItem.fileName + '.ts'
     await fs.writeFile(filePath, uaItem.content)
     //  update webpack config entry object to inlcude the newly generated files
-    config.entry[uaItem.filename] = path.join(
+    config.entry[uaItem.fileName] = path.join(
       __dirname,
       '..',
       'src',
       'pages',
       'contentScripts',
       'splitPersonality',
-      uaItem.filename + '.ts',
+      uaItem.fileName + '.ts',
     )
   }
 

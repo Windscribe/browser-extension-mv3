@@ -1,13 +1,22 @@
 import { SHA256 } from 'crypto-js'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
-import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
+import {
+  locationWarpScriptId,
+  splitPersonalityScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
 import { registerScript } from 'utils/scriptController'
 
 const registerScripts = async (store: StoreType): Promise<void> => {
   const isWorkerBlockActive = store.getState().workerBlock
   const isSplitPersonalityEnabled = store.getState().splitPersonalityEnabled
+  const isLocationWarpActive = store.getState().locationWarp
   const spoofedUserAgent = store.getState().userAgent.spoofed
+  const proxy = store.getState().proxy
+  const autopilot = store.getState().autopilot
+  const currentDataCenter = store.getState().currentDataCenter
+  const dataCenterId = currentDataCenter.id
 
   // We do not inject any spoofing script if this domain is in an allowlist.
   // So we convert allowlist entries into exclude matches
@@ -30,6 +39,20 @@ const registerScripts = async (store: StoreType): Promise<void> => {
     await registerScript(
       splitPersonalityScriptId,
       [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
+      excludeMatchesFromAllowList,
+    )
+  }
+
+  if (
+    proxy.status === 'on' &&
+    autopilot.autopilotSelected &&
+    dataCenterId !== undefined &&
+    dataCenterId !== null &&
+    isLocationWarpActive
+  ) {
+    await registerScript(
+      locationWarpScriptId,
+      [SHA256(dataCenterId.toString()) + '.bundle.js'],
       excludeMatchesFromAllowList,
     )
   }

@@ -27,8 +27,9 @@ import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
 import { registerScript, unregisterScript } from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
+import { locationWarpScriptId, workerBlockScriptId } from 'utils/constants'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { SHA256 } from 'crypto-js'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -44,6 +45,9 @@ const Privacy: ThemeUiElement = () => {
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
   const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
   const allowList = useSelector(s => s.allowlist)
+  const proxy = useSelector(s => s.proxy)
+  const autopilot = useSelector(s => s.autopilot)
+  const currentDataCenter = useSelector(s => s.currentDataCenter)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -86,9 +90,27 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Fakes your GPS location to match the connected proxy."
         >
           <ToggleSwitch
-            onChange={() => {
+            onChange={async () => {
               showReloadAlert(true)
-              dispatch(setLocationWarp(!locationWarp))
+              const isLocationWarpActive = !locationWarp
+              dispatch(setLocationWarp(isLocationWarpActive))
+
+              const dataCenterId = currentDataCenter.id
+              if (proxy.status !== 'on') return
+              if (autopilot.autopilotSelected) return
+              if (dataCenterId === undefined || dataCenterId === null) return
+
+              const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+
+              if (isLocationWarpActive) {
+                await registerScript(
+                  locationWarpScriptId,
+                  [SHA256(dataCenterId.toString()) + '.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+              } else {
+                await unregisterScript(locationWarpScriptId)
+              }
             }}
             checked={locationWarp}
             disabled={autopilotSelected}

@@ -17,7 +17,11 @@ import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
-import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
+import {
+  locationWarpScriptId,
+  splitPersonalityScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -63,6 +67,9 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     const splitPersonalityExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
       ?.excludeMatches
 
+    const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
+      ?.excludeMatches
+
     if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
       const level = isAdsAllowed ? 0 : 3
       const domainWithSettings = {
@@ -99,6 +106,19 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           excludeMatches: newExcludeMatches,
         })
       }
+
+      if (locationWarpScriptExcludeMatches) {
+        const newExcludeMatches = isPrivacyFeaturesAllowed
+          ? locationWarpScriptExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
+          : locationWarpScriptExcludeMatches.filter(
+              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+            )
+
+        await updateScript({
+          id: locationWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
     } else {
       await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
 
@@ -118,6 +138,16 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         )
         await updateScript({
           id: splitPersonalityScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (locationWarpScriptExcludeMatches) {
+        const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+        )
+        await updateScript({
+          id: locationWarpScriptId,
           excludeMatches: newExcludeMatches,
         })
       }

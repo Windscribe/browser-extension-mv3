@@ -12,12 +12,11 @@ async function registerScript(
 ): Promise<void> {
   try {
     if ((await chrome.scripting.getRegisteredContentScripts({ ids: [scriptId] })).length > 0) {
+      await unregisterScript(scriptId)
       await pushToDebugLog({
-        message: `unregistering script with id ${scriptId}`,
+        message: `unregistered script with id ${scriptId}`,
         tag: 'popup',
       })
-
-      await unregisterScript(scriptId)
     }
 
     let exclusions = [...excludeMatches]
@@ -97,7 +96,7 @@ async function unregisterScript(id: string): Promise<void> {
     })
 
     await pushToDebugLog({
-      message: `Unregisterd script with id ${id}`,
+      message: `Unregistered script with id ${id}`,
       tag: 'popup',
     })
   } catch (err) {
