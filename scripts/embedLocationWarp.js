@@ -71,8 +71,6 @@ async function embedLocationWarp(config, sessionData) {
     )
   }
 
-  console.log(config)
-
   const formatLocationWarpFiles = `eslint --fix ${locationWarpGeneratedScriptFolderPath}`
 
   await exec(formatLocationWarpFiles)
