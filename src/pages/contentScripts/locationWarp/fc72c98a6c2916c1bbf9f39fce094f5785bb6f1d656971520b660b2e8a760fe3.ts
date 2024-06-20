@@ -60,6 +60,4 @@ import { GeolocationMethod, GeolocationMethodParameters } from 'api/types'
       handler,
     )
   }
-
-  console.log('location spoofing active 13.75 100.50}')
 })()

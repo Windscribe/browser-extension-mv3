@@ -64,8 +64,6 @@ function locationWarpContentScriptTemplate(coords) {
     )
   }
 
-  console.log('location spoofing active ${coords.latitude} ${coords.longitude}}')
-
 })()
 `
 }
