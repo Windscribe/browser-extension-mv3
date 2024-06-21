@@ -42,19 +42,6 @@ export function navigationCommittedHandler(bgStore: Promise<StoreType>) {
     if (store.getState().proxy.status !== 'on') return
     if (store.getState().autopilot.autopilotSelected) return
 
-    if (store.getState().locationWarp) {
-      const coords = store.getState().currentDataCenter?.gps?.split(',')
-
-      if (!coords) return
-
-      const locationWarpInfo: Coords = {
-        latitude: coords[0],
-        longitude: coords[1],
-      }
-
-      executeScript(details.tabId, locationWarp, locationWarpInfo)
-    }
-
     if (store.getState().languageWarpEnabled) {
       const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
       const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
