@@ -15,6 +15,4 @@
     res.locale = 'ja-JP'
     return res
   }
-
-  console.log('ja-JP')
 })()

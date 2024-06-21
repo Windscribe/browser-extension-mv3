@@ -15,6 +15,4 @@
     res.locale = 'en-PH'
     return res
   }
-
-  console.log('en-PH')
 })()

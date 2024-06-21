@@ -15,6 +15,4 @@
     res.locale = 'ka-GE'
     return res
   }
-
-  console.log('ka-GE')
 })()

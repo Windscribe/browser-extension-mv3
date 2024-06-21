@@ -15,6 +15,4 @@
     res.locale = 'ar-AE'
     return res
   }
-
-  console.log('ar-AE')
 })()

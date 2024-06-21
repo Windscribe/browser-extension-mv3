@@ -15,6 +15,4 @@
     res.locale = 'sr-RS'
     return res
   }
-
-  console.log('sr-RS')
 })()

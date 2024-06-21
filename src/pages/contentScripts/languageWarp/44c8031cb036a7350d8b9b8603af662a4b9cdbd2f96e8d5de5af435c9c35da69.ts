@@ -15,6 +15,4 @@
     res.locale = 'el-GR'
     return res
   }
-
-  console.log('el-GR')
 })()

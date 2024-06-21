@@ -15,6 +15,4 @@
     res.locale = 'ms-MY'
     return res
   }
-
-  console.log('ms-MY')
 })()

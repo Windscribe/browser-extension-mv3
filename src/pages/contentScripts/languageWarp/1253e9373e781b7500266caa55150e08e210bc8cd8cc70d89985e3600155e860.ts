@@ -15,6 +15,4 @@
     res.locale = 'bs-BA'
     return res
   }
-
-  console.log('bs-BA')
 })()

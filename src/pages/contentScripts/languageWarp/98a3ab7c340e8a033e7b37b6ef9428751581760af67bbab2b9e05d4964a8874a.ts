@@ -15,6 +15,4 @@
     res.locale = 'he-IL'
     return res
   }
-
-  console.log('he-IL')
 })()

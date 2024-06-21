@@ -15,6 +15,4 @@
     res.locale = 'en-CA'
     return res
   }
-
-  console.log('en-CA')
 })()

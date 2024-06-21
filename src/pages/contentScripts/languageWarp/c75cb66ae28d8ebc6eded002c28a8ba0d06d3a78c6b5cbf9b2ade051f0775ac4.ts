@@ -15,6 +15,4 @@
     res.locale = 'de-AT'
     return res
   }
-
-  console.log('de-AT')
 })()

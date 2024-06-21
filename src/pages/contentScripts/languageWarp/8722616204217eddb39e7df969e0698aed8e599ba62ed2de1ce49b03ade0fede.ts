@@ -15,6 +15,4 @@
     res.locale = 'zh-TW'
     return res
   }
-
-  console.log('zh-TW')
 })()

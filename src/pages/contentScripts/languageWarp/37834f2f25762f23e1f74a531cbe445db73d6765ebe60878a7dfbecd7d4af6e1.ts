@@ -15,6 +15,4 @@
     res.locale = 'sq-AL'
     return res
   }
-
-  console.log('sq-AL')
 })()

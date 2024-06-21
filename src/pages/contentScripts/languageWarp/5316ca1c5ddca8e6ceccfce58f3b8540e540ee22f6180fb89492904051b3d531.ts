@@ -15,6 +15,4 @@
     res.locale = 'vi-VN'
     return res
   }
-
-  console.log('vi-VN')
 })()

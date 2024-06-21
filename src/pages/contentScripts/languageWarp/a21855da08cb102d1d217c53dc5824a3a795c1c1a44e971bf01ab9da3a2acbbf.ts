@@ -15,6 +15,4 @@
     res.locale = 'pl-PL'
     return res
   }
-
-  console.log('pl-PL')
 })()

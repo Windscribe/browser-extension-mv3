@@ -15,6 +15,4 @@
     res.locale = 'pt-BR'
     return res
   }
-
-  console.log('pt-BR')
 })()

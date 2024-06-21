@@ -18,8 +18,6 @@ function languageWarpContentScriptTemplate(locale) {
     res.locale = '${locale}'
     return res
   }
-
-  console.log('${locale}')
     
 })()
 `

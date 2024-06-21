@@ -15,6 +15,4 @@
     res.locale = 'en-ZA'
     return res
   }
-
-  console.log('en-ZA')
 })()

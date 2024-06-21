@@ -15,6 +15,4 @@
     res.locale = 'lt-LT'
     return res
   }
-
-  console.log('lt-LT')
 })()

@@ -15,6 +15,4 @@
     res.locale = 'ak-GH'
     return res
   }
-
-  console.log('ak-GH')
 })()

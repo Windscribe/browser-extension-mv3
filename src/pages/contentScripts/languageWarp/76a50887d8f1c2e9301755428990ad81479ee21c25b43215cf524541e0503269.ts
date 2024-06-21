@@ -15,6 +15,4 @@
     res.locale = 'zh-SG'
     return res
   }
-
-  console.log('zh-SG')
 })()

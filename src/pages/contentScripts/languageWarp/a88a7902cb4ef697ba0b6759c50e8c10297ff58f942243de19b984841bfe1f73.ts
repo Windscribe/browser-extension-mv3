@@ -15,6 +15,4 @@
     res.locale = 'uk-UA'
     return res
   }
-
-  console.log('uk-UA')
 })()

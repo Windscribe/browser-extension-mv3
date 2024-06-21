@@ -15,6 +15,4 @@
     res.locale = 'et-EE'
     return res
   }
-
-  console.log('et-EE')
 })()

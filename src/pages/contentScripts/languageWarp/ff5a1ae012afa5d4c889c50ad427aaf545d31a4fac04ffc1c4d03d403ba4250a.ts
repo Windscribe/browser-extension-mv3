@@ -15,6 +15,4 @@
     res.locale = 'cs-CZ'
     return res
   }
-
-  console.log('cs-CZ')
 })()

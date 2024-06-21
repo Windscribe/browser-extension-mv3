@@ -15,6 +15,4 @@
     res.locale = 'is-IS'
     return res
   }
-
-  console.log('is-IS')
 })()

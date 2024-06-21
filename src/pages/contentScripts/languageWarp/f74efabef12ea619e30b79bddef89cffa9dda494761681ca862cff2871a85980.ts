@@ -15,6 +15,4 @@
     res.locale = 'lv-LV'
     return res
   }
-
-  console.log('lv-LV')
 })()

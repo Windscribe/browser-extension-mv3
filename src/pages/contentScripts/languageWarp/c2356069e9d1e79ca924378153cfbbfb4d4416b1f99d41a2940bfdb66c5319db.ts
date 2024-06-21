@@ -15,6 +15,4 @@
     res.locale = 'sv-SE'
     return res
   }
-
-  console.log('sv-SE')
 })()

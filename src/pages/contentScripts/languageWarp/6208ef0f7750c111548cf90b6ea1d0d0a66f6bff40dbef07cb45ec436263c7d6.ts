@@ -15,6 +15,4 @@
     res.locale = 'en-IE'
     return res
   }
-
-  console.log('en-IE')
 })()

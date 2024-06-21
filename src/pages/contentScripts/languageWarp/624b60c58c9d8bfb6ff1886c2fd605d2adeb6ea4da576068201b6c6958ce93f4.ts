@@ -15,6 +15,4 @@
     res.locale = 'en-AU'
     return res
   }
-
-  console.log('en-AU')
 })()

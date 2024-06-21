@@ -15,6 +15,4 @@
     res.locale = 'fr-FR'
     return res
   }
-
-  console.log('fr-FR')
 })()

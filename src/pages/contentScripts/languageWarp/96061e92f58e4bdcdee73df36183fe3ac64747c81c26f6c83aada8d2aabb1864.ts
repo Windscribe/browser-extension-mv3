@@ -15,6 +15,4 @@
     res.locale = 'fi-FI'
     return res
   }
-
-  console.log('fi-FI')
 })()

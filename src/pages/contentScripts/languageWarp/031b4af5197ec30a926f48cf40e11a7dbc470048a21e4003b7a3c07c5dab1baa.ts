@@ -15,6 +15,4 @@
     res.locale = 'es-ES'
     return res
   }
-
-  console.log('es-ES')
 })()

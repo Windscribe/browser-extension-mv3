@@ -15,6 +15,4 @@
     res.locale = 'nl-BE'
     return res
   }
-
-  console.log('nl-BE')
 })()

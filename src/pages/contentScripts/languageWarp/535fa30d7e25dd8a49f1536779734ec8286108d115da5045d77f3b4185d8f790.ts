@@ -15,6 +15,4 @@
     res.locale = 'zh-HK'
     return res
   }
-
-  console.log('zh-HK')
 })()

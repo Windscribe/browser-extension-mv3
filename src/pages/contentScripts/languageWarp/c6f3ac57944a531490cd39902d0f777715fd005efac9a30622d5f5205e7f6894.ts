@@ -15,6 +15,4 @@
     res.locale = 'de-CH'
     return res
   }
-
-  console.log('de-CH')
 })()

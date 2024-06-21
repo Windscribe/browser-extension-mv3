@@ -15,6 +15,4 @@
     res.locale = 'en-GB'
     return res
   }
-
-  console.log('en-GB')
 })()

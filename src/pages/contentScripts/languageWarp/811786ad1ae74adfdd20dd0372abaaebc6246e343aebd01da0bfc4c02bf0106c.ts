@@ -15,6 +15,4 @@
     res.locale = 'ro-RO'
     return res
   }
-
-  console.log('ro-RO')
 })()

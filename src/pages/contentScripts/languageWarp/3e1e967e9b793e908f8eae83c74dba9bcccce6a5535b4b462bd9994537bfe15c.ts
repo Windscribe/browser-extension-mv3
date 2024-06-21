@@ -15,6 +15,4 @@
     res.locale = 'ko-KR'
     return res
   }
-
-  console.log('ko-KR')
 })()

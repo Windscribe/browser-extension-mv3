@@ -15,6 +15,4 @@
     res.locale = 'it-IT'
     return res
   }
-
-  console.log('it-IT')
 })()

@@ -15,6 +15,4 @@
     res.locale = 'mk-MK'
     return res
   }
-
-  console.log('mk-MK')
 })()

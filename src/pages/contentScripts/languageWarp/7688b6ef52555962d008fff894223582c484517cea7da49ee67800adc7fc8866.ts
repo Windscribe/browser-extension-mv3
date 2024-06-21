@@ -15,6 +15,4 @@
     res.locale = 'hi-IN'
     return res
   }
-
-  console.log('hi-IN')
 })()

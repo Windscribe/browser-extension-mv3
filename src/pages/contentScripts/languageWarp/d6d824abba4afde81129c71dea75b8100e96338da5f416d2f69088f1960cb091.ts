@@ -15,6 +15,4 @@
     res.locale = 'hr-HR'
     return res
   }
-
-  console.log('hr-HR')
 })()

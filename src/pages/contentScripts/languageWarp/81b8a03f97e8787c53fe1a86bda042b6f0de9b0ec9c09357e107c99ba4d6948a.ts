@@ -15,6 +15,4 @@
     res.locale = 'da-DK'
     return res
   }
-
-  console.log('da-DK')
 })()

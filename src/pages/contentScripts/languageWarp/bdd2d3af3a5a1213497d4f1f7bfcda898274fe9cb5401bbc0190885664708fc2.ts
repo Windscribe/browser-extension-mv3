@@ -15,6 +15,4 @@
     res.locale = 'id-ID'
     return res
   }
-
-  console.log('id-ID')
 })()

@@ -15,6 +15,4 @@
     res.locale = 'bg-BG'
     return res
   }
-
-  console.log('bg-BG')
 })()

@@ -15,6 +15,4 @@
     res.locale = 'nb-NO'
     return res
   }
-
-  console.log('nb-NO')
 })()

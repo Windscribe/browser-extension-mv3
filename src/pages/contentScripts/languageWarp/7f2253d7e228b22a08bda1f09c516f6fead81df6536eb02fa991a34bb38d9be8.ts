@@ -15,6 +15,4 @@
     res.locale = 'hu-HU'
     return res
   }
-
-  console.log('hu-HU')
 })()

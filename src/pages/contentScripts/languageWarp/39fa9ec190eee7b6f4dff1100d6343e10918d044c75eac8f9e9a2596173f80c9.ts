@@ -15,6 +15,4 @@
     res.locale = 'tr-TR'
     return res
   }
-
-  console.log('tr-TR')
 })()

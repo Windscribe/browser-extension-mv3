@@ -15,6 +15,4 @@
     res.locale = 'en-KE'
     return res
   }
-
-  console.log('en-KE')
 })()

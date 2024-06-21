@@ -15,6 +15,4 @@
     res.locale = 'ru-RU'
     return res
   }
-
-  console.log('ru-RU')
 })()

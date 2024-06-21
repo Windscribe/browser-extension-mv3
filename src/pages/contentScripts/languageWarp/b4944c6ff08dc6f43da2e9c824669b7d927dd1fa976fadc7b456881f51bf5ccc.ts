@@ -15,6 +15,4 @@
     res.locale = 'th-TH'
     return res
   }
-
-  console.log('th-TH')
 })()

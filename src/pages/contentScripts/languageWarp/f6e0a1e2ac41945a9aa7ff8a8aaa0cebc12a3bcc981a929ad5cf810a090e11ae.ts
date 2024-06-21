@@ -15,6 +15,4 @@
     res.locale = 'es-PA'
     return res
   }
-
-  console.log('es-PA')
 })()

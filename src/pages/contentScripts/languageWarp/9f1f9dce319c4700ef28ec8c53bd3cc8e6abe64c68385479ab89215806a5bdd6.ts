@@ -15,6 +15,4 @@
     res.locale = 'km-KH'
     return res
   }
-
-  console.log('km-KH')
 })()

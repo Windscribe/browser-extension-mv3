@@ -15,6 +15,4 @@
     res.locale = 'el-CY'
     return res
   }
-
-  console.log('el-CY')
 })()

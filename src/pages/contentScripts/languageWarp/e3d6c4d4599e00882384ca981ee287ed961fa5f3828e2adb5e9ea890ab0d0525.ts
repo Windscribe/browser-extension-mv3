@@ -15,6 +15,4 @@
     res.locale = 'sk-SK'
     return res
   }
-
-  console.log('sk-SK')
 })()
