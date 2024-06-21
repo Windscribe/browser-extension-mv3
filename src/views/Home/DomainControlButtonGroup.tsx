@@ -18,6 +18,7 @@ import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 import {
+  languageWarpScriptId,
   locationWarpScriptId,
   splitPersonalityScriptId,
   workerBlockScriptId,
@@ -70,6 +71,9 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
       ?.excludeMatches
 
+    const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
+      ?.excludeMatches
+
     if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
       const level = isAdsAllowed ? 0 : 3
       const domainWithSettings = {
@@ -119,6 +123,19 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           excludeMatches: newExcludeMatches,
         })
       }
+
+      if (languageWarpScriptExcludeMatches) {
+        const newExcludeMatches = isPrivacyFeaturesAllowed
+          ? languageWarpScriptExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
+          : languageWarpScriptExcludeMatches.filter(
+              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+            )
+
+        await updateScript({
+          id: languageWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
     } else {
       await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
 
@@ -148,6 +165,16 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         )
         await updateScript({
           id: locationWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (languageWarpScriptExcludeMatches) {
+        const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+        )
+        await updateScript({
+          id: languageWarpScriptId,
           excludeMatches: newExcludeMatches,
         })
       }

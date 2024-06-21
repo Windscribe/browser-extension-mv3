@@ -99,5 +99,5 @@ export const USER_STASHES_REDUCER = 'userStashes'
 
 export const workerBlockScriptId = 'workerBlockScript'
 export const splitPersonalityScriptId = 'splitPersonalityScript'
-
 export const locationWarpScriptId = 'locationWarpScript'
+export const languageWarpScriptId = 'languageWarpScript'

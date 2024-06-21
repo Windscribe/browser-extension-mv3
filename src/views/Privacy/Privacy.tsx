@@ -27,9 +27,10 @@ import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
 import { registerScript, unregisterScript } from 'utils/scriptController'
-import { locationWarpScriptId, workerBlockScriptId } from 'utils/constants'
+import { languageWarpScriptId, locationWarpScriptId, workerBlockScriptId } from 'utils/constants'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { SHA256 } from 'crypto-js'
+import locales from 'utils/locales'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -48,6 +49,7 @@ const Privacy: ThemeUiElement = () => {
   const proxy = useSelector(s => s.proxy)
   const autopilot = useSelector(s => s.autopilot)
   const currentDataCenter = useSelector(s => s.currentDataCenter)
+  const currentLocation = useSelector(s => s.currentLocation)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -149,9 +151,27 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Sets your language and locale settings to match the connected proxy."
         >
           <ToggleSwitch
-            onChange={() => {
+            onChange={async () => {
               showReloadAlert(true)
-              dispatch(setLanguageWarpEnabled(!languageWarpEnabled))
+              const isLanguageWarpActive = !languageWarpEnabled
+              dispatch(setLanguageWarpEnabled(isLanguageWarpActive))
+
+              if (proxy.status !== 'on') return
+              if (autopilot.autopilotSelected) return
+
+              const currentCountryCode = currentLocation.country_code ?? 'AUTO'
+
+              const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+
+              if (isLanguageWarpActive) {
+                await registerScript(
+                  languageWarpScriptId,
+                  [SHA256(currentCountryCode) + '.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+              } else {
+                await unregisterScript(languageWarpScriptId)
+              }
             }}
             checked={languageWarpEnabled}
             disabled={autopilotSelected}

@@ -1,8 +1,7 @@
-import locales from 'utils/locales'
 import getTimeWarp from 'utils/getTimeWarp'
 import { type StoreType } from 'state/store'
 import type { Coords, TimeWarp } from 'utils/types'
-import { locationWarp, languageWarp, timeWarp } from 'pages/content'
+import { timeWarp } from 'pages/content'
 
 const executeScript = async <Data extends string | Coords | TimeWarp | object>(
   tabId: number,
@@ -42,12 +41,12 @@ export function navigationCommittedHandler(bgStore: Promise<StoreType>) {
     if (store.getState().proxy.status !== 'on') return
     if (store.getState().autopilot.autopilotSelected) return
 
-    if (store.getState().languageWarpEnabled) {
-      const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
-      const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
+    // if (store.getState().languageWarpEnabled) {
+    //   const currentCountryCode = store.getState().currentLocation.country_code || 'AUTO'
+    //   const spoofedLocaleCode = locales[currentCountryCode].locale || 'en'
 
-      executeScript(details.tabId, languageWarp, spoofedLocaleCode)
-    }
+    //   executeScript(details.tabId, languageWarp, spoofedLocaleCode)
+    // }
 
     if (store.getState().timeWarpEnabled) {
       const currentLocationTimezone = store.getState().currentLocation.tz

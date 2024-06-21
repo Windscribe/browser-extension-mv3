@@ -10,6 +10,7 @@ import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
 import {
+  languageWarpScriptId,
   locationWarpScriptId,
   splitPersonalityScriptId,
   workerBlockScriptId,
@@ -95,6 +96,9 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
       ?.excludeMatches
 
+    const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
+      ?.excludeMatches
+
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup(true, domain)
@@ -125,6 +129,17 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
         updateScript({
           id: locationWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (languageWarpScriptExcludeMatches) {
+        const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
+
+        updateScript({
+          id: languageWarpScriptId,
           excludeMatches: newExcludeMatches,
         })
       }
@@ -181,6 +196,19 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
       await updateScript({
         id: locationWarpScriptId,
+        excludeMatches: newExcludeMatches,
+      })
+    }
+
+    if (languageWarpScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? languageWarpScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : languageWarpScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
+
+      await updateScript({
+        id: languageWarpScriptId,
         excludeMatches: newExcludeMatches,
       })
     }

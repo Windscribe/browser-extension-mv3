@@ -14,6 +14,7 @@ import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 import {
+  languageWarpScriptId,
   locationWarpScriptId,
   splitPersonalityScriptId,
   workerBlockScriptId,
@@ -119,6 +120,10 @@ const Allowlist: ThemeUiElement = () => {
                       await getScriptForId(locationWarpScriptId)
                     )?.excludeMatches
 
+                    const languageWarpScriptExcludeMatches = (
+                      await getScriptForId(languageWarpScriptId)
+                    )?.excludeMatches
+
                     if (workerBlockScriptExcludeMatches) {
                       const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
                         urlScheme => urlScheme !== toExcludeMatchesURL(domain),
@@ -148,6 +153,17 @@ const Allowlist: ThemeUiElement = () => {
 
                       updateScript({
                         id: locationWarpScriptId,
+                        excludeMatches: newExcludeMatches,
+                      })
+                    }
+
+                    if (languageWarpScriptExcludeMatches) {
+                      const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                      )
+
+                      updateScript({
+                        id: languageWarpScriptId,
                         excludeMatches: newExcludeMatches,
                       })
                     }

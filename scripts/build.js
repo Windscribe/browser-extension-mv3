@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const config = require('../webpack.config')
 const embedUserAgentsForSplitPersonality = require('./embedUserAgentsSplitPersonality')
 const embedLocationWarp = require('./embedLocationWarp')
+const embedLanguageWarp = require('./embedLanguageWarp')
 
 delete config.chromeExtensionBoilerplate
 ;(async () => {
@@ -12,6 +13,7 @@ delete config.chromeExtensionBoilerplate
   const sessionData = await login()
   await embedUserAgentsForSplitPersonality(config, sessionData)
   await embedLocationWarp(config, sessionData)
+  await embedLanguageWarp(config, sessionData)
 
   webpack(config, function (err) {
     if (err) throw err
