@@ -12,7 +12,12 @@ import {
 import type { Host } from 'api/types'
 import { checkIp, createNotification } from 'services'
 import { addOverlay } from 'state/slices/overlay'
-import { ACCOUNT_STATES, ACCOUNT_PLAN } from 'utils/constants'
+import {
+  ACCOUNT_STATES,
+  ACCOUNT_PLAN,
+  locationWarpScriptId,
+  languageWarpScriptId,
+} from 'utils/constants'
 import { applyBestLocationAsAutopilot, setAutopilotSelected } from 'state/slices/autopilot'
 import { setCurrentLocation } from 'state/slices/currentLocation'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
@@ -20,6 +25,9 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
 import { pushToDebugLog } from 'services/debugLog'
+import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { registerScript, unregisterScript } from 'utils/scriptController'
+import { SHA256 } from 'crypto-js'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -184,6 +192,32 @@ export const connect = async (
         })
       }
     }
+
+    const proxyStatus = getState().proxy.status
+    const isAutoPilot = getState().autopilot.autopilotSelected
+    const currentLocationId = getState().currentLocation.id
+    const allowList = getState().allowlist
+    const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+    const isLanguageWarpActive = getState().languageWarpEnabled
+
+    if (
+      proxyStatus === 'on' &&
+      !isAutoPilot &&
+      currentLocationId !== undefined &&
+      currentLocationId !== null
+    ) {
+      if (isLanguageWarpActive) {
+        await unregisterScript(languageWarpScriptId)
+
+        await registerScript(
+          languageWarpScriptId,
+          [SHA256(currentLocationId.toString()) + '.bundle.js'],
+          excludeMatchesFromAllowList,
+        )
+      }
+    } else if (isAutoPilot) {
+      await unregisterScript(languageWarpScriptId)
+    }
   } catch (err) {
     disconnect(getState, dispatch)
     dispatch(setStatus('off'))
@@ -221,6 +255,12 @@ export const disconnect = async (getState: GetState, dispatch: AppDispatch): Pro
       iconUrl: proxyOffIcon,
       message: 'Connection to Windscribe has been terminated',
     })
+  }
+
+  const proxyStatus = getState().proxy.status
+
+  if (proxyStatus === 'off') {
+    await unregisterScript(languageWarpScriptId)
   }
 }
 

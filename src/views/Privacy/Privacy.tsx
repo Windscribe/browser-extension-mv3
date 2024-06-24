@@ -155,18 +155,18 @@ const Privacy: ThemeUiElement = () => {
               showReloadAlert(true)
               const isLanguageWarpActive = !languageWarpEnabled
               dispatch(setLanguageWarpEnabled(isLanguageWarpActive))
+              const locationId = currentLocation.id
 
               if (proxy.status !== 'on') return
               if (autopilot.autopilotSelected) return
-
-              const currentCountryCode = currentLocation.country_code ?? 'AUTO'
+              if (locationId === undefined || locationId === null) return
 
               const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
 
               if (isLanguageWarpActive) {
                 await registerScript(
                   languageWarpScriptId,
-                  [SHA256(currentCountryCode) + '.bundle.js'],
+                  [SHA256(locationId.toString()) + '.bundle.js'],
                   excludeMatchesFromAllowList,
                 )
               } else {
