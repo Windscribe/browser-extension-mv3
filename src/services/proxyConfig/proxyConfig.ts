@@ -25,6 +25,7 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
 import { pushToDebugLog } from 'services/debugLog'
+
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { registerScript, unregisterScript } from 'utils/scriptController'
 import { SHA256 } from 'crypto-js'
@@ -199,6 +200,8 @@ export const connect = async (
     const allowList = getState().allowlist
     const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
     const isLanguageWarpActive = getState().languageWarpEnabled
+    const currentDataCenterId = getState().currentDataCenter.id
+    const isLocationWarpActive = getState().locationWarp
 
     if (
       proxyStatus === 'on' &&
@@ -217,6 +220,25 @@ export const connect = async (
       }
     } else if (isAutoPilot) {
       await unregisterScript(languageWarpScriptId)
+    }
+
+    if (
+      proxyStatus === 'on' &&
+      !isAutoPilot &&
+      currentDataCenterId !== undefined &&
+      currentDataCenterId !== null
+    ) {
+      if (isLocationWarpActive) {
+        await unregisterScript(locationWarpScriptId)
+
+        await registerScript(
+          locationWarpScriptId,
+          [SHA256(currentDataCenterId.toString()) + '.bundle.js'],
+          excludeMatchesFromAllowList,
+        )
+      }
+    } else if (isAutoPilot) {
+      await unregisterScript(locationWarpScriptId)
     }
   } catch (err) {
     disconnect(getState, dispatch)
@@ -261,6 +283,7 @@ export const disconnect = async (getState: GetState, dispatch: AppDispatch): Pro
 
   if (proxyStatus === 'off') {
     await unregisterScript(languageWarpScriptId)
+    await unregisterScript(locationWarpScriptId)
   }
 }
 
