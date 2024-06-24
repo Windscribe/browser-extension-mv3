@@ -45,7 +45,7 @@ const registerScripts = async (store: StoreType): Promise<void> => {
 
   if (
     proxy.status === 'on' &&
-    autopilot.autopilotSelected &&
+    !autopilot.autopilotSelected &&
     dataCenterId !== undefined &&
     dataCenterId !== null &&
     isLocationWarpActive
