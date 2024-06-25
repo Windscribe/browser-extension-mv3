@@ -69,7 +69,7 @@ export default (): void => {
   }, [autopilotData, bestLocationLoading, serverListLoading, dispatch])
 
   useEffect(() => {
-    if (sessionAuthHash && ['idle', 'rejected'].includes(userAgentLoading)) {
+    if (sessionAuthHash && userAgentLoading === 'idle') {
       dispatchAlias(FETCH_USER_AGENTS_LIST)
     }
     // Do NOT add dispatchAlias to Dependency array. It leads to double network requests. Don't know why.
