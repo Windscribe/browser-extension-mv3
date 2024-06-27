@@ -1,6 +1,7 @@
+import { LogItemResponse, Message } from 'api/types'
 import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
-import sendMessage from 'services/runtime/sendMessage'
+import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { StoreType } from 'state'
 import { setBlockLists } from 'state/slices/blocker'
 import { BLOCK_LISTS_REDUCER, DB_STATE_TABLE, SYNC_KEY } from 'utils/constants'
@@ -30,19 +31,38 @@ export const migrateBlockerSettings = async (db: Dexie, store: StoreType): Promi
   const parsedBlockListsStateV2 = BlockListsValidatorManifestV2.safeParse(blockListsData)
 
   if (parsedBlockListsStateV2.success) {
-    const newBlocklist: string[] = parsedBlockListsStateV2.data.state
-      .map(blockList => {
-        return BLOCKER_SETTINGS_MAPPER[blockList as keyof typeof BLOCKER_SETTINGS_MAPPER]
+    try {
+      const newBlocklist: string[] = parsedBlockListsStateV2.data.state
+        .map(blockList => {
+          return BLOCKER_SETTINGS_MAPPER[blockList as keyof typeof BLOCKER_SETTINGS_MAPPER]
+        })
+        .filter(blockList => !!blockList)
+
+      store.dispatch(setBlockLists(newBlocklist))
+
+      await setupOffscreenDocument('migrateBlockerSettings.html', [
+        chrome.offscreen.Reason.IFRAME_SCRIPTING,
+      ])
+
+      const response = await chrome.runtime.sendMessage<Message<string[]>, LogItemResponse>({
+        target: 'offscreen',
+        type: 'migrateBlockerSettings',
+        data: newBlocklist,
       })
-      .filter(blockList => !!blockList)
 
-    store.dispatch(setBlockLists(newBlocklist))
-
-    await sendMessage({
-      what: 'applyRulesets',
-      from: 'popup',
-      enabledRulesets: newBlocklist,
-    })
+      for (const log of response.logs) {
+        await pushToDebugLog(log)
+      }
+    } catch (err) {
+      await chrome.offscreen.closeDocument()
+      await pushToDebugLog({
+        message: 'Failed while trying to apply rule sets',
+        level: 'ERROR',
+        data: err as Error,
+      })
+    } finally {
+      await chrome.offscreen.closeDocument()
+    }
   } else {
     await pushToDebugLog({
       level: 'INFO',
