@@ -85,15 +85,18 @@ async function embedUserAgentsForSplitPersonality(config) {
     )
   }
 
-  await fs.writeFile(
-    userAgentSlicePath,
-    userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),
-  )
+  /* 
+     Keeping this here for future reference
+     await fs.writeFile(
+      userAgentSlicePath,
+      userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),
+     )
+     const formatUserAgentFile = `eslint --fix ${userAgentSlicePath}`
+     await exec(formatUserAgentFile)
+  */
 
-  const formatUserAgentFile = `eslint --fix ${userAgentSlicePath}`
   const formatSplitPersonalityFiles = `eslint --fix ${splitPersonalityGeneratedScriptFolderPath}`
 
-  await exec(formatUserAgentFile)
   await exec(formatSplitPersonalityFiles)
 
   console.log('User Agent content scripts embedded into build')

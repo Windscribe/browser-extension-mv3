@@ -1,6 +1,7 @@
 import { SHA256 } from 'crypto-js'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
+import { FETCH_USER_AGENTS_LIST, setOriginalUserAgent } from 'state/slices/userAgent'
 import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
 import { registerScript } from 'utils/scriptController'
 
@@ -19,6 +20,9 @@ const registerScripts = async (
 
     const session = store.getState().session.sessionData?.session_auth_hash
     const isWorkerBlockActive = store.getState().workerBlock
+    const isSplitPersonalityEnabled = store.getState().splitPersonalityEnabled
+    const userAgentOriginal = store.getState().userAgent.original
+    const userAgentLoading = store.getState().userAgent.loading
 
     if (!session) {
       await pushToDebugLog({
@@ -42,7 +46,19 @@ const registerScripts = async (
         excludeMatchesFromAllowList,
       )
     }
+
+    if (!userAgentOriginal) {
+      store.dispatch(setOriginalUserAgent(navigator.userAgent))
+    }
+
+    // only need to make the request if the setting is active
+    if (userAgentLoading === 'idle' && isSplitPersonalityEnabled) {
+      store.dispatch({ type: `alias/${FETCH_USER_AGENTS_LIST}` })
+    }
+
+    console.log('migration')
   } else {
+    console.log('regular ')
     /*  
         This was a regular update and not a migration update
         assuming the user is logged in we register the scripts
