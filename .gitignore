@@ -25,3 +25,4 @@ secrets.*.js
 .vscode
 
 src/pages/contentScripts/splitPersonality/
+src/pages/contentScripts/locationWarp/
