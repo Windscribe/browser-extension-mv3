@@ -69,6 +69,7 @@ build:extension:
     - printf "\nAPI_URL=windscribe.com" >> ".env"
     - printf "\nBACKUP_API_URL=totallyacdn.com" >> ".env"
     - yarn run build
+    - ls -la src/pages/contentScripts/splitPersonality
   artifacts:
     paths:
       - build/
