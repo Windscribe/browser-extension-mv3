@@ -45,11 +45,13 @@ const registerScripts = async (
       )
     }
   } else {
-    // this was a regular update and not a migration update
-    // assuming the user is logged in we register the scripts
-    // Note: if they are not logged in we do nothing, dont want to activate spoofing scripts without a user
-    // logging into the extension. If they have settings that are active, when the user logs back in
-    // the listener middleware and initializer hooks will register the scripts
+    /*  
+        This was a regular update and not a migration update
+        assuming the user is logged in we register the scripts
+        Note: if they are not logged in we do nothing, dont want to activate spoofing scripts without a user
+        logging into the extension. If they have settings that are active, when the user logs back in
+        the listener middleware and initializer hooks will register the scripts
+     */
 
     const session = store.getState().session.sessionData?.session_auth_hash
     if (!session) {
