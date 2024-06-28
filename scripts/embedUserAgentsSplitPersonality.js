@@ -6,7 +6,6 @@ const util = require('node:util')
 const exec = util.promisify(require('node:child_process').exec)
 
 const splitPersonalityContentScriptTemplate = require('./buildUtils/templates/splitPersonalityContentScript')
-const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
 const getEndpoint = require('./buildUtils/api/getEndpoint')
 
 async function embedUserAgentsForSplitPersonality(config) {
@@ -67,7 +66,6 @@ async function embedUserAgentsForSplitPersonality(config) {
 
   // using fixed paths
   const splitPersonalityGeneratedScriptFolderPath = 'src/pages/contentScripts/splitPersonality/'
-  const userAgentSlicePath = 'src/state/slices/userAgent.ts'
 
   // write to src folder which will be included in the build
   for (let uaItem of uaList) {
@@ -87,6 +85,8 @@ async function embedUserAgentsForSplitPersonality(config) {
 
   /* 
      Keeping this here for future reference
+     const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
+     const userAgentSlicePath = 'src/state/slices/userAgent.ts'
      await fs.writeFile(
       userAgentSlicePath,
       userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),

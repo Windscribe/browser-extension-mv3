@@ -13,15 +13,11 @@ function getEndpoint(endPoint, parameters) {
     })
   }
 
-  // staging.windscribe.com or windscribe.com
-  let domain = process.env.API_URL ?? 'staging.windscribe.com'
+  // always get data from prod domain
+  let domain = 'windscribe.com'
 
   // dont need assets, that's why useAssets is not here
-  if (process.env.NODE_ENV === 'production') {
-    url = `api.${domain}`
-  } else {
-    url = `api-${domain}`
-  }
+  url = `api.${domain}`
 
   return `https://${url}/${queryString}`
 }
