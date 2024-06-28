@@ -106,7 +106,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
             allowAds: allowListData.allowAds ?? false,
             allowDirectConnections: allowListData.allowDirectConnect ?? false,
             includeAllSubdomains: allowListData.includeAllSubdomains ?? false,
-            allowPrivacyFeatures: true,
+            allowPrivacyFeatures: false,
           }
 
           if (allowListData.allowAds === true) {
@@ -142,14 +142,15 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       for (const log of response.logs) {
         await pushToDebugLog(log)
       }
-
-      await chrome.offscreen.closeDocument()
     } catch (err) {
-      pushToDebugLog({
+      await chrome.offscreen.closeDocument()
+      await pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',
         level: 'ERROR',
         data: err as Error,
       })
+    } finally {
+      await chrome.offscreen.closeDocument()
     }
   } else {
     await pushToDebugLog({

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { FETCH_SERVER_LIST } from 'state/slices/servers'
@@ -9,6 +9,8 @@ import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
 import { setOriginalUserAgent, initializeUserAgentsList } from 'state/slices/userAgent'
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
 import sendMessage from 'services/runtime/sendMessage'
+import { registerScript } from 'utils/scriptController'
+import { workerBlockScriptId } from 'utils/constants'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -26,6 +28,8 @@ export default (): void => {
   const userAgentOriginal = useSelector(state => state.userAgent.original)
   const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
   const status = useSelector(s => s.proxy.status)
+  const isWorkerBlockActive = useSelector(s => s.workerBlock)
+  const allowList = useSelector(s => s.allowlist)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -92,4 +96,25 @@ export default (): void => {
     dispatch,
     dispatchAlias,
   ])
+
+  const excludeMatchesFromAllowList = useMemo(() => {
+    return (
+      Object.entries(allowList)
+        .filter(([, value]) => {
+          return value.allowPrivacyFeatures
+        })
+        // https or http and
+        .map(([domainKey]) => `*://${domainKey}/*`)
+    )
+  }, [allowList])
+
+  useEffect(() => {
+    if (isWorkerBlockActive) {
+      registerScript(
+        workerBlockScriptId,
+        ['workerBlockContentScript.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+    }
+  }, [isWorkerBlockActive, excludeMatchesFromAllowList])
 }
