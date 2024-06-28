@@ -6,7 +6,6 @@ variables:
   #TEST_USER_NAME: "sample"         # Set in Gitlab variables
   #TEST_USER_PASSWORD: "PaSsWoRd"  # Set in Gitlab variables
 
-
 stages:
   - prepare_environment
   - install_packages
@@ -51,23 +50,25 @@ test:
     - printf "\nAPI_URL=staging.windscribe.com" >> ".env"
     - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
     - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
+    - printf "\nBUILD_USER_NAME=$BUILD_USER_NAME" >> ".env"
+    - printf "\nBUILD_USER_PASSWORD=$BUILD_USER_PASSWORD" >> ".env"
     - yarn run build
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
     - yarn run test
 
 build:extension:
   stage: build
-  needs: ["install", "eslint", "test"]
+  needs: ['install', 'eslint', 'test']
   dependencies:
     - install
   before_script:
     - echo "checking node version"
     - node -v
   script:
-  - printf "\nNODE_ENV=production" >> ".env"
-  - printf "\nAPI_URL=windscribe.com" >> ".env"
-  - printf "\nBACKUP_API_URL=totallyacdn.com" >> ".env"
-  - yarn run build 
+    - printf "\nNODE_ENV=production" >> ".env"
+    - printf "\nAPI_URL=windscribe.com" >> ".env"
+    - printf "\nBACKUP_API_URL=totallyacdn.com" >> ".env"
+    - yarn run build
   artifacts:
     paths:
       - build/
