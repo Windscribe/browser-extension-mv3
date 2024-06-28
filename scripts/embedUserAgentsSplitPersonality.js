@@ -6,7 +6,6 @@ const util = require('node:util')
 const exec = util.promisify(require('node:child_process').exec)
 
 const splitPersonalityContentScriptTemplate = require('./buildUtils/templates/splitPersonalityContentScript')
-const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
 const getEndpoint = require('./buildUtils/api/getEndpoint')
 
 async function embedUserAgentsForSplitPersonality(config, sessionData) {
@@ -47,7 +46,6 @@ async function embedUserAgentsForSplitPersonality(config, sessionData) {
 
   // using fixed paths
   const splitPersonalityGeneratedScriptFolderPath = 'src/pages/contentScripts/splitPersonality/'
-  const userAgentSlicePath = 'src/state/slices/userAgent.ts'
 
   // write to src folder which will be included in the build
   for (const uaItem of uaList) {
@@ -65,15 +63,20 @@ async function embedUserAgentsForSplitPersonality(config, sessionData) {
     )
   }
 
-  await fs.writeFile(
-    userAgentSlicePath,
-    userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),
-  )
+  /* 
+     Keeping this here for future reference
+     const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
+     const userAgentSlicePath = 'src/state/slices/userAgent.ts'
+     await fs.writeFile(
+      userAgentSlicePath,
+      userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),
+     )
+     const formatUserAgentFile = `eslint --fix ${userAgentSlicePath}`
+     await exec(formatUserAgentFile)
+  */
 
-  const formatUserAgentFile = `eslint --fix ${userAgentSlicePath}`
   const formatSplitPersonalityFiles = `eslint --fix ${splitPersonalityGeneratedScriptFolderPath}`
 
-  await exec(formatUserAgentFile)
   await exec(formatSplitPersonalityFiles)
 
   console.log('User Agent content scripts embedded into build')

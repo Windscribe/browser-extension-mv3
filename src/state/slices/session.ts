@@ -1,7 +1,13 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import type { LoadingState, Either, ErrorState } from 'utils/types'
-import { ACCOUNT_STATES, ACCOUNT_PLAN, SESSION_ERRORS } from 'utils/constants'
+import {
+  ACCOUNT_STATES,
+  ACCOUNT_PLAN,
+  SESSION_ERRORS,
+  workerBlockScriptId,
+  splitPersonalityScriptId,
+} from 'utils/constants'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
@@ -20,6 +26,7 @@ import { setCurrentLocation } from 'state/slices/currentLocation'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
+import { unregisterScript } from 'utils/scriptController'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -67,6 +74,8 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     await disconnect(getState, dispatch)
     await dispatch(resetNotificationBlocker())
     await dispatch(resetWebRtcBlocker())
+    await unregisterScript(workerBlockScriptId)
+    await unregisterScript(splitPersonalityScriptId)
   }
 
   await Promise.all([sendLogoutRequest(), resetState()])

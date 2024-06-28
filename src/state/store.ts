@@ -52,6 +52,7 @@ import adPrivacyEnabledReducer from './slices/adPrivacyEnabled'
 import migratedFavouriteLocations from './slices/migratedFavoriteLocations'
 import migrationReducer from './slices/migration'
 import themeReducer from './slices/theme'
+import { userAgentlistenerMiddleware } from './userAgentListenerMiddleware'
 
 const reducers = {
   adPrivacyEnabled: adPrivacyEnabledReducer,
@@ -144,6 +145,7 @@ export function buildFrom(preloadedState?: RootState): StoreType {
         debugLogMiddleware,
         alias(aliases),
         listenerMiddleware.middleware,
+        userAgentlistenerMiddleware.middleware,
         ...getDefaultMiddleware(),
       ]
       if (process.env.NODE_ENV === 'development') {
