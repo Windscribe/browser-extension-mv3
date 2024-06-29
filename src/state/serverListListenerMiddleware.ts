@@ -33,8 +33,6 @@ startAppListening({
     const currentLocationMV2 = listenerApi.getState().currentLocationMV2
     const proxyStatus = listenerApi.getState().proxyStatusMV2.status
 
-    console.log('condition met')
-
     if (serverList.length > 0) {
       // we have everything we need to connect to the location
 
@@ -51,18 +49,12 @@ startAppListening({
         // already connected
         listenerApi.dispatch(setAutoConnectAfterLogin(false))
         if (proxyStatus === 'connected') {
-          console.log('should connect now')
           connect(listenerApi.getState, listenerApi.dispatch, dataCenter.hosts)
-        } else {
-          console.log('proxy is off - normal connect')
         }
       } else {
         listenerApi.dispatch(setAutoConnectAfterLogin(false))
         if (proxyStatus === 'connected') {
-          console.log('autopilot conect now')
           await connectToAutopilot(listenerApi.getState, listenerApi.dispatch)
-        } else {
-          console.log('proxy is off - autopilot')
         }
       }
     }

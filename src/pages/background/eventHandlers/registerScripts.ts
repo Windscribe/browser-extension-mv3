@@ -79,9 +79,11 @@ const registerScripts = async (
       store.dispatch({ type: `alias/${FETCH_BEST_LOCATION}` })
     }
 
-    console.log('migration')
+    await pushToDebugLog({
+      message: 'registerScripts run - migration update',
+      tag: 'background',
+    })
   } else {
-    console.log('regular ')
     /*  
         This was a regular update and not a migration update
         assuming the user is logged in we register the scripts
@@ -148,7 +150,7 @@ const registerScripts = async (
     }
 
     await pushToDebugLog({
-      message: 'registered scripts on install/update',
+      message: 'registerScripts run - regular update',
       tag: 'background',
     })
   }

@@ -1,6 +1,7 @@
 import { createListenerMiddleware, type TypedStartListening } from '@reduxjs/toolkit'
 import type { RootState, AppDispatch } from './store'
 import { ACTIVATE_SPLIT_PERSONALITY } from './slices/splitPersonalityEnabled'
+import { pushToDebugLog } from 'services/debugLog'
 
 export const userAgentListenerMiddleware = createListenerMiddleware()
 
@@ -20,9 +21,17 @@ startAppListening({
     // actual script registration is done in the async thunk for this action
     // see src/state/slices/splitPersonalityEnabled.ts
     listenerApi.unsubscribe()
-    console.log('unsubscribed split listenere')
+    await pushToDebugLog({
+      level: 'INFO',
+      message: `Unsubscribed userAgent Listener Middleware`,
+      tag: 'background',
+    })
     if (listenerApi.getState().splitPersonalityEnabled) {
-      console.log('active split persnality')
+      await pushToDebugLog({
+        level: 'INFO',
+        message: `dispatched ACTIVATE_SPLIT_PERSONALITY from listener`,
+        tag: 'background',
+      })
       listenerApi.dispatch({ type: `alias/${ACTIVATE_SPLIT_PERSONALITY}` })
     }
   },
