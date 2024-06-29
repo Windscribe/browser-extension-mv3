@@ -2,11 +2,11 @@ import { createListenerMiddleware, type TypedStartListening } from '@reduxjs/too
 import type { RootState, AppDispatch } from './store'
 import { ACTIVATE_SPLIT_PERSONALITY } from './slices/splitPersonalityEnabled'
 
-export const userAgentlistenerMiddleware = createListenerMiddleware()
+export const userAgentListenerMiddleware = createListenerMiddleware()
 
 export type AppStartListening = TypedStartListening<RootState, AppDispatch>
 
-export const startAppListening = userAgentlistenerMiddleware.startListening as AppStartListening
+export const startAppListening = userAgentListenerMiddleware.startListening as AppStartListening
 
 startAppListening({
   predicate: (_, currentState) => {

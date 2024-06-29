@@ -1,6 +1,9 @@
 import { SHA256 } from 'crypto-js'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
+import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
+import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
+import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { FETCH_USER_AGENTS_LIST, setOriginalUserAgent } from 'state/slices/userAgent'
 import {
   locationWarpScriptId,
@@ -27,6 +30,10 @@ const registerScripts = async (
     const isSplitPersonalityEnabled = store.getState().splitPersonalityEnabled
     const userAgentOriginal = store.getState().userAgent.original
     const userAgentLoading = store.getState().userAgent.loading
+    const serverListLoading = store.getState().servers.loading
+    const username = store.getState().serverCredentials.username
+    const password = store.getState().serverCredentials.password
+    const bestLocationLoading = store.getState().bestLocation.loading
 
     if (!session) {
       await pushToDebugLog({
@@ -58,6 +65,18 @@ const registerScripts = async (
     // only need to make the request if the setting is active
     if (userAgentLoading === 'idle' && isSplitPersonalityEnabled) {
       store.dispatch({ type: `alias/${FETCH_USER_AGENTS_LIST}` })
+    }
+
+    if (!(username && password)) {
+      store.dispatch({ type: `alias/${FETCH_SERVER_CREDENTIALS}` })
+    }
+
+    if (serverListLoading === 'idle') {
+      store.dispatch({ type: `alias/${FETCH_SERVER_LIST}` })
+    }
+
+    if (bestLocationLoading === 'idle') {
+      store.dispatch({ type: `alias/${FETCH_BEST_LOCATION}` })
     }
 
     console.log('migration')
