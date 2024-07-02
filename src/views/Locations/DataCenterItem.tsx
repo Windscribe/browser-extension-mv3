@@ -114,7 +114,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
             onClick={handleHeartIconClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            sx={{ height: '16px', minWidth: '16px', mr: '24px', p: 0 }}
+            sx={{ height: '16px', minWidth: '16px', mr: '16px', p: 0 }}
           >
             <HeartButtonIcon {...{ showBrokenHeart, isInFavorite }} />
           </IconButton>
