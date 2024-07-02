@@ -73,7 +73,7 @@ const locations = async popupPage => {
       let locationsList = await popupPage.$('[data-testid=locations-list]')
       let expectedLocation = await locationsList.evaluate(el => el.textContent)
       expect(expectedLocation).to.equal(
-        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeUnited StatesBostonThe WahlbergUnited KingdomLondonspɹɐʍʞɔɐqColombiaBogota -White CoffeeThe Best KoreaPyongyangHennessey',
+        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeUnited StatesBostonThe WahlbergUnited KingdomLondonspɹɐʍʞɔɐqColombiaBogota -White CoffeeUPGRADEThe Best KoreaPyongyangHennessey',
       )
 
       await popupPage.click('[data-testid=sort-locations-button]')
@@ -83,7 +83,7 @@ const locations = async popupPage => {
       locationsList = await popupPage.$('[data-testid=locations-list]')
       expectedLocation = await locationsList.evaluate(el => el.textContent)
       expect(expectedLocation).to.equal(
-        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeColombiaBogota -White CoffeeThe Best KoreaPyongyangHennesseyUnited KingdomLondonspɹɐʍʞɔɐqUnited StatesBostonThe Wahlberg',
+        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeColombiaBogota -White CoffeeUPGRADEThe Best KoreaPyongyangHennesseyUnited KingdomLondonspɹɐʍʞɔɐqUnited StatesBostonThe Wahlberg',
       )
 
       await popupPage.click('[data-testid=sort-locations-button]')
@@ -93,7 +93,7 @@ const locations = async popupPage => {
       locationsList = await popupPage.$('[data-testid=locations-list]')
       expectedLocation = await locationsList.evaluate(el => el.textContent)
       expect(expectedLocation).to.equal(
-        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeUnited StatesBostonThe WahlbergUnited KingdomLondonspɹɐʍʞɔɐqColombiaBogota -White CoffeeThe Best KoreaPyongyangHennessey',
+        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeUnited StatesBostonThe WahlbergUnited KingdomLondonspɹɐʍʞɔɐqColombiaBogota -White CoffeeUPGRADEThe Best KoreaPyongyangHennessey',
       )
       await popupPage.waitForTimeout(1000)
     })
