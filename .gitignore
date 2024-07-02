@@ -24,4 +24,7 @@ secrets.*.js
 # IDE
 .vscode
 
-src/pages/contentScripts/splitPersonality/
+src/pages/contentScripts/splitPersonality/*
+
+
+!src/pages/contentScripts/splitPersonality/.gitkeep
