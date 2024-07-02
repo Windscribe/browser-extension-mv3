@@ -24,5 +24,9 @@ secrets.*.js
 # IDE
 .vscode
 
-src/pages/contentScripts/splitPersonality/
-src/pages/contentScripts/locationWarp/
+src/pages/contentScripts/splitPersonality/*
+src/pages/contentScripts/locationWarp/*
+
+
+!src/pages/contentScripts/splitPersonality/.gitkeep
+!src/pages/contentScripts/locationWarp/.gitkeep
