@@ -2,6 +2,7 @@ import { createListenerMiddleware, type TypedStartListening } from '@reduxjs/too
 import type { RootState, AppDispatch } from './store'
 import { ACTIVATE_SPLIT_PERSONALITY } from './slices/splitPersonalityEnabled'
 import { pushToDebugLog } from 'services/debugLog'
+import { MIGRATION_ID } from 'migrations/v2ToV3migration'
 
 export const userAgentListenerMiddleware = createListenerMiddleware()
 
@@ -20,6 +21,23 @@ startAppListening({
   effect: async (_, listenerApi) => {
     // actual script registration is done in the async thunk for this action
     // see src/state/slices/splitPersonalityEnabled.ts
+
+    const migrations = listenerApi.getState().migrations
+    const migration = migrations.migrations.find(i => i.id === MIGRATION_ID)
+
+    if (migration) {
+      listenerApi.unsubscribe()
+      // already migrated do nothing
+      await pushToDebugLog({
+        level: 'INFO',
+        message: `Migration already performed -  unsubscribing userAgent listener`,
+        data: JSON.stringify(migration),
+        tag: 'background',
+      })
+
+      return
+    }
+
     listenerApi.unsubscribe()
     await pushToDebugLog({
       level: 'INFO',
