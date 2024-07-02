@@ -13,14 +13,14 @@ export const currentLocationSliceV2 = createSlice({
   name: 'currentLocationMV2',
   initialState,
   reducers: {
-    setLocationIdV2(state: CurrentLocationStateV2, action: PayloadAction<number | null>) {
+    setLocationIdMV2(state: CurrentLocationStateV2, action: PayloadAction<number | null>) {
       state.locationId = action.payload
     },
-    setDataCenterIdV2(state: CurrentLocationStateV2, action: PayloadAction<number | null>) {
+    setDataCenterIdMV2(state: CurrentLocationStateV2, action: PayloadAction<number | null>) {
       state.dataCenterId = action.payload
     },
   },
 })
 
-export const { setDataCenterIdV2, setLocationIdV2 } = currentLocationSliceV2.actions
+export const { setDataCenterIdMV2, setLocationIdMV2 } = currentLocationSliceV2.actions
 export default currentLocationSliceV2.reducer

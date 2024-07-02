@@ -12,12 +12,12 @@ import { setupOffscreenDocument } from 'services/offscreenActions/offscreenContr
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
 import { StoreType } from 'state'
 import { ADD_TO_ALLOWLIST, AllowlistPayload } from 'state/slices/allowlist'
-import { setDataCenterIdV2, setLocationIdV2 } from 'state/slices/currentLocationMV2'
+import { setDataCenterIdMV2, setLocationIdMV2 } from 'state/slices/currentLocationMV2'
 import { setFirstInstallDate } from 'state/slices/firstInstallDate'
 import { setLocationSorting } from 'state/slices/locationSorting'
 import { saveFavouriteLocationId } from 'state/slices/migratedFavoriteLocations'
 import { markNewsAsViewed } from 'state/slices/newsfeed'
-import { setProxyStatus } from 'state/slices/proxyStatusMV2'
+import { setProxyStatusMV2 } from 'state/slices/proxyStatusMV2'
 import { setTheme } from 'state/slices/theme'
 import {
   DB_STATE_TABLE,
@@ -251,14 +251,14 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       parsedCurrentLocationStateV2.data.state?.locationId !== null &&
       parsedCurrentLocationStateV2.data.state?.locationId !== undefined
     ) {
-      store.dispatch(setLocationIdV2(parsedCurrentLocationStateV2.data.state.locationId))
+      store.dispatch(setLocationIdMV2(parsedCurrentLocationStateV2.data.state.locationId))
     }
 
     if (
       parsedCurrentLocationStateV2.data.state?.dataCenterId !== null &&
       parsedCurrentLocationStateV2.data.state?.dataCenterId !== undefined
     ) {
-      store.dispatch(setDataCenterIdV2(parsedCurrentLocationStateV2.data.state.dataCenterId))
+      store.dispatch(setDataCenterIdMV2(parsedCurrentLocationStateV2.data.state.dataCenterId))
     }
   } else {
     await pushToDebugLog({
@@ -270,7 +270,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
   }
 
   if (proxyStatusStateV2.success) {
-    store.dispatch(setProxyStatus(proxyStatusStateV2.data.state.status))
+    store.dispatch(setProxyStatusMV2(proxyStatusStateV2.data.state.status))
   } else {
     await pushToDebugLog({
       level: 'INFO',
