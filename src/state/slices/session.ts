@@ -8,6 +8,7 @@ import {
   workerBlockScriptId,
   splitPersonalityScriptId,
   locationWarpScriptId,
+  languageWarpScriptId,
 } from 'utils/constants'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
@@ -78,6 +79,7 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     await unregisterScript(workerBlockScriptId)
     await unregisterScript(splitPersonalityScriptId)
     await unregisterScript(locationWarpScriptId)
+    await unregisterScript(languageWarpScriptId)
   }
 
   await Promise.all([sendLogoutRequest(), resetState()])
