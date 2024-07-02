@@ -28,9 +28,9 @@ import { migrateStashedOtherSettings } from './migrateStashedOtherSettings'
 import { migrateStashedBlockerSettings } from './migrateStashedBlockerSettings'
 
 // never change this id
-export const MIGRATION_ID = 'V2_TO_V3_MIGRATION'
 
 const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void | boolean> => {
+  const MIGRATION_ID = 'V2_TO_V3_MIGRATION'
   try {
     const doesDBExist = await Dexie.exists(DB_NAME)
 

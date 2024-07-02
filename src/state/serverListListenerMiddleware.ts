@@ -5,8 +5,6 @@ import { setCurrentLocation } from './slices/currentLocation'
 import { setAutopilotSelected } from './slices/autopilot'
 import { connect, connectToAutopilot } from 'services/proxyConfig'
 import { setAutoConnectAfterLogin } from './slices/autoConnectAfterLogin'
-import { MIGRATION_ID } from 'migrations/v2ToV3migration'
-import { pushToDebugLog } from 'services/debugLog'
 
 export const serverListListenerMiddleware = createListenerMiddleware()
 
@@ -30,21 +28,7 @@ startAppListening({
     // because it can run multiple times, we set unsubscribe this listener here so it will only be called once
     // and we only need it for migration and nothing else so it should only run once.
     // cancel future instances from running
-
-    const migrations = listenerApi.getState().migrations
-    const migration = migrations.migrations.find(i => i.id === MIGRATION_ID)
-
-    if (migration) {
-      listenerApi.unsubscribe()
-      // already migrated do nothing
-      await pushToDebugLog({
-        level: 'INFO',
-        message: `Migration already performed - unsubscribing serverList listener`,
-        data: JSON.stringify(migration),
-        tag: 'background',
-      })
-      return
-    }
+    // note: serverlist is fetched once only
 
     listenerApi.unsubscribe()
     const serverList = listenerApi.getState().servers.serverList
