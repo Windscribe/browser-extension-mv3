@@ -154,7 +154,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
           >
             {showPro ? (
               <StarIcon
-                sx={{ height: '16px', mr: '24px', p: 0, fill: 'secondaryText', flexShrink: 0 }}
+                sx={{ height: '16px', mr: '16px', p: 0, fill: 'secondaryText', flexShrink: 0 }}
               />
             ) : null}
             <Box
