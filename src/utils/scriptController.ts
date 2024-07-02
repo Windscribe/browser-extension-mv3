@@ -5,6 +5,10 @@ const matches: string[] = ['<all_urls>']
 // no devtools:// or chrome:// as these are not valid url schemes
 const excludeMatches: string[] = ['https://chrome.google.com/webstore/category/extensions']
 
+/**
+ *  This is idempotent, running this again and again with the same args will unregister and
+ *  re register this script, this is to protect against react hooks running multiple times.
+ */
 async function registerScript(
   scriptId: string,
   jsFileNames: string[],

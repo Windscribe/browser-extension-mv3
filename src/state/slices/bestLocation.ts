@@ -27,7 +27,7 @@ export const FETCH_BEST_LOCATION = 'bestLocation/fetchBestLocation'
 
 export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorResponse>>(
   FETCH_BEST_LOCATION,
-  async (_, { getState, dispatch }) => {
+  async (_, { getState, dispatch, rejectWithValue }) => {
     const sessionAuthHash = getState().session.sessionData?.session_auth_hash
     if (!sessionAuthHash) {
       throw Error('No session auth hash is available')
@@ -37,7 +37,7 @@ export const fetchBestLocation = createAsyncThunk<Either<BestLocation, ApiErrorR
 
     // Back-end response with error object is treated as a valid response
     // and fetchBestLocation() processed as successfully fulfilled.
-    if (response?.errorMessage) return response
+    if (response?.errorMessage) return rejectWithValue(response.errorMessage)
     if (response?.data) return response.data
 
     throw Error('Unknown response format from GET Best Location')

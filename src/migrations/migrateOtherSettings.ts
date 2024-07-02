@@ -12,10 +12,12 @@ import { setupOffscreenDocument } from 'services/offscreenActions/offscreenContr
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
 import { StoreType } from 'state'
 import { ADD_TO_ALLOWLIST, AllowlistPayload } from 'state/slices/allowlist'
+import { setDataCenterIdV2, setLocationIdV2 } from 'state/slices/currentLocationMV2'
 import { setFirstInstallDate } from 'state/slices/firstInstallDate'
 import { setLocationSorting } from 'state/slices/locationSorting'
 import { saveFavouriteLocationId } from 'state/slices/migratedFavoriteLocations'
 import { markNewsAsViewed } from 'state/slices/newsfeed'
+import { setProxyStatus } from 'state/slices/proxyStatusMV2'
 import { setTheme } from 'state/slices/theme'
 import {
   DB_STATE_TABLE,
@@ -26,14 +28,18 @@ import {
   LOCATION_SORTING_REDUCER,
   NEWSFEED_IDS_ALREADY_VIEWED_REDUCER,
   FAVORITE_LOCATIONS_REDUCER,
+  CURRENT_LOCATION_REDUCER,
+  PROXY_STATUS_REDUCER,
 } from 'utils/constants'
 import { LocationSorting } from 'utils/types'
 import {
   AllowListValidatorManifestV2,
+  CurrentLocationValidatorManifestV2,
   FavouriteLocationsValidatorManifestV2,
   FirstInstalledDateValidatorManifestV2,
   LocationSortingValidatorManifestV2,
   NewsFeedIdsAlreadyViewedValidatorManifestV2,
+  ProxyStatusValidatorManifestV2,
   ThemeValidatorManifestV2,
 } from 'utils/validators'
 
@@ -62,6 +68,14 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + FAVORITE_LOCATIONS_REDUCER)
 
+  const currentLocation: ReducerStateV2<unknown> = await db
+    .table(DB_STATE_TABLE)
+    .get(SYNC_KEY + CURRENT_LOCATION_REDUCER)
+
+  const proxyStatus: ReducerStateV2<unknown> = await db
+    .table(DB_STATE_TABLE)
+    .get(SYNC_KEY + PROXY_STATUS_REDUCER)
+
   await pushToDebugLog({
     level: 'INFO',
     message: `general settings`,
@@ -73,6 +87,8 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       locationSortingData,
       newsfeedIdsAlreadyViewedData,
       favoriteLocationsData,
+      currentLocation,
+      proxyStatus,
     }),
   })
 
@@ -91,6 +107,10 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
 
   const parsedFavouriteLocationsStateV2 =
     FavouriteLocationsValidatorManifestV2.safeParse(favoriteLocationsData)
+
+  const parsedCurrentLocationStateV2 = CurrentLocationValidatorManifestV2.safeParse(currentLocation)
+
+  const proxyStatusStateV2 = ProxyStatusValidatorManifestV2.safeParse(proxyStatus)
 
   // no equivalent settings in mv3 for allowCookies in mv2
   // allowPrivacyFeatures is only mv3 exclusive, no equivalent in mv2, default to true
@@ -222,6 +242,41 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
       message: `Favourite Locations reducer not found`,
       tag: 'background',
       data: JSON.stringify(parsedFavouriteLocationsStateV2.error),
+    })
+  }
+
+  if (parsedCurrentLocationStateV2.success) {
+    // get the location id, data center id
+    if (
+      parsedCurrentLocationStateV2.data.state?.locationId !== null &&
+      parsedCurrentLocationStateV2.data.state?.locationId !== undefined
+    ) {
+      store.dispatch(setLocationIdV2(parsedCurrentLocationStateV2.data.state.locationId))
+    }
+
+    if (
+      parsedCurrentLocationStateV2.data.state?.dataCenterId !== null &&
+      parsedCurrentLocationStateV2.data.state?.dataCenterId !== undefined
+    ) {
+      store.dispatch(setDataCenterIdV2(parsedCurrentLocationStateV2.data.state.dataCenterId))
+    }
+  } else {
+    await pushToDebugLog({
+      level: 'INFO',
+      message: `Current Location reducer not found`,
+      tag: 'background',
+      data: JSON.stringify(parsedCurrentLocationStateV2.error),
+    })
+  }
+
+  if (proxyStatusStateV2.success) {
+    store.dispatch(setProxyStatus(proxyStatusStateV2.data.state.status))
+  } else {
+    await pushToDebugLog({
+      level: 'INFO',
+      message: `Favourite Locations reducer not found`,
+      tag: 'background',
+      data: JSON.stringify(proxyStatusStateV2.error),
     })
   }
 }

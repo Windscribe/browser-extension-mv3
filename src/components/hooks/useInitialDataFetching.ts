@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import { FETCH_SERVER_LIST } from 'state/slices/servers'
@@ -6,9 +6,12 @@ import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
 import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
-import { setOriginalUserAgent, initializeUserAgentsList } from 'state/slices/userAgent'
+import { FETCH_USER_AGENTS_LIST, setOriginalUserAgent } from 'state/slices/userAgent'
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
 import sendMessage from 'services/runtime/sendMessage'
+import { registerScript } from 'utils/scriptController'
+import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
+import { SHA256 } from 'crypto-js'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -23,9 +26,15 @@ export default (): void => {
   const newsfeedLoading = useSelector(state => state.newsfeed.loading)
   const username = useSelector(state => state.serverCredentials.username)
   const password = useSelector(state => state.serverCredentials.password)
+  const userAgentLoading = useSelector(state => state.userAgent.loading)
   const userAgentOriginal = useSelector(state => state.userAgent.original)
   const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
   const status = useSelector(s => s.proxy.status)
+  const isWorkerBlockActive = useSelector(s => s.workerBlock)
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
+  const allowList = useSelector(s => s.allowlist)
+  const userAgent = useSelector(s => s.userAgent)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -68,8 +77,10 @@ export default (): void => {
   }, [autopilotData, bestLocationLoading, serverListLoading, dispatch])
 
   useEffect(() => {
-    dispatch(initializeUserAgentsList())
-  }, [dispatch])
+    dispatchAlias(FETCH_USER_AGENTS_LIST)
+    // Do NOT add dispatchAlias to Dependency array. It leads to double network requests. Don't know why.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     const dispatchConnectToAutopilot = async () => await sendMessage({ what: 'connectAutopilot' })
@@ -91,5 +102,48 @@ export default (): void => {
     autoConnectAfterLogin,
     dispatch,
     dispatchAlias,
+  ])
+
+  const excludeMatchesFromAllowList = useMemo(() => {
+    return (
+      Object.entries(allowList)
+        .filter(([, value]) => {
+          return value.allowPrivacyFeatures
+        })
+        // https or http and
+        .map(([domainKey]) => `*://${domainKey}/*`)
+    )
+  }, [allowList])
+
+  useEffect(() => {
+    if (isWorkerBlockActive) {
+      registerScript(
+        workerBlockScriptId,
+        ['workerBlockContentScript.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+    }
+  }, [isWorkerBlockActive, excludeMatchesFromAllowList])
+
+  useEffect(() => {
+    if (
+      userAgentLoading === 'fulfilled' &&
+      userAgent.list.length > 0 &&
+      !userAgent.error &&
+      isSplitPersonalityEnabled &&
+      spoofedUserAgent
+    ) {
+      registerScript(
+        splitPersonalityScriptId,
+        [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+    }
+  }, [
+    userAgentLoading,
+    userAgent,
+    isSplitPersonalityEnabled,
+    spoofedUserAgent,
+    excludeMatchesFromAllowList,
   ])
 }
