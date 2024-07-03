@@ -7,7 +7,6 @@ import {
   authRequiredHandler,
   connectionChangedHandler,
   onInstalledHandler,
-  navigationCommittedHandler,
   proxyErrorHandler,
   startupHandler,
   messageHandler,
@@ -26,8 +25,6 @@ try {
   chrome.runtime.onInstalled.addListener(onInstalledHandler(bgStore))
 
   chrome.runtime.onStartup.addListener(startupHandler(bgStore))
-
-  chrome.webNavigation.onCommitted.addListener(navigationCommittedHandler(bgStore))
 
   chrome.proxy.onProxyError.addListener(proxyErrorHandler(bgStore))
 
