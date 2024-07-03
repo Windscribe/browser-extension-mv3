@@ -17,6 +17,7 @@ import {
   languageWarpScriptId,
   locationWarpScriptId,
   splitPersonalityScriptId,
+  timeZoneWarpScriptId,
   workerBlockScriptId,
 } from 'utils/constants'
 
@@ -124,6 +125,10 @@ const Allowlist: ThemeUiElement = () => {
                       await getScriptForId(languageWarpScriptId)
                     )?.excludeMatches
 
+                    const timeZoneWarpScriptExcludeMatches = (
+                      await getScriptForId(timeZoneWarpScriptId)
+                    )?.excludeMatches
+
                     if (workerBlockScriptExcludeMatches) {
                       const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
                         urlScheme => urlScheme !== toExcludeMatchesURL(domain),
@@ -164,6 +169,17 @@ const Allowlist: ThemeUiElement = () => {
 
                       updateScript({
                         id: languageWarpScriptId,
+                        excludeMatches: newExcludeMatches,
+                      })
+                    }
+
+                    if (timeZoneWarpScriptExcludeMatches) {
+                      const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                      )
+
+                      updateScript({
+                        id: timeZoneWarpScriptId,
                         excludeMatches: newExcludeMatches,
                       })
                     }

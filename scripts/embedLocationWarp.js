@@ -44,7 +44,7 @@ async function embedLocationWarp(config, sessionData) {
     .map(dataCenter => {
       return {
         // cannot pass in number to sha256
-        fileName: sha256(dataCenter.id.toString()).toString(),
+        fileName: sha256(dataCenter.id.toString()).toString() + 'lcw',
         content: locationWarpContentScriptTemplate({
           latitude: dataCenter.gps[0],
           longitude: dataCenter.gps[1],

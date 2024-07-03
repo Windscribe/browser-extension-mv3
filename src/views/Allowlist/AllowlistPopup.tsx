@@ -13,6 +13,7 @@ import {
   languageWarpScriptId,
   locationWarpScriptId,
   splitPersonalityScriptId,
+  timeZoneWarpScriptId,
   workerBlockScriptId,
 } from 'utils/constants'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
@@ -99,6 +100,9 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
       ?.excludeMatches
 
+    const timeZoneWarpScriptExcludeMatches = (await getScriptForId(timeZoneWarpScriptId))
+      ?.excludeMatches
+
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup(true, domain)
@@ -140,6 +144,17 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
         updateScript({
           id: languageWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (timeZoneWarpScriptExcludeMatches) {
+        const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
+
+        updateScript({
+          id: timeZoneWarpScriptId,
           excludeMatches: newExcludeMatches,
         })
       }
@@ -209,6 +224,19 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
       await updateScript({
         id: languageWarpScriptId,
+        excludeMatches: newExcludeMatches,
+      })
+    }
+
+    if (timeZoneWarpScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? timeZoneWarpScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : timeZoneWarpScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
+
+      await updateScript({
+        id: timeZoneWarpScriptId,
         excludeMatches: newExcludeMatches,
       })
     }

@@ -36,7 +36,7 @@ async function embedLanguageWarp(config, sessionData) {
     .map(dataCenter => {
       return {
         // cannot pass in number to sha256
-        fileName: sha256(dataCenter.id.toString()).toString(),
+        fileName: sha256(dataCenter.id.toString()).toString() + 'lnw',
         content: languageWarpContentScriptTemplate(dataCenter.locale),
       }
     })

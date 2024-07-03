@@ -9,8 +9,10 @@ import {
   languageWarpScriptId,
   locationWarpScriptId,
   splitPersonalityScriptId,
+  timeZoneWarpScriptId,
   workerBlockScriptId,
 } from 'utils/constants'
+import { getBundleNamePostFix } from 'utils/getBundleName'
 import { registerScript } from 'utils/scriptController'
 
 const registerScripts = async (
@@ -112,6 +114,7 @@ const registerScripts = async (
     const dataCenterId = currentDataCenter.id
     const isLanguageWarpActive = store.getState().languageWarpEnabled
     const currentLocation = store.getState().currentLocation
+    const isTimeZoneWarpActive = store.getState().timeWarpEnabled
 
     // We do not inject any spoofing script if this domain is in an allowlist.
     // So we convert allowlist entries into exclude matches
@@ -147,7 +150,11 @@ const registerScripts = async (
     ) {
       await registerScript(
         locationWarpScriptId,
-        [SHA256(dataCenterId.toString()) + '.bundle.js'],
+        [
+          SHA256(dataCenterId.toString()) +
+            getBundleNamePostFix('locationWarpScript') +
+            '.bundle.js',
+        ],
         excludeMatchesFromAllowList,
       )
     }
@@ -161,7 +168,29 @@ const registerScripts = async (
     ) {
       await registerScript(
         languageWarpScriptId,
-        [SHA256(currentLocation.id.toString()) + '.bundle.js'],
+        [
+          SHA256(currentLocation.id.toString()) +
+            getBundleNamePostFix('languageWarpScript') +
+            '.bundle.js',
+        ],
+        excludeMatchesFromAllowList,
+      )
+    }
+
+    if (
+      proxy.status === 'on' &&
+      !autopilot.autopilotSelected &&
+      currentLocation.id !== undefined &&
+      currentLocation.id !== null &&
+      isTimeZoneWarpActive
+    ) {
+      await registerScript(
+        timeZoneWarpScriptId,
+        [
+          SHA256(currentLocation.id.toString()) +
+            getBundleNamePostFix('timeZoneWarpScript') +
+            '.bundle.js',
+        ],
         excludeMatchesFromAllowList,
       )
     }

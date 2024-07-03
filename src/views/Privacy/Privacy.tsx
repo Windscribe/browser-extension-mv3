@@ -27,10 +27,15 @@ import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
 import { registerScript, unregisterScript } from 'utils/scriptController'
-import { languageWarpScriptId, locationWarpScriptId, workerBlockScriptId } from 'utils/constants'
+import {
+  languageWarpScriptId,
+  locationWarpScriptId,
+  timeZoneWarpScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { SHA256 } from 'crypto-js'
-import locales from 'utils/locales'
+import { getBundleNamePostFix } from 'utils/getBundleName'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -107,7 +112,11 @@ const Privacy: ThemeUiElement = () => {
               if (isLocationWarpActive) {
                 await registerScript(
                   locationWarpScriptId,
-                  [SHA256(dataCenterId.toString()) + '.bundle.js'],
+                  [
+                    SHA256(dataCenterId.toString()) +
+                      getBundleNamePostFix('locationWarpScript') +
+                      '.bundle.js',
+                  ],
                   excludeMatchesFromAllowList,
                 )
               } else {
@@ -138,7 +147,32 @@ const Privacy: ThemeUiElement = () => {
               </Box>
             )}
             <ToggleSwitch
-              onChange={() => dispatch(setTimeWarpEnabled(!timeWarpEnabled))}
+              onChange={async () => {
+                const isTimeWarpActive = !timeWarpEnabled
+                dispatch(setTimeWarpEnabled(isTimeWarpActive))
+
+                const locationId = currentLocation.id
+
+                if (proxy.status !== 'on') return
+                if (autopilot.autopilotSelected) return
+                if (locationId === undefined || locationId === null) return
+
+                const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+
+                if (isTimeWarpActive) {
+                  await registerScript(
+                    timeZoneWarpScriptId,
+                    [
+                      SHA256(locationId.toString()) +
+                        getBundleNamePostFix('timeZoneWarpScript') +
+                        '.bundle.js',
+                    ],
+                    excludeMatchesFromAllowList,
+                  )
+                } else {
+                  await unregisterScript(timeZoneWarpScriptId)
+                }
+              }}
               checked={timeWarpEnabled}
               disabled={autopilotSelected}
             />
@@ -166,7 +200,11 @@ const Privacy: ThemeUiElement = () => {
               if (isLanguageWarpActive) {
                 await registerScript(
                   languageWarpScriptId,
-                  [SHA256(locationId.toString()) + '.bundle.js'],
+                  [
+                    SHA256(locationId.toString()) +
+                      getBundleNamePostFix('languageWarpScript') +
+                      '.bundle.js',
+                  ],
                   excludeMatchesFromAllowList,
                 )
               } else {

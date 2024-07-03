@@ -100,5 +100,6 @@ export const USER_STASHES_REDUCER = 'userStashes'
 
 export const workerBlockScriptId = 'workerBlockScript'
 export const splitPersonalityScriptId = 'splitPersonalityScript'
-export const locationWarpScriptId = 'locationWarpScript'
-export const languageWarpScriptId = 'languageWarpScript'
+export const locationWarpScriptId = 'locationWarpScript' as const
+export const languageWarpScriptId = 'languageWarpScript' as const
+export const timeZoneWarpScriptId = 'timeZoneWarpScript' as const

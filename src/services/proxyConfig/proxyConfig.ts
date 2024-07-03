@@ -17,6 +17,7 @@ import {
   ACCOUNT_PLAN,
   locationWarpScriptId,
   languageWarpScriptId,
+  timeZoneWarpScriptId,
 } from 'utils/constants'
 import { applyBestLocationAsAutopilot, setAutopilotSelected } from 'state/slices/autopilot'
 import { setCurrentLocation } from 'state/slices/currentLocation'
@@ -29,6 +30,7 @@ import { pushToDebugLog } from 'services/debugLog'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { registerScript, unregisterScript } from 'utils/scriptController'
 import { SHA256 } from 'crypto-js'
+import { getBundleNamePostFix } from 'utils/getBundleName'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -202,6 +204,7 @@ export const connect = async (
     const isLanguageWarpActive = getState().languageWarpEnabled
     const currentDataCenterId = getState().currentDataCenter.id
     const isLocationWarpActive = getState().locationWarp
+    const isTimeZoneWarpActive = getState().timeWarpEnabled
 
     if (
       proxyStatus === 'on' &&
@@ -214,7 +217,11 @@ export const connect = async (
 
         await registerScript(
           languageWarpScriptId,
-          [SHA256(currentLocationId.toString()) + '.bundle.js'],
+          [
+            SHA256(currentLocationId.toString()) +
+              getBundleNamePostFix('languageWarpScript') +
+              '.bundle.js',
+          ],
           excludeMatchesFromAllowList,
         )
       }
@@ -233,12 +240,39 @@ export const connect = async (
 
         await registerScript(
           locationWarpScriptId,
-          [SHA256(currentDataCenterId.toString()) + '.bundle.js'],
+          [
+            SHA256(currentDataCenterId.toString()) +
+              getBundleNamePostFix('locationWarpScript') +
+              '.bundle.js',
+          ],
           excludeMatchesFromAllowList,
         )
       }
     } else if (isAutoPilot) {
       await unregisterScript(locationWarpScriptId)
+    }
+
+    if (
+      proxyStatus === 'on' &&
+      !isAutoPilot &&
+      currentLocationId !== undefined &&
+      currentLocationId !== null
+    ) {
+      if (isTimeZoneWarpActive) {
+        await unregisterScript(timeZoneWarpScriptId)
+
+        await registerScript(
+          timeZoneWarpScriptId,
+          [
+            SHA256(currentLocationId.toString()) +
+              getBundleNamePostFix('timeZoneWarpScript') +
+              '.bundle.js',
+          ],
+          excludeMatchesFromAllowList,
+        )
+      }
+    } else if (isAutoPilot) {
+      await unregisterScript(timeZoneWarpScriptId)
     }
   } catch (err) {
     disconnect(getState, dispatch)
@@ -284,6 +318,7 @@ export const disconnect = async (getState: GetState, dispatch: AppDispatch): Pro
   if (proxyStatus === 'off') {
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(locationWarpScriptId)
+    await unregisterScript(timeZoneWarpScriptId)
   }
 }
 

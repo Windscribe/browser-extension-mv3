@@ -21,6 +21,7 @@ import {
   languageWarpScriptId,
   locationWarpScriptId,
   splitPersonalityScriptId,
+  timeZoneWarpScriptId,
   workerBlockScriptId,
 } from 'utils/constants'
 
@@ -72,6 +73,9 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
       ?.excludeMatches
 
     const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
+      ?.excludeMatches
+
+    const timeZoneWarpScriptExcludeMatches = (await getScriptForId(timeZoneWarpScriptId))
       ?.excludeMatches
 
     if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
@@ -136,6 +140,19 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           excludeMatches: newExcludeMatches,
         })
       }
+
+      if (timeZoneWarpScriptExcludeMatches) {
+        const newExcludeMatches = isPrivacyFeaturesAllowed
+          ? timeZoneWarpScriptExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
+          : timeZoneWarpScriptExcludeMatches.filter(
+              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+            )
+
+        await updateScript({
+          id: timeZoneWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
     } else {
       await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
 
@@ -175,6 +192,16 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         )
         await updateScript({
           id: languageWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (timeZoneWarpScriptExcludeMatches) {
+        const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+        )
+        await updateScript({
+          id: timeZoneWarpScriptId,
           excludeMatches: newExcludeMatches,
         })
       }
