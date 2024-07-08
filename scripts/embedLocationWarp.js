@@ -52,8 +52,6 @@ async function embedLocationWarp(config, sessionData) {
       }
     })
 
-  console.log(dataCenterGpsCoords)
-
   // using fixed paths
   const locationWarpGeneratedScriptFolderPath = 'src/pages/contentScripts/locationWarp/'
 
