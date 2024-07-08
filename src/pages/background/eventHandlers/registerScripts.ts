@@ -13,7 +13,8 @@ import {
   workerBlockScriptId,
 } from 'utils/constants'
 import { getBundleNamePostFix } from 'utils/getBundleName'
-import { registerScript } from 'utils/scriptController'
+import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
+import { doesBundleExistInBuild, registerScript } from 'utils/scriptController'
 
 const registerScripts = async (
   store: StoreType,
@@ -115,6 +116,8 @@ const registerScripts = async (
     const isLanguageWarpActive = store.getState().languageWarpEnabled
     const currentLocation = store.getState().currentLocation
     const isTimeZoneWarpActive = store.getState().timeWarpEnabled
+    const serverList = store.getState().servers.serverList
+    const isUserPro = store.getState().session.sessionData?.is_premium
 
     // We do not inject any spoofing script if this domain is in an allowlist.
     // So we convert allowlist entries into exclude matches
@@ -148,15 +151,37 @@ const registerScripts = async (
       dataCenterId !== null &&
       isLocationWarpActive
     ) {
-      await registerScript(
-        locationWarpScriptId,
-        [
-          SHA256(dataCenterId.toString()) +
+      const bundleFileName =
+        SHA256(dataCenterId.toString()) + getBundleNamePostFix('locationWarpScript') + '.bundle.js'
+
+      const bundleExists = await doesBundleExistInBuild(bundleFileName)
+
+      if (bundleExists) {
+        await registerScript(locationWarpScriptId, [bundleFileName], excludeMatchesFromAllowList)
+      } else {
+        const possibleNearestDataCenterId = await getNearestValidDataCenter(
+          dataCenterId,
+          serverList,
+          currentDataCenter,
+          isUserPro,
+          'locationWarpScript',
+        )
+
+        if (possibleNearestDataCenterId !== undefined && possibleNearestDataCenterId !== null) {
+          const bundleFileName =
+            SHA256(possibleNearestDataCenterId.toString()) +
             getBundleNamePostFix('locationWarpScript') +
-            '.bundle.js',
-        ],
-        excludeMatchesFromAllowList,
-      )
+            '.bundle.js'
+
+          await registerScript(locationWarpScriptId, [bundleFileName], excludeMatchesFromAllowList)
+        } else {
+          await pushToDebugLog({
+            message: 'Could not find any fallback data center',
+            tag: 'popup',
+            level: 'ERROR',
+          })
+        }
+      }
     }
 
     if (

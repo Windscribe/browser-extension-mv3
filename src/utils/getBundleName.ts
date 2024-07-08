@@ -1,6 +1,6 @@
 import { languageWarpScriptId, locationWarpScriptId, timeZoneWarpScriptId } from './constants'
 
-type ScriptType =
+export type ScriptType =
   | typeof languageWarpScriptId
   | typeof locationWarpScriptId
   | typeof timeZoneWarpScriptId

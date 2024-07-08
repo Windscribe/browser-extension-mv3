@@ -124,4 +124,38 @@ function toExcludeMatchesURL(domain: string): string {
   return `*://${domain}/*`
 }
 
-export { unregisterScript, registerScript, updateScript, getScriptForId, toExcludeMatchesURL }
+async function doesBundleExistInBuild(fileName: string): Promise<boolean> {
+  try {
+    const url = chrome.runtime.getURL(fileName)
+    const response = await fetch(url)
+
+    if (!response.ok) {
+      await pushToDebugLog({
+        level: 'WARN',
+        tag: 'popup',
+        message: `Fetch failed for bundle with ${fileName}: ${response.status} ${response.statusText}`,
+      })
+
+      return false
+    }
+
+    return true
+  } catch (err) {
+    await pushToDebugLog({
+      level: 'ERROR',
+      tag: 'popup',
+      message: `Error fetching ${fileName}:`,
+    })
+
+    return false
+  }
+}
+
+export {
+  unregisterScript,
+  registerScript,
+  updateScript,
+  getScriptForId,
+  toExcludeMatchesURL,
+  doesBundleExistInBuild,
+}
