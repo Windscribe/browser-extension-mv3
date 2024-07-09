@@ -86,7 +86,6 @@ Date.prototype.toLocaleTimeString = new Proxy(Date.prototype.toLocaleTimeString,
 Date.prototype.toTimeString = new Proxy(Date.prototype.toTimeString, {
   apply(target, self, args) {
     const result = Reflect.apply(target, self._date, args)
-    console.log('aaaa')
     const now = new Date()
     const timeString = new Intl.DateTimeFormat('en-US', {
       timeZoneName: 'long',
