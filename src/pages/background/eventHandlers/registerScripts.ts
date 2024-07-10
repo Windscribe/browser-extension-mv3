@@ -16,6 +16,8 @@ import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import { doesBundleExistInBuild, registerScript } from 'utils/scriptController'
 
+import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+
 const registerScripts = async (
   store: StoreType,
   isSuccessfulMigration: boolean | void = false,
@@ -46,12 +48,10 @@ const registerScripts = async (
       })
       return
     }
-    const excludeMatchesFromAllowList = Object.entries(store.getState().allowlist)
-      .filter(([, value]) => {
-        return value.allowPrivacyFeatures
-      })
-      // https or http and
-      .map(([domainKey]) => `*://${domainKey}/*`)
+
+    const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(
+      store.getState().allowlist,
+    )
 
     // worker block does not need data so we register here directly
     if (isWorkerBlockActive) {
@@ -119,14 +119,9 @@ const registerScripts = async (
     const serverList = store.getState().servers.serverList
     const isUserPro = store.getState().session.sessionData?.is_premium
 
-    // We do not inject any spoofing script if this domain is in an allowlist.
-    // So we convert allowlist entries into exclude matches
-    const excludeMatchesFromAllowList = Object.entries(store.getState().allowlist)
-      .filter(([, value]) => {
-        return value.allowPrivacyFeatures
-      })
-      // https or http and
-      .map(([domainKey]) => `*://${domainKey}/*`)
+    const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(
+      store.getState().allowlist,
+    )
 
     if (isWorkerBlockActive) {
       await registerScript(

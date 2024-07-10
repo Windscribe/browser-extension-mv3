@@ -6,7 +6,9 @@ export default function transformAllowListToExcludeMatches(allowList: AllowlistS
     .filter(([, value]) => {
       return value.allowPrivacyFeatures === true
     })
-    .map(([domainKey]) => toExcludeMatchesURL(domainKey))
+    .map(([domainKey, value]) => {
+      return toExcludeMatchesURL(domainKey, value.includeAllSubdomains)
+    })
 
   return excludeMatchesFromAllowList
 }

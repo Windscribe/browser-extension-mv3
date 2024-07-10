@@ -120,7 +120,14 @@ async function getScriptForId(
   return (await chrome.scripting.getRegisteredContentScripts()).find(script => script.id === id)
 }
 
-function toExcludeMatchesURL(domain: string): string {
+// https://developer.chrome.com/docs/extensions/develop/concepts/match-patterns
+function toExcludeMatchesURL(domain: string, includeSubdomain = false): string {
+  if (includeSubdomain) {
+    const subdomain = domain.replace('www.', '')
+    // matches eg: nytimes.com and cooking.nytimes.com i.e both the domain and its subdomains
+    // the match pattern would then be  *://*.nytimes.com/*
+    return `*://*.${subdomain}/*`
+  }
   return `*://${domain}/*`
 }
 
