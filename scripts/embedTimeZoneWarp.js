@@ -83,7 +83,7 @@ async function embedTimeZoneWarp(config, sessionData) {
 
   await exec(formatTimeZoneWarpFiles)
 
-  console.log('Language warp content scripts embedded into build')
+  console.log('Time zone warp content scripts embedded into build')
 }
 
 module.exports = embedTimeZoneWarp
