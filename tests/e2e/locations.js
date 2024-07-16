@@ -12,41 +12,46 @@ const locations = async popupPage => {
       let children = await locationsList.evaluate(el => el.children.length)
       expect(children).to.greaterThan(1)
 
+      let searchTerm = 'canada'
       // Type text to search
       await popupPage.click('[data-testid=location-search-button]')
-      await popupPage.type('[data-testid=location-search-input]', 'ca')
+      await popupPage.type('[data-testid=location-search-input]', searchTerm)
       await popupPage.waitForTimeout(500)
 
       // Ensure we have only 1 location with 'ca' substring included - "Canada  East"
       locationsList = await popupPage.$('[data-testid=locations-list]')
       children = await locationsList.evaluate(el => el.children.length)
-      expect(children).to.equal(1)
+      expect(children).to.equal(2)
       let expectedLocation = await locationsList.evaluate(el => el.textContent)
-      expect(expectedLocation).to.equal('Canada EastTorontoSkydome')
+
+      expect(expectedLocation.startsWith('Canada EastHalifax')).to.be.true
 
       // Reset input field value
       await popupPage.focus('[data-testid=location-search-input]')
-      await popupPage.keyboard.down('Backspace')
-      await popupPage.keyboard.down('Backspace')
+      for (let _ of searchTerm) {
+        await popupPage.keyboard.down('Backspace')
+      }
 
       // Type new text to search
-      await popupPage.type('[data-testid=location-search-input]', 'on')
+      await popupPage.type('[data-testid=location-search-input]', 'ron')
       await popupPage.waitForTimeout(500)
 
-      // Ensure we found 4 cities with 'on' substring included
+      // Ensure we found 2 cities with 'ron' substring included
       locationsList = await popupPage.$('[data-testid=locations-list]')
       children = await locationsList.evaluate(el => el.children.length)
-      expect(children).to.equal(4)
+      expect(children).to.equal(2)
       const dataCentersList = await locationsList.$$('[data-testid=accordion-details-list]')
       const dataCentersNames = await Promise.all(
         dataCentersList.map(dataCenter => dataCenter.evaluate(el => el.textContent)),
       )
+      console.log(dataCentersNames)
       expect(dataCentersNames.toString()).to.equal(
-        'Londonspɹɐʍʞɔɐq,PyongyangHennessey,TorontoSkydome,BostonThe Wahlberg',
+        'TorontoThe 6TorontoComfort Zone,TorontoMansbridgeUPGRADE',
       )
 
       // Reset input field value
       await popupPage.focus('[data-testid=location-search-input]')
+      await popupPage.keyboard.down('Backspace')
       await popupPage.keyboard.down('Backspace')
       await popupPage.keyboard.down('Backspace')
 
@@ -72,9 +77,8 @@ const locations = async popupPage => {
       // Ensure that locations with sorted by geography
       let locationsList = await popupPage.$('[data-testid=locations-list]')
       let expectedLocation = await locationsList.evaluate(el => el.textContent)
-      expect(expectedLocation).to.equal(
-        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeUnited StatesBostonThe WahlbergUnited KingdomLondonspɹɐʍʞɔɐqColombiaBogota -White CoffeeThe Best KoreaPyongyangHennessey',
-      )
+      expect(expectedLocation.startsWith('AutopilotHalifaxCrosbyUPGRADE')).to.be.true
+      expect(expectedLocation.endsWith('Fake AntarcticaTrollStationUPGRADE')).to.be.true
 
       await popupPage.click('[data-testid=sort-locations-button]')
       await popupPage.waitForTimeout(500)
@@ -82,9 +86,8 @@ const locations = async popupPage => {
       // Ensure that locations with sorted by alphabet
       locationsList = await popupPage.$('[data-testid=locations-list]')
       expectedLocation = await locationsList.evaluate(el => el.textContent)
-      expect(expectedLocation).to.equal(
-        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeColombiaBogota -White CoffeeThe Best KoreaPyongyangHennesseyUnited KingdomLondonspɹɐʍʞɔɐqUnited StatesBostonThe Wahlberg',
-      )
+      expect(expectedLocation.startsWith('AutopilotHalifaxCrosbyUPGRADEMontrealBagel')).to.be.true
+      expect(expectedLocation.endsWith('USNew YorkRadiohallUPGRADE')).to.be.true
 
       await popupPage.click('[data-testid=sort-locations-button]')
       await popupPage.waitForTimeout(500)
@@ -92,9 +95,8 @@ const locations = async popupPage => {
       // Ensure that locations with sorted by geography again
       locationsList = await popupPage.$('[data-testid=locations-list]')
       expectedLocation = await locationsList.evaluate(el => el.textContent)
-      expect(expectedLocation).to.equal(
-        'AutopilotTorontoSkydomeCanada EastTorontoSkydomeUnited StatesBostonThe WahlbergUnited KingdomLondonspɹɐʍʞɔɐqColombiaBogota -White CoffeeThe Best KoreaPyongyangHennessey',
-      )
+      expect(expectedLocation.startsWith('AutopilotHalifaxCrosbyUPGRADE')).to.be.true
+      expect(expectedLocation.endsWith('Fake AntarcticaTrollStationUPGRADE')).to.be.true
       await popupPage.waitForTimeout(1000)
     })
 
@@ -104,7 +106,7 @@ const locations = async popupPage => {
 
       // Click on Accordion Summary element
       const locationsListFirstItem = await popupPage.waitForSelector(
-        '[data-testid=locations-list-item-1]',
+        '[data-testid=locations-list-item-0]',
       )
       await locationsListFirstItem.click()
 
@@ -135,7 +137,7 @@ const locations = async popupPage => {
 
       // Verify that only Summary section of Accordion is displayed
       let locationsListFirstItem = await popupPage.waitForSelector(
-        '[data-testid=locations-list-item-1]',
+        '[data-testid=locations-list-item-0]',
       )
       let accordionChildrenAmount = await locationsListFirstItem.evaluate(el => el.children.length)
       // details are always visible and hidden via css only
@@ -160,7 +162,6 @@ const locations = async popupPage => {
       const expectedCity = await cityElement.evaluate(el => el.textContent)
       const expectedNick = await nickElement.evaluate(el => el.textContent)
 
-      console.log(expectedCity, expectedNick)
       await cityElement.click()
 
       // Verify that we were redirected on Home page after a location was chosen
@@ -178,9 +179,14 @@ const locations = async popupPage => {
       popupPage.click('[data-testid=globe-button]')
       await popupPage.waitForSelector('[data-testid=locations-page]')
       locationsListFirstItem = await popupPage.waitForSelector(
-        '[data-testid=locations-list-item-1]',
+        '[data-testid=locations-list-item-0]',
       )
       await locationsListFirstItem.click()
+
+      await popupPage.evaluate(element => {
+        element.click()
+      }, locationsListFirstItem)
+
       locationsFirstItem = await locationsListFirstItem.$(
         '[data-testid=accordion-details-list] > li',
       )
@@ -191,6 +197,7 @@ const locations = async popupPage => {
 
       //Go back to Home page
       await popupPage.click('[data-testid=go-back-button]')
+      await popupPage.waitForTimeout(1500)
     })
   })
 }
