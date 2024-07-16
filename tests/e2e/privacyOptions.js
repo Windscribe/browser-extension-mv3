@@ -13,7 +13,7 @@ const privacyOptions = async (popupPage, browser) => {
     })
 
     it('Open test page', async () => {
-      const appUrl = 'http://google.com'
+      const appUrl = 'https://google.com'
       const appPage = await browser.newPage()
       await appPage.goto(appUrl, { waitUntil: 'load' })
 
