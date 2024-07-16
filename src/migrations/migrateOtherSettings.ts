@@ -274,7 +274,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
   } else {
     await pushToDebugLog({
       level: 'INFO',
-      message: `Favourite Locations reducer not found`,
+      message: `Proxy status reducer not found`,
       tag: 'background',
       data: JSON.stringify(proxyStatusStateV2.error),
     })
