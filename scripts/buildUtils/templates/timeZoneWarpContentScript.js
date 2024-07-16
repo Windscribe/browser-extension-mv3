@@ -86,11 +86,10 @@ Date.prototype.toLocaleTimeString = new Proxy(Date.prototype.toLocaleTimeString,
 Date.prototype.toTimeString = new Proxy(Date.prototype.toTimeString, {
   apply(target, self, args) {
     const result = Reflect.apply(target, self._date, args)
-
     const now = new Date()
-    const timeString = new Intl.DateTimeFormat('en-AU', {
+    const timeString = new Intl.DateTimeFormat('en-US', {
       timeZoneName: 'long',
-      timeZone: '${options.name}',
+      timeZone: '${options.timezone}',
     }).format(now) // e.q. "20/12/2020, Central European Standard Time"
     const desiredTimezoneName = timeString.split(', ')[1]
 
