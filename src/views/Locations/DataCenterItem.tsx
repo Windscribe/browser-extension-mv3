@@ -107,13 +107,14 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
           listStyleType: 'none',
         }}
       >
-        {!showPro ? (
+        {/* only show in location list if user is pro, and show in fav list regardless if user is pro or not */}
+        {(!isFavorite && !showPro) || isFavorite ? (
           <IconButton
             data-testid="heart-icon-button"
             onClick={handleHeartIconClick}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            sx={{ height: '16px', minWidth: '16px', mr: '24px', p: 0 }}
+            sx={{ height: '16px', minWidth: '16px', mr: '16px', p: 0 }}
           >
             <HeartButtonIcon {...{ showBrokenHeart, isInFavorite }} />
           </IconButton>
@@ -148,14 +149,29 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
             },
           }}
         >
-          <Flex sx={{ alignItems: 'center', minWidth: 'auto' }}>
+          <Flex
+            sx={{ alignItems: 'center', minWidth: 'auto', display: 'flex', overflow: 'hidden' }}
+          >
             {showPro ? (
-              <StarIcon sx={{ height: '16px', mr: '24px', p: 0, fill: 'secondaryText' }} />
+              <StarIcon
+                sx={{ height: '16px', mr: '16px', p: 0, fill: 'secondaryText', flexShrink: 0 }}
+              />
             ) : null}
-            <Box sx={{ fontWeight: '600', mr: '4px' }} data-testid="data-center-city">
+            <Box
+              sx={{ fontWeight: '600', mr: '4px', flexShrink: 0 }}
+              data-testid="data-center-city"
+            >
               {dataCenter.city}
             </Box>
-            <Box sx={{ fontWeight: '400', whiteSpace: 'nowrap' }} data-testid="data-center-nick">
+            <Box
+              sx={{
+                fontWeight: '400',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+              data-testid="data-center-nick"
+            >
               {dataCenter.nick}
             </Box>
           </Flex>
@@ -165,6 +181,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
                 <GigabitSpeedIcon
                   sx={{
                     fill: 'secondaryText',
+                    flexShrink: 0,
                   }}
                 />
               )}
@@ -203,6 +220,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
             <Flex
               sx={{
                 gap: '8px',
+                flexShrink: 0,
               }}
             >
               {isSpeedy && (
