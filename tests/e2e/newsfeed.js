@@ -7,8 +7,8 @@ const newsfeed = async popupPage => {
       await popupPage.waitForSelector('[data-testid=home-page]')
       // Check unread news amount
       let newsfeedBadge = await popupPage.waitForSelector('[data-testid=newsfeed-badge]')
-      let unreadNewsAmount = await newsfeedBadge.evaluate(el => el.textContent)
-      expect(Number(unreadNewsAmount)).to.greaterThanOrEqual(1)
+      let unreadNewsAmount = Number(await newsfeedBadge.evaluate(el => el.textContent))
+      expect(unreadNewsAmount).to.greaterThanOrEqual(1)
 
       // Go to Newsfeed page
       const goToNewsfeedButton = await popupPage.$('[data-testid=go-to-newsfeed-button]')
@@ -26,8 +26,8 @@ const newsfeed = async popupPage => {
 
       // Verify that an amount of unread news has been decreased
       newsfeedBadge = await popupPage.waitForSelector('[data-testid=newsfeed-badge]')
-      let unreadNewsAmountUpdated = await newsfeedBadge.evaluate(el => el.textContent)
-      expect(Number(unreadNewsAmountUpdated)).to.equal(Number(unreadNewsAmount) - 1)
+      const updatedUnreadNewsAmount = Number(await newsfeedBadge.evaluate(el => el.textContent))
+      expect(updatedUnreadNewsAmount).to.equal(unreadNewsAmount - 1)
     })
 
     it('Verify that we can go to Newsfeed from Preference page.', async () => {

@@ -60,6 +60,15 @@ const options = {
       'migrateBlockerSettings',
       'migrateBlockerSettings.ts',
     ),
+
+    checkIpOffscreen: path.join(
+      __dirname,
+      'src',
+      'services',
+      'proxyAuth',
+      'offscreen',
+      'checkIpOffscreen.js',
+    ),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'popup'], // TODO check
@@ -165,25 +174,7 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/services/checkIp/offscreen/checkIp.html',
-          to: path.join(__dirname, 'build/checkIp.html'),
-          force: true,
-        },
-      ],
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'src/services/checkIp/offscreen/checkIp.js',
-          to: path.join(__dirname, 'build/checkIp.js'),
-          force: true,
-        },
-      ],
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: 'src/services/checkIp/offscreen/checkIpWorker.js',
+          from: 'src/services/proxyAuth/offscreen/checkIpWorker.js',
           to: path.join(__dirname, 'build/checkIpWorker.js'),
           force: true,
         },
@@ -297,6 +288,21 @@ const options = {
       chunks: ['migrateBlockerSettings'],
       cache: false,
     }),
+
+    new HtmlWebpackPlugin({
+      template: path.join(
+        __dirname,
+        'src',
+        'services',
+        'proxyAuth',
+        'offscreen',
+        'checkIpOffscreen.html',
+      ),
+      filename: 'checkIpOffscreen.html',
+      chunks: ['checkIpOffscreen'],
+      cache: false,
+    }),
+
     ...maybeProgressPlugin,
   ],
   infrastructureLogging: {

@@ -1,3 +1,4 @@
+import { pushToDebugLog } from 'services/debugLog'
 import { type StoreType } from 'state/store'
 
 export function authRequiredHandler(bgStore: Promise<StoreType>) {
@@ -14,6 +15,13 @@ export function authRequiredHandler(bgStore: Promise<StoreType>) {
     if (!username || !password || details.statusCode !== 407) {
       callback({})
     } else {
+      await pushToDebugLog({
+        message: 'onAuthRequired handler run',
+        data: JSON.stringify({
+          username,
+          details,
+        }),
+      })
       callback({
         authCredentials: { username: atob(username), password: atob(password) },
       })

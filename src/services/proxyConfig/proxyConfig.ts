@@ -43,6 +43,10 @@ const createFindProxyForURLFunction = (
 ) => {
   return `
   function FindProxyForURL (url, host) {
+
+    alert('proxy url: ', url)
+    alert('host: ', host)
+    
     const userAllowlist = ${JSON.stringify(allowlist)}
     const lanIps = /(^(127|10)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$)|(^192\\.168\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.1[6-9]\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.2[0-9]\\.\\d{1,3}\.\\d{1,3}$)|(^172\\.3[0-1]\\.\\d{1,3}\\.\\d{1,3}$)/
     const allowlist = [
@@ -71,10 +75,14 @@ const createFindProxyForURLFunction = (
     ].some(_ => _)
 
     if (shouldNotProxy) {
+      alert('Should not proxy')
       return 'DIRECT'
     }
 
     ${cruiseControlList ? stringifyCruiseControlList(cruiseControlList, proxyPort) : ''}
+
+
+    alert('${getProxyList(hosts, proxyPort)}')
 
     return '${getProxyList(hosts, proxyPort)}'
   }
@@ -160,6 +168,16 @@ export const connect = async (
 
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
     chrome.proxy.settings.set({ value: config, scope: 'regular' })
+    await pushToDebugLog({
+      data: {
+        hosts,
+        allowlist,
+        proxyPort,
+        cruiseControlList,
+        workingApi,
+      },
+      message: 'pac_script config',
+    })
 
     dispatch(setProxy(hosts))
 

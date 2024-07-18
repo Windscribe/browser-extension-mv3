@@ -250,7 +250,11 @@ export interface AllowListV2 extends AllowListItemV2 {
   [key: string]: AllowListItemV2 | boolean | string | undefined
 }
 
-export type MessageTypes = 'migrateAllowlist' | 'migrateTheme' | 'migrateBlockerSettings'
+export type MessageTypes =
+  | 'migrateAllowlist'
+  | 'migrateTheme'
+  | 'migrateBlockerSettings'
+  | 'fireNoSSLRequest'
 export type Targets = 'offscreen'
 
 export interface Message<T = unknown> {
