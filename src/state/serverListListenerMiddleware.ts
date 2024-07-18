@@ -5,14 +5,18 @@ import { setCurrentLocation } from './slices/currentLocation'
 import { setAutopilotSelected } from './slices/autopilot'
 import { connect, connectToAutopilot } from 'services/proxyConfig'
 import { setAutoConnectAfterLogin } from './slices/autoConnectAfterLogin'
+import { setServerListenerRun } from './slices/serverListenerRun'
 
 export const serverListListenerMiddleware = createListenerMiddleware()
 
 export type AppStartListening = TypedStartListening<RootState, AppDispatch>
 
-export const startAppListening = serverListListenerMiddleware.startListening as AppStartListening
+export const startListeningServerList =
+  serverListListenerMiddleware.startListening as AppStartListening
 
-startAppListening({
+type ServerListenerMiddleWareConfigType = Parameters<typeof startListeningServerList>[0]
+
+export const serverListenerMiddleWareConfig: ServerListenerMiddleWareConfigType = {
   predicate: (_, currentState) => {
     return (
       // cant check for two actions at the same time
@@ -27,10 +31,14 @@ startAppListening({
   effect: async (_, listenerApi) => {
     // because it can run multiple times, we set unsubscribe this listener here so it will only be called once
     // and we only need it for migration and nothing else so it should only run once.
-    // cancel future instances from running
     // note: serverlist is fetched once only
 
     listenerApi.unsubscribe()
+
+    if (listenerApi.getState().serverListenerRun) {
+      return
+    }
+
     const serverList = listenerApi.getState().servers.serverList
     const currentLocationMV2 = listenerApi.getState().currentLocationMV2
     const proxyStatus = listenerApi.getState().proxyStatusMV2.status
@@ -59,6 +67,8 @@ startAppListening({
           await connectToAutopilot(listenerApi.getState, listenerApi.dispatch)
         }
       }
+
+      listenerApi.dispatch(setServerListenerRun(true))
     }
   },
-})
+}
