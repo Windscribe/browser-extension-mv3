@@ -22,7 +22,10 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
       https://groups.google.com/a/chromium.org/g/chromium-extensions/c/ZM0Vzb_vuIs/m/acTHqizZAQAJ
     */
 
-    startListeningServerList(serverListenerMiddleWareConfig)
+    // only start listener if we migrated from mv2 to mv3
+    if (res) {
+      startListeningServerList(serverListenerMiddleWareConfig)
+    }
 
     await registerScripts(store, res)
 
