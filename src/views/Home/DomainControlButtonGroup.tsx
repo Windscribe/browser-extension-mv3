@@ -45,6 +45,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   const allowAdsState = !!settings?.allowAds
   const allowPrivacyFeaturesState = !!settings?.allowPrivacyFeatures
   const allowDirectConnectionsState = !!settings?.allowDirectConnections
+  const isIncludeAllSubdomains = !!settings?.includeAllSubdomains
 
   type HandleSettingsItemClick = (options: {
     isAdsAllowed?: boolean
@@ -63,6 +64,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     isAdsAllowed ??= allowAdsState
     isPrivacyFeaturesAllowed ??= allowPrivacyFeaturesState
     isDirectConnectionsAllowed ??= allowDirectConnectionsState
+    // include all subdomains has no ui component so using the redux store value
 
     const workerBlockExcludeMatches = (await getScriptForId(workerBlockScriptId))?.excludeMatches
 
@@ -85,80 +87,99 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         allowAds: isAdsAllowed,
         allowPrivacyFeatures: isPrivacyFeaturesAllowed,
         allowDirectConnections: isDirectConnectionsAllowed,
-        includeAllSubdomains: false,
+        includeAllSubdomains: isIncludeAllSubdomains,
       }
+
       await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
 
+      const currentExcludeURL = toExcludeMatchesURL(currentTabHostname, !isIncludeAllSubdomains)
+      const newExcludeURL = toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains)
+
       if (workerBlockExcludeMatches) {
-        const newExcludeMatches = isPrivacyFeaturesAllowed
-          ? workerBlockExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
-          : workerBlockExcludeMatches.filter(
-              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
-            )
+        const updatedExcludeMatches = workerBlockExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
 
         await updateScript({
           id: workerBlockScriptId,
-          excludeMatches: newExcludeMatches,
+          excludeMatches: updatedExcludeMatches,
         })
       }
 
       if (splitPersonalityExcludeMatches) {
-        const newExcludeMatches = isPrivacyFeaturesAllowed
-          ? splitPersonalityExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
-          : splitPersonalityExcludeMatches.filter(
-              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
-            )
+        const updatedExcludeMatches = splitPersonalityExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
 
         await updateScript({
           id: splitPersonalityScriptId,
-          excludeMatches: newExcludeMatches,
+          excludeMatches: updatedExcludeMatches,
         })
       }
 
       if (locationWarpScriptExcludeMatches) {
-        const newExcludeMatches = isPrivacyFeaturesAllowed
-          ? locationWarpScriptExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
-          : locationWarpScriptExcludeMatches.filter(
-              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
-            )
+        const updatedExcludeMatches = locationWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
 
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
         await updateScript({
           id: locationWarpScriptId,
-          excludeMatches: newExcludeMatches,
+          excludeMatches: updatedExcludeMatches,
         })
       }
 
       if (languageWarpScriptExcludeMatches) {
-        const newExcludeMatches = isPrivacyFeaturesAllowed
-          ? languageWarpScriptExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
-          : languageWarpScriptExcludeMatches.filter(
-              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
-            )
+        const updatedExcludeMatches = languageWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
 
         await updateScript({
           id: languageWarpScriptId,
-          excludeMatches: newExcludeMatches,
+          excludeMatches: updatedExcludeMatches,
         })
       }
 
       if (timeZoneWarpScriptExcludeMatches) {
-        const newExcludeMatches = isPrivacyFeaturesAllowed
-          ? timeZoneWarpScriptExcludeMatches.concat(toExcludeMatchesURL(currentTabHostname))
-          : timeZoneWarpScriptExcludeMatches.filter(
-              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
-            )
+        const updatedExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
 
         await updateScript({
           id: timeZoneWarpScriptId,
-          excludeMatches: newExcludeMatches,
+          excludeMatches: updatedExcludeMatches,
         })
       }
     } else {
       await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
 
+      // // without subdomain
+      // const withutSubdomain = toExcludeMatchesURL(currentTabHostname, false)
+      // // with subdomain
+      // const newExcludeURL = toExcludeMatchesURL(currentTabHostname, true)
+
       if (workerBlockExcludeMatches) {
         const newExcludeMatches = workerBlockExcludeMatches.filter(
-          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
         )
         await updateScript({
           id: workerBlockScriptId,
@@ -168,7 +189,8 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
       if (splitPersonalityExcludeMatches) {
         const newExcludeMatches = splitPersonalityExcludeMatches.filter(
-          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
         )
         await updateScript({
           id: splitPersonalityScriptId,
@@ -178,7 +200,8 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
       if (locationWarpScriptExcludeMatches) {
         const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
         )
         await updateScript({
           id: locationWarpScriptId,
@@ -188,7 +211,8 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
       if (languageWarpScriptExcludeMatches) {
         const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
         )
         await updateScript({
           id: languageWarpScriptId,
@@ -198,7 +222,8 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
       if (timeZoneWarpScriptExcludeMatches) {
         const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
         )
         await updateScript({
           id: timeZoneWarpScriptId,

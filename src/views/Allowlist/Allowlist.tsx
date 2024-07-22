@@ -23,7 +23,7 @@ import {
 
 const Allowlist: ThemeUiElement = () => {
   const allowlist = useSelector(s => s.allowlist)
-  const allowlistedDomains = Object.keys(allowlist)
+  const allowlistedDomains = Object.entries(allowlist)
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [domainToEdit, setDomainToEdit] = useState<string>('')
   const [isEditMode, setIsEditMode] = useState(false)
@@ -94,7 +94,7 @@ const Allowlist: ThemeUiElement = () => {
           allowlisted
         </Subheader>
         <ScrollableBox data-testid="allowlist-items-list" sx={{ maxHeight: '212px' }}>
-          {allowlistedDomains.map(domain => (
+          {allowlistedDomains.map(([domain, value]) => (
             <Rectangle key={domain} sx={{ mb: '12px' }}>
               <Hostname>{domain}</Hostname>
               <Flex sx={{ flexShrink: 0 }}>
@@ -131,7 +131,8 @@ const Allowlist: ThemeUiElement = () => {
 
                     if (workerBlockScriptExcludeMatches) {
                       const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
-                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                        urlScheme =>
+                          urlScheme !== toExcludeMatchesURL(domain, value.includeAllSubdomains),
                       )
 
                       updateScript({
@@ -142,7 +143,8 @@ const Allowlist: ThemeUiElement = () => {
 
                     if (splitPersonalityScriptExcludeMatches) {
                       const newExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
-                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                        urlScheme =>
+                          urlScheme !== toExcludeMatchesURL(domain, value.includeAllSubdomains),
                       )
 
                       updateScript({
