@@ -12,6 +12,7 @@ import sendMessage from 'services/runtime/sendMessage'
 import { registerScript } from 'utils/scriptController'
 import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
 import { SHA256 } from 'crypto-js'
+import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -105,14 +106,7 @@ export default (): void => {
   ])
 
   const excludeMatchesFromAllowList = useMemo(() => {
-    return (
-      Object.entries(allowList)
-        .filter(([, value]) => {
-          return value.allowPrivacyFeatures
-        })
-        // https or http and
-        .map(([domainKey]) => `*://${domainKey}/*`)
-    )
+    return transformAllowListToExcludeMatches(allowList)
   }, [allowList])
 
   useEffect(() => {

@@ -34,7 +34,7 @@ try {
     ['asyncBlocking'],
   )
 
-  chrome.alarms.create('sessionPoller', { periodInMinutes: 10 })
+  chrome.alarms.create('sessionPoller', { periodInMinutes: 1 })
   chrome.alarms.create('notificationPoller', { periodInMinutes: 720 })
   chrome.alarms.create('pruneLog', { periodInMinutes: 1440 }) // every 24 hours
 

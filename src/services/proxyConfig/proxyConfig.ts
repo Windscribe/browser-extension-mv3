@@ -28,9 +28,10 @@ import proxyOnIcon from 'assets/img/proxyOn.png'
 import { pushToDebugLog } from 'services/debugLog'
 
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
-import { registerScript, unregisterScript } from 'utils/scriptController'
+import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
 import { SHA256 } from 'crypto-js'
 import { getBundleNamePostFix } from 'utils/getBundleName'
+import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -202,9 +203,12 @@ export const connect = async (
     const allowList = getState().allowlist
     const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
     const isLanguageWarpActive = getState().languageWarpEnabled
-    const currentDataCenterId = getState().currentDataCenter.id
+    const currentDataCenter = getState().currentDataCenter
+    const currentDataCenterId = currentDataCenter.id
     const isLocationWarpActive = getState().locationWarp
     const isTimeZoneWarpActive = getState().timeWarpEnabled
+    const isUserPro = getState().session.sessionData?.is_premium
+    const serverList = getState().servers.serverList
 
     if (
       proxyStatus === 'on' &&
@@ -238,15 +242,43 @@ export const connect = async (
       if (isLocationWarpActive) {
         await unregisterScript(locationWarpScriptId)
 
-        await registerScript(
-          locationWarpScriptId,
-          [
-            SHA256(currentDataCenterId.toString()) +
+        const bundleFileName =
+          SHA256(currentDataCenterId.toString()) +
+          getBundleNamePostFix('locationWarpScript') +
+          '.bundle.js'
+
+        const bundleExists = await doesBundleExistInBuild(bundleFileName)
+
+        if (bundleExists) {
+          await registerScript(locationWarpScriptId, [bundleFileName], excludeMatchesFromAllowList)
+        } else {
+          const possibleNearestDataCenterId = await getNearestValidDataCenter(
+            currentDataCenterId,
+            serverList,
+            currentDataCenter,
+            isUserPro,
+            'locationWarpScript',
+          )
+
+          if (possibleNearestDataCenterId !== undefined && possibleNearestDataCenterId !== null) {
+            const bundleFileName =
+              SHA256(possibleNearestDataCenterId.toString()) +
               getBundleNamePostFix('locationWarpScript') +
-              '.bundle.js',
-          ],
-          excludeMatchesFromAllowList,
-        )
+              '.bundle.js'
+
+            await registerScript(
+              locationWarpScriptId,
+              [bundleFileName],
+              excludeMatchesFromAllowList,
+            )
+          } else {
+            await pushToDebugLog({
+              message: 'Could not find any fallback data center',
+              tag: 'popup',
+              level: 'ERROR',
+            })
+          }
+        }
       }
     } else if (isAutoPilot) {
       await unregisterScript(locationWarpScriptId)

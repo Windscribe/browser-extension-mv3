@@ -26,7 +26,7 @@ import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
-import { registerScript, unregisterScript } from 'utils/scriptController'
+import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
 import {
   languageWarpScriptId,
   locationWarpScriptId,
@@ -36,6 +36,8 @@ import {
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { SHA256 } from 'crypto-js'
 import { getBundleNamePostFix } from 'utils/getBundleName'
+import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
+import { pushToDebugLog } from 'services/debugLog'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -55,6 +57,8 @@ const Privacy: ThemeUiElement = () => {
   const autopilot = useSelector(s => s.autopilot)
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const currentLocation = useSelector(s => s.currentLocation)
+  const serverList = useSelector(s => s.servers.serverList)
+  const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -110,15 +114,50 @@ const Privacy: ThemeUiElement = () => {
               const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
 
               if (isLocationWarpActive) {
-                await registerScript(
-                  locationWarpScriptId,
-                  [
-                    SHA256(dataCenterId.toString()) +
+                const bundleFileName =
+                  SHA256(dataCenterId.toString()) +
+                  getBundleNamePostFix('locationWarpScript') +
+                  '.bundle.js'
+
+                const bundleExists = await doesBundleExistInBuild(bundleFileName)
+
+                if (bundleExists) {
+                  await registerScript(
+                    locationWarpScriptId,
+                    [bundleFileName],
+                    excludeMatchesFromAllowList,
+                  )
+                } else {
+                  const possibleNearestDataCenterId = await getNearestValidDataCenter(
+                    dataCenterId,
+                    serverList,
+                    currentDataCenter,
+                    isUserPro,
+                    'locationWarpScript',
+                  )
+
+                  if (
+                    possibleNearestDataCenterId !== undefined &&
+                    possibleNearestDataCenterId !== null
+                  ) {
+                    const bundleFileName =
+                      SHA256(possibleNearestDataCenterId.toString()) +
                       getBundleNamePostFix('locationWarpScript') +
-                      '.bundle.js',
-                  ],
-                  excludeMatchesFromAllowList,
-                )
+                      '.bundle.js'
+
+                    await registerScript(
+                      locationWarpScriptId,
+                      [bundleFileName],
+                      excludeMatchesFromAllowList,
+                    )
+                  } else {
+                    await pushToDebugLog({
+                      message: 'Could not find any fallback data center',
+                      tag: 'popup',
+                      level: 'ERROR',
+                    })
+                  }
+                }
               } else {
                 await unregisterScript(locationWarpScriptId)
               }

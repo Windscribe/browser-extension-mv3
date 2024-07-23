@@ -39,7 +39,7 @@ async function embedLocationWarp(config, sessionData) {
       }
     })
     .filter(data => {
-      return data.id !== undefined && data.id !== null && data.gps
+      return data.id !== undefined && data.id !== null && data.gps && data.gps.length == 2
     })
     .map(dataCenter => {
       return {
