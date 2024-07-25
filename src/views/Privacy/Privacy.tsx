@@ -26,13 +26,18 @@ import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
+import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
 import {
-  getExcludeMatches,
-  registerScript,
-  toExcludeMatchesURL,
-  unregisterScript,
-} from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
+  languageWarpScriptId,
+  locationWarpScriptId,
+  timeZoneWarpScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
+import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { SHA256 } from 'crypto-js'
+import { getBundleNamePostFix } from 'utils/getBundleName'
+import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
+import { pushToDebugLog } from 'services/debugLog'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -48,6 +53,12 @@ const Privacy: ThemeUiElement = () => {
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
   const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
   const allowList = useSelector(s => s.allowlist)
+  const proxy = useSelector(s => s.proxy)
+  const autopilot = useSelector(s => s.autopilot)
+  const currentDataCenter = useSelector(s => s.currentDataCenter)
+  const currentLocation = useSelector(s => s.currentLocation)
+  const serverList = useSelector(s => s.servers.serverList)
+  const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -90,9 +101,66 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Fakes your GPS location to match the connected proxy."
         >
           <ToggleSwitch
-            onChange={() => {
+            onChange={async () => {
               showReloadAlert(true)
-              dispatch(setLocationWarp(!locationWarp))
+              const isLocationWarpActive = !locationWarp
+              dispatch(setLocationWarp(isLocationWarpActive))
+
+              const dataCenterId = currentDataCenter.id
+              if (proxy.status !== 'on') return
+              if (autopilot.autopilotSelected) return
+              if (dataCenterId === undefined || dataCenterId === null) return
+
+              const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+
+              if (isLocationWarpActive) {
+                const bundleFileName =
+                  SHA256(dataCenterId.toString()) +
+                  getBundleNamePostFix('locationWarpScript') +
+                  '.bundle.js'
+
+                const bundleExists = await doesBundleExistInBuild(bundleFileName)
+
+                if (bundleExists) {
+                  await registerScript(
+                    locationWarpScriptId,
+                    [bundleFileName],
+                    excludeMatchesFromAllowList,
+                  )
+                } else {
+                  const possibleNearestDataCenterId = await getNearestValidDataCenter(
+                    dataCenterId,
+                    serverList,
+                    currentDataCenter,
+                    isUserPro,
+                    'locationWarpScript',
+                  )
+
+                  if (
+                    possibleNearestDataCenterId !== undefined &&
+                    possibleNearestDataCenterId !== null
+                  ) {
+                    const bundleFileName =
+                      SHA256(possibleNearestDataCenterId.toString()) +
+                      getBundleNamePostFix('locationWarpScript') +
+                      '.bundle.js'
+
+                    await registerScript(
+                      locationWarpScriptId,
+                      [bundleFileName],
+                      excludeMatchesFromAllowList,
+                    )
+                  } else {
+                    await pushToDebugLog({
+                      message: 'Could not find any fallback data center',
+                      tag: 'popup',
+                      level: 'ERROR',
+                    })
+                  }
+                }
+              } else {
+                await unregisterScript(locationWarpScriptId)
+              }
             }}
             checked={locationWarp}
             disabled={autopilotSelected}
@@ -118,7 +186,32 @@ const Privacy: ThemeUiElement = () => {
               </Box>
             )}
             <ToggleSwitch
-              onChange={() => dispatch(setTimeWarpEnabled(!timeWarpEnabled))}
+              onChange={async () => {
+                const isTimeWarpActive = !timeWarpEnabled
+                dispatch(setTimeWarpEnabled(isTimeWarpActive))
+
+                const locationId = currentLocation.id
+
+                if (proxy.status !== 'on') return
+                if (autopilot.autopilotSelected) return
+                if (locationId === undefined || locationId === null) return
+
+                const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+
+                if (isTimeWarpActive) {
+                  await registerScript(
+                    timeZoneWarpScriptId,
+                    [
+                      SHA256(locationId.toString()) +
+                        getBundleNamePostFix('timeZoneWarpScript') +
+                        '.bundle.js',
+                    ],
+                    excludeMatchesFromAllowList,
+                  )
+                } else {
+                  await unregisterScript(timeZoneWarpScriptId)
+                }
+              }}
               checked={timeWarpEnabled}
               disabled={autopilotSelected}
             />
@@ -131,9 +224,31 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Sets your language and locale settings to match the connected proxy."
         >
           <ToggleSwitch
-            onChange={() => {
+            onChange={async () => {
               showReloadAlert(true)
-              dispatch(setLanguageWarpEnabled(!languageWarpEnabled))
+              const isLanguageWarpActive = !languageWarpEnabled
+              dispatch(setLanguageWarpEnabled(isLanguageWarpActive))
+              const locationId = currentLocation.id
+
+              if (proxy.status !== 'on') return
+              if (autopilot.autopilotSelected) return
+              if (locationId === undefined || locationId === null) return
+
+              const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+
+              if (isLanguageWarpActive) {
+                await registerScript(
+                  languageWarpScriptId,
+                  [
+                    SHA256(locationId.toString()) +
+                      getBundleNamePostFix('languageWarpScript') +
+                      '.bundle.js',
+                  ],
+                  excludeMatchesFromAllowList,
+                )
+              } else {
+                await unregisterScript(languageWarpScriptId)
+              }
             }}
             checked={languageWarpEnabled}
             disabled={autopilotSelected}
@@ -179,11 +294,7 @@ const Privacy: ThemeUiElement = () => {
               showReloadAlert(true)
               const isWorkerBlockEnabled = !workerBlockEnabled
               dispatch(setWorkerBlock(isWorkerBlockEnabled))
-              const excludeMatchesFromAllowList = Object.entries(allowList)
-                .filter(([, value]) => {
-                  return value.allowPrivacyFeatures === true
-                })
-                .map(([domainKey]) => toExcludeMatchesURL(domainKey))
+              const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
 
               if (isWorkerBlockEnabled) {
                 await registerScript(

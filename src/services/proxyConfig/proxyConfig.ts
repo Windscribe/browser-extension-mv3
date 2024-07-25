@@ -12,7 +12,13 @@ import {
 import type { Host } from 'api/types'
 import { checkIp, createNotification } from 'services'
 import { addOverlay } from 'state/slices/overlay'
-import { ACCOUNT_STATES, ACCOUNT_PLAN } from 'utils/constants'
+import {
+  ACCOUNT_STATES,
+  ACCOUNT_PLAN,
+  locationWarpScriptId,
+  languageWarpScriptId,
+  timeZoneWarpScriptId,
+} from 'utils/constants'
 import { applyBestLocationAsAutopilot, setAutopilotSelected } from 'state/slices/autopilot'
 import { setCurrentLocation } from 'state/slices/currentLocation'
 import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
@@ -20,6 +26,12 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
 import { pushToDebugLog } from 'services/debugLog'
+
+import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
+import { SHA256 } from 'crypto-js'
+import { getBundleNamePostFix } from 'utils/getBundleName'
+import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -202,6 +214,116 @@ export const connect = async (
         })
       }
     }
+
+    const proxyStatus = getState().proxy.status
+    const isAutoPilot = getState().autopilot.autopilotSelected
+    const currentLocationId = getState().currentLocation.id
+    const allowList = getState().allowlist
+    const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+    const isLanguageWarpActive = getState().languageWarpEnabled
+    const currentDataCenter = getState().currentDataCenter
+    const currentDataCenterId = currentDataCenter.id
+    const isLocationWarpActive = getState().locationWarp
+    const isTimeZoneWarpActive = getState().timeWarpEnabled
+    const isUserPro = getState().session.sessionData?.is_premium
+    const serverList = getState().servers.serverList
+
+    if (
+      proxyStatus === 'on' &&
+      !isAutoPilot &&
+      currentLocationId !== undefined &&
+      currentLocationId !== null
+    ) {
+      if (isLanguageWarpActive) {
+        await unregisterScript(languageWarpScriptId)
+
+        await registerScript(
+          languageWarpScriptId,
+          [
+            SHA256(currentLocationId.toString()) +
+              getBundleNamePostFix('languageWarpScript') +
+              '.bundle.js',
+          ],
+          excludeMatchesFromAllowList,
+        )
+      }
+    } else if (isAutoPilot) {
+      await unregisterScript(languageWarpScriptId)
+    }
+
+    if (
+      proxyStatus === 'on' &&
+      !isAutoPilot &&
+      currentDataCenterId !== undefined &&
+      currentDataCenterId !== null
+    ) {
+      if (isLocationWarpActive) {
+        await unregisterScript(locationWarpScriptId)
+
+        const bundleFileName =
+          SHA256(currentDataCenterId.toString()) +
+          getBundleNamePostFix('locationWarpScript') +
+          '.bundle.js'
+
+        const bundleExists = await doesBundleExistInBuild(bundleFileName)
+
+        if (bundleExists) {
+          await registerScript(locationWarpScriptId, [bundleFileName], excludeMatchesFromAllowList)
+        } else {
+          const possibleNearestDataCenterId = await getNearestValidDataCenter(
+            currentDataCenterId,
+            serverList,
+            currentDataCenter,
+            isUserPro,
+            'locationWarpScript',
+          )
+
+          if (possibleNearestDataCenterId !== undefined && possibleNearestDataCenterId !== null) {
+            const bundleFileName =
+              SHA256(possibleNearestDataCenterId.toString()) +
+              getBundleNamePostFix('locationWarpScript') +
+              '.bundle.js'
+
+            await registerScript(
+              locationWarpScriptId,
+              [bundleFileName],
+              excludeMatchesFromAllowList,
+            )
+          } else {
+            await pushToDebugLog({
+              message: 'Could not find any fallback data center',
+              tag: 'popup',
+              level: 'ERROR',
+            })
+          }
+        }
+      }
+    } else if (isAutoPilot) {
+      await unregisterScript(locationWarpScriptId)
+    }
+
+    if (
+      proxyStatus === 'on' &&
+      !isAutoPilot &&
+      currentLocationId !== undefined &&
+      currentLocationId !== null
+    ) {
+      if (isTimeZoneWarpActive) {
+        await unregisterScript(timeZoneWarpScriptId)
+
+        await registerScript(
+          timeZoneWarpScriptId,
+          [
+            SHA256(currentLocationId.toString()) +
+              getBundleNamePostFix('timeZoneWarpScript') +
+              '.bundle.js',
+          ],
+          excludeMatchesFromAllowList,
+        )
+      }
+    } else if (isAutoPilot) {
+      await unregisterScript(timeZoneWarpScriptId)
+    }
   } catch (err) {
     disconnect(getState, dispatch)
     dispatch(setStatus('off'))
@@ -239,6 +361,14 @@ export const disconnect = async (getState: GetState, dispatch: AppDispatch): Pro
       iconUrl: proxyOffIcon,
       message: 'Connection to Windscribe has been terminated',
     })
+  }
+
+  const proxyStatus = getState().proxy.status
+
+  if (proxyStatus === 'off') {
+    await unregisterScript(languageWarpScriptId)
+    await unregisterScript(locationWarpScriptId)
+    await unregisterScript(timeZoneWarpScriptId)
   }
 }
 

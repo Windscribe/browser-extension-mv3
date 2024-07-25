@@ -52,6 +52,11 @@ import adPrivacyEnabledReducer from './slices/adPrivacyEnabled'
 import migratedFavouriteLocations from './slices/migratedFavoriteLocations'
 import migrationReducer from './slices/migration'
 import themeReducer from './slices/theme'
+import { userAgentListenerMiddleware } from './userAgentListenerMiddleware'
+import currentLocationMV2Reducer from './slices/currentLocationMV2'
+import proxyStatusMV2Reducer from './slices/proxyStatusMV2'
+import serverListenerRunReducer from './slices/serverListenerRun'
+import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 
 const reducers = {
   adPrivacyEnabled: adPrivacyEnabledReducer,
@@ -94,6 +99,9 @@ const reducers = {
   migrations: migrationReducer,
   migratedFavouriteLocations,
   theme: themeReducer,
+  currentLocationMV2: currentLocationMV2Reducer,
+  proxyStatusMV2: proxyStatusMV2Reducer,
+  serverListenerRun: serverListenerRunReducer,
 }
 
 const combinedReducer = combineReducers(reducers)
@@ -144,6 +152,8 @@ export function buildFrom(preloadedState?: RootState): StoreType {
         debugLogMiddleware,
         alias(aliases),
         listenerMiddleware.middleware,
+        userAgentListenerMiddleware.middleware,
+        serverListListenerMiddleware.middleware,
         ...getDefaultMiddleware(),
       ]
       if (process.env.NODE_ENV === 'development') {

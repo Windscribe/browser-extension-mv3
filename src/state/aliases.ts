@@ -17,7 +17,6 @@ import {
 } from './slices/allowlist'
 import { fetchNotifications, FETCH_NOTIFICATIONS } from './slices/newsfeed'
 import { fetchServerCredentials, FETCH_SERVER_CREDENTIALS } from './slices/serverCredentials'
-import { fetchUserAgentsList, FETCH_USER_AGENTS_LIST } from './slices/userAgent'
 import {
   activateSplitPersonality,
   ACTIVATE_SPLIT_PERSONALITY,
@@ -33,6 +32,7 @@ import {
 } from './slices/userStashes'
 import { chooseIcon, CHOOSE_ICON } from './slices/iconVariant'
 import { checkCurrentIp, CHECK_CURRENT_IP } from './slices/proxy'
+import { fetchUserAgentsList, FETCH_USER_AGENTS_LIST } from './slices/userAgent'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string
@@ -59,8 +59,8 @@ export default {
   [`alias/${FETCH_NOTIFICATIONS}`]: fetchNotifications,
   [`alias/${SAVE_USER_STASH}`]: saveUserStash,
   [`alias/${CHECK_USER_STASH}`]: checkUserStash,
-  [`alias/${FETCH_USER_AGENTS_LIST}`]: fetchUserAgentsList,
   [`alias/${ACTIVATE_SPLIT_PERSONALITY}`]: activateSplitPersonality,
+  [`alias/${FETCH_USER_AGENTS_LIST}`]: fetchUserAgentsList,
   [`alias/${TOGGLE_SPLIT_PERSONALITY}`]: toggleSplitPersonality,
   [`alias/${CHOOSE_ICON}`]: chooseIcon,
   [`alias/${CHECK_SESSION_STATUS}`]: checkSessionStatus,

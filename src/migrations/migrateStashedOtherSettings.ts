@@ -13,6 +13,7 @@ import {
 import { setAndMergeStashes } from 'state/slices/userStashes'
 import {
   StashedAllowListValidatorManifestV2,
+  StashedCurrentLocationValidatorManifestV2,
   StashedFavouriteLocationsValidatorManifestV2,
   StashedNewsFeedIdsAlreadyViewedValidatorManifestV2,
   StashedThemeValidatorManifestV2,
@@ -35,6 +36,8 @@ export const migrateStashedOtherSettings = async (
   const parsedFavouriteLocationsStateV2 =
     StashedFavouriteLocationsValidatorManifestV2.safeParse(data)
 
+  const parsedCurrentLocationStateV2 = StashedCurrentLocationValidatorManifestV2.safeParse(data)
+
   // no equivalent settings in mv3 for allowCookies in mv2
   // allowPrivacyFeatures is only mv3 exclusive, no equivalent in mv2, default to true
   if (parsedallowListStateV2.success) {
@@ -50,7 +53,7 @@ export const migrateStashedOtherSettings = async (
             allowAds: allowListData.allowAds ?? false,
             allowDirectConnections: allowListData.allowDirectConnect ?? false,
             includeAllSubdomains: allowListData.includeAllSubdomains ?? false,
-            allowPrivacyFeatures: false,
+            allowPrivacyFeatures: true,
           }
           if (allowListData.allowAds === true) {
             const level = allowListData.allowAds ? 0 : 3
@@ -189,6 +192,24 @@ export const migrateStashedOtherSettings = async (
       message: `Favourite Locations stashed state not found`,
       tag: 'background',
       data: JSON.stringify(parsedFavouriteLocationsStateV2.error),
+    })
+  }
+
+  if (parsedCurrentLocationStateV2.success) {
+    await store.dispatch(
+      setAndMergeStashes({
+        hashedID: hashedUserId,
+        data: {
+          currentLocationMV2: parsedCurrentLocationStateV2.data.state[hashedUserId].currentLocation,
+        },
+      }),
+    )
+  } else {
+    await pushToDebugLog({
+      level: 'INFO',
+      message: 'Current Location stashed state not found',
+      tag: 'background',
+      data: JSON.stringify(parsedCurrentLocationStateV2.error),
     })
   }
 }

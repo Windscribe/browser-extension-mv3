@@ -9,13 +9,14 @@ import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
-// import { updateScript } from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
 import {
-  getExcludeMatches,
-  toExcludeMatchesURL,
-  updateExcludeMatches,
-} from 'utils/scriptController'
+  languageWarpScriptId,
+  locationWarpScriptId,
+  splitPersonalityScriptId,
+  timeZoneWarpScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
+import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 
 type AllowlistPopupProps = {
   domain: string
@@ -87,17 +88,77 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   }
 
   const handleSubmit = async () => {
-    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
+    const workerBlockScriptExcludeMatches = (await getScriptForId(workerBlockScriptId))
+      ?.excludeMatches
+
+    const splitPersonalityScriptExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
+      ?.excludeMatches
+
+    const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
+      ?.excludeMatches
+
+    const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
+      ?.excludeMatches
+
+    const timeZoneWarpScriptExcludeMatches = (await getScriptForId(timeZoneWarpScriptId))
+      ?.excludeMatches
 
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup(true, domain)
-      if (excludeMatches && excludeMatches.length > 0) {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domain)),
+      if (workerBlockScriptExcludeMatches) {
+        const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain, isAllSubdomainsIncluded),
         )
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: newExcludeMatches,
+        })
       }
+
+      if (splitPersonalityScriptExcludeMatches) {
+        const newExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain, isAllSubdomainsIncluded),
+        )
+        await updateScript({
+          id: splitPersonalityScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (locationWarpScriptExcludeMatches) {
+        const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain, isAllSubdomainsIncluded),
+        )
+
+        updateScript({
+          id: locationWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (languageWarpScriptExcludeMatches) {
+        const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain, isAllSubdomainsIncluded),
+        )
+
+        updateScript({
+          id: languageWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (timeZoneWarpScriptExcludeMatches) {
+        const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain, isAllSubdomainsIncluded),
+        )
+
+        updateScript({
+          id: timeZoneWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
       return
     }
 
@@ -115,18 +176,81 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
     await addToAllowlist({ hostname: domainValue, level, domainWithSettings })
 
-    if (excludeMatches) {
+    const currentExcludeURL = toExcludeMatchesURL(domainValue, !isAllSubdomainsIncluded)
+    const newExcludeURL = toExcludeMatchesURL(domainValue, isAllSubdomainsIncluded)
+
+    if (workerBlockScriptExcludeMatches) {
+      const updatedExcludeMatches = workerBlockScriptExcludeMatches.filter(
+        urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+      )
+
       if (isPrivacyFeaturesAllowed) {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.concat(toExcludeMatchesURL(domainValue)),
-        )
-      } else {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domainValue)),
-        )
+        updatedExcludeMatches.push(newExcludeURL)
       }
+
+      await updateScript({
+        id: workerBlockScriptId,
+        excludeMatches: updatedExcludeMatches,
+      })
+    }
+
+    if (splitPersonalityScriptExcludeMatches) {
+      const updatedExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
+        urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+      )
+
+      if (isPrivacyFeaturesAllowed) {
+        updatedExcludeMatches.push(newExcludeURL)
+      }
+
+      await updateScript({
+        id: splitPersonalityScriptId,
+        excludeMatches: updatedExcludeMatches,
+      })
+    }
+
+    if (locationWarpScriptExcludeMatches) {
+      const updatedExcludeMatches = locationWarpScriptExcludeMatches.filter(
+        urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+      )
+
+      if (isPrivacyFeaturesAllowed) {
+        updatedExcludeMatches.push(newExcludeURL)
+      }
+
+      await updateScript({
+        id: locationWarpScriptId,
+        excludeMatches: updatedExcludeMatches,
+      })
+    }
+
+    if (languageWarpScriptExcludeMatches) {
+      const updatedExcludeMatches = languageWarpScriptExcludeMatches.filter(
+        urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+      )
+
+      if (isPrivacyFeaturesAllowed) {
+        updatedExcludeMatches.push(newExcludeURL)
+      }
+
+      await updateScript({
+        id: languageWarpScriptId,
+        excludeMatches: updatedExcludeMatches,
+      })
+    }
+
+    if (timeZoneWarpScriptExcludeMatches) {
+      const updatedExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+        urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+      )
+
+      if (isPrivacyFeaturesAllowed) {
+        updatedExcludeMatches.push(newExcludeURL)
+      }
+      await updateScript({
+        id: timeZoneWarpScriptId,
+        excludeMatches: updatedExcludeMatches,
+      })
     }
 
     closePopup(true, domain)

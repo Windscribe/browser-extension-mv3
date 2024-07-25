@@ -280,3 +280,6 @@ export interface DataCenterMV2 {
   locationId?: number
   health?: number
 }
+
+export type GeolocationMethod = typeof navigator.geolocation.getCurrentPosition
+export type GeolocationMethodParameters = Parameters<GeolocationMethod>

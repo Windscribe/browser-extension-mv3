@@ -23,3 +23,14 @@ secrets.*.js
 
 # IDE
 .vscode
+
+src/pages/contentScripts/splitPersonality/*
+src/pages/contentScripts/locationWarp/*
+src/pages/contentScripts/languageWarp/*
+src/pages/contentScripts/timeZoneWarp/*
+
+
+!src/pages/contentScripts/splitPersonality/.gitkeep
+!src/pages/contentScripts/locationWarp/.gitkeep
+!src/pages/contentScripts/languageWarp/.gitkeep
+!src/pages/contentScripts/timeZoneWarp/.gitkeep

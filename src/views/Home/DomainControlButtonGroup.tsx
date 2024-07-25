@@ -16,12 +16,14 @@ import PrivacySelected from 'assets/img/privacySelected.svg'
 import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
+import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 import {
-  getExcludeMatches,
-  toExcludeMatchesURL,
-  updateExcludeMatches,
-} from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
+  languageWarpScriptId,
+  locationWarpScriptId,
+  splitPersonalityScriptId,
+  timeZoneWarpScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -43,6 +45,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   const allowAdsState = !!settings?.allowAds
   const allowPrivacyFeaturesState = !!settings?.allowPrivacyFeatures
   const allowDirectConnectionsState = !!settings?.allowDirectConnections
+  const isIncludeAllSubdomains = !!settings?.includeAllSubdomains
 
   type HandleSettingsItemClick = (options: {
     isAdsAllowed?: boolean
@@ -57,11 +60,25 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   }) => {
     setWasSettingsUpdated(true)
 
-    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
     // If parameter was not passed, use value from redux store
     isAdsAllowed ??= allowAdsState
     isPrivacyFeaturesAllowed ??= allowPrivacyFeaturesState
     isDirectConnectionsAllowed ??= allowDirectConnectionsState
+    // include all subdomains has no ui component so using the redux store value
+
+    const workerBlockExcludeMatches = (await getScriptForId(workerBlockScriptId))?.excludeMatches
+
+    const splitPersonalityExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
+      ?.excludeMatches
+
+    const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
+      ?.excludeMatches
+
+    const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
+      ?.excludeMatches
+
+    const timeZoneWarpScriptExcludeMatches = (await getScriptForId(timeZoneWarpScriptId))
+      ?.excludeMatches
 
     if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
       const level = isAdsAllowed ? 0 : 3
@@ -70,31 +87,148 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         allowAds: isAdsAllowed,
         allowPrivacyFeatures: isPrivacyFeaturesAllowed,
         allowDirectConnections: isDirectConnectionsAllowed,
-        includeAllSubdomains: false,
+        includeAllSubdomains: isIncludeAllSubdomains,
       }
+
       await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
-      if (excludeMatches) {
+
+      const currentExcludeURL = toExcludeMatchesURL(currentTabHostname, !isIncludeAllSubdomains)
+      const newExcludeURL = toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains)
+
+      if (workerBlockExcludeMatches) {
+        const updatedExcludeMatches = workerBlockExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
         if (isPrivacyFeaturesAllowed) {
-          await updateExcludeMatches(
-            workerBlockScriptId,
-            excludeMatches.concat(toExcludeMatchesURL(currentTabHostname)),
-          )
-        } else {
-          await updateExcludeMatches(
-            workerBlockScriptId,
-            excludeMatches.filter(
-              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
-            ),
-          )
+          updatedExcludeMatches.push(newExcludeURL)
         }
+
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: updatedExcludeMatches,
+        })
+      }
+
+      if (splitPersonalityExcludeMatches) {
+        const updatedExcludeMatches = splitPersonalityExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
+
+        await updateScript({
+          id: splitPersonalityScriptId,
+          excludeMatches: updatedExcludeMatches,
+        })
+      }
+
+      if (locationWarpScriptExcludeMatches) {
+        const updatedExcludeMatches = locationWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
+        await updateScript({
+          id: locationWarpScriptId,
+          excludeMatches: updatedExcludeMatches,
+        })
+      }
+
+      if (languageWarpScriptExcludeMatches) {
+        const updatedExcludeMatches = languageWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
+
+        await updateScript({
+          id: languageWarpScriptId,
+          excludeMatches: updatedExcludeMatches,
+        })
+      }
+
+      if (timeZoneWarpScriptExcludeMatches) {
+        const updatedExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+        )
+
+        if (isPrivacyFeaturesAllowed) {
+          updatedExcludeMatches.push(newExcludeURL)
+        }
+
+        await updateScript({
+          id: timeZoneWarpScriptId,
+          excludeMatches: updatedExcludeMatches,
+        })
       }
     } else {
       await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
-      if (excludeMatches && excludeMatches.length > 0) {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname)),
+
+      // // without subdomain
+      // const withutSubdomain = toExcludeMatchesURL(currentTabHostname, false)
+      // // with subdomain
+      // const newExcludeURL = toExcludeMatchesURL(currentTabHostname, true)
+
+      if (workerBlockExcludeMatches) {
+        const newExcludeMatches = workerBlockExcludeMatches.filter(
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
         )
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (splitPersonalityExcludeMatches) {
+        const newExcludeMatches = splitPersonalityExcludeMatches.filter(
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
+        )
+        await updateScript({
+          id: splitPersonalityScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (locationWarpScriptExcludeMatches) {
+        const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
+        )
+        await updateScript({
+          id: locationWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (languageWarpScriptExcludeMatches) {
+        const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
+        )
+        await updateScript({
+          id: languageWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (timeZoneWarpScriptExcludeMatches) {
+        const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+          urlScheme =>
+            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
+        )
+        await updateScript({
+          id: timeZoneWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
       }
     }
   }

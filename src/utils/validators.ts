@@ -23,6 +23,8 @@ import {
   NEWSFEED_IDS_ALREADY_VIEWED_REDUCER,
   FAVORITE_LOCATIONS_REDUCER,
   USER_STASHES_REDUCER,
+  CURRENT_LOCATION_REDUCER,
+  PROXY_STATUS_REDUCER,
 } from './constants'
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
@@ -208,6 +210,24 @@ export const FavouriteLocationsValidatorManifestV2 = zod.object({
   state: zod.array(FavouriteLocationObjectValidatorManifestV2),
 })
 
+const currentLocation = zod.object({
+  name: zod.string().optional().nullable(),
+  locationId: zod.number().optional().nullable(),
+  dataCenterId: zod.number().optional().nullable(),
+})
+
+export const CurrentLocationValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + CURRENT_LOCATION_REDUCER),
+  state: currentLocation,
+})
+
+export const ProxyStatusValidatorManifestV2 = zod.object({
+  reducer: zod.literal(SYNC_KEY + PROXY_STATUS_REDUCER),
+  state: zod.object({
+    status: zod.string(),
+  }),
+})
+
 // validate overall shape first
 // then we validate the shape again but this time
 // for each individual property, reason to do it this way
@@ -361,6 +381,16 @@ export const StashedFavouriteLocationsValidatorManifestV2 = zod.object({
     zod.string(),
     zod.object({
       favoriteLocations: zod.array(FavouriteLocationObjectValidatorManifestV2),
+    }),
+  ),
+})
+
+export const StashedCurrentLocationValidatorManifestV2 = zod.object({
+  reducer,
+  state: zod.record(
+    zod.string(),
+    zod.object({
+      currentLocation,
     }),
   ),
 })
