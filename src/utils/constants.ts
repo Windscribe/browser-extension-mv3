@@ -94,3 +94,7 @@ export const FAVORITE_LOCATIONS_REDUCER = 'favoriteLocations'
 
 // Logged out user stash i.e redux state data dumps in both mv2 and mv3
 export const USER_STASHES_REDUCER = 'userStashes'
+
+// Content Script Ids
+
+export const workerBlockScriptId = 'workerBlock'

@@ -1,4 +1,5 @@
-export default function workerBlock(): void {
+;(() => {
+  // worker block
   Object.defineProperty(window, 'Worker', {
     value: {},
     configurable: true,
@@ -13,4 +14,4 @@ export default function workerBlock(): void {
     value: {},
     configurable: true,
   })
-}
+})()

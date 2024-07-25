@@ -2,6 +2,7 @@ import { type StoreType } from 'state/store'
 import { setFirstInstallDate } from 'state/slices/firstInstallDate'
 import { addContextMenuItem } from 'services/contextMenu'
 import { runMigrationFromManifestV2ToV3 } from 'migrations/v2ToV3migration'
+import { registerScripts } from './registerScripts'
 
 export function onInstalledHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {
@@ -11,7 +12,12 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
       store.dispatch(setFirstInstallDate(Date.now()))
     }
 
-    await runMigrationFromManifestV2ToV3(store)
+    const res = await runMigrationFromManifestV2ToV3(store)
+    /* 
+      Dynamicaly registered scripts are unloaded on each update, we have to re-register each time after updates/install
+      https://groups.google.com/a/chromium.org/g/chromium-extensions/c/ZM0Vzb_vuIs/m/acTHqizZAQAJ
+    */
+    await registerScripts(store, res)
 
     if (!state.contextMenu) return
 

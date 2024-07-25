@@ -518,8 +518,11 @@ async function registerInjectables(origins) {
         getGenericDetails(),
         browser.scripting.getRegisteredContentScripts(),
     ]);
+     // dont mess with windscribe content scripts
+    const windscribeContentScriptIds = ['workerBlock']
     const before = new Map(
-        normalizeRegisteredContentScripts(registered).map(
+       
+        normalizeRegisteredContentScripts(registered.filter(entry => !windscribeContentScriptIds.includes(entry.id))).map(
             entry => [ entry.id, entry ]
         )
     );
@@ -540,6 +543,8 @@ async function registerInjectables(origins) {
     registerHighGeneric(context, genericDetails);
 
     toRemove.push(...Array.from(before.keys()));
+
+    
 
     if ( toRemove.length !== 0 ) {
         ut.ubolLog(`Unregistered ${toRemove} content (css/js)`);

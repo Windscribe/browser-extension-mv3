@@ -52,6 +52,15 @@ const options = {
       'migrateAllowlist',
       'migrateAllowlist.ts',
     ),
+
+    workerBlockContentScript: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'workerBlock.ts',
+    ),
+
     migrateBlockerSettings: path.join(
       __dirname,
       'src',

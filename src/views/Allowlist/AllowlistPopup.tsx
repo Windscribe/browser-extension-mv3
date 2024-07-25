@@ -9,6 +9,13 @@ import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
+// import { updateScript } from 'utils/scriptController'
+import { workerBlockScriptId } from 'utils/constants'
+import {
+  getExcludeMatches,
+  toExcludeMatchesURL,
+  updateExcludeMatches,
+} from 'utils/scriptController'
 
 type AllowlistPopupProps = {
   domain: string
@@ -80,9 +87,17 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   }
 
   const handleSubmit = async () => {
+    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
+
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup(true, domain)
+      if (excludeMatches && excludeMatches.length > 0) {
+        await updateExcludeMatches(
+          workerBlockScriptId,
+          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domain)),
+        )
+      }
       return
     }
 
@@ -99,6 +114,20 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     }
 
     await addToAllowlist({ hostname: domainValue, level, domainWithSettings })
+
+    if (excludeMatches) {
+      if (isPrivacyFeaturesAllowed) {
+        await updateExcludeMatches(
+          workerBlockScriptId,
+          excludeMatches.concat(toExcludeMatchesURL(domainValue)),
+        )
+      } else {
+        await updateExcludeMatches(
+          workerBlockScriptId,
+          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domainValue)),
+        )
+      }
+    }
 
     closePopup(true, domain)
   }

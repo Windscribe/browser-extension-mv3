@@ -16,6 +16,12 @@ import PrivacySelected from 'assets/img/privacySelected.svg'
 import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
+import {
+  getExcludeMatches,
+  toExcludeMatchesURL,
+  updateExcludeMatches,
+} from 'utils/scriptController'
+import { workerBlockScriptId } from 'utils/constants'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -51,6 +57,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   }) => {
     setWasSettingsUpdated(true)
 
+    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
     // If parameter was not passed, use value from redux store
     isAdsAllowed ??= allowAdsState
     isPrivacyFeaturesAllowed ??= allowPrivacyFeaturesState
@@ -66,8 +73,29 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         includeAllSubdomains: false,
       }
       await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
+      if (excludeMatches) {
+        if (isPrivacyFeaturesAllowed) {
+          await updateExcludeMatches(
+            workerBlockScriptId,
+            excludeMatches.concat(toExcludeMatchesURL(currentTabHostname)),
+          )
+        } else {
+          await updateExcludeMatches(
+            workerBlockScriptId,
+            excludeMatches.filter(
+              urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname),
+            ),
+          )
+        }
+      }
     } else {
       await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
+      if (excludeMatches && excludeMatches.length > 0) {
+        await updateExcludeMatches(
+          workerBlockScriptId,
+          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(currentTabHostname)),
+        )
+      }
     }
   }
 

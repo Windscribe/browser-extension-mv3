@@ -27,7 +27,7 @@ import { migrateStashedConnectionSettings } from './migrateStashedConnectionSett
 import { migrateStashedOtherSettings } from './migrateStashedOtherSettings'
 import { migrateStashedBlockerSettings } from './migrateStashedBlockerSettings'
 
-const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> => {
+const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void | boolean> => {
   // never change this id
   const MIGRATION_ID = 'V2_TO_V3_MIGRATION'
 
@@ -153,6 +153,8 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
 
     const validatedUserStashes = await validateUserStashes()
 
+    let wasNonStashedStateMigrated = false
+
     if (validatedSession?.success) {
       // dont pass loading or error
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -173,6 +175,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
       await migrateOtherSettings(db, store)
       await migrateBlockerSettings(db, store)
       await store.dispatch(checkSessionStatus())
+      wasNonStashedStateMigrated = true
     }
 
     // migrate user stashes
@@ -201,7 +204,7 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
     // lastly migration is done
     await pushToDebugLog({
       level: 'INFO',
-      message: 'Migration completed',
+      message: 'Migration run complete',
       data: JSON.stringify(store.getState().session),
       tag: 'background',
     })
@@ -209,9 +212,11 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void> =
       setMigrationStatus({
         id: MIGRATION_ID,
         completed: true,
-        reason: 'Successfully migrated all the states',
+        reason: 'Migrated all the states',
       }),
     )
+
+    return wasNonStashedStateMigrated
   } catch (err) {
     const message = getErrorMessage(err)
     await pushToDebugLog({
