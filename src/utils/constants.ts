@@ -91,10 +91,15 @@ export const FIRST_INSTALL_DATE_REDUCER = 'firstInstallDate'
 export const LOCATION_SORTING_REDUCER = 'locationSorting'
 export const NEWSFEED_IDS_ALREADY_VIEWED_REDUCER = 'newsfeedIdsAlreadyViewed'
 export const FAVORITE_LOCATIONS_REDUCER = 'favoriteLocations'
-
+export const CURRENT_LOCATION_REDUCER = 'currentLocation'
+export const PROXY_STATUS_REDUCER = 'proxy'
 // Logged out user stash i.e redux state data dumps in both mv2 and mv3
 export const USER_STASHES_REDUCER = 'userStashes'
 
 // Content Script Ids
 
-export const workerBlockScriptId = 'workerBlock'
+export const workerBlockScriptId = 'workerBlockScript'
+export const splitPersonalityScriptId = 'splitPersonalityScript'
+export const locationWarpScriptId = 'locationWarpScript' as const
+export const languageWarpScriptId = 'languageWarpScript' as const
+export const timeZoneWarpScriptId = 'timeZoneWarpScript' as const

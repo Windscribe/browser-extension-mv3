@@ -7,7 +7,6 @@ import {
   authRequiredHandler,
   connectionChangedHandler,
   onInstalledHandler,
-  navigationCommittedHandler,
   proxyErrorHandler,
   startupHandler,
   messageHandler,
@@ -27,8 +26,6 @@ try {
 
   chrome.runtime.onStartup.addListener(startupHandler(bgStore))
 
-  chrome.webNavigation.onCommitted.addListener(navigationCommittedHandler(bgStore))
-
   chrome.proxy.onProxyError.addListener(proxyErrorHandler(bgStore))
 
   chrome.webRequest.onAuthRequired.addListener(
@@ -37,7 +34,7 @@ try {
     ['asyncBlocking'],
   )
 
-  chrome.alarms.create('sessionPoller', { periodInMinutes: 10 })
+  chrome.alarms.create('sessionPoller', { periodInMinutes: 1 })
   chrome.alarms.create('notificationPoller', { periodInMinutes: 720 })
   chrome.alarms.create('pruneLog', { periodInMinutes: 1440 }) // every 24 hours
 

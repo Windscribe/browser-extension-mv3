@@ -6,11 +6,12 @@ import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
 import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
-import { setOriginalUserAgent, FETCH_USER_AGENTS_LIST } from 'state/slices/userAgent'
+import { FETCH_USER_AGENTS_LIST, setOriginalUserAgent } from 'state/slices/userAgent'
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
 import sendMessage from 'services/runtime/sendMessage'
 import { registerScript } from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
+import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
+import { SHA256 } from 'crypto-js'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -30,7 +31,10 @@ export default (): void => {
   const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
   const status = useSelector(s => s.proxy.status)
   const isWorkerBlockActive = useSelector(s => s.workerBlock)
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
   const allowList = useSelector(s => s.allowlist)
+  const userAgent = useSelector(s => s.userAgent)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -73,12 +77,10 @@ export default (): void => {
   }, [autopilotData, bestLocationLoading, serverListLoading, dispatch])
 
   useEffect(() => {
-    if (sessionAuthHash && userAgentLoading === 'idle') {
-      dispatchAlias(FETCH_USER_AGENTS_LIST)
-    }
+    dispatchAlias(FETCH_USER_AGENTS_LIST)
     // Do NOT add dispatchAlias to Dependency array. It leads to double network requests. Don't know why.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionAuthHash, userAgentLoading])
+  }, [])
 
   useEffect(() => {
     const dispatchConnectToAutopilot = async () => await sendMessage({ what: 'connectAutopilot' })
@@ -122,4 +124,26 @@ export default (): void => {
       )
     }
   }, [isWorkerBlockActive, excludeMatchesFromAllowList])
+
+  useEffect(() => {
+    if (
+      userAgentLoading === 'fulfilled' &&
+      userAgent.list.length > 0 &&
+      !userAgent.error &&
+      isSplitPersonalityEnabled &&
+      spoofedUserAgent
+    ) {
+      registerScript(
+        splitPersonalityScriptId,
+        [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+    }
+  }, [
+    userAgentLoading,
+    userAgent,
+    isSplitPersonalityEnabled,
+    spoofedUserAgent,
+    excludeMatchesFromAllowList,
+  ])
 }

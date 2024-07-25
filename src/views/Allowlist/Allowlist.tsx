@@ -12,12 +12,14 @@ import { useSelector } from 'state/hooks'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
+import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 import {
-  getExcludeMatches,
-  toExcludeMatchesURL,
-  updateExcludeMatches,
-} from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
+  languageWarpScriptId,
+  locationWarpScriptId,
+  splitPersonalityScriptId,
+  timeZoneWarpScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
 
 const Allowlist: ThemeUiElement = () => {
   const allowlist = useSelector(s => s.allowlist)
@@ -107,15 +109,79 @@ const Allowlist: ThemeUiElement = () => {
                       showReloadAlert(true)
                     }
 
-                    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
+                    const workerBlockScriptExcludeMatches = (
+                      await getScriptForId(workerBlockScriptId)
+                    )?.excludeMatches
 
-                    if (excludeMatches && excludeMatches.length > 0) {
-                      updateExcludeMatches(
-                        workerBlockScriptId,
-                        excludeMatches.filter(
-                          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
-                        ),
+                    const splitPersonalityScriptExcludeMatches = (
+                      await getScriptForId(splitPersonalityScriptId)
+                    )?.excludeMatches
+
+                    const locationWarpScriptExcludeMatches = (
+                      await getScriptForId(locationWarpScriptId)
+                    )?.excludeMatches
+
+                    const languageWarpScriptExcludeMatches = (
+                      await getScriptForId(languageWarpScriptId)
+                    )?.excludeMatches
+
+                    const timeZoneWarpScriptExcludeMatches = (
+                      await getScriptForId(timeZoneWarpScriptId)
+                    )?.excludeMatches
+
+                    if (workerBlockScriptExcludeMatches) {
+                      const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
                       )
+
+                      updateScript({
+                        id: workerBlockScriptId,
+                        excludeMatches: newExcludeMatches,
+                      })
+                    }
+
+                    if (splitPersonalityScriptExcludeMatches) {
+                      const newExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                      )
+
+                      updateScript({
+                        id: splitPersonalityScriptId,
+                        excludeMatches: newExcludeMatches,
+                      })
+                    }
+
+                    if (locationWarpScriptExcludeMatches) {
+                      const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                      )
+
+                      updateScript({
+                        id: locationWarpScriptId,
+                        excludeMatches: newExcludeMatches,
+                      })
+                    }
+
+                    if (languageWarpScriptExcludeMatches) {
+                      const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                      )
+
+                      updateScript({
+                        id: languageWarpScriptId,
+                        excludeMatches: newExcludeMatches,
+                      })
+                    }
+
+                    if (timeZoneWarpScriptExcludeMatches) {
+                      const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+                      )
+
+                      updateScript({
+                        id: timeZoneWarpScriptId,
+                        excludeMatches: newExcludeMatches,
+                      })
                     }
                   }}
                   sx={{ p: 0, ml: '16px' }}

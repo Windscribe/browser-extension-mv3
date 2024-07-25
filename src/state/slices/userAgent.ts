@@ -1,11 +1,10 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
-
-import { getBlocklists, getUserAgents } from 'api/endpoints'
+import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { platforms } from 'utils/constants'
-import type { LoadingState, ErrorState } from 'utils/types'
-import { pushToDebugLog } from 'services/debugLog'
 import { getRandomIntInclusive } from 'utils/getRandomNumber'
 import type { AppDispatch, GetState } from 'state'
+import { ErrorState, LoadingState } from 'utils/types'
+import { pushToDebugLog } from 'services/debugLog'
+import { getBlocklists, getUserAgents } from 'api/endpoints'
 
 type UserAgentState = {
   list: string[]

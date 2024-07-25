@@ -9,13 +9,14 @@ import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
-// import { updateScript } from 'utils/scriptController'
-import { workerBlockScriptId } from 'utils/constants'
 import {
-  getExcludeMatches,
-  toExcludeMatchesURL,
-  updateExcludeMatches,
-} from 'utils/scriptController'
+  languageWarpScriptId,
+  locationWarpScriptId,
+  splitPersonalityScriptId,
+  timeZoneWarpScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
+import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 
 type AllowlistPopupProps = {
   domain: string
@@ -87,17 +88,77 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   }
 
   const handleSubmit = async () => {
-    const excludeMatches = await getExcludeMatches(workerBlockScriptId)
+    const workerBlockScriptExcludeMatches = (await getScriptForId(workerBlockScriptId))
+      ?.excludeMatches
+
+    const splitPersonalityScriptExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
+      ?.excludeMatches
+
+    const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
+      ?.excludeMatches
+
+    const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
+      ?.excludeMatches
+
+    const timeZoneWarpScriptExcludeMatches = (await getScriptForId(timeZoneWarpScriptId))
+      ?.excludeMatches
 
     if (submitButtonMode === 'delete') {
       removeFromAllowlist({ hostname: domainValue, level: 3 })
       closePopup(true, domain)
-      if (excludeMatches && excludeMatches.length > 0) {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domain)),
+      if (workerBlockScriptExcludeMatches) {
+        const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
         )
+        await updateScript({
+          id: workerBlockScriptId,
+          excludeMatches: newExcludeMatches,
+        })
       }
+
+      if (splitPersonalityScriptExcludeMatches) {
+        const newExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
+        await updateScript({
+          id: splitPersonalityScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (locationWarpScriptExcludeMatches) {
+        const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
+
+        updateScript({
+          id: locationWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (languageWarpScriptExcludeMatches) {
+        const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
+
+        updateScript({
+          id: languageWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
+      if (timeZoneWarpScriptExcludeMatches) {
+        const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
+          urlScheme => urlScheme !== toExcludeMatchesURL(domain),
+        )
+
+        updateScript({
+          id: timeZoneWarpScriptId,
+          excludeMatches: newExcludeMatches,
+        })
+      }
+
       return
     }
 
@@ -115,18 +176,69 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
     await addToAllowlist({ hostname: domainValue, level, domainWithSettings })
 
-    if (excludeMatches) {
-      if (isPrivacyFeaturesAllowed) {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.concat(toExcludeMatchesURL(domainValue)),
-        )
-      } else {
-        await updateExcludeMatches(
-          workerBlockScriptId,
-          excludeMatches.filter(urlScheme => urlScheme !== toExcludeMatchesURL(domainValue)),
-        )
-      }
+    if (workerBlockScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? workerBlockScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : workerBlockScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
+
+      await updateScript({
+        id: workerBlockScriptId,
+        excludeMatches: newExcludeMatches,
+      })
+    }
+
+    if (splitPersonalityScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? splitPersonalityScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : splitPersonalityScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
+
+      await updateScript({
+        id: splitPersonalityScriptId,
+        excludeMatches: newExcludeMatches,
+      })
+    }
+
+    if (locationWarpScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? locationWarpScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : locationWarpScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
+
+      await updateScript({
+        id: locationWarpScriptId,
+        excludeMatches: newExcludeMatches,
+      })
+    }
+
+    if (languageWarpScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? languageWarpScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : languageWarpScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
+
+      await updateScript({
+        id: languageWarpScriptId,
+        excludeMatches: newExcludeMatches,
+      })
+    }
+
+    if (timeZoneWarpScriptExcludeMatches) {
+      const newExcludeMatches = isPrivacyFeaturesAllowed
+        ? timeZoneWarpScriptExcludeMatches.concat(toExcludeMatchesURL(domainValue))
+        : timeZoneWarpScriptExcludeMatches.filter(
+            urlScheme => urlScheme !== toExcludeMatchesURL(domainValue),
+          )
+
+      await updateScript({
+        id: timeZoneWarpScriptId,
+        excludeMatches: newExcludeMatches,
+      })
     }
 
     closePopup(true, domain)
