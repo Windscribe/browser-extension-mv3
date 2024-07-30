@@ -108,6 +108,13 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
                 currentlySelected={location.groupsModified}
               />
             ))}
+          <div
+            id="anchor"
+            sx={{
+              overflowAnchor: 'auto',
+              minHeight: 5,
+            }}
+          ></div>
         </>
       )}
     </>
