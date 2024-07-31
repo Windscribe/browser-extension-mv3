@@ -18,10 +18,10 @@ const locations = async popupPage => {
       await popupPage.type('[data-testid=location-search-input]', searchTerm)
       await popupPage.waitForTimeout(500)
 
-      // Ensure we have only 1 location with 'ca' substring included - "Canada  East"
+      // Ensure we have only 1 location with 'ca' substring included - "Canada  East" + 1 for anchor div
       locationsList = await popupPage.$('[data-testid=locations-list]')
       children = await locationsList.evaluate(el => el.children.length)
-      expect(children).to.equal(2)
+      expect(children).to.equal(3)
       let expectedLocation = await locationsList.evaluate(el => el.textContent)
 
       expect(expectedLocation.startsWith('Canada EastHalifax')).to.be.true
@@ -39,7 +39,7 @@ const locations = async popupPage => {
       // Ensure we found 2 cities with 'ron' substring included
       locationsList = await popupPage.$('[data-testid=locations-list]')
       children = await locationsList.evaluate(el => el.children.length)
-      expect(children).to.equal(2)
+      expect(children).to.equal(3)
       const dataCentersList = await locationsList.$$('[data-testid=accordion-details-list]')
       const dataCentersNames = await Promise.all(
         dataCentersList.map(dataCenter => dataCenter.evaluate(el => el.textContent)),
