@@ -134,6 +134,34 @@ const General: ThemeUiElement = () => {
             <LinkIcon sx={{ fill: 'secondaryText' }} />
           </Button>
         </Box>
+        <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              borderRadius: '8px',
+              border: '1px',
+              borderColor: 'foreground',
+              borderStyle: 'solid',
+              width: '100%',
+              color: 'secondaryText',
+              fontSize: '14px',
+              alignItems: 'center',
+              px: '16px',
+              fontWeight: 'bold',
+              height: '48px',
+              justifyContent: 'space-between',
+            }}
+          >
+            Version
+            <span
+              sx={{
+                fontWeight: '400',
+              }}
+            >
+              {'v' + chrome.runtime.getManifest().version + '-' + COMMIT_HASH}
+            </span>
+          </Box>
+        </Box>
       </ScrollableBox>
     </Box>
   )
