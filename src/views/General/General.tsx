@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box, Button, Flex } from 'theme-ui'
 
 import { ENVS } from 'utils/constants'
-import { sendDebugLog } from 'services/debugLog'
+import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { Header, OptionBox, ToggleSwitch, ScrollableBox } from 'components'
@@ -79,9 +79,14 @@ const General: ThemeUiElement = () => {
               <Button
                 variant="option"
                 data-testid="send-debug-log"
-                onClick={() => {
+                onClick={async () => {
                   if (sessionData?.session_auth_hash && sessionData?.username) {
-                    sendDebugLog(
+                    await pushToDebugLog({
+                      level: 'INFO',
+                      message: 'Build Version',
+                      data: chrome.runtime.getManifest().version + '-' + COMMIT_HASH,
+                    })
+                    await sendDebugLog(
                       dispatch,
                       sessionData?.session_auth_hash,
                       sessionData?.username,

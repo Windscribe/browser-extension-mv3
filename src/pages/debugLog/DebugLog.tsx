@@ -55,7 +55,9 @@ Location Warp: ${locationWarp}
 Time Warp: ${timeWarpEnabled}
 Language Warp: ${languageWarpEnabled}
 Spilt Personality: ${splitPersonalityEnabled}
-Worker Block: ${workerBlockEnabled}`
+Worker Block: ${workerBlockEnabled}
+Build Version: ${chrome.runtime.getManifest().version + '-' + COMMIT_HASH}
+`
 
   // useEffect(() => {
   //   console.log('parsedLog', parsedLog)
