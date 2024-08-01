@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box, Button, Flex } from 'theme-ui'
 
 import { ENVS } from 'utils/constants'
-import { sendDebugLog } from 'services/debugLog'
+import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { Header, OptionBox, ToggleSwitch, ScrollableBox } from 'components'
@@ -79,9 +79,14 @@ const General: ThemeUiElement = () => {
               <Button
                 variant="option"
                 data-testid="send-debug-log"
-                onClick={() => {
+                onClick={async () => {
                   if (sessionData?.session_auth_hash && sessionData?.username) {
-                    sendDebugLog(
+                    await pushToDebugLog({
+                      level: 'INFO',
+                      message: 'Build Version',
+                      data: chrome.runtime.getManifest().version + '-' + COMMIT_HASH,
+                    })
+                    await sendDebugLog(
                       dispatch,
                       sessionData?.session_auth_hash,
                       sessionData?.username,
@@ -133,6 +138,34 @@ const General: ThemeUiElement = () => {
             View Licenses
             <LinkIcon sx={{ fill: 'secondaryText' }} />
           </Button>
+        </Box>
+        <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              borderRadius: '8px',
+              border: '1px',
+              borderColor: 'foreground',
+              borderStyle: 'solid',
+              width: '100%',
+              color: 'secondaryText',
+              fontSize: '14px',
+              alignItems: 'center',
+              px: '16px',
+              fontWeight: 'bold',
+              height: '48px',
+              justifyContent: 'space-between',
+            }}
+          >
+            Version
+            <span
+              sx={{
+                fontWeight: '400',
+              }}
+            >
+              {'v' + chrome.runtime.getManifest().version + '-' + COMMIT_HASH}
+            </span>
+          </Box>
         </Box>
       </ScrollableBox>
     </Box>
