@@ -8,3 +8,5 @@ declare module '*.svg' {
 }
 
 declare module 'assets/*'
+
+declare const COMMIT_HASH: string

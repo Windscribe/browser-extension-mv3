@@ -12,6 +12,9 @@ const CircularDependencyPlugin = require('circular-dependency-plugin')
 console.log('env.NODE_ENV: ', env.NODE_ENV)
 console.log('process.env.API_URL: ', process.env.API_URL)
 
+// get git info from command line
+const commitHash = require('child_process').execSync('git rev-parse --short HEAD').toString().trim()
+
 const alias = {
   'react-dom': '@hot-loader/react-dom',
 }
@@ -152,6 +155,9 @@ const options = {
       .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
+    new webpack.DefinePlugin({
+      COMMIT_HASH: JSON.stringify(commitHash),
+    }),
     new CleanWebpackPlugin({ verbose: false }),
     // TODO maybe delete or pass .env as argument
     new Dotenv(),

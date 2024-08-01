@@ -11,7 +11,6 @@ import { BlockListsValidatorManifestV2 } from 'utils/validators'
 
 export const BLOCKER_SETTINGS_MAPPER = {
   adblock: 'default',
-  trackers: 'adguard-spyware-url',
   social: 'annoyances-social',
   cookieaway: 'annoyances-cookies',
 }
