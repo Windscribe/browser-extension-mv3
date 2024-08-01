@@ -64,19 +64,6 @@ const Blocker: ThemeUiElement = () => {
           />
         </OptionBox>
         <OptionBox
-          Icon={TrackerIcon}
-          title="Tracker Eradicator"
-          subTitle="Stop trackers in their filthy tracks"
-          path={'features/ad-blocking'}
-        >
-          <ToggleSwitch
-            onChange={() => {
-              handleBlockListToggle('adguard-spyware-url')
-            }}
-            checked={blockLists.includes('adguard-spyware-url')}
-          />
-        </OptionBox>
-        <OptionBox
           Icon={SocialDistancingIcon}
           title="Social Distancing"
           subTitle="Blocks tracking social network widgets and buttons"
