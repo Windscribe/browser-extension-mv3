@@ -1,7 +1,7 @@
 import { type StoreType } from 'state/store'
 import { checkSessionStatus } from 'state/slices/session'
 import { fetchNotifications } from 'state/slices/newsfeed'
-import { clearLogsOlderThanWeek } from 'services/debugLog'
+import { clearLogs } from 'services/debugLog'
 
 export function alarmHandler(bgStore: Promise<StoreType>) {
   return async (alarm: chrome.alarms.Alarm): Promise<void> => {
@@ -15,7 +15,7 @@ export function alarmHandler(bgStore: Promise<StoreType>) {
       return
     }
     if (alarm.name === 'pruneLog') {
-      await clearLogsOlderThanWeek()
+      await clearLogs()
       return
     }
   }

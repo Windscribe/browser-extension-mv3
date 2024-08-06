@@ -1,6 +1,7 @@
 import { reportAppLog } from 'api/endpoints'
 import { getStorage, setStorage } from 'services/storage'
 import { AppDispatch } from 'state/store'
+import { DEBUG_LOG_MAX_SIZE_BYTES } from 'utils/constants'
 import type { LogItem } from 'utils/types'
 
 const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
@@ -11,14 +12,32 @@ const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
     message: logInfo.message,
     data: logInfo.data,
   }
+
+  const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
+
+  let extraLogItem = null
+  // prune debug log if more than 1mb
+  if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
+    chrome.storage.local.set({ debugLog: [] })
+    extraLogItem = {
+      ...logItem,
+    }
+
+    extraLogItem.message = 'Cleared debug log - reached over 1mb in size - pushToDebugLog'
+    extraLogItem.level = 'INFO'
+  }
+
   const debugLog = await getStorage('debugLog')
 
   let newDebugLog = []
   if (!debugLog) {
     newDebugLog.push(logItem)
+    if (extraLogItem) newDebugLog.push(extraLogItem)
   } else {
     newDebugLog = debugLog
     newDebugLog.push(logItem)
+
+    if (extraLogItem) newDebugLog.push(extraLogItem)
   }
   setStorage({ debugLog: newDebugLog })
 }
@@ -48,34 +67,18 @@ const parseLogToStrings = (log: LogItem[]): string[] => {
   })
 }
 
-const clearLogsOlderThanWeek = async (): Promise<void> => {
-  const debugLog = await getStorage('debugLog')
-  if (!debugLog) return
-  if (!Array.isArray(debugLog)) return
+// clears logs if they become too large does not take time into consideration
+const clearLogs = async (): Promise<void> => {
+  const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
 
-  const weekInMilliseconds = 604_800_000
-  const currentTime = Date.now()
-  const cutoffTime = currentTime - weekInMilliseconds
-
-  // Filter logs to keep only those within the last week
-  const newDebugLog = debugLog.filter((logItem: LogItem) => {
-    // no date means remove from logs
-    if (!logItem.date) {
-      console.warn('Log item missing date:', logItem)
-      return false
-    }
-
-    const logTime = new Date(logItem.date).getTime()
-
-    if (isNaN(logTime)) {
-      console.warn('Invalid date format in log item:', logItem)
-      return false
-    }
-
-    return logTime >= cutoffTime
-  })
-
-  await setStorage({ debugLog: newDebugLog })
+  // prune debug log if more than 1mb
+  if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
+    chrome.storage.local.set({ debugLog: [] })
+    await pushToDebugLog({
+      message: 'Cleared debug log - reached over 1mb in size - clearLogs',
+      level: 'INFO',
+    })
+  }
 }
 
-export { pushToDebugLog, sendDebugLog, parseLogToStrings, clearLogsOlderThanWeek }
+export { pushToDebugLog, sendDebugLog, parseLogToStrings, clearLogs }
