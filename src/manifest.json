@@ -20,7 +20,6 @@
     "scripting",
     "storage",
     "tabs",
-    "webNavigation",
     "webRequest",
     "webRequestAuthProvider",
     "management",
