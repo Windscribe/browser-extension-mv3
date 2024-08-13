@@ -6,11 +6,22 @@ const getClientAuthHash = (time: string): string => {
   return md5(`${CLIENT_AUTH_SECRET}${time}`).toString()
 }
 
-const buildQueryString = (Endpoint: Endpoint, parameters?: Record<string, unknown>): string => {
-  const time = Math.round(new Date().getTime() / 1000).toString()
+const generateTime = (): string => {
+  return Math.round(new Date().getTime() / 1000).toString()
+}
+
+const buildQueryString = (
+  Endpoint: Endpoint,
+  parameters?: Record<string, unknown>,
+  skipClientAuthHash = false,
+): string => {
+  const time = generateTime()
   const clientAuthHash = getClientAuthHash(time)
 
-  let queryString = `${Endpoint}?platform=chrome&time=${time}&client_auth_hash=${clientAuthHash}`
+  let queryString = `${Endpoint}?platform=chrome&time=${time}`
+  if (skipClientAuthHash === false) {
+    queryString = queryString + `&client_auth_hash=${clientAuthHash}`
+  }
 
   if (parameters) {
     Object.entries(parameters).forEach(([key, value]) => {
@@ -21,4 +32,4 @@ const buildQueryString = (Endpoint: Endpoint, parameters?: Record<string, unknow
   return queryString
 }
 
-export { getClientAuthHash, buildQueryString }
+export { getClientAuthHash, buildQueryString, generateTime }
