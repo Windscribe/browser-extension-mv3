@@ -6,23 +6,31 @@ import { wrapStore } from '@eduardoac-skimlinks/webext-redux'
 
 import browserApi from 'services/browserApi'
 import { buildFrom, type StoreType } from './store'
-import {
-  STORAGE_CACHE_VERSION,
-  REACT_APP_REDUX_PORT,
-  DEBUG_LOG_MAX_SIZE_BYTES,
-} from 'utils/constants'
-import { pushToDebugLog } from 'services/debugLog'
+import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from 'utils/constants'
+import { getStorage, setStorage } from 'services/storage'
+import { trimLogs } from 'services/debugLog'
+import { LogItem } from 'utils/types'
+import getErrorMessage from 'utils/getErrorMessage'
 
 export async function initializeWrappedStore(): Promise<StoreType> {
-  const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
+  const debugLog: LogItem[] = (await getStorage('debugLog')) ?? []
 
-  // prune debug log if more than 1mb
-  if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
-    chrome.storage.local.set({ debugLog: [] })
-    await pushToDebugLog({
-      message: 'Cleared debug log - reached over 1mb in size - initializeWrappedStore',
-      level: 'INFO',
-    })
+  const trimmedLog = await trimLogs()
+
+  if (trimmedLog && !(trimmedLog instanceof Error)) {
+    // set the trimmed storage only
+    await setStorage({ trimmedLog })
+  } else {
+    if (trimmedLog instanceof Error) {
+      // set error if it occurred
+      debugLog.push({
+        date: new Date().toLocaleString(),
+        tag: 'popup',
+        message: getErrorMessage(trimmedLog),
+      })
+      await setStorage({ debugLog })
+    }
+    // do nothing if no error or no trimming occured
   }
 
   const stateFromStorage = await browserApi.getStateFromStorage()

@@ -1,45 +1,81 @@
 import { reportAppLog } from 'api/endpoints'
 import { getStorage, setStorage } from 'services/storage'
 import { AppDispatch } from 'state/store'
-import { DEBUG_LOG_MAX_SIZE_BYTES } from 'utils/constants'
+import { DEBUG_LOG_MAX_SIZE_BYTES, PRUNE_SIZE_BYTES } from 'utils/constants'
+import getErrorMessage from 'utils/getErrorMessage'
 import type { LogItem } from 'utils/types'
 
-const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
-  const logItem = {
-    date: new Date().toLocaleString(),
-    tag: logInfo.tag || 'popup',
-    level: logInfo.level || 'INFO',
-    message: logInfo.message,
-    data: logInfo.data,
-  }
+export const trimLogs = async (): Promise<LogItem[] | undefined | Error> => {
+  try {
+    const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
 
-  const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
-
-  let extraLogItem = null
-  // prune debug log if more than 1mb
-  if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
-    chrome.storage.local.set({ debugLog: [] })
-    extraLogItem = {
-      ...logItem,
+    if (debugLogSizeInBytes < DEBUG_LOG_MAX_SIZE_BYTES) {
+      return
     }
 
-    extraLogItem.message = 'Cleared debug log - reached over 1mb in size - pushToDebugLog'
-    extraLogItem.level = 'INFO'
+    const debugLog = (await getStorage('debugLog')) ?? []
+
+    let totalSizeInBytes = debugLogSizeInBytes
+    let removedItemCount = 0
+
+    if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
+      while (
+        totalSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES - PRUNE_SIZE_BYTES &&
+        debugLog.length > 0
+      ) {
+        const removedLog = debugLog.shift()
+        totalSizeInBytes -= new TextEncoder().encode(JSON.stringify(removedLog)).length
+        removedItemCount += 1
+      }
+
+      const extraLogItem: LogItem = {
+        date: new Date().toLocaleString(),
+        message: `Pruned debug log - reached over ${DEBUG_LOG_MAX_SIZE_BYTES} bytes in size - size was ${debugLogSizeInBytes} bytes - removed approximately ${
+          debugLogSizeInBytes - totalSizeInBytes
+        } bytes and ${removedItemCount} entries`,
+        level: 'INFO',
+        tag: 'popup',
+      }
+
+      debugLog.push(extraLogItem)
+      return debugLog
+    }
+  } catch (err: unknown) {
+    return err as Error
   }
+}
 
-  const debugLog = await getStorage('debugLog')
+const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
+  try {
+    const logItem = {
+      date: new Date().toLocaleString(),
+      tag: logInfo.tag || 'popup',
+      level: logInfo.level || 'INFO',
+      message: logInfo.message,
+      data: logInfo.data,
+    }
 
-  let newDebugLog = []
-  if (!debugLog) {
-    newDebugLog.push(logItem)
-    if (extraLogItem) newDebugLog.push(extraLogItem)
-  } else {
-    newDebugLog = debugLog
-    newDebugLog.push(logItem)
+    const debugLog: LogItem[] = (await getStorage('debugLog')) ?? []
 
-    if (extraLogItem) newDebugLog.push(extraLogItem)
+    const trimmedLog = await trimLogs()
+
+    if (trimmedLog && !(trimmedLog instanceof Error)) {
+      trimmedLog.push(logItem)
+      await setStorage({ debugLog: trimmedLog })
+    } else {
+      if (trimmedLog instanceof Error) {
+        debugLog.push({
+          date: new Date().toLocaleString(),
+          tag: 'popup',
+          message: getErrorMessage(trimmedLog),
+        })
+      }
+      debugLog.push(logItem)
+      await setStorage({ debugLog })
+    }
+  } catch (err) {
+    console.error('Error in pushToDebugLog:', err)
   }
-  setStorage({ debugLog: newDebugLog })
 }
 
 const sendDebugLog = async (
@@ -67,17 +103,25 @@ const parseLogToStrings = (log: LogItem[]): string[] => {
   })
 }
 
-// clears logs if they become too large does not take time into consideration
 const clearLogs = async (): Promise<void> => {
-  const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
+  const debugLog: LogItem[] = (await getStorage('debugLog')) ?? []
 
-  // prune debug log if more than 1mb
-  if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
-    chrome.storage.local.set({ debugLog: [] })
-    await pushToDebugLog({
-      message: 'Cleared debug log - reached over 1mb in size - clearLogs',
-      level: 'INFO',
-    })
+  const trimmedLog = await trimLogs()
+
+  if (trimmedLog && !(trimmedLog instanceof Error)) {
+    // set the trimmed storage only
+    await setStorage({ trimmedLog })
+  } else {
+    if (trimmedLog instanceof Error) {
+      // set error if it occurred
+      debugLog.push({
+        date: new Date().toLocaleString(),
+        tag: 'popup',
+        message: getErrorMessage(trimmedLog),
+      })
+      await setStorage({ debugLog })
+    }
+    // do nothing if no error or no trimming occured
   }
 }
 
