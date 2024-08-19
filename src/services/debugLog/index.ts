@@ -18,11 +18,15 @@ export const trimLogs = async (): Promise<LogItem[] | undefined> => {
   let removedItemCount = 0
 
   if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
-    while (totalSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES - PRUNE_SIZE_BYTES && debugLog.length > 0) {
+    while (
+      totalSizeInBytes > 0 && // accidental negative check, cannot to go into infinite loop
+      totalSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES - PRUNE_SIZE_BYTES &&
+      debugLog.length > 0
+    ) {
       /* 
-        json stringify may fail because of malformed or contain circular references so we skip calculating the
-        size for that but remove it any way and count it as a removed item, otherwise pruning may never happe
-        if there is a malformed/circular referenced json object in the debug logs!
+        json stringify may fail because of malformed or contain circular references so we skip 
+        calculating the size for that but remove it any way and count it as a removed item, otherwise 
+        pruning may never happen if there is a malformed/circular referenced json object in the debug logs!
       */
       try {
         const removedLog = debugLog.shift()
@@ -30,6 +34,7 @@ export const trimLogs = async (): Promise<LogItem[] | undefined> => {
         totalSizeInBytes -= sizeInBytes
         removedItemCount += 1
       } catch (err) {
+        console.error('Error during pruning:', err)
         // still count item as removed, skip taking bytes into account since json could
         // not be stringified
         removedItemCount += 1
