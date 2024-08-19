@@ -7,30 +7,19 @@ import { wrapStore } from '@eduardoac-skimlinks/webext-redux'
 import browserApi from 'services/browserApi'
 import { buildFrom, type StoreType } from './store'
 import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from 'utils/constants'
-import { getStorage, setStorage } from 'services/storage'
+import { setStorage } from 'services/storage'
 import { trimLogs } from 'services/debugLog'
-import { LogItem } from 'utils/types'
-import getErrorMessage from 'utils/getErrorMessage'
 
 export async function initializeWrappedStore(): Promise<StoreType> {
-  const debugLog: LogItem[] = (await getStorage('debugLog')) ?? []
+  try {
+    const trimmedLog = await trimLogs()
 
-  const trimmedLog = await trimLogs()
-
-  if (trimmedLog && !(trimmedLog instanceof Error)) {
-    // set the trimmed storage only
-    await setStorage({ trimmedLog })
-  } else {
-    if (trimmedLog instanceof Error) {
-      // set error if it occurred
-      debugLog.push({
-        date: new Date().toLocaleString(),
-        tag: 'popup',
-        message: getErrorMessage(trimmedLog),
-      })
-      await setStorage({ debugLog })
+    if (trimmedLog) {
+      // set the trimmed storage only
+      await setStorage({ trimmedLog })
     }
-    // do nothing if no error or no trimming occured
+  } catch (err) {
+    console.error('Error in initializeWrappedStore:', err)
   }
 
   const stateFromStorage = await browserApi.getStateFromStorage()

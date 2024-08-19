@@ -5,43 +5,48 @@ import { DEBUG_LOG_MAX_SIZE_BYTES, PRUNE_SIZE_BYTES } from 'utils/constants'
 import getErrorMessage from 'utils/getErrorMessage'
 import type { LogItem } from 'utils/types'
 
-export const trimLogs = async (): Promise<LogItem[] | undefined | Error> => {
-  try {
-    const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
+export const trimLogs = async (): Promise<LogItem[] | undefined> => {
+  const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
 
-    if (debugLogSizeInBytes < DEBUG_LOG_MAX_SIZE_BYTES) {
-      return
-    }
+  if (debugLogSizeInBytes < DEBUG_LOG_MAX_SIZE_BYTES) {
+    return
+  }
 
-    const debugLog = (await getStorage('debugLog')) ?? []
+  const debugLog = (await getStorage('debugLog')) ?? []
 
-    let totalSizeInBytes = debugLogSizeInBytes
-    let removedItemCount = 0
+  let totalSizeInBytes = debugLogSizeInBytes
+  let removedItemCount = 0
 
-    if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
-      while (
-        totalSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES - PRUNE_SIZE_BYTES &&
-        debugLog.length > 0
-      ) {
+  if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
+    while (totalSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES - PRUNE_SIZE_BYTES && debugLog.length > 0) {
+      /* 
+        json stringify may fail because of malformed or contain circular references so we skip calculating the
+        size for that but remove it any way and count it as a removed item, otherwise pruning may never happe
+        if there is a malformed/circular referenced json object in the debug logs!
+      */
+      try {
         const removedLog = debugLog.shift()
-        totalSizeInBytes -= new TextEncoder().encode(JSON.stringify(removedLog)).length
+        const sizeInBytes = new TextEncoder().encode(JSON.stringify(removedLog)).length
+        totalSizeInBytes -= sizeInBytes
+        removedItemCount += 1
+      } catch (err) {
+        // still count item as removed, skip taking bytes into account since json could
+        // not be stringified
         removedItemCount += 1
       }
-
-      const extraLogItem: LogItem = {
-        date: new Date().toLocaleString(),
-        message: `Pruned debug log - reached over ${DEBUG_LOG_MAX_SIZE_BYTES} bytes in size - size was ${debugLogSizeInBytes} bytes - removed approximately ${
-          debugLogSizeInBytes - totalSizeInBytes
-        } bytes and ${removedItemCount} entries`,
-        level: 'INFO',
-        tag: 'popup',
-      }
-
-      debugLog.push(extraLogItem)
-      return debugLog
     }
-  } catch (err: unknown) {
-    return err as Error
+
+    const extraLogItem: LogItem = {
+      date: new Date().toLocaleString(),
+      message: `Pruned debug log - reached over ${DEBUG_LOG_MAX_SIZE_BYTES} bytes in size - size was ${debugLogSizeInBytes} bytes - removed approximately ${
+        debugLogSizeInBytes - totalSizeInBytes
+      } bytes and ${removedItemCount} entries`,
+      level: 'INFO',
+      tag: 'popup',
+    }
+
+    debugLog.push(extraLogItem)
+    return debugLog
   }
 }
 
@@ -104,24 +109,14 @@ const parseLogToStrings = (log: LogItem[]): string[] => {
 }
 
 const clearLogs = async (): Promise<void> => {
-  const debugLog: LogItem[] = (await getStorage('debugLog')) ?? []
-
-  const trimmedLog = await trimLogs()
-
-  if (trimmedLog && !(trimmedLog instanceof Error)) {
-    // set the trimmed storage only
-    await setStorage({ trimmedLog })
-  } else {
-    if (trimmedLog instanceof Error) {
-      // set error if it occurred
-      debugLog.push({
-        date: new Date().toLocaleString(),
-        tag: 'popup',
-        message: getErrorMessage(trimmedLog),
-      })
-      await setStorage({ debugLog })
+  try {
+    const trimmedLog = await trimLogs()
+    if (trimmedLog) {
+      // set the trimmed storage only
+      await setStorage({ trimmedLog })
     }
-    // do nothing if no error or no trimming occured
+  } catch (err) {
+    console.error('Error in clearLog:', err)
   }
 }
 
