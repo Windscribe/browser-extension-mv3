@@ -11,7 +11,7 @@ import type {
   CruiseControlDomains,
 } from 'api/types'
 import { sendRequest } from 'api/sendRequest'
-import { buildQueryString } from 'api/utils'
+import { buildQueryString, generateTime, getClientAuthHash } from 'api/utils'
 import type { AppDispatch } from 'state/store'
 
 const login = async (
@@ -112,12 +112,23 @@ const reportAppLog = async (
   session_auth_hash: string,
   username: string,
   logfile: string,
-): Promise<ApiResponse<ReportAppLogData>> =>
-  await sendRequest(dispatch, 'POST', buildQueryString('Report/applog'), {
-    session_auth_hash,
-    username,
-    logfile,
-  })
+): Promise<ApiResponse<ReportAppLogData>> => {
+  const time = generateTime()
+  const clientAuthHash = getClientAuthHash(time)
+  const formData = new FormData()
+  formData.append('logfile', logfile)
+  formData.append('username', username)
+  formData.append('session_auth_hash', session_auth_hash)
+  formData.append('time', time)
+  formData.append('client_auth_hash', clientAuthHash)
+
+  return await sendRequest(
+    dispatch,
+    'POST',
+    buildQueryString('Report/applog', undefined, true),
+    formData,
+  )
+}
 
 const getBlocklists = async (
   dispatch: AppDispatch,
