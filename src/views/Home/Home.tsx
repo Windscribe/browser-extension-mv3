@@ -51,6 +51,7 @@ const Home: ThemeUiElement = () => {
   const isRightAfterLogin = useSelector(state => state.isRightAfterLogin)
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
+  const blockList = useSelector(state => state.blocker.blockLists)
   const { loading, serverList } = useSelector(state => state.servers)
   const unreadNewsAmount = notifications
     .map(n => n.id)
@@ -75,6 +76,14 @@ const Home: ThemeUiElement = () => {
       })
     }
   }, [isRightAfterLogin, dispatch])
+
+  useEffect(() => {
+    sendMessage({
+      what: 'applyRulesets',
+      from: 'popup',
+      enabledRulesets: blockList,
+    })
+  }, [blockList])
 
   useEffect(() => {
     // 0 means server list was not fetched, pending is to prevent double requests
