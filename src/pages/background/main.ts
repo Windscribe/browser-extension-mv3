@@ -20,7 +20,12 @@ try {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
-    store.dispatch(fetchNotifications())
+
+    const sessionAuthHash = store.getState().session.sessionData?.session_auth_hash
+    if (sessionAuthHash) {
+      store.dispatch(fetchNotifications())
+    }
+
     return store
   })
 
