@@ -1,9 +1,11 @@
 import { reportAppLog } from 'api/endpoints'
 import { getStorage, setStorage } from 'services/storage'
-import { AppDispatch } from 'state/store'
 import { DEBUG_LOG_MAX_SIZE_BYTES, PRUNE_SIZE_BYTES } from 'utils/constants'
 import getErrorMessage from 'utils/getErrorMessage'
+import { AppDispatch, RootState } from 'state/store'
+import { generateLogHeaders } from 'utils/generateLogHeader'
 import type { LogItem } from 'utils/types'
+import { Base64 } from 'js-base64'
 
 export const trimLogs = async (): Promise<LogItem[] | undefined> => {
   const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
@@ -92,14 +94,13 @@ const sendDebugLog = async (
   dispatch: AppDispatch,
   session_auth_hash: string,
   username: string,
+  state: RootState,
 ): Promise<number | undefined> => {
   const debugLog = await getStorage('debugLog')
-  const response = await reportAppLog(
-    dispatch,
-    session_auth_hash,
-    username,
-    btoa(parseLogToStrings(debugLog).toString()),
-  )
+
+  const logHeaders = generateLogHeaders(state)
+  const logs = logHeaders + '\n' + parseLogToStrings(debugLog).toString()
+  const response = await reportAppLog(dispatch, session_auth_hash, username, Base64.encode(logs))
 
   return response?.data?.success
 }

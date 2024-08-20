@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box, Button, Flex } from 'theme-ui'
 
 import { ENVS } from 'utils/constants'
-import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
+import { sendDebugLog } from 'services/debugLog'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { Header, OptionBox, ToggleSwitch, ScrollableBox } from 'components'
@@ -24,6 +24,7 @@ const General: ThemeUiElement = () => {
   const sessionData = useSelector(s => s.session.sessionData)
   const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
   const locationLoad = useSelector(s => s.locationLoad)
+  const state = useSelector(s => s)
 
   const [sentDebugLog, setSentDebugLog] = useState<string | undefined>(undefined)
 
@@ -81,15 +82,11 @@ const General: ThemeUiElement = () => {
                 data-testid="send-debug-log"
                 onClick={async () => {
                   if (sessionData?.session_auth_hash && sessionData?.username) {
-                    await pushToDebugLog({
-                      level: 'INFO',
-                      message: 'Build Version',
-                      data: chrome.runtime.getManifest().version + '-' + COMMIT_HASH,
-                    })
                     await sendDebugLog(
                       dispatch,
                       sessionData?.session_auth_hash,
                       sessionData?.username,
+                      state,
                     ).then(response => {
                       setSentDebugLog(response ? 'Sent!' : 'Error')
                     })

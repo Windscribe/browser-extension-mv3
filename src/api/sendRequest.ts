@@ -21,10 +21,18 @@ const fetchDoh = async () => {
   return dohUrl.slice(1, -1)
 }
 
-const fetchWithTimeout = async (url: string, method = 'GET', body?: Record<string, unknown>) => {
+const fetchWithTimeout = async (
+  url: string,
+  method = 'GET',
+  body?: Record<string, unknown> | FormData,
+) => {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 3000)
-  const params = { method, signal: controller.signal, ...(body && { body: JSON.stringify(body) }) }
+  const params = {
+    method,
+    signal: controller.signal,
+    ...(body && { body: body instanceof FormData ? body : JSON.stringify(body) }),
+  }
   const response = await fetch(url, params)
 
   clearTimeout(timeoutId)
@@ -36,14 +44,14 @@ const fetchApi = async (
   domain: string,
   path: string,
   method: string,
-  body?: Record<string, unknown>,
+  body?: Record<string, unknown> | FormData,
   useAssets = false,
 ) => {
   let url: string
   if (NODE_ENV === 'production') {
     url = useAssets ? `assets.${domain}` : `api.${domain}`
   } else {
-    url = useAssets ? `assets-${domain}` : `api-${domain}`
+  url = useAssets ? `assets-${domain}` : `api-${domain}`
   }
 
   return fetchWithTimeout(`https://${url}/${path}`, method, body)
@@ -53,7 +61,7 @@ const sendRequest = async <DataType>(
   dispatch: AppDispatch,
   method: string,
   path: string,
-  body?: Record<string, unknown>,
+  body?: Record<string, unknown> | FormData,
   useAssets = false,
 ): Promise<ApiResponse<DataType>> => {
   const state = await browserApi.getStateFromStorage()
