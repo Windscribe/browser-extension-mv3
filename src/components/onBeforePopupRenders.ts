@@ -7,9 +7,8 @@ export async function onBeforePopupRenders(proxyStore: ProxyStore): Promise<unkn
   const sessionAuthHash = proxyStore.getState().session?.sessionData?.session_auth_hash
 
   if (sessionAuthHash && sessionLoading === 'fulfilled') {
-    return Promise.all([
-      proxyStore.dispatch({ type: `alias/${CHECK_CURRENT_IP}` }),
-      proxyStore.dispatch(setView('Home')),
-    ])
+    // ui does not need to wait/be blocked for this
+    proxyStore.dispatch({ type: `alias/${CHECK_CURRENT_IP}` })
+    return Promise.all([proxyStore.dispatch(setView('Home'))])
   }
 }

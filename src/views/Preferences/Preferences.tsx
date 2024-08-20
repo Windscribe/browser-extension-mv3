@@ -26,6 +26,7 @@ import TutorialIcon from 'assets/img/tutorial.svg'
 import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
 import { setTheme } from 'state/slices/theme'
+import sendMessage from 'services/runtime/sendMessage'
 
 const Preferences: ThemeUiElement = () => {
   const [colorMode] = useColorMode()
@@ -48,7 +49,15 @@ const Preferences: ThemeUiElement = () => {
     dispatch(setShouldShowOnboarding(true))
   }
 
-  const handleLogoutClick = async () => await dispatchAlias(LOGOUT)
+  const handleLogoutClick = async () => {
+    await dispatchAlias(LOGOUT)
+    // cannot send message from background service worker
+    await sendMessage({
+      what: 'applyRulesets',
+      from: 'popup',
+      enabledRulesets: [],
+    })
+  }
 
   const viewedNewsIds = useSelector(state => state.newsfeed.viewedNewsIds)
   const notifications = useSelector(state => state.newsfeed.notifications)
