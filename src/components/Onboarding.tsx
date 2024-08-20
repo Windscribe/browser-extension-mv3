@@ -11,11 +11,13 @@ const steps: Step[] = [
     content: <p>{'Turn on the proxy'}</p>,
     placement: 'auto',
     disableBeacon: true,
+    spotlightPadding: 6,
   },
   {
     target: '.joyride-element-change-location',
     content: <p>{'Change location'}</p>,
     placement: 'left',
+    spotlightPadding: 4,
   },
   {
     target: '.joyride-element-allowlist',
@@ -27,6 +29,7 @@ const steps: Step[] = [
       </p>
     ),
     placement: 'top',
+    spotlightPadding: 0,
   },
   {
     target: '.joyride-element-privacy',
@@ -37,6 +40,7 @@ const steps: Step[] = [
         {'settings by clicking here'}
       </p>
     ),
+    spotlightPadding: 4,
   },
   {
     target: '.joyride-element-blocker',
@@ -48,6 +52,7 @@ const steps: Step[] = [
       </p>
     ),
     placement: 'left',
+    spotlightPadding: 4,
   },
   {
     target: '.joyride-element-opt-out',

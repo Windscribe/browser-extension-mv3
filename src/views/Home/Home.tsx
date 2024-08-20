@@ -233,7 +233,6 @@ const Home: ThemeUiElement = () => {
             >
               <Button
                 variant="simple"
-                className="joyride-element-change-location"
                 data-testid="globe-button"
                 onClick={goToLocations}
                 sx={{
@@ -253,6 +252,7 @@ const Home: ThemeUiElement = () => {
                 }}
               >
                 <Globe
+                  className="joyride-element-change-location"
                   sx={{
                     transition: '0.25s',
                     fill: 'halfWhite',
