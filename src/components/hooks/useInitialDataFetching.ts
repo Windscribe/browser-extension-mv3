@@ -5,7 +5,6 @@ import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
 import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
-import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
 import { FETCH_USER_AGENTS_LIST, setOriginalUserAgent } from 'state/slices/userAgent'
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
 import sendMessage from 'services/runtime/sendMessage'
@@ -24,7 +23,6 @@ export default (): void => {
   const sessionAuthHash = useSelector(s => s.session.sessionData?.session_auth_hash)
   const serverListLoading = useSelector(s => s.servers.loading)
   const autopilotData = useSelector(state => state.autopilot.autopilotData)
-  const newsfeedLoading = useSelector(state => state.newsfeed.loading)
   const username = useSelector(state => state.serverCredentials.username)
   const password = useSelector(state => state.serverCredentials.password)
   const userAgentLoading = useSelector(state => state.userAgent.loading)
@@ -54,12 +52,6 @@ export default (): void => {
       dispatchAlias(FETCH_SERVER_LIST)
     }
   }, [sessionAuthHash, isPremium, serverListLoading, dispatchAlias])
-
-  useEffect(() => {
-    if (newsfeedLoading === 'idle' && sessionAuthHash) {
-      dispatchAlias(FETCH_NOTIFICATIONS)
-    }
-  }, [sessionAuthHash, isPremium, newsfeedLoading, dispatchAlias])
 
   useEffect(() => {
     if (bestLocationLoading === 'idle' && sessionAuthHash) {

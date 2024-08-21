@@ -30,6 +30,7 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
 import { unregisterScript } from 'utils/scriptController'
+import { setIsRightAfterLogin } from './isRightAfterLogin'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -72,6 +73,8 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     sessionAuthHash && (await logoutRequest(dispatch, sessionAuthHash))
   }
   const resetState = async () => {
+    // order matters any thing saved after userstash call does not persist on re-login
+    await dispatch(setIsRightAfterLogin(true))
     await dispatch(saveUserStash())
     await dispatch({ type: 'global/resetStore' })
     await disconnect(getState, dispatch)
