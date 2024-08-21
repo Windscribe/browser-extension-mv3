@@ -114,6 +114,7 @@ const Login: ThemeUiElement = () => {
             data-testid="username-input"
             spellCheck="false"
             value={username}
+            autoFocus
             onChange={e => {
               setUsername(e.target.value)
               dispatch(saveUsername(e.target.value))
