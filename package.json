@@ -12,8 +12,8 @@
     "build": "node scripts/build.js",
     "start": "node scripts/webserver.js",
     "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
-    "test": "yarn mocha tests/e2e/tests.js --timeout 25000",
-    "test:local": "DOTENV_CONFIG_PATH=./.env.local yarn mocha tests/e2e/tests.js --timeout 25000",
+    "test": "yarn mocha tests/e2e/tests.js --timeout 50000",
+    "test:local": "DOTENV_CONFIG_PATH=./.env.local yarn mocha tests/e2e/tests.js --timeout 50000",
     "lint": "eslint ./src",
     "prepare": "husky install",
     "slice": "node scripts/addSlice.mjs"

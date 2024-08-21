@@ -6,23 +6,20 @@ import { wrapStore } from '@eduardoac-skimlinks/webext-redux'
 
 import browserApi from 'services/browserApi'
 import { buildFrom, type StoreType } from './store'
-import {
-  STORAGE_CACHE_VERSION,
-  REACT_APP_REDUX_PORT,
-  DEBUG_LOG_MAX_SIZE_BYTES,
-} from 'utils/constants'
-import { pushToDebugLog } from 'services/debugLog'
+import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from 'utils/constants'
+import { setStorage } from 'services/storage'
+import { trimLogs } from 'services/debugLog'
 
 export async function initializeWrappedStore(): Promise<StoreType> {
-  const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
+  try {
+    const trimmedLog = await trimLogs()
 
-  // prune debug log if more than 1mb
-  if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
-    chrome.storage.local.set({ debugLog: [] })
-    await pushToDebugLog({
-      message: 'Cleared debug log - reached over 1mb in size - initializeWrappedStore',
-      level: 'INFO',
-    })
+    if (trimmedLog) {
+      // set the trimmed storage only
+      await setStorage({ trimmedLog })
+    }
+  } catch (err) {
+    console.error('Error in initializeWrappedStore:', err)
   }
 
   const stateFromStorage = await browserApi.getStateFromStorage()

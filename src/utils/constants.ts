@@ -104,4 +104,5 @@ export const locationWarpScriptId = 'locationWarpScript' as const
 export const languageWarpScriptId = 'languageWarpScript' as const
 export const timeZoneWarpScriptId = 'timeZoneWarpScript' as const
 
-export const DEBUG_LOG_MAX_SIZE_BYTES = 1_000_000 // 1mb
+export const DEBUG_LOG_MAX_SIZE_BYTES = 1_048_576 // 1MB
+export const PRUNE_SIZE_BYTES = 204_800 // 200KB
