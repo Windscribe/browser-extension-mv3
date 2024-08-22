@@ -11,6 +11,7 @@ import {
   startupHandler,
   messageHandler,
 } from './eventHandlers'
+import { fetchNotifications } from 'state/slices/newsfeed'
 
 declare const self: ServiceWorkerGlobalScope
 
@@ -19,6 +20,12 @@ try {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
+
+    const sessionAuthHash = store.getState().session.sessionData?.session_auth_hash
+    if (sessionAuthHash) {
+      store.dispatch(fetchNotifications())
+    }
+
     return store
   })
 
@@ -35,7 +42,7 @@ try {
   )
 
   chrome.alarms.create('sessionPoller', { periodInMinutes: 5 })
-  chrome.alarms.create('notificationPoller', { periodInMinutes: 720 })
+  chrome.alarms.create('notificationPoller', { periodInMinutes: 60 })
   chrome.alarms.create('pruneLog', { periodInMinutes: 2 })
 
   chrome.alarms.onAlarm.addListener(alarmHandler(bgStore))

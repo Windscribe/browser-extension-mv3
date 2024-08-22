@@ -2,7 +2,7 @@ import { keyframes } from '@emotion/react'
 import { Box, Button, Flex } from 'theme-ui'
 import { useEffect } from 'react'
 
-import { useDispatch, useSelector } from 'state/hooks'
+import { useDispatch, useDispatchAlias, useSelector } from 'state/hooks'
 import Badge from 'components/Badge'
 import UsageBar from './UsageBar'
 import PrivacyButton from './PrivacyButton'
@@ -33,9 +33,11 @@ import ArrowRight from 'assets/img/arrowRight.svg'
 import ConnectingRing from 'assets/img/connectingRing.svg'
 import ProxyFailureRing from 'assets/img/proxyFailureRing.svg'
 import { fetchServerList } from 'state/slices/servers'
+import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
+  const dispatchAlias = useDispatchAlias()
 
   const goToLocations = useGoTo('Locations')
   const goToPreferences = useGoTo('Preferences')
@@ -70,12 +72,13 @@ const Home: ThemeUiElement = () => {
       })
       dispatch(setIsRightAfterLogin(false))
       dispatch(setAdPrivacyEnabled(true))
+      dispatchAlias(FETCH_NOTIFICATIONS)
       detectUblock().then(isUblockInstalled => {
         isUblockInstalled && dispatch(addOverlay('ublockDetected'))
         dispatch(addOverlay('welcome'))
       })
     }
-  }, [isRightAfterLogin, dispatch])
+  }, [isRightAfterLogin, dispatch, dispatchAlias])
 
   useEffect(() => {
     sendMessage({
