@@ -138,10 +138,6 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
         })
         .filter(item => !!item)
 
-      await setupOffscreenDocument('migrateAllowlist.html', [
-        chrome.offscreen.Reason.IFRAME_SCRIPTING,
-      ])
-
       for (const item of collection) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { hostname, level, ...domainSettings } = item ?? {}
@@ -163,7 +159,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
         await pushToDebugLog(log)
       }
 
-      await chrome.offscreen.closeDocument()
+      // await chrome.offscreen.closeDocument()
     } catch (err) {
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',

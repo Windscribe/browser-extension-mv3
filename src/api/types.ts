@@ -255,6 +255,7 @@ export type MessageTypes =
   | 'migrateTheme'
   | 'migrateBlockerSettings'
   | 'fireNoSSLRequest'
+  | 'applyBlockerSettings'
 export type Targets = 'offscreen'
 
 export interface Message<T = unknown> {

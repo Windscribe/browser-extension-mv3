@@ -63,9 +63,6 @@ export const migrateStashedOtherSettings = async (
           return mappedDomainSettings
         })
         .filter(item => !!item)
-      await setupOffscreenDocument('migrateAllowlist.html', [
-        chrome.offscreen.Reason.IFRAME_SCRIPTING,
-      ])
 
       const domainSettings = collection
         .map(item => {
@@ -109,7 +106,7 @@ export const migrateStashedOtherSettings = async (
       for (const log of response.logs) {
         await pushToDebugLog(log)
       }
-      await chrome.offscreen.closeDocument()
+      // await chrome.offscreen.closeDocument()
     } catch (err) {
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',
