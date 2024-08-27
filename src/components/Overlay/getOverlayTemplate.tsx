@@ -108,6 +108,7 @@ const Welcome: ActionsBlockComponent = ({ close }) => {
         onClick={() => {
           dispatch(removeAllOverlays())
           dispatch(setShouldShowOnboarding(true))
+          dispatch(setShouldShowWelcome(false))
         }}
         data-testid="start-tutorial-button"
       >
