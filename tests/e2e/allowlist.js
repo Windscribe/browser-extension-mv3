@@ -78,7 +78,7 @@ const allowlist = async (popupPage, browser) => {
             ),
           ].some(element => element.textContent === 'www.google.com')
         })
-        console.log(hasTestPage)
+
         expect(hasTestPage).to.equal(true)
 
         // Return to home page
