@@ -10,6 +10,7 @@ const Hostname: React.FunctionComponent<{ children: React.ReactNode }> = ({ chil
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
+      flexShrink: 0,
     }}
   >
     {children}
