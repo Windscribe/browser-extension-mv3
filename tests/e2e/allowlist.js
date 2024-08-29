@@ -73,9 +73,12 @@ const allowlist = async (popupPage, browser) => {
         await popupPage.waitForTimeout(800)
         const hasTestPage = await popupPage.evaluate(() => {
           return [
-            ...document.querySelectorAll("div[data-testid='allowlist-items-list'] > div > span"),
+            ...document.querySelectorAll(
+              "div[data-testid='allowlist-items-list'] > div  > div > span",
+            ),
           ].some(element => element.textContent === 'www.google.com')
         })
+        console.log(hasTestPage)
         expect(hasTestPage).to.equal(true)
 
         // Return to home page
