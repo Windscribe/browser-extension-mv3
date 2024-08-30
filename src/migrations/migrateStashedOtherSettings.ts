@@ -39,7 +39,7 @@ export const migrateStashedOtherSettings = async (
   const parsedCurrentLocationStateV2 = StashedCurrentLocationValidatorManifestV2.safeParse(data)
 
   // no equivalent settings in mv3 for allowCookies in mv2
-  // allowPrivacyFeatures is only mv3 exclusive, no equivalent in mv2, default to true
+  // allowPrivacyFeatures is only mv3 exclusive, no equivalent in mv2, default to false
   if (parsedallowListStateV2.success) {
     try {
       const collection: (CombinedAllowlistItem | undefined)[] = parsedallowListStateV2.data.state[
@@ -54,6 +54,7 @@ export const migrateStashedOtherSettings = async (
             allowDirectConnections: allowListData.allowDirectConnect ?? false,
             includeAllSubdomains: allowListData.includeAllSubdomains ?? false,
             allowPrivacyFeatures: false,
+            addedBy: allowListData.addedBy,
           }
           if (allowListData.allowAds === true) {
             const level = allowListData.allowAds ? 0 : 3
@@ -63,6 +64,7 @@ export const migrateStashedOtherSettings = async (
           return mappedDomainSettings
         })
         .filter(item => !!item)
+
       await setupOffscreenDocument('migrateAllowlist.html', [
         chrome.offscreen.Reason.IFRAME_SCRIPTING,
       ])
@@ -87,6 +89,8 @@ export const migrateStashedOtherSettings = async (
           [domainSetting.domain]: domainSetting,
         }
       }, allowlist) as AllowlistState
+
+      console.log('allowlist', allowlist)
 
       await store.dispatch(
         setAndMergeStashes({
