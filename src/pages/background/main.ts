@@ -12,6 +12,7 @@ import {
   messageHandler,
 } from './eventHandlers'
 import { fetchNotifications } from 'state/slices/newsfeed'
+import { initializeUserAgentsList } from 'state/slices/userAgent'
 
 declare const self: ServiceWorkerGlobalScope
 
@@ -25,6 +26,8 @@ try {
     if (sessionAuthHash) {
       store.dispatch(fetchNotifications())
     }
+
+    store.dispatch(initializeUserAgentsList())
 
     return store
   })

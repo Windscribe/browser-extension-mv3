@@ -4,6 +4,7 @@ import { handleConnectionError } from 'state/slices/proxy'
 import { connect, disconnect, connectToAutopilot } from 'services/proxyConfig'
 import { fetchNotifications } from 'state/slices/newsfeed'
 import { pushToDebugLog } from 'services/debugLog'
+import { initializeUserAgentsList } from 'state/slices/userAgent'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {
@@ -23,6 +24,7 @@ export function startupHandler(bgStore: Promise<StoreType>) {
       }
 
       await store.dispatch(fetchNotifications())
+      store.dispatch(initializeUserAgentsList())
 
       const currentHosts = store.getState().currentDataCenter?.hosts
       const autopilotSelected = store.getState().autopilot.autopilotSelected
