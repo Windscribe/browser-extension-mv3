@@ -379,6 +379,7 @@ export const disconnect = async (
 export const connectToAutopilot = async (
   getState: GetState,
   dispatch: AppDispatch,
+  silent = false,
 ): Promise<void> => {
   try {
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
@@ -396,7 +397,7 @@ export const connectToAutopilot = async (
 
     const hosts = getState().currentDataCenter?.hosts
     if (!hosts) throw new Error(`No data center is being used as current`)
-    await connect(getState, dispatch, hosts)
+    await connect(getState, dispatch, hosts, silent)
   } catch (err) {
     disconnect(getState, dispatch)
     dispatch(setStatus('off'))
@@ -422,14 +423,14 @@ export const handleProxyError = async (
     dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
     const currentHosts = getState().currentDataCenter?.hosts
     if (currentHosts) {
-      await connect(getState, dispatch, currentHosts)
+      await connect(getState, dispatch, currentHosts, true)
       return
     }
   }
   if (reconnectionAttempts === RECONNECTION_ATTEMPTS_LIMIT) {
     if (failover === 'Auto / Best') {
       dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
-      await connectToAutopilot(getState, dispatch)
+      await connectToAutopilot(getState, dispatch, true)
       return
     }
     if (failover === 'Same Country') {
@@ -443,7 +444,7 @@ export const handleProxyError = async (
       if (newDatacenter) {
         dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
         dispatch(setCurrentDataCenter(newDatacenter))
-        await connect(getState, dispatch, newDatacenter.hosts)
+        await connect(getState, dispatch, newDatacenter.hosts, true)
         return
       }
     }
