@@ -8,8 +8,6 @@ function getUserAgents() {
     throw Error('No user agents list is available')
   }
 
-  console.log(path)
-  console.log(userAgentsData)
   return userAgentsData
 }
 
