@@ -101,7 +101,7 @@ const Blocker: ThemeUiElement = () => {
             // todo change icon
             Icon={CookieGoAwayIcon}
             title="uBlock Lite"
-            subTitle="Blocker settings are not available when uBlock Lite is enabled. Disable this setting to use windscribe's adblock"
+            subTitle="Blocker settings are not available when uBlock Lite is enabled. Disable this setting to use Windscribe's adblock"
           >
             <ToggleSwitch
               onChange={async () => {
