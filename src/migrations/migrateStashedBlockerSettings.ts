@@ -5,7 +5,6 @@ import { StashedBlockListsValidatorManifestV2 } from 'utils/validators'
 import { BLOCKER_SETTINGS_MAPPER } from './migrateBlockerSettings'
 import { initialState as initialBlockerState } from 'state/slices/blocker'
 import { LogItemResponse, Message } from 'api/types'
-import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 
 export const migrateStashedBlockerSettings = async (
   store: StoreType,

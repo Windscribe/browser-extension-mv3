@@ -1,7 +1,6 @@
 import { LogItemResponse, Message } from 'api/types'
 import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
-import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { StoreType } from 'state'
 import { setBlockLists } from 'state/slices/blocker'
 import { BLOCK_LISTS_REDUCER, DB_STATE_TABLE, SYNC_KEY } from 'utils/constants'

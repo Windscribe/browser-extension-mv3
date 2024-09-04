@@ -1,6 +1,5 @@
 import { CombinedAllowlistItem, LogItemResponse, Message } from 'api/types'
 import { pushToDebugLog } from 'services/debugLog'
-import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { StoreType } from 'state'
 import { initialState as intialNewsFeedState } from 'state/slices/newsfeed'
 import { initialState as intialMigratedFavouriteLocationsState } from 'state/slices/migratedFavoriteLocations'

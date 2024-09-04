@@ -8,7 +8,6 @@ import {
 import Dexie from 'dexie'
 import isValidDomain from 'is-valid-domain'
 import { pushToDebugLog } from 'services/debugLog'
-import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
 import { StoreType } from 'state'
 import { ADD_TO_ALLOWLIST, AllowlistPayload } from 'state/slices/allowlist'
