@@ -1,6 +1,3 @@
-chrome.runtime.onMessage.addListener(handleMessages)
-
-import { LogItemResponse, Message } from 'api/types'
 import { Dexie } from 'dexie'
 import { DB_NAME, DB_VERSION, DB_STATE_TABLE, SYNC_KEY, THEME_REDUCER } from 'utils/constants'
 import { LogItem } from 'utils/types'
@@ -47,34 +44,4 @@ async function setTheme(): Promise<LogItem[]> {
   return logs
 }
 
-function handleMessages(
-  message: Message,
-  _sender: chrome.runtime.MessageSender,
-  sendResponse: (response: LogItemResponse) => void,
-) {
-  // Return early if this message isn't meant for the offscreen script
-  if (message.target !== 'offscreen') {
-    return
-  }
-
-  switch (message.type) {
-    case 'migrateTheme':
-      // Important:
-      // Reason for return true and using then's
-      // https://stackoverflow.com/a/53024910
-      // https://issuetracker.google.com/issues/314359857?pli=1
-
-      setTheme().then(logs => {
-        sendResponse({
-          logs,
-        })
-      })
-
-      break
-    default:
-      console.warn(`Unexpected message type received: '${message.type}'.`)
-  }
-
-  // needed to keep the channel open
-  return true
-}
+export { setTheme }

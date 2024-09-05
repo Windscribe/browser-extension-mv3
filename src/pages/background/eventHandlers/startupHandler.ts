@@ -3,13 +3,17 @@ import { type StoreType } from 'state/store'
 import { handleConnectionError } from 'state/slices/proxy'
 import { connect, disconnect, connectToAutopilot } from 'services/proxyConfig'
 import { fetchNotifications } from 'state/slices/newsfeed'
-import { pushToDebugLog } from 'services/debugLog'
+import {} from 'api/types'
+import { enableOrDisableUblock } from 'services/detectUblock'
+import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {
     let store
     try {
       store = await bgStore
+
+      await setupOffscreenDocument('offscreenHub.html', [chrome.offscreen.Reason.IFRAME_SCRIPTING])
 
       if (!store.getState().connection.autoConnect) {
         await disconnect(store.getState, store.dispatch, false)
@@ -23,6 +27,8 @@ export function startupHandler(bgStore: Promise<StoreType>) {
       }
 
       await store.dispatch(fetchNotifications())
+
+      enableOrDisableUblock(store.getState().blocker.blockLists, store)
 
       const currentHosts = store.getState().currentDataCenter?.hosts
       const autopilotSelected = store.getState().autopilot.autopilotSelected

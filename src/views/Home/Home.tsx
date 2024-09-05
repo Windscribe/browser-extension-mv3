@@ -20,7 +20,7 @@ import { type ThemeUiElement } from 'utils/types'
 import Flags from 'assets/flags'
 import ConnectionInfo from './ConnectionInfo'
 import ToolTip from 'components/ToolTip'
-import detectUblock from 'services/detectUblock'
+import { detectUblock } from 'services/detectUblock'
 import { setStatus } from 'state/slices/proxy'
 import sendMessage from 'services/runtime/sendMessage'
 
@@ -55,6 +55,9 @@ const Home: ThemeUiElement = () => {
   const notifications = useSelector(state => state.newsfeed.notifications)
   const blockList = useSelector(state => state.blocker.blockLists)
   const { loading, serverList } = useSelector(state => state.servers)
+  const shouldShowWelcome = useSelector(state => state.shouldShowWelcome)
+  const showUblockWarningAtHomePage = useSelector(s => s.blocker.showUblockWarningAtHomePage)
+
   const unreadNewsAmount = notifications
     .map(n => n.id)
     .filter(id => !viewedNewsIds.includes(id)).length
@@ -73,19 +76,40 @@ const Home: ThemeUiElement = () => {
       dispatch(setIsRightAfterLogin(false))
       dispatch(setAdPrivacyEnabled(true))
       dispatchAlias(FETCH_NOTIFICATIONS)
-      detectUblock().then(isUblockInstalled => {
-        isUblockInstalled && dispatch(addOverlay('ublockDetected'))
-        dispatch(addOverlay('welcome'))
-      })
     }
   }, [isRightAfterLogin, dispatch, dispatchAlias])
 
   useEffect(() => {
-    sendMessage({
-      what: 'applyRulesets',
-      from: 'popup',
-      enabledRulesets: blockList,
+    detectUblock().then(ublockStatus => {
+      ublockStatus === 'enabled' &&
+        showUblockWarningAtHomePage &&
+        dispatch(addOverlay('ublockDetected'))
+      if (shouldShowWelcome) dispatch(addOverlay('welcome'))
     })
+  }, [dispatch, shouldShowWelcome, showUblockWarningAtHomePage])
+
+  useEffect(() => {
+    let ignore = false
+    detectUblock().then(ublockStatus => {
+      if (ignore) return
+      if (ublockStatus === 'enabled') {
+        sendMessage({
+          what: 'applyRulesets',
+          from: 'popup',
+          enabledRulesets: [],
+        })
+      } else {
+        sendMessage({
+          what: 'applyRulesets',
+          from: 'popup',
+          enabledRulesets: blockList,
+        })
+      }
+    })
+
+    return () => {
+      ignore = true
+    }
   }, [blockList])
 
   useEffect(() => {
