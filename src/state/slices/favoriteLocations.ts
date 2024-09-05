@@ -13,13 +13,6 @@ export const favoriteLocationsSlice = createSlice({
     addLocationToFavorite(state: FavoriteLocationsState, action: PayloadAction<DataCenter>) {
       state.push(action.payload)
     },
-    addLocationToFavoriteUsingIDOnly(
-      state: FavoriteLocationsState,
-      action: PayloadAction<string[]>,
-    ) {
-      // we have id's of the locations find that in the list and update here
-      // state.push(action.payload)
-    },
     removeLocationFromFavorite(state: FavoriteLocationsState, action: PayloadAction<number>) {
       return state.filter(location => location.id !== action.payload)
     },
@@ -42,10 +35,6 @@ export const selectIsInFavorite = createSelector(
   },
 )
 
-export const {
-  addLocationToFavorite,
-  removeLocationFromFavorite,
-  refreshFavorites,
-  addLocationToFavoriteUsingIDOnly,
-} = favoriteLocationsSlice.actions
+export const { addLocationToFavorite, removeLocationFromFavorite, refreshFavorites } =
+  favoriteLocationsSlice.actions
 export default favoriteLocationsSlice.reducer

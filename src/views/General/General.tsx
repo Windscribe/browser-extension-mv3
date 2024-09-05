@@ -22,6 +22,8 @@ import { useManageAllowlist } from 'components/hooks'
 import { exportSettings } from 'services/importExport/exportSettings'
 import { importSettings } from 'services/importExport/importSettings'
 import { addOverlay } from 'state/slices/overlay'
+import getErrorMessage from 'utils/getErrorMessage'
+import { getFileExtension } from 'utils/getFileExtension'
 
 const General: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -49,7 +51,7 @@ const General: ThemeUiElement = () => {
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (!file) {
-      await pushToDebugLog({
+      pushToDebugLog({
         message: 'File not found when importing settings',
         level: 'WARN',
       })
@@ -62,32 +64,22 @@ const General: ThemeUiElement = () => {
     const fileName = fileInputRef.current?.value
 
     if (!fileName) {
-      await pushToDebugLog({
+      pushToDebugLog({
         message: 'No file name found in input',
         level: 'WARN',
       })
       return
     }
 
-    /*
-        Gets the file extension, this check is just to loosely prevent uploading the wrong file
-        https://stackoverflow.com/a/12900504
-
-        ""                            -->   ""
-        "name"                        -->   ""
-        "name.txt"                    -->   "txt"
-        ".htpasswd"                   -->   ""
-        "name.with.many.dots.myext"   -->   "myext"
-    */
-    const fileExtension = fileName.slice((Math.max(0, fileName.lastIndexOf('.')) || Infinity) + 1)
+    const fileExtension = getFileExtension(fileName)
 
     if (fileExtension !== 'json') {
-      await pushToDebugLog({
+      pushToDebugLog({
         message: 'File extension is not json',
         data: JSON.stringify(fileExtension),
         level: 'WARN',
       })
-      await dispatch(addOverlay('wrongFileExtension'))
+      dispatch(addOverlay('wrongFileExtension'))
       return
     }
 
@@ -107,6 +99,12 @@ const General: ThemeUiElement = () => {
       showReloadAlert(true)
     } catch (err) {
       // show overlays etc
+      dispatch(addOverlay('errorDuringImport'))
+      const message = getErrorMessage(err)
+      pushToDebugLog({
+        message: message,
+        level: 'ERROR',
+      })
     }
   }
 

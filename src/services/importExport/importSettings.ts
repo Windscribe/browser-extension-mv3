@@ -1,5 +1,4 @@
 import { pushToDebugLog } from 'services/debugLog'
-import getErrorMessage from 'utils/getErrorMessage'
 import { SettingsImportFormatValidatorVersion1 } from 'utils/validators'
 import { FavoriteLocationsState } from 'state/slices/favoriteLocations'
 import { DataCenter, ServerList } from 'api/types'
@@ -12,6 +11,7 @@ import { importConnectionSettings } from './importConnectionSettings'
 import { importBlockerSettings } from './importBlockerSettings'
 import { importAllowListSettings } from './importAllowlistSettings'
 import { importPrivacySettings } from './importPrivacySettings'
+import { addOverlay } from 'state/slices/overlay'
 
 type ImportSettingsArgs = {
   file: File
@@ -38,55 +38,48 @@ export const importSettings = async ({
   autopilotSelected,
   isUserPro,
 }: ImportSettingsArgs): Promise<void> => {
-  try {
-    const fileContents = await file.text()
-    const parsedJSONFile = JSON.parse(fileContents)
-    const parsedSettings = SettingsImportFormatValidatorVersion1.safeParse(parsedJSONFile)
-    if (parsedSettings.success) {
-      await pushToDebugLog({
-        message: 'importing settings',
-      })
-
-      const importedSettings = parsedSettings.data.data
-
-      importGeneralSettings(importedSettings, dispatch)
-
-      importConnectionSettings(importedSettings, dispatch)
-
-      importBlockerSettings(importedSettings, dispatch)
-
-      importOtherSettings(importedSettings, serverList, favoriteLocations, dispatch)
-
-      await importPrivacySettings({
-        addToAllowlist,
-        autopilotSelected,
-        currentDataCenter,
-        dispatch,
-        existingAllowList,
-        importedSettings,
-        isUserPro,
-        locationId,
-        serverList,
-      })
-
-      await importAllowListSettings(importedSettings, addToAllowlist)
-
-      await pushToDebugLog({
-        message: 'imported settings',
-      })
-    } else {
-      await pushToDebugLog({
-        level: 'ERROR',
-        message: `Could not validate settings`,
-        tag: 'popup',
-        data: JSON.stringify(parsedSettings.error),
-      })
-    }
-  } catch (err) {
-    const message = getErrorMessage(err)
+  const fileContents = await file.text()
+  const parsedJSONFile = JSON.parse(fileContents)
+  const parsedSettings = SettingsImportFormatValidatorVersion1.safeParse(parsedJSONFile)
+  if (parsedSettings.success) {
     await pushToDebugLog({
-      message: message,
+      message: 'importing settings',
+    })
+
+    const importedSettings = parsedSettings.data.data
+
+    importGeneralSettings(importedSettings, dispatch)
+
+    importConnectionSettings(importedSettings, dispatch)
+
+    importBlockerSettings(importedSettings, dispatch)
+
+    importOtherSettings(importedSettings, serverList, favoriteLocations, dispatch)
+
+    await importPrivacySettings({
+      addToAllowlist,
+      autopilotSelected,
+      currentDataCenter,
+      dispatch,
+      existingAllowList,
+      importedSettings,
+      isUserPro,
+      locationId,
+      serverList,
+    })
+
+    await importAllowListSettings(importedSettings, addToAllowlist)
+
+    await pushToDebugLog({
+      message: 'imported settings',
+    })
+  } else {
+    await dispatch(addOverlay('invalidFormat'))
+    await pushToDebugLog({
       level: 'ERROR',
+      message: `Could not validate settings`,
+      tag: 'popup',
+      data: JSON.stringify(parsedSettings.error),
     })
   }
 }

@@ -14,7 +14,6 @@ export const importAllowListSettings = async (
   importedSettings: ImportedSettingsV1,
   addToAllowlist: AddToAllowlist,
 ): Promise<void> => {
-  console.log('hm,m,mmmmm', importedSettings)
   if (importedSettings.allowlist !== undefined && importedSettings.allowlist !== null) {
     for (const [domainValue, domainWithSettings] of Object.entries(importedSettings.allowlist)) {
       const isValid = isValidDomain(domainValue)

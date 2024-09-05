@@ -35,6 +35,8 @@ export type OverlayTemplate =
   | 'proPlanExpired'
   | 'banned'
   | 'wrongFileExtension'
+  | 'invalidFormat'
+  | 'errorDuringImport'
 
 export type ErrorState = {
   errorCode?: number

@@ -109,7 +109,6 @@ const registerScripts = async (
     const isSplitPersonalityEnabled = store.getState().splitPersonalityEnabled
     const spoofedUserAgent = store.getState().userAgent.spoofed
     const isLocationWarpActive = store.getState().locationWarp
-    const proxy = store.getState().proxy
     const autopilot = store.getState().autopilot
     const currentDataCenter = store.getState().currentDataCenter
     const dataCenterId = currentDataCenter.id

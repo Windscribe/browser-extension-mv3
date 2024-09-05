@@ -3,7 +3,6 @@ import { type StoreType } from 'state/store'
 import { handleConnectionError } from 'state/slices/proxy'
 import { connect, disconnect, connectToAutopilot } from 'services/proxyConfig'
 import { fetchNotifications } from 'state/slices/newsfeed'
-import { pushToDebugLog } from 'services/debugLog'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {

@@ -476,7 +476,6 @@ const BaseSettingsV1 = zod
     favoriteLocations: zod.array(zod.number().nonnegative()),
     locationSorting: zod.enum(['alphabet', 'geography']),
   })
-  .strict()
   .partial()
 
 export const SettingsImportFormatValidatorVersion1 = zod.object({

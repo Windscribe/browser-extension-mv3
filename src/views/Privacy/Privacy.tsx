@@ -52,7 +52,6 @@ const Privacy: ThemeUiElement = () => {
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
   const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
   const allowList = useSelector(s => s.allowlist)
-  const proxy = useSelector(s => s.proxy)
   const autopilot = useSelector(s => s.autopilot)
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const currentLocation = useSelector(s => s.currentLocation)
