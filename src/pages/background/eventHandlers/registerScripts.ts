@@ -140,7 +140,6 @@ const registerScripts = async (
     }
 
     if (
-      proxy.status === 'on' &&
       !autopilot.autopilotSelected &&
       dataCenterId !== undefined &&
       dataCenterId !== null &&
@@ -180,7 +179,6 @@ const registerScripts = async (
     }
 
     if (
-      proxy.status === 'on' &&
       !autopilot.autopilotSelected &&
       currentLocation.id !== undefined &&
       currentLocation.id !== null &&
@@ -198,7 +196,6 @@ const registerScripts = async (
     }
 
     if (
-      proxy.status === 'on' &&
       !autopilot.autopilotSelected &&
       currentLocation.id !== undefined &&
       currentLocation.id !== null &&

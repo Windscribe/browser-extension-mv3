@@ -9,7 +9,7 @@ import { setUblockFilteringMode } from 'services/ublockController/setFilteringMo
 
 type RemoveFromAllowlist = (options: { hostname: string; level: number }) => Promise<void>
 
-type AddToAllowlist = (options: {
+export type AddToAllowlist = (options: {
   hostname: string
   level: number
   domainWithSettings: AllowlistPayload

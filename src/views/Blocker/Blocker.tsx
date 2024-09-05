@@ -9,7 +9,6 @@ import detectUblock from 'services/detectUblock'
 import sendMessage from 'services/runtime/sendMessage'
 
 import AdblockIcon from 'assets/img/adblock.svg'
-import TrackerIcon from 'assets/img/trackers.svg'
 import SocialDistancingIcon from 'assets/img/socialDistancing.svg'
 import CookieGoAwayIcon from 'assets/img/cookieGoAway.svg'
 

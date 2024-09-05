@@ -91,6 +91,14 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         img: constructionGarry,
         ActionsBlock: LocationDown,
       }
+
+    case 'wrongFileExtension':
+      return {
+        title: 'Wrong File Format',
+        message: 'Please upload a json formatted file',
+        img: cautionGarry,
+        ActionsBlock: WrongFileFormat,
+      }
   }
 }
 
@@ -197,6 +205,14 @@ const LocationDown: ActionsBlockComponent = ({ close }) => {
         Check Status
       </ConfirmButton>
       <CancelButton onClick={close}>Back</CancelButton>
+    </>
+  )
+}
+
+const WrongFileFormat: ActionsBlockComponent = ({ close }) => {
+  return (
+    <>
+      <ConfirmButton onClick={close}>OK</ConfirmButton>
     </>
   )
 }
