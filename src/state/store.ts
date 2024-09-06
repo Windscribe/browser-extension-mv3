@@ -44,6 +44,8 @@ import isOnlineReducer from './slices/isOnline'
 import timeWarpEnabledReducer from './slices/timeWarpEnabled'
 import overlayReducer from './slices/overlay'
 import shouldShowOnboardingReducer from './slices/shouldShowOnboarding'
+import shouldShowWelcomeReducer from './slices/shouldShowWelcome'
+
 import iconVariantReducer from './slices/iconVariant'
 import autoConnectAfterLoginReducer from './slices/autoConnectAfterLogin'
 import isRightAfterLoginReducer from './slices/isRightAfterLogin'
@@ -87,6 +89,7 @@ const reducers = {
   servers: serversReducer,
   session: sessionReducer,
   shouldShowOnboarding: shouldShowOnboardingReducer,
+  shouldShowWelcome: shouldShowWelcomeReducer,
   splitPersonalityEnabled: splitPersonalityEnabledReducer,
   timeWarpEnabled: timeWarpEnabledReducer,
   userAgent: userAgentReducer,

@@ -4,7 +4,7 @@ import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css' // optional
 
 type ToolTipProps = React.PropsWithChildren<TextProps> & {
-  message: string
+  message?: string
 }
 
 const ToolTip: ThemeUiElement<ToolTipProps> = ({ message, children, ...props }) => (

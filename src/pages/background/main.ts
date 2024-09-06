@@ -13,11 +13,13 @@ import {
 } from './eventHandlers'
 import { fetchNotifications } from 'state/slices/newsfeed'
 import { initializeUserAgentsList } from 'state/slices/userAgent'
+import { ublockStatusChangeHandler } from './eventHandlers/ublockStatusChangeHandler'
+import { enableOrDisableUblock } from 'services/detectUblock'
 
 declare const self: ServiceWorkerGlobalScope
 
 try {
-  const bgStore = initializeWrappedStore().then(store => {
+  const bgStore = initializeWrappedStore().then(async store => {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
@@ -28,6 +30,7 @@ try {
     }
 
     store.dispatch(initializeUserAgentsList())
+    enableOrDisableUblock(store.getState().blocker.blockLists, store)
 
     return store
   })
@@ -51,6 +54,9 @@ try {
   chrome.alarms.onAlarm.addListener(alarmHandler(bgStore))
 
   chrome.runtime.onMessage.addListener(messageHandler(bgStore))
+
+  chrome.management.onEnabled.addListener(ublockStatusChangeHandler(bgStore))
+  chrome.management.onDisabled.addListener(ublockStatusChangeHandler(bgStore))
 
   chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
 

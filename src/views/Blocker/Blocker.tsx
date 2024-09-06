@@ -3,31 +3,29 @@ import { Box } from 'theme-ui'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { ScrollableBox, Header, OptionBox, ToggleSwitch, OptionLinkBox } from 'components'
-import { setBlockLists, setShowUblockWarning } from 'state/slices/blocker'
+import { setBlockLists } from 'state/slices/blocker'
 import { addOverlay } from 'state/slices/overlay'
-import detectUblock from 'services/detectUblock'
+import { toggleUblockLite, useIsUblockLiteStatus } from 'services/detectUblock'
 import sendMessage from 'services/runtime/sendMessage'
 
 import AdblockIcon from 'assets/img/adblock.svg'
-import TrackerIcon from 'assets/img/trackers.svg'
 import SocialDistancingIcon from 'assets/img/socialDistancing.svg'
 import CookieGoAwayIcon from 'assets/img/cookieGoAway.svg'
 
 const Blocker: ThemeUiElement = () => {
   const blockLists = useSelector(s => s.blocker.blockLists)
-  const showUblockWarning = useSelector(s => s.blocker.showUblockWarning)
+  const showUblockWarningAtBlockerPage = useSelector(s => s.blocker.showUblockWarningAtBlockerPage)
 
   const dispatch = useDispatch()
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
+  const ublockStatus = useIsUblockLiteStatus()
+
   useEffect(() => {
-    detectUblock().then(isUblockInstalled => {
-      if (isUblockInstalled && showUblockWarning) {
-        dispatch(addOverlay('ublockDetected'))
-        dispatch(setShowUblockWarning(false))
-      }
-    })
-  }, [dispatch, showUblockWarning])
+    if (ublockStatus === 'enabled' && showUblockWarningAtBlockerPage) {
+      dispatch(addOverlay('ublockDetected'))
+    }
+  }, [dispatch, ublockStatus, showUblockWarningAtBlockerPage])
 
   const handleBlockListToggle = (listName: string) => {
     showReloadAlert(true)
@@ -46,6 +44,9 @@ const Blocker: ThemeUiElement = () => {
     })
   }
 
+  const isUblockEnabled = ublockStatus === 'enabled'
+  const isUblockInstalled = ublockStatus !== 'not_installed'
+
   return (
     <Box data-testid="blocker-page" bg="background">
       <Header title="Blocker" {...{ shouldShowReloadAlert, showReloadAlert }} />
@@ -57,6 +58,8 @@ const Blocker: ThemeUiElement = () => {
           path={'features/ad-blocking'}
         >
           <ToggleSwitch
+            disabled={isUblockEnabled}
+            message="Not available when Ublock Lite is enabled"
             onChange={() => {
               handleBlockListToggle('default')
             }}
@@ -70,6 +73,8 @@ const Blocker: ThemeUiElement = () => {
           path={'features/ad-blocking'}
         >
           <ToggleSwitch
+            disabled={isUblockEnabled}
+            message="Not available when Ublock Lite is enabled"
             onChange={() => {
               handleBlockListToggle('annoyances-social')
             }}
@@ -83,13 +88,33 @@ const Blocker: ThemeUiElement = () => {
           path={'features/ad-blocking'}
         >
           <ToggleSwitch
+            disabled={isUblockEnabled}
+            message="Not available when Ublock Lite is enabled"
             onChange={() => {
               handleBlockListToggle('annoyances-cookies')
             }}
             checked={blockLists.includes('annoyances-cookies')}
           />
         </OptionBox>
+        {isUblockInstalled && (
+          <OptionBox
+            // todo change icon
+            Icon={CookieGoAwayIcon}
+            title="uBlock Lite"
+            subTitle="Blocker settings are not available when uBlock Lite is enabled. Disable this setting to use Windscribe's adblock"
+          >
+            <ToggleSwitch
+              onChange={async () => {
+                await toggleUblockLite()
+              }}
+              checked={isUblockEnabled}
+            />
+          </OptionBox>
+        )}
+
         <OptionLinkBox
+          disabled={isUblockEnabled}
+          message="Not available when Ublock Lite is enabled"
           url={chrome.runtime.getURL('dashboard.html')}
           text="uBlock Settings"
           sx={{
