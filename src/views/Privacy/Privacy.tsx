@@ -162,6 +162,7 @@ const Privacy: ThemeUiElement = () => {
             }}
             checked={locationWarp}
             disabled={autopilot.autopilotSelected}
+            message="Not Available in Autopilot"
             data-testid="location-warp-toggle"
           />
         </OptionBox>
@@ -211,6 +212,7 @@ const Privacy: ThemeUiElement = () => {
               }}
               checked={timeWarpEnabled}
               disabled={autopilot.autopilotSelected}
+              message="Not Available in Autopilot"
             />
           </Flex>
         </OptionBox>
@@ -249,6 +251,7 @@ const Privacy: ThemeUiElement = () => {
             checked={languageWarpEnabled}
             disabled={autopilot.autopilotSelected}
             data-testid="language-warp-toggle"
+            message="Not Available in Autopilot"
           />
         </OptionBox>
         <OptionBox

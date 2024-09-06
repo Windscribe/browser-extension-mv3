@@ -7,6 +7,7 @@ type ToggleSwitchProps = {
   checked?: boolean
   disabled?: boolean
   bg?: string
+  message?: string
 }
 
 const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({
@@ -14,10 +15,11 @@ const ToggleSwitch: ThemeUiElement<ToggleSwitchProps> = ({
   checked,
   disabled,
   bg = 'white',
+  message,
   ...restProps
 }) => {
   return (
-    <ToolTip message="Not Available in Autopilot" sx={{ display: disabled ? 'block' : 'none' }}>
+    <ToolTip message={message} sx={{ display: disabled ? 'block' : 'none' }}>
       <Switch
         checked={checked}
         onChange={disabled ? undefined : onChange}

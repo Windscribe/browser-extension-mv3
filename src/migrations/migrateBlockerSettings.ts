@@ -1,7 +1,6 @@
 import { LogItemResponse, Message } from 'api/types'
 import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
-import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { StoreType } from 'state'
 import { setBlockLists } from 'state/slices/blocker'
 import { BLOCK_LISTS_REDUCER, DB_STATE_TABLE, SYNC_KEY } from 'utils/constants'
@@ -39,10 +38,6 @@ export const migrateBlockerSettings = async (db: Dexie, store: StoreType): Promi
 
       store.dispatch(setBlockLists(newBlocklist))
 
-      await setupOffscreenDocument('migrateBlockerSettings.html', [
-        chrome.offscreen.Reason.IFRAME_SCRIPTING,
-      ])
-
       const response = await chrome.runtime.sendMessage<Message<string[]>, LogItemResponse>({
         target: 'offscreen',
         type: 'migrateBlockerSettings',
@@ -53,14 +48,11 @@ export const migrateBlockerSettings = async (db: Dexie, store: StoreType): Promi
         await pushToDebugLog(log)
       }
     } catch (err) {
-      await chrome.offscreen.closeDocument()
       await pushToDebugLog({
         message: 'Failed while trying to apply rule sets',
         level: 'ERROR',
         data: err as Error,
       })
-    } finally {
-      await chrome.offscreen.closeDocument()
     }
   } else {
     await pushToDebugLog({
