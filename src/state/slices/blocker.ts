@@ -2,12 +2,14 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 interface BlockerState {
   blockLists: string[]
-  showUblockWarning: boolean
+  showUblockWarningAtHomePage: boolean
+  showUblockWarningAtBlockerPage: boolean
 }
 
 export const initialState: BlockerState = {
   blockLists: ['default'],
-  showUblockWarning: true,
+  showUblockWarningAtHomePage: true,
+  showUblockWarningAtBlockerPage: true,
 }
 
 export const blockerSlice = createSlice({
@@ -17,11 +19,15 @@ export const blockerSlice = createSlice({
     setBlockLists(state, action: PayloadAction<string[]>) {
       state.blockLists = action.payload
     },
-    setShowUblockWarning(state, action: PayloadAction<boolean>) {
-      state.showUblockWarning = action.payload
+    setShowUblockWarningAtHomePage(state, action: PayloadAction<boolean>) {
+      state.showUblockWarningAtHomePage = action.payload
+    },
+    setShowUblockWarningAtBlockerPage(state, action: PayloadAction<boolean>) {
+      state.showUblockWarningAtBlockerPage = action.payload
     },
   },
 })
 
-export const { setBlockLists, setShowUblockWarning } = blockerSlice.actions
+export const { setBlockLists, setShowUblockWarningAtHomePage, setShowUblockWarningAtBlockerPage } =
+  blockerSlice.actions
 export default blockerSlice.reducer

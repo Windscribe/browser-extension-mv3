@@ -39,22 +39,6 @@ const options = {
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
     background: path.join(__dirname, 'src', 'pages', 'background', 'main.ts'),
     debugLog: path.join(__dirname, 'src', 'pages', 'debugLog', 'index.tsx'),
-    migrateTheme: path.join(
-      __dirname,
-      'src',
-      'services',
-      'offscreenActions',
-      'migrateTheme',
-      'migrateTheme.ts',
-    ),
-    migrateAllowlist: path.join(
-      __dirname,
-      'src',
-      'services',
-      'offscreenActions',
-      'migrateAllowlist',
-      'migrateAllowlist.ts',
-    ),
 
     workerBlockContentScript: path.join(
       __dirname,
@@ -64,23 +48,7 @@ const options = {
       'workerBlock.ts',
     ),
 
-    migrateBlockerSettings: path.join(
-      __dirname,
-      'src',
-      'services',
-      'offscreenActions',
-      'migrateBlockerSettings',
-      'migrateBlockerSettings.ts',
-    ),
-
-    checkIpOffscreen: path.join(
-      __dirname,
-      'src',
-      'services',
-      'proxyAuth',
-      'offscreen',
-      'checkIpOffscreen.js',
-    ),
+    offscreenHub: path.join(__dirname, 'src', 'services', 'offscreenActions', 'offscreenHub.ts'),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'popup'], // TODO check
@@ -186,11 +154,12 @@ const options = {
         },
       ],
     }),
+
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/services/proxyAuth/offscreen/checkIpWorker.js',
-          to: path.join(__dirname, 'build/checkIpWorker.js'),
+          from: 'src/services/offscreenActions/checkIp.worker.js',
+          to: path.join(__dirname, 'build/checkIp.worker.js'),
           force: true,
         },
       ],
@@ -262,59 +231,11 @@ const options = {
       chunks: ['debugLog'],
       cache: false,
     }),
-    new HtmlWebpackPlugin({
-      template: path.join(
-        __dirname,
-        'src',
-        'services',
-        'offscreenActions',
-        'migrateTheme',
-        'migrateTheme.html',
-      ),
-      filename: 'migrateTheme.html',
-      chunks: ['migrateTheme'],
-      cache: false,
-    }),
 
     new HtmlWebpackPlugin({
-      template: path.join(
-        __dirname,
-        'src',
-        'services',
-        'offscreenActions',
-        'migrateAllowlist',
-        'migrateAllowlist.html',
-      ),
-      filename: 'migrateAllowlist.html',
-      chunks: ['migrateAllowlist'],
-      cache: false,
-    }),
-
-    new HtmlWebpackPlugin({
-      template: path.join(
-        __dirname,
-        'src',
-        'services',
-        'offscreenActions',
-        'migrateBlockerSettings',
-        'migrateBlockerSettings.html',
-      ),
-      filename: 'migrateBlockerSettings.html',
-      chunks: ['migrateBlockerSettings'],
-      cache: false,
-    }),
-
-    new HtmlWebpackPlugin({
-      template: path.join(
-        __dirname,
-        'src',
-        'services',
-        'proxyAuth',
-        'offscreen',
-        'checkIpOffscreen.html',
-      ),
-      filename: 'checkIpOffscreen.html',
-      chunks: ['checkIpOffscreen'],
+      template: path.join(__dirname, 'src', 'services', 'offscreenActions', 'offscreenHub.html'),
+      filename: 'offscreenHub.html',
+      chunks: ['offscreenHub'],
       cache: false,
     }),
 

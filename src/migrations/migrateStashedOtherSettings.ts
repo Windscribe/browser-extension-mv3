@@ -1,6 +1,5 @@
 import { CombinedAllowlistItem, LogItemResponse, Message } from 'api/types'
 import { pushToDebugLog } from 'services/debugLog'
-import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { StoreType } from 'state'
 import { initialState as intialNewsFeedState } from 'state/slices/newsfeed'
 import { initialState as intialMigratedFavouriteLocationsState } from 'state/slices/migratedFavoriteLocations'
@@ -65,10 +64,6 @@ export const migrateStashedOtherSettings = async (
         })
         .filter(item => !!item)
 
-      await setupOffscreenDocument('migrateAllowlist.html', [
-        chrome.offscreen.Reason.IFRAME_SCRIPTING,
-      ])
-
       const domainSettings = collection
         .map(item => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -89,8 +84,6 @@ export const migrateStashedOtherSettings = async (
           [domainSetting.domain]: domainSetting,
         }
       }, allowlist) as AllowlistState
-
-      console.log('allowlist', allowlist)
 
       await store.dispatch(
         setAndMergeStashes({
@@ -113,7 +106,7 @@ export const migrateStashedOtherSettings = async (
       for (const log of response.logs) {
         await pushToDebugLog(log)
       }
-      await chrome.offscreen.closeDocument()
+      // await chrome.offscreen.closeDocument()
     } catch (err) {
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',
