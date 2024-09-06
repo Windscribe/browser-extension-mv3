@@ -51,7 +51,7 @@ const fetchApi = async (
   if (NODE_ENV === 'production') {
     url = useAssets ? `assets.${domain}` : `api.${domain}`
   } else {
-  url = useAssets ? `assets-${domain}` : `api-${domain}`
+    url = useAssets ? `assets-${domain}` : `api-${domain}`
   }
 
   return fetchWithTimeout(`https://${url}/${path}`, method, body)

@@ -8,7 +8,6 @@ import {
 import Dexie from 'dexie'
 import isValidDomain from 'is-valid-domain'
 import { pushToDebugLog } from 'services/debugLog'
-import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
 import { StoreType } from 'state'
 import { ADD_TO_ALLOWLIST, AllowlistPayload } from 'state/slices/allowlist'
@@ -138,10 +137,6 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
         })
         .filter(item => !!item)
 
-      await setupOffscreenDocument('migrateAllowlist.html', [
-        chrome.offscreen.Reason.IFRAME_SCRIPTING,
-      ])
-
       for (const item of collection) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { hostname, level, ...domainSettings } = item ?? {}
@@ -163,7 +158,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
         await pushToDebugLog(log)
       }
 
-      await chrome.offscreen.closeDocument()
+      // await chrome.offscreen.closeDocument()
     } catch (err) {
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',

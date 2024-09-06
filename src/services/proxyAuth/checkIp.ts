@@ -5,36 +5,6 @@ import getErrorMessage from 'utils/getErrorMessage'
 const NO_IP = '---.---.---.---'
 
 export default async function checkIp(workingApi: string): Promise<string> {
-  await setupOffscreenDocument()
-
-  if (!workingApi) {
-    return NO_IP
-  }
-
-  const ip = await fetchIp(workingApi)
-  return ip || NO_IP
-}
-
-async function setupOffscreenDocument() {
-  await pushToDebugLog({
-    message: 'Setting up offscreen document checkIpOffscreen.html',
-  })
-  const offscreenUrl = chrome.runtime.getURL('checkIpOffscreen.html')
-  if (!(await chrome.offscreen.hasDocument())) {
-    await pushToDebugLog({
-      message: 'Created offscreen document checkIpOffscreen.html',
-    })
-    await chrome.offscreen.createDocument({
-      url: offscreenUrl,
-      reasons: [chrome.offscreen.Reason.IFRAME_SCRIPTING],
-      justification: '407 authentication',
-    })
-  }
-
-  await pushToDebugLog({
-    message: 'Sending message to offscreen document checkIpOffscreen.html',
-  })
-
   const result = await chrome.runtime.sendMessage<Message, LogItemResponse>({
     target: 'offscreen',
     type: 'fireNoSSLRequest',
@@ -44,6 +14,13 @@ async function setupOffscreenDocument() {
     message: 'Receieved message from offscreen document checkIpOffscreen.html, closing now',
     data: result,
   })
+
+  if (!workingApi) {
+    return NO_IP
+  }
+
+  const ip = await fetchIp(workingApi)
+  return ip || NO_IP
 }
 
 async function fetchIp(workingApi: string): Promise<string> {

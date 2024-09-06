@@ -1,5 +1,5 @@
 import type { OverlayTemplate } from 'utils/types'
-import { useDispatch } from 'state/hooks'
+import { useDispatch, useSelector } from 'state/hooks'
 import { addOverlay, removeAllOverlays } from 'state/slices/overlay'
 import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import CancelButton from './CancelButton'
@@ -12,6 +12,11 @@ import cautionGarry from 'assets/img/garry/garryCaution.png'
 import noDataGarry from 'assets/img/garry/garryNoData.png'
 import sadGarry from 'assets/img/garry/garrySad.png'
 import angryGarry from 'assets/img/garry/garryAngry.png'
+import { setShouldShowWelcome } from 'state/slices/shouldShowWelcome'
+import {
+  setShowUblockWarningAtBlockerPage,
+  setShowUblockWarningAtHomePage,
+} from 'state/slices/blocker'
 
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
 
@@ -43,7 +48,7 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
       return {
         title: 'uBlock Already Installed',
         message:
-          "Windscribe ad-blocker is powered by uBlock, which you already have installed. You shouldn't use both at the same time.",
+          "Windscribe ad-blocker is powered by uBlock Lite, which you already have installed. You shouldn't use both at the same time.",
         img: cautionGarry,
         ActionsBlock: UblockDetected,
       }
@@ -51,7 +56,7 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
       return {
         title: 'How To Disable uBlock',
         message:
-          'Navigate to the extension page (chrome://extensions). Locate the uBlock extension and toggle the blue switch.',
+          'Navigate to the extension page (chrome://extensions). Locate the uBlock Lite extension and toggle the blue switch.',
         img: cautionGarry,
         ActionsBlock: UninstallUblock,
       }
@@ -103,12 +108,20 @@ const Welcome: ActionsBlockComponent = ({ close }) => {
         onClick={() => {
           dispatch(removeAllOverlays())
           dispatch(setShouldShowOnboarding(true))
+          dispatch(setShouldShowWelcome(false))
         }}
         data-testid="start-tutorial-button"
       >
         Start Tutorial
       </ConfirmButton>
-      <CancelButton onClick={close}>Skip</CancelButton>
+      <CancelButton
+        onClick={() => {
+          close()
+          dispatch(setShouldShowWelcome(false))
+        }}
+      >
+        Skip
+      </CancelButton>
     </>
   )
 }
@@ -127,10 +140,24 @@ const UblockDetected: ActionsBlockComponent = ({ close }) => {
     dispatch(addOverlay('uninstallUblock'))
   }
 
+  const currentView = useSelector(s => s.view.current)
+
   return (
     <>
       <ConfirmButton onClick={open}>Use Built In Adblock</ConfirmButton>
-      <CancelButton onClick={close}>Keep Using uBlock</CancelButton>
+      <CancelButton
+        onClick={() => {
+          if (currentView === 'Blocker') {
+            dispatch(setShowUblockWarningAtBlockerPage(false))
+          } else if (currentView === 'Home') {
+            dispatch(setShowUblockWarningAtHomePage(false))
+          }
+
+          close()
+        }}
+      >
+        Keep Using uBlock Lite
+      </CancelButton>
     </>
   )
 }

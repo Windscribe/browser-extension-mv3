@@ -107,3 +107,4 @@ export const timeZoneWarpScriptId = 'timeZoneWarpScript' as const
 export const DEBUG_LOG_MAX_SIZE_BYTES = 1_048_576 // 1MB
 export const PRUNE_SIZE_BYTES = 204_800 // 200KB
 export const THROTTLE_PROXY_ERROR_TIME_MS = 5000 // ms
+export const UBLOCK_LITE_EXTENSION_ID = 'ddkjiahejlhfcafbddmgiahcphecmpfh'

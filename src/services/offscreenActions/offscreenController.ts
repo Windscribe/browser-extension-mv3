@@ -8,13 +8,14 @@ async function hasOffscreenDocument(path: string) {
   if ('getContexts' in chrome.runtime) {
     const contexts = await chrome.runtime.getContexts({
       contextTypes: [chrome.runtime.ContextType.OFFSCREEN_DOCUMENT],
-      documentUrls: [path],
+      documentUrls: [chrome.runtime.getURL(path)],
     })
     return Boolean(contexts.length)
   } else {
+    // self.clients is only accessible in the service worker
     const matchedClients = await self.clients.matchAll()
-    return await matchedClients.some(client => {
-      client.url.includes(chrome.runtime.id)
+    return matchedClients.some(client => {
+      return client.url.includes(chrome.runtime.id)
     })
   }
 }
