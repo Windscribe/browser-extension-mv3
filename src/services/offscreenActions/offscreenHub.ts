@@ -121,3 +121,12 @@ function handleMessages(
   // needed to keep the channel open
   return true
 }
+
+const onNetworkChange = () => {
+  chrome.runtime.sendMessage({
+    what: 'networkChangeEvent',
+  })
+}
+
+window.addEventListener('online', onNetworkChange)
+window.addEventListener('offline', onNetworkChange)

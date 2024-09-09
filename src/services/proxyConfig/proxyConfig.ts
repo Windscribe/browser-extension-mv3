@@ -125,6 +125,16 @@ export const connect = async (
 ): Promise<void> => {
   try {
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+
+    // if not disconnecting and there is no internet abort early
+    if (!getState().isOnline) {
+      pushToDebugLog({
+        message: 'No internet connection, aborting',
+      })
+      dispatch(setStatus('off'))
+      return
+    }
+
     dispatch(setStatus(silent ? 'on' : 'connecting'))
 
     const traffic_max = getState().session?.sessionData?.traffic_max
@@ -350,13 +360,14 @@ export const disconnect = async (
 
   chrome.proxy.settings.set({ value: config, scope: 'regular' })
 
+  // set status to off early no need to check ip call
+  dispatch(setStatus('off'))
+
   const workingApi = getState().workingApi
 
   const ip = await checkIp(workingApi)
 
   dispatch(setCurrentIp(ip))
-
-  dispatch(setStatus('off'))
 
   const noData = getState().overlay.templates.includes('noData')
 
@@ -382,6 +393,16 @@ export const connectToAutopilot = async (
 ): Promise<void> => {
   try {
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+
+    // if not disconnecting and there is no internet abort early
+    if (!getState().isOnline) {
+      pushToDebugLog({
+        message: 'No internet connection, aborting',
+      })
+      dispatch(setStatus('off'))
+      return
+    }
+
     dispatch(setStatus('connecting'))
 
     await dispatch(applyBestLocationAsAutopilot())
@@ -415,11 +436,17 @@ export const handleProxyError = async (
 ): Promise<void> => {
   const RECONNECTION_ATTEMPTS_LIMIT = 2
 
+  console.log('err handler')
+
   const failover = getState().connection.failover
   const reconnectionAttempts = getState().proxy.reconnectionAttempts
 
   if (reconnectionAttempts < RECONNECTION_ATTEMPTS_LIMIT) {
     dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
+    console.log(
+      'err handler reconnectionAttempts < RECONNECTION_ATTEMPTS_LIMIT',
+      reconnectionAttempts,
+    )
     const currentHosts = getState().currentDataCenter?.hosts
     if (currentHosts) {
       await connect(getState, dispatch, currentHosts)
@@ -430,9 +457,11 @@ export const handleProxyError = async (
     if (failover === 'Auto / Best') {
       dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
       await connectToAutopilot(getState, dispatch)
+      console.log('err handler - Auto / Best', reconnectionAttempts)
       return
     }
     if (failover === 'Same Country') {
+      console.log('err handler Same country', reconnectionAttempts)
       const currentLocation = getState().currentLocation
       const currentDataCenter = getState().currentDataCenter
 
@@ -452,9 +481,11 @@ export const handleProxyError = async (
   const smokeWall = getState().connection.smokeWall
 
   if (smokeWall) {
+    console.log('smoke wall is active - Smoke Wall Failover', reconnectionAttempts)
     dispatch(setConnectionError('Smoke Wall Failover'))
     dispatch(setStatus('on'))
   } else if (!smokeWall) {
+    console.log('no smoke wall is active - somethingWeird', reconnectionAttempts)
     await disconnect(getState, dispatch)
     dispatch(addOverlay('somethingWeird'))
   }
