@@ -42,11 +42,11 @@ type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
 
 const _login: ActionCreator<Credentials, ReturnType<typeof login>> = ({ payload }) => login(payload)
 
-const _addToAllowlist: ActionCreator<AllowlistPayload, void> = ({ payload }) =>
+const _addToAllowlist: ActionCreator<AllowlistPayload[], void> = ({ payload }) =>
   addToAllowlist(payload)
 
-const _removeFromAllowlist: ActionCreator<{ domain: string }, void> = ({ payload }) =>
-  removeFromAllowlist(payload.domain)
+const _removeFromAllowlist: ActionCreator<string[], void> = ({ payload }) =>
+  removeFromAllowlist(payload)
 
 export default {
   [`alias/${LOGIN}`]: _login,

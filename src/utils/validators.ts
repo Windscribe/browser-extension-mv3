@@ -170,6 +170,7 @@ const AllowlistItemValidatorManifestV2 = zod.object({
   allowDirectConnect: zod.boolean().optional(),
   domain: zod.string().optional(),
   includeAllSubdomains: zod.boolean().optional(),
+  addedBy: zod.string().optional(),
 })
 export const AllowListValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + ALLOW_LIST_REDUCER),

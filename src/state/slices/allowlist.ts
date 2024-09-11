@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 import { connect } from 'services/proxyConfig'
 
-interface AllowlistItemSettings {
+export interface AllowlistItemSettings {
   allowAds: boolean
   allowPrivacyFeatures: boolean
   allowDirectConnections: boolean
   includeAllSubdomains: boolean
+  addedBy?: string
 }
 
 export type AllowlistState = {
@@ -26,10 +27,9 @@ export const REMOVE_FROM_ALLOWLIST = 'allowlist/removeFromAllowlist'
 // Use 'components/hooks/useManageAllowlist' instead.
 export const addToAllowlist = createAsyncThunk(
   ADD_TO_ALLOWLIST,
-  async (domainWithSettings: AllowlistPayload, { dispatch, getState }) => {
-    dispatch(addDomain(domainWithSettings))
+  async (domainsWithSettings: AllowlistPayload[], { dispatch, getState }) => {
+    await dispatch(addDomains(domainsWithSettings))
     const { hosts, status } = getState().proxy
-
     if (hosts && status === 'on') await connect(getState, dispatch, hosts, true)
   },
 )
@@ -39,8 +39,8 @@ export const addToAllowlist = createAsyncThunk(
 // Use 'components/hooks/useManageAllowlist' instead.
 export const removeFromAllowlist = createAsyncThunk(
   REMOVE_FROM_ALLOWLIST,
-  async (domain: string, { dispatch, getState }) => {
-    await dispatch(removeDomain(domain))
+  async (domain: string[], { dispatch, getState }) => {
+    await dispatch(removeDomains(domain))
     const { hosts, status } = getState().proxy
     if (hosts && status === 'on') await connect(getState, dispatch, hosts, true)
   },
@@ -50,17 +50,20 @@ export const allowlistSlice = createSlice({
   name: 'allowlist',
   initialState,
   reducers: {
-    addDomain(state, action: PayloadAction<AllowlistPayload>) {
-      const { domain, ...settings } = action.payload
-      state[domain] = settings
-      return state
+    addDomains(state, action: PayloadAction<AllowlistPayload[]>) {
+      for (const payload of action.payload) {
+        const { domain, ...settings } = payload
+        state[domain] = settings
+      }
     },
-    removeDomain(state, action: PayloadAction<string>) {
-      delete state[action.payload]
-      return state
+    removeDomains(state, action: PayloadAction<string[]>) {
+      const domains = action.payload
+      for (const domain of domains) {
+        delete state[domain]
+      }
     },
   },
 })
 
-export const { addDomain, removeDomain } = allowlistSlice.actions
+export const { addDomains, removeDomains } = allowlistSlice.actions
 export default allowlistSlice.reducer
