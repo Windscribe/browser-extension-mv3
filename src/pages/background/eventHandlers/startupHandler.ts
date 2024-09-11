@@ -3,7 +3,7 @@ import { type StoreType } from 'state/store'
 import { handleConnectionError } from 'state/slices/proxy'
 import { connect, disconnect, connectToAutopilot } from 'services/proxyConfig'
 import { fetchNotifications } from 'state/slices/newsfeed'
-import { initializeUserAgentsList } from 'state/slices/userAgent'
+import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import { enableOrDisableUblock } from 'services/detectUblock'
 import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 
@@ -28,6 +28,7 @@ export function startupHandler(bgStore: Promise<StoreType>) {
 
       await store.dispatch(fetchNotifications())
       store.dispatch(initializeUserAgentsList())
+      store.dispatch(setOriginalUserAgent(navigator.userAgent))
 
       enableOrDisableUblock(store.getState().blocker.blockLists, store)
 

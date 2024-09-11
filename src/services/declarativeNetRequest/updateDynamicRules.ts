@@ -47,9 +47,14 @@ const spoofUserAgentHeaderRuleTemplate: chrome.declarativeNetRequest.Rule = {
   },
 }
 
-export async function spoofUserAgentHeader(spoofedUserAgent = ''): Promise<void> {
+export async function spoofUserAgentHeader(
+  spoofedUserAgent = '',
+  urlsToExlude: string[],
+): Promise<void> {
   const rule = JSON.parse(JSON.stringify(spoofUserAgentHeaderRuleTemplate))
   rule.action.requestHeaders[0].value = spoofedUserAgent
+  rule.condition.excludedInitiatorDomains = urlsToExlude
+  rule.condition.excludedRequestDomains = urlsToExlude
 
   await chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [rule],

@@ -24,6 +24,7 @@ import {
   timeZoneWarpScriptId,
   workerBlockScriptId,
 } from 'utils/constants'
+import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -40,6 +41,8 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
   const { addToAllowlist, removeFromAllowlist } = useManageAllowlist()
   const allowlist = useSelector(s => s.allowlist)
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
 
   const settings = allowlist[currentTabHostname]
   const allowAdsState = !!settings?.allowAds
@@ -91,6 +94,20 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
       }
 
       await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
+
+      if (isSplitPersonalityEnabled) {
+        let excludeUrl = Object.entries(allowlist)
+          .filter(([_, value]) => value.allowPrivacyFeatures)
+          .map(([key, _]) => key)
+
+        if (isPrivacyFeaturesAllowed) {
+          excludeUrl.push(currentTabHostname)
+        } else {
+          excludeUrl = excludeUrl.filter(url => url !== currentTabHostname)
+        }
+
+        await spoofUserAgentHeader(spoofedUserAgent, excludeUrl)
+      }
 
       const currentExcludeURL = toExcludeMatchesURL(currentTabHostname, !isIncludeAllSubdomains)
       const newExcludeURL = toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains)
@@ -175,6 +192,15 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
       // const withutSubdomain = toExcludeMatchesURL(currentTabHostname, false)
       // // with subdomain
       // const newExcludeURL = toExcludeMatchesURL(currentTabHostname, true)
+
+      if (isSplitPersonalityEnabled) {
+        const excludeUrl = Object.entries(allowlist)
+          .filter(([_, value]) => value.allowPrivacyFeatures)
+          // remove current domain from the list
+          .filter(([key, _]) => key !== currentTabHostname)
+          .map(([key, _]) => key)
+        await spoofUserAgentHeader(spoofedUserAgent, excludeUrl)
+      }
 
       if (workerBlockExcludeMatches) {
         const newExcludeMatches = workerBlockExcludeMatches.filter(

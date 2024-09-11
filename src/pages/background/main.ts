@@ -12,7 +12,7 @@ import {
   messageHandler,
 } from './eventHandlers'
 import { fetchNotifications } from 'state/slices/newsfeed'
-import { initializeUserAgentsList } from 'state/slices/userAgent'
+import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import { ublockStatusChangeHandler } from './eventHandlers/ublockStatusChangeHandler'
 import { enableOrDisableUblock } from 'services/detectUblock'
 
@@ -31,6 +31,7 @@ try {
 
     store.dispatch(initializeUserAgentsList())
     enableOrDisableUblock(store.getState().blocker.blockLists, store)
+    store.dispatch(setOriginalUserAgent(navigator.userAgent))
 
     return store
   })

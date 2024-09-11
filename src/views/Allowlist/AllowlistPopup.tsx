@@ -17,6 +17,7 @@ import {
   workerBlockScriptId,
 } from 'utils/constants'
 import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
+import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 
 type AllowlistPopupProps = {
   domain: string
@@ -34,6 +35,8 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   const { addToAllowlist, removeFromAllowlist } = useManageAllowlist()
 
   const allowlist = useSelector(s => s.allowlist)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
 
   const [submitButtonMode, setSubmitButtonMode] = useState<SubmitButtonMode>('disabled')
   const [isDomainValid, setIsDomainValid] = useState(true)
@@ -104,7 +107,17 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
       ?.excludeMatches
 
     if (submitButtonMode === 'delete') {
-      removeFromAllowlist({ hostname: domainValue, level: 3 })
+      await removeFromAllowlist({ hostname: domainValue, level: 3 })
+
+      if (isSplitPersonalityEnabled) {
+        const excludeUrl = Object.entries(allowlist)
+          .filter(([_, value]) => value.allowPrivacyFeatures)
+          // remove current domain from the list
+          .filter(([key, _]) => key !== domainValue)
+          .map(([key, _]) => key)
+        await spoofUserAgentHeader(spoofedUserAgent, excludeUrl)
+      }
+
       closePopup(true, domain)
       if (workerBlockScriptExcludeMatches) {
         const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
@@ -176,6 +189,20 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
 
     await addToAllowlist({ hostname: domainValue, level, domainWithSettings })
 
+    if (isSplitPersonalityEnabled) {
+      let excludeUrl = Object.entries(allowlist)
+        .filter(([_, value]) => value.allowPrivacyFeatures)
+        .map(([key, _]) => key)
+
+      if (isPrivacyFeaturesAllowed) {
+        excludeUrl.push(domainValue)
+      } else {
+        excludeUrl = excludeUrl.filter(url => url !== domainValue)
+      }
+
+      console.log('excludeUrl', excludeUrl)
+      await spoofUserAgentHeader(spoofedUserAgent, excludeUrl)
+    }
     const currentExcludeURL = toExcludeMatchesURL(domainValue, !isAllSubdomainsIncluded)
     const newExcludeURL = toExcludeMatchesURL(domainValue, isAllSubdomainsIncluded)
 
