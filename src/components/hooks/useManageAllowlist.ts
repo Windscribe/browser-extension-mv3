@@ -7,13 +7,15 @@ import {
 } from 'state/slices/allowlist'
 import { setUblockFilteringMode } from 'services/ublockController/setFilteringMode'
 
-type RemoveFromAllowlist = (options: { hostname: string; level: number }) => Promise<void>
+type RemoveFromAllowlist = (options: { hostname: string; level: number }[]) => Promise<void>
 
-type AddToAllowlist = (options: {
-  hostname: string
-  level: number
-  domainWithSettings: AllowlistPayload
-}) => Promise<void>
+type AddToAllowlist = (
+  options: {
+    hostname: string
+    level: number
+    domainWithSettings: AllowlistPayload
+  }[],
+) => Promise<void>
 
 export default (): {
   removeFromAllowlist: RemoveFromAllowlist
@@ -21,13 +23,19 @@ export default (): {
 } => {
   const dispatchAlias = useDispatchAlias()
 
-  const addToAllowlist: AddToAllowlist = async ({ hostname, level, domainWithSettings }) => {
+  const addToAllowlist: AddToAllowlist = async options => {
     try {
-      if (domainWithSettings.allowAds === true) {
-        await setUblockFilteringMode({ hostname, level })
-      } else {
-        await setUblockFilteringMode({ hostname, level: 3 })
+      const domainWithSettings = []
+      for (const option of options) {
+        const { hostname, level } = option
+        if (option.domainWithSettings.allowAds === true) {
+          await setUblockFilteringMode({ hostname: hostname, level: level })
+        } else {
+          await setUblockFilteringMode({ hostname: hostname, level: 3 })
+        }
+        domainWithSettings.push(option.domainWithSettings)
       }
+
       await dispatchAlias(ADD_TO_ALLOWLIST, domainWithSettings)
     } catch (err) {
       pushToDebugLog({
@@ -38,10 +46,15 @@ export default (): {
     }
   }
 
-  const removeFromAllowlist: RemoveFromAllowlist = async ({ hostname, level }) => {
+  const removeFromAllowlist: RemoveFromAllowlist = async options => {
     try {
-      await setUblockFilteringMode({ hostname, level })
-      await dispatchAlias(REMOVE_FROM_ALLOWLIST, { domain: hostname })
+      const domains = []
+      for (const option of options) {
+        const { hostname, level } = option
+        await setUblockFilteringMode({ hostname, level })
+        domains.push(hostname)
+      }
+      await dispatchAlias(REMOVE_FROM_ALLOWLIST, domains)
     } catch (err) {
       pushToDebugLog({
         message: 'Failed while trying to remove domain from allowlist',
