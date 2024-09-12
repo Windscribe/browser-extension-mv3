@@ -16,14 +16,6 @@ import PrivacySelected from 'assets/img/privacySelected.svg'
 import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
-import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
-import {
-  languageWarpScriptId,
-  locationWarpScriptId,
-  splitPersonalityScriptId,
-  timeZoneWarpScriptId,
-  workerBlockScriptId,
-} from 'utils/constants'
 import {
   addToExcludeScriptMatches,
   domainDependents,
