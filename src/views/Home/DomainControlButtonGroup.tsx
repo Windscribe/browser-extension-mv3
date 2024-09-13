@@ -23,6 +23,7 @@ import {
   removeFromExludeScriptMatches,
 } from 'utils/allowListDependants'
 import { pushToDebugLog } from 'services/debugLog'
+import { updateAddExcludeDomains } from 'utils/networkSpoofing'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -67,6 +68,10 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     isDirectConnectionsAllowed ??= allowDirectConnectionsState
     // include all subdomains has no ui component so using the redux store value
 
+    const allowlistItemsWithPrivacyFeatures = Object.entries(allowlist)
+      .filter(([_, value]) => value.allowPrivacyFeatures)
+      .map(([key]) => key)
+
     if (!currentTabHostname) {
       await pushToDebugLog({
         message: 'No current tab hostname',
@@ -76,6 +81,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
       return
     }
 
+    // add or update allowlist item settings
     if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
       const level = isAdsAllowed ? 0 : 3
       const domainWithSettings = {
@@ -87,6 +93,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
       }
 
       const toAdd = []
+      const toExcludeFromSpoofing = []
 
       toAdd.push({ hostname: currentTabHostname, level, domainWithSettings })
 
@@ -115,6 +122,17 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
             },
           })
 
+          const excludeUrls = updateAddExcludeDomains({
+            allowlist,
+            isSplitPersonalityEnabled,
+            isPrivacyFeaturesAllowed: domainWithSettings.allowPrivacyFeatures,
+            domainValue: dependentDomain,
+          })
+
+          if (excludeUrls) {
+            toExcludeFromSpoofing.push(...excludeUrls)
+          }
+
           await addToExcludeScriptMatches(
             dependentDomain,
             domainWithSettings.allowPrivacyFeatures,
@@ -123,36 +141,30 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         }
       }
 
-      if (isSplitPersonalityEnabled) {
-        let excludeUrl = Object.entries(allowlist)
-          .filter(([_, value]) => value.allowPrivacyFeatures)
-          .map(([key, _]) => key)
+      const excludeUrls = updateAddExcludeDomains({
+        allowlist,
+        isSplitPersonalityEnabled,
+        isPrivacyFeaturesAllowed: domainWithSettings.allowPrivacyFeatures,
+        domainValue: currentTabHostname,
+      })
 
-        if (isPrivacyFeaturesAllowed) {
-          excludeUrl.push(currentTabHostname)
-        } else {
-          excludeUrl = excludeUrl.filter(url => url !== currentTabHostname)
-        }
-
-        await spoofUserAgentHeader(spoofedUserAgent, excludeUrl)
+      if (excludeUrls) {
+        toExcludeFromSpoofing.push(...excludeUrls)
+        const uniqueExcludeUrls = Array.from(new Set(toExcludeFromSpoofing))
+        await spoofUserAgentHeader(spoofedUserAgent, uniqueExcludeUrls)
       }
 
       // no need to await this since all the depenedent operations are done by this time
       addToAllowlist(toAdd)
     } else {
+      // remove allowlist item settings
       const toRemove = []
+
+      let domainsToKeepSpoofing = allowlistItemsWithPrivacyFeatures.slice()
+
       toRemove.push({ hostname: currentTabHostname, level: 3 })
 
       await removeFromExludeScriptMatches(currentTabHostname, isIncludeAllSubdomains)
-
-      if (isSplitPersonalityEnabled) {
-        const excludeUrl = Object.entries(allowlist)
-          .filter(([_, value]) => value.allowPrivacyFeatures)
-          // remove current domain from the list
-          .filter(([key, _]) => key !== currentTabHostname)
-          .map(([key, _]) => key)
-        await spoofUserAgentHeader(spoofedUserAgent, excludeUrl)
-      }
 
       const dependentsArray = domainDependents(currentTabHostname)
 
@@ -164,6 +176,14 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
             allowlist[dependentDomain].includeAllSubdomains,
           )
         }
+      }
+
+      if (isSplitPersonalityEnabled) {
+        domainsToKeepSpoofing = domainsToKeepSpoofing.filter(
+          d => !dependentsArray.includes(d) && d !== currentTabHostname,
+        )
+
+        await spoofUserAgentHeader(spoofedUserAgent, domainsToKeepSpoofing)
       }
 
       removeFromAllowlist(toRemove)

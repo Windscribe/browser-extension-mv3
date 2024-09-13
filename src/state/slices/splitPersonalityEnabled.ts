@@ -52,7 +52,7 @@ export const activateSplitPersonality = createAsyncThunk(
   ACTIVATE_SPLIT_PERSONALITY,
   async (_, { dispatch, getState }) => {
     try {
-      const domainsToExclude = Object.entries(getState().allowlist)
+      const dontSpoofDomains = Object.entries(getState().allowlist)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .filter(([_, v]) => v.allowPrivacyFeatures)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -60,7 +60,7 @@ export const activateSplitPersonality = createAsyncThunk(
 
       dispatch(setRandomSpoofedUserAgent)
       const spoofedUserAgent = getState().userAgent.spoofed
-      await spoofUserAgentHeader(spoofedUserAgent, domainsToExclude)
+      await spoofUserAgentHeader(spoofedUserAgent, dontSpoofDomains)
       dispatch(setSplitPersonalityEnabled(true))
       const splitPersonalityScript = await getScriptForId(splitPersonalityScriptId)
       const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(getState().allowlist)

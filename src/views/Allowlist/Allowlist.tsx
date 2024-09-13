@@ -12,11 +12,8 @@ import { useSelector } from 'state/hooks'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
-import {
-  domainDependents,
-  getAllExcludeMatches,
-  removeFromExludeScriptMatches,
-} from 'utils/allowListDependants'
+import { domainDependents, removeFromExludeScriptMatches } from 'utils/allowListDependants'
+import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 
 const Allowlist: ThemeUiElement = () => {
   const allowlist = useSelector(s => s.allowlist)
@@ -24,7 +21,8 @@ const Allowlist: ThemeUiElement = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [domainToEdit, setDomainToEdit] = useState<string>('')
   const [isEditMode, setIsEditMode] = useState(false)
-
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
   const currentTabHostname = useCurrentTabHostname()
   const { removeFromAllowlist } = useManageAllowlist()
 
@@ -123,6 +121,12 @@ const Allowlist: ThemeUiElement = () => {
                   onClick={async () => {
                     const toRemove = []
 
+                    const allowlistItemsWithPrivacyFeatures = Object.entries(allowlist)
+                      .filter(([_, value]) => value.allowPrivacyFeatures)
+                      .map(([key]) => key)
+
+                    let domainsToKeepSpoofing = allowlistItemsWithPrivacyFeatures.slice()
+
                     await removeFromExludeScriptMatches(domain, value.includeAllSubdomains)
 
                     toRemove.push({ hostname: domain, level: 3 })
@@ -137,6 +141,14 @@ const Allowlist: ThemeUiElement = () => {
                         )
                         toRemove.push({ hostname: dependentDomain, level: 3 })
                       }
+                    }
+
+                    if (isSplitPersonalityEnabled) {
+                      domainsToKeepSpoofing = domainsToKeepSpoofing.filter(
+                        d => !dependentsArray.includes(d) && d !== domain,
+                      )
+
+                      await spoofUserAgentHeader(spoofedUserAgent, domainsToKeepSpoofing)
                     }
 
                     removeFromAllowlist(toRemove)

@@ -36,6 +36,7 @@ type ScriptExcludeMatches = {
 }
 
 export const getAllExcludeMatches = async (): Promise<ScriptExcludeMatches> => {
+  // one bulk call to get all the scripts
   const scripts = await chrome.scripting.getRegisteredContentScripts({
     ids: [
       workerBlockScriptId,
@@ -46,12 +47,19 @@ export const getAllExcludeMatches = async (): Promise<ScriptExcludeMatches> => {
     ],
   })
 
+  // one by one to get the exclude matches, faster then individual calls to getRegisteredContentScripts
+  const splitPersonalityScript = scripts.find(script => script.id === splitPersonalityScriptId)
+  const workerBlockScript = scripts.find(script => script.id === workerBlockScriptId)
+  const locationWarpScript = scripts.find(script => script.id === locationWarpScriptId)
+  const languageWarpScript = scripts.find(script => script.id === languageWarpScriptId)
+  const timeZoneWarpScript = scripts.find(script => script.id === timeZoneWarpScriptId)
+
   return {
-    workerBlockScriptExcludeMatches: scripts?.[0]?.excludeMatches,
-    splitPersonalityScriptExcludeMatches: scripts?.[1]?.excludeMatches,
-    locationWarpScriptExcludeMatches: scripts?.[2]?.excludeMatches,
-    languageWarpScriptExcludeMatches: scripts?.[3]?.excludeMatches,
-    timeZoneWarpScriptExcludeMatches: scripts?.[4]?.excludeMatches,
+    workerBlockScriptExcludeMatches: workerBlockScript?.excludeMatches,
+    splitPersonalityScriptExcludeMatches: splitPersonalityScript?.excludeMatches,
+    locationWarpScriptExcludeMatches: locationWarpScript?.excludeMatches,
+    languageWarpScriptExcludeMatches: languageWarpScript?.excludeMatches,
+    timeZoneWarpScriptExcludeMatches: timeZoneWarpScript?.excludeMatches,
   }
 }
 

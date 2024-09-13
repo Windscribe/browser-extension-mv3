@@ -9,14 +9,6 @@ import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
-import {
-  languageWarpScriptId,
-  locationWarpScriptId,
-  splitPersonalityScriptId,
-  timeZoneWarpScriptId,
-  workerBlockScriptId,
-} from 'utils/constants'
-import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
 import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 import {
   addToExcludeScriptMatches,
@@ -24,6 +16,7 @@ import {
   removeFromExludeScriptMatches,
 } from 'utils/allowListDependants'
 import { pushToDebugLog } from 'services/debugLog'
+import { updateAddExcludeDomains } from 'utils/networkSpoofing'
 
 type AllowlistPopupProps = {
   domain: string
@@ -97,15 +90,12 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   }
 
   const handleSubmit = async () => {
+    const allowlistItemsWithPrivacyFeatures = Object.entries(allowlist)
+      .filter(([_, value]) => value.allowPrivacyFeatures)
+      .map(([key]) => key)
+
     if (submitButtonMode === 'delete') {
-      if (isSplitPersonalityEnabled) {
-        const excludeUrl = Object.entries(allowlist)
-          .filter(([_, value]) => value.allowPrivacyFeatures)
-          // remove current domain from the list
-          .filter(([key, _]) => key !== domainValue)
-          .map(([key, _]) => key)
-        await spoofUserAgentHeader(spoofedUserAgent, excludeUrl)
-      }
+      let domainsToKeepSpoofing = allowlistItemsWithPrivacyFeatures.slice()
 
       const toRemove = []
       toRemove.push({ hostname: domainValue, level: 3 })
@@ -122,6 +112,13 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
             allowlist[dependentDomain].includeAllSubdomains,
           )
         }
+      }
+
+      if (isSplitPersonalityEnabled) {
+        domainsToKeepSpoofing = domainsToKeepSpoofing.filter(
+          d => !dependentsArray.includes(d) && d !== domainValue,
+        )
+        await spoofUserAgentHeader(spoofedUserAgent, domainsToKeepSpoofing)
       }
 
       removeFromAllowlist(toRemove)
@@ -149,21 +146,8 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     }
 
     const toAdd = []
+    const toExcludeFromSpoofing = []
     toAdd.push({ hostname: domainValue, level, domainWithSettings })
-
-    if (isSplitPersonalityEnabled) {
-      let excludeUrl = Object.entries(allowlist)
-        .filter(([_, value]) => value.allowPrivacyFeatures)
-        .map(([key, _]) => key)
-
-      if (isPrivacyFeaturesAllowed) {
-        excludeUrl.push(domainValue)
-      } else {
-        excludeUrl = excludeUrl.filter(url => url !== domainValue)
-      }
-
-      await spoofUserAgentHeader(spoofedUserAgent, excludeUrl)
-    }
 
     await addToExcludeScriptMatches(
       domainValue,
@@ -190,12 +174,36 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
           },
         })
 
+        const excludeUrls = updateAddExcludeDomains({
+          allowlist,
+          isSplitPersonalityEnabled,
+          isPrivacyFeaturesAllowed: domainWithSettings.allowPrivacyFeatures,
+          domainValue: dependentDomain,
+        })
+
+        if (excludeUrls) {
+          toExcludeFromSpoofing.push(...excludeUrls)
+        }
+
         await addToExcludeScriptMatches(
           dependentDomain,
           domainWithSettings.allowPrivacyFeatures,
           domainWithSettings.includeAllSubdomains,
         )
       }
+    }
+
+    const excludeUrls = updateAddExcludeDomains({
+      allowlist,
+      isSplitPersonalityEnabled,
+      isPrivacyFeaturesAllowed,
+      domainValue,
+    })
+
+    if (excludeUrls) {
+      toExcludeFromSpoofing.push(...excludeUrls)
+      const uniqueExcludeUrls = Array.from(new Set(toExcludeFromSpoofing))
+      await spoofUserAgentHeader(spoofedUserAgent, uniqueExcludeUrls)
     }
 
     // no need to await this since all the depenedent operations are done by this time
