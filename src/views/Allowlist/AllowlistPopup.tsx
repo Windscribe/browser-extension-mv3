@@ -16,7 +16,7 @@ import {
   removeFromExludeScriptMatches,
 } from 'utils/allowListDependants'
 import { pushToDebugLog } from 'services/debugLog'
-import { updateAddExcludeDomains } from 'utils/networkSpoofing'
+import { getPrivacyFeatureEnabledDomains, updateAddExcludeDomains } from 'utils/networkSpoofing'
 
 type AllowlistPopupProps = {
   domain: string
@@ -90,9 +90,7 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   }
 
   const handleSubmit = async () => {
-    const allowlistItemsWithPrivacyFeatures = Object.entries(allowlist)
-      .filter(([_, value]) => value.allowPrivacyFeatures)
-      .map(([key]) => key)
+    const allowlistItemsWithPrivacyFeatures = getPrivacyFeatureEnabledDomains(allowlist)
 
     if (submitButtonMode === 'delete') {
       let domainsToKeepSpoofing = allowlistItemsWithPrivacyFeatures.slice()

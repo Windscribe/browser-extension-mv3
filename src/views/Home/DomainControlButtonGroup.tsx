@@ -23,7 +23,7 @@ import {
   removeFromExludeScriptMatches,
 } from 'utils/allowListDependants'
 import { pushToDebugLog } from 'services/debugLog'
-import { updateAddExcludeDomains } from 'utils/networkSpoofing'
+import { getPrivacyFeatureEnabledDomains, updateAddExcludeDomains } from 'utils/networkSpoofing'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -67,10 +67,6 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     isPrivacyFeaturesAllowed ??= allowPrivacyFeaturesState
     isDirectConnectionsAllowed ??= allowDirectConnectionsState
     // include all subdomains has no ui component so using the redux store value
-
-    const allowlistItemsWithPrivacyFeatures = Object.entries(allowlist)
-      .filter(([_, value]) => value.allowPrivacyFeatures)
-      .map(([key]) => key)
 
     if (!currentTabHostname) {
       await pushToDebugLog({
@@ -159,6 +155,8 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     } else {
       // remove allowlist item settings
       const toRemove = []
+
+      const allowlistItemsWithPrivacyFeatures = getPrivacyFeatureEnabledDomains(allowlist)
 
       let domainsToKeepSpoofing = allowlistItemsWithPrivacyFeatures.slice()
 

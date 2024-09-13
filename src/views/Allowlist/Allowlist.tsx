@@ -14,6 +14,7 @@ import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
 import { domainDependents, removeFromExludeScriptMatches } from 'utils/allowListDependants'
 import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 
 const Allowlist: ThemeUiElement = () => {
   const allowlist = useSelector(s => s.allowlist)
@@ -121,9 +122,8 @@ const Allowlist: ThemeUiElement = () => {
                   onClick={async () => {
                     const toRemove = []
 
-                    const allowlistItemsWithPrivacyFeatures = Object.entries(allowlist)
-                      .filter(([_, value]) => value.allowPrivacyFeatures)
-                      .map(([key]) => key)
+                    const allowlistItemsWithPrivacyFeatures =
+                      getPrivacyFeatureEnabledDomains(allowlist)
 
                     let domainsToKeepSpoofing = allowlistItemsWithPrivacyFeatures.slice()
 

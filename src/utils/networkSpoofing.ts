@@ -12,9 +12,7 @@ export const updateAddExcludeDomains = ({
   domainValue: string
 }): string[] | undefined => {
   if (isSplitPersonalityEnabled) {
-    let excludeUrl = Object.entries(allowlist)
-      .filter(([_, value]) => value.allowPrivacyFeatures)
-      .map(([key, _]) => key)
+    let excludeUrl = getPrivacyFeatureEnabledDomains(allowlist)
 
     if (isPrivacyFeaturesAllowed) {
       excludeUrl.push(domainValue)
@@ -24,4 +22,10 @@ export const updateAddExcludeDomains = ({
 
     return excludeUrl
   }
+}
+
+export const getPrivacyFeatureEnabledDomains = (allowlist: AllowlistState): string[] => {
+  return Object.entries(allowlist)
+    .filter(([_, value]) => value.allowPrivacyFeatures)
+    .map(([key]) => key)
 }
