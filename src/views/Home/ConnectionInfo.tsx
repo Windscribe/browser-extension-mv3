@@ -29,6 +29,8 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
     textColor = 'neonGreen'
   } else if (!isOnline) {
     textColor = 'warningYellow'
+  } else if (status === 'off') {
+    textColor = 'halfWhite'
   } else {
     textColor = 'white'
   }
