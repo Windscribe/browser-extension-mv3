@@ -15,6 +15,12 @@ import {
   removeFromExludeScriptMatches,
 } from 'utils/allowListDependants'
 import { pushToDebugLog } from 'services/debugLog'
+import {
+  defaultUblockRulesetId,
+  ruleIdForMatomo,
+  updateStaticRules,
+} from 'services/declarativeNetRequest/updateStaticRules'
+import { CONTROL_D_DOMAIN } from 'utils/constants'
 
 type AllowlistPopupProps = {
   domain: string
@@ -104,6 +110,13 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
         }
       }
 
+      if (isAdsAllowed && domainValue === CONTROL_D_DOMAIN) {
+        updateStaticRules({
+          rulesetId: defaultUblockRulesetId,
+          enableRuleIds: ruleIdForMatomo,
+        })
+      }
+
       removeFromAllowlist(toRemove)
       closePopup(true, domain)
       return
@@ -162,6 +175,13 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
           domainWithSettings.includeAllSubdomains,
         )
       }
+    }
+
+    if (domainWithSettings.allowAds && domainValue === CONTROL_D_DOMAIN) {
+      updateStaticRules({
+        rulesetId: defaultUblockRulesetId,
+        disableRuleIds: ruleIdForMatomo,
+      })
     }
 
     // no need to await this since all the depenedent operations are done by this time

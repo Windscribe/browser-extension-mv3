@@ -12,11 +12,13 @@ import { useSelector } from 'state/hooks'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
+import { domainDependents, removeFromExludeScriptMatches } from 'utils/allowListDependants'
+import { CONTROL_D_DOMAIN } from 'utils/constants'
 import {
-  domainDependents,
-  getAllExcludeMatches,
-  removeFromExludeScriptMatches,
-} from 'utils/allowListDependants'
+  defaultUblockRulesetId,
+  ruleIdForMatomo,
+  updateStaticRules,
+} from 'services/declarativeNetRequest/updateStaticRules'
 
 const Allowlist: ThemeUiElement = () => {
   const allowlist = useSelector(s => s.allowlist)
@@ -137,6 +139,13 @@ const Allowlist: ThemeUiElement = () => {
                         )
                         toRemove.push({ hostname: dependentDomain, level: 3 })
                       }
+                    }
+
+                    if (value.allowAds && domain === CONTROL_D_DOMAIN) {
+                      updateStaticRules({
+                        rulesetId: defaultUblockRulesetId,
+                        enableRuleIds: ruleIdForMatomo,
+                      })
                     }
 
                     removeFromAllowlist(toRemove)

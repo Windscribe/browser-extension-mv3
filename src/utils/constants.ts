@@ -106,5 +106,5 @@ export const timeZoneWarpScriptId = 'timeZoneWarpScript' as const
 
 export const DEBUG_LOG_MAX_SIZE_BYTES = 1_048_576 // 1MB
 export const PRUNE_SIZE_BYTES = 204_800 // 200KB
-
 export const UBLOCK_LITE_EXTENSION_ID = 'ddkjiahejlhfcafbddmgiahcphecmpfh'
+export const CONTROL_D_DOMAIN = 'controld.com'

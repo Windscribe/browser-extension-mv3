@@ -16,19 +16,17 @@ import PrivacySelected from 'assets/img/privacySelected.svg'
 import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
-import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
-import {
-  languageWarpScriptId,
-  locationWarpScriptId,
-  splitPersonalityScriptId,
-  timeZoneWarpScriptId,
-  workerBlockScriptId,
-} from 'utils/constants'
+import { CONTROL_D_DOMAIN } from 'utils/constants'
 import {
   addToExcludeScriptMatches,
   domainDependents,
   removeFromExludeScriptMatches,
 } from 'utils/allowListDependants'
+import {
+  updateStaticRules,
+  defaultUblockRulesetId,
+  ruleIdForMatomo,
+} from 'services/declarativeNetRequest/updateStaticRules'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -122,6 +120,13 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         }
       }
 
+      if (isAdsAllowed && currentTabHostname === CONTROL_D_DOMAIN) {
+        updateStaticRules({
+          rulesetId: defaultUblockRulesetId,
+          disableRuleIds: ruleIdForMatomo,
+        })
+      }
+
       // no need to await this since all the depenedent operations are done by this time
       addToAllowlist(toAdd)
     } else {
@@ -140,6 +145,13 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
             allowlist[dependentDomain].includeAllSubdomains,
           )
         }
+      }
+
+      if (isAdsAllowed && currentTabHostname === CONTROL_D_DOMAIN) {
+        updateStaticRules({
+          rulesetId: defaultUblockRulesetId,
+          enableRuleIds: ruleIdForMatomo,
+        })
       }
 
       removeFromAllowlist(toRemove)
