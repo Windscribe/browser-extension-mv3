@@ -50,7 +50,7 @@ const IpAddress: ThemeUiElement = () => {
             all: 'unset',
             cursor: 'pointer',
             filter: isBlurred ? 'blur(4px)' : 'none',
-            maxWidth: '135px',
+            width: '100%',
             textOverflow: 'ellipsis',
             overflow: 'hidden',
           }}
