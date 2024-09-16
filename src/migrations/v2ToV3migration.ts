@@ -194,10 +194,10 @@ const runMigrationFromManifestV2ToV3 = async (store: StoreType): Promise<void | 
         }
 
         await migrateStashedGeneralSettings(store, validatedUserStashes.data, hashedUserId)
-        await migrateStashedPrivacySettings(store, validatedUserStashes.data, hashedUserId)
         await migrateStashedConnectionSettings(store, validatedUserStashes.data, hashedUserId)
         await migrateStashedOtherSettings(store, validatedUserStashes.data, hashedUserId)
         await migrateStashedBlockerSettings(store, validatedUserStashes.data, hashedUserId)
+        await migrateStashedPrivacySettings(store, validatedUserStashes.data, hashedUserId)
       }
     }
 

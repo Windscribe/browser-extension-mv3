@@ -125,6 +125,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
             allowAds: allowListData.allowAds ?? false,
             allowDirectConnections: allowListData.allowDirectConnect ?? false,
             includeAllSubdomains: allowListData.includeAllSubdomains ?? false,
+            addedBy: allowListData.addedBy,
             allowPrivacyFeatures: false,
           }
 
@@ -137,12 +138,22 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
         })
         .filter(item => !!item)
 
-      for (const item of collection) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { hostname, level, ...domainSettings } = item ?? {}
+      const toSend = collection
+        .map(item => {
+          if (item) {
+            return {
+              addedBy: item?.addedBy,
+              domain: item.domain,
+              allowAds: item.allowAds,
+              allowDirectConnections: item.allowDirectConnections,
+              allowPrivacyFeatures: item.allowPrivacyFeatures,
+              includeAllSubdomains: item.includeAllSubdomains,
+            }
+          }
+        })
+        .filter(item => !!item)
 
-        await store.dispatch({ type: `alias/${ADD_TO_ALLOWLIST}`, payload: domainSettings })
-      }
+      await store.dispatch({ type: `alias/${ADD_TO_ALLOWLIST}`, payload: toSend })
 
       // send in bulk
       const response = await chrome.runtime.sendMessage<

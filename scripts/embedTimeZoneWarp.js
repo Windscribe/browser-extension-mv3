@@ -1,35 +1,13 @@
-const fetch = require('node-fetch-commonjs')
 const sha256 = require('crypto-js/sha256')
-const fs = require('node:fs/promises')
+const fs = require('fs')
 const path = require('path')
 const util = require('node:util')
 const exec = util.promisify(require('node:child_process').exec)
 
-const getBaseApiUrl = require('./buildUtils/api/getBaseApiUrl')
 const timeZoneWarpContentScriptTemplate = require('./buildUtils/templates/timeZoneWarpContentScript')
 const getTimeWarp = require('./buildUtils/utils/getTimeWarp')
 
-async function embedTimeZoneWarp(config, sessionData) {
-  const loc_hash = sessionData.data?.loc_hash
-  const is_premium = sessionData.data?.is_premium
-  const alc = sessionData.data?.alc
-
-  if (!loc_hash) {
-    throw Error('No loc_hash is available. Try to sign in.')
-  }
-
-  const serverListResponse = await fetch(
-    `${getBaseApiUrl(true)}serverlist/chrome/${is_premium}/${loc_hash}${
-      alc ? `?alc=${alc.join(',')}` : ''
-    }`,
-  )
-
-  const serverListData = await serverListResponse.json()
-
-  if (!serverListData.data) {
-    throw Error('No serverlist is available')
-  }
-
+async function embedTimeZoneWarp(config, serverListData) {
   const timeZones = serverListData.data
     .map(server => {
       return { id: server.id, tz: server.tz }
@@ -63,10 +41,21 @@ async function embedTimeZoneWarp(config, sessionData) {
   //  using fixed paths
   const timeZoneWarpGeneratedScriptFolderPath = 'src/pages/contentScripts/timeZoneWarp/'
 
+  // clear older embedded files except .gitkeep
+  const files = fs.readdirSync(timeZoneWarpGeneratedScriptFolderPath)
+
+  for (let file of files) {
+    if (file === '.gitkeep') {
+      continue
+    } else {
+      fs.rmSync(timeZoneWarpGeneratedScriptFolderPath + file)
+    }
+  }
+
   //  write to src folder which will be included in the build
   for (let timeZone of timeZones) {
     const filePath = timeZoneWarpGeneratedScriptFolderPath + timeZone.fileName + '.js'
-    await fs.writeFile(filePath, timeZone.content)
+    fs.writeFileSync(filePath, timeZone.content)
     //  update webpack config entry object to inlcude the newly generated files
     config.entry[timeZone.fileName] = path.join(
       __dirname,

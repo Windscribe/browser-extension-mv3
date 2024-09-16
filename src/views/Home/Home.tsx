@@ -57,6 +57,7 @@ const Home: ThemeUiElement = () => {
   const { loading, serverList } = useSelector(state => state.servers)
   const shouldShowWelcome = useSelector(state => state.shouldShowWelcome)
   const showUblockWarningAtHomePage = useSelector(s => s.blocker.showUblockWarningAtHomePage)
+  const isOnline = useSelector(s => s.isOnline)
 
   const unreadNewsAmount = notifications
     .map(n => n.id)
@@ -155,6 +156,18 @@ const Home: ThemeUiElement = () => {
     status === 'connecting' ? '' : '-'
   }360deg); } 1s linear infinite`
 
+  let ringBorderColor = 'transparent'
+
+  if (status === 'on' && !hasProxyError && isOnline) {
+    ringBorderColor = 'neonGreen'
+  } else if (
+    !isOnline &&
+    (status === 'on' || status === 'connecting' || status === 'disconnecting')
+  ) {
+    ringBorderColor = 'warningYellow'
+  } else {
+    ringBorderColor = 'transparent'
+  }
   return (
     <Box
       data-testid="home-page"
@@ -250,6 +263,7 @@ const Home: ThemeUiElement = () => {
           <Flex
             sx={{
               alignItems: 'center',
+              flexShrink: 0,
             }}
           >
             <ToolTip
@@ -309,7 +323,7 @@ const Home: ThemeUiElement = () => {
                 justifyContent: 'center',
                 borderRadius: '50%',
                 border: 'solid 3px',
-                borderColor: status === 'on' && !hasProxyError ? 'neonGreen' : 'transparent',
+                borderColor: ringBorderColor,
                 transition: '0.3s',
                 ':hover': {
                   transform: `scale(1.1)`,
