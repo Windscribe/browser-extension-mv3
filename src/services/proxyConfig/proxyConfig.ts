@@ -32,6 +32,7 @@ import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/
 import { SHA256 } from 'crypto-js'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
+import shuffle from 'lodash.shuffle'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -365,6 +366,12 @@ export const disconnect = async (
   // set status to off early no need to check ip call
   dispatch(setStatus('off'))
 
+  // shuffle hosts for greater ip diversity if hosts are not null
+  const hosts = shuffle(getState().currentDataCenter?.hosts)
+  if (hosts && hosts.length > 0) {
+    dispatch(setProxy(hosts))
+  }
+
   const workingApi = getState().workingApi
 
   const ip = await checkIp(workingApi)
@@ -439,17 +446,11 @@ export const handleProxyError = async (
 ): Promise<void> => {
   const RECONNECTION_ATTEMPTS_LIMIT = 2
 
-  console.log('err handler')
-
   const failover = getState().connection.failover
   const reconnectionAttempts = getState().proxy.reconnectionAttempts
 
   if (reconnectionAttempts < RECONNECTION_ATTEMPTS_LIMIT) {
     dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
-    console.log(
-      'err handler reconnectionAttempts < RECONNECTION_ATTEMPTS_LIMIT',
-      reconnectionAttempts,
-    )
     const currentHosts = getState().currentDataCenter?.hosts
     if (currentHosts) {
       await connect(getState, dispatch, currentHosts, true)
@@ -463,7 +464,6 @@ export const handleProxyError = async (
       return
     }
     if (failover === 'Same Country') {
-      console.log('err handler Same country', reconnectionAttempts)
       const currentLocation = getState().currentLocation
       const currentDataCenter = getState().currentDataCenter
 
@@ -483,11 +483,9 @@ export const handleProxyError = async (
   const smokeWall = getState().connection.smokeWall
 
   if (smokeWall) {
-    console.log('smoke wall is active - Smoke Wall Failover', reconnectionAttempts)
     dispatch(setConnectionError('Smoke Wall Failover'))
     dispatch(setStatus('on'))
   } else if (!smokeWall) {
-    console.log('no smoke wall is active - somethingWeird', reconnectionAttempts)
     await disconnect(getState, dispatch)
     dispatch(addOverlay('somethingWeird'))
   }
