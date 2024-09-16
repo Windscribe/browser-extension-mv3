@@ -23,6 +23,18 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
   const dispatch = useDispatch()
   const isOnline = useSelector(state => state.isOnline)
 
+  let textColor = 'white'
+
+  if (status === 'on' && !proxyFailure && isOnline) {
+    textColor = 'neonGreen'
+  } else if (!isOnline) {
+    textColor = 'warningYellow'
+  } else if (status === 'off') {
+    textColor = 'halfWhite'
+  } else {
+    textColor = 'white'
+  }
+
   return (
     <Box>
       <Flex
@@ -37,27 +49,28 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
             fontWeight: '600',
             color: status !== 'off' ? 'neonGreen' : isOnline ? 'white' : 'warningYellow',
             mr: '8px',
+            flexShrink: 0,
           }}
         >
           {status === 'connecting' ? (
             'CONNECTING...'
           ) : status === 'disconnecting' ? (
             'DISCONNECTING...'
-          ) : status === 'on' ? (
+          ) : status === 'on' && isOnline ? (
             'ON'
-          ) : isOnline ? (
+          ) : status === 'off' && isOnline ? (
             'OFF'
           ) : (
             <Flex sx={{ alignItems: 'center', gap: '8px' }}>
-              <NoInternet sx={{ fill: 'warningYellow' }} />
-              OFFLINE
+              <NoInternet sx={{ fill: 'warningYellow', flexShrink: 0 }} />
+              <span sx={{ color: 'warningYellow' }}>OFFLINE</span>
             </Flex>
           )}
         </Text>
         <Text
           sx={{
             fontSize: '12px',
-            color: status === 'on' && !proxyFailure ? 'neonGreen' : 'halfWhite',
+            color: textColor,
             fontWeight: proxyFailure ? '600' : '400',
           }}
         >
@@ -76,7 +89,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
                 onClick={() => dispatch(addOverlay('somethingWeird'))}
               />
             </Flex>
-          ) : isOnline && (status === 'on' || status === 'off') ? (
+          ) : status === 'on' || status === 'off' ? (
             <IpAddress />
           ) : null}
         </Text>

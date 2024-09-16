@@ -1,6 +1,7 @@
 import { type StoreType } from 'state/store'
 import { setBlockLists } from 'state/slices/blocker'
 import { connect, disconnect, connectToAutopilot } from 'services/proxyConfig'
+import { setIsOnline } from 'state/slices/isOnline'
 
 export function messageHandler(bgStore: Promise<StoreType>) {
   // Message is typed as any here: https://developer.chrome.com/docs/extensions/reference/runtime/#event-onMessage
@@ -15,6 +16,8 @@ export function messageHandler(bgStore: Promise<StoreType>) {
       await disconnect(store.getState, store.dispatch)
     } else if (message.what === 'connectAutopilot') {
       await connectToAutopilot(store.getState, store.dispatch)
+    } else if (message.what === 'networkChangeEvent') {
+      store.dispatch(setIsOnline(navigator.onLine))
     }
   }
 }
