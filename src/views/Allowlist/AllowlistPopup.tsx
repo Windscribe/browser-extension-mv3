@@ -111,7 +111,7 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
       }
 
       // if ads were allowed, we need to enable the rule when the domain is removed
-      if (domainValue === CONTROL_D_DOMAIN && isAdsAllowed) {
+      if (domainValue === CONTROL_D_DOMAIN) {
         updateStaticRules({
           rulesetId: defaultUblockRulesetId,
           enableRuleIds: ruleIdForMatomo,

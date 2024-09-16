@@ -147,7 +147,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         }
       }
 
-      if (isAdsAllowed && currentTabHostname === CONTROL_D_DOMAIN) {
+      if (currentTabHostname === CONTROL_D_DOMAIN) {
         updateStaticRules({
           rulesetId: defaultUblockRulesetId,
           enableRuleIds: ruleIdForMatomo,

@@ -141,7 +141,7 @@ const Allowlist: ThemeUiElement = () => {
                       }
                     }
 
-                    if (value.allowAds && domain === CONTROL_D_DOMAIN) {
+                    if (domain === CONTROL_D_DOMAIN) {
                       updateStaticRules({
                         rulesetId: defaultUblockRulesetId,
                         enableRuleIds: ruleIdForMatomo,
