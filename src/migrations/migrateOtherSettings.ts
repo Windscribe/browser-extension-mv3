@@ -161,7 +161,7 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
 
       await store.dispatch({ type: `alias/${ADD_TO_ALLOWLIST}`, payload: toSend })
 
-      if (toSend.some(item => item.domain === CONTROL_D_DOMAIN && item.allowAds)) {
+      if (toSend.some(item => item && item.domain === CONTROL_D_DOMAIN && item.allowAds)) {
         updateStaticRules({
           rulesetId: defaultUblockRulesetId,
           disableRuleIds: ruleIdForMatomo,
