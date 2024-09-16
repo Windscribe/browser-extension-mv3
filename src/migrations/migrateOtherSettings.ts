@@ -8,6 +8,11 @@ import {
 import Dexie from 'dexie'
 import isValidDomain from 'is-valid-domain'
 import { pushToDebugLog } from 'services/debugLog'
+import {
+  defaultUblockRulesetId,
+  ruleIdForMatomo,
+  updateStaticRules,
+} from 'services/declarativeNetRequest/updateStaticRules'
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
 import { StoreType } from 'state'
 import { ADD_TO_ALLOWLIST, AllowlistPayload } from 'state/slices/allowlist'
@@ -29,6 +34,7 @@ import {
   FAVORITE_LOCATIONS_REDUCER,
   CURRENT_LOCATION_REDUCER,
   PROXY_STATUS_REDUCER,
+  CONTROL_D_DOMAIN,
 } from 'utils/constants'
 import { LocationSorting } from 'utils/types'
 import {
@@ -154,6 +160,13 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
         .filter(item => !!item)
 
       await store.dispatch({ type: `alias/${ADD_TO_ALLOWLIST}`, payload: toSend })
+
+      if (toSend.some(item => item.domain === CONTROL_D_DOMAIN && item.allowAds)) {
+        updateStaticRules({
+          rulesetId: defaultUblockRulesetId,
+          disableRuleIds: ruleIdForMatomo,
+        })
+      }
 
       // send in bulk
       const response = await chrome.runtime.sendMessage<
