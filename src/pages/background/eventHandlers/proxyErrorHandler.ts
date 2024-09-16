@@ -20,10 +20,14 @@ export function proxyErrorHandler(bgStore: Promise<StoreType>) {
 
     const proxy = store.getState().proxy
     const isConnected = proxy.status === 'on'
+    const isOnline = store.getState().isOnline
     const hasProxyError = !!proxy.errorMessage
     const reconnectionAttempts = proxy.reconnectionAttempts
     const proxyFailure = isConnected && hasProxyError
     const shouldIgnore = proxyFailure || !isConnected || reconnectionAttempts
+
+    // do nothing when offline, no sense in recovering when offline
+    if (!isOnline) return
 
     if (!shouldIgnore) handleProxyError(store.getState, store.dispatch)
   }
