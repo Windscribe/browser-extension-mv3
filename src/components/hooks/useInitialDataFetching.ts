@@ -5,7 +5,7 @@ import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
 import { applyBestLocationAsAutopilot } from 'state/slices/autopilot'
-import { FETCH_USER_AGENTS_LIST, setOriginalUserAgent } from 'state/slices/userAgent'
+import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
 import sendMessage from 'services/runtime/sendMessage'
 import { registerScript } from 'utils/scriptController'
@@ -25,7 +25,6 @@ export default (): void => {
   const autopilotData = useSelector(state => state.autopilot.autopilotData)
   const username = useSelector(state => state.serverCredentials.username)
   const password = useSelector(state => state.serverCredentials.password)
-  const userAgentLoading = useSelector(state => state.userAgent.loading)
   const userAgentOriginal = useSelector(state => state.userAgent.original)
   const autoConnectAfterLogin = useSelector(state => state.autoConnectAfterLogin)
   const status = useSelector(s => s.proxy.status)
@@ -33,7 +32,6 @@ export default (): void => {
   const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
   const allowList = useSelector(s => s.allowlist)
-  const userAgent = useSelector(s => s.userAgent)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -70,8 +68,8 @@ export default (): void => {
   }, [autopilotData, bestLocationLoading, serverListLoading, dispatch])
 
   useEffect(() => {
-    dispatchAlias(FETCH_USER_AGENTS_LIST)
-    // Do NOT add dispatchAlias to Dependency array. It leads to double network requests. Don't know why.
+    // initialize here
+    dispatch(initializeUserAgentsList())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -112,24 +110,12 @@ export default (): void => {
   }, [isWorkerBlockActive, excludeMatchesFromAllowList])
 
   useEffect(() => {
-    if (
-      userAgentLoading === 'fulfilled' &&
-      userAgent.list.length > 0 &&
-      !userAgent.error &&
-      isSplitPersonalityEnabled &&
-      spoofedUserAgent
-    ) {
+    if (isSplitPersonalityEnabled && spoofedUserAgent) {
       registerScript(
         splitPersonalityScriptId,
         [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
         excludeMatchesFromAllowList,
       )
     }
-  }, [
-    userAgentLoading,
-    userAgent,
-    isSplitPersonalityEnabled,
-    spoofedUserAgent,
-    excludeMatchesFromAllowList,
-  ])
+  }, [isSplitPersonalityEnabled, spoofedUserAgent, excludeMatchesFromAllowList])
 }

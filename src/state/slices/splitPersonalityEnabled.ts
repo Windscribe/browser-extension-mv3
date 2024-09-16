@@ -15,6 +15,7 @@ import {
 import { splitPersonalityScriptId } from 'utils/constants'
 import { SHA256 } from 'crypto-js'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 
 type SplitPersonalityEnabledState = boolean
 const initialState: SplitPersonalityEnabledState = false
@@ -52,9 +53,10 @@ export const activateSplitPersonality = createAsyncThunk(
   ACTIVATE_SPLIT_PERSONALITY,
   async (_, { dispatch, getState }) => {
     try {
+      const dontSpoofDomains = getPrivacyFeatureEnabledDomains(getState().allowlist)
       dispatch(setRandomSpoofedUserAgent)
       const spoofedUserAgent = getState().userAgent.spoofed
-      await spoofUserAgentHeader(spoofedUserAgent)
+      await spoofUserAgentHeader(spoofedUserAgent, dontSpoofDomains)
       dispatch(setSplitPersonalityEnabled(true))
       const splitPersonalityScript = await getScriptForId(splitPersonalityScriptId)
       const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(getState().allowlist)

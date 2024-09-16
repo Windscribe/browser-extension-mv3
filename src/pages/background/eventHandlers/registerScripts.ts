@@ -4,7 +4,8 @@ import { StoreType } from 'state'
 import { FETCH_BEST_LOCATION } from 'state/slices/bestLocation'
 import { FETCH_SERVER_CREDENTIALS } from 'state/slices/serverCredentials'
 import { FETCH_SERVER_LIST } from 'state/slices/servers'
-import { FETCH_USER_AGENTS_LIST, setOriginalUserAgent } from 'state/slices/userAgent'
+import { ACTIVATE_SPLIT_PERSONALITY } from 'state/slices/splitPersonalityEnabled'
+import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import {
   languageWarpScriptId,
   locationWarpScriptId,
@@ -35,7 +36,6 @@ const registerScripts = async (
     const isWorkerBlockActive = store.getState().workerBlock
     const isSplitPersonalityEnabled = store.getState().splitPersonalityEnabled
     const userAgentOriginal = store.getState().userAgent.original
-    const userAgentLoading = store.getState().userAgent.loading
     const serverListLoading = store.getState().servers.loading
     const username = store.getState().serverCredentials.username
     const password = store.getState().serverCredentials.password
@@ -66,9 +66,9 @@ const registerScripts = async (
       store.dispatch(setOriginalUserAgent(navigator.userAgent))
     }
 
-    // only need to make the request if the setting is active
-    if (userAgentLoading === 'idle' && isSplitPersonalityEnabled) {
-      store.dispatch({ type: `alias/${FETCH_USER_AGENTS_LIST}` })
+    if (isSplitPersonalityEnabled) {
+      store.dispatch(initializeUserAgentsList())
+      store.dispatch({ type: `alias/${ACTIVATE_SPLIT_PERSONALITY}` })
     }
 
     if (!(username && password)) {

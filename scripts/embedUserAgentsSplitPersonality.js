@@ -1,40 +1,12 @@
-const fetch = require('node-fetch-commonjs')
 const sha256 = require('crypto-js/sha256')
-const fs = require('node:fs/promises')
+const fs = require('fs')
 const path = require('path')
 const util = require('node:util')
 const exec = util.promisify(require('node:child_process').exec)
 
 const splitPersonalityContentScriptTemplate = require('./buildUtils/templates/splitPersonalityContentScript')
-const getEndpoint = require('./buildUtils/api/getEndpoint')
 
-async function embedUserAgentsForSplitPersonality(config, sessionData) {
-  const blockListsResponse = await fetch(
-    getEndpoint('ExtBlocklists', {
-      session_auth_hash: sessionData.data.session_auth_hash,
-      version: 3,
-    }),
-    {
-      method: 'GET',
-    },
-  )
-
-  const blockListsResponseData = await blockListsResponse.json()
-
-  if (!blockListsResponseData.data || !blockListsResponseData.data.useragents) {
-    throw Error('No blocklist/useragents link is available')
-  }
-
-  const userAgentsResponse = await fetch(blockListsResponseData.data.useragents, {
-    method: 'GET',
-  })
-
-  const userAgentsData = await userAgentsResponse.text()
-
-  if (!userAgentsData) {
-    throw Error('No user agents list is available')
-  }
-
+async function embedUserAgentsForSplitPersonality(config, userAgentsData) {
   // generate intermediate format based on user agent strings
   const uaList = userAgentsData.split(/\r?\n/).map(userAgent => {
     return {
@@ -47,10 +19,22 @@ async function embedUserAgentsForSplitPersonality(config, sessionData) {
   // using fixed paths
   const splitPersonalityGeneratedScriptFolderPath = 'src/pages/contentScripts/splitPersonality/'
 
+  // clear older embedded files except .gitkeep
+  const files = fs.readdirSync(splitPersonalityGeneratedScriptFolderPath)
+
+  for (let file of files) {
+    if (file === '.gitkeep') {
+      continue
+    } else {
+      fs.rmSync(splitPersonalityGeneratedScriptFolderPath + file)
+    }
+  }
+
   // write to src folder which will be included in the build
+
   for (const uaItem of uaList) {
     const filePath = splitPersonalityGeneratedScriptFolderPath + uaItem.fileName + '.ts'
-    await fs.writeFile(filePath, uaItem.content)
+    fs.writeFileSync(filePath, uaItem.content)
     //  update webpack config entry object to inlcude the newly generated files
     config.entry[uaItem.fileName] = path.join(
       __dirname,
@@ -63,21 +47,20 @@ async function embedUserAgentsForSplitPersonality(config, sessionData) {
     )
   }
 
-  /* 
-     Keeping this here for future reference
-     const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
-     const userAgentSlicePath = 'src/state/slices/userAgent.ts'
-     await fs.writeFile(
-      userAgentSlicePath,
-      userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),
-     )
-     const formatUserAgentFile = `eslint --fix ${userAgentSlicePath}`
-     await exec(formatUserAgentFile)
-  */
+  const userAgentSliceTemplate = require('./buildUtils/templates/userAgentSlice')
+  const userAgentSlicePath = 'src/state/slices/userAgent.ts'
+  fs.writeFileSync(
+    userAgentSlicePath,
+    userAgentSliceTemplate(uaList.map(uaItem => `'${uaItem.userAgent}'`)),
+  )
+  const formatUserAgentFile = `eslint --fix ${userAgentSlicePath}`
+  await exec(formatUserAgentFile)
 
   const formatSplitPersonalityFiles = `eslint --fix ${splitPersonalityGeneratedScriptFolderPath}`
 
   await exec(formatSplitPersonalityFiles)
+
+  // validate every file is embedded other wise throw an
 
   console.log('User Agent content scripts embedded into build')
 }
