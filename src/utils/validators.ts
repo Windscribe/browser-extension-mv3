@@ -164,13 +164,15 @@ export const FirstInstalledDateValidatorManifestV2 = zod.object({
   state: zod.number(),
 })
 
+const addedBy = zod.string().optional()
+
 const AllowlistItemValidatorManifestV2 = zod.object({
   allowAds: zod.boolean().optional(),
   allowCookies: zod.boolean().optional(),
   allowDirectConnect: zod.boolean().optional(),
   domain: zod.string().optional(),
   includeAllSubdomains: zod.boolean().optional(),
-  addedBy: zod.string().optional(),
+  addedBy,
 })
 export const AllowListValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + ALLOW_LIST_REDUCER),
@@ -467,9 +469,9 @@ const BaseSettingsV1 = zod
           allowPrivacyFeatures: zod.boolean(),
           allowDirectConnections: zod.boolean(),
           includeAllSubdomains: zod.boolean(),
+          addedBy: addedBy.optional(),
         })
-        .strict()
-        .required(),
+        .strict(),
     ),
     // theme
     theme: zod.enum(['light', 'dark']),

@@ -1,5 +1,5 @@
 import { DataCenter, ServerList } from 'api/types'
-import { AddToAllowlist } from 'components/hooks/useManageAllowlist'
+import { AddToAllowlistType } from 'components/hooks/useManageAllowlist'
 import { SHA256 } from 'crypto-js'
 import { pushToDebugLog } from 'services/debugLog'
 import { AppDispatch } from 'state'
@@ -41,7 +41,7 @@ type ImportPrivacySettingsArgs = {
   serverList: ServerList
   existingAllowList: AllowlistState
   dispatch: AppDispatch
-  addToAllowlist: AddToAllowlist
+  addToAllowlist: AddToAllowlistType
 }
 
 type ImportLocationWarpArgs = Pick<

@@ -39,6 +39,8 @@ const General: ThemeUiElement = () => {
   const { addToAllowlist } = useManageAllowlist()
   const favoriteLocations = useSelector(s => s.favoriteLocations)
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
 
   const autopilot = useSelector(s => s.autopilot)
   const currentDataCenter = useSelector(s => s.currentDataCenter)
@@ -95,6 +97,8 @@ const General: ThemeUiElement = () => {
         isUserPro: isUserPro,
         currentDataCenter,
         locationId: currentLocation.id,
+        isSplitPersonalityEnabled,
+        spoofedUserAgent,
       })
       showReloadAlert(true)
     } catch (err) {

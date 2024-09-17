@@ -1,132 +1,66 @@
-import { AddToAllowlist } from 'components/hooks/useManageAllowlist'
+import { AddToAllowlistType } from 'components/hooks/useManageAllowlist'
 import isValidDomain from 'is-valid-domain'
-import {
-  languageWarpScriptId,
-  locationWarpScriptId,
-  splitPersonalityScriptId,
-  timeZoneWarpScriptId,
-  workerBlockScriptId,
-} from 'utils/constants'
-import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
+import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import { addToExcludeScriptMatches, ALLOWLIST_DOMAIN_TABLE } from 'utils/allowListDependants'
+import { updateAddExcludeDomains } from 'utils/networkSpoofing'
 import { ImportedSettingsV1 } from 'utils/validators'
 
 export const importAllowListSettings = async (
   importedSettings: ImportedSettingsV1,
-  addToAllowlist: AddToAllowlist,
+  addToAllowlist: AddToAllowlistType,
+  isSplitPersonalityEnabled: boolean,
+  spoofedUserAgent: string,
 ): Promise<void> => {
   if (importedSettings.allowlist !== undefined && importedSettings.allowlist !== null) {
+    const toAdd = []
+    const toExcludeFromSpoofing = []
+
     for (const [domainValue, domainWithSettings] of Object.entries(importedSettings.allowlist)) {
       const isValid = isValidDomain(domainValue)
 
-      // skip invalid domains
+      const isAddedByDomainValid =
+        domainWithSettings.addedBy &&
+        ALLOWLIST_DOMAIN_TABLE[domainWithSettings.addedBy as keyof typeof ALLOWLIST_DOMAIN_TABLE]
+
       if (!isValid) continue
 
+      // only check if addedBy is valid if it's present
+      if (domainWithSettings.addedBy && !isAddedByDomainValid) continue
+
       const level = domainWithSettings.allowAds ? 0 : 3
-      await addToAllowlist({
+      toAdd.push({
         hostname: domainValue,
         level,
-        domainWithSettings: { ...domainWithSettings, domain: domainValue },
+        domainWithSettings: {
+          ...domainWithSettings,
+          domain: domainValue,
+        },
       })
 
-      const workerBlockScriptExcludeMatches = (await getScriptForId(workerBlockScriptId))
-        ?.excludeMatches
-
-      const splitPersonalityScriptExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
-        ?.excludeMatches
-
-      const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
-        ?.excludeMatches
-
-      const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
-        ?.excludeMatches
-
-      const timeZoneWarpScriptExcludeMatches = (await getScriptForId(timeZoneWarpScriptId))
-        ?.excludeMatches
-
-      const currentExcludeURL = toExcludeMatchesURL(
+      await addToExcludeScriptMatches(
         domainValue,
-        !domainWithSettings.includeAllSubdomains,
-      )
-      const newExcludeURL = toExcludeMatchesURL(
-        domainValue,
+        domainWithSettings.allowPrivacyFeatures,
         domainWithSettings.includeAllSubdomains,
       )
 
-      const isPrivacyFeaturesAllowed = domainWithSettings.allowPrivacyFeatures
+      const excludeUrls = updateAddExcludeDomains({
+        allowlist: importedSettings.allowlist,
+        isSplitPersonalityEnabled:
+          // use imported or current settings
+          importedSettings.splitPersonalityEnabled ?? isSplitPersonalityEnabled,
+        isPrivacyFeaturesAllowed: domainWithSettings.allowPrivacyFeatures,
+        domainValue,
+      })
 
-      if (workerBlockScriptExcludeMatches) {
-        const updatedExcludeMatches = workerBlockScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
-
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-
-        await updateScript({
-          id: workerBlockScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
-      }
-
-      if (splitPersonalityScriptExcludeMatches) {
-        const updatedExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
-
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-
-        await updateScript({
-          id: splitPersonalityScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
-      }
-
-      if (locationWarpScriptExcludeMatches) {
-        const updatedExcludeMatches = locationWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
-
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-
-        await updateScript({
-          id: locationWarpScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
-      }
-
-      if (languageWarpScriptExcludeMatches) {
-        const updatedExcludeMatches = languageWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
-
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-
-        await updateScript({
-          id: languageWarpScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
-      }
-
-      if (timeZoneWarpScriptExcludeMatches) {
-        const updatedExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
-
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-        await updateScript({
-          id: timeZoneWarpScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
+      if (excludeUrls) {
+        toExcludeFromSpoofing.push(...excludeUrls)
       }
     }
+
+    if (isSplitPersonalityEnabled) {
+      await spoofUserAgentHeader(spoofedUserAgent, Array.from(new Set(toExcludeFromSpoofing)))
+    }
+
+    await addToAllowlist(toAdd)
   }
 }

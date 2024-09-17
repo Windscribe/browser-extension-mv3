@@ -3,7 +3,7 @@ import { SettingsImportFormatValidatorVersion1 } from 'utils/validators'
 import { FavoriteLocationsState } from 'state/slices/favoriteLocations'
 import { DataCenter, ServerList } from 'api/types'
 import { AllowlistState } from 'state/slices/allowlist'
-import { AddToAllowlist } from 'components/hooks/useManageAllowlist'
+import { AddToAllowlistType } from 'components/hooks/useManageAllowlist'
 import { AppDispatch } from 'state'
 import { importOtherSettings } from './importOtherSorting'
 import { importGeneralSettings } from './importGeneralSettings'
@@ -17,13 +17,15 @@ type ImportSettingsArgs = {
   file: File
   serverList: ServerList
   existingAllowList: AllowlistState
-  addToAllowlist: AddToAllowlist
+  addToAllowlist: AddToAllowlistType
   favoriteLocations: FavoriteLocationsState
   dispatch: AppDispatch
   locationId: number | undefined
   currentDataCenter: Partial<DataCenter>
   autopilotSelected: boolean
   isUserPro: 0 | 1 | undefined
+  isSplitPersonalityEnabled: boolean
+  spoofedUserAgent: string
 }
 
 export const importSettings = async ({
@@ -37,6 +39,8 @@ export const importSettings = async ({
   currentDataCenter,
   autopilotSelected,
   isUserPro,
+  isSplitPersonalityEnabled,
+  spoofedUserAgent,
 }: ImportSettingsArgs): Promise<void> => {
   const fileContents = await file.text()
   const parsedJSONFile = JSON.parse(fileContents)
@@ -68,7 +72,12 @@ export const importSettings = async ({
       serverList,
     })
 
-    await importAllowListSettings(importedSettings, addToAllowlist)
+    await importAllowListSettings(
+      importedSettings,
+      addToAllowlist,
+      isSplitPersonalityEnabled,
+      spoofedUserAgent,
+    )
 
     await pushToDebugLog({
       message: 'imported settings',
