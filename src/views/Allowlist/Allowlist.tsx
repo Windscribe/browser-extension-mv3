@@ -12,14 +12,9 @@ import { useSelector } from 'state/hooks'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
-import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
-import {
-  languageWarpScriptId,
-  locationWarpScriptId,
-  splitPersonalityScriptId,
-  timeZoneWarpScriptId,
-  workerBlockScriptId,
-} from 'utils/constants'
+import { domainDependents, removeFromExludeScriptMatches } from 'utils/allowListDependants'
+import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 
 const Allowlist: ThemeUiElement = () => {
   const allowlist = useSelector(s => s.allowlist)
@@ -27,7 +22,8 @@ const Allowlist: ThemeUiElement = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
   const [domainToEdit, setDomainToEdit] = useState<string>('')
   const [isEditMode, setIsEditMode] = useState(false)
-
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
   const currentTabHostname = useCurrentTabHostname()
   const { removeFromAllowlist } = useManageAllowlist()
 
@@ -95,95 +91,70 @@ const Allowlist: ThemeUiElement = () => {
         </Subheader>
         <ScrollableBox data-testid="allowlist-items-list" sx={{ maxHeight: '212px' }}>
           {allowlistedDomains.map(([domain, value]) => (
-            <Rectangle key={domain} sx={{ mb: '12px' }}>
-              <Hostname>{domain}</Hostname>
-              <Flex sx={{ flexShrink: 0 }}>
+            <Rectangle
+              sx={{
+                height: value?.addedBy ? 'auto' : '48px',
+                mb: '12px',
+              }}
+              key={domain}
+            >
+              <div sx={{ display: 'flex', flexDirection: 'column', rowGap: '4px' }}>
+                <Hostname>{domain}</Hostname>
+                {value?.addedBy && (
+                  <p
+                    sx={{
+                      margin: 0,
+                      fontSize: 10.5,
+                      color: 'white',
+                      flexShrink: 0,
+                    }}
+                  >
+                    Added to support: {value.addedBy}
+                  </p>
+                )}
+              </div>
+
+              <Flex sx={{ flexShrink: 0, alignItems: 'center', justifyContent: 'center' }}>
                 <IconButton onClick={() => openSettingsToUpdate(domain)} sx={{ p: 0, ml: '16px' }}>
                   <EditIcon />
                 </IconButton>
                 <IconButton
                   onClick={async () => {
-                    await removeFromAllowlist({ hostname: domain, level: 3 })
-                    // only show alerts if changes are made to the domain that is in the currently active tab
+                    const toRemove = []
+
+                    const allowlistItemsWithPrivacyFeatures =
+                      getPrivacyFeatureEnabledDomains(allowlist)
+
+                    let domainsToKeepSpoofing = allowlistItemsWithPrivacyFeatures.slice()
+
+                    await removeFromExludeScriptMatches(domain, value.includeAllSubdomains)
+
+                    toRemove.push({ hostname: domain, level: 3 })
+
+                    const dependentsArray = domainDependents(domain)
+
+                    for (const dependentDomain of dependentsArray) {
+                      if (allowlist[dependentDomain]) {
+                        await removeFromExludeScriptMatches(
+                          dependentDomain,
+                          allowlist[dependentDomain].includeAllSubdomains,
+                        )
+                        toRemove.push({ hostname: dependentDomain, level: 3 })
+                      }
+                    }
+
+                    if (isSplitPersonalityEnabled) {
+                      domainsToKeepSpoofing = domainsToKeepSpoofing.filter(
+                        d => !dependentsArray.includes(d) && d !== domain,
+                      )
+
+                      await spoofUserAgentHeader(spoofedUserAgent, domainsToKeepSpoofing)
+                    }
+
+                    removeFromAllowlist(toRemove)
+
                     if (currentTabHostname === domain) {
                       showReloadAlert(true)
-                    }
-
-                    const workerBlockScriptExcludeMatches = (
-                      await getScriptForId(workerBlockScriptId)
-                    )?.excludeMatches
-
-                    const splitPersonalityScriptExcludeMatches = (
-                      await getScriptForId(splitPersonalityScriptId)
-                    )?.excludeMatches
-
-                    const locationWarpScriptExcludeMatches = (
-                      await getScriptForId(locationWarpScriptId)
-                    )?.excludeMatches
-
-                    const languageWarpScriptExcludeMatches = (
-                      await getScriptForId(languageWarpScriptId)
-                    )?.excludeMatches
-
-                    const timeZoneWarpScriptExcludeMatches = (
-                      await getScriptForId(timeZoneWarpScriptId)
-                    )?.excludeMatches
-
-                    if (workerBlockScriptExcludeMatches) {
-                      const newExcludeMatches = workerBlockScriptExcludeMatches.filter(
-                        urlScheme =>
-                          urlScheme !== toExcludeMatchesURL(domain, value.includeAllSubdomains),
-                      )
-
-                      updateScript({
-                        id: workerBlockScriptId,
-                        excludeMatches: newExcludeMatches,
-                      })
-                    }
-
-                    if (splitPersonalityScriptExcludeMatches) {
-                      const newExcludeMatches = splitPersonalityScriptExcludeMatches.filter(
-                        urlScheme =>
-                          urlScheme !== toExcludeMatchesURL(domain, value.includeAllSubdomains),
-                      )
-
-                      updateScript({
-                        id: splitPersonalityScriptId,
-                        excludeMatches: newExcludeMatches,
-                      })
-                    }
-
-                    if (locationWarpScriptExcludeMatches) {
-                      const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
-                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
-                      )
-
-                      updateScript({
-                        id: locationWarpScriptId,
-                        excludeMatches: newExcludeMatches,
-                      })
-                    }
-
-                    if (languageWarpScriptExcludeMatches) {
-                      const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
-                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
-                      )
-
-                      updateScript({
-                        id: languageWarpScriptId,
-                        excludeMatches: newExcludeMatches,
-                      })
-                    }
-
-                    if (timeZoneWarpScriptExcludeMatches) {
-                      const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
-                        urlScheme => urlScheme !== toExcludeMatchesURL(domain),
-                      )
-
-                      updateScript({
-                        id: timeZoneWarpScriptId,
-                        excludeMatches: newExcludeMatches,
-                      })
                     }
                   }}
                   sx={{ p: 0, ml: '16px' }}

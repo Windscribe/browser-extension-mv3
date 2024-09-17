@@ -1,34 +1,12 @@
-const fetch = require('node-fetch-commonjs')
 const sha256 = require('crypto-js/sha256')
-const fs = require('node:fs/promises')
+const fs = require('fs')
 const path = require('path')
 const util = require('node:util')
 const exec = util.promisify(require('node:child_process').exec)
 
-const getBaseApiUrl = require('./buildUtils/api/getBaseApiUrl')
 const languageWarpContentScriptTemplate = require('./buildUtils/templates/languageWarpContentScript')
 const locales = require('./buildUtils/constants/locales')
-async function embedLanguageWarp(config, sessionData) {
-  const loc_hash = sessionData.data?.loc_hash
-  const is_premium = sessionData.data?.is_premium
-  const alc = sessionData.data?.alc
-
-  if (!loc_hash) {
-    throw Error('No loc_hash is available. Try to sign in.')
-  }
-
-  const serverListResponse = await fetch(
-    `${getBaseApiUrl(true)}serverlist/chrome/${is_premium}/${loc_hash}${
-      alc ? `?alc=${alc.join(',')}` : ''
-    }`,
-  )
-
-  const serverListData = await serverListResponse.json()
-
-  if (!serverListData.data) {
-    throw Error('No serverlist is available')
-  }
-
+async function embedLanguageWarp(config, serverListData) {
   const locationLocales = serverListData.data
     .map(server => {
       return { id: server.id, locale: locales[server.country_code ?? 'AUTO'].locale ?? 'en' }
@@ -44,10 +22,22 @@ async function embedLanguageWarp(config, sessionData) {
   //  using fixed paths
   const languageWarpGeneratedScriptFolderPath = 'src/pages/contentScripts/languageWarp/'
 
+  // clear older embedded files except .gitkeep
+  const files = fs.readdirSync(languageWarpGeneratedScriptFolderPath)
+
+  for (let file of files) {
+    if (file === '.gitkeep') {
+      continue
+    } else {
+      fs.rmSync(languageWarpGeneratedScriptFolderPath + file)
+    }
+  }
+
   //  write to src folder which will be included in the build
   for (let locationLocale of locationLocales) {
     const filePath = languageWarpGeneratedScriptFolderPath + locationLocale.fileName + '.ts'
-    await fs.writeFile(filePath, locationLocale.content)
+    fs.writeFileSync(filePath, locationLocale.content)
+
     //  update webpack config entry object to inlcude the newly generated files
     config.entry[locationLocale.fileName] = path.join(
       __dirname,

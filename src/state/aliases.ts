@@ -32,7 +32,6 @@ import {
 } from './slices/userStashes'
 import { chooseIcon, CHOOSE_ICON } from './slices/iconVariant'
 import { checkCurrentIp, CHECK_CURRENT_IP } from './slices/proxy'
-import { fetchUserAgentsList, FETCH_USER_AGENTS_LIST } from './slices/userAgent'
 
 type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
   type: string
@@ -42,11 +41,11 @@ type ActionCreator<Payload, AsyncThunkAction> = (originalAction: {
 
 const _login: ActionCreator<Credentials, ReturnType<typeof login>> = ({ payload }) => login(payload)
 
-const _addToAllowlist: ActionCreator<AllowlistPayload, void> = ({ payload }) =>
+const _addToAllowlist: ActionCreator<AllowlistPayload[], void> = ({ payload }) =>
   addToAllowlist(payload)
 
-const _removeFromAllowlist: ActionCreator<{ domain: string }, void> = ({ payload }) =>
-  removeFromAllowlist(payload.domain)
+const _removeFromAllowlist: ActionCreator<string[], void> = ({ payload }) =>
+  removeFromAllowlist(payload)
 
 export default {
   [`alias/${LOGIN}`]: _login,
@@ -60,7 +59,6 @@ export default {
   [`alias/${SAVE_USER_STASH}`]: saveUserStash,
   [`alias/${CHECK_USER_STASH}`]: checkUserStash,
   [`alias/${ACTIVATE_SPLIT_PERSONALITY}`]: activateSplitPersonality,
-  [`alias/${FETCH_USER_AGENTS_LIST}`]: fetchUserAgentsList,
   [`alias/${TOGGLE_SPLIT_PERSONALITY}`]: toggleSplitPersonality,
   [`alias/${CHOOSE_ICON}`]: chooseIcon,
   [`alias/${CHECK_SESSION_STATUS}`]: checkSessionStatus,

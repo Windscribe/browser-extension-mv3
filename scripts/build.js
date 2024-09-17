@@ -1,5 +1,13 @@
 require('dotenv').config()
 const login = require('./login')
+const getUserAgents = require('./getUa')
+const getLocations = require('./getLocations')
+
+const validateEmbeddedUserAgents = require('./buildUtils/outputValidators/validateEmbeddedUserAgents')
+const validateEmbeddedLocationWarp = require('./buildUtils/outputValidators/validateEmbeddedLocationWarp')
+const validateEmbeddedLanguageWarp = require('./buildUtils/outputValidators/validateEmbeddedLanguageWarp')
+const validateEmbeddedTimeZoneWarp = require('./buildUtils/outputValidators/validateEmbeddedTimeZoneWarp')
+
 const webpack = require('webpack')
 const config = require('../webpack.config')
 const embedUserAgentsForSplitPersonality = require('./embedUserAgentsSplitPersonality')
@@ -12,12 +20,22 @@ delete config.chromeExtensionBoilerplate
   config.mode = 'production'
 
   const sessionData = await login()
-  await embedUserAgentsForSplitPersonality(config, sessionData)
-  await embedLocationWarp(config, sessionData)
-  await embedLanguageWarp(config, sessionData)
-  await embedTimeZoneWarp(config, sessionData)
+  const userAgents = getUserAgents()
+  const serverListData = await getLocations(sessionData)
 
-  webpack(config, function (err) {
+  await embedUserAgentsForSplitPersonality(config, userAgents)
+  await embedLocationWarp(config, serverListData)
+  await embedLanguageWarp(config, serverListData)
+  await embedTimeZoneWarp(config, serverListData)
+
+  webpack(config, async function (err) {
     if (err) throw err
+
+    console.log('Validating embedded files')
+    await validateEmbeddedUserAgents(userAgents)
+    await validateEmbeddedLocationWarp(serverListData)
+    await validateEmbeddedLanguageWarp(serverListData)
+    await validateEmbeddedTimeZoneWarp(serverListData)
+    console.log('Validated embedded files - check build folder too!')
   })
 })()

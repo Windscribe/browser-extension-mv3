@@ -16,14 +16,14 @@ import PrivacySelected from 'assets/img/privacySelected.svg'
 import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
-import { getScriptForId, toExcludeMatchesURL, updateScript } from 'utils/scriptController'
+import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 import {
-  languageWarpScriptId,
-  locationWarpScriptId,
-  splitPersonalityScriptId,
-  timeZoneWarpScriptId,
-  workerBlockScriptId,
-} from 'utils/constants'
+  addToExcludeScriptMatches,
+  domainDependents,
+  removeFromExludeScriptMatches,
+} from 'utils/allowListDependants'
+import { pushToDebugLog } from 'services/debugLog'
+import { getPrivacyFeatureEnabledDomains, updateAddExcludeDomains } from 'utils/networkSpoofing'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -40,6 +40,8 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
 
   const { addToAllowlist, removeFromAllowlist } = useManageAllowlist()
   const allowlist = useSelector(s => s.allowlist)
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
 
   const settings = allowlist[currentTabHostname]
   const allowAdsState = !!settings?.allowAds
@@ -66,20 +68,16 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
     isDirectConnectionsAllowed ??= allowDirectConnectionsState
     // include all subdomains has no ui component so using the redux store value
 
-    const workerBlockExcludeMatches = (await getScriptForId(workerBlockScriptId))?.excludeMatches
+    if (!currentTabHostname) {
+      await pushToDebugLog({
+        message: 'No current tab hostname',
+        tag: 'popup',
+        level: 'ERROR',
+      })
+      return
+    }
 
-    const splitPersonalityExcludeMatches = (await getScriptForId(splitPersonalityScriptId))
-      ?.excludeMatches
-
-    const locationWarpScriptExcludeMatches = (await getScriptForId(locationWarpScriptId))
-      ?.excludeMatches
-
-    const languageWarpScriptExcludeMatches = (await getScriptForId(languageWarpScriptId))
-      ?.excludeMatches
-
-    const timeZoneWarpScriptExcludeMatches = (await getScriptForId(timeZoneWarpScriptId))
-      ?.excludeMatches
-
+    // add or update allowlist item settings
     if (isAdsAllowed || isPrivacyFeaturesAllowed || isDirectConnectionsAllowed) {
       const level = isAdsAllowed ? 0 : 3
       const domainWithSettings = {
@@ -90,146 +88,103 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         includeAllSubdomains: isIncludeAllSubdomains,
       }
 
-      await addToAllowlist({ hostname: currentTabHostname, level, domainWithSettings })
+      const toAdd = []
+      const toExcludeFromSpoofing = []
 
-      const currentExcludeURL = toExcludeMatchesURL(currentTabHostname, !isIncludeAllSubdomains)
-      const newExcludeURL = toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains)
+      toAdd.push({ hostname: currentTabHostname, level, domainWithSettings })
 
-      if (workerBlockExcludeMatches) {
-        const updatedExcludeMatches = workerBlockExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
+      await addToExcludeScriptMatches(
+        currentTabHostname,
+        domainWithSettings.allowPrivacyFeatures,
+        domainWithSettings.includeAllSubdomains,
+      )
 
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
+      const dependentsArray = domainDependents(currentTabHostname)
+
+      if (
+        dependentsArray.length > 0 &&
+        !Object.entries(allowlist).find(([key]) => dependentsArray.includes(key))
+      ) {
+        for (const dependentDomain of dependentsArray) {
+          toAdd.push({
+            hostname: dependentDomain,
+            level,
+            domainWithSettings: {
+              ...domainWithSettings,
+              domain: dependentDomain,
+              addedBy: currentTabHostname,
+              // only reason to inlcude dependents is to allow direct connections
+              allowDirectConnections: true,
+            },
+          })
+
+          const excludeUrls = updateAddExcludeDomains({
+            allowlist,
+            isSplitPersonalityEnabled,
+            isPrivacyFeaturesAllowed: domainWithSettings.allowPrivacyFeatures,
+            domainValue: dependentDomain,
+          })
+
+          if (excludeUrls) {
+            toExcludeFromSpoofing.push(...excludeUrls)
+          }
+
+          await addToExcludeScriptMatches(
+            dependentDomain,
+            domainWithSettings.allowPrivacyFeatures,
+            domainWithSettings.includeAllSubdomains,
+          )
         }
-
-        await updateScript({
-          id: workerBlockScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
       }
 
-      if (splitPersonalityExcludeMatches) {
-        const updatedExcludeMatches = splitPersonalityExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
+      const excludeUrls = updateAddExcludeDomains({
+        allowlist,
+        isSplitPersonalityEnabled,
+        isPrivacyFeaturesAllowed: domainWithSettings.allowPrivacyFeatures,
+        domainValue: currentTabHostname,
+      })
 
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-
-        await updateScript({
-          id: splitPersonalityScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
+      if (excludeUrls) {
+        toExcludeFromSpoofing.push(...excludeUrls)
+        const uniqueExcludeUrls = Array.from(new Set(toExcludeFromSpoofing))
+        await spoofUserAgentHeader(spoofedUserAgent, uniqueExcludeUrls)
       }
 
-      if (locationWarpScriptExcludeMatches) {
-        const updatedExcludeMatches = locationWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
-
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-        await updateScript({
-          id: locationWarpScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
-      }
-
-      if (languageWarpScriptExcludeMatches) {
-        const updatedExcludeMatches = languageWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
-
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-
-        await updateScript({
-          id: languageWarpScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
-      }
-
-      if (timeZoneWarpScriptExcludeMatches) {
-        const updatedExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
-          urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
-        )
-
-        if (isPrivacyFeaturesAllowed) {
-          updatedExcludeMatches.push(newExcludeURL)
-        }
-
-        await updateScript({
-          id: timeZoneWarpScriptId,
-          excludeMatches: updatedExcludeMatches,
-        })
-      }
+      // no need to await this since all the depenedent operations are done by this time
+      addToAllowlist(toAdd)
     } else {
-      await removeFromAllowlist({ hostname: currentTabHostname, level: 3 })
+      // remove allowlist item settings
+      const toRemove = []
 
-      // // without subdomain
-      // const withutSubdomain = toExcludeMatchesURL(currentTabHostname, false)
-      // // with subdomain
-      // const newExcludeURL = toExcludeMatchesURL(currentTabHostname, true)
+      const allowlistItemsWithPrivacyFeatures = getPrivacyFeatureEnabledDomains(allowlist)
 
-      if (workerBlockExcludeMatches) {
-        const newExcludeMatches = workerBlockExcludeMatches.filter(
-          urlScheme =>
-            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
-        )
-        await updateScript({
-          id: workerBlockScriptId,
-          excludeMatches: newExcludeMatches,
-        })
+      let domainsToKeepSpoofing = allowlistItemsWithPrivacyFeatures.slice()
+
+      toRemove.push({ hostname: currentTabHostname, level: 3 })
+
+      await removeFromExludeScriptMatches(currentTabHostname, isIncludeAllSubdomains)
+
+      const dependentsArray = domainDependents(currentTabHostname)
+
+      for (const dependentDomain of dependentsArray) {
+        if (dependentDomain in allowlist) {
+          toRemove.push({ hostname: dependentDomain, level: 3 })
+          await removeFromExludeScriptMatches(
+            dependentDomain,
+            allowlist[dependentDomain].includeAllSubdomains,
+          )
+        }
       }
 
-      if (splitPersonalityExcludeMatches) {
-        const newExcludeMatches = splitPersonalityExcludeMatches.filter(
-          urlScheme =>
-            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
+      if (isSplitPersonalityEnabled) {
+        domainsToKeepSpoofing = domainsToKeepSpoofing.filter(
+          d => !dependentsArray.includes(d) && d !== currentTabHostname,
         )
-        await updateScript({
-          id: splitPersonalityScriptId,
-          excludeMatches: newExcludeMatches,
-        })
+
+        await spoofUserAgentHeader(spoofedUserAgent, domainsToKeepSpoofing)
       }
 
-      if (locationWarpScriptExcludeMatches) {
-        const newExcludeMatches = locationWarpScriptExcludeMatches.filter(
-          urlScheme =>
-            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
-        )
-        await updateScript({
-          id: locationWarpScriptId,
-          excludeMatches: newExcludeMatches,
-        })
-      }
-
-      if (languageWarpScriptExcludeMatches) {
-        const newExcludeMatches = languageWarpScriptExcludeMatches.filter(
-          urlScheme =>
-            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
-        )
-        await updateScript({
-          id: languageWarpScriptId,
-          excludeMatches: newExcludeMatches,
-        })
-      }
-
-      if (timeZoneWarpScriptExcludeMatches) {
-        const newExcludeMatches = timeZoneWarpScriptExcludeMatches.filter(
-          urlScheme =>
-            urlScheme !== toExcludeMatchesURL(currentTabHostname, isIncludeAllSubdomains),
-        )
-        await updateScript({
-          id: timeZoneWarpScriptId,
-          excludeMatches: newExcludeMatches,
-        })
-      }
+      removeFromAllowlist(toRemove)
     }
   }
 

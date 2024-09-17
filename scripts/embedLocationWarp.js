@@ -1,34 +1,12 @@
-const fetch = require('node-fetch-commonjs')
 const sha256 = require('crypto-js/sha256')
-const fs = require('node:fs/promises')
+const fs = require('fs')
 const path = require('path')
 const util = require('node:util')
 const exec = util.promisify(require('node:child_process').exec)
 
-const getBaseApiUrl = require('./buildUtils/api/getBaseApiUrl')
 const locationWarpContentScriptTemplate = require('./buildUtils/templates/locationWarpContentScript')
 
-async function embedLocationWarp(config, sessionData) {
-  const loc_hash = sessionData.data?.loc_hash
-  const is_premium = sessionData.data?.is_premium
-  const alc = sessionData.data?.alc
-
-  if (!loc_hash) {
-    throw Error('No loc_hash is available. Try to sign in.')
-  }
-
-  const serverListResponse = await fetch(
-    `${getBaseApiUrl(true)}serverlist/chrome/${is_premium}/${loc_hash}${
-      alc ? `?alc=${alc.join(',')}` : ''
-    }`,
-  )
-
-  const serverListData = await serverListResponse.json()
-
-  if (!serverListData.data) {
-    throw Error('No serverlist is available')
-  }
-
+async function embedLocationWarp(config, serverListData) {
   const dataCenterGpsCoords = serverListData.data
     .map(server => server?.groups ?? [])
     .flat(10)
@@ -55,10 +33,21 @@ async function embedLocationWarp(config, sessionData) {
   // using fixed paths
   const locationWarpGeneratedScriptFolderPath = 'src/pages/contentScripts/locationWarp/'
 
+  // clear older embedded files except .gitkeep
+  const files = fs.readdirSync(locationWarpGeneratedScriptFolderPath)
+
+  for (let file of files) {
+    if (file === '.gitkeep') {
+      continue
+    } else {
+      fs.rmSync(locationWarpGeneratedScriptFolderPath + file)
+    }
+  }
+
   // write to src folder which will be included in the build
   for (let coords of dataCenterGpsCoords) {
     const filePath = locationWarpGeneratedScriptFolderPath + coords.fileName + '.ts'
-    await fs.writeFile(filePath, coords.content)
+    fs.writeFileSync(filePath, coords.content)
     //  update webpack config entry object to inlcude the newly generated files
     config.entry[coords.fileName] = path.join(
       __dirname,
