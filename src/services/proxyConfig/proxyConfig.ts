@@ -206,7 +206,7 @@ export const connect = async (
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
     const ip = await checkIp(getState().workingApi)
 
-    dispatch(setCurrentIp(ip))
+    dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
     if (ip === '---.---.---.---') {
       await handleProxyError(getState, dispatch)
     } else {
@@ -367,7 +367,7 @@ export const disconnect = async (
 
   const ip = await checkIp(workingApi)
 
-  dispatch(setCurrentIp(ip))
+  dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
 
   const noData = getState().overlay.templates.includes('noData')
 

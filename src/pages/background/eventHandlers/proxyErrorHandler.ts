@@ -1,6 +1,7 @@
 import { type StoreType } from 'state/store'
 import { pushToDebugLog } from 'services/debugLog'
 import { handleProxyError } from 'services/proxyConfig'
+import { setStatus } from 'state/slices/proxy'
 
 export function proxyErrorHandler(bgStore: Promise<StoreType>) {
   return async (e: chrome.proxy.ErrorDetails): Promise<void> => {
@@ -27,7 +28,13 @@ export function proxyErrorHandler(bgStore: Promise<StoreType>) {
     const shouldIgnore = proxyFailure || !isConnected || reconnectionAttempts
 
     // do nothing when offline, no sense in recovering when offline
-    if (!isOnline) return
+    if (!isOnline) {
+      store.dispatch(setStatus('off'))
+      pushToDebugLog({
+        message: 'No internet connection, aborting',
+      })
+      return
+    }
 
     if (!shouldIgnore) handleProxyError(store.getState, store.dispatch)
   }

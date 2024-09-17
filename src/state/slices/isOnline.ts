@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 type IsOnlineState = boolean
-const initialState: IsOnlineState = true
+const initialState: IsOnlineState = navigator.onLine
 
 export const isOnlineSlice = createSlice({
   name: 'isOnline',

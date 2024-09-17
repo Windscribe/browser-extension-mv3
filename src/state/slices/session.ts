@@ -56,7 +56,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
       const ip = await checkIp(getState().workingApi)
-      dispatch(setCurrentIp(ip))
+      dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
 

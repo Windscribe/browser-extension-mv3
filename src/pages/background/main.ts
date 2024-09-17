@@ -14,6 +14,7 @@ import {
 import { fetchNotifications } from 'state/slices/newsfeed'
 import { ublockStatusChangeHandler } from './eventHandlers/ublockStatusChangeHandler'
 import { enableOrDisableUblock } from 'services/detectUblock'
+import { setIsOnline } from 'state/slices/isOnline'
 
 declare const self: ServiceWorkerGlobalScope
 
@@ -22,6 +23,8 @@ try {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
+
+    store.dispatch(setIsOnline(navigator.onLine))
 
     const sessionAuthHash = store.getState().session.sessionData?.session_auth_hash
     if (sessionAuthHash) {

@@ -39,7 +39,7 @@ export const checkCurrentIp = createAsyncThunk(
     try {
       const workingApi = getState().workingApi
       const currentIp = await checkIp(workingApi)
-      dispatch(setCurrentIp(currentIp))
+      dispatch(setCurrentIp({ currentIp, isOnline: getState().isOnline }))
     } catch (err: unknown) {
       pushToDebugLog({
         message: 'Error while trying to check current Ip.',
@@ -64,8 +64,10 @@ export const proxySlice = createSlice({
     setConnectionError(state, action: PayloadAction<string>) {
       state.errorMessage = action.payload
     },
-    setCurrentIp(state, action: PayloadAction<string>) {
-      state.currentIp = action.payload
+    setCurrentIp(state, action: PayloadAction<{ currentIp: string; isOnline: boolean }>) {
+      if (action.payload.isOnline) {
+        state.currentIp = action.payload.currentIp
+      }
     },
     setReconnectionAttempts(state, action: PayloadAction<number>) {
       state.reconnectionAttempts = action.payload

@@ -6,12 +6,15 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import {} from 'api/types'
 import { enableOrDisableUblock } from 'services/detectUblock'
 import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
+import { setIsOnline } from 'state/slices/isOnline'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {
     let store
     try {
       store = await bgStore
+
+      store.dispatch(setIsOnline(navigator.onLine))
 
       await setupOffscreenDocument('offscreenHub.html', [chrome.offscreen.Reason.IFRAME_SCRIPTING])
 
