@@ -134,7 +134,6 @@ export const connect = async (
       pushToDebugLog({
         message: 'No internet connection, aborting',
       })
-      dispatch(setStatus('off'))
       return
     }
 
@@ -409,7 +408,6 @@ export const connectToAutopilot = async (
       pushToDebugLog({
         message: 'No internet connection, aborting',
       })
-      dispatch(setStatus('off'))
       return
     }
 

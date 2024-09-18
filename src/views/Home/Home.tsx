@@ -140,7 +140,6 @@ const Home: ThemeUiElement = () => {
       dispatch(setStatus('disconnecting'))
       await sendMessage({ what: 'disconnectProxy' })
     } else {
-      dispatch(setStatus('connecting'))
       const hosts = currentDataCenter?.hosts
       if (!autopilotSelected && hosts) {
         await sendMessage({ what: 'connectProxy', hosts: hosts })

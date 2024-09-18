@@ -22,10 +22,9 @@ declare const self: ServiceWorkerGlobalScope
 try {
   const bgStore = initializeWrappedStore().then(async store => {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
+    store.dispatch(setIsOnline(navigator.onLine))
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
-
-    store.dispatch(setIsOnline(navigator.onLine))
 
     const sessionAuthHash = store.getState().session.sessionData?.session_auth_hash
     if (sessionAuthHash) {

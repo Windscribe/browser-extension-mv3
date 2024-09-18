@@ -1,7 +1,6 @@
 import { type StoreType } from 'state/store'
 import { pushToDebugLog } from 'services/debugLog'
 import { handleProxyError } from 'services/proxyConfig'
-import { setStatus } from 'state/slices/proxy'
 import throttle from 'lodash.throttle'
 import { THROTTLE_PROXY_ERROR_TIME_MS } from 'utils/constants'
 
@@ -31,7 +30,6 @@ const throttledHandleProxyError = throttle(
 
     // do nothing when offline, no sense in recovering when offline
     if (!isOnline) {
-      store.dispatch(setStatus('off'))
       pushToDebugLog({
         level: 'ERROR',
         message: 'Offline, ignoring proxy error',

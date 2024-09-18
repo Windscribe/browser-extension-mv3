@@ -7,6 +7,7 @@ import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/use
 import { enableOrDisableUblock } from 'services/detectUblock'
 import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { setIsOnline } from 'state/slices/isOnline'
+import { chooseIcon } from 'state/slices/iconVariant'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {
@@ -15,6 +16,7 @@ export function startupHandler(bgStore: Promise<StoreType>) {
       store = await bgStore
 
       store.dispatch(setIsOnline(navigator.onLine))
+      store.dispatch(chooseIcon())
 
       await setupOffscreenDocument('offscreenHub.html', [chrome.offscreen.Reason.IFRAME_SCRIPTING])
 
