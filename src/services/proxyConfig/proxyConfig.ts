@@ -191,6 +191,13 @@ export const connect = async (
     }
 
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+
+    if (!getState().isOnline) {
+      pushToDebugLog({
+        message: 'No internet connection, aborting - before pac_script is set',
+      })
+      throw Error('No internet connection')
+    }
     chrome.proxy.settings.set({ value: config, scope: 'regular' })
     await pushToDebugLog({
       data: {
@@ -206,14 +213,27 @@ export const connect = async (
     dispatch(setProxy(hosts))
 
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+    if (!getState().isOnline) {
+      pushToDebugLog({
+        message: 'No internet connection, aborting - before ip is checked',
+      })
+      throw Error('No internet connection')
+    }
     const ip = await checkIp(getState().workingApi)
 
     dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
-    if (ip === '---.---.---.---') {
+    if (ip === '---.---.---.---' && getState().isOnline) {
       await handleProxyError(getState, dispatch)
     } else {
       dispatch(setReconnectionAttempts(0))
       if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+      if (!getState().isOnline) {
+        pushToDebugLog({
+          message: 'No internet connection, aborting - before proxy is on',
+        })
+        throw Error('No internet connection')
+      }
+
       dispatch(setStatus('on'))
 
       if (getState().allowSystemNotifications && !silent) {
@@ -302,7 +322,7 @@ export const connect = async (
               excludeMatchesFromAllowList,
             )
           } else {
-            await pushToDebugLog({
+            pushToDebugLog({
               message: 'Could not find any fallback data center',
               tag: 'popup',
               level: 'ERROR',

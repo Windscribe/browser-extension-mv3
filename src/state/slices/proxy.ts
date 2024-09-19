@@ -3,6 +3,7 @@ import type { Host } from 'api/types'
 import type { SyncThunkCreator, Status } from 'utils/types'
 import { pushToDebugLog } from 'services/debugLog'
 import { checkIp } from 'services'
+import { NO_IP } from 'services/proxyAuth/checkIp'
 
 interface ProxyState {
   status: Status
@@ -65,7 +66,8 @@ export const proxySlice = createSlice({
       state.errorMessage = action.payload
     },
     setCurrentIp(state, action: PayloadAction<{ currentIp: string; isOnline: boolean }>) {
-      if (action.payload.isOnline) {
+      if (action.payload.isOnline && action.payload.currentIp !== NO_IP) {
+        // only ever set ip if we actually get it
         state.currentIp = action.payload.currentIp
       }
     },

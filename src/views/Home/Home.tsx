@@ -159,14 +159,12 @@ const Home: ThemeUiElement = () => {
 
   if (status === 'on' && !hasProxyError && isOnline) {
     ringBorderColor = 'neonGreen'
-  } else if (
-    !isOnline &&
-    (status === 'on' || status === 'connecting' || status === 'disconnecting')
-  ) {
+  } else if (!isOnline && status === 'on' && !hasProxyError) {
     ringBorderColor = 'warningYellow'
   } else {
     ringBorderColor = 'transparent'
   }
+
   return (
     <Box
       data-testid="home-page"
@@ -349,6 +347,9 @@ const Home: ThemeUiElement = () => {
                   <ConnectingRing
                     sx={{
                       animation: `${SpinAnimation} 1s linear infinite`,
+                      '& path': {
+                        fill: isOnline ? 'neonGreen' : 'warningYellow',
+                      },
                     }}
                   />
                 </Box>
