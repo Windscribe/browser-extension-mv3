@@ -16,7 +16,7 @@ interface ProxyState {
 const initialState: ProxyState = {
   status: 'off',
   hosts: undefined,
-  currentIp: '---.---.---.---',
+  currentIp: NO_IP,
   errorMessage: undefined,
   reconnectionAttempts: 0,
 }

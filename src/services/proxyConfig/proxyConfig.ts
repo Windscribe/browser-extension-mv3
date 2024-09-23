@@ -33,6 +33,7 @@ import { SHA256 } from 'crypto-js'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import shuffle from 'lodash.shuffle'
+import { NO_IP } from 'services/proxyAuth/checkIp'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -222,7 +223,7 @@ export const connect = async (
     const ip = await checkIp(getState().workingApi)
 
     dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
-    if (ip === '---.---.---.---' && getState().isOnline) {
+    if (ip === NO_IP && getState().isOnline) {
       await handleProxyError(getState, dispatch)
     } else {
       dispatch(setReconnectionAttempts(0))
