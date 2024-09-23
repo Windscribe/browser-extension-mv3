@@ -31,6 +31,7 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
 import { unregisterScript } from 'utils/scriptController'
 import { setIsRightAfterLogin } from './isRightAfterLogin'
+import { resetSpoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -85,6 +86,7 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     await unregisterScript(locationWarpScriptId)
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(timeZoneWarpScriptId)
+    await resetSpoofUserAgentHeader()
   }
 
   await Promise.all([sendLogoutRequest(), resetState()])
