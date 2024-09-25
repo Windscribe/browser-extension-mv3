@@ -108,3 +108,5 @@ export const DEBUG_LOG_MAX_SIZE_BYTES = 1_048_576 // 1MB
 export const PRUNE_SIZE_BYTES = 204_800 // 200KB
 export const THROTTLE_PROXY_ERROR_TIME_MS = 3000 // ms
 export const UBLOCK_LITE_EXTENSION_ID = 'ddkjiahejlhfcafbddmgiahcphecmpfh'
+export const NETWORK_CHANGE_EVENT_DELAY_MS = 3000
+export const CONTROL_D_DOMAIN = 'controld.com'

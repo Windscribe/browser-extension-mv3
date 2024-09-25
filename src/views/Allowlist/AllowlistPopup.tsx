@@ -16,6 +16,12 @@ import {
   removeFromExludeScriptMatches,
 } from 'utils/allowListDependants'
 import { pushToDebugLog } from 'services/debugLog'
+import {
+  defaultUblockRulesetId,
+  ruleIdForMatomo,
+  updateStaticRules,
+} from 'services/declarativeNetRequest/updateStaticRules'
+import { CONTROL_D_DOMAIN } from 'utils/constants'
 import { getPrivacyFeatureEnabledDomains, updateAddExcludeDomains } from 'utils/networkSpoofing'
 
 type AllowlistPopupProps = {
@@ -112,6 +118,14 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
         }
       }
 
+      // if ads were allowed, we need to enable the rule when the domain is removed
+      if (domainValue === CONTROL_D_DOMAIN) {
+        updateStaticRules({
+          rulesetId: defaultUblockRulesetId,
+          enableRuleIds: ruleIdForMatomo,
+        })
+      }
+
       if (isSplitPersonalityEnabled) {
         domainsToKeepSpoofing = domainsToKeepSpoofing.filter(
           d => !dependentsArray.includes(d) && d !== domainValue,
@@ -189,6 +203,13 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
           domainWithSettings.includeAllSubdomains,
         )
       }
+    }
+
+    if (domainValue === CONTROL_D_DOMAIN) {
+      updateStaticRules({
+        rulesetId: defaultUblockRulesetId,
+        [domainWithSettings.allowAds ? 'disableRuleIds' : 'enableRuleIds']: ruleIdForMatomo,
+      })
     }
 
     const excludeUrls = updateAddExcludeDomains({

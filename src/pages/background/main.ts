@@ -15,12 +15,14 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import { ublockStatusChangeHandler } from './eventHandlers/ublockStatusChangeHandler'
 import { enableOrDisableUblock } from 'services/detectUblock'
+import { setIsOnline } from 'state/slices/isOnline'
 
 declare const self: ServiceWorkerGlobalScope
 
 try {
   const bgStore = initializeWrappedStore().then(async store => {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
+    store.dispatch(setIsOnline(navigator.onLine))
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
 

@@ -16,12 +16,18 @@ import PrivacySelected from 'assets/img/privacySelected.svg'
 import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
+import { CONTROL_D_DOMAIN } from 'utils/constants'
 import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 import {
   addToExcludeScriptMatches,
   domainDependents,
   removeFromExludeScriptMatches,
 } from 'utils/allowListDependants'
+import {
+  updateStaticRules,
+  defaultUblockRulesetId,
+  ruleIdForMatomo,
+} from 'services/declarativeNetRequest/updateStaticRules'
 import { pushToDebugLog } from 'services/debugLog'
 import { getPrivacyFeatureEnabledDomains, updateAddExcludeDomains } from 'utils/networkSpoofing'
 
@@ -137,6 +143,13 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         }
       }
 
+      if (currentTabHostname === CONTROL_D_DOMAIN) {
+        updateStaticRules({
+          rulesetId: defaultUblockRulesetId,
+          [domainWithSettings.allowAds ? 'disableRuleIds' : 'enableRuleIds']: ruleIdForMatomo,
+        })
+      }
+
       const excludeUrls = updateAddExcludeDomains({
         allowlist,
         isSplitPersonalityEnabled,
@@ -174,6 +187,13 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
             allowlist[dependentDomain].includeAllSubdomains,
           )
         }
+      }
+
+      if (currentTabHostname === CONTROL_D_DOMAIN) {
+        updateStaticRules({
+          rulesetId: defaultUblockRulesetId,
+          enableRuleIds: ruleIdForMatomo,
+        })
       }
 
       if (isSplitPersonalityEnabled) {
