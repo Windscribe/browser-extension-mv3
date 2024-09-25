@@ -63,6 +63,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
 
+      // initialized data after login here
       if (getState().splitPersonalityEnabled) {
         dispatch(activateSplitPersonality())
       }
