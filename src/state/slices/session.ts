@@ -31,6 +31,7 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
 import { unregisterScript } from 'utils/scriptController'
 import { setIsRightAfterLogin } from './isRightAfterLogin'
+import { pushToDebugLog } from 'services/debugLog'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -56,7 +57,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
       const ip = await checkIp(getState().workingApi)
-      dispatch(setCurrentIp(ip))
+      dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
 
@@ -88,6 +89,13 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
   }
 
   await Promise.all([sendLogoutRequest(), resetState()])
+
+  pushToDebugLog({
+    message: 'User logged out',
+    data: {
+      username: getState().session.sessionData?.username,
+    },
+  })
 })
 
 export const checkSessionStatus = createAsyncThunk(

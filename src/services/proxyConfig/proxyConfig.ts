@@ -33,6 +33,7 @@ import { SHA256 } from 'crypto-js'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import shuffle from 'lodash.shuffle'
+import { NO_IP } from 'services/proxyAuth/checkIp'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -134,7 +135,6 @@ export const connect = async (
       pushToDebugLog({
         message: 'No internet connection, aborting',
       })
-      dispatch(setStatus('off'))
       return
     }
 
@@ -192,6 +192,13 @@ export const connect = async (
     }
 
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+
+    if (!getState().isOnline) {
+      pushToDebugLog({
+        message: 'No internet connection, aborting - before pac_script is set',
+      })
+      throw Error('No internet connection')
+    }
     chrome.proxy.settings.set({ value: config, scope: 'regular' })
     await pushToDebugLog({
       data: {
@@ -207,14 +214,27 @@ export const connect = async (
     dispatch(setProxy(hosts))
 
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+    if (!getState().isOnline) {
+      pushToDebugLog({
+        message: 'No internet connection, aborting - before ip is checked',
+      })
+      throw Error('No internet connection')
+    }
     const ip = await checkIp(getState().workingApi)
 
-    dispatch(setCurrentIp(ip))
-    if (ip === '---.---.---.---') {
+    dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
+    if (ip === NO_IP && getState().isOnline) {
       await handleProxyError(getState, dispatch)
     } else {
       dispatch(setReconnectionAttempts(0))
       if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+      if (!getState().isOnline) {
+        pushToDebugLog({
+          message: 'No internet connection, aborting - before proxy is on',
+        })
+        throw Error('No internet connection')
+      }
+
       dispatch(setStatus('on'))
 
       if (getState().allowSystemNotifications && !silent) {
@@ -303,7 +323,7 @@ export const connect = async (
               excludeMatchesFromAllowList,
             )
           } else {
-            await pushToDebugLog({
+            pushToDebugLog({
               message: 'Could not find any fallback data center',
               tag: 'popup',
               level: 'ERROR',
@@ -376,7 +396,7 @@ export const disconnect = async (
 
   const ip = await checkIp(workingApi)
 
-  dispatch(setCurrentIp(ip))
+  dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
 
   const noData = getState().overlay.templates.includes('noData')
 
@@ -409,7 +429,6 @@ export const connectToAutopilot = async (
       pushToDebugLog({
         message: 'No internet connection, aborting',
       })
-      dispatch(setStatus('off'))
       return
     }
 
