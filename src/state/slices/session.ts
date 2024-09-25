@@ -33,6 +33,7 @@ import { unregisterScript } from 'utils/scriptController'
 import { setIsRightAfterLogin } from './isRightAfterLogin'
 import { resetSpoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 import { pushToDebugLog } from 'services/debugLog'
+import { activateSplitPersonality } from './splitPersonalityEnabled'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -61,6 +62,10 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
       dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
+
+      if (getState().splitPersonalityEnabled) {
+        dispatch(activateSplitPersonality())
+      }
 
       return response.data
     }

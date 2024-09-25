@@ -117,8 +117,6 @@ export default (): void => {
         [SHA256(spoofedUserAgent).toString() + '.bundle.js'],
         excludeMatchesFromAllowList,
       )
-
-      dispatch(activateSplitPersonality())
     }
-  }, [isSplitPersonalityEnabled, spoofedUserAgent, excludeMatchesFromAllowList, dispatch])
+  }, [isSplitPersonalityEnabled, spoofedUserAgent, excludeMatchesFromAllowList])
 }
