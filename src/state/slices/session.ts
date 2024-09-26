@@ -31,7 +31,9 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
 import { unregisterScript } from 'utils/scriptController'
 import { setIsRightAfterLogin } from './isRightAfterLogin'
+import { resetSpoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 import { pushToDebugLog } from 'services/debugLog'
+import { activateSplitPersonality } from './splitPersonalityEnabled'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -61,6 +63,11 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
 
+      // initialized data after login here
+      if (getState().splitPersonalityEnabled) {
+        dispatch(activateSplitPersonality())
+      }
+
       return response.data
     }
 
@@ -86,6 +93,7 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     await unregisterScript(locationWarpScriptId)
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(timeZoneWarpScriptId)
+    await resetSpoofUserAgentHeader()
   }
 
   await Promise.all([sendLogoutRequest(), resetState()])
