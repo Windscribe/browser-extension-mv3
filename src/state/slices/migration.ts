@@ -89,7 +89,6 @@ export const migrationSlice = createSlice({
         return
       }
 
-      console.log('hmmm bsdk', { migrations: state.migrations })
       state.migrations.push({
         id: action.payload.id,
         startedAt: new Date().toUTCString(),

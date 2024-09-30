@@ -258,8 +258,6 @@ const runMigrationFromManifestV2ToV3 = async (
           idOrHash: hashedUserId,
         }
 
-        console.log(hashedUserId)
-
         await migrateStashedGeneralSettings(store, validatedUserStashes.data, userIdentifier)
         await migrateStashedConnectionSettings(store, validatedUserStashes.data, userIdentifier)
         await migrateStashedOtherSettings(store, validatedUserStashes.data, userIdentifier)
