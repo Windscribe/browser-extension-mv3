@@ -1,6 +1,8 @@
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
+import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
 import { setAndMergeStashes } from 'state/slices/userStashes'
+import { MIGRATION_ID_V2_TO_V3 } from 'utils/constants'
 import {
   StashedLanguageWarpValidatorManifestV2,
   StashedLocationWarpValidatorManifestV2,
@@ -14,7 +16,7 @@ import {
 export const migrateStashedPrivacySettings = async (
   store: StoreType,
   data: unknown,
-  hashedUserId: string,
+  userIdentifier: MigratedUserIdentifierArg,
 ): Promise<void> => {
   const languageWarpStateV2 = StashedLanguageWarpValidatorManifestV2.safeParse(data)
   const locationSpooferStateV2 = StashedLocationWarpValidatorManifestV2.safeParse(data)
@@ -28,10 +30,19 @@ export const migrateStashedPrivacySettings = async (
   if (languageWarpStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
-          languageWarpEnabled: languageWarpStateV2.data.state[hashedUserId].languageSwitchEnabled,
+          languageWarpEnabled:
+            languageWarpStateV2.data.state[userIdentifier.idOrHash].languageSwitchEnabled,
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['languageWarp'],
       }),
     )
   } else {
@@ -46,10 +57,19 @@ export const migrateStashedPrivacySettings = async (
   if (locationSpooferStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
-          locationWarp: locationSpooferStateV2.data.state[hashedUserId].locationSpooferEnabled,
+          locationWarp:
+            locationSpooferStateV2.data.state[userIdentifier.idOrHash].locationSpooferEnabled,
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['locationWarp'],
       }),
     )
   } else {
@@ -64,10 +84,18 @@ export const migrateStashedPrivacySettings = async (
   if (workerBlockStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
-          workerBlock: workerBlockStateV2.data.state[hashedUserId].workerBlockEnabled,
+          workerBlock: workerBlockStateV2.data.state[userIdentifier.idOrHash].workerBlockEnabled,
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['workerBlock'],
       }),
     )
   } else {
@@ -82,10 +110,18 @@ export const migrateStashedPrivacySettings = async (
   if (proxyTimeStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
-          timeWarpEnabled: proxyTimeStateV2.data.state[hashedUserId].proxyTimeEnabled,
+          timeWarpEnabled: proxyTimeStateV2.data.state[userIdentifier.idOrHash].proxyTimeEnabled,
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['timeWarp'],
       }),
     )
   } else {
@@ -100,10 +136,17 @@ export const migrateStashedPrivacySettings = async (
   if (webRTCStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
-          webRtcEnabled: webRTCStateV2.data.state[hashedUserId].webRTCEnabled,
+          webRtcEnabled: webRTCStateV2.data.state[userIdentifier.idOrHash].webRTCEnabled,
         },
+      }),
+    )
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['webRtcBlocker'],
       }),
     )
   } else {
@@ -118,11 +161,20 @@ export const migrateStashedPrivacySettings = async (
   if (notificationBlockerStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
           notificationBlockerEnabled:
-            notificationBlockerStateV2.data.state[hashedUserId].notificationBlockerEnabled,
+            notificationBlockerStateV2.data.state[userIdentifier.idOrHash]
+              .notificationBlockerEnabled,
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['notificationBlocker'],
       }),
     )
   } else {
@@ -137,11 +189,19 @@ export const migrateStashedPrivacySettings = async (
   if (splitPersonalityStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
           splitPersonalityEnabled:
-            splitPersonalityStateV2.data.state[hashedUserId].splitPersonalityEnabled,
+            splitPersonalityStateV2.data.state[userIdentifier.idOrHash].splitPersonalityEnabled,
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['splitPersonality'],
       }),
     )
   } else {

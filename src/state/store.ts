@@ -111,7 +111,8 @@ const combinedReducer = combineReducers(reducers)
 // Here is a place for logic that mutates all state entirely, not just one slice
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === 'global/resetStore') {
-    state = { userStashes: state?.userStashes } as RootState
+    // always keep stashes and migration data intact never remove these
+    state = { userStashes: state?.userStashes, migrations: state?.migrations } as RootState
   } else if (action.type === 'global/applyUserStash') {
     state = { ...state, ...action.payload.toStash } as RootState
   }

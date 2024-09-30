@@ -4,6 +4,7 @@ import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
 import { setLanguageWarpEnabled } from 'state/slices/languageWarpEnabled'
 import { setLocationWarp } from 'state/slices/locationWarp'
+import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
 import {
   enableBlockNotifications,
   resetNotificationBlocker,
@@ -26,6 +27,7 @@ import {
   PROXY_TIME_REDUCER,
   WEB_RTC_REDUCER,
   NOTIFICATION_BLOCKER_REDUCER,
+  MIGRATION_ID_V2_TO_V3,
 } from 'utils/constants'
 import {
   LanguageWarpValidatorManifestV2,
@@ -38,7 +40,11 @@ import {
 } from 'utils/validators'
 
 // Note: adPrivacy under privacy settings is not stored in the db, we cannot migrate it.
-export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promise<void> => {
+export const migratePrivacySettings = async (
+  db: Dexie,
+  store: StoreType,
+  userIdentifier: MigratedUserIdentifierArg,
+): Promise<void> => {
   const languageWarpData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + LANGUAGE_SWITCH_REDUCER)
@@ -95,6 +101,13 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
 
   if (languageWarpStateV2.success) {
     await store.dispatch(setLanguageWarpEnabled(languageWarpStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['languageWarp'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -106,6 +119,13 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
 
   if (locationSpooferStateV2.success) {
     await store.dispatch(setLocationWarp(locationSpooferStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['locationWarp'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -117,6 +137,13 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
 
   if (workerBlockStateV2.success) {
     await store.dispatch(setWorkerBlock(workerBlockStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['workerBlock'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -128,6 +155,13 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
 
   if (proxyTimeStateV2.success) {
     store.dispatch(setTimeWarpEnabled(proxyTimeStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['timeWarp'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -143,6 +177,14 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     } else {
       await store.dispatch(resetWebRtcBlocker())
     }
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['webRtcBlocker'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -158,6 +200,14 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     } else {
       await store.dispatch(deactivateSplitPersonality())
     }
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['splitPersonality'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -173,6 +223,14 @@ export const migratePrivacySettings = async (db: Dexie, store: StoreType): Promi
     } else {
       await store.dispatch(resetNotificationBlocker())
     }
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['notificationBlocker'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',

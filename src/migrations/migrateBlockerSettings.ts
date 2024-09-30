@@ -3,7 +3,13 @@ import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
 import { setBlockLists } from 'state/slices/blocker'
-import { BLOCK_LISTS_REDUCER, DB_STATE_TABLE, SYNC_KEY } from 'utils/constants'
+import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
+import {
+  BLOCK_LISTS_REDUCER,
+  DB_STATE_TABLE,
+  MIGRATION_ID_V2_TO_V3,
+  SYNC_KEY,
+} from 'utils/constants'
 import { BlockListsValidatorManifestV2 } from 'utils/validators'
 
 // left side (key) is the blocker enabled list for v2 and right side (value) is the same but for v3
@@ -14,7 +20,11 @@ export const BLOCKER_SETTINGS_MAPPER = {
   cookieaway: 'annoyances-cookies',
 }
 
-export const migrateBlockerSettings = async (db: Dexie, store: StoreType): Promise<void> => {
+export const migrateBlockerSettings = async (
+  db: Dexie,
+  store: StoreType,
+  userIdentifier: MigratedUserIdentifierArg,
+): Promise<void> => {
   const blockListsData = await db.table(DB_STATE_TABLE).get(SYNC_KEY + BLOCK_LISTS_REDUCER)
 
   await pushToDebugLog({
@@ -47,6 +57,14 @@ export const migrateBlockerSettings = async (db: Dexie, store: StoreType): Promi
       for (const log of response.logs) {
         await pushToDebugLog(log)
       }
+
+      store.dispatch(
+        addUserStateMigration({
+          migrationId: MIGRATION_ID_V2_TO_V3,
+          ...userIdentifier,
+          migratedStates: ['blockList'],
+        }),
+      )
     } catch (err) {
       await pushToDebugLog({
         message: 'Failed while trying to apply rule sets',

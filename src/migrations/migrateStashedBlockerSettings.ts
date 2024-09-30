@@ -5,18 +5,20 @@ import { StashedBlockListsValidatorManifestV2 } from 'utils/validators'
 import { BLOCKER_SETTINGS_MAPPER } from './migrateBlockerSettings'
 import { initialState as initialBlockerState } from 'state/slices/blocker'
 import { LogItemResponse, Message } from 'api/types'
+import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
+import { MIGRATION_ID_V2_TO_V3 } from 'utils/constants'
 
 export const migrateStashedBlockerSettings = async (
   store: StoreType,
   data: unknown,
-  hashedUserId: string,
+  userIdentifier: MigratedUserIdentifierArg,
 ): Promise<void> => {
   const parsedBlockListsStateV2 = StashedBlockListsValidatorManifestV2.safeParse(data)
 
   if (parsedBlockListsStateV2.success) {
     try {
       const newBlocklist: string[] = parsedBlockListsStateV2.data.state[
-        hashedUserId
+        userIdentifier.idOrHash
       ].blockListsEnabled
         .map(blockList => {
           return BLOCKER_SETTINGS_MAPPER[blockList as keyof typeof BLOCKER_SETTINGS_MAPPER]
@@ -25,7 +27,7 @@ export const migrateStashedBlockerSettings = async (
 
       await store.dispatch(
         setAndMergeStashes({
-          hashedID: hashedUserId,
+          hashedID: userIdentifier.idOrHash,
           data: {
             blocker: {
               ...initialBlockerState,
@@ -48,15 +50,20 @@ export const migrateStashedBlockerSettings = async (
       for (const log of response.logs) {
         await pushToDebugLog(log)
       }
+
+      store.dispatch(
+        addUserStateMigration({
+          migrationId: MIGRATION_ID_V2_TO_V3,
+          ...userIdentifier,
+          migratedStates: ['blockList'],
+        }),
+      )
     } catch (err) {
-      // await chrome.offscreen.closeDocument()
       await pushToDebugLog({
         message: 'Failed while trying to apply rule sets',
         level: 'ERROR',
         data: err as Error,
       })
-    } finally {
-      // await chrome.offscreen.closeDocument()
     }
   } else {
     await pushToDebugLog({

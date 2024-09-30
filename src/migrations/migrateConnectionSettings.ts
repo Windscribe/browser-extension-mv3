@@ -3,11 +3,13 @@ import Dexie from 'dexie'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
 import { setAutoConnect, setFailover, setSmokeWall } from 'state/slices/connection'
+import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
 import { setProxyPort } from 'state/slices/proxyPort'
 import {
   AUTO_CONNECT_REDUCER,
   DB_STATE_TABLE,
   FAIL_OVER_REDUCER,
+  MIGRATION_ID_V2_TO_V3,
   PROXY_PORT_REDUCER,
   SMOKE_WALL_REDUCER,
   SYNC_KEY,
@@ -20,7 +22,11 @@ import {
   SmokeWallValidatorManifestV2,
 } from 'utils/validators'
 
-export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Promise<void> => {
+export const migrateConnectionSettings = async (
+  db: Dexie,
+  store: StoreType,
+  userIdentifier: MigratedUserIdentifierArg,
+): Promise<void> => {
   const smokeWallData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + SMOKE_WALL_REDUCER)
@@ -56,6 +62,14 @@ export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Pr
 
   if (parsedSmokeWallStateV2.success) {
     await store.dispatch(setSmokeWall(parsedSmokeWallStateV2.data.state))
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['smokeWall'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -67,6 +81,13 @@ export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Pr
 
   if (parsedAutoConnectStateV2.success) {
     await store.dispatch(setAutoConnect(parsedAutoConnectStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['autoConnect'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -79,6 +100,14 @@ export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Pr
   if (parsedProxyPortStateV2.success) {
     // stored as string in mv2 app state, but typed as number in mv3
     await store.dispatch(setProxyPort(parsedProxyPortStateV2.data.state as unknown as ProxyPort))
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['proxyPort'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -90,6 +119,13 @@ export const migrateConnectionSettings = async (db: Dexie, store: StoreType): Pr
 
   if (parsedFailOverStateV2.success) {
     await store.dispatch(setFailover(parsedFailOverStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['failOver'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',

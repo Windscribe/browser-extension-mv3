@@ -1,3 +1,5 @@
+import { AllPossibleMigratedStates } from 'state/slices/migration'
+
 export const CLIENT_AUTH_SECRET = '952b4412f002315aa50751032fcaab03'
 
 export const ENVS = {
@@ -110,3 +112,49 @@ export const THROTTLE_PROXY_ERROR_TIME_MS = 3000 // ms
 export const UBLOCK_LITE_EXTENSION_ID = 'ddkjiahejlhfcafbddmgiahcphecmpfh'
 export const NETWORK_CHANGE_EVENT_DELAY_MS = 3000
 export const CONTROL_D_DOMAIN = 'controld.com'
+export const MIGRATION_ID_V2_TO_V3 = 'V2_TO_V3_MIGRATION'
+
+export const loggedInUserAllMigratedStates: AllPossibleMigratedStates[] = [
+  'locationLoad',
+  'allowSystemNotifications',
+  'showDebugContextMenu',
+  'languageWarp',
+  'locationWarp',
+  'workerBlock',
+  'timeWarp',
+  'webRtcBlocker',
+  'splitPersonality',
+  'notificationBlocker',
+  'smokeWall',
+  'autoConnect',
+  'proxyPort',
+  'failOver',
+  'allowlist',
+  'theme',
+  'firstInstallDate',
+  'locationSorting',
+  'newsfeedViewed',
+  'favouriteLocations',
+  'currentLocation',
+  'proxyStatusMV2',
+  'blockList',
+]
+
+export const stashedUserAllMigratedStates: AllPossibleMigratedStates[] = [
+  'locationLoad',
+  'allowSystemNotifications',
+  'languageWarp',
+  'locationWarp',
+  'workerBlock',
+  'timeWarp',
+  'webRtcBlocker',
+  'splitPersonality',
+  'notificationBlocker',
+  'autoConnect',
+  'allowlist',
+  'theme',
+  'newsfeedViewed',
+  'favouriteLocations',
+  'currentLocation',
+  'blockList',
+]

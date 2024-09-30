@@ -29,44 +29,35 @@ import {
 
 const zodZeroOrOneUnion = zod.union([zod.literal(0), zod.literal(1)]) // 0 | 1 in typescript
 
-// Note: don't use coerce we don't transform data during migration, just move it only, also allow the specified
-// type as mentioned in the reducer type plus nulls
+// This validates only valid logged in sessions in terms of the data needed to store in mv3,
+// it does not check if the session is actually valid or expired for a user
+// the checkSessionStatus call during the migration process checks that
 export const SessionDataValidatorManifestV2 = zod.object({
-  alc: zod.array(zod.string()).optional().nullable(),
-  billing_plan_id: zod.number().optional().nullable(),
-  email: zod.string().optional().nullable(),
-  email_status: zodZeroOrOneUnion.optional().nullable(),
-  is_premium: zodZeroOrOneUnion.optional().nullable(),
-  last_reset: zod.string().optional().nullable(),
-  loc_hash: zod.string().optional().nullable(),
-  loc_rev: zod.number().optional().nullable(),
-  our_addr: zod.string().optional().nullable(),
+  billing_plan_id: zod.number(),
+  email: zod.string().nullable(),
+  email_status: zodZeroOrOneUnion,
+  is_premium: zodZeroOrOneUnion,
+  last_reset: zod.string(),
+  loc_hash: zod.string(),
+  loc_rev: zod.number(),
+  // our_addr: zod.string().optional().nullable(),
   // our_dc property was not found any where in extension manifest v2 codebase so excluding it during validation
   // our_dc: zod.number().optional().nullable(),
-  our_ip: zodZeroOrOneUnion.optional().nullable(),
-  our_location: zod.string().optional().nullable(),
-  premium_expiry_date: zod.string().optional().nullable(),
-  rebill: zodZeroOrOneUnion.optional().nullable(),
-  reg_date: zod.number().optional().nullable(),
-  session_auth_hash: zod.string().optional().nullable(),
-  status: zod.number().optional().nullable(),
-  traffic_max: zod.number().optional().nullable(),
-  traffic_used: zod.number().optional().nullable(),
-  user_id: zod.string().optional().nullable(),
-  username: zod.string().optional().nullable(),
-  error: zod
-    .object({
-      data: zod
-        .object({
-          errorMessage: zod.string().optional().nullable(),
-          errorCode: zod.number().optional().nullable(),
-        })
-        .optional()
-        .nullable(),
-    })
-    .optional()
-    .nullable(),
-  loading: zod.boolean().optional().nullable(),
+  our_ip: zodZeroOrOneUnion.optional(),
+  // our_location: zod.string().optional().nullable(),
+  premium_expiry_date: zod.string().optional(),
+  rebill: zodZeroOrOneUnion.optional(),
+  reg_date: zod.number(),
+  session_auth_hash: zod.string(),
+  status: zod.number(),
+  traffic_max: zod.number(),
+  traffic_used: zod.number(),
+  user_id: zod.string(),
+  username: zod.string(),
+  // error should be null if the session is valid
+  error: zod.null(),
+  // keep here for history but no need to check loading state
+  // loading: zod.boolean().optional().nullable(),
 })
 
 const booleanState = zod.boolean()

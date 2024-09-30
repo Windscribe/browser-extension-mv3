@@ -82,10 +82,11 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
   }
   const resetState = async () => {
     // order matters any thing saved after userstash call does not persist on re-login
+    const showNotification = getState().proxy.status === 'off' ? false : true
     await dispatch(setIsRightAfterLogin(true))
     await dispatch(saveUserStash())
     await dispatch({ type: 'global/resetStore' })
-    await disconnect(getState, dispatch)
+    await disconnect(getState, dispatch, showNotification)
     await dispatch(resetNotificationBlocker())
     await dispatch(resetWebRtcBlocker())
     await unregisterScript(workerBlockScriptId)
@@ -225,6 +226,9 @@ export const sessionSlice = createSlice({
         ...action.payload,
       }
     },
+    setSessionLoading(state, action: PayloadAction<LoadingState>) {
+      state.loading = action.payload
+    },
   },
   extraReducers: builder => {
     builder
@@ -250,5 +254,5 @@ export const sessionSlice = createSlice({
   },
 })
 
-export const { setSession, replaceSession } = sessionSlice.actions
+export const { setSession, replaceSession, setSessionLoading } = sessionSlice.actions
 export default sessionSlice.reducer
