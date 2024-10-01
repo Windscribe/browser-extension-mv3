@@ -202,8 +202,6 @@ const runMigrationFromManifestV2ToV3 = async (
         }),
       )
 
-      store.dispatch(setSessionLoading('fulfilled'))
-
       store.dispatch(
         addFoundUserIds({
           migrationId: MIGRATION_ID_V2_TO_V3,
@@ -221,7 +219,6 @@ const runMigrationFromManifestV2ToV3 = async (
       await migratePrivacySettings(db, store, userIdentifier)
       await migrateConnectionSettings(db, store, userIdentifier)
       await migrateOtherSettings(db, store, userIdentifier)
-      throw new Error('aaaa')
       await migrateBlockerSettings(db, store, userIdentifier)
       await store.dispatch(checkSessionStatus())
       wasNonStashedStateMigrated = true
@@ -258,9 +255,8 @@ const runMigrationFromManifestV2ToV3 = async (
         await migrateStashedGeneralSettings(store, validatedUserStashes.data, userIdentifier)
         await migrateStashedConnectionSettings(store, validatedUserStashes.data, userIdentifier)
         await migrateStashedOtherSettings(store, validatedUserStashes.data, userIdentifier)
-        throw new Error('aaaa')
-        await migrateStashedBlockerSettings(store, validatedUserStashes!.data, userIdentifier)
-        await migrateStashedPrivacySettings(store, validatedUserStashes!.data, userIdentifier)
+        await migrateStashedBlockerSettings(store, validatedUserStashes.data, userIdentifier)
+        await migrateStashedPrivacySettings(store, validatedUserStashes.data, userIdentifier)
       }
     }
 

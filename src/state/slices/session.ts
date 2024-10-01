@@ -225,6 +225,9 @@ export const sessionSlice = createSlice({
       state.sessionData = {
         ...action.payload,
       }
+
+      // if session is replaced this means loading should be fulfilled
+      state.loading = 'fulfilled'
     },
     setSessionLoading(state, action: PayloadAction<LoadingState>) {
       state.loading = action.payload
