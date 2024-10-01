@@ -7,6 +7,7 @@ import { initialState as initialBlockerState } from 'state/slices/blocker'
 import { LogItemResponse, Message } from 'api/types'
 import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
 import { MIGRATION_ID_V2_TO_V3 } from 'utils/constants'
+import { serializeError } from 'serialize-error'
 
 export const migrateStashedBlockerSettings = async (
   store: StoreType,
@@ -62,7 +63,7 @@ export const migrateStashedBlockerSettings = async (
       await pushToDebugLog({
         message: 'Failed while trying to apply rule sets',
         level: 'ERROR',
-        data: err as Error,
+        data: serializeError(err),
       })
     }
   } else {

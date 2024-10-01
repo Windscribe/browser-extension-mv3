@@ -8,6 +8,7 @@ import Router from 'services/navigation/Router'
 import proxyStore from 'pages/proxyStore'
 import { pushToDebugLog } from 'services/debugLog'
 import { AppWrapper, onBeforePopupRenders } from 'components'
+import { serializeError } from 'serialize-error'
 
 proxyStore
   .ready()
@@ -33,7 +34,7 @@ proxyStore
     pushToDebugLog({
       level: 'ERROR',
       message: 'Error while rendering Popup',
-      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+      data: serializeError(err),
     })
   })
 

@@ -1,4 +1,5 @@
 import { pushToDebugLog } from 'services/debugLog'
+import { serializeError } from 'serialize-error'
 
 export const defaultUblockRulesetId = 'default'
 // this disable rule is for matomo tracking
@@ -20,7 +21,7 @@ export const updateStaticRules = async ({
     await pushToDebugLog({
       message: 'Failed to update static rules',
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
     })
   }
 }

@@ -21,6 +21,7 @@ import isValidDomain from 'is-valid-domain'
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
 import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
 import { MIGRATION_ID_V2_TO_V3 } from 'utils/constants'
+import { serializeError } from 'serialize-error'
 
 export const migrateStashedOtherSettings = async (
   store: StoreType,
@@ -120,7 +121,7 @@ export const migrateStashedOtherSettings = async (
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',
         level: 'ERROR',
-        data: err as Error,
+        data: serializeError(err),
       })
     }
   } else {

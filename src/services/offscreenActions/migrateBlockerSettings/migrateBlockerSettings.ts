@@ -1,6 +1,7 @@
 import sendMessage from 'services/runtime/sendMessage'
 import getErrorMessage from 'utils/getErrorMessage'
 import { LogItem } from 'utils/types'
+import { serializeError } from 'serialize-error'
 
 async function sendApplyRulesSetMessageToUblock(rulesSets: string[]): Promise<LogItem[]> {
   const logs: LogItem[] = []
@@ -28,7 +29,7 @@ async function sendApplyRulesSetMessageToUblock(rulesSets: string[]): Promise<Lo
     const message = getErrorMessage(err)
     logs.push({
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
       message,
       tag: 'offscreen',
     })

@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import { pushToDebugLog } from 'services/debugLog'
 import { setIcon, setTitleByIconVariant, getIconVariant } from 'services/browserAction'
 import type { IconVariant } from 'utils/types'
+import { serializeError } from 'serialize-error'
 
 type IconVariantState = IconVariant
 const initialState: IconVariantState = 'proxyOff'
@@ -28,7 +29,7 @@ export const chooseIcon = createAsyncThunk(CHOOSE_ICON, async (_, { getState, di
     pushToDebugLog({
       message: "Failed while trying to choose and set the extension's icon",
       level: 'ERROR',
-      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+      data: serializeError(err),
     })
   }
 })

@@ -7,6 +7,7 @@ import {
   serverListenerMiddleWareConfig,
   startListeningServerList,
 } from 'state/serverListListenerMiddleware'
+import { MIGRATION_ID_V2_TO_V3 } from 'utils/constants'
 
 export function onInstalledHandler(bgStore: Promise<StoreType>) {
   return async (details: chrome.runtime.InstalledDetails): Promise<void> => {

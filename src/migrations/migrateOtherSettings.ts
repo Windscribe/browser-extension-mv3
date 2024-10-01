@@ -7,6 +7,7 @@ import {
 } from 'api/types'
 import Dexie from 'dexie'
 import isValidDomain from 'is-valid-domain'
+import { serializeError } from 'serialize-error'
 import { pushToDebugLog } from 'services/debugLog'
 import {
   defaultUblockRulesetId,
@@ -199,7 +200,7 @@ export const migrateOtherSettings = async (
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',
         level: 'ERROR',
-        data: err as Error,
+        data: serializeError(err),
       })
     }
   } else {

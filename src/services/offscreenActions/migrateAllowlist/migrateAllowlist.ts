@@ -2,6 +2,7 @@ import { CombinedAllowlistItem } from 'api/types'
 import { setUblockFilteringMode } from 'services/ublockController/setFilteringMode'
 import getErrorMessage from 'utils/getErrorMessage'
 import { LogItem } from 'utils/types'
+import { serializeError } from 'serialize-error'
 
 async function sendFilteringModeMessagesToUblock(
   collection: (CombinedAllowlistItem | undefined)[],
@@ -31,7 +32,7 @@ async function sendFilteringModeMessagesToUblock(
     const message = getErrorMessage(err)
     logs.push({
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
       message,
       tag: 'offscreen',
     })

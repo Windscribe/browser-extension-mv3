@@ -1,5 +1,6 @@
 import { LogItemResponse, Message } from 'api/types'
 import Dexie from 'dexie'
+import { serializeError } from 'serialize-error'
 import { pushToDebugLog } from 'services/debugLog'
 import { StoreType } from 'state'
 import { setBlockLists } from 'state/slices/blocker'
@@ -69,7 +70,7 @@ export const migrateBlockerSettings = async (
       await pushToDebugLog({
         message: 'Failed while trying to apply rule sets',
         level: 'ERROR',
-        data: err as Error,
+        data: serializeError(err),
       })
     }
   } else {

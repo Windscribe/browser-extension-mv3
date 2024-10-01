@@ -14,12 +14,7 @@ import { checkSessionStatus, replaceSession, setSessionLoading } from 'state/sli
 import { SessionDataV2, ReducerStateV2 } from 'api/types'
 import { SessionDataValidatorManifestV2, UserStashesValidatorManifestV2 } from 'utils/validators'
 import { type StoreType } from 'state'
-import {
-  addFoundUserIds,
-  createMigrationEntry,
-  MigrationStatus,
-  updateMigrationEntry,
-} from 'state/slices/migration'
+import { addFoundUserIds, createMigrationEntry, updateMigrationEntry } from 'state/slices/migration'
 import { migrateGeneralSettings } from './migrateGeneralSettings'
 import { migrateBlockerSettings } from './migrateBlockerSettings'
 import { migratePrivacySettings } from './migratePrivacySettings'
@@ -32,6 +27,7 @@ import { migrateStashedGeneralSettings } from './migrateStashedGeneralSettings'
 import { migrateStashedConnectionSettings } from './migrateStashedConnectionSettings'
 import { migrateStashedOtherSettings } from './migrateStashedOtherSettings'
 import { migrateStashedBlockerSettings } from './migrateStashedBlockerSettings'
+import { serializeError } from 'serialize-error'
 
 // never change this id
 
@@ -225,6 +221,7 @@ const runMigrationFromManifestV2ToV3 = async (
       await migratePrivacySettings(db, store, userIdentifier)
       await migrateConnectionSettings(db, store, userIdentifier)
       await migrateOtherSettings(db, store, userIdentifier)
+      throw new Error('aaaa')
       await migrateBlockerSettings(db, store, userIdentifier)
       await store.dispatch(checkSessionStatus())
       wasNonStashedStateMigrated = true
@@ -261,8 +258,9 @@ const runMigrationFromManifestV2ToV3 = async (
         await migrateStashedGeneralSettings(store, validatedUserStashes.data, userIdentifier)
         await migrateStashedConnectionSettings(store, validatedUserStashes.data, userIdentifier)
         await migrateStashedOtherSettings(store, validatedUserStashes.data, userIdentifier)
-        await migrateStashedBlockerSettings(store, validatedUserStashes.data, userIdentifier)
-        await migrateStashedPrivacySettings(store, validatedUserStashes.data, userIdentifier)
+        throw new Error('aaaa')
+        await migrateStashedBlockerSettings(store, validatedUserStashes!.data, userIdentifier)
+        await migrateStashedPrivacySettings(store, validatedUserStashes!.data, userIdentifier)
       }
     }
 
@@ -274,12 +272,23 @@ const runMigrationFromManifestV2ToV3 = async (
       tag: 'background',
     })
 
+    const postMigrationStorage = await chrome.storage.local.getBytesInUse().catch(err => {
+      pushToDebugLog({
+        message: 'Could not retrieve postMigrationStorage',
+        level: 'ERROR',
+        data: serializeError(err),
+      })
+
+      return undefined
+    })
+
     store.dispatch(
       updateMigrationEntry({
         migrationId: MIGRATION_ID_V2_TO_V3,
         changes: {
           status: 'completed',
           endedAt: new Date().toUTCString(),
+          postMigrationStorage: postMigrationStorage ?? undefined,
         },
       }),
     )
@@ -290,7 +299,7 @@ const runMigrationFromManifestV2ToV3 = async (
     await pushToDebugLog({
       level: 'ERROR',
       message,
-      data: JSON.stringify(err),
+      data: serializeError(err),
       tag: 'background',
     })
 
@@ -315,8 +324,9 @@ const runMigrationFromManifestV2ToV3 = async (
       pushToDebugLog({
         message: 'Could not retrieve postMigrationStorage',
         level: 'ERROR',
-        data: JSON.stringify(err),
+        data: serializeError(err),
       })
+      return undefined
     })
 
     store.dispatch(
@@ -324,9 +334,9 @@ const runMigrationFromManifestV2ToV3 = async (
         migrationId: MIGRATION_ID_V2_TO_V3,
         changes: {
           status: 'failed',
-          error: JSON.stringify(err),
+          error: JSON.stringify(serializeError(err)),
           endedAt: new Date().toUTCString(),
-          ...(postMigrationStorage && { postMigrationStorage }),
+          postMigrationStorage: postMigrationStorage ?? undefined,
         },
       }),
     )

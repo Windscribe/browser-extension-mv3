@@ -1,6 +1,7 @@
 import { LogItemResponse, Message } from 'api/types'
 import { pushToDebugLog } from 'services/debugLog'
 import getErrorMessage from 'utils/getErrorMessage'
+import { serializeError } from 'serialize-error'
 
 export const NO_IP = '---.---.---.---'
 
@@ -34,7 +35,7 @@ async function fetchIp(workingApi: string): Promise<string> {
     .catch(err => {
       const message = getErrorMessage(err)
       pushToDebugLog({
-        data: JSON.stringify(err),
+        data: serializeError(err),
         message,
       })
       return NO_IP
