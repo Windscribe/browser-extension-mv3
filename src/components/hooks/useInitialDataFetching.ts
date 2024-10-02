@@ -12,7 +12,6 @@ import { registerScript } from 'utils/scriptController'
 import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
 import { SHA256 } from 'crypto-js'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
-import { activateSplitPersonality } from 'state/slices/splitPersonalityEnabled'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {

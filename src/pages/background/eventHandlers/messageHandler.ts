@@ -2,7 +2,7 @@ import { type StoreType } from 'state/store'
 import { setBlockLists } from 'state/slices/blocker'
 import { connect, disconnect, connectToAutopilot } from 'services/proxyConfig'
 import { setIsOnline } from 'state/slices/isOnline'
-import { CHECK_CURRENT_IP, setReconnectionAttempts } from 'state/slices/proxy'
+import { CHECK_CURRENT_IP } from 'state/slices/proxy'
 import { NETWORK_CHANGE_EVENT_DELAY_MS } from 'utils/constants'
 
 export function messageHandler(bgStore: Promise<StoreType>) {
