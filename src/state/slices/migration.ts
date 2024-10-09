@@ -10,7 +10,6 @@ interface Migration {
   endedAt?: string
   preMigrationStorage?: number
   postMigrationStorage?: number
-  failedReason?: string
   error?: string
   userStateMigrations?: Dictionary<{
     username?: string
@@ -163,6 +162,7 @@ export const migrationSlice = createSlice({
       const migrationIndex = state.migrations.findIndex(m => m.id === migrationId)
 
       if (migrationIndex !== -1) {
+        console.log(state.migrations[migrationIndex])
         state.migrations[migrationIndex] = {
           ...state.migrations[migrationIndex],
           ...changes,
