@@ -364,7 +364,14 @@ const Home: ThemeUiElement = () => {
                       height: '72px',
                     }}
                   >
-                    <ProxyFailureRing sx={{ fill: 'neonGreen' }} />
+                    <ProxyFailureRing
+                      sx={{
+                        fill: 'neonGreen',
+                        '& path': {
+                          fill: isOnline ? 'neonGreen' : 'warningYellow',
+                        },
+                      }}
+                    />
                   </Box>
                 )
               )}
