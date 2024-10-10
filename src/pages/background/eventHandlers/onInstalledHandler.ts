@@ -7,7 +7,8 @@ import {
   serverListenerMiddleWareConfig,
   startListeningServerList,
 } from 'state/serverListListenerMiddleware'
-import { MIGRATION_ID_V2_TO_V3 } from 'utils/constants'
+import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
+import { serializeError } from 'serialize-error'
 
 export function onInstalledHandler(bgStore: Promise<StoreType>) {
   return async (details: chrome.runtime.InstalledDetails): Promise<void> => {
@@ -30,7 +31,27 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
 
     await registerScripts(store, res)
 
-    if (!state.contextMenu) return
+    const updatedState = store.getState()
+    try {
+      if (
+        updatedState.session?.sessionData?.session_auth_hash &&
+        updatedState.session?.sessionData?.username
+      ) {
+        await sendDebugLog(
+          store.dispatch,
+          updatedState.session?.sessionData?.session_auth_hash,
+          updatedState.session?.sessionData?.username,
+          updatedState,
+        )
+      }
+    } catch (err) {
+      pushToDebugLog({
+        message: 'sending debug log with migration report failed',
+        data: serializeError(err),
+      })
+    }
+
+    if (!updatedState.contextMenu) return
 
     addContextMenuItem()
   }

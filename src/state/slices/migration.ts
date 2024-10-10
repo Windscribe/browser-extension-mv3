@@ -2,6 +2,7 @@ import { createSlice, Dictionary, type PayloadAction } from '@reduxjs/toolkit'
 import { pushToDebugLog } from 'services/debugLog'
 
 export type MigrationStatus = 'started' | 'failed' | 'completed'
+export type MigrationStatusReport = MigrationStatus | 'not_run'
 interface Migration {
   id: string
   status: MigrationStatus

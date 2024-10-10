@@ -66,7 +66,7 @@ Migration Logs
 ${
   migrations.migrations.length > 0
     ? JSON.stringify(migrations.migrations, undefined, 2)
-    : 'No logs found'
+    : 'No migration logs found'
 }
 `
 
