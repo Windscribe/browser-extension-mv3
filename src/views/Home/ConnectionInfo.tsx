@@ -82,16 +82,19 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
             fontSize: '12px',
             color: ipAddressColor,
             fontWeight: proxyFailure ? '600' : '400',
+            flexShrink: 0,
           }}
         >
           {proxyFailure ? (
             <Flex sx={{ alignItems: 'center', gap: '8px' }}>
-              PROXY FAILURE
+              <span>PROXY FAILURE</span>
               <InfoIcon
                 sx={{
                   cursor: 'pointer',
                   fill: 'halfWhite',
                   transition: '0.3s',
+                  position: 'relative',
+                  top: '-8px',
                   ':hover': {
                     fill: 'white',
                   },
