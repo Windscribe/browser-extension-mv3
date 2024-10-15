@@ -1,11 +1,12 @@
 import { reportAppLog } from 'api/endpoints'
 import { getStorage, setStorage } from 'services/storage'
-import { DEBUG_LOG_MAX_SIZE_BYTES, PRUNE_SIZE_BYTES } from 'utils/constants'
+import { DEBUG_LOG_MAX_SIZE_BYTES, MIGRATION_ID_V2_TO_V3, PRUNE_SIZE_BYTES } from 'utils/constants'
 import getErrorMessage from 'utils/getErrorMessage'
 import { AppDispatch, RootState } from 'state/store'
 import { generateLogHeaders } from 'utils/generateLogHeader'
 import type { LogItem } from 'utils/types'
 import { Base64 } from 'js-base64'
+import { MigrationStatusReport } from 'state/slices/migration'
 
 export const trimLogs = async (): Promise<LogItem[] | undefined> => {
   const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
@@ -100,7 +101,19 @@ const sendDebugLog = async (
 
   const logHeaders = generateLogHeaders(state)
   const logs = logHeaders + '\n' + parseLogToStrings(debugLog).toString()
-  const response = await reportAppLog(dispatch, session_auth_hash, username, Base64.encode(logs))
+  const migrationV2toV3 = state.migrations.migrations.find(mig => mig.id === MIGRATION_ID_V2_TO_V3)
+
+  let status: MigrationStatusReport = 'not_run'
+  if (migrationV2toV3) {
+    status = migrationV2toV3.status
+  }
+  const response = await reportAppLog(
+    dispatch,
+    session_auth_hash,
+    username,
+    Base64.encode(logs),
+    status,
+  )
 
   return response?.data?.success
 }

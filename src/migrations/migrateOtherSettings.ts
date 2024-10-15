@@ -7,6 +7,7 @@ import {
 } from 'api/types'
 import Dexie from 'dexie'
 import isValidDomain from 'is-valid-domain'
+import { serializeError } from 'serialize-error'
 import { pushToDebugLog } from 'services/debugLog'
 import {
   defaultUblockRulesetId,
@@ -20,6 +21,7 @@ import { setDataCenterIdMV2, setLocationIdMV2 } from 'state/slices/currentLocati
 import { setFirstInstallDate } from 'state/slices/firstInstallDate'
 import { setLocationSorting } from 'state/slices/locationSorting'
 import { saveFavouriteLocationId } from 'state/slices/migratedFavoriteLocations'
+import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
 import { markNewsAsViewed } from 'state/slices/newsfeed'
 import { setProxyStatusMV2 } from 'state/slices/proxyStatusMV2'
 import { setTheme } from 'state/slices/theme'
@@ -35,6 +37,7 @@ import {
   CURRENT_LOCATION_REDUCER,
   PROXY_STATUS_REDUCER,
   CONTROL_D_DOMAIN,
+  MIGRATION_ID_V2_TO_V3,
 } from 'utils/constants'
 import { LocationSorting } from 'utils/types'
 import {
@@ -48,7 +51,11 @@ import {
   ThemeValidatorManifestV2,
 } from 'utils/validators'
 
-export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise<void> => {
+export const migrateOtherSettings = async (
+  db: Dexie,
+  store: StoreType,
+  userIdentifier: MigratedUserIdentifierArg,
+): Promise<void> => {
   const themeData: ReducerStateV2<'light' | 'dark'> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + THEME_REDUCER)
@@ -182,12 +189,18 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
         await pushToDebugLog(log)
       }
 
-      // await chrome.offscreen.closeDocument()
+      store.dispatch(
+        addUserStateMigration({
+          migrationId: MIGRATION_ID_V2_TO_V3,
+          ...userIdentifier,
+          migratedStates: ['allowlist'],
+        }),
+      )
     } catch (err) {
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',
         level: 'ERROR',
-        data: err as Error,
+        data: serializeError(err),
       })
     }
   } else {
@@ -201,6 +214,13 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
 
   if (parsedThemeStateV2.success) {
     await store.dispatch(setTheme(parsedThemeStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['theme'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -212,6 +232,13 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
 
   if (parsedFirstInstalledDateStateV2.success) {
     await store.dispatch(setFirstInstallDate(parsedFirstInstalledDateStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['firstInstallDate'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -223,6 +250,13 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
 
   if (parsedLocationSortingStateV2.success) {
     await store.dispatch(setLocationSorting(parsedLocationSortingStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['locationSorting'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -236,6 +270,14 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
     for (const id of parsedNewsFeedIdsStateV2.data.state) {
       await store.dispatch(markNewsAsViewed(id))
     }
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['newsfeedViewed'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -255,6 +297,14 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
         await store.dispatch(saveFavouriteLocationId(dataCenter.dataCenterId))
       }
     }
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['favouriteLocations'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -279,6 +329,14 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
     ) {
       store.dispatch(setDataCenterIdMV2(parsedCurrentLocationStateV2.data.state.dataCenterId))
     }
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['currentLocation'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -290,6 +348,13 @@ export const migrateOtherSettings = async (db: Dexie, store: StoreType): Promise
 
   if (proxyStatusStateV2.success) {
     store.dispatch(setProxyStatusMV2(proxyStatusStateV2.data.state.status))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['proxyStatusMV2'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',

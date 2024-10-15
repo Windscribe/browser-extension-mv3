@@ -34,6 +34,7 @@ import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import shuffle from 'lodash.shuffle'
 import { NO_IP } from 'services/proxyAuth/checkIp'
+import { serializeError } from 'serialize-error'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -364,7 +365,7 @@ export const connect = async (
     pushToDebugLog({
       message: 'Error while trying to connect from proxy.',
       level: 'ERROR',
-      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+      data: serializeError(err),
     })
   }
 }
@@ -454,7 +455,7 @@ export const connectToAutopilot = async (
     pushToDebugLog({
       message: 'Error while trying to connect from proxy.',
       level: 'ERROR',
-      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+      data: serializeError(err),
     })
   }
 }
@@ -464,6 +465,13 @@ export const handleProxyError = async (
   dispatch: AppDispatch,
 ): Promise<void> => {
   const RECONNECTION_ATTEMPTS_LIMIT = 2
+
+  if (getState().proxy.status === 'off' || getState().proxy.status === 'disconnecting') {
+    pushToDebugLog({
+      message: 'proxy is off or disconnecting, ignoring reconnection attemps',
+    })
+    return
+  }
 
   const failover = getState().connection.failover
   const reconnectionAttempts = getState().proxy.reconnectionAttempts

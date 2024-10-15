@@ -1,4 +1,5 @@
 import { pushToDebugLog } from 'services/debugLog'
+import { serializeError } from 'serialize-error'
 
 export type SetFilteringModeArgs = { hostname: string; level: number }
 
@@ -19,7 +20,7 @@ export async function setUblockFilteringMode({
     await pushToDebugLog({
       message: 'Error while trying to send "setFilteringMode" message to ublock',
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
     })
   }
 }

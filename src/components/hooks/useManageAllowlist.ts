@@ -6,6 +6,7 @@ import {
   type AllowlistPayload,
 } from 'state/slices/allowlist'
 import { setUblockFilteringMode } from 'services/ublockController/setFilteringMode'
+import { serializeError } from 'serialize-error'
 
 type RemoveFromAllowlist = (options: { hostname: string; level: number }[]) => Promise<void>
 
@@ -41,7 +42,7 @@ export default (): {
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',
         level: 'ERROR',
-        data: err as Error,
+        data: serializeError(err),
       })
     }
   }
@@ -59,7 +60,7 @@ export default (): {
       pushToDebugLog({
         message: 'Failed while trying to remove domain from allowlist',
         level: 'ERROR',
-        data: err as Error,
+        data: serializeError(err),
       })
     }
   }

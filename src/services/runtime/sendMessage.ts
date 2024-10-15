@@ -1,4 +1,5 @@
 import { pushToDebugLog } from 'services/debugLog'
+import { serializeError } from 'serialize-error'
 
 const sendMessage = async (message: object): Promise<unknown> => {
   try {
@@ -7,7 +8,7 @@ const sendMessage = async (message: object): Promise<unknown> => {
     pushToDebugLog({
       message: 'Error while sending message through runtime',
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
     })
   }
 }

@@ -28,6 +28,7 @@ const DebugLog: React.FC = () => {
   const timeWarpEnabled = useSelector(s => s.timeWarpEnabled)
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
+  const migrations = useSelector(s => s.migrations)
 
   const parser = new UAParser(navigator.userAgent)
 
@@ -57,6 +58,16 @@ Language Warp: ${languageWarpEnabled}
 Spilt Personality: ${splitPersonalityEnabled}
 Worker Block: ${workerBlockEnabled}
 Build Version: ${chrome.runtime.getManifest().version + '-' + COMMIT_HASH}
+
+------------------------------------------------------
+
+Migration Logs
+
+${
+  migrations.migrations.length > 0
+    ? JSON.stringify(migrations.migrations, undefined, 2)
+    : 'No migration logs found'
+}
 `
 
   useEffect(() => {

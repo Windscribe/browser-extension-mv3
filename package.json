@@ -53,6 +53,7 @@
     "react-joyride": "^2.5.3",
     "react-redux": "^7.2.8",
     "redux-logger": "^3.0.6",
+    "serialize-error": "^11.0.3",
     "theme-ui": "^0.14.6",
     "ua-parser-js": "^1.0.32",
     "zod": "^3.22.4"

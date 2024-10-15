@@ -16,6 +16,7 @@ import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/use
 import { ublockStatusChangeHandler } from './eventHandlers/ublockStatusChangeHandler'
 import { enableOrDisableUblock } from 'services/detectUblock'
 import { setIsOnline } from 'state/slices/isOnline'
+import { serializeError } from 'serialize-error'
 
 declare const self: ServiceWorkerGlobalScope
 
@@ -73,6 +74,6 @@ try {
     level: 'ERROR',
     tag: 'background',
     message: 'Error in a main thread of background service worker',
-    data: JSON.stringify(err),
+    data: serializeError(err),
   })
 }

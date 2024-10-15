@@ -16,6 +16,8 @@ import { splitPersonalityScriptId } from 'utils/constants'
 import { SHA256 } from 'crypto-js'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
+import { serializeError } from 'serialize-error'
+import getErrorMessage from 'utils/getErrorMessage'
 
 type SplitPersonalityEnabledState = boolean
 const initialState: SplitPersonalityEnabledState = false
@@ -41,8 +43,8 @@ export const deactivateSplitPersonality = createAsyncThunk(
       dispatch(setSplitPersonalityEnabled(false))
       await unregisterScript(splitPersonalityScriptId)
     } catch (err) {
-      const { cause, message } = err as Error
-      pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })
+      const message = getErrorMessage(err)
+      pushToDebugLog({ level: 'ERROR', message: message, data: serializeError(err) })
       // TODO show Error message for user on Privacy page?
     }
   },
@@ -79,8 +81,8 @@ export const activateSplitPersonality = createAsyncThunk(
         )
       }
     } catch (err) {
-      const { cause, message } = err as Error
-      pushToDebugLog({ level: 'ERROR', message: message, data: JSON.stringify(cause) })
+      const message = getErrorMessage(err)
+      pushToDebugLog({ level: 'ERROR', message: message, data: serializeError(err) })
       // TODO show Error message for user on Privacy page?
     }
   },
