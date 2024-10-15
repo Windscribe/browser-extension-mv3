@@ -6,6 +6,7 @@ import theme from 'styles'
 import DebugLog from './DebugLog'
 import proxyStore from 'pages/proxyStore'
 import { pushToDebugLog } from 'services/debugLog'
+import { serializeError } from 'serialize-error'
 proxyStore
   .ready()
   .then(() => {
@@ -28,7 +29,7 @@ proxyStore
       pushToDebugLog({
         level: 'ERROR',
         message: 'Error while rendering Popup',
-        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+        data: serializeError(err),
       }),
     )
   })

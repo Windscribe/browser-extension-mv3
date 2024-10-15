@@ -4,6 +4,7 @@ import type { SyncThunkCreator, Status } from 'utils/types'
 import { pushToDebugLog } from 'services/debugLog'
 import { checkIp } from 'services'
 import { NO_IP } from 'services/proxyAuth/checkIp'
+import { serializeError } from 'serialize-error'
 
 interface ProxyState {
   status: Status
@@ -45,7 +46,7 @@ export const checkCurrentIp = createAsyncThunk(
       pushToDebugLog({
         message: 'Error while trying to check current Ip.',
         level: 'ERROR',
-        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+        data: serializeError(err),
       })
     }
   },

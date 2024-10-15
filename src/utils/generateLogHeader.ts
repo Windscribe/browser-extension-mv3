@@ -31,6 +31,15 @@ splitPersonalityEnabled:  ${state.splitPersonalityEnabled}
 notificationBlockerEnabled:  ${state.notificationBlockerEnabled}
 adPrivacyEnabled:  ${state.adPrivacyEnabled}
 theme: ${state.theme.value}
+
+
+Migration Logs
+
+${
+  state.migrations.migrations.length > 0
+    ? JSON.stringify(state.migrations.migrations, undefined, 2)
+    : 'No migration logs found'
+}
 `
   return userInfo
 }

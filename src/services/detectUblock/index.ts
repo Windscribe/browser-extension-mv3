@@ -4,6 +4,7 @@ import getErrorMessage from 'utils/getErrorMessage'
 import { useEffect, useState } from 'react'
 import { Message } from 'api/types'
 import { StoreType } from 'state'
+import { serializeError } from 'serialize-error'
 
 type UblockInstallStatus = 'enabled' | 'disabled' | 'not_installed'
 
@@ -15,7 +16,7 @@ const detectUblock = async (): Promise<UblockInstallStatus> => {
     const message = getErrorMessage(err)
     await pushToDebugLog({
       message,
-      data: JSON.stringify(err),
+      data: serializeError(err),
       level: 'ERROR',
     })
     return 'not_installed'
@@ -35,7 +36,7 @@ const toggleUblockLite = async (): Promise<void> => {
     const message = getErrorMessage(err)
     await pushToDebugLog({
       message,
-      data: JSON.stringify(err),
+      data: serializeError(err),
       level: 'ERROR',
     })
   }
@@ -61,7 +62,7 @@ const useIsUblockLiteStatus = (): UblockInstallStatus => {
         const message = getErrorMessage(err)
         await pushToDebugLog({
           message,
-          data: JSON.stringify(err),
+          data: serializeError(err),
           level: 'ERROR',
         })
         setUblockStatus('not_installed')

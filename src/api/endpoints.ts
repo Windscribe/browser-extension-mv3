@@ -13,6 +13,7 @@ import type {
 import { sendRequest } from 'api/sendRequest'
 import { buildQueryString, generateTime, getClientAuthHash } from 'api/utils'
 import type { AppDispatch } from 'state/store'
+import { MigrationStatusReport } from 'state/slices/migration'
 
 const login = async (
   dispatch: AppDispatch,
@@ -112,6 +113,7 @@ const reportAppLog = async (
   session_auth_hash: string,
   username: string,
   logfile: string,
+  migrationStatus: MigrationStatusReport,
 ): Promise<ApiResponse<ReportAppLogData>> => {
   const time = generateTime()
   const clientAuthHash = getClientAuthHash(time)
@@ -121,6 +123,7 @@ const reportAppLog = async (
   formData.append('session_auth_hash', session_auth_hash)
   formData.append('time', time)
   formData.append('client_auth_hash', clientAuthHash)
+  formData.append('migration', migrationStatus)
 
   return await sendRequest(
     dispatch,
