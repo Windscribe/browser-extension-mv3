@@ -466,6 +466,13 @@ export const handleProxyError = async (
 ): Promise<void> => {
   const RECONNECTION_ATTEMPTS_LIMIT = 2
 
+  if (getState().proxy.status === 'off' || getState().proxy.status === 'disconnecting') {
+    pushToDebugLog({
+      message: 'proxy is off or disconnecting, ignoring reconnection attemps',
+    })
+    return
+  }
+
   const failover = getState().connection.failover
   const reconnectionAttempts = getState().proxy.reconnectionAttempts
 
