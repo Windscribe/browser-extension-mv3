@@ -57,7 +57,11 @@ Time Warp: ${timeWarpEnabled}
 Language Warp: ${languageWarpEnabled}
 Spilt Personality: ${splitPersonalityEnabled}
 Worker Block: ${workerBlockEnabled}
-Build Version: ${chrome.runtime.getManifest().version + '-' + COMMIT_HASH}
+Build Version: ${
+    (chrome.runtime.getManifest().version_name ?? chrome.runtime.getManifest().version) +
+    '-' +
+    COMMIT_HASH
+  }
 
 ------------------------------------------------------
 
