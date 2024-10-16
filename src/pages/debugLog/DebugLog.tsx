@@ -37,7 +37,7 @@ const DebugLog: React.FC = () => {
 [OS]: ${navigator.userAgent}
 [UserAgent OS]: ${parser.getOS().name} ${parser.getOS().version}
 [UserAgent Browser]: ${parser.getBrowser().name} ${parser.getBrowser().version}
-[Extension]:  ${chrome.runtime.getManifest().version}
+[Extension]:  ${chrome.runtime.getManifest().version_name ?? chrome.runtime.getManifest().version}
 
 [User State]
 ------------------------------------------------------
