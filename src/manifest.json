@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
-  "version": "1.2.2",
+  "version": "4.0.0",
+  "version_name": "4.0.0-beta",
   "minimum_chrome_version": "105.0",
   "name": "Windscribe - Experimental MV3",
   "description": "Windscribe MV3 is an experimental extension that masks your physical location, circumvents censorship, and blocks ads and trackers",
