@@ -1,6 +1,6 @@
 {
   "name": "windscribe",
-  "version": "1.2.2",
+  "version": "4.0.0",
   "description": "windscribe",
   "license": "MIT",
   "preset": "jest-puppeteer",
