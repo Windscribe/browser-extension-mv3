@@ -57,6 +57,9 @@ import themeReducer from './slices/theme'
 import currentLocationMV2Reducer from './slices/currentLocationMV2'
 import proxyStatusMV2Reducer from './slices/proxyStatusMV2'
 import serverListenerRunReducer from './slices/serverListenerRun'
+import PermissionsReducer from './slices/permissions'
+import ShowReloadAlertReducer from './slices/reloadAlert'
+
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 
 const reducers = {
@@ -104,6 +107,8 @@ const reducers = {
   currentLocationMV2: currentLocationMV2Reducer,
   proxyStatusMV2: proxyStatusMV2Reducer,
   serverListenerRun: serverListenerRunReducer,
+  permissions: PermissionsReducer,
+  showReloadAlert: ShowReloadAlertReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

@@ -8,6 +8,7 @@ import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/m
 import {
   enableBlockNotifications,
   resetNotificationBlocker,
+  setNotificationBlockerEnabled,
 } from 'state/slices/notificationBlockerEnabled'
 
 import {
@@ -28,6 +29,7 @@ import {
   WEB_RTC_REDUCER,
   NOTIFICATION_BLOCKER_REDUCER,
   MIGRATION_ID_V2_TO_V3,
+  CONTENT_SETTINGS,
 } from 'utils/constants'
 import {
   LanguageWarpValidatorManifestV2,
@@ -218,10 +220,23 @@ export const migratePrivacySettings = async (
   }
 
   if (notificationBlockerStateV2.success) {
-    if (notificationBlockerStateV2.data.state) {
-      await store.dispatch(enableBlockNotifications())
+    const isGranted = await chrome.permissions.contains({ permissions: [CONTENT_SETTINGS] })
+
+    console.log('migration notificationBlockerStateV2 is granted ?', isGranted)
+    if (isGranted) {
+      // do the actual migration
+      console.log('doing actual migrating')
+      if (notificationBlockerStateV2.data.state) {
+        console.log('enableBlockNotifications')
+        await store.dispatch(enableBlockNotifications())
+      } else {
+        console.log('resetNotificationBlocker')
+        await store.dispatch(resetNotificationBlocker())
+      }
     } else {
-      await store.dispatch(resetNotificationBlocker())
+      console.log('not granted - migrating values only')
+      // only migrate the setting value
+      store.dispatch(setNotificationBlockerEnabled(notificationBlockerStateV2.data.state))
     }
 
     store.dispatch(

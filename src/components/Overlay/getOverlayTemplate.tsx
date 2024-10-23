@@ -4,7 +4,7 @@ import { addOverlay, removeAllOverlays } from 'state/slices/overlay'
 import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import CancelButton from './CancelButton'
 import ConfirmButton from './ConfirmButton'
-import { ENVS } from 'utils/constants'
+import { CONTENT_SETTINGS, ENVS } from 'utils/constants'
 
 import teacherGarry from 'assets/img/garry/garryWithApple.png'
 import constructionGarry from 'assets/img/garry/garryConstruction.png'
@@ -17,6 +17,12 @@ import {
   setShowUblockWarningAtBlockerPage,
   setShowUblockWarningAtHomePage,
 } from 'state/slices/blocker'
+import {
+  enableBlockNotifications,
+  resetNotificationBlocker,
+} from 'state/slices/notificationBlockerEnabled'
+import { setShouldShowReloadAlert } from 'state/slices/reloadAlert'
+import { pushToDebugLog } from 'services/debugLog'
 
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
 
@@ -95,6 +101,14 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         message: 'Please try again later or go to the status page for more info.',
         img: constructionGarry,
         ActionsBlock: LocationDown,
+      }
+    case 'notificationBlockerPermission':
+      return {
+        title: 'Permission Required',
+        message:
+          'You need to grant an extra permission to Windscribe before you can use Notification Blocker',
+        img: teacherGarry,
+        ActionsBlock: NotificationBlockerPermission,
       }
   }
 }
@@ -224,6 +238,35 @@ const LocationDown: ActionsBlockComponent = ({ close }) => {
         Check Status
       </ConfirmButton>
       <CancelButton onClick={close}>Back</CancelButton>
+    </>
+  )
+}
+
+const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
+  const isNotificationBlockerEnabled = useSelector(s => s.notificationBlockerEnabled)
+  const dispatch = useDispatch()
+  return (
+    <>
+      <ConfirmButton
+        onClick={async () => {
+          close()
+          const isGranted = await chrome.permissions.request({ permissions: [CONTENT_SETTINGS] })
+          if (isGranted) {
+            if (isNotificationBlockerEnabled) {
+              await dispatch(enableBlockNotifications())
+            } else {
+              await dispatch(resetNotificationBlocker())
+            }
+
+            dispatch(setShouldShowReloadAlert(true))
+          } else {
+            pushToDebugLog({ message: 'Permission for content settings was not granted' })
+          }
+        }}
+      >
+        Grant Permission
+      </ConfirmButton>
+      <CancelButton onClick={close}>Cancel</CancelButton>
     </>
   )
 }

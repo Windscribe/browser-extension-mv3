@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 import { Box, Flex } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { GetNewButton, OptionBox, ToggleSwitch, Header, ScrollableBox } from 'components'
@@ -26,8 +26,10 @@ import WorkerBlockIcon from 'assets/img/workerBlock.svg'
 import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
+import InfoIcon from 'assets/img/infoIcon.svg'
 import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
 import {
+  CONTENT_SETTINGS,
   languageWarpScriptId,
   locationWarpScriptId,
   timeZoneWarpScriptId,
@@ -38,6 +40,8 @@ import { SHA256 } from 'crypto-js'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import { pushToDebugLog } from 'services/debugLog'
+import { addOverlay } from 'state/slices/overlay'
+import { setShouldShowReloadAlert } from 'state/slices/reloadAlert'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -60,7 +64,19 @@ const Privacy: ThemeUiElement = () => {
   const serverList = useSelector(s => s.servers.serverList)
   const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
 
-  const [shouldShowReloadAlert, showReloadAlert] = useState(false)
+  const shouldShowReloadAlert = useSelector(s => s.showReloadAlert)
+  const showReloadAlert = (flag: boolean) => dispatch(setShouldShowReloadAlert(flag))
+
+  const isContentSettingsGranted = useSelector(s => s.permissions.grantedPermissions).includes(
+    CONTENT_SETTINGS,
+  )
+
+  useEffect(() => {
+    // clear when view is unmounted
+    return () => {
+      dispatch(setShouldShowReloadAlert(false))
+    }
+  }, [dispatch])
 
   return (
     <Box data-testid={'privacy-page'} bg="background">
@@ -72,13 +88,44 @@ const Privacy: ThemeUiElement = () => {
           title="Do Not Disturb"
           subTitle="Block all sites from spamming you with notifications."
         >
-          <ToggleSwitch
-            onChange={() => {
-              showReloadAlert(true)
-              dispatch(toggleNotificationBlocker())
+          <Flex
+            sx={{
+              alignItems: 'center',
+              gap: '8px',
             }}
-            checked={notificationBlockerEnabled}
-          />
+          >
+            {!isContentSettingsGranted && (
+              <ToolTip
+                childWrapperProps={{ sx: { height: 16 } }}
+                message={'Click to grant permission.'}
+              >
+                <InfoIcon
+                  sx={{ cursor: 'pointer', fill: 'primaryText' }}
+                  onClick={async () => {
+                    const enabled = await chrome.permissions.contains({
+                      permissions: ['contentSettings'],
+                    })
+
+                    if (!enabled) {
+                      dispatch(addOverlay('notificationBlockerPermission'))
+                    }
+                  }}
+                >
+                  Grant permission
+                </InfoIcon>
+              </ToolTip>
+            )}
+
+            <ToggleSwitch
+              disabled={!isContentSettingsGranted}
+              message="Unavailable until permission is granted."
+              onChange={async () => {
+                dispatch(toggleNotificationBlocker())
+                showReloadAlert(true)
+              }}
+              checked={notificationBlockerEnabled}
+            />
+          </Flex>
         </OptionBox>
         <OptionBox
           Icon={WebRtcLeakIcon}

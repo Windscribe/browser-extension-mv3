@@ -17,12 +17,19 @@ import { ublockStatusChangeHandler } from './eventHandlers/ublockStatusChangeHan
 import { enableOrDisableUblock } from 'services/detectUblock'
 import { setIsOnline } from 'state/slices/isOnline'
 import { serializeError } from 'serialize-error'
+import { addPermissions } from 'state/slices/permissions'
+import {
+  handlePermissionsAdded,
+  handlePermissionsRemoved,
+} from './eventHandlers/permissionsHandler'
 
 declare const self: ServiceWorkerGlobalScope
 
 try {
   const bgStore = initializeWrappedStore().then(async store => {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
+    const grantedPermissions = await chrome.permissions.getAll()
+    store.dispatch(addPermissions(grantedPermissions.permissions ?? []))
     store.dispatch(setIsOnline(navigator.onLine))
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
@@ -61,6 +68,9 @@ try {
 
   chrome.management.onEnabled.addListener(ublockStatusChangeHandler(bgStore))
   chrome.management.onDisabled.addListener(ublockStatusChangeHandler(bgStore))
+
+  chrome.permissions.onAdded.addListener(handlePermissionsAdded(bgStore))
+  chrome.permissions.onRemoved.addListener(handlePermissionsRemoved(bgStore))
 
   chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
 
