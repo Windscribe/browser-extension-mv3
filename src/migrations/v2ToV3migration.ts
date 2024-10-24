@@ -202,6 +202,8 @@ const runMigrationFromManifestV2ToV3 = async (
         }),
       )
 
+      store.dispatch(setSessionLoading('fulfilled'))
+
       store.dispatch(
         addFoundUserIds({
           migrationId: MIGRATION_ID_V2_TO_V3,
