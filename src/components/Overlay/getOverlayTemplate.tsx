@@ -17,12 +17,6 @@ import {
   setShowUblockWarningAtBlockerPage,
   setShowUblockWarningAtHomePage,
 } from 'state/slices/blocker'
-import {
-  enableBlockNotifications,
-  resetNotificationBlocker,
-} from 'state/slices/notificationBlockerEnabled'
-import { setShouldShowReloadAlert } from 'state/slices/reloadAlert'
-import { pushToDebugLog } from 'services/debugLog'
 
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
 
@@ -243,28 +237,13 @@ const LocationDown: ActionsBlockComponent = ({ close }) => {
 }
 
 const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
-  const isNotificationBlockerEnabled = useSelector(s => s.notificationBlockerEnabled)
-  const dispatch = useDispatch()
   return (
     <>
       <ConfirmButton
         onClick={() => {
-          chrome.permissions
-            .request({ permissions: [CONTENT_SETTINGS] })
-            .then(isGranted => {
-              if (isGranted) {
-                if (isNotificationBlockerEnabled) {
-                  dispatch(enableBlockNotifications())
-                } else {
-                  dispatch(resetNotificationBlocker())
-                }
-
-                dispatch(setShouldShowReloadAlert(true))
-              } else {
-                pushToDebugLog({ message: 'Permission for content settings was not granted' })
-              }
-            })
-            .finally(() => close())
+          // feature activation handled in permission handlers
+          close()
+          chrome.permissions.request({ permissions: [CONTENT_SETTINGS] })
         }}
       >
         Grant Permission
