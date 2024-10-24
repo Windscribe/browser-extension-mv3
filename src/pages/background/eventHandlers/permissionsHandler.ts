@@ -34,6 +34,7 @@ export function handlePermissionsRemoved(bgStore: Promise<StoreType>) {
     const store = await bgStore
     if (permissions.permissions?.includes(CONTENT_SETTINGS)) {
       store.dispatch(removePermissions([CONTENT_SETTINGS]))
+      store.dispatch(removeOverlay('notificationBlockerPermission'))
     }
   }
 }
