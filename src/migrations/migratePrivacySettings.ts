@@ -222,19 +222,14 @@ export const migratePrivacySettings = async (
   if (notificationBlockerStateV2.success) {
     const isGranted = await chrome.permissions.contains({ permissions: [CONTENT_SETTINGS] })
 
-    console.log('migration notificationBlockerStateV2 is granted ?', isGranted)
     if (isGranted) {
       // do the actual migration
-      console.log('doing actual migrating')
       if (notificationBlockerStateV2.data.state) {
-        console.log('enableBlockNotifications')
         await store.dispatch(enableBlockNotifications())
       } else {
-        console.log('resetNotificationBlocker')
         await store.dispatch(resetNotificationBlocker())
       }
     } else {
-      console.log('not granted - migrating values only')
       // only migrate the setting value
       store.dispatch(setNotificationBlockerEnabled(notificationBlockerStateV2.data.state))
     }
