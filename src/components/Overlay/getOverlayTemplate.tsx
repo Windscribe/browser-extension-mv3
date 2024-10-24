@@ -248,20 +248,21 @@ const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
   return (
     <>
       <ConfirmButton
-        onClick={async () => {
+        onClick={() => {
           close()
-          const isGranted = await chrome.permissions.request({ permissions: [CONTENT_SETTINGS] })
-          if (isGranted) {
-            if (isNotificationBlockerEnabled) {
-              await dispatch(enableBlockNotifications())
-            } else {
-              await dispatch(resetNotificationBlocker())
-            }
+          chrome.permissions.request({ permissions: [CONTENT_SETTINGS] }).then(isGranted => {
+            if (isGranted) {
+              if (isNotificationBlockerEnabled) {
+                dispatch(enableBlockNotifications())
+              } else {
+                dispatch(resetNotificationBlocker())
+              }
 
-            dispatch(setShouldShowReloadAlert(true))
-          } else {
-            pushToDebugLog({ message: 'Permission for content settings was not granted' })
-          }
+              dispatch(setShouldShowReloadAlert(true))
+            } else {
+              pushToDebugLog({ message: 'Permission for content settings was not granted' })
+            }
+          })
         }}
       >
         Grant Permission
