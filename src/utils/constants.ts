@@ -158,3 +158,5 @@ export const stashedUserAllMigratedStates: AllPossibleMigratedStates[] = [
   'currentLocation',
   'blockList',
 ]
+
+export const CONTENT_SETTINGS = 'contentSettings'

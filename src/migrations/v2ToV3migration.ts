@@ -10,7 +10,7 @@ import {
   SYNC_KEY,
   USER_STASHES_REDUCER,
 } from 'utils/constants'
-import { checkSessionStatus, replaceSession, setSessionLoading } from 'state/slices/session'
+import { checkSessionStatus, replaceSession } from 'state/slices/session'
 import { SessionDataV2, ReducerStateV2 } from 'api/types'
 import { SessionDataValidatorManifestV2, UserStashesValidatorManifestV2 } from 'utils/validators'
 import { type StoreType } from 'state'
