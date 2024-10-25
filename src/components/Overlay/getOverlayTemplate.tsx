@@ -152,7 +152,17 @@ const UblockDetected: ActionsBlockComponent = ({ close }) => {
 
   return (
     <>
-      <ConfirmButton onClick={open}>Use Built In Adblock</ConfirmButton>
+      <ConfirmButton
+        onClick={() => {
+          if (currentView === 'Home') {
+            dispatch(setShowUblockWarningAtHomePage(false))
+          }
+
+          open()
+        }}
+      >
+        Use Built In Adblock
+      </ConfirmButton>
       <CancelButton
         onClick={() => {
           if (currentView === 'Blocker') {
