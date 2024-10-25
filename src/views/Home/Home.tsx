@@ -59,6 +59,7 @@ const Home: ThemeUiElement = () => {
   const showUblockWarningAtHomePage = useSelector(s => s.blocker.showUblockWarningAtHomePage)
   const isOnline = useSelector(s => s.isOnline)
   const proxyStatus = useSelector(s => s.proxy.status)
+  const isOnboardingActive = useSelector(s => s.shouldShowOnboarding)
 
   const unreadNewsAmount = notifications
     .map(n => n.id)
@@ -85,11 +86,13 @@ const Home: ThemeUiElement = () => {
     detectUblock().then(ublockStatus => {
       ublockStatus === 'enabled' &&
         showUblockWarningAtHomePage &&
+        !isOnboardingActive &&
         dispatch(addOverlay('ublockDetected'))
 
-      if (shouldShowWelcome && proxyStatus === 'on') dispatch(addOverlay('welcome'))
+      if (shouldShowWelcome && proxyStatus === 'on' && !isOnboardingActive)
+        dispatch(addOverlay('welcome'))
     })
-  }, [dispatch, shouldShowWelcome, proxyStatus, showUblockWarningAtHomePage])
+  }, [dispatch, shouldShowWelcome, proxyStatus, showUblockWarningAtHomePage, isOnboardingActive])
 
   useEffect(() => {
     let ignore = false
