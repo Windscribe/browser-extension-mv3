@@ -4,7 +4,7 @@ import { addOverlay, removeAllOverlays } from 'state/slices/overlay'
 import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import CancelButton from './CancelButton'
 import ConfirmButton from './ConfirmButton'
-import { ENVS } from 'utils/constants'
+import { CONTENT_SETTINGS, ENVS } from 'utils/constants'
 
 import teacherGarry from 'assets/img/garry/garryWithApple.png'
 import constructionGarry from 'assets/img/garry/garryConstruction.png'
@@ -95,6 +95,14 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         message: 'Please try again later or go to the status page for more info.',
         img: constructionGarry,
         ActionsBlock: LocationDown,
+      }
+    case 'notificationBlockerPermission':
+      return {
+        title: 'Permission Required',
+        message:
+          'You need to grant an extra permission to Windscribe before you can use Notification Blocker',
+        img: teacherGarry,
+        ActionsBlock: NotificationBlockerPermission,
       }
   }
 }
@@ -224,6 +232,23 @@ const LocationDown: ActionsBlockComponent = ({ close }) => {
         Check Status
       </ConfirmButton>
       <CancelButton onClick={close}>Back</CancelButton>
+    </>
+  )
+}
+
+const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
+  return (
+    <>
+      <ConfirmButton
+        onClick={() => {
+          // feature activation handled in permission handlers
+          close()
+          chrome.permissions.request({ permissions: [CONTENT_SETTINGS] })
+        }}
+      >
+        Grant Permission
+      </ConfirmButton>
+      <CancelButton onClick={close}>Cancel</CancelButton>
     </>
   )
 }

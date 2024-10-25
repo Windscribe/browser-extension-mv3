@@ -163,7 +163,6 @@ export const migrationSlice = createSlice({
       const migrationIndex = state.migrations.findIndex(m => m.id === migrationId)
 
       if (migrationIndex !== -1) {
-        console.log(state.migrations[migrationIndex])
         state.migrations[migrationIndex] = {
           ...state.migrations[migrationIndex],
           ...changes,

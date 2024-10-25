@@ -13,7 +13,6 @@
   },
   "permissions": [
     "activeTab",
-    "contentSettings",
     "contextMenus",
     "declarativeNetRequestWithHostAccess",
     "privacy",
@@ -29,6 +28,7 @@
     "offscreen",
     "unlimitedStorage"
   ],
+  "optional_permissions": ["contentSettings"],
   "host_permissions": ["<all_urls>"],
   "icons": {
     "16": "icon16.png",

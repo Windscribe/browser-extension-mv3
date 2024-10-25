@@ -66,7 +66,7 @@ export const migrateStashedGeneralSettings = async (
   } else {
     await pushToDebugLog({
       level: 'INFO',
-      message: 'Notification blocker reducer stashed state not found',
+      message: 'Extension Connect/Disconnect Notification blocker reducer stashed state not found',
       tag: 'background',
       data: JSON.stringify(parsedNotificationBlockerStateV2.error),
     })
