@@ -5,7 +5,6 @@ import {
 } from 'state/slices/notificationBlockerEnabled'
 import { removeOverlay } from 'state/slices/overlay'
 import { addPermissions, removePermissions } from 'state/slices/permissions'
-import { setShouldShowReloadAlert } from 'state/slices/reloadAlert'
 import { CONTENT_SETTINGS } from 'utils/constants'
 
 export function handlePermissionsAdded(bgStore: Promise<StoreType>) {
@@ -23,8 +22,6 @@ export function handlePermissionsAdded(bgStore: Promise<StoreType>) {
       } else {
         store.dispatch(resetNotificationBlocker())
       }
-
-      store.dispatch(setShouldShowReloadAlert(true))
     }
   }
 }

@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Box, Flex } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import { GetNewButton, OptionBox, ToggleSwitch, Header, ScrollableBox } from 'components'
@@ -41,7 +40,7 @@ import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import { pushToDebugLog } from 'services/debugLog'
 import { addOverlay } from 'state/slices/overlay'
-import { setShouldShowReloadAlert } from 'state/slices/reloadAlert'
+import { useState } from 'react'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -64,19 +63,11 @@ const Privacy: ThemeUiElement = () => {
   const serverList = useSelector(s => s.servers.serverList)
   const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
 
-  const shouldShowReloadAlert = useSelector(s => s.showReloadAlert)
-  const showReloadAlert = (flag: boolean) => dispatch(setShouldShowReloadAlert(flag))
+  const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
   const isContentSettingsGranted = useSelector(s => s.permissions.grantedPermissions).includes(
     CONTENT_SETTINGS,
   )
-
-  useEffect(() => {
-    // clear when view is unmounted
-    return () => {
-      dispatch(setShouldShowReloadAlert(false))
-    }
-  }, [dispatch])
 
   return (
     <Box data-testid={'privacy-page'} bg="background">
