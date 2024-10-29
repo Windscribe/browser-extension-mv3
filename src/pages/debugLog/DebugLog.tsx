@@ -1,7 +1,7 @@
 import UAParser from 'ua-parser-js'
 import React, { useEffect, useState } from 'react'
 import { Box, Button } from 'theme-ui'
-import { getStorage, removeStorage } from 'services/storage'
+import { clearLogDB, getStorage } from 'services/storage'
 
 // import { ToggleSwitch } from 'components'
 import { AlignItemsCenter } from 'components/Flexbox'
@@ -75,7 +75,7 @@ ${
 `
 
   useEffect(() => {
-    getStorage('debugLog').then(debugLog => {
+    getStorage().then(debugLog => {
       debugLog && setParsedLog(parseLogToStrings(debugLog))
     })
   }, [])
@@ -99,7 +99,7 @@ ${
         <Button
           variant="debug"
           onClick={() => {
-            removeStorage('debugLog')
+            clearLogDB()
             setParsedLog([''])
           }}
         >
