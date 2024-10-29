@@ -34,6 +34,7 @@ import { setIsRightAfterLogin } from './isRightAfterLogin'
 import { resetSpoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
 import { pushToDebugLog } from 'services/debugLog'
 import { activateSplitPersonality } from './splitPersonalityEnabled'
+import { setAdPrivacyEnabled } from './adPrivacyEnabled'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -84,6 +85,7 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     // order matters any thing saved after userstash call does not persist on re-login
     const shouldShowNotification = getState().proxy.status === 'off' ? false : true
     await dispatch(setIsRightAfterLogin(true))
+    await dispatch(setAdPrivacyEnabled(false))
     await dispatch(saveUserStash())
     await dispatch({ type: 'global/resetStore' })
     await disconnect(getState, dispatch, shouldShowNotification)
