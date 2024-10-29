@@ -6,19 +6,17 @@ import { wrapStore } from '@eduardoac-skimlinks/webext-redux'
 
 import browserApi from 'services/browserApi'
 import { buildFrom, type StoreType } from './store'
-import { setStorage } from 'services/storage'
 import { trimLogs } from 'services/debugLog'
-import { STORAGE_CACHE_VERSION, REACT_APP_REDUX_PORT } from 'utils/constants'
+import {
+  STORAGE_CACHE_VERSION,
+  REACT_APP_REDUX_PORT,
+  THREE_DAYS_IN_MILLISECONDS,
+} from 'utils/constants'
 import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 
 export async function initializeWrappedStore(): Promise<StoreType> {
   try {
-    const trimmedLog = await trimLogs()
-
-    if (trimmedLog) {
-      // set the trimmed storage only
-      await setStorage({ trimmedLog })
-    }
+    await trimLogs(THREE_DAYS_IN_MILLISECONDS)
   } catch (err) {
     console.error('Error in initializeWrappedStore:', err)
   }

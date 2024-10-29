@@ -1,62 +1,13 @@
 import { reportAppLog } from 'api/endpoints'
-import { getStorage, setStorage } from 'services/storage'
-import { DEBUG_LOG_MAX_SIZE_BYTES, MIGRATION_ID_V2_TO_V3, PRUNE_SIZE_BYTES } from 'utils/constants'
-import getErrorMessage from 'utils/getErrorMessage'
+import { getStorage, addToLogDB, logDB } from 'services/storage'
+import { MIGRATION_ID_V2_TO_V3, MAX_LOG_ENTRIES, THREE_DAYS_IN_MILLISECONDS } from 'utils/constants'
+
 import { AppDispatch, RootState } from 'state/store'
 import { generateLogHeaders } from 'utils/generateLogHeader'
 import type { LogItem } from 'utils/types'
 import { Base64 } from 'js-base64'
 import { MigrationStatusReport } from 'state/slices/migration'
-
-export const trimLogs = async (): Promise<LogItem[] | undefined> => {
-  const debugLogSizeInBytes = await chrome.storage.local.getBytesInUse('debugLog')
-
-  if (debugLogSizeInBytes < DEBUG_LOG_MAX_SIZE_BYTES) {
-    return
-  }
-
-  const debugLog = (await getStorage('debugLog')) ?? []
-
-  let totalSizeInBytes = debugLogSizeInBytes
-  let removedItemCount = 0
-
-  if (debugLogSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES) {
-    while (
-      totalSizeInBytes > 0 && // accidental negative check, cannot to go into infinite loop
-      totalSizeInBytes > DEBUG_LOG_MAX_SIZE_BYTES - PRUNE_SIZE_BYTES &&
-      debugLog.length > 0
-    ) {
-      /* 
-        json stringify may fail because of malformed or contain circular references so we skip 
-        calculating the size for that but remove it any way and count it as a removed item, otherwise 
-        pruning may never happen if there is a malformed/circular referenced json object in the debug logs!
-      */
-      try {
-        const removedLog = debugLog.shift()
-        const sizeInBytes = new TextEncoder().encode(JSON.stringify(removedLog)).length
-        totalSizeInBytes -= sizeInBytes
-        removedItemCount += 1
-      } catch (err) {
-        console.error('Error during pruning:', err)
-        // still count item as removed, skip taking bytes into account since json could
-        // not be stringified
-        removedItemCount += 1
-      }
-    }
-
-    const extraLogItem: LogItem = {
-      date: new Date().toLocaleString(),
-      message: `Pruned debug log - reached over ${DEBUG_LOG_MAX_SIZE_BYTES} bytes in size - size was ${debugLogSizeInBytes} bytes - removed approximately ${
-        debugLogSizeInBytes - totalSizeInBytes
-      } bytes and ${removedItemCount} entries`,
-      level: 'INFO',
-      tag: 'popup',
-    }
-
-    debugLog.push(extraLogItem)
-    return debugLog
-  }
-}
+import { serializeError } from 'serialize-error'
 
 const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
   try {
@@ -66,25 +17,27 @@ const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
       level: logInfo.level || 'INFO',
       message: logInfo.message,
       data: logInfo.data,
+      timestamp: Date.now(),
     }
 
-    const debugLog: LogItem[] = (await getStorage('debugLog')) ?? []
+    await addToLogDB(logItem)
 
-    const trimmedLog = await trimLogs()
+    const count = await logDB.table('logs').count()
 
-    if (trimmedLog && !(trimmedLog instanceof Error)) {
-      trimmedLog.push(logItem)
-      await setStorage({ debugLog: trimmedLog })
-    } else {
-      if (trimmedLog instanceof Error) {
-        debugLog.push({
-          date: new Date().toLocaleString(),
-          tag: 'popup',
-          message: getErrorMessage(trimmedLog),
-        })
+    if (count > MAX_LOG_ENTRIES) {
+      const logsToDelete = await logDB
+        .table('logs')
+        .orderBy('id')
+        .limit(Math.abs(count - MAX_LOG_ENTRIES))
+        .toArray()
+
+      if (logsToDelete.length > 0) {
+        // Extract IDs to pass to bulkDelete
+        const idsToDelete = logsToDelete.map(log => log.id)
+
+        // Bulk delete by IDs
+        await logDB.table('logs').bulkDelete(idsToDelete)
       }
-      debugLog.push(logItem)
-      await setStorage({ debugLog })
     }
   } catch (err) {
     console.error('Error in pushToDebugLog:', err)
@@ -97,7 +50,7 @@ const sendDebugLog = async (
   username: string,
   state: RootState,
 ): Promise<number | undefined> => {
-  const debugLog = await getStorage('debugLog')
+  const debugLog = await getStorage()
 
   const logHeaders = generateLogHeaders(state)
   const logs = logHeaders + '\n' + parseLogToStrings(debugLog).toString()
@@ -127,16 +80,33 @@ const parseLogToStrings = (log: LogItem[]): string[] => {
   })
 }
 
+const trimLogs = async (retentionPeriod: number): Promise<void> => {
+  try {
+    await logDB
+      .table('logs')
+      .where('timestamp')
+      .below(Date.now() - retentionPeriod)
+      .delete()
+
+    await pushToDebugLog({
+      level: 'INFO',
+      message: `Cleared logs older than ${retentionPeriod}`,
+    })
+  } catch (ex) {
+    await pushToDebugLog({
+      level: 'ERROR',
+      message: 'Failed to clear old logs',
+      data: serializeError(ex),
+    })
+  }
+}
+
 const clearLogs = async (): Promise<void> => {
   try {
-    const trimmedLog = await trimLogs()
-    if (trimmedLog) {
-      // set the trimmed storage only
-      await setStorage({ trimmedLog })
-    }
+    await trimLogs(THREE_DAYS_IN_MILLISECONDS)
   } catch (err) {
     console.error('Error in clearLog:', err)
   }
 }
 
-export { pushToDebugLog, sendDebugLog, parseLogToStrings, clearLogs }
+export { pushToDebugLog, sendDebugLog, parseLogToStrings, clearLogs, trimLogs }

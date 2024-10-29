@@ -74,6 +74,7 @@ export type LogItem = {
   level?: LogLevel
   data?: NotFunction
   message: string
+  timestamp?: number
 }
 
 export type LogTag = 'popup' | 'background' | 'debugLog' | 'contentScript' | 'offscreen'

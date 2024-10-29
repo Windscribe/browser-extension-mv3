@@ -1,47 +1,52 @@
+import Dexie from 'dexie'
+
+// Initialize Dexie database
+const logDB = new Dexie('LogDatabase')
+logDB.version(1).stores({
+  logs: '++id, timestamp, date, tag, level, message, data',
+})
+
 /**
- * Retrieve object from Chrome's Local StorageArea
+ * Retrieve object from Dexie database.
  * @param {string} key
  */
-const getStorage = async key =>
-  new Promise((resolve, reject) => {
-    try {
-      chrome.storage.local.get(key, function (value) {
-        resolve(value[key])
-      })
-    } catch (ex) {
-      reject(ex)
-    }
-  })
+const getStorage = async () => {
+  try {
+    return await logDB.logs.toArray()
+  } catch (ex) {
+    console.error('Error getting data from Dexie:', ex)
+    throw ex
+  }
+}
 
 /**
- * Save Object in Chrome's Local StorageArea
- * @param {*} obj
+ * Save Object in Dexie database.
+ * @param {Object} obj - The log object to be saved.
  */
-const setStorage = async obj =>
-  new Promise((resolve, reject) => {
-    try {
-      chrome.storage.local.set(obj, function () {
-        resolve()
-      })
-    } catch (ex) {
-      reject(ex)
+const addToLogDB = async logs => {
+  try {
+    if (Array.isArray(logs)) {
+      await logDB.logs.bulkPut(logs) // Use bulkPut for multiple log entries
+    } else {
+      await logDB.logs.put(logs) // Use put for a single log entry
     }
-  })
+  } catch (ex) {
+    console.error('Error saving data to Dexie:', ex)
+    throw ex
+  }
+}
 
 /**
- * Removes Object from Chrome Local StorageArea.
- *
- * @param {string or array of string keys} keys
+ * Remove Object from Dexie database by key.
+ * @param {string | Array<string>} keys - The keys of the entries to remove.
  */
-const removeStorage = async keys =>
-  new Promise((resolve, reject) => {
-    try {
-      chrome.storage.local.remove(keys, function () {
-        resolve()
-      })
-    } catch (ex) {
-      reject(ex)
-    }
-  })
+const clearLogDB = async () => {
+  try {
+    await logDB.logs.clear()
+  } catch (ex) {
+    console.error('Error removing data from Dexie:', ex)
+    throw ex
+  }
+}
 
-export { getStorage, setStorage, removeStorage }
+export { getStorage, addToLogDB, clearLogDB, logDB }
