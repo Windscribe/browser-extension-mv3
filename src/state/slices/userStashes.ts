@@ -42,7 +42,10 @@ export const saveUserStash = createAsyncThunk(
       'serverCredentials',
       'view',
       'userStashes',
+      // dont stash these, they are global among all users
+      // see windscribe/extension-mv3/src/state/store.ts
       'migrations',
+      'permissions',
     ] as Array<keyof typeof state>
 
     const toStash = Object.assign({}, state)
