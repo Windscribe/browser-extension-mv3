@@ -8,6 +8,7 @@ import type { LogItem } from 'utils/types'
 import { Base64 } from 'js-base64'
 import { MigrationStatusReport } from 'state/slices/migration'
 import { serializeError } from 'serialize-error'
+import millisecondsToHours from 'date-fns/millisecondsToHours'
 
 const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
   try {
@@ -82,7 +83,7 @@ const parseLogToStrings = (log: LogItem[]): string[] => {
 
 const trimLogs = async (retentionPeriod: number): Promise<void> => {
   try {
-    await logDB
+    const deleteCount = await logDB
       .table('logs')
       .where('timestamp')
       .below(Date.now() - retentionPeriod)
@@ -90,7 +91,9 @@ const trimLogs = async (retentionPeriod: number): Promise<void> => {
 
     await pushToDebugLog({
       level: 'INFO',
-      message: `Cleared logs older than ${retentionPeriod}`,
+      message: `Cleared logs older than ${millisecondsToHours(
+        retentionPeriod,
+      )} hours and removed ${deleteCount} logs`,
     })
   } catch (ex) {
     await pushToDebugLog({
