@@ -12,6 +12,8 @@ import { registerScript } from 'utils/scriptController'
 import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
 import { SHA256 } from 'crypto-js'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { enableBlockNotifications } from 'state/slices/notificationBlockerEnabled'
+import { enableBlockWebRtc } from 'state/slices/webRtcEnabled'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -32,6 +34,8 @@ export default (): void => {
   const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
   const allowList = useSelector(s => s.allowlist)
+  const isNotificationBlockerActive = useSelector(s => s.notificationBlockerEnabled)
+  const isWebRTCBlockerEnabled = useSelector(s => s.webRtcEnabled)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -118,4 +122,16 @@ export default (): void => {
       )
     }
   }, [isSplitPersonalityEnabled, spoofedUserAgent, excludeMatchesFromAllowList])
+
+  useEffect(() => {
+    if (isNotificationBlockerActive) {
+      dispatch(enableBlockNotifications())
+    }
+  }, [isNotificationBlockerActive, dispatch])
+
+  useEffect(() => {
+    if (isWebRTCBlockerEnabled) {
+      dispatch(enableBlockWebRtc())
+    }
+  }, [isWebRTCBlockerEnabled, dispatch])
 }
