@@ -1,11 +1,9 @@
 import { initializeWrappedStore } from 'state'
 import { chooseIcon } from 'state/slices/iconVariant'
 import { pushToDebugLog } from 'services/debugLog'
-import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 import {
   alarmHandler,
   authRequiredHandler,
-  connectionChangedHandler,
   onInstalledHandler,
   proxyErrorHandler,
   startupHandler,
@@ -23,17 +21,12 @@ import {
   handlePermissionsRemoved,
 } from './eventHandlers/permissionsHandler'
 
-declare const self: ServiceWorkerGlobalScope
-
 try {
   const bgStore = initializeWrappedStore().then(async store => {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
     const grantedPermissions = await chrome.permissions.getAll()
     store.dispatch(addPermissions(grantedPermissions.permissions ?? []))
-    // https://issues.chromium.org/issues/41293401
-    // navigator.onLine is not reliable so we set it to true here
-    // https://github.com/vercel/swr/blob/1585a3e37d90ad0df8097b099db38f1afb43c95d/src/_internal/utils/web-preset.ts#L6
-    store.dispatch(setIsOnline(true))
+    store.dispatch(setIsOnline(navigator.onLine))
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
 
@@ -76,12 +69,6 @@ try {
   chrome.permissions.onRemoved.addListener(handlePermissionsRemoved(bgStore))
 
   chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
-
-  // This is experimental feature and currently nor supported by FF
-  // Also it might not work in Brave browser
-  // @link https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/change_event
-  const _navigator = self.navigator as WorkerNavigatorWithConnection
-  _navigator?.connection?.addEventListener('change', connectionChangedHandler(bgStore))
 } catch (err) {
   pushToDebugLog({
     level: 'ERROR',
