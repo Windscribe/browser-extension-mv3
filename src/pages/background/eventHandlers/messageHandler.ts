@@ -4,6 +4,7 @@ import { connect, disconnect, connectToAutopilot } from 'services/proxyConfig'
 import { setIsOnline } from 'state/slices/isOnline'
 import { CHECK_CURRENT_IP } from 'state/slices/proxy'
 import { NETWORK_CHANGE_EVENT_DELAY_MS } from 'utils/constants'
+import { pushToDebugLog } from 'services/debugLog'
 
 export function messageHandler(bgStore: Promise<StoreType>) {
   // Message is typed as any here: https://developer.chrome.com/docs/extensions/reference/runtime/#event-onMessage
@@ -20,6 +21,7 @@ export function messageHandler(bgStore: Promise<StoreType>) {
       await connectToAutopilot(store.getState, store.dispatch)
     } else if (message.what === 'networkChangeEvent') {
       const isOnline = message.onlineStatus
+      pushToDebugLog({ message: `Network change event: ${isOnline}`, tag: 'background' })
       store.dispatch(setIsOnline(isOnline))
 
       if (isOnline) {
