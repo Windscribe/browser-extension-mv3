@@ -19,7 +19,7 @@ export function messageHandler(bgStore: Promise<StoreType>) {
     } else if (message.what === 'connectAutopilot') {
       await connectToAutopilot(store.getState, store.dispatch)
     } else if (message.what === 'networkChangeEvent') {
-      const isOnline = navigator.onLine
+      const isOnline = message.onlineStatus
       store.dispatch(setIsOnline(isOnline))
 
       if (isOnline) {
