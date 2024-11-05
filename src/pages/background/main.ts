@@ -30,7 +30,10 @@ try {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
     const grantedPermissions = await chrome.permissions.getAll()
     store.dispatch(addPermissions(grantedPermissions.permissions ?? []))
-    store.dispatch(setIsOnline(navigator.onLine))
+    // https://issues.chromium.org/issues/41293401
+    // navigator.onLine is not reliable so we set it to true here
+    // https://github.com/vercel/swr/blob/1585a3e37d90ad0df8097b099db38f1afb43c95d/src/_internal/utils/web-preset.ts#L6
+    store.dispatch(setIsOnline(true))
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
 

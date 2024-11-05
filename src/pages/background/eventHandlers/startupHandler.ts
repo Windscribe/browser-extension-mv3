@@ -15,7 +15,7 @@ export function startupHandler(bgStore: Promise<StoreType>) {
     try {
       store = await bgStore
 
-      store.dispatch(setIsOnline(navigator.onLine))
+      store.dispatch(setIsOnline(true))
       store.dispatch(chooseIcon())
 
       await setupOffscreenDocument('offscreenHub.html', [chrome.offscreen.Reason.IFRAME_SCRIPTING])
