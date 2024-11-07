@@ -60,6 +60,7 @@ export type Endpoint =
   | 'ExtBlocklists'
   | 'CruiseControlDomains'
   | 'Users'
+  | 'RecordInstall/ext/chrome'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 

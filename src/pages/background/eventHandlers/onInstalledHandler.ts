@@ -9,6 +9,7 @@ import {
 } from 'state/serverListListenerMiddleware'
 import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
 import { serializeError } from 'serialize-error'
+import { recordInstall } from 'api/endpoints'
 
 export function onInstalledHandler(bgStore: Promise<StoreType>) {
   return async (details: chrome.runtime.InstalledDetails): Promise<void> => {
@@ -16,6 +17,12 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
     const state = store.getState()
     if (!state.firstInstallDate) {
       store.dispatch(setFirstInstallDate(Date.now()))
+    }
+
+    // TODO: Add browser type to the query string for firefox
+    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+      pushToDebugLog({ message: 'Recording install for chrome', tag: 'background' })
+      recordInstall(store.dispatch)
     }
 
     const res = await runMigrationFromManifestV2ToV3(store, details)
