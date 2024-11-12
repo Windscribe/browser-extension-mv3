@@ -3,9 +3,9 @@
   "version": "4.0.3",
   "version_name": "4.0.3-beta",
   "minimum_chrome_version": "105.0",
-  "name": "Windscribe - Free Proxy and Ad Blocker",
-  "short_name": "Windscribe",
-  "description": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
+  "name": "Windscribe - MV3 Experimental",
+  "short_name": "Windscribe - MV3 Experimental",
+  "description": "Windscribe MV3 is an experimental extension that masks your physical location, circumvents censorship, and blocks ads and trackers",
   "background": { "service_worker": "backgroundScripts.js", "type": "module" },
   "action": {
     "default_popup": "popup.html",
