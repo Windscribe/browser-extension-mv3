@@ -176,8 +176,8 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          //TODO Consider not to fetch everything from ublock
-          from: 'ublock',
+          // TODO: Also make this work for firefox
+          from: 'ubo-lite-mirror/chromium',
           to: path.join(__dirname, 'build'),
           force: true,
         },
