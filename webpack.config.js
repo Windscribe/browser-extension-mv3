@@ -15,6 +15,10 @@ console.log('process.env.API_URL: ', process.env.API_URL)
 // get git info from command line
 const commitHash = require('child_process').execSync('git rev-parse --short HEAD').toString().trim()
 
+// get ubo lite version maniest.json in ubo-lite-mirror/chromium
+const uboLiteVersion = require('./ubo-lite-mirror/chromium/manifest.json').version
+const uboLiteName = require('./ubo-lite-mirror/chromium/_locales/et/messages.json').extName.message
+
 const alias = {
   'react-dom': '@hot-loader/react-dom',
 }
@@ -125,7 +129,10 @@ const options = {
   plugins: [
     new webpack.DefinePlugin({
       COMMIT_HASH: JSON.stringify(commitHash),
+      UBO_LITE_VERSION: JSON.stringify(uboLiteVersion),
+      UBO_LITE_NAME: JSON.stringify(uboLiteName),
     }),
+
     new CleanWebpackPlugin({ verbose: false }),
     // TODO maybe delete or pass .env as argument
     new Dotenv(),
@@ -180,6 +187,19 @@ const options = {
           from: 'ubo-lite-mirror/chromium',
           to: path.join(__dirname, 'build'),
           force: true,
+          globOptions: {
+            ignore: ['**/manifest.json'], // dont copy manifest.json
+          },
+          transform(content, path) {
+            if (path.endsWith('dashboard.js')) {
+              return content
+                .toString()
+                .replace(/UBO_LITE_VERSION/g, JSON.stringify(uboLiteVersion))
+                .replace(/UBO_LITE_NAME/g, JSON.stringify(uboLiteName))
+            }
+
+            return content
+          },
         },
       ],
     }),
