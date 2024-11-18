@@ -103,6 +103,12 @@ import US from './USA.svg'
 
 import VE from './VENEZUELA.svg'
 import VN from './VIETNAM.svg'
+import NG from './NIGERIA.svg'
+
+import LA from './LAOS.svg'
+import PY from './PARAGUAY.svg'
+import BY from './BELARUS.svg'
+import UY from './URUGUAY.svg'
 
 export default {
   AUTO,
@@ -191,4 +197,9 @@ export default {
   US,
   VE,
   VN,
+  NG,
+  LA,
+  PY,
+  BY,
+  UY,
 }

@@ -164,6 +164,10 @@ const getUserAgents = async (url: string): Promise<string> => {
   }
 }
 
+const recordInstall = async (dispatch: AppDispatch): Promise<ApiResponse<SessionData>> =>
+  // TODO: Add browser type to the query string for firefox
+  await sendRequest(dispatch, 'POST', buildQueryString('RecordInstall/ext/chrome'), undefined)
+
 export {
   login,
   logout,
@@ -178,4 +182,5 @@ export {
   getUserAgents,
   reportAppLog,
   sendEmailConfirmation,
+  recordInstall,
 }

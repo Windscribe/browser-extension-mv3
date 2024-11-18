@@ -122,11 +122,12 @@ function handleMessages(
   return true
 }
 
-const onNetworkChange = () => {
+const onNetworkChange = (onlineStatus: boolean) => {
   chrome.runtime.sendMessage({
     what: 'networkChangeEvent',
+    onlineStatus,
   })
 }
 
-window.addEventListener('online', onNetworkChange)
-window.addEventListener('offline', onNetworkChange)
+window.addEventListener('online', () => onNetworkChange(true))
+window.addEventListener('offline', () => onNetworkChange(false))
