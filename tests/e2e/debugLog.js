@@ -19,7 +19,7 @@ const debugLog = async (popupPage, browser) => {
       await popupPage.waitForSelector('[data-testid=view-debug-log]')
       popupPage.click('[data-testid=view-debug-log]')
 
-      await popupPage.waitForTimeout(500)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 500)))
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [tab1, tab2, tab3, tab4] = await browser.pages()
