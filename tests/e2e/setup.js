@@ -4,7 +4,6 @@ const path = require('path')
 const extPath = path.resolve(__dirname, '../../build')
 
 const launchBrowser = async () => {
-  await puppeteer.createBrowserFetcher().download(puppeteer.PUPPETEER_REVISIONS.chromium)
   return await puppeteer.launch({
     headless: false,
     devtools: true,

@@ -46,7 +46,7 @@
     "lodash.throttle": "^4.1.1",
     "luxon": "^3.2.1",
     "mocha": "^10.2.0",
-    "puppeteer": "^19.9.1",
+    "puppeteer": "^23.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-loader": "^4.13.0",
