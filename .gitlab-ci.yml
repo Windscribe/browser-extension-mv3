@@ -4,7 +4,6 @@ image:
 variables:
   DOCKER_REPO: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3
   GIT_SUBMODULE_STRATEGY: recursive
-  GIT_SUBMODULE_FORCE_HTTPS: 'true'
   #TEST_USER_NAME: "sample"         # Set in Gitlab variables
   #TEST_USER_PASSWORD: "PaSsWoRd"  # Set in Gitlab variables
 
