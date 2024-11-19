@@ -17,6 +17,7 @@ import {
   setShowUblockWarningAtBlockerPage,
   setShowUblockWarningAtHomePage,
 } from 'state/slices/blocker'
+import { setDismissedUpgradeWarning } from 'state/slices/upgradeWarning'
 
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
 
@@ -103,6 +104,14 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
           'You need to grant an extra permission to Windscribe before you can use Notification Blocker',
         img: teacherGarry,
         ActionsBlock: NotificationBlockerPermission,
+      }
+    case 'versionUnsupportedWarning':
+      return {
+        title: 'Your Chrome Version is Outdated',
+        message:
+          'You need to update your browser to continue using the extension and receive important updates.',
+        img: cautionGarry,
+        ActionsBlock: VersionUnsupportedWarning,
       }
   }
 }
@@ -259,6 +268,23 @@ const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
         Grant Permission
       </ConfirmButton>
       <CancelButton onClick={close}>Cancel</CancelButton>
+    </>
+  )
+}
+
+const VersionUnsupportedWarning: ActionsBlockComponent = ({ close }) => {
+  const dispatch = useDispatch()
+  return (
+    <>
+      <ConfirmButton onClick={close}>Skip</ConfirmButton>
+      <CancelButton
+        onClick={() => {
+          close()
+          dispatch(setDismissedUpgradeWarning(true))
+        }}
+      >
+        Dont Show Again
+      </CancelButton>
     </>
   )
 }

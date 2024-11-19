@@ -160,3 +160,5 @@ export const stashedUserAllMigratedStates: AllPossibleMigratedStates[] = [
 ]
 
 export const CONTENT_SETTINGS = 'contentSettings'
+
+export const MIN_SUPPORTED_CHROME_VERSION = 119

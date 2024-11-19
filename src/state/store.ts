@@ -59,6 +59,7 @@ import proxyStatusMV2Reducer from './slices/proxyStatusMV2'
 import serverListenerRunReducer from './slices/serverListenerRun'
 import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
+import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 
@@ -109,6 +110,7 @@ const reducers = {
   serverListenerRun: serverListenerRunReducer,
   permissions: PermissionsReducer,
   showReloadAlert: ShowReloadAlertReducer,
+  dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
 }
 
 const combinedReducer = combineReducers(reducers)
