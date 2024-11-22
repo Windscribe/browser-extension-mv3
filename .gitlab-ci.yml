@@ -52,8 +52,8 @@ test:
     - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
     - printf "\nBUILD_USER_NAME=$BUILD_USER_NAME" >> ".env"
     - printf "\nBUILD_USER_PASSWORD=$BUILD_USER_PASSWORD" >> ".env"
+    - npx puppeteer browsers install chrome
     - yarn run build
-    - ls -la src/pages/contentScripts/splitPersonality
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
     - yarn run test
 
