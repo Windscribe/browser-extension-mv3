@@ -34,7 +34,7 @@ import ConnectingRing from 'assets/img/connectingRing.svg'
 import ProxyFailureRing from 'assets/img/proxyFailureRing.svg'
 import { fetchServerList } from 'state/slices/servers'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
-import InfoIcon from 'assets/img/infoIcon.svg'
+import ExclamationIcon from 'assets/img/exclamationIcon.svg'
 import { getChromeVersion } from 'utils/getChromeVersion'
 
 const Home: ThemeUiElement = () => {
@@ -236,16 +236,13 @@ const Home: ThemeUiElement = () => {
                 <Badge
                   innerContentContainerProps={{
                     sx: {
-                      color: 'black',
-                      fontWeight: '700',
-                      fontSize: 10,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                     },
                   }}
-                  content={'!'}
-                  sx={{ top: '-7px', right: '7px', bg: 'orange' }}
+                  content={<ExclamationIcon />}
+                  sx={{ top: '-9px', right: '8px', bg: 'orange' }}
                 />
               )}
             </Button>

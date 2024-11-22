@@ -283,7 +283,7 @@ const VersionUnsupportedWarning: ActionsBlockComponent = ({ close }) => {
           dispatch(setDismissedUpgradeWarning(true))
         }}
       >
-        Dont Show Again
+        {`Don't Show Again`}
       </CancelButton>
     </>
   )
