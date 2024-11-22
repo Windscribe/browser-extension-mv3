@@ -109,7 +109,7 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
       return {
         title: 'Your Chrome Version is Outdated',
         message:
-          'You need to update your browser to continue using the extension and receive important updates.',
+          'You need to update your browser to continue using the extension and to receive important updates.',
         img: cautionGarry,
         ActionsBlock: VersionUnsupportedWarning,
       }
