@@ -60,7 +60,7 @@ const allowlist = async (popupPage, browser) => {
           delay: 80,
         })
 
-        await popupPage.waitForTimeout(800)
+        await popupPage.evaluate(() => new Promise(r => setTimeout(r, 800)))
 
         await popupPage.waitForSelector('[data-testid=allow-privacy-features-checkbox]')
         popupPage.click('[data-testid=allow-privacy-features-checkbox]')
@@ -70,7 +70,7 @@ const allowlist = async (popupPage, browser) => {
 
         // Verify domain appeared on allowlist-page
         await popupPage.waitForSelector('[data-testid=allowlist-items-list]')
-        await popupPage.waitForTimeout(800)
+        await popupPage.evaluate(() => new Promise(r => setTimeout(r, 800)))
         const hasTestPage = await popupPage.evaluate(() => {
           return [
             ...document.querySelectorAll(
