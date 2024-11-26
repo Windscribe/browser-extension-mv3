@@ -10,3 +10,5 @@ declare module '*.svg' {
 declare module 'assets/*'
 
 declare const COMMIT_HASH: string
+declare const UBO_LITE_VERSION: string
+declare const UBO_LITE_NAME: string
