@@ -16,6 +16,7 @@ import DebugLogIcon from 'assets/img/debugLog.svg'
 import DebugMenuIcon from 'assets/img/debugMenu.svg'
 import NotificationsIcon from 'assets/img/notifications.svg'
 import LocationLoadIcon from 'assets/img/locationLoad.svg'
+import KeyboardIcon from 'assets/img/keyboard.svg'
 
 const General: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -61,6 +62,19 @@ const General: ThemeUiElement = () => {
             onChange={() => dispatch(showDebugContextMenu(!contextMenu))}
             checked={contextMenu}
           />
+        </OptionBox>
+        <OptionBox
+          Icon={KeyboardIcon}
+          title="Keyboard Shortcuts"
+          subTitle="Customize keyboard shortcuts to quickly access extension features"
+        >
+          <Button
+            variant="option"
+            onClick={() => chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })}
+            sx={{ transition: '0.3s' }}
+          >
+            Edit
+          </Button>
         </OptionBox>
         <OptionBox Icon={DebugLogIcon} title="Debug Log">
           {sentDebugLog ? (

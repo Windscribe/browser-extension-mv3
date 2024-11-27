@@ -59,8 +59,10 @@ import proxyStatusMV2Reducer from './slices/proxyStatusMV2'
 import serverListenerRunReducer from './slices/serverListenerRun'
 import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
+import locationTabReducer from './slices/locationTab'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
+import shortcutStatusReducer from './slices/openedByShortcut'
 
 const reducers = {
   adPrivacyEnabled: adPrivacyEnabledReducer,
@@ -109,6 +111,8 @@ const reducers = {
   serverListenerRun: serverListenerRunReducer,
   permissions: PermissionsReducer,
   showReloadAlert: ShowReloadAlertReducer,
+  shortcutStatus: shortcutStatusReducer,
+  locationTab: locationTabReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

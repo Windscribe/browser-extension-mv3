@@ -122,7 +122,7 @@ const Preferences: ThemeUiElement = () => {
           <ListItemButton title="Blocker" Icon={BlockerIcon} onClick={goToBlocker} />
           <ListItemButton title="Privacy" Icon={PrivacyIcon} onClick={goToPrivacy} />
           <ListItemButton title="Account" Icon={AccountIcon} onClick={goToAccount} />
-          <ListItemButton title="Allowlist" Icon={AllowlistIcon} onClick={goToAllowlist} noBorder />
+          <ListItemButton title="Allowlist" Icon={AllowlistIcon} onClick={goToAllowlist} />
         </RoundedBox>
         <Flex
           sx={{
