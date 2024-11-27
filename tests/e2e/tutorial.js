@@ -19,7 +19,7 @@ const tutorial = async popupPage => {
       for (let i = 0; i < 6; i++) {
         await popupPage.waitForSelector('[data-testid=tutorial-next-button]')
         popupPage.click('[data-testid=tutorial-next-button]')
-        await popupPage.waitForTimeout(500)
+        await popupPage.evaluate(() => new Promise(r => setTimeout(r, 500)))
       }
 
       // Ensure that we are on Home page

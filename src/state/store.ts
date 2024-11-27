@@ -117,7 +117,12 @@ const combinedReducer = combineReducers(reducers)
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === 'global/resetStore') {
     // always keep stashes and migration data intact never remove these
-    state = { userStashes: state?.userStashes, migrations: state?.migrations } as RootState
+    state = {
+      userStashes: state?.userStashes,
+      // always keep these
+      migrations: state?.migrations,
+      permissions: state?.permissions,
+    } as RootState
   } else if (action.type === 'global/applyUserStash') {
     state = { ...state, ...action.payload.toStash } as RootState
   }

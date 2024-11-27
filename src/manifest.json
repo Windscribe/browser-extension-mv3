@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "version": "4.0.1",
-  "version_name": "4.0.1",
-  "minimum_chrome_version": "105.0",
+  "version": "4.0.3",
+  "version_name": "4.0.3",
+  "minimum_chrome_version": "119.0",
   "name": "Windscribe - Free Proxy and Ad Blocker",
   "short_name": "Windscribe",
   "description": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
@@ -39,218 +39,223 @@
   "declarative_net_request": {
     "rule_resources": [
       {
-        "id": "default",
         "enabled": true,
+        "id": "default",
         "path": "/rulesets/main/default.json"
       },
       {
-        "id": "alb-0",
         "enabled": false,
+        "id": "alb-0",
         "path": "/rulesets/main/alb-0.json"
       },
       {
-        "id": "bgr-0",
         "enabled": false,
+        "id": "bgr-0",
         "path": "/rulesets/main/bgr-0.json"
       },
       {
-        "id": "chn-0",
         "enabled": false,
+        "id": "chn-0",
         "path": "/rulesets/main/chn-0.json"
       },
       {
-        "id": "cze-0",
         "enabled": false,
+        "id": "cze-0",
         "path": "/rulesets/main/cze-0.json"
       },
       {
-        "id": "deu-0",
         "enabled": false,
+        "id": "deu-0",
         "path": "/rulesets/main/deu-0.json"
       },
       {
-        "id": "fin-0",
         "enabled": false,
+        "id": "fin-0",
         "path": "/rulesets/main/fin-0.json"
       },
       {
-        "id": "fra-0",
         "enabled": false,
+        "id": "fra-0",
         "path": "/rulesets/main/fra-0.json"
       },
       {
-        "id": "grc-0",
         "enabled": false,
+        "id": "grc-0",
         "path": "/rulesets/main/grc-0.json"
       },
       {
-        "id": "hrv-0",
         "enabled": false,
+        "id": "hrv-0",
         "path": "/rulesets/main/hrv-0.json"
       },
       {
-        "id": "hun-0",
         "enabled": false,
+        "id": "hun-0",
         "path": "/rulesets/main/hun-0.json"
       },
       {
-        "id": "idn-0",
         "enabled": false,
+        "id": "idn-0",
         "path": "/rulesets/main/idn-0.json"
       },
       {
-        "id": "ind-0",
         "enabled": false,
+        "id": "ind-0",
         "path": "/rulesets/main/ind-0.json"
       },
       {
-        "id": "irn-0",
         "enabled": false,
+        "id": "irn-0",
         "path": "/rulesets/main/irn-0.json"
       },
       {
-        "id": "isl-0",
         "enabled": false,
+        "id": "isl-0",
         "path": "/rulesets/main/isl-0.json"
       },
       {
-        "id": "isr-0",
         "enabled": false,
+        "id": "isr-0",
         "path": "/rulesets/main/isr-0.json"
       },
       {
-        "id": "ita-0",
         "enabled": false,
+        "id": "ita-0",
         "path": "/rulesets/main/ita-0.json"
       },
       {
-        "id": "jpn-1",
         "enabled": false,
+        "id": "jpn-1",
         "path": "/rulesets/main/jpn-1.json"
       },
       {
-        "id": "kor-1",
         "enabled": false,
+        "id": "kor-1",
         "path": "/rulesets/main/kor-1.json"
       },
       {
-        "id": "ltu-0",
         "enabled": false,
+        "id": "ltu-0",
         "path": "/rulesets/main/ltu-0.json"
       },
       {
-        "id": "lva-0",
         "enabled": false,
+        "id": "lva-0",
         "path": "/rulesets/main/lva-0.json"
       },
       {
-        "id": "mkd-0",
         "enabled": false,
+        "id": "mkd-0",
         "path": "/rulesets/main/mkd-0.json"
       },
       {
-        "id": "nld-0",
         "enabled": false,
+        "id": "nld-0",
         "path": "/rulesets/main/nld-0.json"
       },
       {
-        "id": "nor-0",
         "enabled": false,
+        "id": "nor-0",
         "path": "/rulesets/main/nor-0.json"
       },
       {
-        "id": "pol-0",
         "enabled": false,
+        "id": "pol-0",
         "path": "/rulesets/main/pol-0.json"
       },
       {
-        "id": "rou-1",
         "enabled": false,
+        "id": "rou-1",
         "path": "/rulesets/main/rou-1.json"
       },
       {
-        "id": "rus-0",
         "enabled": false,
+        "id": "rus-0",
         "path": "/rulesets/main/rus-0.json"
       },
       {
-        "id": "spa-0",
         "enabled": false,
+        "id": "spa-0",
         "path": "/rulesets/main/spa-0.json"
       },
       {
-        "id": "spa-1",
         "enabled": false,
+        "id": "spa-1",
         "path": "/rulesets/main/spa-1.json"
       },
       {
-        "id": "svn-0",
         "enabled": false,
+        "id": "svn-0",
         "path": "/rulesets/main/svn-0.json"
       },
       {
-        "id": "swe-1",
         "enabled": false,
+        "id": "swe-1",
         "path": "/rulesets/main/swe-1.json"
       },
       {
-        "id": "tha-0",
         "enabled": false,
+        "id": "tha-0",
         "path": "/rulesets/main/tha-0.json"
       },
       {
-        "id": "tur-0",
         "enabled": false,
+        "id": "tur-0",
         "path": "/rulesets/main/tur-0.json"
       },
       {
-        "id": "vie-1",
         "enabled": false,
+        "id": "vie-1",
         "path": "/rulesets/main/vie-1.json"
       },
       {
-        "id": "block-lan",
         "enabled": false,
+        "id": "est-0",
+        "path": "/rulesets/main/est-0.json"
+      },
+      {
+        "enabled": false,
+        "id": "block-lan",
         "path": "/rulesets/main/block-lan.json"
       },
       {
-        "id": "dpollock-0",
         "enabled": false,
+        "id": "dpollock-0",
         "path": "/rulesets/main/dpollock-0.json"
       },
       {
-        "id": "adguard-spyware-url",
         "enabled": false,
+        "id": "adguard-spyware-url",
         "path": "/rulesets/main/adguard-spyware-url.json"
       },
       {
-        "id": "annoyances-cookies",
         "enabled": false,
+        "id": "annoyances-cookies",
         "path": "/rulesets/main/annoyances-cookies.json"
       },
       {
-        "id": "annoyances-overlays",
         "enabled": false,
+        "id": "annoyances-overlays",
         "path": "/rulesets/main/annoyances-overlays.json"
       },
       {
-        "id": "annoyances-social",
         "enabled": false,
+        "id": "annoyances-social",
         "path": "/rulesets/main/annoyances-social.json"
       },
       {
-        "id": "annoyances-widgets",
         "enabled": false,
+        "id": "annoyances-widgets",
         "path": "/rulesets/main/annoyances-widgets.json"
       },
       {
-        "id": "annoyances-others",
         "enabled": false,
+        "id": "annoyances-others",
         "path": "/rulesets/main/annoyances-others.json"
       },
       {
-        "id": "stevenblack-hosts",
         "enabled": false,
+        "id": "stevenblack-hosts",
         "path": "/rulesets/main/stevenblack-hosts.json"
       }
     ]
@@ -261,13 +266,15 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "/web_accessible_resources/empty",
-        "/web_accessible_resources/noop.txt",
         "/web_accessible_resources/noop.js",
+        "/web_accessible_resources/noop.txt",
+        "/web_accessible_resources/noop-1s.mp4",
         "/web_accessible_resources/noop.css",
         "/web_accessible_resources/2x2.png",
-        "/web_accessible_resources/1x1.gif",
         "/web_accessible_resources/32x32.png",
+        "/web_accessible_resources/1x1.gif",
+        "/web_accessible_resources/empty",
+        "/web_accessible_resources/noop.html",
         "/web_accessible_resources/nofab.js",
         "/web_accessible_resources/hd-main.js",
         "/web_accessible_resources/google-ima.js",
@@ -275,20 +282,19 @@
         "/web_accessible_resources/google-analytics_analytics.js",
         "/web_accessible_resources/googlesyndication_adsbygoogle.js",
         "/web_accessible_resources/amazon_apstag.js",
-        "/web_accessible_resources/doubleclick_instream_ad_status.js",
         "/web_accessible_resources/google-analytics_cx_api.js",
         "/web_accessible_resources/googletagservices_gpt.js",
         "/web_accessible_resources/scorecardresearch_beacon.js",
         "/web_accessible_resources/google-analytics_ga.js",
-        "/web_accessible_resources/addthis_widget.js",
         "/web_accessible_resources/outbrain-widget.js",
         "/web_accessible_resources/fingerprint2.js",
         "/web_accessible_resources/amazon_ads.js",
-        "/web_accessible_resources/noop-vmap1.0.xml",
+        "/web_accessible_resources/chartbeat.js",
+        "/web_accessible_resources/noop-vmap1.xml",
+        "/web_accessible_resources/noop-vast3.xml",
         "/web_accessible_resources/noop-0.1s.mp3",
-        "/web_accessible_resources/noop.html",
-        "/web_accessible_resources/noop-1s.mp4",
         "/web_accessible_resources/nobab2.js",
+        "/web_accessible_resources/noop.json",
         "/web_accessible_resources/click2load.html",
         "/web_accessible_resources/noeval-silent.js"
       ],
