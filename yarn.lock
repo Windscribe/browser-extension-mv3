@@ -3072,9 +3072,9 @@ bare-path@^2.0.0, bare-path@^2.1.0:
     bare-os "^2.1.0"
 
 bare-stream@^2.0.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/bare-stream/-/bare-stream-2.4.0.tgz#2bd49033b69f69a8e2be80c0676c6e27967789d8"
-  integrity sha512-sd96/aZ8LjF1uJbEHzIo1LrERPKRFPEy1nZ1eOILftBxrVsFDAQkimHIIq87xrHcubzjNeETsD9PwN0wp+vLiQ==
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/bare-stream/-/bare-stream-2.3.2.tgz#3bc62b429bcf850d2f265719b7a49ee0630a3ae4"
+  integrity sha512-EFZHSIBkDgSHIwj2l2QZfP4U5OcD4xFAOwhSb/vlr9PIqyGJGvB/nfClJbcnh3EY4jtPE4zsb5ztae96bVF79A==
   dependencies:
     streamx "^2.20.0"
 
@@ -7189,7 +7189,7 @@ puppeteer-core@23.9.0:
     typed-query-selector "^2.12.0"
     ws "^8.18.0"
 
-puppeteer@^23.9.0:
+puppeteer@23.9.0:
   version "23.9.0"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-23.9.0.tgz#69a5f3f4a9589865e0f96214f815112e9e206beb"
   integrity sha512-WfB8jGwFV+qrD9dcJJVvWPFJBU6kxeu2wxJz9WooDGfM3vIiKLgzImEDBxUQnCBK/2cXB3d4dV6gs/LLpgfLDg==
