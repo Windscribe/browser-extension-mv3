@@ -164,3 +164,6 @@ export const CONTENT_SETTINGS = 'contentSettings'
 export const MAX_LOG_ENTRIES = 1000
 
 export const THREE_DAYS_IN_MILLISECONDS = 259200000
+
+// mullvad is firefox based so its considered firefox
+export const IS_FIREFOX = true

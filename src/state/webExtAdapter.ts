@@ -13,21 +13,33 @@ import {
   THREE_DAYS_IN_MILLISECONDS,
 } from 'utils/constants'
 import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
+import { testDexie } from 'utils/initializeDexie'
+import { addOverlay } from './slices/overlay'
 
 export async function initializeWrappedStore(): Promise<StoreType> {
-  try {
-    await trimLogs(THREE_DAYS_IN_MILLISECONDS)
-  } catch (err) {
-    console.error('Error in initializeWrappedStore:', err)
-  }
-
   const stateFromStorage = await browserApi.getStateFromStorage()
 
   const lastStateFromStorage = stateFromStorage[STORAGE_CACHE_VERSION]
 
   const store: StoreType = buildFrom(lastStateFromStorage)
 
+  const dexieResult = await testDexie()
+
+  if (dexieResult === 'error') {
+    // cant push to debug log as its backed by indexeddb
+    console.error('Failed to initialize IndexedDB')
+    store.dispatch(addOverlay('somethingWeird'))
+  } else if (dexieResult === 'firefox-in-private-mode') {
+    store.dispatch(addOverlay('firefoxInPrivateMode'))
+  }
+
   wrapStore(store, { portName: REACT_APP_REDUX_PORT })
+
+  try {
+    await trimLogs(THREE_DAYS_IN_MILLISECONDS)
+  } catch (err) {
+    console.error('Error in initializeWrappedStore:', err)
+  }
 
   /*
    * Clear the state information after the store has updated

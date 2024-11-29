@@ -28,6 +28,7 @@ import { migrateStashedConnectionSettings } from './migrateStashedConnectionSett
 import { migrateStashedOtherSettings } from './migrateStashedOtherSettings'
 import { migrateStashedBlockerSettings } from './migrateStashedBlockerSettings'
 import { serializeError } from 'serialize-error'
+import { testDexie } from 'utils/initializeDexie'
 
 // never change this id
 
@@ -36,6 +37,12 @@ const runMigrationFromManifestV2ToV3 = async (
   details: chrome.runtime.InstalledDetails,
 ): Promise<void | boolean> => {
   try {
+    const res = await testDexie()
+    if (res === 'firefox-in-private-mode') {
+      Dexie.dependencies.indexedDB = require('fake-indexeddb')
+      Dexie.dependencies.IDBKeyRange = require('fake-indexeddb/lib/FDBKeyRange')
+    }
+
     const doesDBExist = await Dexie.exists(DB_NAME)
 
     // do nothing if we have nothing to import from i.e this is the first ever install of the new extension
@@ -83,7 +90,14 @@ const runMigrationFromManifestV2ToV3 = async (
     )
 
     // not migrated, continue...
-    const db = new Dexie(DB_NAME)
+    let db = new Dexie(DB_NAME)
+
+    if (res === 'firefox-in-private-mode') {
+      Dexie.dependencies.indexedDB = require('fake-indexeddb')
+      Dexie.dependencies.IDBKeyRange = require('fake-indexeddb/lib/FDBKeyRange')
+
+      db = new Dexie(DB_NAME)
+    }
 
     db.version(DB_VERSION).stores({
       WS_STATE: 'reducer',
