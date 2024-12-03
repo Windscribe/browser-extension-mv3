@@ -6,9 +6,6 @@ import { IS_FIREFOX } from 'utils/constants'
 
 export const testDexie = async (): Promise<'success' | 'firefox-in-private-mode' | 'error'> => {
   try {
-    throw new Error(
-      'InvalidStateError A mutation operation was attempted on a database that did not allow mutations.',
-    )
     // Test if IndexedDB is working with a dummy database
     const testDb = new Dexie('dummy')
     testDb.version(1).stores({
@@ -28,21 +25,11 @@ export const testDexie = async (): Promise<'success' | 'firefox-in-private-mode'
         'InvalidStateError A mutation operation was attempted on a database that did not allow mutations.' &&
       IS_FIREFOX
     ) {
-      //   pushToDebugLog({
-      //     level: 'INFO',
-      //     message: 'Firefox private mode detected, using fake-indexeddb',
-      //     tag: 'background',
-      //   })
-
+      console.error('Firefox private mode detected, using fake-indexeddb')
       return 'firefox-in-private-mode'
     }
 
-    // pushToDebugLog({
-    //   level: 'ERROR',
-    //   message: 'Failed to initialize IndexedDB',
-    //   data: JSON.stringify(e),
-    //   tag: 'background',
-    // })
+    console.error('Failed to initialize IndexedDB', e)
 
     return 'error'
   }

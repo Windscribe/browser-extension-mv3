@@ -30,11 +30,9 @@ const getStorage = async () => {
   try {
     if (isLocalStorage) {
       const data = await chrome.storage.local.get('debugLog')
-      console.log('Retrieved data from chrome.storage.local:', data.debugLog)
       return data?.debugLog ?? []
     } else {
       const res = await logDB.logs.toArray()
-      console.log('Retrieved data from Dexie:', res)
       return res
     }
   } catch (ex) {
