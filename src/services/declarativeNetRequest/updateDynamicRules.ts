@@ -43,6 +43,47 @@ const spoofUserAgentHeaderRuleTemplate: chrome.declarativeNetRequest.Rule = {
         header: 'User-Agent',
         operation: chrome.declarativeNetRequest.HeaderOperation.SET,
       },
+      {
+        header: 'sec-ch-prefers-color-scheme',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-ch-prefers-reduced-motion',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-ch-ua',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-ch-ua-arch',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-ch-ua-full-version',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-ch-ua-full-version-list',
+        operation: chrome.declarativeNetRequest.HeaderOperation.SET,
+        value: '',
+      },
+      {
+        header: 'sec-ch-ua-mobile',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-ch-ua-model',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-ch-ua-platform',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-ch-ua-platform-version',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
     ],
   },
 }
