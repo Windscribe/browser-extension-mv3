@@ -107,7 +107,7 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
 
     case 'firefoxInPrivateMode':
       return {
-        title: 'Are you using Private Browsing mode in a Firefox browser?',
+        title: 'Are you using Private Browsing Mode in a Firefox browser?',
         message: 'With Private Browsing, nothing will be saved when you close your browser.',
         img: cautionGarry,
         ActionsBlock: FirefoxInPrivateMode,
