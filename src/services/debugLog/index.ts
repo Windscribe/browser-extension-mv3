@@ -10,7 +10,6 @@ import { MigrationStatusReport } from 'state/slices/migration'
 import { serializeError } from 'serialize-error'
 import millisecondsToHours from 'date-fns/millisecondsToHours'
 import Dexie from 'dexie'
-import { add } from 'date-fns'
 
 const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
   try {
@@ -48,7 +47,8 @@ const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
       logs.push(logItem)
 
       if (logs.length > MAX_LOG_ENTRIES) {
-        logs.splice(0, logs.length - MAX_LOG_ENTRIES) // Remove oldest entries
+        const numberOfLogsToRemove = logs.length - MAX_LOG_ENTRIES
+        logs.splice(0, numberOfLogsToRemove) // Remove oldest entries
       }
 
       await addToLogDB(logs)

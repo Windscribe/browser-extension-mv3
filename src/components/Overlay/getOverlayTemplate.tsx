@@ -17,7 +17,7 @@ import {
   setShowUblockWarningAtBlockerPage,
   setShowUblockWarningAtHomePage,
 } from 'state/slices/blocker'
-
+import { setPrivateModeModalShown } from 'state/slices/privateMode'
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
 
 type OverlayTemplateContent = {
@@ -272,5 +272,15 @@ const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
 }
 
 const FirefoxInPrivateMode: ActionsBlockComponent = ({ close }) => {
-  return <CancelButton onClick={close}>Got it</CancelButton>
+  const dispatch = useDispatch()
+  return (
+    <CancelButton
+      onClick={() => {
+        close()
+        dispatch(setPrivateModeModalShown(true))
+      }}
+    >
+      Got it
+    </CancelButton>
+  )
 }

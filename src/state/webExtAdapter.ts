@@ -29,7 +29,7 @@ export async function initializeWrappedStore(): Promise<StoreType> {
     // cant push to debug log as its backed by indexeddb
     console.error('Failed to initialize IndexedDB')
     store.dispatch(addOverlay('somethingWeird'))
-  } else if (dexieResult === 'firefox-in-private-mode') {
+  } else if (dexieResult === 'firefox-in-private-mode' && !store.getState().privateModalShown) {
     store.dispatch(addOverlay('firefoxInPrivateMode'))
   }
 

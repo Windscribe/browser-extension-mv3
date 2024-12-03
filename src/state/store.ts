@@ -59,7 +59,7 @@ import proxyStatusMV2Reducer from './slices/proxyStatusMV2'
 import serverListenerRunReducer from './slices/serverListenerRun'
 import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
-
+import privateModeReducer from './slices/privateMode'
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 
 const reducers = {
@@ -109,6 +109,7 @@ const reducers = {
   serverListenerRun: serverListenerRunReducer,
   permissions: PermissionsReducer,
   showReloadAlert: ShowReloadAlertReducer,
+  privateModalShown: privateModeReducer,
 }
 
 const combinedReducer = combineReducers(reducers)
