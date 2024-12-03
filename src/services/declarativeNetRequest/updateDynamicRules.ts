@@ -66,7 +66,6 @@ const spoofUserAgentHeaderRuleTemplate: chrome.declarativeNetRequest.Rule = {
       {
         header: 'sec-ch-ua-full-version-list',
         operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
-        // value: '',
       },
       {
         header: 'sec-ch-ua-mobile',
