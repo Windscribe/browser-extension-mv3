@@ -183,26 +183,35 @@ const options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          // TODO: Also make this work for firefox
-          from: 'ubo-lite-mirror/chromium',
+          from: 'ublock',
           to: path.join(__dirname, 'build'),
           force: true,
-          globOptions: {
-            ignore: ['**/manifest.json'], // dont copy manifest.json
-          },
-          transform(content, path) {
-            if (path.endsWith('dashboard.js')) {
-              return content
-                .toString()
-                .replace(/UBO_LITE_VERSION/g, JSON.stringify(uboLiteVersion))
-                .replace(/UBO_LITE_NAME/g, JSON.stringify(uboLiteName))
-            }
-
-            return content
-          },
         },
       ],
     }),
+    // new CopyWebpackPlugin({
+    //   patterns: [
+    //     {
+    //       // TODO: Also make this work for firefox
+    //       from: 'ubo-lite-mirror/chromium',
+    //       to: path.join(__dirname, 'build'),
+    //       force: true,
+    //       globOptions: {
+    //         ignore: ['**/manifest.json'], // dont copy manifest.json
+    //       },
+    //       transform(content, path) {
+    //         if (path.endsWith('dashboard.js')) {
+    //           return content
+    //             .toString()
+    //             .replace(/UBO_LITE_VERSION/g, JSON.stringify(uboLiteVersion))
+    //             .replace(/UBO_LITE_NAME/g, JSON.stringify(uboLiteName))
+    //         }
+
+    //         return content
+    //       },
+    //     },
+    //   ],
+    // }),
     new CopyWebpackPlugin({
       patterns: [
         {
