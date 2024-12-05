@@ -35,7 +35,7 @@ import ProxyFailureRing from 'assets/img/proxyFailureRing.svg'
 import { fetchServerList } from 'state/slices/servers'
 import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
 import ExclamationIcon from 'assets/img/exclamationIcon-short.svg'
-import { getChromeVersion } from 'utils/getChromeVersion'
+import { getChromiumEngineVersion } from 'utils/getEngineVersion'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -63,7 +63,7 @@ const Home: ThemeUiElement = () => {
   const proxyStatus = useSelector(s => s.proxy.status)
   const isOnboardingActive = useSelector(s => s.shouldShowOnboarding)
   const dismissedUpgradeWarning = useSelector(s => s.dismissedUpgradeWarning)
-  const parsedVersion = getChromeVersion()
+  const parsedVersion = getChromiumEngineVersion()
 
   const unreadNewsAmount = notifications
     .map(n => n.id)

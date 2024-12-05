@@ -27,7 +27,7 @@ import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
 import { setTheme } from 'state/slices/theme'
 import sendMessage from 'services/runtime/sendMessage'
-import { getChromeVersion } from 'utils/getChromeVersion'
+import { getChromiumEngineVersion } from 'utils/getEngineVersion'
 
 const Preferences: ThemeUiElement = () => {
   const [colorMode] = useColorMode()
@@ -81,7 +81,7 @@ const Preferences: ThemeUiElement = () => {
     setIsWebSessionPending(false)
   }
 
-  const parsedVersion = getChromeVersion()
+  const parsedVersion = getChromiumEngineVersion()
 
   return (
     <Box data-testid="preferences-page" bg="background">
@@ -111,15 +111,8 @@ const Preferences: ThemeUiElement = () => {
             mb="16px"
           >
             <Text sx={{ fontSize: 12, color: 'black', fontWeight: 600 }}>
-              Please{' '}
-              <Link
-                href="https://www.google.com/chrome/update/"
-                target="_blank"
-                sx={{ color: 'black', fontWeight: 700 }}
-              >
-                update your browser
-              </Link>{' '}
-              to continue using this extension and to receive security updates.
+              Please update your browser to continue using this extension and to receive security
+              updates.
             </Text>
           </SpaceBetween>
         )}
