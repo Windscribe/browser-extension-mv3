@@ -242,7 +242,7 @@ const Home: ThemeUiElement = () => {
                     },
                   }}
                   content={<ExclamationIcon />}
-                  sx={{ top: '-9px', right: '8px', bg: 'orange' }}
+                  sx={{ top: '-7px', right: '8px', bg: 'orange' }}
                 />
               )}
             </Button>
