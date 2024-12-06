@@ -18,6 +18,8 @@ import {
   setShowUblockWarningAtHomePage,
 } from 'state/slices/blocker'
 import { setPrivateModeModalShown } from 'state/slices/privateMode'
+import { setDismissedUpgradeWarning } from 'state/slices/upgradeWarning'
+
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
 
 type OverlayTemplateContent = {
@@ -111,6 +113,15 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         message: 'With Private Browsing, nothing will be saved when you close your browser.',
         img: cautionGarry,
         ActionsBlock: FirefoxInPrivateMode,
+      }
+
+    case 'versionUnsupportedWarning':
+      return {
+        title: 'Your Chrome Version is Outdated',
+        message:
+          'You need to update your browser to continue using the extension and to receive important updates.',
+        img: cautionGarry,
+        ActionsBlock: VersionUnsupportedWarning,
       }
   }
 }
@@ -282,5 +293,22 @@ const FirefoxInPrivateMode: ActionsBlockComponent = ({ close }) => {
     >
       Got it
     </CancelButton>
+  )
+}
+
+const VersionUnsupportedWarning: ActionsBlockComponent = ({ close }) => {
+  const dispatch = useDispatch()
+  return (
+    <>
+      <ConfirmButton onClick={close}>Skip</ConfirmButton>
+      <CancelButton
+        onClick={() => {
+          close()
+          dispatch(setDismissedUpgradeWarning(true))
+        }}
+      >
+        {`Don't Show Again`}
+      </CancelButton>
+    </>
   )
 }

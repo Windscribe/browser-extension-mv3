@@ -60,6 +60,8 @@ import serverListenerRunReducer from './slices/serverListenerRun'
 import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
 import privateModeReducer from './slices/privateMode'
+import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
+
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 
 const reducers = {
@@ -110,6 +112,7 @@ const reducers = {
   permissions: PermissionsReducer,
   showReloadAlert: ShowReloadAlertReducer,
   privateModalShown: privateModeReducer,
+  dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

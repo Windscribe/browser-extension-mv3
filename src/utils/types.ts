@@ -36,6 +36,7 @@ export type OverlayTemplate =
   | 'banned'
   | 'notificationBlockerPermission'
   | 'firefoxInPrivateMode'
+  | 'versionUnsupportedWarning'
 
 export type ErrorState = {
   errorCode?: number

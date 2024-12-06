@@ -168,3 +168,4 @@ export const THREE_DAYS_IN_MILLISECONDS = 259200000
 // mullvad is firefox based so its considered firefox
 export const IS_FIREFOX =
   navigator.userAgent.includes('Firefox') || navigator.userAgent.includes('MullvadBrowser')
+export const MIN_SUPPORTED_CHROME_VERSION = 119

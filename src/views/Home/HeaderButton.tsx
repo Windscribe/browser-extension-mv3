@@ -41,7 +41,7 @@ const HeaderButton: ThemeUiElement<HeaderButtonProps> = ({
           fill: 'halfWhite',
         }}
       />
-      <Badge count={count} sx={{ right: '-4px', bottom: '-2px' }} />
+      <Badge content={count} sx={{ right: '-4px', bottom: '-2px' }} />
     </Button>
   )
 }

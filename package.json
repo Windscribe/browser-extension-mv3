@@ -1,6 +1,6 @@
 {
   "name": "windscribe",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "windscribe",
   "license": "MIT",
   "preset": "jest-puppeteer",
@@ -47,7 +47,7 @@
     "lodash.throttle": "^4.1.1",
     "luxon": "^3.2.1",
     "mocha": "^10.2.0",
-    "puppeteer": "^23.8.0",
+    "puppeteer": "23.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-loader": "^4.13.0",
