@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:22
 
 # See https://crbug.com/795759
 # Install latest chrome dev package, which installs the necessary libs to

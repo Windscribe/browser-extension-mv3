@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "version": "4.0.3",
-  "version_name": "4.0.3-beta",
+  "version": "4.0.4",
+  "version_name": "4.0.4-beta",
   "minimum_chrome_version": "105.0",
   "name": "Windscribe - MV3 Experimental",
   "short_name": "Windscribe - MV3 Experimental",

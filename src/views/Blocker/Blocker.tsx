@@ -100,7 +100,7 @@ const Blocker: ThemeUiElement = () => {
           <OptionBox
             // todo change icon
             Icon={CookieGoAwayIcon}
-            title="uBlock Lite"
+            title="uBlock Origin Lite"
             subTitle="Blocker settings are not available when uBlock Lite is enabled. Disable this setting to use Windscribe's adblock"
           >
             <ToggleSwitch
@@ -114,7 +114,7 @@ const Blocker: ThemeUiElement = () => {
 
         <OptionLinkBox
           disabled={isUblockEnabled}
-          message="Not available when Ublock Lite is enabled"
+          message="Not available when uBlock Origin Lite is enabled"
           url={chrome.runtime.getURL('dashboard.html')}
           text="uBlock Settings"
           sx={{
@@ -122,6 +122,36 @@ const Blocker: ThemeUiElement = () => {
             fontWeight: 'bold',
           }}
         />
+        {/* 
+        <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              borderRadius: '8px',
+              border: '1px',
+              borderColor: 'foreground',
+              borderStyle: 'solid',
+              width: '100%',
+              color: 'secondaryText',
+              fontSize: '14px',
+              alignItems: 'center',
+              px: '16px',
+              fontWeight: 'bold',
+              height: '48px',
+              justifyContent: 'space-between',
+            }}
+          >
+            uBlock Version
+            <span
+              sx={{
+                fontWeight: '400',
+              }}
+            >
+              {UBO_LITE_VERSION}
+            </span>
+          </Box>
+        </Box> */}
+
         <OptionLinkBox
           url="https://chrome.google.com/webstore/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone"
           text="Check out the SponsorBlock extension to skip sponsorships on YouTube videos."
