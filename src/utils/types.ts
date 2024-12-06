@@ -35,6 +35,7 @@ export type OverlayTemplate =
   | 'proPlanExpired'
   | 'banned'
   | 'notificationBlockerPermission'
+  | 'versionUnsupportedWarning'
 
 export type ErrorState = {
   errorCode?: number
