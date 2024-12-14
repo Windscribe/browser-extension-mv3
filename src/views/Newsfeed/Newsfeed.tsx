@@ -4,14 +4,38 @@ import { useDispatch, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import { Header, ScrollableBox } from 'components'
 import NewsfeedItem from './NewsfeedItem'
-import { markNewsAsViewed } from 'state/slices/newsfeed'
-import React, { useState } from 'react'
+import { markNewsAsViewed, setShowNewsfeed } from 'state/slices/newsfeed'
+import React, { useEffect, useState } from 'react'
 
 const Newsfeed: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const notifications = useSelector(s => s.newsfeed.notifications)
   const viewedNewsIds = useSelector(s => s.newsfeed.viewedNewsIds)
+  const [showOnce, setShowOnce] = useState(true)
+
   const [expandedId, setExpandedId] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (showOnce && notifications.length > 0) {
+      setExpandedId(notifications.sort((a, b) => b.date - a.date)[0]?.id ?? null)
+      setShowOnce(false)
+    }
+  }, [showOnce, notifications])
+
+  useEffect(() => {
+    return () => {
+      dispatch(setShowNewsfeed(false))
+    }
+  }, [dispatch])
+
+  // Mark first item as viewed on mount
+  useEffect(() => {
+    // latest notification
+    const firstId = notifications.sort((a, b) => b.date - a.date)[0]?.id
+    if (firstId) {
+      dispatch(markNewsAsViewed(firstId))
+    }
+  }, [])
 
   const handleItemClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const id = Number(e.currentTarget?.dataset?.id) || null
@@ -22,7 +46,7 @@ const Newsfeed: ThemeUiElement = () => {
       return
     }
 
-    id && (await dispatch(markNewsAsViewed(id)))
+    id && dispatch(markNewsAsViewed(id))
     setExpandedId(id)
   }
 

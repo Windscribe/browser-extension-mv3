@@ -64,6 +64,7 @@ const Home: ThemeUiElement = () => {
   const isOnboardingActive = useSelector(s => s.shouldShowOnboarding)
   const dismissedUpgradeWarning = useSelector(s => s.dismissedUpgradeWarning)
   const parsedVersion = getChromiumEngineVersion()
+  const showNewsfeed = useSelector(s => s.newsfeed.showNewsfeed)
 
   const unreadNewsAmount = notifications
     .map(n => n.id)
@@ -72,6 +73,12 @@ const Home: ThemeUiElement = () => {
   const proxyFailure = status === 'on' && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
+
+  useEffect(() => {
+    if (showNewsfeed) {
+      goToNewsfeed()
+    }
+  }, [])
 
   useEffect(() => {
     if (isRightAfterLogin) {
