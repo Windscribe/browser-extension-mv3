@@ -122,7 +122,6 @@ const Blocker: ThemeUiElement = () => {
             fontWeight: 'bold',
           }}
         />
-        {/* 
         <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
           <Box
             sx={{
@@ -150,7 +149,7 @@ const Blocker: ThemeUiElement = () => {
               {UBO_LITE_VERSION}
             </span>
           </Box>
-        </Box> */}
+        </Box>
 
         <OptionLinkBox
           url="https://chrome.google.com/webstore/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone"
