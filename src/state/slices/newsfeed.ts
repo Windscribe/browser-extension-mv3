@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 import { getNotifications } from 'api/endpoints'
-import type { ApiErrorResponse, NotificationsData, Notifications } from 'api/types'
+import type { ApiErrorResponse, NotificationsData } from 'api/types'
 import type { LoadingState, Either, ErrorState } from 'utils/types'
 
 interface NewsfeedState {
@@ -8,6 +8,8 @@ interface NewsfeedState {
   viewedNewsIds: number[]
   loading: LoadingState
   error?: ErrorState
+
+  showNewsfeed: boolean
 }
 
 export const initialState: NewsfeedState = {
@@ -15,26 +17,47 @@ export const initialState: NewsfeedState = {
   viewedNewsIds: [],
   loading: 'idle',
   error: undefined,
+  showNewsfeed: false,
 }
 
 export const FETCH_NOTIFICATIONS = 'newsfeed/fetchNotifications'
 
-export const fetchNotifications = createAsyncThunk<Either<Notifications, ApiErrorResponse>>(
-  FETCH_NOTIFICATIONS,
-  async (_, { getState, dispatch }) => {
-    const sessionAuthHash = getState().session.sessionData?.session_auth_hash
-    if (!sessionAuthHash) {
-      throw Error('No session auth hash is available')
-    }
+export const fetchNotifications = createAsyncThunk<
+  Either<
+    {
+      notifications: NotificationsData[]
+      showNewsfeed: boolean
+    },
+    ApiErrorResponse
+  >
+>(FETCH_NOTIFICATIONS, async (_, { getState, dispatch }) => {
+  const sessionAuthHash = getState().session.sessionData?.session_auth_hash
+  if (!sessionAuthHash) {
+    throw Error('No session auth hash is available')
+  }
 
-    const response = await getNotifications(dispatch, sessionAuthHash)
+  const response = await getNotifications(dispatch, sessionAuthHash)
 
-    if (response.errorCode) return response
-    if (response.data) return response?.data
+  if (response.errorCode) return response
 
-    throw Error('Unknown response format from GET Notifications')
-  },
-)
+  if (response.data) {
+    const firstInstallDate = getState().firstInstallDate
+    // 5 minutes from install - relic from mv2 extension
+    // and doing it the same way
+    const cutoff = (Math.floor(Date.now() / 1000) - 300) * 1000
+
+    const newsfeed = getState().newsfeed
+    const notifications = response.data?.notifications ?? []
+    const popUpItems = notifications.filter(
+      item => item?.popup && !newsfeed.viewedNewsIds.includes(item.id),
+    )
+
+    const showNewsfeed = popUpItems.length > 0 && firstInstallDate < cutoff
+    return { notifications, showNewsfeed }
+  }
+
+  throw Error('Unknown response format from GET Notifications')
+})
 
 export const newsfeedSlice = createSlice({
   name: 'newsfeed',
@@ -52,6 +75,9 @@ export const newsfeedSlice = createSlice({
         state.viewedNewsIds.push(action.payload)
       }
     },
+    setShowNewsfeed(state, action: PayloadAction<boolean>) {
+      state.showNewsfeed = action.payload
+    },
   },
   extraReducers: builder => {
     builder
@@ -63,7 +89,14 @@ export const newsfeedSlice = createSlice({
         if (action.payload.errorCode) {
           return { ...state, notifications: [], loading: 'rejected', error: action.payload }
         }
-        return { ...state, error: undefined, ...{ loading: 'fulfilled' }, ...action.payload }
+
+        return {
+          ...state,
+          error: undefined,
+          loading: 'fulfilled',
+          notifications: action.payload.notifications ?? [],
+          showNewsfeed: action.payload.showNewsfeed ?? false,
+        }
       })
       .addCase(fetchNotifications.rejected, (state, action) => {
         state.loading = 'rejected'
@@ -74,5 +107,6 @@ export const newsfeedSlice = createSlice({
   },
 })
 
-export const { resetNewsfeed, markNewsAsViewed, clearViewedNewsIds } = newsfeedSlice.actions
+export const { resetNewsfeed, markNewsAsViewed, clearViewedNewsIds, setShowNewsfeed } =
+  newsfeedSlice.actions
 export default newsfeedSlice.reducer
