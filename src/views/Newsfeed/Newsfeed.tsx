@@ -18,7 +18,7 @@ const Newsfeed: ThemeUiElement = () => {
   useEffect(() => {
     if (showOnce && notifications.length > 0) {
       const sortedNotifications = notifications.sort((a, b) => b.date - a.date)
-      const mostRecent = sortedNotifications[0]
+      const mostRecent = sortedNotifications?.[0] ?? undefined
 
       const idToExpand =
         mostRecent && mostRecent?.popup === 1 && !viewedNewsIds.includes(mostRecent?.id)
