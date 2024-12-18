@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import { Header, ScrollableBox } from 'components'
 import NewsfeedItem from './NewsfeedItem'
-import { markNewsAsViewed, setShowNewsfeed } from 'state/slices/newsfeed'
+import { markNewsAsViewed } from 'state/slices/newsfeed'
 import React, { useEffect, useState } from 'react'
 
 const Newsfeed: ThemeUiElement = () => {
@@ -17,16 +17,12 @@ const Newsfeed: ThemeUiElement = () => {
 
   useEffect(() => {
     if (showOnce && notifications.length > 0) {
-      setExpandedId(notifications.sort((a, b) => b.date - a.date)[0]?.id ?? null)
+      setExpandedId(
+        notifications.sort((a, b) => b.date - a.date).filter(n => n.popup === 1)?.[0]?.id ?? null,
+      )
       setShowOnce(false)
     }
   }, [showOnce, notifications])
-
-  useEffect(() => {
-    return () => {
-      dispatch(setShowNewsfeed(false))
-    }
-  }, [dispatch])
 
   // Mark first item as viewed on mount
   useEffect(() => {
