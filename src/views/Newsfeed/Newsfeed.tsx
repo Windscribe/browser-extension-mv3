@@ -17,10 +17,13 @@ const Newsfeed: ThemeUiElement = () => {
 
   useEffect(() => {
     if (showOnce && notifications.length > 0) {
+      const sortedNotifications = notifications.sort((a, b) => b.date - a.date)
+      const mostRecent = sortedNotifications[0]
+
       const idToExpand =
-        notifications
-          .sort((a, b) => b.date - a.date)
-          .filter(n => n.popup === 1 && !viewedNewsIds.includes(n.id))?.[0]?.id ?? null
+        mostRecent && mostRecent?.popup === 1 && !viewedNewsIds.includes(mostRecent?.id)
+          ? mostRecent?.id
+          : null
 
       setExpandedId(idToExpand)
       idToExpand && dispatch(markNewsAsViewed(idToExpand))
