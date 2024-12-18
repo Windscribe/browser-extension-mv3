@@ -17,21 +17,17 @@ const Newsfeed: ThemeUiElement = () => {
 
   useEffect(() => {
     if (showOnce && notifications.length > 0) {
-      setExpandedId(
-        notifications.sort((a, b) => b.date - a.date).filter(n => n.popup === 1)?.[0]?.id ?? null,
-      )
+      const idToExpand =
+        notifications
+          .sort((a, b) => b.date - a.date)
+          .filter(n => n.popup === 1 && !viewedNewsIds.includes(n.id))?.[0]?.id ?? null
+
+      setExpandedId(idToExpand)
+      idToExpand && dispatch(markNewsAsViewed(idToExpand))
+
       setShowOnce(false)
     }
-  }, [showOnce, notifications])
-
-  // Mark first item as viewed on mount
-  useEffect(() => {
-    // latest notification
-    const firstId = notifications.sort((a, b) => b.date - a.date)[0]?.id
-    if (firstId) {
-      dispatch(markNewsAsViewed(firstId))
-    }
-  }, [])
+  }, [showOnce, notifications, viewedNewsIds, dispatch])
 
   const handleItemClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     const id = Number(e.currentTarget?.dataset?.id) || null
