@@ -33,7 +33,7 @@ import ArrowRight from 'assets/img/arrowRight.svg'
 import ConnectingRing from 'assets/img/connectingRing.svg'
 import ProxyFailureRing from 'assets/img/proxyFailureRing.svg'
 import { fetchServerList } from 'state/slices/servers'
-import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
+import { FETCH_NOTIFICATIONS, setShowNewsfeed } from 'state/slices/newsfeed'
 import ExclamationIcon from 'assets/img/exclamationIcon-short.svg'
 import { getChromiumEngineVersion } from 'utils/getEngineVersion'
 
@@ -64,6 +64,7 @@ const Home: ThemeUiElement = () => {
   const isOnboardingActive = useSelector(s => s.shouldShowOnboarding)
   const dismissedUpgradeWarning = useSelector(s => s.dismissedUpgradeWarning)
   const parsedVersion = getChromiumEngineVersion()
+  const showNewsfeed = useSelector(s => s.newsfeed.showNewsfeed)
 
   const unreadNewsAmount = notifications
     .map(n => n.id)
@@ -72,6 +73,14 @@ const Home: ThemeUiElement = () => {
   const proxyFailure = status === 'on' && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
+
+  useEffect(() => {
+    if (showNewsfeed) {
+      goToNewsfeed()
+      dispatch(setShowNewsfeed(false))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showNewsfeed, dispatch])
 
   useEffect(() => {
     if (isRightAfterLogin) {
