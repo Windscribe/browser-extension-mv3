@@ -161,4 +161,5 @@ export const stashedUserAllMigratedStates: AllPossibleMigratedStates[] = [
 
 export const CONTENT_SETTINGS = 'contentSettings'
 
-export const MIN_SUPPORTED_CHROME_VERSION = 119
+// usually used for ublock min version
+export const MIN_SUPPORTED_CHROME_VERSION = 122
