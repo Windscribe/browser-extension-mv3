@@ -83,6 +83,54 @@ const spoofUserAgentHeaderRuleTemplate: chrome.declarativeNetRequest.Rule = {
         header: 'sec-ch-ua-platform-version',
         operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
       },
+      {
+        header: 'sec-ch-ua-bitness',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-fetch-dest',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-fetch-mode',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-fetch-site',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-fetch-user',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-gpc',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-purpose',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-websocket-accept',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-websocket-extensions',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-websocket-key',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-websocket-protocol',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
+      {
+        header: 'sec-websocket-version',
+        operation: chrome.declarativeNetRequest.HeaderOperation.REMOVE,
+      },
     ],
   },
 }
