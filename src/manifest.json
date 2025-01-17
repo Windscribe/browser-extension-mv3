@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "version": "4.0.3",
-  "version_name": "4.0.3",
+  "version": "4.1.6",
+  "version_name": "4.1.6",
   "minimum_chrome_version": "119.0",
   "name": "Windscribe - Free Proxy and Ad Blocker",
   "short_name": "Windscribe",
@@ -54,223 +54,223 @@
   "declarative_net_request": {
     "rule_resources": [
       {
-        "enabled": true,
         "id": "default",
+        "enabled": true,
         "path": "/rulesets/main/default.json"
       },
       {
-        "enabled": false,
         "id": "alb-0",
+        "enabled": false,
         "path": "/rulesets/main/alb-0.json"
       },
       {
-        "enabled": false,
         "id": "bgr-0",
+        "enabled": false,
         "path": "/rulesets/main/bgr-0.json"
       },
       {
-        "enabled": false,
         "id": "chn-0",
+        "enabled": false,
         "path": "/rulesets/main/chn-0.json"
       },
       {
-        "enabled": false,
         "id": "cze-0",
+        "enabled": false,
         "path": "/rulesets/main/cze-0.json"
       },
       {
-        "enabled": false,
         "id": "deu-0",
+        "enabled": false,
         "path": "/rulesets/main/deu-0.json"
       },
       {
-        "enabled": false,
         "id": "fin-0",
+        "enabled": false,
         "path": "/rulesets/main/fin-0.json"
       },
       {
-        "enabled": false,
         "id": "fra-0",
+        "enabled": false,
         "path": "/rulesets/main/fra-0.json"
       },
       {
-        "enabled": false,
         "id": "grc-0",
+        "enabled": false,
         "path": "/rulesets/main/grc-0.json"
       },
       {
-        "enabled": false,
         "id": "hrv-0",
+        "enabled": false,
         "path": "/rulesets/main/hrv-0.json"
       },
       {
-        "enabled": false,
         "id": "hun-0",
+        "enabled": false,
         "path": "/rulesets/main/hun-0.json"
       },
       {
-        "enabled": false,
         "id": "idn-0",
+        "enabled": false,
         "path": "/rulesets/main/idn-0.json"
       },
       {
-        "enabled": false,
         "id": "ind-0",
+        "enabled": false,
         "path": "/rulesets/main/ind-0.json"
       },
       {
-        "enabled": false,
         "id": "irn-0",
+        "enabled": false,
         "path": "/rulesets/main/irn-0.json"
       },
       {
-        "enabled": false,
         "id": "isl-0",
+        "enabled": false,
         "path": "/rulesets/main/isl-0.json"
       },
       {
-        "enabled": false,
         "id": "isr-0",
+        "enabled": false,
         "path": "/rulesets/main/isr-0.json"
       },
       {
-        "enabled": false,
         "id": "ita-0",
+        "enabled": false,
         "path": "/rulesets/main/ita-0.json"
       },
       {
-        "enabled": false,
         "id": "jpn-1",
+        "enabled": false,
         "path": "/rulesets/main/jpn-1.json"
       },
       {
-        "enabled": false,
         "id": "kor-1",
+        "enabled": false,
         "path": "/rulesets/main/kor-1.json"
       },
       {
-        "enabled": false,
         "id": "ltu-0",
+        "enabled": false,
         "path": "/rulesets/main/ltu-0.json"
       },
       {
-        "enabled": false,
         "id": "lva-0",
+        "enabled": false,
         "path": "/rulesets/main/lva-0.json"
       },
       {
-        "enabled": false,
         "id": "mkd-0",
+        "enabled": false,
         "path": "/rulesets/main/mkd-0.json"
       },
       {
-        "enabled": false,
         "id": "nld-0",
+        "enabled": false,
         "path": "/rulesets/main/nld-0.json"
       },
       {
-        "enabled": false,
         "id": "nor-0",
+        "enabled": false,
         "path": "/rulesets/main/nor-0.json"
       },
       {
-        "enabled": false,
         "id": "pol-0",
+        "enabled": false,
         "path": "/rulesets/main/pol-0.json"
       },
       {
-        "enabled": false,
         "id": "rou-1",
+        "enabled": false,
         "path": "/rulesets/main/rou-1.json"
       },
       {
-        "enabled": false,
         "id": "rus-0",
+        "enabled": false,
         "path": "/rulesets/main/rus-0.json"
       },
       {
-        "enabled": false,
         "id": "spa-0",
+        "enabled": false,
         "path": "/rulesets/main/spa-0.json"
       },
       {
-        "enabled": false,
         "id": "spa-1",
+        "enabled": false,
         "path": "/rulesets/main/spa-1.json"
       },
       {
-        "enabled": false,
         "id": "svn-0",
+        "enabled": false,
         "path": "/rulesets/main/svn-0.json"
       },
       {
-        "enabled": false,
         "id": "swe-1",
+        "enabled": false,
         "path": "/rulesets/main/swe-1.json"
       },
       {
-        "enabled": false,
         "id": "tha-0",
+        "enabled": false,
         "path": "/rulesets/main/tha-0.json"
       },
       {
-        "enabled": false,
         "id": "tur-0",
+        "enabled": false,
         "path": "/rulesets/main/tur-0.json"
       },
       {
-        "enabled": false,
         "id": "vie-1",
+        "enabled": false,
         "path": "/rulesets/main/vie-1.json"
       },
       {
-        "enabled": false,
         "id": "est-0",
+        "enabled": false,
         "path": "/rulesets/main/est-0.json"
       },
       {
-        "enabled": false,
         "id": "block-lan",
+        "enabled": false,
         "path": "/rulesets/main/block-lan.json"
       },
       {
-        "enabled": false,
         "id": "dpollock-0",
+        "enabled": false,
         "path": "/rulesets/main/dpollock-0.json"
       },
       {
-        "enabled": false,
         "id": "adguard-spyware-url",
+        "enabled": false,
         "path": "/rulesets/main/adguard-spyware-url.json"
       },
       {
-        "enabled": false,
         "id": "annoyances-cookies",
+        "enabled": false,
         "path": "/rulesets/main/annoyances-cookies.json"
       },
       {
-        "enabled": false,
         "id": "annoyances-overlays",
+        "enabled": false,
         "path": "/rulesets/main/annoyances-overlays.json"
       },
       {
-        "enabled": false,
         "id": "annoyances-social",
+        "enabled": false,
         "path": "/rulesets/main/annoyances-social.json"
       },
       {
-        "enabled": false,
         "id": "annoyances-widgets",
+        "enabled": false,
         "path": "/rulesets/main/annoyances-widgets.json"
       },
       {
-        "enabled": false,
         "id": "annoyances-others",
+        "enabled": false,
         "path": "/rulesets/main/annoyances-others.json"
       },
       {
-        "enabled": false,
         "id": "stevenblack-hosts",
+        "enabled": false,
         "path": "/rulesets/main/stevenblack-hosts.json"
       }
     ]

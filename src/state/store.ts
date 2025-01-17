@@ -60,6 +60,7 @@ import serverListenerRunReducer from './slices/serverListenerRun'
 import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
 import locationTabReducer from './slices/locationTab'
+import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 import shortcutStatusReducer from './slices/openedByShortcut'
@@ -113,6 +114,7 @@ const reducers = {
   showReloadAlert: ShowReloadAlertReducer,
   shortcutStatus: shortcutStatusReducer,
   locationTab: locationTabReducer,
+  dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

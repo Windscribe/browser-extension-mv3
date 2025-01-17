@@ -40,7 +40,7 @@ const debugLog = async (popupPage, browser) => {
         '[data-testid=user-info-panel]',
       )
 
-      await new Promise(r => setTimeout(r, 500))
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 500)))
 
       const userInfoPanelStyle = await userInfoPanelElement.evaluate(el =>
         getComputedStyle(el).getPropertyValue('transform'),

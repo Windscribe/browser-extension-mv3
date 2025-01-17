@@ -122,7 +122,6 @@ const Blocker: ThemeUiElement = () => {
             fontWeight: 'bold',
           }}
         />
-
         <Box sx={{ display: 'inline-block', width: '100%', mb: '16px' }}>
           <Box
             sx={{
