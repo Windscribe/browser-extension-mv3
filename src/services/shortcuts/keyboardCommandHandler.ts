@@ -65,13 +65,14 @@ async function handleKeyboardCommandImpl(
 
     case 'open-locations':
       try {
-        await chrome.action.openPopup()
         if (currentView !== 'Locations' || currentLocationTab !== 'locations') {
           dispatch(setView('Locations'))
           dispatch(setLocationTab('locations'))
         }
+        await chrome.action.openPopup()
       } catch (error) {
         await pushToDebugLog({
+          level: 'WARN',
           message: `Failed to open popup: ${(error as Error)?.message ?? 'Unknown error'}`,
         })
       } finally {
@@ -81,13 +82,14 @@ async function handleKeyboardCommandImpl(
 
     case 'open-favourites':
       try {
-        await chrome.action.openPopup()
         if (currentView !== 'Locations' || currentLocationTab !== 'favorites') {
           dispatch(setView('Locations'))
           dispatch(setLocationTab('favorites'))
         }
+        await chrome.action.openPopup()
       } catch (error) {
         await pushToDebugLog({
+          level: 'WARN',
           message: `Failed to open popup: ${(error as Error)?.message ?? 'Unknown error'}`,
         })
       } finally {
@@ -97,12 +99,13 @@ async function handleKeyboardCommandImpl(
 
     case 'open-preferences':
       try {
-        await chrome.action.openPopup()
         if (currentView !== 'Preferences') {
           dispatch(setView('Preferences'))
         }
+        await chrome.action.openPopup()
       } catch (error) {
         await pushToDebugLog({
+          level: 'WARN',
           message: `Failed to open popup: ${(error as Error)?.message ?? 'Unknown error'}`,
         })
       } finally {
