@@ -1,7 +1,7 @@
 import UAParser from 'ua-parser-js'
 import React, { useEffect, useState } from 'react'
 import { Box, Button } from 'theme-ui'
-import { clearLogDB, logDB } from 'services/storage'
+import { clearLogDB, createLogDB } from 'services/storage'
 
 // import { ToggleSwitch } from 'components'
 import { AlignItemsCenter } from 'components/Flexbox'
@@ -76,14 +76,8 @@ ${
 `
 
   useEffect(() => {
-    // logDB
-    //   .table('logs')
-    //   .toArray()
-    //   .then(debugLog => {
-    //     debugLog && setParsedLog(parseLogToStrings(debugLog))
-    //   })
-
     const fetchLogs = async () => {
+      const logDB = await createLogDB()
       if (logDB instanceof Dexie) {
         // IndexedDB path
         const debugLog = await logDB.table('logs').toArray()

@@ -1,5 +1,5 @@
 import { reportAppLog } from 'api/endpoints'
-import { getStorage, addToLogDB, logDB } from 'services/storage'
+import { getStorage, addToLogDB, createLogDB } from 'services/storage'
 import { MIGRATION_ID_V2_TO_V3, MAX_LOG_ENTRIES, THREE_DAYS_IN_MILLISECONDS } from 'utils/constants'
 
 import { AppDispatch, RootState } from 'state/store'
@@ -21,6 +21,8 @@ const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
       data: logInfo.data,
       timestamp: Date.now(),
     }
+
+    const logDB = await createLogDB()
 
     if (logDB instanceof Dexie) {
       await addToLogDB(logItem)
@@ -98,6 +100,7 @@ const trimLogs = async (retentionPeriod: number): Promise<void> => {
   try {
     let deleteCount = 0
     const cutoffTime = Date.now() - retentionPeriod
+    const logDB = await createLogDB()
     if (logDB instanceof Dexie) {
       deleteCount = await logDB.table('logs').where('timestamp').below(cutoffTime).delete()
     } else {

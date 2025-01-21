@@ -1,36 +1,36 @@
-// initialize dexie for both migrations and debug log
-// also test if indexeddb is available otherwise use fake-indexeddb
-
-import Dexie from 'dexie'
 import { IS_FIREFOX } from 'utils/constants'
+const testDBName = 'test'
 
 export const testDexie = async (): Promise<'success' | 'firefox-in-private-mode' | 'error'> => {
-  try {
-    // Test if IndexedDB is working with a dummy database
-    const testDb = new Dexie('dummy')
-    testDb.version(1).stores({
-      dummyTest: '++id, value',
-    })
+  return new Promise(resolve => {
+    const request = (globalThis.window || self).indexedDB.open(testDBName)
 
-    await testDb.table('dummyTest').put({ value: 'test-entry' })
-
-    // Clean up test database
-    await testDb.close()
-    await Dexie.delete('dummy')
-
-    return 'success'
-  } catch (e) {
-    if (
-      (e as Error).message ===
-        'InvalidStateError A mutation operation was attempted on a database that did not allow mutations.' &&
-      IS_FIREFOX
-    ) {
-      console.error('Firefox private mode detected, using fake-indexeddb')
-      return 'firefox-in-private-mode'
+    request.onerror = event => {
+      const error = (event.target as IDBOpenDBRequest).error
+      if (
+        error?.message ===
+          'A mutation operation was attempted on a database that did not allow mutations.' &&
+        IS_FIREFOX
+      ) {
+        resolve('firefox-in-private-mode')
+        return
+      }
+      resolve('error')
     }
 
-    console.error('Failed to initialize IndexedDB', e)
+    request.onsuccess = () => {
+      // result can be undefined if the request is aborted
+      const db = request?.result
 
-    return 'error'
-  }
+      if (!db) {
+        resolve('error')
+        return
+      }
+
+      db.close()
+      ;(globalThis.window || self).indexedDB.deleteDatabase(testDBName)
+
+      resolve('success')
+    }
+  })
 }

@@ -13,8 +13,8 @@ import {
   THREE_DAYS_IN_MILLISECONDS,
 } from 'utils/constants'
 import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
-import { testDexie } from 'utils/initializeDexie'
 import { addOverlay } from './slices/overlay'
+import { testDexie } from 'utils/initializeDexie'
 
 export async function initializeWrappedStore(): Promise<StoreType> {
   const stateFromStorage = await browserApi.getStateFromStorage()

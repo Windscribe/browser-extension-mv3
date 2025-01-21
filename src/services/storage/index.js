@@ -1,31 +1,71 @@
 import Dexie from 'dexie'
 import { testDexie } from 'utils/initializeDexie'
 
-async function createLogDB() {
-  const res = await testDexie()
+let dbInstance = null
+let dbInitPromise = null
+const LOG_DATABASE_NAME = 'LogDatabase'
 
-  // Set up fake IndexedDB before any database creation
-  if (res === 'firefox-in-private-mode') {
-    return chrome.storage?.local
+// Cannot do top level await due to chrome extension service worker handlers, as a top level await will block the handler from being registered, handlers must always be registered before any await and not as a result of an await
+
+// https://www.jonmellman.com/posts/singleton-promises#the-race-condition
+// https://www.jonmellman.com/posts/promise-memoization
+
+async function createLogDB() {
+  // Case 1: Happy path - cached instance
+  if (dbInstance) {
+    return dbInstance
   }
 
-  // Create database after dependencies are set
-  const db = new Dexie('LogDatabase')
-  db.version(1).stores({
-    logs: '++id, timestamp, date, tag, level, message, data',
-  })
+  // Case 2: Concurrent initialization
+  if (dbInitPromise) {
+    try {
+      return await dbInitPromise
+    } catch (error) {
+      console.error('Error waiting on existing promise', error)
+      // If waiting on an existing promise fails, allow retry
+      dbInitPromise = null
+      // Don't return - fall through to new initialization
+    }
+  }
 
-  return db
+  // Case 3: New initialization
+  dbInitPromise = (async () => {
+    try {
+      const res = await testDexie()
+
+      if (res === 'firefox-in-private-mode') {
+        dbInstance = chrome.storage?.local
+        return dbInstance
+      }
+
+      const db = new Dexie(LOG_DATABASE_NAME)
+      db.version(1).stores({
+        logs: '++id, timestamp, date, tag, level, message, data',
+      })
+
+      dbInstance = db
+      return dbInstance
+    } catch (error) {
+      // Clear both instance and promise on failure
+      dbInstance = null
+      throw error
+    }
+  })()
+
+  try {
+    return await dbInitPromise
+  } finally {
+    // Always clear initialization promise
+    dbInitPromise = null
+  }
 }
-
-// Initialize Dexie database
-let logDB = await createLogDB()
 
 /**
  * Retrieve object from Dexie database.
  * @param {string} key
  */
 const getStorage = async () => {
+  const logDB = await createLogDB()
   const isLocalStorage = logDB === chrome.storage?.local
   try {
     if (isLocalStorage) {
@@ -49,6 +89,7 @@ const getStorage = async () => {
  * @param {Object} obj - The log object to be saved.
  */
 const addToLogDB = async logs => {
+  const logDB = await createLogDB()
   try {
     const isLocalStorage = logDB === chrome.storage?.local
 
@@ -68,6 +109,7 @@ const addToLogDB = async logs => {
  * @param {string | Array<string>} keys - The keys of the entries to remove.
  */
 const clearLogDB = async () => {
+  const logDB = await createLogDB()
   const isLocalStorage = logDB === chrome.storage?.local
   try {
     isLocalStorage ? await chrome.storage.local.set({ debugLog: [] }) : await logDB.logs.clear()
@@ -77,4 +119,4 @@ const clearLogDB = async () => {
   }
 }
 
-export { getStorage, addToLogDB, clearLogDB, logDB }
+export { getStorage, addToLogDB, clearLogDB, createLogDB }
