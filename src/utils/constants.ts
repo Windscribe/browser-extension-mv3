@@ -165,8 +165,9 @@ export const MAX_LOG_ENTRIES = 1000
 
 export const THREE_DAYS_IN_MILLISECONDS = 259200000
 
-export const MIN_SUPPORTED_CHROME_VERSION = 119
-
 // mullvad is firefox based so its considered firefox
 export const IS_FIREFOX =
   navigator.userAgent.includes('Firefox') || navigator.userAgent.includes('MullvadBrowser')
+
+// usually used for ublock min version
+export const MIN_SUPPORTED_CHROME_VERSION = 122

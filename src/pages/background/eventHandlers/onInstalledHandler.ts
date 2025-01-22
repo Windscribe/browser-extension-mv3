@@ -10,6 +10,7 @@ import {
 import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
 import { serializeError } from 'serialize-error'
 import { recordInstall } from 'api/endpoints'
+import { setDismissedUpgradeWarning } from 'state/slices/upgradeWarning'
 
 export function onInstalledHandler(bgStore: Promise<StoreType>) {
   return async (details: chrome.runtime.InstalledDetails): Promise<void> => {
@@ -17,6 +18,11 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
     const state = store.getState()
     if (!state.firstInstallDate) {
       store.dispatch(setFirstInstallDate(Date.now()))
+    }
+
+    // reset the dismissedupgradewarning to false to show warning banner again, comment this out to not show the warning banner again in subsequent updates, basically we want to show the warning banner again in the next update for updating ublock to min version 122
+    if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
+      store.dispatch(setDismissedUpgradeWarning(false))
     }
 
     // TODO: Add browser type to the query string for firefox
