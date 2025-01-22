@@ -2,6 +2,7 @@ import { Dexie } from 'dexie'
 import { DB_NAME, DB_VERSION, DB_STATE_TABLE, SYNC_KEY, THEME_REDUCER } from 'utils/constants'
 import { LogItem } from 'utils/types'
 import { ThemeValidatorManifestV2 } from 'utils/validators'
+import { serializeError } from 'serialize-error'
 
 const LOCAL_STORAGE_THEME_UI_KEY = 'theme-ui-color-mode'
 
@@ -36,7 +37,7 @@ async function setTheme(): Promise<LogItem[]> {
   } catch (err) {
     logs.push({
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
       message: '',
       tag: 'offscreen',
     })

@@ -5,12 +5,14 @@ import { StoreType } from 'state'
 import { setAllowSystemNotifications } from 'state/slices/allowSystemNotifications'
 import { showDebugContextMenu } from 'state/slices/contextMenu'
 import { setLocationLoad } from 'state/slices/locationLoad'
+import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
 import {
   DB_STATE_TABLE,
   DEBUG_CONTEXT_REDUCER,
   LOCATION_LOAD_REDUCER,
   SYSTEM_NOTIFICATIONS_REDUCER,
   SYNC_KEY,
+  MIGRATION_ID_V2_TO_V3,
 } from 'utils/constants'
 import {
   DebugViewValidatorManifestV2,
@@ -18,7 +20,11 @@ import {
   SystemNotificationsValidatorManifestV2,
 } from 'utils/validators'
 
-export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promise<void> => {
+export const migrateGeneralSettings = async (
+  db: Dexie,
+  store: StoreType,
+  userIdentifier: MigratedUserIdentifierArg,
+): Promise<void> => {
   const locationLoadData: ReducerStateV2<boolean> = await db
     .table(DB_STATE_TABLE)
     .get(SYNC_KEY + LOCATION_LOAD_REDUCER)
@@ -48,7 +54,14 @@ export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promi
   const parsedDebugViewEnabledStateV2 = DebugViewValidatorManifestV2.safeParse(debugViewEnabledData)
 
   if (parsedLocationLoadStateV2.success) {
-    await store.dispatch(setLocationLoad(parsedLocationLoadStateV2.data.state))
+    store.dispatch(setLocationLoad(parsedLocationLoadStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['locationLoad'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
@@ -59,18 +72,32 @@ export const migrateGeneralSettings = async (db: Dexie, store: StoreType): Promi
   }
 
   if (parsedNotificationBlockerStateV2.success) {
-    await store.dispatch(setAllowSystemNotifications(parsedNotificationBlockerStateV2.data.state))
+    store.dispatch(setAllowSystemNotifications(parsedNotificationBlockerStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['allowSystemNotifications'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',
-      message: `Notification blocker reducer not found`,
+      message: `Extension Connect/Disconnect Notification blocker reducer not found`,
       tag: 'background',
       data: JSON.stringify(parsedNotificationBlockerStateV2.error),
     })
   }
 
   if (parsedDebugViewEnabledStateV2.success) {
-    await store.dispatch(showDebugContextMenu(parsedDebugViewEnabledStateV2.data.state))
+    store.dispatch(showDebugContextMenu(parsedDebugViewEnabledStateV2.data.state))
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['showDebugContextMenu'],
+      }),
+    )
   } else {
     await pushToDebugLog({
       level: 'INFO',

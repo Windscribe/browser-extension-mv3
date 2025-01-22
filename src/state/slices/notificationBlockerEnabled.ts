@@ -4,6 +4,7 @@ import {
   resetNotificationSettings,
   blockNotifications,
 } from 'services/contentSettings/notifications'
+import { CONTENT_SETTINGS } from 'utils/constants'
 
 type NotificationBlockerEnabledState = boolean
 const initialState: NotificationBlockerEnabledState = false
@@ -23,16 +24,27 @@ export const toggleNotificationBlocker = createAsyncThunk(
 export const resetNotificationBlocker = createAsyncThunk(
   'notificationBlockerEnabled/reset',
   async (_, { dispatch }) => {
-    await resetNotificationSettings()
-    dispatch(setNotificationBlockerEnabled(false))
+    const isPermissionGranted = await chrome.permissions.contains({
+      permissions: [CONTENT_SETTINGS],
+    })
+    if (isPermissionGranted) {
+      await resetNotificationSettings()
+      dispatch(setNotificationBlockerEnabled(false))
+    }
   },
 )
 
 export const enableBlockNotifications = createAsyncThunk(
   'notificationBlockerEnabled/enableBlock',
   async (_, { dispatch }) => {
-    await blockNotifications()
-    dispatch(setNotificationBlockerEnabled(true))
+    const isPermissionGranted = await chrome.permissions.contains({
+      permissions: [CONTENT_SETTINGS],
+    })
+
+    if (isPermissionGranted) {
+      await blockNotifications()
+      dispatch(setNotificationBlockerEnabled(true))
+    }
   },
 )
 

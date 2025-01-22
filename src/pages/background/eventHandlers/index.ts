@@ -1,6 +1,5 @@
 export { alarmHandler } from './alarmHandler'
 export { authRequiredHandler } from './authRequiredHandler'
-export { connectionChangedHandler } from './connectionChangedHandler'
 export { proxyErrorHandler } from './proxyErrorHandler'
 export { startupHandler } from './startupHandler'
 export { messageHandler } from './messageHandler'

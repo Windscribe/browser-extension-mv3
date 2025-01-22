@@ -17,7 +17,7 @@ const throttledHandleProxyError = throttle(
       level: 'ERROR',
       message: 'onProxyError',
       tag: 'background',
-      data: e,
+      data: JSON.stringify(e),
     })
 
     const proxy = store.getState().proxy
@@ -34,7 +34,7 @@ const throttledHandleProxyError = throttle(
         level: 'ERROR',
         message: 'Offline, ignoring proxy error',
         tag: 'background',
-        data: e,
+        data: JSON.stringify(e),
       })
       return
     }

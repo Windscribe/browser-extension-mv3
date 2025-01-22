@@ -1,3 +1,6 @@
+import { pushToDebugLog } from 'services/debugLog'
+import { serializeError } from 'serialize-error'
+
 export type SetFilteringModeArgs = { hostname: string; level: number }
 
 // It sends message to event listeners within ublock service worker background script.
@@ -7,15 +10,17 @@ export async function setUblockFilteringMode({
   hostname,
   level,
 }: SetFilteringModeArgs): Promise<void> {
-  await chrome.runtime
-    .sendMessage({
+  try {
+    await chrome.runtime.sendMessage({
       what: 'setFilteringMode',
       hostname,
       level,
     })
-    .catch(err => {
-      throw new Error('Error while trying to send "setFilteringMode" message to ublock', {
-        cause: err as Error,
-      })
+  } catch (err) {
+    await pushToDebugLog({
+      message: 'Error while trying to send "setFilteringMode" message to ublock',
+      level: 'ERROR',
+      data: serializeError(err),
     })
+  }
 }

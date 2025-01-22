@@ -28,6 +28,7 @@ const DebugLog: React.FC = () => {
   const timeWarpEnabled = useSelector(s => s.timeWarpEnabled)
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
+  const migrations = useSelector(s => s.migrations)
 
   const parser = new UAParser(navigator.userAgent)
 
@@ -36,7 +37,7 @@ const DebugLog: React.FC = () => {
 [OS]: ${navigator.userAgent}
 [UserAgent OS]: ${parser.getOS().name} ${parser.getOS().version}
 [UserAgent Browser]: ${parser.getBrowser().name} ${parser.getBrowser().version}
-[Extension]:  ${chrome.runtime.getManifest().version}
+[Extension]:  ${chrome.runtime.getManifest().version_name ?? chrome.runtime.getManifest().version}
 
 [User State]
 ------------------------------------------------------
@@ -56,46 +57,28 @@ Time Warp: ${timeWarpEnabled}
 Language Warp: ${languageWarpEnabled}
 Spilt Personality: ${splitPersonalityEnabled}
 Worker Block: ${workerBlockEnabled}
-Build Version: ${chrome.runtime.getManifest().version + '-' + COMMIT_HASH}
-`
+Build Version: ${
+    (chrome.runtime.getManifest().version_name ?? chrome.runtime.getManifest().version) +
+    '-' +
+    COMMIT_HASH
+  }
 
-  // useEffect(() => {
-  //   console.log('parsedLog', parsedLog)
-  //   if (isAutoScroll) {
-  //     window.scrollTo(0, document.body.scrollHeight)
-  //   }
-  // }, [isAutoScroll, parsedLog])
+------------------------------------------------------
+
+Migration Logs
+
+${
+  migrations.migrations.length > 0
+    ? JSON.stringify(migrations.migrations, undefined, 2)
+    : 'No migration logs found'
+}
+`
 
   useEffect(() => {
     getStorage('debugLog').then(debugLog => {
       debugLog && setParsedLog(parseLogToStrings(debugLog))
     })
   }, [])
-
-  // chrome.storage.onChanged.addListener(e => {
-  //   if (e.debugLog !== undefined) {
-  //     setParsedLog(parseLogToStrings(e.debugLog.newValue))
-  //   }
-  // })
-
-  // useEffect(() => {
-  //   // let filteredLog: LogItem[] = log
-  //   // if (tagOption != 'any') {
-  //   //   filteredLog = filteredLog.filter(logItem => logItem.tag === tagOption)
-  //   // }
-  //   // if (levelOption != 'any') {
-  //   //   filteredLog = filteredLog.filter(logItem => logItem.level === levelOption)
-  //   // }
-  //   setParsedLog(parseLogToStrings(filteredLog))
-  // }, [log, tagOption, levelOption])
-
-  // const handleTagFilterChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
-  //   setTagOption(e.target.value as LogTag)
-  // }
-
-  // const handleLevelFilterChange: React.ChangeEventHandler<HTMLSelectElement> = e => {
-  //   setLevelOption(e.target.value as LogLevel)
-  // }
 
   return (
     <Box data-testid="debug-page">
@@ -150,56 +133,6 @@ Build Version: ${chrome.runtime.getManifest().version + '-' + COMMIT_HASH}
       </Button>
       <Box sx={{ whiteSpace: 'pre', p: '18px', fontSize: '16px', lineHeight: '30px' }}>
         {userInfo}
-        {/* <Box mt="24px">
-          <h3>Filtered by</h3>
-          <AlignItemsCenter
-            sx={{
-              svg: {
-                marginLeft: '-32px',
-              },
-            }}
-          >
-            <AlignItemsCenter mr="32px">
-              <Text>Tag:</Text>
-              <Select
-                sx={{
-                  mx: '12px',
-                  height: '40px',
-                  py: '4px',
-                  px: '8px',
-                  backgroundColor: 'rgba(2, 13, 28, 0.1)',
-                }}
-                value={tagOption}
-                onChange={handleTagFilterChange}
-              >
-                <option value="any">any</option>
-                <option value="popup">popup</option>
-                <option value="background">background</option>
-                <option value="debugLog">debugLog</option>
-                <option value="contentScript">contentScript</option>
-              </Select>
-            </AlignItemsCenter>
-            <AlignItemsCenter>
-              <Text>Level:</Text>
-              <Select
-                sx={{
-                  mx: '12px',
-                  height: '40px',
-                  py: '4px',
-                  px: '8px',
-                  backgroundColor: 'rgba(2, 13, 28, 0.1)',
-                }}
-                value={levelOption}
-                onChange={handleLevelFilterChange}
-              >
-                <option value="any">any</option>
-                <option value="INFO">info</option>
-                <option value="WARN">warn</option>
-                <option value="ERROR">error</option>
-              </Select>
-            </AlignItemsCenter>
-          </AlignItemsCenter>
-        </Box> */}
         {`\n\n[Start of log]\n------------------------------------------------------\n`}
         {parsedLog}
       </Box>

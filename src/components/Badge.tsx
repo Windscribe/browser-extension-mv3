@@ -1,12 +1,18 @@
+import { ReactNode } from 'react'
 import { Box, Flex, type FlexProps } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 
 type BadgeProps = FlexProps & {
-  count: number
+  content: ReactNode
+  innerContentContainerProps?: FlexProps
 }
 
-const Badge: ThemeUiElement<BadgeProps> = ({ count, ...restProps }) => {
+const Badge: ThemeUiElement<BadgeProps> = ({
+  content,
+  innerContentContainerProps,
+  ...restProps
+}) => {
   return (
     <Flex
       sx={{
@@ -28,8 +34,9 @@ const Badge: ThemeUiElement<BadgeProps> = ({ count, ...restProps }) => {
           lineHeight: '100%',
           pt: '1px',
         }}
+        {...innerContentContainerProps}
       >
-        {count}
+        {content}
       </Box>
     </Flex>
   )

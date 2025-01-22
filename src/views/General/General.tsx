@@ -275,7 +275,11 @@ const General: ThemeUiElement = () => {
                 fontWeight: '400',
               }}
             >
-              {'v' + chrome.runtime.getManifest().version + '-' + COMMIT_HASH}
+              {'v' +
+                (chrome.runtime.getManifest().version_name ??
+                  chrome.runtime.getManifest().version) +
+                '-' +
+                COMMIT_HASH}
             </span>
           </Box>
         </Box>

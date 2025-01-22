@@ -1,11 +1,9 @@
 import { initializeWrappedStore } from 'state'
 import { chooseIcon } from 'state/slices/iconVariant'
 import { pushToDebugLog } from 'services/debugLog'
-import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 import {
   alarmHandler,
   authRequiredHandler,
-  connectionChangedHandler,
   onInstalledHandler,
   proxyErrorHandler,
   startupHandler,
@@ -15,12 +13,20 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import { ublockStatusChangeHandler } from './eventHandlers/ublockStatusChangeHandler'
 import { enableOrDisableUblock } from 'services/detectUblock'
-
-declare const self: ServiceWorkerGlobalScope
+import { setIsOnline } from 'state/slices/isOnline'
+import { serializeError } from 'serialize-error'
+import { addPermissions } from 'state/slices/permissions'
+import {
+  handlePermissionsAdded,
+  handlePermissionsRemoved,
+} from './eventHandlers/permissionsHandler'
 
 try {
   const bgStore = initializeWrappedStore().then(async store => {
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
+    const grantedPermissions = await chrome.permissions.getAll()
+    store.dispatch(addPermissions(grantedPermissions.permissions ?? []))
+    store.dispatch(setIsOnline(navigator.onLine))
     //TODO dispatch it only if it is not in pending state already
     store.dispatch(chooseIcon())
 
@@ -59,18 +65,15 @@ try {
   chrome.management.onEnabled.addListener(ublockStatusChangeHandler(bgStore))
   chrome.management.onDisabled.addListener(ublockStatusChangeHandler(bgStore))
 
-  chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
+  chrome.permissions.onAdded.addListener(handlePermissionsAdded(bgStore))
+  chrome.permissions.onRemoved.addListener(handlePermissionsRemoved(bgStore))
 
-  // This is experimental feature and currently nor supported by FF
-  // Also it might not work in Brave browser
-  // @link https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/change_event
-  const _navigator = self.navigator as WorkerNavigatorWithConnection
-  _navigator?.connection?.addEventListener('change', connectionChangedHandler(bgStore))
+  chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
 } catch (err) {
   pushToDebugLog({
     level: 'ERROR',
     tag: 'background',
     message: 'Error in a main thread of background service worker',
-    data: JSON.stringify(err),
+    data: serializeError(err),
   })
 }

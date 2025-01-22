@@ -3,6 +3,8 @@ image:
 
 variables:
   DOCKER_REPO: registry.gitlab.int.windscribe.com:5005/ws/client/extension-mv3
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_SUBMODULE_FORCE_HTTPS: 'true'
   #TEST_USER_NAME: "sample"         # Set in Gitlab variables
   #TEST_USER_PASSWORD: "PaSsWoRd"  # Set in Gitlab variables
 
@@ -52,6 +54,7 @@ test:
     - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
     - printf "\nBUILD_USER_NAME=$BUILD_USER_NAME" >> ".env"
     - printf "\nBUILD_USER_PASSWORD=$BUILD_USER_PASSWORD" >> ".env"
+    - npx puppeteer browsers install chrome
     - yarn run build
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
     - yarn run test

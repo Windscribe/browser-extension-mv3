@@ -37,6 +37,8 @@ export type OverlayTemplate =
   | 'wrongFileExtension'
   | 'invalidFormat'
   | 'errorDuringImport'
+  | 'notificationBlockerPermission'
+  | 'versionUnsupportedWarning'
 
 export type ErrorState = {
   errorCode?: number

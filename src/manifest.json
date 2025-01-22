@@ -1,9 +1,11 @@
 {
   "manifest_version": 3,
-  "version": "1.2.0",
-  "minimum_chrome_version": "105.0",
-  "name": "Windscribe - Experimental MV3",
-  "description": "Windscribe MV3 is an experimental extension that masks your physical location, circumvents censorship, and blocks ads and trackers",
+  "version": "4.1.7",
+  "version_name": "4.1.7",
+  "minimum_chrome_version": "119.0",
+  "name": "Windscribe - Free Proxy and Ad Blocker",
+  "short_name": "Windscribe",
+  "description": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
   "background": { "service_worker": "backgroundScripts.js", "type": "module" },
   "action": {
     "default_popup": "popup.html",
@@ -11,7 +13,6 @@
   },
   "permissions": [
     "activeTab",
-    "contentSettings",
     "contextMenus",
     "declarativeNetRequestWithHostAccess",
     "privacy",
@@ -27,6 +28,7 @@
     "offscreen",
     "unlimitedStorage"
   ],
+  "optional_permissions": ["contentSettings"],
   "host_permissions": ["<all_urls>"],
   "icons": {
     "16": "icon16.png",
@@ -207,6 +209,11 @@
         "path": "/rulesets/main/vie-1.json"
       },
       {
+        "id": "est-0",
+        "enabled": false,
+        "path": "/rulesets/main/est-0.json"
+      },
+      {
         "id": "block-lan",
         "enabled": false,
         "path": "/rulesets/main/block-lan.json"
@@ -259,13 +266,15 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "/web_accessible_resources/empty",
-        "/web_accessible_resources/noop.txt",
         "/web_accessible_resources/noop.js",
+        "/web_accessible_resources/noop.txt",
+        "/web_accessible_resources/noop-1s.mp4",
         "/web_accessible_resources/noop.css",
         "/web_accessible_resources/2x2.png",
-        "/web_accessible_resources/1x1.gif",
         "/web_accessible_resources/32x32.png",
+        "/web_accessible_resources/1x1.gif",
+        "/web_accessible_resources/empty",
+        "/web_accessible_resources/noop.html",
         "/web_accessible_resources/nofab.js",
         "/web_accessible_resources/hd-main.js",
         "/web_accessible_resources/google-ima.js",
@@ -273,20 +282,19 @@
         "/web_accessible_resources/google-analytics_analytics.js",
         "/web_accessible_resources/googlesyndication_adsbygoogle.js",
         "/web_accessible_resources/amazon_apstag.js",
-        "/web_accessible_resources/doubleclick_instream_ad_status.js",
         "/web_accessible_resources/google-analytics_cx_api.js",
         "/web_accessible_resources/googletagservices_gpt.js",
         "/web_accessible_resources/scorecardresearch_beacon.js",
         "/web_accessible_resources/google-analytics_ga.js",
-        "/web_accessible_resources/addthis_widget.js",
         "/web_accessible_resources/outbrain-widget.js",
         "/web_accessible_resources/fingerprint2.js",
         "/web_accessible_resources/amazon_ads.js",
-        "/web_accessible_resources/noop-vmap1.0.xml",
+        "/web_accessible_resources/chartbeat.js",
+        "/web_accessible_resources/noop-vmap1.xml",
+        "/web_accessible_resources/noop-vast3.xml",
         "/web_accessible_resources/noop-0.1s.mp3",
-        "/web_accessible_resources/noop.html",
-        "/web_accessible_resources/noop-1s.mp4",
         "/web_accessible_resources/nobab2.js",
+        "/web_accessible_resources/noop.json",
         "/web_accessible_resources/click2load.html",
         "/web_accessible_resources/noeval-silent.js"
       ],

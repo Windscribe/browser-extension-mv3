@@ -1,4 +1,4 @@
-import { CruiseControlItem } from 'api/types'
+import { CruiseControlItem, DataCenter } from 'api/types'
 import type { ProxyPort } from 'utils/types'
 import { reduceAllowlist } from 'utils/reduceAllowlist'
 import type { GetState, AppDispatch } from 'state/store'
@@ -33,6 +33,8 @@ import { SHA256 } from 'crypto-js'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import shuffle from 'lodash.shuffle'
+import { NO_IP } from 'services/proxyAuth/checkIp'
+import { serializeError } from 'serialize-error'
 
 // get array of hosts if exists (used for fallbacks)
 const getProxyList = (hosts: Host[], proxyPort: ProxyPort) => {
@@ -134,7 +136,6 @@ export const connect = async (
       pushToDebugLog({
         message: 'No internet connection, aborting',
       })
-      dispatch(setStatus('off'))
       return
     }
 
@@ -171,6 +172,7 @@ export const connect = async (
     if (!hosts || hosts?.length === 0) {
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }
+
     const allowlist = reduceAllowlist(getState())
     const proxyPort = getState().proxyPort
     const autopilotSelected = getState().autopilot.autopilotSelected
@@ -192,6 +194,13 @@ export const connect = async (
     }
 
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+
+    if (!getState().isOnline) {
+      pushToDebugLog({
+        message: 'No internet connection, aborting - before pac_script is set',
+      })
+      throw Error('No internet connection')
+    }
     chrome.proxy.settings.set({ value: config, scope: 'regular' })
     await pushToDebugLog({
       data: {
@@ -207,14 +216,27 @@ export const connect = async (
     dispatch(setProxy(hosts))
 
     if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+    if (!getState().isOnline) {
+      pushToDebugLog({
+        message: 'No internet connection, aborting - before ip is checked',
+      })
+      throw Error('No internet connection')
+    }
     const ip = await checkIp(getState().workingApi)
 
-    dispatch(setCurrentIp(ip))
-    if (ip === '---.---.---.---') {
+    dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
+    if (ip === NO_IP && getState().isOnline) {
       await handleProxyError(getState, dispatch)
     } else {
       dispatch(setReconnectionAttempts(0))
       if (getState().proxy.status === 'disconnecting') throw Error('Disconnecting')
+      if (!getState().isOnline) {
+        pushToDebugLog({
+          message: 'No internet connection, aborting - before proxy is on',
+        })
+        throw Error('No internet connection')
+      }
+
       dispatch(setStatus('on'))
 
       if (getState().allowSystemNotifications && !silent) {
@@ -303,7 +325,7 @@ export const connect = async (
               excludeMatchesFromAllowList,
             )
           } else {
-            await pushToDebugLog({
+            pushToDebugLog({
               message: 'Could not find any fallback data center',
               tag: 'popup',
               level: 'ERROR',
@@ -344,7 +366,7 @@ export const connect = async (
     pushToDebugLog({
       message: 'Error while trying to connect from proxy.',
       level: 'ERROR',
-      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+      data: serializeError(err),
     })
   }
 }
@@ -363,20 +385,31 @@ export const disconnect = async (
 
   chrome.proxy.settings.set({ value: config, scope: 'regular' })
 
-  // set status to off early no need to check ip call
+  // set status to off early, no need to wait for check ip call
   dispatch(setStatus('off'))
 
   // shuffle hosts for greater ip diversity if hosts are not null
+  // shuffle non autopilot hosts
   const hosts = shuffle(getState().currentDataCenter?.hosts)
-  if (hosts && hosts.length > 0) {
-    dispatch(setProxy(hosts))
+  if (
+    hosts &&
+    hosts.length > 0 &&
+    getState().currentDataCenter &&
+    !getState().autopilot.autopilotSelected
+  ) {
+    const currentDataCenter = getState().currentDataCenter
+    const updatedDataCenter = {
+      ...currentDataCenter,
+      hosts,
+    }
+    dispatch(setCurrentDataCenter(updatedDataCenter as DataCenter))
   }
 
   const workingApi = getState().workingApi
 
   const ip = await checkIp(workingApi)
 
-  dispatch(setCurrentIp(ip))
+  dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
 
   const noData = getState().overlay.templates.includes('noData')
 
@@ -390,6 +423,7 @@ export const disconnect = async (
   const proxyStatus = getState().proxy.status
 
   if (proxyStatus === 'off') {
+    // dependent on non autopilot location
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(locationWarpScriptId)
     await unregisterScript(timeZoneWarpScriptId)
@@ -409,7 +443,6 @@ export const connectToAutopilot = async (
       pushToDebugLog({
         message: 'No internet connection, aborting',
       })
-      dispatch(setStatus('off'))
       return
     }
 
@@ -425,7 +458,9 @@ export const connectToAutopilot = async (
     dispatch(setCurrentLocation(location))
     dispatch(setCurrentDataCenter(dataCenter))
 
-    const hosts = getState().currentDataCenter?.hosts
+    // shuffle hosts for ip diversity
+    const hosts = shuffle(getState().currentDataCenter?.hosts)
+
     if (!hosts) throw new Error(`No data center is being used as current`)
     await connect(getState, dispatch, hosts, silent)
   } catch (err) {
@@ -435,7 +470,7 @@ export const connectToAutopilot = async (
     pushToDebugLog({
       message: 'Error while trying to connect from proxy.',
       level: 'ERROR',
-      data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+      data: serializeError(err),
     })
   }
 }
@@ -445,6 +480,13 @@ export const handleProxyError = async (
   dispatch: AppDispatch,
 ): Promise<void> => {
   const RECONNECTION_ATTEMPTS_LIMIT = 2
+
+  if (getState().proxy.status === 'off' || getState().proxy.status === 'disconnecting') {
+    pushToDebugLog({
+      message: 'proxy is off or disconnecting, ignoring reconnection attemps',
+    })
+    return
+  }
 
   const failover = getState().connection.failover
   const reconnectionAttempts = getState().proxy.reconnectionAttempts

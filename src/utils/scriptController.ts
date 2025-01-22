@@ -1,5 +1,6 @@
 import { pushToDebugLog } from 'services/debugLog'
 import getErrorMessage from './getErrorMessage'
+import { serializeError } from 'serialize-error'
 
 const matches: string[] = ['<all_urls>']
 // no devtools:// or chrome:// as these are not valid url schemes
@@ -57,7 +58,7 @@ async function registerScript(
       message,
       tag: 'popup',
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
     })
   }
 }
@@ -88,7 +89,7 @@ async function updateScript(script: chrome.scripting.RegisteredContentScript): P
       message,
       tag: 'popup',
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
     })
   }
 }
@@ -109,7 +110,7 @@ async function unregisterScript(id: string): Promise<void> {
       message,
       tag: 'popup',
       level: 'ERROR',
-      data: JSON.stringify(err),
+      data: serializeError(err),
     })
   }
 }

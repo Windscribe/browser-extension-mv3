@@ -83,7 +83,7 @@ const sendRequest = async <DataType>(
   }
 
   try {
-    return await tryFetch(workingApi)
+    return await tryFetch(ENVS.API_URL ?? workingApi)
   } catch (err) {
     try {
       return await tryFetch(ENVS.BACKUP_API_URL)

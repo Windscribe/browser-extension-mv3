@@ -31,6 +31,10 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
 import { unregisterScript } from 'utils/scriptController'
 import { setIsRightAfterLogin } from './isRightAfterLogin'
+import { resetSpoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import { pushToDebugLog } from 'services/debugLog'
+import { activateSplitPersonality } from './splitPersonalityEnabled'
+import { setAdPrivacyEnabled } from './adPrivacyEnabled'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -56,9 +60,14 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
       const ip = await checkIp(getState().workingApi)
-      dispatch(setCurrentIp(ip))
+      dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
+
+      // initialized data after login here
+      if (getState().splitPersonalityEnabled) {
+        dispatch(activateSplitPersonality())
+      }
 
       return response.data
     }
@@ -74,10 +83,12 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
   }
   const resetState = async () => {
     // order matters any thing saved after userstash call does not persist on re-login
+    const shouldShowNotification = getState().proxy.status === 'off' ? false : true
     await dispatch(setIsRightAfterLogin(true))
+    await dispatch(setAdPrivacyEnabled(false))
     await dispatch(saveUserStash())
     await dispatch({ type: 'global/resetStore' })
-    await disconnect(getState, dispatch)
+    await disconnect(getState, dispatch, shouldShowNotification)
     await dispatch(resetNotificationBlocker())
     await dispatch(resetWebRtcBlocker())
     await unregisterScript(workerBlockScriptId)
@@ -85,9 +96,17 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     await unregisterScript(locationWarpScriptId)
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(timeZoneWarpScriptId)
+    await resetSpoofUserAgentHeader()
   }
 
   await Promise.all([sendLogoutRequest(), resetState()])
+
+  pushToDebugLog({
+    message: 'User logged out',
+    data: {
+      username: getState().session.sessionData?.username,
+    },
+  })
 })
 
 export const checkSessionStatus = createAsyncThunk(
@@ -208,6 +227,12 @@ export const sessionSlice = createSlice({
       state.sessionData = {
         ...action.payload,
       }
+
+      // if session is replaced this means loading should be fulfilled
+      state.loading = 'fulfilled'
+    },
+    setSessionLoading(state, action: PayloadAction<LoadingState>) {
+      state.loading = action.payload
     },
   },
   extraReducers: builder => {
@@ -234,5 +259,5 @@ export const sessionSlice = createSlice({
   },
 })
 
-export const { setSession, replaceSession } = sessionSlice.actions
+export const { setSession, replaceSession, setSessionLoading } = sessionSlice.actions
 export default sessionSlice.reducer

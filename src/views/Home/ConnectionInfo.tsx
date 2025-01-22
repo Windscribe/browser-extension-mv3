@@ -23,16 +23,26 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
   const dispatch = useDispatch()
   const isOnline = useSelector(state => state.isOnline)
 
-  let textColor = 'white'
+  let ipAddressColor = 'white'
 
   if (status === 'on' && !proxyFailure && isOnline) {
-    textColor = 'neonGreen'
+    ipAddressColor = 'neonGreen'
   } else if (!isOnline) {
-    textColor = 'warningYellow'
+    ipAddressColor = 'warningYellow'
   } else if (status === 'off') {
-    textColor = 'halfWhite'
+    ipAddressColor = 'halfWhite'
   } else {
-    textColor = 'white'
+    ipAddressColor = 'white'
+  }
+
+  let statusColor = 'white'
+
+  if (status !== 'off' && isOnline) {
+    statusColor = 'neonGreen'
+  } else if (status === 'off' && isOnline) {
+    statusColor = 'white'
+  } else {
+    statusColor = 'warningYellow'
   }
 
   return (
@@ -47,7 +57,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
           sx={{
             fontSize: '12px',
             fontWeight: '600',
-            color: status !== 'off' ? 'neonGreen' : isOnline ? 'white' : 'warningYellow',
+            color: statusColor,
             mr: '8px',
             flexShrink: 0,
           }}
@@ -70,18 +80,21 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
         <Text
           sx={{
             fontSize: '12px',
-            color: textColor,
+            color: ipAddressColor,
             fontWeight: proxyFailure ? '600' : '400',
+            flexShrink: 0,
           }}
         >
           {proxyFailure ? (
             <Flex sx={{ alignItems: 'center', gap: '8px' }}>
-              PROXY FAILURE
+              <span>PROXY FAILURE</span>
               <InfoIcon
                 sx={{
                   cursor: 'pointer',
                   fill: 'halfWhite',
                   transition: '0.3s',
+                  position: 'relative',
+                  top: '-8px',
                   ':hover': {
                     fill: 'white',
                   },

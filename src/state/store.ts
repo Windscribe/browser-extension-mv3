@@ -57,6 +57,10 @@ import themeReducer from './slices/theme'
 import currentLocationMV2Reducer from './slices/currentLocationMV2'
 import proxyStatusMV2Reducer from './slices/proxyStatusMV2'
 import serverListenerRunReducer from './slices/serverListenerRun'
+import PermissionsReducer from './slices/permissions'
+import ShowReloadAlertReducer from './slices/reloadAlert'
+import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
+
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 
 const reducers = {
@@ -104,6 +108,9 @@ const reducers = {
   currentLocationMV2: currentLocationMV2Reducer,
   proxyStatusMV2: proxyStatusMV2Reducer,
   serverListenerRun: serverListenerRunReducer,
+  permissions: PermissionsReducer,
+  showReloadAlert: ShowReloadAlertReducer,
+  dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
 }
 
 const combinedReducer = combineReducers(reducers)
@@ -111,7 +118,13 @@ const combinedReducer = combineReducers(reducers)
 // Here is a place for logic that mutates all state entirely, not just one slice
 const rootReducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === 'global/resetStore') {
-    state = { userStashes: state?.userStashes } as RootState
+    // always keep stashes and migration data intact never remove these
+    state = {
+      userStashes: state?.userStashes,
+      // always keep these
+      migrations: state?.migrations,
+      permissions: state?.permissions,
+    } as RootState
   } else if (action.type === 'global/applyUserStash') {
     state = { ...state, ...action.payload.toStash } as RootState
   }

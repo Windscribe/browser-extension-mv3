@@ -3,6 +3,8 @@ import type { Host } from 'api/types'
 import type { SyncThunkCreator, Status } from 'utils/types'
 import { pushToDebugLog } from 'services/debugLog'
 import { checkIp } from 'services'
+import { NO_IP } from 'services/proxyAuth/checkIp'
+import { serializeError } from 'serialize-error'
 
 interface ProxyState {
   status: Status
@@ -15,7 +17,7 @@ interface ProxyState {
 const initialState: ProxyState = {
   status: 'off',
   hosts: undefined,
-  currentIp: '---.---.---.---',
+  currentIp: NO_IP,
   errorMessage: undefined,
   reconnectionAttempts: 0,
 }
@@ -39,12 +41,12 @@ export const checkCurrentIp = createAsyncThunk(
     try {
       const workingApi = getState().workingApi
       const currentIp = await checkIp(workingApi)
-      dispatch(setCurrentIp(currentIp))
+      dispatch(setCurrentIp({ currentIp, isOnline: getState().isOnline }))
     } catch (err: unknown) {
       pushToDebugLog({
         message: 'Error while trying to check current Ip.',
         level: 'ERROR',
-        data: JSON.stringify(err, Object.getOwnPropertyNames(err)),
+        data: serializeError(err),
       })
     }
   },
@@ -64,8 +66,11 @@ export const proxySlice = createSlice({
     setConnectionError(state, action: PayloadAction<string>) {
       state.errorMessage = action.payload
     },
-    setCurrentIp(state, action: PayloadAction<string>) {
-      state.currentIp = action.payload
+    setCurrentIp(state, action: PayloadAction<{ currentIp: string; isOnline: boolean }>) {
+      if (action.payload.isOnline && action.payload.currentIp !== NO_IP) {
+        // only ever set ip if we actually get it
+        state.currentIp = action.payload.currentIp
+      }
     },
     setReconnectionAttempts(state, action: PayloadAction<number>) {
       state.reconnectionAttempts = action.payload

@@ -19,11 +19,14 @@ import {
 } from 'utils/validators'
 import isValidDomain from 'is-valid-domain'
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
+import { addUserStateMigration, MigratedUserIdentifierArg } from 'state/slices/migration'
+import { MIGRATION_ID_V2_TO_V3 } from 'utils/constants'
+import { serializeError } from 'serialize-error'
 
 export const migrateStashedOtherSettings = async (
   store: StoreType,
   data: unknown,
-  hashedUserId: string,
+  userIdentifier: MigratedUserIdentifierArg,
 ): Promise<void> => {
   const parsedThemeStateV2 = StashedThemeValidatorManifestV2.safeParse(data)
 
@@ -42,7 +45,7 @@ export const migrateStashedOtherSettings = async (
   if (parsedallowListStateV2.success) {
     try {
       const collection: (CombinedAllowlistItem | undefined)[] = parsedallowListStateV2.data.state[
-        hashedUserId
+        userIdentifier.idOrHash
       ].allowlist
         .map(allowListData => {
           if (!allowListData.domain) return
@@ -87,7 +90,7 @@ export const migrateStashedOtherSettings = async (
 
       await store.dispatch(
         setAndMergeStashes({
-          hashedID: hashedUserId,
+          hashedID: userIdentifier.idOrHash,
           data: {
             allowlist,
           },
@@ -106,12 +109,19 @@ export const migrateStashedOtherSettings = async (
       for (const log of response.logs) {
         await pushToDebugLog(log)
       }
-      // await chrome.offscreen.closeDocument()
+
+      store.dispatch(
+        addUserStateMigration({
+          migrationId: MIGRATION_ID_V2_TO_V3,
+          ...userIdentifier,
+          migratedStates: ['allowlist'],
+        }),
+      )
     } catch (err) {
       pushToDebugLog({
         message: 'Failed while trying to add domain to allowlist',
         level: 'ERROR',
-        data: err as Error,
+        data: serializeError(err),
       })
     }
   } else {
@@ -126,12 +136,20 @@ export const migrateStashedOtherSettings = async (
   if (parsedThemeStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
           theme: {
-            value: parsedThemeStateV2.data.state[hashedUserId].theme,
+            value: parsedThemeStateV2.data.state[userIdentifier.idOrHash].theme,
           },
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['theme'],
       }),
     )
   } else {
@@ -146,14 +164,22 @@ export const migrateStashedOtherSettings = async (
   if (parsedNewsFeedIdsStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
           newsfeed: {
             ...intialNewsFeedState,
             viewedNewsIds:
-              parsedNewsFeedIdsStateV2.data.state[hashedUserId].newsfeedIdsAlreadyViewed,
+              parsedNewsFeedIdsStateV2.data.state[userIdentifier.idOrHash].newsfeedIdsAlreadyViewed,
           },
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['newsfeedViewed'],
       }),
     )
   } else {
@@ -167,20 +193,28 @@ export const migrateStashedOtherSettings = async (
 
   if (parsedFavouriteLocationsStateV2.success) {
     const favouriteLocationIds = parsedFavouriteLocationsStateV2.data.state[
-      hashedUserId
+      userIdentifier.idOrHash
     ].favoriteLocations
       .filter(item => item.dataCenterId !== undefined && item.dataCenterId !== null)
       .map(item => item.dataCenterId)
 
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
           migratedFavouriteLocations: {
             ...intialMigratedFavouriteLocationsState,
             favouriteLocationIds,
           },
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['favouriteLocations'],
       }),
     )
   } else {
@@ -195,10 +229,19 @@ export const migrateStashedOtherSettings = async (
   if (parsedCurrentLocationStateV2.success) {
     await store.dispatch(
       setAndMergeStashes({
-        hashedID: hashedUserId,
+        hashedID: userIdentifier.idOrHash,
         data: {
-          currentLocationMV2: parsedCurrentLocationStateV2.data.state[hashedUserId].currentLocation,
+          currentLocationMV2:
+            parsedCurrentLocationStateV2.data.state[userIdentifier.idOrHash].currentLocation,
         },
+      }),
+    )
+
+    store.dispatch(
+      addUserStateMigration({
+        migrationId: MIGRATION_ID_V2_TO_V3,
+        ...userIdentifier,
+        migratedStates: ['currentLocation'],
       }),
     )
   } else {

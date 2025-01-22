@@ -18,6 +18,7 @@ const buildQueryString = (
   const time = generateTime()
   const clientAuthHash = getClientAuthHash(time)
 
+  // TODO: Add browser type to the query string for firefox
   let queryString = `${Endpoint}?platform=chrome&time=${time}`
   if (skipClientAuthHash === false) {
     queryString = queryString + `&client_auth_hash=${clientAuthHash}`

@@ -1,6 +1,6 @@
 {
   "name": "windscribe",
-  "version": "1.0.11",
+  "version": "4.1.7",
   "description": "windscribe",
   "license": "MIT",
   "preset": "jest-puppeteer",
@@ -46,13 +46,14 @@
     "lodash.throttle": "^4.1.1",
     "luxon": "^3.2.1",
     "mocha": "^10.2.0",
-    "puppeteer": "^19.9.1",
+    "puppeteer": "23.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-loader": "^4.13.0",
     "react-joyride": "^2.5.3",
     "react-redux": "^7.2.8",
     "redux-logger": "^3.0.6",
+    "serialize-error": "^11.0.3",
     "theme-ui": "^0.14.6",
     "ua-parser-js": "^1.0.32",
     "zod": "^3.22.4"

@@ -1,13 +1,21 @@
-import { type TextProps } from 'theme-ui'
+import { SxProp, type TextProps } from 'theme-ui'
 import { type ThemeUiElement } from 'utils/types'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css' // optional
 
 type ToolTipProps = React.PropsWithChildren<TextProps> & {
   message?: string
+  childWrapperProps?: React.ClassAttributes<HTMLSpanElement> &
+    React.HTMLAttributes<HTMLSpanElement> &
+    SxProp
 }
 
-const ToolTip: ThemeUiElement<ToolTipProps> = ({ message, children, ...props }) => (
+const ToolTip: ThemeUiElement<ToolTipProps> = ({
+  message,
+  children,
+  childWrapperProps,
+  ...props
+}) => (
   <Tippy
     content={message}
     sx={{
@@ -28,7 +36,7 @@ const ToolTip: ThemeUiElement<ToolTipProps> = ({ message, children, ...props }) 
     }}
     {...props}
   >
-    <span>{children}</span>
+    <span {...childWrapperProps}>{children}</span>
   </Tippy>
 )
 

@@ -4,7 +4,7 @@ import { addOverlay, removeAllOverlays } from 'state/slices/overlay'
 import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import CancelButton from './CancelButton'
 import ConfirmButton from './ConfirmButton'
-import { ENVS } from 'utils/constants'
+import { CONTENT_SETTINGS, ENVS } from 'utils/constants'
 
 import teacherGarry from 'assets/img/garry/garryWithApple.png'
 import constructionGarry from 'assets/img/garry/garryConstruction.png'
@@ -17,6 +17,7 @@ import {
   setShowUblockWarningAtBlockerPage,
   setShowUblockWarningAtHomePage,
 } from 'state/slices/blocker'
+import { setDismissedUpgradeWarning } from 'state/slices/upgradeWarning'
 
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
 
@@ -120,6 +121,22 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         img: cautionGarry,
         ActionsBlock: ImportingProblemFormat,
       }
+    case 'notificationBlockerPermission':
+      return {
+        title: 'Permission Required',
+        message:
+          'You need to grant an extra permission to Windscribe before you can use Notification Blocker',
+        img: teacherGarry,
+        ActionsBlock: NotificationBlockerPermission,
+      }
+    case 'versionUnsupportedWarning':
+      return {
+        title: 'Your Chrome Version is Outdated',
+        message:
+          'You need to update your browser to continue using the extension and to receive important updates.',
+        img: cautionGarry,
+        ActionsBlock: VersionUnsupportedWarning,
+      }
   }
 }
 
@@ -168,7 +185,17 @@ const UblockDetected: ActionsBlockComponent = ({ close }) => {
 
   return (
     <>
-      <ConfirmButton onClick={open}>Use Built In Adblock</ConfirmButton>
+      <ConfirmButton
+        onClick={() => {
+          if (currentView === 'Home') {
+            dispatch(setShowUblockWarningAtHomePage(false))
+          }
+
+          open()
+        }}
+      >
+        Use Built In Adblock
+      </ConfirmButton>
       <CancelButton
         onClick={() => {
           if (currentView === 'Blocker') {
@@ -256,6 +283,40 @@ const ImportingProblemFormat: ActionsBlockComponent = ({ close }) => {
   return (
     <>
       <ConfirmButton onClick={close}>OK</ConfirmButton>
+    </>
+  )
+}
+
+const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
+  return (
+    <>
+      <ConfirmButton
+        onClick={() => {
+          // feature activation handled in permission handlers
+          close()
+          chrome.permissions.request({ permissions: [CONTENT_SETTINGS] })
+        }}
+      >
+        Grant Permission
+      </ConfirmButton>
+      <CancelButton onClick={close}>Cancel</CancelButton>
+    </>
+  )
+}
+
+const VersionUnsupportedWarning: ActionsBlockComponent = ({ close }) => {
+  const dispatch = useDispatch()
+  return (
+    <>
+      <ConfirmButton onClick={close}>Skip</ConfirmButton>
+      <CancelButton
+        onClick={() => {
+          close()
+          dispatch(setDismissedUpgradeWarning(true))
+        }}
+      >
+        {`Don't Show Again`}
+      </CancelButton>
     </>
   )
 }

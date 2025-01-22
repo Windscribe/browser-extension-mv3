@@ -1,8 +1,9 @@
 import { LogItemResponse, Message } from 'api/types'
 import { pushToDebugLog } from 'services/debugLog'
 import getErrorMessage from 'utils/getErrorMessage'
+import { serializeError } from 'serialize-error'
 
-const NO_IP = '---.---.---.---'
+export const NO_IP = '---.---.---.---'
 
 export default async function checkIp(workingApi: string): Promise<string> {
   const result = await chrome.runtime.sendMessage<Message, LogItemResponse>({
@@ -27,16 +28,14 @@ async function fetchIp(workingApi: string): Promise<string> {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 3000)
 
-  const domain = process.env.NODE_ENV !== 'production' ? 'windscribe.com' : workingApi
-
-  const res = await fetch(`https://checkip.${domain}`, {
+  const res = await fetch(`https://checkip.${workingApi}`, {
     signal: controller.signal,
   })
     .then(r => r.text())
     .catch(err => {
       const message = getErrorMessage(err)
       pushToDebugLog({
-        data: JSON.stringify(err),
+        data: serializeError(err),
         message,
       })
       return NO_IP

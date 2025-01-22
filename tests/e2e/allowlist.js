@@ -59,7 +59,7 @@ const allowlist = async (popupPage, browser) => {
         delay: 80,
       })
 
-      await popupPage.waitForTimeout(800)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 800)))
 
       await popupPage.waitForSelector('[data-testid=allow-privacy-features-checkbox]')
       popupPage.click('[data-testid=allow-privacy-features-checkbox]')
@@ -67,16 +67,19 @@ const allowlist = async (popupPage, browser) => {
       await popupPage.waitForSelector('[data-testid=allowlist-popup-submit-button]')
       await popupPage.click('[data-testid=allowlist-popup-submit-button]')
 
-      await popupPage.waitForTimeout(2000)
       // Verify domain appeared on allowlist-page
       await popupPage.waitForSelector('[data-testid=allowlist-items-list]')
-      const list = await popupPage.$('[data-testid=allowlist-items-list]')
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 800)))
 
-      const hasGoogleText = await list.evaluate(el => {
-        return el.innerText
+      const hasTestPage = await popupPage.evaluate(() => {
+        return [
+          ...document.querySelectorAll(
+            "div[data-testid='allowlist-items-list'] > div  > div > span",
+          ),
+        ].some(element => element.textContent === 'www.google.com')
       })
 
-      expect(hasGoogleText).to.equal('www.google.com')
+      expect(hasTestPage).to.equal(true)
 
       // Return to home page
       await popupPage.waitForSelector('[data-testid=go-back-button]')
