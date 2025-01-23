@@ -18,11 +18,11 @@ export const importAllowListSettings = async (
     for (const [domainValue, domainWithSettings] of Object.entries(importedSettings.allowlist)) {
       const isValid = isValidDomain(domainValue)
 
+      if (!isValid) continue
+
       const isAddedByDomainValid =
         domainWithSettings.addedBy &&
         ALLOWLIST_DOMAIN_TABLE[domainWithSettings.addedBy as keyof typeof ALLOWLIST_DOMAIN_TABLE]
-
-      if (!isValid) continue
 
       // only check if addedBy is valid if it's present
       if (domainWithSettings.addedBy && !isAddedByDomainValid) continue

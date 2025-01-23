@@ -419,15 +419,6 @@ export const disconnect = async (
       message: 'Connection to Windscribe has been terminated',
     })
   }
-
-  const proxyStatus = getState().proxy.status
-
-  if (proxyStatus === 'off') {
-    // dependent on non autopilot location
-    await unregisterScript(languageWarpScriptId)
-    await unregisterScript(locationWarpScriptId)
-    await unregisterScript(timeZoneWarpScriptId)
-  }
 }
 
 export const connectToAutopilot = async (

@@ -131,7 +131,6 @@ const activateLanguageWarp = async ({
   ) {
     await dispatch(setLanguageWarpEnabled(importedSettings.languageWarpEnabled))
 
-    // if (proxyStatus !== 'on') return
     if (autopilotSelected) return
     if (locationId === undefined || locationId === null) return
 

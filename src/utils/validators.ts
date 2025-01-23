@@ -460,14 +460,18 @@ const BaseSettingsV1 = zod
           allowPrivacyFeatures: zod.boolean(),
           allowDirectConnections: zod.boolean(),
           includeAllSubdomains: zod.boolean(),
-          addedBy: addedBy.optional(),
+          addedBy,
         })
         .strict(),
     ),
     // theme
     theme: zod.enum(['light', 'dark']),
     // fav locations
-    favoriteLocations: zod.array(zod.number().nonnegative()),
+    favoriteLocations: zod
+      .array(zod.number().nonnegative())
+      .refine(arr => new Set(arr).size === arr.length, {
+        message: 'Favorite locations must be unique',
+      }),
     locationSorting: zod.enum(['alphabet', 'geography']),
   })
   .partial()

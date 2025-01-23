@@ -56,9 +56,9 @@ export const importSettings = async ({
 
     importConnectionSettings(importedSettings, dispatch)
 
-    importBlockerSettings(importedSettings, dispatch)
-
     importOtherSettings(importedSettings, serverList, favoriteLocations, dispatch)
+
+    await importBlockerSettings(importedSettings, dispatch)
 
     await importPrivacySettings({
       addToAllowlist,
@@ -81,6 +81,7 @@ export const importSettings = async ({
 
     await pushToDebugLog({
       message: 'imported settings',
+      data: JSON.stringify(importedSettings),
     })
   } else {
     await dispatch(addOverlay('invalidFormat'))

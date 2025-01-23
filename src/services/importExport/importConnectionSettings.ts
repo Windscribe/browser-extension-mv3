@@ -11,7 +11,6 @@ export const importConnectionSettings = (
     dispatch(setProxyPort(importedSettings.proxyPort))
   }
 
-  // DONE
   if (
     importedSettings.connectionState?.smokeWall !== undefined &&
     importedSettings.connectionState !== null
@@ -19,7 +18,6 @@ export const importConnectionSettings = (
     dispatch(setSmokeWall(importedSettings.connectionState.smokeWall))
   }
 
-  // DONE
   if (
     importedSettings.connectionState?.failover !== undefined &&
     importedSettings.connectionState?.failover !== null
@@ -27,7 +25,6 @@ export const importConnectionSettings = (
     dispatch(setFailover(importedSettings.connectionState.failover))
   }
 
-  // DONE
   if (
     importedSettings.connectionState?.autoConnect !== undefined &&
     importedSettings.connectionState?.autoConnect !== null
