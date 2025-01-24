@@ -7,8 +7,13 @@ import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { ACTIVATE_SPLIT_PERSONALITY } from 'state/slices/splitPersonalityEnabled'
 import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import {
+  audioAntiFingerprintingScriptId,
+  canvasAntiFingerprintingScriptId,
+  fingerprintjsAntiFingerprintingScriptId,
+  fontAntiFingerprintingScriptId,
   languageWarpScriptId,
   locationWarpScriptId,
+  screenResAntiFingerprintingScriptId,
   splitPersonalityScriptId,
   timeZoneWarpScriptId,
   workerBlockScriptId,
@@ -40,6 +45,7 @@ const registerScripts = async (
     const username = store.getState().serverCredentials.username
     const password = store.getState().serverCredentials.password
     const bestLocationLoading = store.getState().bestLocation.loading
+    const isAntiFingerprintingActive = store.getState().antiFingerprinting
 
     if (!session) {
       await pushToDebugLog({
@@ -58,6 +64,38 @@ const registerScripts = async (
       await registerScript(
         workerBlockScriptId,
         ['workerBlockContentScript.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+    }
+
+    if (isAntiFingerprintingActive) {
+      await registerScript(
+        fontAntiFingerprintingScriptId,
+        ['fontAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        screenResAntiFingerprintingScriptId,
+        ['screenResAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        canvasAntiFingerprintingScriptId,
+        ['canvasAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        audioAntiFingerprintingScriptId,
+        ['audioAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        fingerprintjsAntiFingerprintingScriptId,
+        ['fingerprintjsAntiFingerprinting.bundle.js'],
         excludeMatchesFromAllowList,
       )
     }
@@ -118,6 +156,7 @@ const registerScripts = async (
     const isTimeZoneWarpActive = store.getState().timeWarpEnabled
     const serverList = store.getState().servers.serverList
     const isUserPro = store.getState().session.sessionData?.is_premium
+    const isAntiFingerprintingActive = store.getState().antiFingerprinting
 
     const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(
       store.getState().allowlist,
@@ -127,6 +166,38 @@ const registerScripts = async (
       await registerScript(
         workerBlockScriptId,
         ['workerBlockContentScript.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+    }
+
+    if (isAntiFingerprintingActive) {
+      await registerScript(
+        fontAntiFingerprintingScriptId,
+        ['fontAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        screenResAntiFingerprintingScriptId,
+        ['screenResAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        canvasAntiFingerprintingScriptId,
+        ['canvasAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        audioAntiFingerprintingScriptId,
+        ['audioAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        fingerprintjsAntiFingerprintingScriptId,
+        ['fingerprintjsAntiFingerprinting.bundle.js'],
         excludeMatchesFromAllowList,
       )
     }

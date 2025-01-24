@@ -39,6 +39,7 @@ async function registerScript(
         matches,
         allFrames: true,
         excludeMatches: exclusions,
+        matchOriginAsFallback: true,
       },
     ])
 

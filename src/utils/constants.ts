@@ -100,12 +100,17 @@ export const USER_STASHES_REDUCER = 'userStashes'
 
 // Content Script Ids
 
-export const workerBlockScriptId = 'workerBlockScript'
-export const splitPersonalityScriptId = 'splitPersonalityScript'
+export const workerBlockScriptId = 'workerBlockScript' as const
+export const splitPersonalityScriptId = 'splitPersonalityScript' as const
 export const locationWarpScriptId = 'locationWarpScript' as const
 export const languageWarpScriptId = 'languageWarpScript' as const
 export const timeZoneWarpScriptId = 'timeZoneWarpScript' as const
-
+export const fontAntiFingerprintingScriptId = 'fontAntiFingerprintingScript' as const
+export const screenResAntiFingerprintingScriptId = 'screenResAntiFingerprintingScript' as const
+export const canvasAntiFingerprintingScriptId = 'canvasAntiFingerprintingScript' as const
+export const audioAntiFingerprintingScriptId = 'audioAntiFingerprintingScript' as const
+export const fingerprintjsAntiFingerprintingScriptId =
+  'fingerprintjsAntiFingerprintingScript' as const
 export const DEBUG_LOG_MAX_SIZE_BYTES = 1_048_576 // 1MB
 export const PRUNE_SIZE_BYTES = 204_800 // 200KB
 export const THROTTLE_PROXY_ERROR_TIME_MS = 3000 // ms

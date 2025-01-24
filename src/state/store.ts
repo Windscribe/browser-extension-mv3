@@ -60,6 +60,7 @@ import serverListenerRunReducer from './slices/serverListenerRun'
 import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
 import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
+import antiFingerprintingReducer from './slices/antiFingerprinting'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 
@@ -111,6 +112,7 @@ const reducers = {
   permissions: PermissionsReducer,
   showReloadAlert: ShowReloadAlertReducer,
   dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
+  antiFingerprinting: antiFingerprintingReducer,
 }
 
 const combinedReducer = combineReducers(reducers)
