@@ -42,6 +42,9 @@ async function handleKeyboardCommandImpl(
   const dispatch = store.dispatch
   const currentView = state.view.current
   const currentLocationTab = state.locationTab.currentTab
+  const lastFocusedWindow = await chrome.windows.getLastFocused({
+    windowTypes: ['normal'],
+  })
 
   // Check if user is logged in
   const isLoggedIn = !!state.session?.sessionData?.session_auth_hash
@@ -69,7 +72,15 @@ async function handleKeyboardCommandImpl(
           dispatch(setView('Locations'))
           dispatch(setLocationTab('locations'))
         }
-        await chrome.action.openPopup()
+        if (lastFocusedWindow.id) {
+          await chrome.windows.update(lastFocusedWindow.id, { focused: true })
+          await chrome.action.openPopup({
+            windowId: lastFocusedWindow.id,
+          })
+          await pushToDebugLog({
+            message: `Opened popup in window ${lastFocusedWindow.id}`,
+          })
+        }
       } catch (error) {
         await pushToDebugLog({
           level: 'WARN',
@@ -86,7 +97,15 @@ async function handleKeyboardCommandImpl(
           dispatch(setView('Locations'))
           dispatch(setLocationTab('favorites'))
         }
-        await chrome.action.openPopup()
+        if (lastFocusedWindow.id) {
+          await chrome.windows.update(lastFocusedWindow.id, { focused: true })
+          await chrome.action.openPopup({
+            windowId: lastFocusedWindow.id,
+          })
+          await pushToDebugLog({
+            message: `Opened popup in window ${lastFocusedWindow.id}`,
+          })
+        }
       } catch (error) {
         await pushToDebugLog({
           level: 'WARN',
@@ -102,7 +121,15 @@ async function handleKeyboardCommandImpl(
         if (currentView !== 'Preferences') {
           dispatch(setView('Preferences'))
         }
-        await chrome.action.openPopup()
+        if (lastFocusedWindow.id) {
+          await chrome.windows.update(lastFocusedWindow.id, { focused: true })
+          await chrome.action.openPopup({
+            windowId: lastFocusedWindow.id,
+          })
+          await pushToDebugLog({
+            message: `Opened popup in window ${lastFocusedWindow.id}`,
+          })
+        }
       } catch (error) {
         await pushToDebugLog({
           level: 'WARN',
