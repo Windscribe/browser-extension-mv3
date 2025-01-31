@@ -119,6 +119,7 @@ const locations = async popupPage => {
       // Go to Favorites
       const favoritesTabButton = await popupPage.$('[data-testid="favorites-tab"]')
       await favoritesTabButton.click()
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 1000)))
       const cityInFavorite = await popupPage.$('[data-testid=data-center-city]')
       const cityInFavoriteName = await cityInFavorite.evaluate(el => el.textContent)
       expect(cityInFavoriteName).to.equal(expectedCity)

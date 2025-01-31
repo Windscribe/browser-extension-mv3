@@ -45,24 +45,6 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
     await registerScripts(store, res)
 
     const updatedState = store.getState()
-    try {
-      if (
-        updatedState.session?.sessionData?.session_auth_hash &&
-        updatedState.session?.sessionData?.username
-      ) {
-        await sendDebugLog(
-          store.dispatch,
-          updatedState.session?.sessionData?.session_auth_hash,
-          updatedState.session?.sessionData?.username,
-          updatedState,
-        )
-      }
-    } catch (err) {
-      pushToDebugLog({
-        message: 'sending debug log with migration report failed',
-        data: serializeError(err),
-      })
-    }
 
     if (!updatedState.contextMenu) return
 

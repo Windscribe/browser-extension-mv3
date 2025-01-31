@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "version": "4.1.7",
-  "version_name": "4.1.7-beta",
+  "version": "4.1.8",
+  "version_name": "4.1.8-beta",
   "minimum_chrome_version": "119.0",
   "name": "Windscribe - MV3 Experimental",
   "short_name": "Windscribe - MV3 Experimental",
@@ -28,6 +28,21 @@
     "offscreen",
     "unlimitedStorage"
   ],
+
+  "commands": {
+    "toggle-proxy": {
+      "description": "Toggle Proxy On/Off"
+    },
+    "open-preferences": {
+      "description": "Open Preferences"
+    },
+    "open-favourites": {
+      "description": "Open Favourite Locations"
+    },
+    "open-locations": {
+      "description": "Open Locations"
+    }
+  },
   "optional_permissions": ["contentSettings"],
   "host_permissions": ["<all_urls>"],
   "icons": {
