@@ -28,6 +28,21 @@
     "offscreen",
     "unlimitedStorage"
   ],
+
+  "commands": {
+    "toggle-proxy": {
+      "description": "Toggle Proxy On/Off"
+    },
+    "open-preferences": {
+      "description": "Open Preferences"
+    },
+    "open-favourites": {
+      "description": "Open Favourite Locations"
+    },
+    "open-locations": {
+      "description": "Open Locations"
+    }
+  },
   "optional_permissions": ["contentSettings"],
   "host_permissions": ["<all_urls>"],
   "icons": {
