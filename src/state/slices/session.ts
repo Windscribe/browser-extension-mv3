@@ -66,7 +66,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 
       // initialized data after login here
       if (getState().splitPersonalityEnabled) {
-        dispatch(activateSplitPersonality())
+        dispatch(activateSplitPersonality(getState().splitPersonalityCompatMode))
       }
 
       return response.data

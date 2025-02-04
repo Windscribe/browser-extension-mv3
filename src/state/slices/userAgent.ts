@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { platforms } from 'utils/constants'
 import { getRandomIntInclusive } from 'utils/getRandomNumber'
 import type { AppDispatch, GetState } from 'state'
+import { isChromiumBased, isFirefoxBased } from 'utils/browserBasedOn'
 
 type UserAgentState = {
   list: string[]
@@ -88,13 +89,33 @@ const initialState: UserAgentState = {
     'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
     'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 OPR/113.0.0.0',
+    'Mozilla/5.0 (X11; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0 LibreWolf/97.0.1',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 MullvadBrowser/128.6.0',
   ],
   original: undefined,
   spoofed: '',
 }
 
-export const setRandomSpoofedUserAgent = (dispatch: AppDispatch, getState: GetState): void => {
-  const userAgentList = getState().userAgent.list
+export const setRandomSpoofedUserAgent = (
+  dispatch: AppDispatch,
+  getState: GetState,
+  isCompatMode: boolean,
+): void => {
+  const originalUa = navigator.userAgent
+  const userAgentList = getState().userAgent.list.filter(ua => {
+    if (isCompatMode) {
+      if (isFirefoxBased(originalUa)) {
+        return isFirefoxBased(ua)
+      }
+      if (isChromiumBased(originalUa)) {
+        return isChromiumBased(ua)
+      }
+      return true
+    }
+
+    return true
+  })
+
   const spoofedUserAgent = getState().userAgent.spoofed
   let randomizedUserAgent: string | null = null
   do {

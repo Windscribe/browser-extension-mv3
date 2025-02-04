@@ -61,6 +61,7 @@ import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
 import locationTabReducer from './slices/locationTab'
 import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
+import splitPersonalityCompatModeReducer from './slices/splitPersonalityCompatMode'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 import shortcutStatusReducer from './slices/openedByShortcut'
@@ -115,6 +116,7 @@ const reducers = {
   shortcutStatus: shortcutStatusReducer,
   locationTab: locationTabReducer,
   dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
+  splitPersonalityCompatMode: splitPersonalityCompatModeReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

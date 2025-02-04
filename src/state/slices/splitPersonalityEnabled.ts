@@ -30,7 +30,7 @@ export const toggleSplitPersonality = createAsyncThunk(
     if (isEnabled) {
       await dispatch(deactivateSplitPersonality())
     } else {
-      await dispatch(activateSplitPersonality())
+      await dispatch(activateSplitPersonality(getState().splitPersonalityCompatMode))
     }
   },
 )
@@ -53,10 +53,10 @@ export const deactivateSplitPersonality = createAsyncThunk(
 export const ACTIVATE_SPLIT_PERSONALITY = 'splitPersonalityEnabled/activate'
 export const activateSplitPersonality = createAsyncThunk(
   ACTIVATE_SPLIT_PERSONALITY,
-  async (_, { dispatch, getState }) => {
+  async (isCompatMode: boolean | undefined, { dispatch, getState }) => {
     try {
       const dontSpoofDomains = getPrivacyFeatureEnabledDomains(getState().allowlist)
-      dispatch(setRandomSpoofedUserAgent)
+      setRandomSpoofedUserAgent(dispatch, getState, isCompatMode ?? false)
       const spoofedUserAgent = getState().userAgent.spoofed
       await spoofUserAgentHeader(spoofedUserAgent, dontSpoofDomains)
       dispatch(setSplitPersonalityEnabled(true))
