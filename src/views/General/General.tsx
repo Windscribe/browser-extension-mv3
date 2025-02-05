@@ -24,6 +24,7 @@ import { importSettings } from 'services/importExport/importSettings'
 import { addOverlay } from 'state/slices/overlay'
 import getErrorMessage from 'utils/getErrorMessage'
 import { getFileExtension } from 'utils/getFileExtension'
+import KeyboardIcon from 'assets/img/keyboard.svg'
 
 const General: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -145,6 +146,19 @@ const General: ThemeUiElement = () => {
             onChange={() => dispatch(showDebugContextMenu(!contextMenu))}
             checked={contextMenu}
           />
+        </OptionBox>
+        <OptionBox
+          Icon={KeyboardIcon}
+          title="Keyboard Shortcuts"
+          subTitle="Customize keyboard shortcuts to quickly access extension features"
+        >
+          <Button
+            variant="option"
+            onClick={() => chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })}
+            sx={{ transition: '0.3s' }}
+          >
+            Edit
+          </Button>
         </OptionBox>
         <OptionBox Icon={DebugLogIcon} title="Debug Log">
           {sentDebugLog ? (
