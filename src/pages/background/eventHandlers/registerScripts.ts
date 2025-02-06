@@ -109,7 +109,6 @@ const registerScripts = async (
     const isSplitPersonalityEnabled = store.getState().splitPersonalityEnabled
     const spoofedUserAgent = store.getState().userAgent.spoofed
     const isLocationWarpActive = store.getState().locationWarp
-    const proxy = store.getState().proxy
     const autopilot = store.getState().autopilot
     const currentDataCenter = store.getState().currentDataCenter
     const dataCenterId = currentDataCenter.id
@@ -140,7 +139,6 @@ const registerScripts = async (
     }
 
     if (
-      proxy.status === 'on' &&
       !autopilot.autopilotSelected &&
       dataCenterId !== undefined &&
       dataCenterId !== null &&
@@ -180,7 +178,6 @@ const registerScripts = async (
     }
 
     if (
-      proxy.status === 'on' &&
       !autopilot.autopilotSelected &&
       currentLocation.id !== undefined &&
       currentLocation.id !== null &&
@@ -198,7 +195,6 @@ const registerScripts = async (
     }
 
     if (
-      proxy.status === 'on' &&
       !autopilot.autopilotSelected &&
       currentLocation.id !== undefined &&
       currentLocation.id !== null &&

@@ -2,7 +2,7 @@ import { createSlice, createSelector, type PayloadAction } from '@reduxjs/toolki
 import type { ServerList, DataCenter } from 'api/types'
 import type { RootState } from '../store'
 
-type FavoriteLocationsState = DataCenter[]
+export type FavoriteLocationsState = DataCenter[]
 
 const initialState: FavoriteLocationsState = []
 

@@ -11,6 +11,7 @@ const Router: () => JSX.Element = () => {
   const [, setColorMode] = useColorMode()
   useLayoutEffect(() => {
     if (theme) {
+      // theme is set in local storage of the popup
       setColorMode(theme)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

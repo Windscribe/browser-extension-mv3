@@ -97,6 +97,30 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         img: constructionGarry,
         ActionsBlock: LocationDown,
       }
+
+    case 'wrongFileExtension':
+      return {
+        title: 'Wrong File Format',
+        message: 'Please upload a json formatted file',
+        img: cautionGarry,
+        ActionsBlock: ImportingProblemFormat,
+      }
+
+    case 'errorDuringImport':
+      return {
+        title: 'Import Failed',
+        message: 'Something went wrong during the import',
+        img: cautionGarry,
+        ActionsBlock: ImportingProblemFormat,
+      }
+
+    case 'invalidFormat':
+      return {
+        title: 'Validation Failed',
+        message: 'Settings are incorrectly formatted',
+        img: cautionGarry,
+        ActionsBlock: ImportingProblemFormat,
+      }
     case 'notificationBlockerPermission':
       return {
         title: 'Permission Required',
@@ -251,6 +275,14 @@ const LocationDown: ActionsBlockComponent = ({ close }) => {
         Check Status
       </ConfirmButton>
       <CancelButton onClick={close}>Back</CancelButton>
+    </>
+  )
+}
+
+const ImportingProblemFormat: ActionsBlockComponent = ({ close }) => {
+  return (
+    <>
+      <ConfirmButton onClick={close}>OK</ConfirmButton>
     </>
   )
 }
