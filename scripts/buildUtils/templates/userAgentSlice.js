@@ -16,7 +16,7 @@ const initialState: UserAgentState = {
   spoofed: '',
 }
 
-export const setRandomSpoofedUserAgent = (dispatch: AppDispatch, getState: GetState): void => {
+export const setRandomSpoofedUserAgent = (dispatch: AppDispatch, getState: GetState): string => {
   const userAgentList = getState().userAgent.list
   const spoofedUserAgent = getState().userAgent.spoofed
   let randomizedUserAgent: string | null = null
@@ -25,6 +25,8 @@ export const setRandomSpoofedUserAgent = (dispatch: AppDispatch, getState: GetSt
     //  if new random UA equals to the one currently spoofed than get a new random UA
   } while (randomizedUserAgent === spoofedUserAgent)
   dispatch(setSpoofedUserAgent(randomizedUserAgent))
+
+  return randomizedUserAgent
 }
 
 export const userAgentSlice = createSlice({

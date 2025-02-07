@@ -13,7 +13,10 @@ export async function onBeforePopupRenders(proxyStore: ProxyStore): Promise<void
   if (sessionAuthHash && sessionLoading === 'fulfilled') {
     // ui does not need to wait/be blocked for this
     proxyStore.dispatch({ type: `alias/${CHECK_CURRENT_IP}` })
-    proxyStore.dispatch(setView('Home'))
+    // only show home when not opened via shortcut
+    if (!proxyStore.getState().shortcutStatus.openedByShortcut) {
+      proxyStore.dispatch(setView('Home'))
+    }
     // popup closing due to permision woes
     if (!permissions.includes(CONTENT_SETTINGS)) {
       proxyStore.dispatch(removeOverlay('notificationBlockerPermission'))

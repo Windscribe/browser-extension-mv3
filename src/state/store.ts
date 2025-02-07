@@ -60,9 +60,11 @@ import serverListenerRunReducer from './slices/serverListenerRun'
 import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
 import privateModeReducer from './slices/privateMode'
+import locationTabReducer from './slices/locationTab'
 import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
+import shortcutStatusReducer from './slices/openedByShortcut'
 
 const reducers = {
   adPrivacyEnabled: adPrivacyEnabledReducer,
@@ -112,6 +114,8 @@ const reducers = {
   permissions: PermissionsReducer,
   showReloadAlert: ShowReloadAlertReducer,
   privateModalShown: privateModeReducer,
+  shortcutStatus: shortcutStatusReducer,
+  locationTab: locationTabReducer,
   dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
 }
 

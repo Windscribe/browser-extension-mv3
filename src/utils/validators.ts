@@ -155,13 +155,15 @@ export const FirstInstalledDateValidatorManifestV2 = zod.object({
   state: zod.number(),
 })
 
+const addedBy = zod.string().optional()
+
 const AllowlistItemValidatorManifestV2 = zod.object({
   allowAds: zod.boolean().optional(),
   allowCookies: zod.boolean().optional(),
   allowDirectConnect: zod.boolean().optional(),
   domain: zod.string().optional(),
   includeAllSubdomains: zod.boolean().optional(),
-  addedBy: zod.string().optional(),
+  addedBy,
 })
 export const AllowListValidatorManifestV2 = zod.object({
   reducer: zod.literal(SYNC_KEY + ALLOW_LIST_REDUCER),
@@ -416,3 +418,67 @@ export const StashedBlockListsValidatorManifestV2 = zod.object({
     }),
   ),
 })
+
+// Settings Import Validator
+const BaseSettingsV1 = zod
+  .object({
+    // general settings
+    contextMenu: zod.boolean(),
+    locationLoad: zod.boolean(),
+    allowSystemNotifications: zod.boolean(),
+    //  connection settings
+    connectionState: zod
+      .object({
+        smokeWall: zod.boolean(),
+        failover: zod.enum(['Auto / Best', 'Same Country', 'None']),
+        autoConnect: zod.boolean(),
+      })
+      .strict()
+      .required(),
+    proxyPort: zod.union([zod.literal(443), zod.literal(9443)]),
+    // blocker settings
+    blockLists: zod
+      .array(zod.enum(['default', 'annoyances-social', 'annoyances-cookies']))
+      .refine(arr => new Set(arr).size === arr.length, {
+        message: 'Elements must be unique',
+      }),
+    // privacy settings
+    languageWarpEnabled: zod.boolean(),
+    locationWarp: zod.boolean(),
+    workerBlock: zod.boolean(),
+    timeWarpEnabled: zod.boolean(),
+    webRtcEnabled: zod.boolean(),
+    splitPersonalityEnabled: zod.boolean(),
+    notificationBlockerEnabled: zod.boolean(),
+    adPrivacyEnabled: zod.boolean(),
+    // allowlists
+    allowlist: zod.record(
+      zod.string(),
+      zod
+        .object({
+          allowAds: zod.boolean(),
+          allowPrivacyFeatures: zod.boolean(),
+          allowDirectConnections: zod.boolean(),
+          includeAllSubdomains: zod.boolean(),
+          addedBy,
+        })
+        .strict(),
+    ),
+    // theme
+    theme: zod.enum(['light', 'dark']),
+    // fav locations
+    favoriteLocations: zod
+      .array(zod.number().nonnegative())
+      .refine(arr => new Set(arr).size === arr.length, {
+        message: 'Favorite locations must be unique',
+      }),
+    locationSorting: zod.enum(['alphabet', 'geography']),
+  })
+  .partial()
+
+export const SettingsImportFormatValidatorVersion1 = zod.object({
+  data: BaseSettingsV1,
+  schema_version: zod.literal(1),
+})
+
+export type ImportedSettingsV1 = zod.infer<typeof BaseSettingsV1>

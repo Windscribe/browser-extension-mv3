@@ -169,5 +169,6 @@ export const THREE_DAYS_IN_MILLISECONDS = 259200000
 export const IS_FIREFOX =
   navigator.userAgent.includes('Firefox') || navigator.userAgent.includes('MullvadBrowser')
 
+export const SHORTCUT_COMMAND_THROTTLE_MS = 1000
 // usually used for ublock min version
 export const MIN_SUPPORTED_CHROME_VERSION = 122
