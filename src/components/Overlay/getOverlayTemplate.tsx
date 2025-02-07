@@ -17,6 +17,7 @@ import {
   setShowUblockWarningAtBlockerPage,
   setShowUblockWarningAtHomePage,
 } from 'state/slices/blocker'
+import { setPrivateModeModalShown } from 'state/slices/privateMode'
 import { setDismissedUpgradeWarning } from 'state/slices/upgradeWarning'
 
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
@@ -129,6 +130,15 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         img: teacherGarry,
         ActionsBlock: NotificationBlockerPermission,
       }
+
+    case 'firefoxInPrivateMode':
+      return {
+        title: 'Are you using Private Browsing Mode in a Firefox browser?',
+        message: 'With Private Browsing, nothing will be saved when you close your browser.',
+        img: cautionGarry,
+        ActionsBlock: FirefoxInPrivateMode,
+      }
+
     case 'versionUnsupportedWarning':
       return {
         title: 'Your Chrome Version is Outdated',
@@ -301,6 +311,20 @@ const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
       </ConfirmButton>
       <CancelButton onClick={close}>Cancel</CancelButton>
     </>
+  )
+}
+
+const FirefoxInPrivateMode: ActionsBlockComponent = ({ close }) => {
+  const dispatch = useDispatch()
+  return (
+    <CancelButton
+      onClick={() => {
+        close()
+        dispatch(setPrivateModeModalShown(true))
+      }}
+    >
+      Got it
+    </CancelButton>
   )
 }
 
