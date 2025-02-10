@@ -8,7 +8,7 @@ import { setShouldShowOnboarding } from 'state/slices/shouldShowOnboarding'
 import { useGoTo } from 'services/navigation'
 import { useDispatch, useSelector, useDispatchAlias } from 'state/hooks'
 import { useWindowOpening } from 'components/hooks'
-import { ACCOUNT_PLAN, EMAIL, ENVS } from 'utils/constants'
+import { ACCOUNT_PLAN, EMAIL, ENVS, MIN_SUPPORTED_CHROME_VERSION } from 'utils/constants'
 import { type ThemeUiElement } from 'utils/types'
 import ToolTip from 'components/ToolTip'
 import ConfirmEmail from 'components/ConfirmEmail'
@@ -27,6 +27,7 @@ import HelpIcon from 'assets/img/help.svg'
 import LogoutIcon from 'assets/img/logout.svg'
 import { setTheme } from 'state/slices/theme'
 import sendMessage from 'services/runtime/sendMessage'
+import { getChromiumEngineVersion } from 'utils/getEngineVersion'
 
 const Preferences: ThemeUiElement = () => {
   const [colorMode] = useColorMode()
@@ -80,6 +81,8 @@ const Preferences: ThemeUiElement = () => {
     setIsWebSessionPending(false)
   }
 
+  const parsedVersion = getChromiumEngineVersion()
+
   return (
     <Box data-testid="preferences-page" bg="background">
       <Header title="Preferences">
@@ -91,13 +94,28 @@ const Preferences: ThemeUiElement = () => {
             sx={{ position: 'relative' }}
           >
             {unreadNewsAmount > 0 && (
-              <Badge count={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
+              <Badge content={unreadNewsAmount} sx={{ top: '-2px', right: '-4px' }} />
             )}
           </CircleButton>
         </ToolTip>
       </Header>
 
       <Box sx={{ mx: '16px' }}>
+        {!isNaN(parsedVersion) && parsedVersion < MIN_SUPPORTED_CHROME_VERSION && (
+          <SpaceBetween
+            sx={{
+              bg: 'orange',
+              p: '8px',
+              borderRadius: '8px',
+            }}
+            mb="16px"
+          >
+            <Text sx={{ fontSize: 12, color: 'black', fontWeight: 600 }}>
+              Please update your browser to continue using this extension and to receive security
+              updates.
+            </Text>
+          </SpaceBetween>
+        )}
         {is_premium || traffic_max === ACCOUNT_PLAN.UNLIMITED ? null : (
           <SpaceBetween mb="16px">
             <Text sx={{ color: 'primaryText', fontWeight: '600' }}>
@@ -122,7 +140,7 @@ const Preferences: ThemeUiElement = () => {
           <ListItemButton title="Blocker" Icon={BlockerIcon} onClick={goToBlocker} />
           <ListItemButton title="Privacy" Icon={PrivacyIcon} onClick={goToPrivacy} />
           <ListItemButton title="Account" Icon={AccountIcon} onClick={goToAccount} />
-          <ListItemButton title="Allowlist" Icon={AllowlistIcon} onClick={goToAllowlist} noBorder />
+          <ListItemButton title="Allowlist" Icon={AllowlistIcon} onClick={goToAllowlist} />
         </RoundedBox>
         <Flex
           sx={{

@@ -57,6 +57,8 @@ module.exports = {
     context: true,
     jestPuppeteer: true,
     COMMIT_HASH: 'readonly',
+    UBO_LITE_VERSION: 'readonly',
+    UBO_LITE_NAME: 'readonly',
   },
   env: {
     jest: true,

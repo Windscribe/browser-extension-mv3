@@ -7,9 +7,12 @@ import LocationsList from './LocationsList'
 import FavoritesList from './FavoritesList'
 import type { ThemeUiElement } from 'utils/types'
 import type { DebouncedInputOnChangeHandler, Tab, SetTab } from './types'
+import { useDispatch, useSelector } from 'state/hooks'
+import { setLocationTab } from 'state/slices/locationTab'
 
 const Locations: ThemeUiElement = () => {
-  const [currentTab, setCurrentTab] = useState<Tab>('locations')
+  const dispatch = useDispatch()
+  const currentTab = useSelector(state => state.locationTab.currentTab)
   // used to track the first key press to pass as initial input to search field
   const [focusInitKey, setFocusInitKey] = useState<string | null>(null)
   const [searchText, setSearchText] = useState<string>('')
@@ -24,9 +27,17 @@ const Locations: ThemeUiElement = () => {
     setSearchText('')
   }
 
-  const handleTabSwitch: SetTab = (tab: Tab) => setCurrentTab(tab)
+  const handleTabSwitch: SetTab = (tab: Tab) => {
+    dispatch(setLocationTab(tab))
+  }
 
   const isSearching = !!searchText.length
+
+  useEffect(() => {
+    return () => {
+      dispatch(setLocationTab('locations'))
+    }
+  }, [dispatch])
 
   // if the user types an alphabetical character it sets focus to the search input
   useEffect(() => {

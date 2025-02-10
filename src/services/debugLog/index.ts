@@ -1,5 +1,5 @@
 import { reportAppLog } from 'api/endpoints'
-import { getStorage, addToLogDB, logDB } from 'services/storage'
+import { getStorage, addToLogDB, createLogDB } from 'services/storage'
 import { MIGRATION_ID_V2_TO_V3, MAX_LOG_ENTRIES, THREE_DAYS_IN_MILLISECONDS } from 'utils/constants'
 
 import { AppDispatch, RootState } from 'state/store'
@@ -9,6 +9,7 @@ import { Base64 } from 'js-base64'
 import { MigrationStatusReport } from 'state/slices/migration'
 import { serializeError } from 'serialize-error'
 import millisecondsToHours from 'date-fns/millisecondsToHours'
+import Dexie from 'dexie'
 
 const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
   try {
@@ -21,24 +22,38 @@ const pushToDebugLog = async (logInfo: LogItem): Promise<void> => {
       timestamp: Date.now(),
     }
 
-    await addToLogDB(logItem)
+    const logDB = await createLogDB()
 
-    const count = await logDB.table('logs').count()
+    if (logDB instanceof Dexie) {
+      await addToLogDB(logItem)
+      const count = await logDB.table('logs').count()
 
-    if (count > MAX_LOG_ENTRIES) {
-      const logsToDelete = await logDB
-        .table('logs')
-        .orderBy('id')
-        .limit(Math.abs(count - MAX_LOG_ENTRIES))
-        .toArray()
+      if (count > MAX_LOG_ENTRIES) {
+        const logsToDelete = await logDB
+          .table('logs')
+          .orderBy('id')
+          .limit(Math.abs(count - MAX_LOG_ENTRIES))
+          .toArray()
 
-      if (logsToDelete.length > 0) {
-        // Extract IDs to pass to bulkDelete
-        const idsToDelete = logsToDelete.map(log => log.id)
+        if (logsToDelete.length > 0) {
+          // Extract IDs to pass to bulkDelete
+          const idsToDelete = logsToDelete.map(log => log.id)
 
-        // Bulk delete by IDs
-        await logDB.table('logs').bulkDelete(idsToDelete)
+          // Bulk delete by IDs
+          await logDB.table('logs').bulkDelete(idsToDelete)
+        }
       }
+    } else {
+      const logs = await getStorage()
+
+      logs.push(logItem)
+
+      if (logs.length > MAX_LOG_ENTRIES) {
+        const numberOfLogsToRemove = logs.length - MAX_LOG_ENTRIES
+        logs.splice(0, numberOfLogsToRemove) // Remove oldest entries
+      }
+
+      await addToLogDB(logs)
     }
   } catch (err) {
     console.error('Error in pushToDebugLog:', err)
@@ -83,11 +98,21 @@ const parseLogToStrings = (log: LogItem[]): string[] => {
 
 const trimLogs = async (retentionPeriod: number): Promise<void> => {
   try {
-    const deleteCount = await logDB
-      .table('logs')
-      .where('timestamp')
-      .below(Date.now() - retentionPeriod)
-      .delete()
+    let deleteCount = 0
+    const cutoffTime = Date.now() - retentionPeriod
+    const logDB = await createLogDB()
+    if (logDB instanceof Dexie) {
+      deleteCount = await logDB.table('logs').where('timestamp').below(cutoffTime).delete()
+    } else {
+      const data = await logDB.get('debugLog')
+      const logs = data?.debugLog ?? []
+      const filteredLogs = logs.filter(
+        (log: LogItem) => log.timestamp && log.timestamp >= cutoffTime,
+      )
+      deleteCount = logs.length - filteredLogs.length
+
+      await logDB.set({ debugLog: filteredLogs })
+    }
 
     await pushToDebugLog({
       level: 'INFO',

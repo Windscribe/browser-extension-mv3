@@ -1,4 +1,4 @@
-import { CruiseControlItem } from 'api/types'
+import { CruiseControlItem, DataCenter } from 'api/types'
 import type { ProxyPort } from 'utils/types'
 import { reduceAllowlist } from 'utils/reduceAllowlist'
 import type { GetState, AppDispatch } from 'state/store'
@@ -172,6 +172,7 @@ export const connect = async (
     if (!hosts || hosts?.length === 0) {
       throw Error('Error while trying to connect to proxy. No hostname was provided.')
     }
+
     const allowlist = reduceAllowlist(getState())
     const proxyPort = getState().proxyPort
     const autopilotSelected = getState().autopilot.autopilotSelected
@@ -384,13 +385,24 @@ export const disconnect = async (
 
   chrome.proxy.settings.set({ value: config, scope: 'regular' })
 
-  // set status to off early no need to check ip call
+  // set status to off early, no need to wait for check ip call
   dispatch(setStatus('off'))
 
   // shuffle hosts for greater ip diversity if hosts are not null
+  // shuffle non autopilot hosts
   const hosts = shuffle(getState().currentDataCenter?.hosts)
-  if (hosts && hosts.length > 0) {
-    dispatch(setProxy(hosts))
+  if (
+    hosts &&
+    hosts.length > 0 &&
+    getState().currentDataCenter &&
+    !getState().autopilot.autopilotSelected
+  ) {
+    const currentDataCenter = getState().currentDataCenter
+    const updatedDataCenter = {
+      ...currentDataCenter,
+      hosts,
+    }
+    dispatch(setCurrentDataCenter(updatedDataCenter as DataCenter))
   }
 
   const workingApi = getState().workingApi
@@ -406,14 +418,6 @@ export const disconnect = async (
       iconUrl: proxyOffIcon,
       message: 'Connection to Windscribe has been terminated',
     })
-  }
-
-  const proxyStatus = getState().proxy.status
-
-  if (proxyStatus === 'off') {
-    await unregisterScript(languageWarpScriptId)
-    await unregisterScript(locationWarpScriptId)
-    await unregisterScript(timeZoneWarpScriptId)
   }
 }
 
@@ -445,7 +449,9 @@ export const connectToAutopilot = async (
     dispatch(setCurrentLocation(location))
     dispatch(setCurrentDataCenter(dataCenter))
 
-    const hosts = getState().currentDataCenter?.hosts
+    // shuffle hosts for ip diversity
+    const hosts = shuffle(getState().currentDataCenter?.hosts)
+
     if (!hosts) throw new Error(`No data center is being used as current`)
     await connect(getState, dispatch, hosts, silent)
   } catch (err) {

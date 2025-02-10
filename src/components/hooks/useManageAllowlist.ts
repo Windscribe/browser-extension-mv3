@@ -8,9 +8,9 @@ import {
 import { setUblockFilteringMode } from 'services/ublockController/setFilteringMode'
 import { serializeError } from 'serialize-error'
 
-type RemoveFromAllowlist = (options: { hostname: string; level: number }[]) => Promise<void>
+type RemoveFromAllowlistType = (options: { hostname: string; level: number }[]) => Promise<void>
 
-type AddToAllowlist = (
+export type AddToAllowlistType = (
   options: {
     hostname: string
     level: number
@@ -19,12 +19,12 @@ type AddToAllowlist = (
 ) => Promise<void>
 
 export default (): {
-  removeFromAllowlist: RemoveFromAllowlist
-  addToAllowlist: AddToAllowlist
+  removeFromAllowlist: RemoveFromAllowlistType
+  addToAllowlist: AddToAllowlistType
 } => {
   const dispatchAlias = useDispatchAlias()
 
-  const addToAllowlist: AddToAllowlist = async options => {
+  const addToAllowlist: AddToAllowlistType = async options => {
     try {
       const domainWithSettings = []
       for (const option of options) {
@@ -47,7 +47,7 @@ export default (): {
     }
   }
 
-  const removeFromAllowlist: RemoveFromAllowlist = async options => {
+  const removeFromAllowlist: RemoveFromAllowlistType = async options => {
     try {
       const domains = []
       for (const option of options) {

@@ -34,7 +34,12 @@ export type OverlayTemplate =
   | 'locationDown'
   | 'proPlanExpired'
   | 'banned'
+  | 'wrongFileExtension'
+  | 'invalidFormat'
+  | 'errorDuringImport'
   | 'notificationBlockerPermission'
+  | 'firefoxInPrivateMode'
+  | 'versionUnsupportedWarning'
 
 export type ErrorState = {
   errorCode?: number

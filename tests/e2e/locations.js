@@ -16,7 +16,7 @@ const locations = async popupPage => {
       // Type text to search
       await popupPage.click('[data-testid=location-search-button]')
       await popupPage.type('[data-testid=location-search-input]', searchTerm)
-      await popupPage.waitForTimeout(500)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 500)))
 
       // Ensure we have only 1 location with 'ca' substring included - "Canada  East" + 1 for anchor div
       locationsList = await popupPage.$('[data-testid=locations-list]')
@@ -34,7 +34,7 @@ const locations = async popupPage => {
 
       // Type new text to search
       await popupPage.type('[data-testid=location-search-input]', 'ron')
-      await popupPage.waitForTimeout(500)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 500)))
 
       // Ensure we found 2 cities with 'ron' substring included
       locationsList = await popupPage.$('[data-testid=locations-list]')
@@ -57,7 +57,7 @@ const locations = async popupPage => {
 
       // Type new text to search
       await popupPage.type('[data-testid=location-search-input]', 'Terra Incognita')
-      await popupPage.waitForTimeout(500)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 500)))
 
       // Ensure we show a message if no match was found
       locationsList = await popupPage.$('[data-testid=locations-list]')
@@ -67,7 +67,7 @@ const locations = async popupPage => {
       // Reset input field value
       await popupPage.$eval('[data-testid=location-search-input]', el => (el.value = ''))
       await popupPage.click('[data-testid=locations-list]')
-      await popupPage.waitForTimeout(1000)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 1000)))
     })
 
     it('Should sort countries by alphabet or by geography ', async () => {
@@ -81,7 +81,7 @@ const locations = async popupPage => {
       expect(expectedLocation.endsWith('Fake AntarcticaTrollStationUPGRADE')).to.be.true
 
       await popupPage.click('[data-testid=sort-locations-button]')
-      await popupPage.waitForTimeout(500)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 500)))
 
       // Ensure that locations with sorted by alphabet
       locationsList = await popupPage.$('[data-testid=locations-list]')
@@ -90,14 +90,14 @@ const locations = async popupPage => {
       expect(expectedLocation.endsWith('USNew YorkRadiohallUPGRADE')).to.be.true
 
       await popupPage.click('[data-testid=sort-locations-button]')
-      await popupPage.waitForTimeout(500)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 500)))
 
       // Ensure that locations with sorted by geography again
       locationsList = await popupPage.$('[data-testid=locations-list]')
       expectedLocation = await locationsList.evaluate(el => el.textContent)
       expect(expectedLocation.startsWith('AutopilotHalifaxCrosbyUPGRADE')).to.be.true
       expect(expectedLocation.endsWith('Fake AntarcticaTrollStationUPGRADE')).to.be.true
-      await popupPage.waitForTimeout(1000)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 1000)))
     })
 
     it('Should add location to favorite by clicking on heart button ', async () => {
@@ -119,12 +119,13 @@ const locations = async popupPage => {
       // Go to Favorites
       const favoritesTabButton = await popupPage.$('[data-testid="favorites-tab"]')
       await favoritesTabButton.click()
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 1000)))
       const cityInFavorite = await popupPage.$('[data-testid=data-center-city]')
       const cityInFavoriteName = await cityInFavorite.evaluate(el => el.textContent)
       expect(cityInFavoriteName).to.equal(expectedCity)
 
       //Go back to Home page
-      await popupPage.waitForTimeout(1000)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 1000)))
       await popupPage.click('[data-testid=locations-tab]')
     })
 
@@ -197,7 +198,7 @@ const locations = async popupPage => {
 
       //Go back to Home page
       await popupPage.click('[data-testid=go-back-button]')
-      await popupPage.waitForTimeout(1500)
+      await popupPage.evaluate(() => new Promise(r => setTimeout(r, 1500)))
     })
   })
 }

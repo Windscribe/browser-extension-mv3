@@ -1,11 +1,9 @@
 import { initializeWrappedStore } from 'state'
 import { chooseIcon } from 'state/slices/iconVariant'
 import { pushToDebugLog } from 'services/debugLog'
-import type { WorkerNavigatorWithConnection } from 'utils/navigatorNetworkInformation'
 import {
   alarmHandler,
   authRequiredHandler,
-  connectionChangedHandler,
   onInstalledHandler,
   proxyErrorHandler,
   startupHandler,
@@ -22,8 +20,7 @@ import {
   handlePermissionsAdded,
   handlePermissionsRemoved,
 } from './eventHandlers/permissionsHandler'
-
-declare const self: ServiceWorkerGlobalScope
+import { handleKeyboardCommand } from 'services/shortcuts/keyboardCommandHandler'
 
 try {
   const bgStore = initializeWrappedStore().then(async store => {
@@ -72,13 +69,9 @@ try {
   chrome.permissions.onAdded.addListener(handlePermissionsAdded(bgStore))
   chrome.permissions.onRemoved.addListener(handlePermissionsRemoved(bgStore))
 
-  chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
+  chrome.commands.onCommand.addListener(handleKeyboardCommand(bgStore))
 
-  // This is experimental feature and currently nor supported by FF
-  // Also it might not work in Brave browser
-  // @link https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/change_event
-  const _navigator = self.navigator as WorkerNavigatorWithConnection
-  _navigator?.connection?.addEventListener('change', connectionChangedHandler(bgStore))
+  chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
 } catch (err) {
   pushToDebugLog({
     level: 'ERROR',

@@ -1,21 +1,21 @@
 import UAParser from 'ua-parser-js'
 import React, { useEffect, useRef, useState } from 'react'
 import { Box, Button, Label } from 'theme-ui'
-import { clearLogDB, logDB } from 'services/storage'
+import { clearLogDB, getStorage, createLogDB } from 'services/storage'
+
+// import { ToggleSwitch } from 'components'
 import { AlignItemsCenter } from 'components/Flexbox'
 import { useSelector } from 'state/hooks'
 import './DebugLog.css'
 import ToggleSwitch from 'components/ToggleSwitch'
-import { useLiveQuery } from 'dexie-react-hooks'
 import { LogItem } from 'utils/types'
 import { handleDownloadLogs } from './handleDownload'
 import { parseLogToStrings } from 'services/debugLog'
 import { useVirtualizer } from '@tanstack/react-virtual'
+import { Dexie } from 'dexie'
 
 const DebugLog: React.FC = () => {
-  const [isAutoScroll, setIsAutoScroll] = useState(false)
   const [isShowUserInfo, setIsShowUserInfo] = useState(false)
-  const [isLiveLogsEnabled, setIsLiveLogsEnabled] = useState(false)
 
   const autoConnect = useSelector(s => s.connection.autoConnect)
   const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
@@ -84,62 +84,24 @@ ${
       header,
       message: '',
     },
-  ]) // State to store logs
-
-  const parsedLog = useLiveQuery(() => {
-    return logDB.table('logs').toArray()
-  })
+  ])
 
   useEffect(() => {
-    if (isLiveLogsEnabled && parsedLog) {
-      // setLogs(prevLogs => [...prevLogs, parsedLog]) // Append logs only if live logs are enabled
-      setLogs([
-        {
-          header,
-          message: '',
-        },
-        ...parsedLog,
-      ])
-    }
-  }, [parsedLog, isLiveLogsEnabled, header])
-
-  useEffect(() => {
+    // Scroll when logs update or autoScroll is toggled
     const fetchLogs = async () => {
-      const initialLogs = await logDB.table('logs').toArray()
-      setLogs([
-        {
-          header,
-          message: '',
-        },
-        ...initialLogs,
-      ])
+      const logDB = await createLogDB()
+      if (logDB instanceof Dexie) {
+        // IndexedDB path
+        const debugLog = await logDB.table('logs').toArray()
+      } else {
+        // Chrome storage path
+        const data = await logDB.get('debugLog')
+        const logs = data?.debugLog ?? []
+      }
     }
 
-    if (!isLiveLogsEnabled) {
-      fetchLogs() // Fetch logs only if live logs are disabled
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // Run only on mount
-
-  const count = logs.length
-  const virtualizer = useVirtualizer({
-    count,
-    getScrollElement: () => logContainerRef.current,
-    estimateSize: () => 30,
-    overscan: 4,
-    gap: 2,
-  })
-
-  const items = virtualizer.getVirtualItems()
-
-  useEffect(() => {
-    if (isAutoScroll) {
-      // logContainerRef.current.scrollTop = logContainerRef.current.scrollHeight
-      virtualizer.scrollToIndex(count - 1, {
-        align: 'end',
-      })
-    }
-  }, [count, isAutoScroll, virtualizer]) // Scroll when logs update or autoScroll is toggled
+    fetchLogs()
+  }, [])
 
   return (
     <Box
@@ -169,7 +131,6 @@ ${
                 message: '',
               },
             ])
-            virtualizer.scrollToIndex(0, { align: 'start' })
           }}
         >
           Clear Log
@@ -188,31 +149,6 @@ ${
           Download Logs
         </Button>
         |
-        <Label sx={{ alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
-          Live Logs
-          <ToggleSwitch
-            checked={isLiveLogsEnabled}
-            onChange={() => {
-              setIsLiveLogsEnabled(!isLiveLogsEnabled)
-              // makes sense for it to be true when live logs are enabled
-              setIsAutoScroll(true)
-            }}
-          />
-        </Label>
-        {isLiveLogsEnabled && (
-          <>
-            |
-            <Label sx={{ alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
-              Auto scroll to bottom
-              <ToggleSwitch
-                checked={isAutoScroll}
-                onChange={() => {
-                  setIsAutoScroll(!isAutoScroll)
-                }}
-              />
-            </Label>
-          </>
-        )}
       </AlignItemsCenter>
 
       <Button
@@ -232,9 +168,7 @@ ${
             color: 'primaryText',
           },
         }}
-        onClick={() => {
-          virtualizer.scrollToIndex(0, { align: 'start' })
-        }}
+        onClick={() => {}}
       >
         Scroll To Top
       </Button>
@@ -256,9 +190,6 @@ ${
             color: 'primaryText',
           },
         }}
-        onClick={() => {
-          virtualizer.scrollToIndex(count - 1, { align: 'start' })
-        }}
       >
         Scroll To Bottom
       </Button>
@@ -277,7 +208,7 @@ ${
       >
         <div
           style={{
-            height: `${virtualizer.getTotalSize()}px`,
+            height: `${1}px`,
             width: '100%',
             position: 'relative',
           }}
@@ -288,46 +219,8 @@ ${
               top: 0,
               left: 0,
               width: '100%',
-              transform: `translateY(${items[0]?.start ?? 0}px)`,
             }}
-          >
-            {items.map(virtualRow => {
-              if (logs[virtualRow.index]?.header) {
-                return (
-                  <div
-                    key={virtualRow.key.toString()}
-                    data-index={virtualRow.index}
-                    ref={virtualizer.measureElement}
-                    sx={{ whiteSpace: 'pre', display: 'flex' }}
-                  >
-                    {userInfo}
-                    {`\n\n[Start of log]\n------------------------------------------------------\n`}
-                  </div>
-                )
-              } else {
-                const { date, tag, level, message, data } = logs[virtualRow.index]
-                const levelColor = level === 'INFO' ? 'green' : level === 'ERROR' ? 'red' : 'yellow'
-                return (
-                  <div
-                    key={virtualRow.key.toString()}
-                    data-index={virtualRow.index}
-                    ref={virtualizer.measureElement}
-                    sx={{ gap: 2, whiteSpace: 'pre', display: 'flex' }}
-                  >
-                    <span>{date}</span>
-                    <span>
-                      <span>[</span>
-                      <span sx={{ color: levelColor, fontWeight: 'bold' }}>{level}</span>
-                      <span>]</span>
-                    </span>
-                    <span>[{tag}]</span>
-                    <span>{message}</span>
-                    {data ? <span>{JSON.stringify(data)}</span> : null}
-                  </div>
-                )
-              }
-            })}
-          </div>
+          ></div>
         </div>
       </Box>
       <Box

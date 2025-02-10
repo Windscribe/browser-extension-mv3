@@ -15,7 +15,7 @@ import { setAdPrivacyEnabled } from 'state/slices/adPrivacyEnabled'
 import { addOverlay } from 'state/slices/overlay'
 import { useInitialDataFetching } from 'components/hooks'
 import Onboarding from 'components/Onboarding'
-import { ACCOUNT_PLAN } from 'utils/constants'
+import { ACCOUNT_PLAN, MIN_SUPPORTED_CHROME_VERSION } from 'utils/constants'
 import { type ThemeUiElement } from 'utils/types'
 import Flags from 'assets/flags'
 import ConnectionInfo from './ConnectionInfo'
@@ -33,7 +33,9 @@ import ArrowRight from 'assets/img/arrowRight.svg'
 import ConnectingRing from 'assets/img/connectingRing.svg'
 import ProxyFailureRing from 'assets/img/proxyFailureRing.svg'
 import { fetchServerList } from 'state/slices/servers'
-import { FETCH_NOTIFICATIONS } from 'state/slices/newsfeed'
+import { FETCH_NOTIFICATIONS, setShowNewsfeed } from 'state/slices/newsfeed'
+import ExclamationIcon from 'assets/img/exclamationIcon-short.svg'
+import { getChromiumEngineVersion } from 'utils/getEngineVersion'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -60,6 +62,9 @@ const Home: ThemeUiElement = () => {
   const isOnline = useSelector(s => s.isOnline)
   const proxyStatus = useSelector(s => s.proxy.status)
   const isOnboardingActive = useSelector(s => s.shouldShowOnboarding)
+  const dismissedUpgradeWarning = useSelector(s => s.dismissedUpgradeWarning)
+  const parsedVersion = getChromiumEngineVersion()
+  const showNewsfeed = useSelector(s => s.newsfeed.showNewsfeed)
 
   const unreadNewsAmount = notifications
     .map(n => n.id)
@@ -68,6 +73,14 @@ const Home: ThemeUiElement = () => {
   const proxyFailure = status === 'on' && hasProxyError
 
   const FlagSvg = Flags[autopilotSelected ? 'AUTO' : countryCode]
+
+  useEffect(() => {
+    if (showNewsfeed) {
+      goToNewsfeed()
+      dispatch(setShowNewsfeed(false))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showNewsfeed, dispatch])
 
   useEffect(() => {
     if (isRightAfterLogin) {
@@ -154,6 +167,16 @@ const Home: ThemeUiElement = () => {
     }
   }
 
+  useEffect(() => {
+    if (
+      !dismissedUpgradeWarning &&
+      !isNaN(parsedVersion) &&
+      parsedVersion < MIN_SUPPORTED_CHROME_VERSION
+    ) {
+      dispatch(addOverlay('versionUnsupportedWarning'))
+    }
+  }, [dispatch, dismissedUpgradeWarning, parsedVersion])
+
   const hideUsageBar = isPremium || trafficMax === ACCOUNT_PLAN.UNLIMITED
 
   const SpinAnimation = keyframes`from {transform: rotate(0deg); } to { transform: rotate(${
@@ -200,7 +223,12 @@ const Home: ThemeUiElement = () => {
               backgroundColor: status === 'on' ? 'halfBlack' : 'darkBackground',
             }}
           >
-            <Button variant="simple" data-testid="go-to-preferences" onClick={goToPreferences}>
+            <Button
+              sx={{ position: 'relative' }}
+              variant="simple"
+              data-testid="go-to-preferences"
+              onClick={goToPreferences}
+            >
               <Menu
                 className="joyride-element-opt-out"
                 sx={{
@@ -213,6 +241,19 @@ const Home: ThemeUiElement = () => {
                   },
                 }}
               />
+              {!isNaN(parsedVersion) && parsedVersion < MIN_SUPPORTED_CHROME_VERSION && (
+                <Badge
+                  innerContentContainerProps={{
+                    sx: {
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                  }}
+                  content={<ExclamationIcon />}
+                  sx={{ top: '-7px', right: '8px', bg: 'orange' }}
+                />
+              )}
             </Button>
             <Button
               sx={{
@@ -228,7 +269,7 @@ const Home: ThemeUiElement = () => {
               {unreadNewsAmount > 0 && (
                 <Badge
                   data-testid="newsfeed-badge"
-                  count={unreadNewsAmount}
+                  content={unreadNewsAmount}
                   sx={{ top: '-7px', right: '-14px' }}
                 />
               )}

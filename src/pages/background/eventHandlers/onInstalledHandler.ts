@@ -7,8 +7,8 @@ import {
   serverListenerMiddleWareConfig,
   startListeningServerList,
 } from 'state/serverListListenerMiddleware'
-import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
-import { serializeError } from 'serialize-error'
+import { pushToDebugLog } from 'services/debugLog'
+import { recordInstall } from 'api/endpoints'
 
 export function onInstalledHandler(bgStore: Promise<StoreType>) {
   return async (details: chrome.runtime.InstalledDetails): Promise<void> => {
@@ -16,6 +16,17 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
     const state = store.getState()
     if (!state.firstInstallDate) {
       store.dispatch(setFirstInstallDate(Date.now()))
+    }
+
+    // reset the dismissedupgradewarning to false to show warning banner again, comment this out to not show the warning banner again in subsequent updates, basically we want to show the warning banner again in the next update for updating ublock to min version 122
+    // if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
+    //   store.dispatch(setDismissedUpgradeWarning(false))
+    // }
+
+    // TODO: Add browser type to the query string for firefox
+    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+      pushToDebugLog({ message: 'Recording install for chrome', tag: 'background' })
+      recordInstall(store.dispatch)
     }
 
     const res = await runMigrationFromManifestV2ToV3(store, details)
@@ -32,24 +43,6 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
     await registerScripts(store, res)
 
     const updatedState = store.getState()
-    try {
-      if (
-        updatedState.session?.sessionData?.session_auth_hash &&
-        updatedState.session?.sessionData?.username
-      ) {
-        await sendDebugLog(
-          store.dispatch,
-          updatedState.session?.sessionData?.session_auth_hash,
-          updatedState.session?.sessionData?.username,
-          updatedState,
-        )
-      }
-    } catch (err) {
-      pushToDebugLog({
-        message: 'sending debug log with migration report failed',
-        data: serializeError(err),
-      })
-    }
 
     if (!updatedState.contextMenu) return
 
