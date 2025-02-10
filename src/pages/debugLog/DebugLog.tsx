@@ -1,18 +1,16 @@
 import UAParser from 'ua-parser-js'
 import React, { useEffect, useRef, useState } from 'react'
-import { Box, Button, Label } from 'theme-ui'
-import { clearLogDB, getStorage, createLogDB } from 'services/storage'
+import { Box, Button } from 'theme-ui'
+import { clearLogDB, createLogDB } from 'services/storage'
 
-// import { ToggleSwitch } from 'components'
 import { AlignItemsCenter } from 'components/Flexbox'
 import { useSelector } from 'state/hooks'
 import './DebugLog.css'
-import ToggleSwitch from 'components/ToggleSwitch'
 import { LogItem } from 'utils/types'
 import { handleDownloadLogs } from './handleDownload'
 import { parseLogToStrings } from 'services/debugLog'
-import { useVirtualizer } from '@tanstack/react-virtual'
 import { Dexie } from 'dexie'
+import { useVirtualizer } from '@tanstack/react-virtual'
 
 const DebugLog: React.FC = () => {
   const [isShowUserInfo, setIsShowUserInfo] = useState(false)
@@ -87,21 +85,46 @@ ${
   ])
 
   useEffect(() => {
-    // Scroll when logs update or autoScroll is toggled
     const fetchLogs = async () => {
       const logDB = await createLogDB()
       if (logDB instanceof Dexie) {
         // IndexedDB path
         const debugLog = await logDB.table('logs').toArray()
+        setLogs([
+          {
+            header,
+            message: '',
+          },
+          ...debugLog,
+        ])
       } else {
         // Chrome storage path
         const data = await logDB.get('debugLog')
-        const logs = data?.debugLog ?? []
+        const debugLog = data?.debugLog ?? []
+        setLogs([
+          {
+            header,
+            message: '',
+          },
+          ...debugLog,
+        ])
       }
     }
 
     fetchLogs()
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Run only on mount
+
+  const count = logs.length
+  const virtualizer = useVirtualizer({
+    count,
+    getScrollElement: () => logContainerRef.current,
+    estimateSize: () => 30,
+    overscan: 4,
+    gap: 2,
+  })
+
+  const items = virtualizer.getVirtualItems()
 
   return (
     <Box
@@ -125,12 +148,14 @@ ${
           variant="debug"
           onClick={() => {
             clearLogDB()
+
             setLogs([
               {
                 header: `${userInfo}\n\n[Start of log]\n------------------------------------------------------\n`,
                 message: '',
               },
             ])
+            virtualizer.scrollToIndex(0, { align: 'start' })
           }}
         >
           Clear Log
@@ -148,7 +173,6 @@ ${
         >
           Download Logs
         </Button>
-        |
       </AlignItemsCenter>
 
       <Button
@@ -168,7 +192,9 @@ ${
             color: 'primaryText',
           },
         }}
-        onClick={() => {}}
+        onClick={() => {
+          virtualizer.scrollToIndex(0, { align: 'start' })
+        }}
       >
         Scroll To Top
       </Button>
@@ -190,6 +216,9 @@ ${
             color: 'primaryText',
           },
         }}
+        onClick={() => {
+          virtualizer.scrollToIndex(count - 1, { align: 'start' })
+        }}
       >
         Scroll To Bottom
       </Button>
@@ -208,7 +237,7 @@ ${
       >
         <div
           style={{
-            height: `${1}px`,
+            height: `${virtualizer.getTotalSize()}px`,
             width: '100%',
             position: 'relative',
           }}
@@ -219,8 +248,53 @@ ${
               top: 0,
               left: 0,
               width: '100%',
+              transform: `translateY(${items[0]?.start ?? 0}px)`,
             }}
-          ></div>
+          >
+            {items.map(virtualRow => {
+              if (logs[virtualRow.index]?.header) {
+                return (
+                  <div
+                    key={virtualRow.key.toString()}
+                    data-index={virtualRow.index}
+                    ref={virtualizer.measureElement}
+                    sx={{ whiteSpace: 'pre', display: 'flex' }}
+                  >
+                    {userInfo}
+                    {`\n\n[Start of log]\n------------------------------------------------------\n`}
+                  </div>
+                )
+              } else {
+                const { date, tag, level, message, data } = logs[virtualRow.index]
+                const levelColor = level === 'INFO' ? 'green' : level === 'ERROR' ? 'red' : 'yellow'
+                return (
+                  <div
+                    key={virtualRow.key.toString()}
+                    data-index={virtualRow.index}
+                    ref={virtualizer.measureElement}
+                    sx={{ gap: 2, whiteSpace: 'pre', display: 'flex' }}
+                  >
+                    <span>{date}</span>
+                    <span>
+                      <span>[</span>
+                      <span sx={{ color: levelColor, fontWeight: 'bold' }}>{level}</span>
+                      <span>]</span>
+                    </span>
+                    <span>[{tag}]</span>
+                    <span>{message}</span>
+                    {data ? <span>{JSON.stringify(data)}</span> : null}
+                  </div>
+                )
+              }
+            })}
+
+            {/* accounts for the header */}
+            {items.length === 1 && (
+              <div>
+                <span>No logs found</span>
+              </div>
+            )}
+          </div>
         </div>
       </Box>
       <Box
