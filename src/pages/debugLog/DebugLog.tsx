@@ -67,7 +67,7 @@ Build Version: ${
 
 ------------------------------------------------------
 
-Migration Logs
+[Migration Logs]
 
 ${
   migrations.migrations.length > 0
@@ -134,7 +134,7 @@ ${
       <AlignItemsCenter
         sx={{
           height: '50px',
-          backgroundColor: 'background',
+          backgroundColor: '#1a2432',
           color: 'primaryText',
           width: '100%',
           px: '10px',
@@ -178,7 +178,7 @@ ${
       <Button
         sx={{
           cursor: 'pointer',
-          backgroundColor: 'background',
+          backgroundColor: '#1a2432',
           position: 'fixed',
           display: 'flex',
           justifyContent: 'center',
@@ -202,7 +202,7 @@ ${
       <Button
         sx={{
           cursor: 'pointer',
-          backgroundColor: 'background',
+          backgroundColor: '#1a2432',
           position: 'fixed',
           display: 'flex',
           justifyContent: 'center',
@@ -299,7 +299,7 @@ ${
       </Box>
       <Box
         sx={{
-          backgroundColor: 'primaryText',
+          backgroundColor: 'white',
           position: 'fixed',
           height: '100vh',
           width: '500px',
