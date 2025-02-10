@@ -134,7 +134,7 @@ ${
       <AlignItemsCenter
         sx={{
           height: '50px',
-          backgroundColor: '#1a2432',
+          backgroundColor: 'darkBackground',
           color: 'primaryText',
           width: '100%',
           px: '10px',
@@ -178,7 +178,7 @@ ${
       <Button
         sx={{
           cursor: 'pointer',
-          backgroundColor: '#1a2432',
+          backgroundColor: 'darkBackground',
           position: 'fixed',
           display: 'flex',
           justifyContent: 'center',
@@ -202,7 +202,7 @@ ${
       <Button
         sx={{
           cursor: 'pointer',
-          backgroundColor: '#1a2432',
+          backgroundColor: 'darkBackground',
           position: 'fixed',
           display: 'flex',
           justifyContent: 'center',
