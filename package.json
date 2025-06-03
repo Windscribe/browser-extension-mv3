@@ -1,6 +1,6 @@
 {
   "name": "windscribe",
-  "version": "4.1.8",
+  "version": "4.1.9",
   "description": "windscribe",
   "license": "MIT",
   "preset": "jest-puppeteer",
@@ -37,6 +37,7 @@
     "dexie-export-import": "^4.1.1",
     "dotenv": "^16.0.3",
     "dotenv-webpack": "^7.1.1",
+    "fake-indexeddb": "3.0.0",
     "fuse.js": "^6.6.2",
     "is-valid-domain": "^0.1.6",
     "jest": "^28.1.2",

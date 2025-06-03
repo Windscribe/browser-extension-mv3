@@ -56,8 +56,7 @@ export const activateSplitPersonality = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     try {
       const dontSpoofDomains = getPrivacyFeatureEnabledDomains(getState().allowlist)
-      dispatch(setRandomSpoofedUserAgent)
-      const spoofedUserAgent = getState().userAgent.spoofed
+      const spoofedUserAgent = setRandomSpoofedUserAgent(dispatch, getState)
       await spoofUserAgentHeader(spoofedUserAgent, dontSpoofDomains)
       dispatch(setSplitPersonalityEnabled(true))
       const splitPersonalityScript = await getScriptForId(splitPersonalityScriptId)
