@@ -97,6 +97,15 @@ const options = {
       'fingerprintjs.ts',
     ),
 
+    fingerprintMessageListener: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'fingerprintMessageListener.ts',
+    ),
+
     offscreenHub: path.join(__dirname, 'src', 'services', 'offscreenActions', 'offscreenHub.ts'),
   },
   chromeExtensionBoilerplate: {

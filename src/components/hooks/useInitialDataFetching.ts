@@ -13,6 +13,7 @@ import {
   audioAntiFingerprintingScriptId,
   canvasAntiFingerprintingScriptId,
   fingerprintjsAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
   fontAntiFingerprintingScriptId,
   screenResAntiFingerprintingScriptId,
   splitPersonalityScriptId,
@@ -152,6 +153,13 @@ export default (): void => {
         fingerprintjsAntiFingerprintingScriptId,
         ['fingerprintjsAntiFingerprinting.bundle.js'],
         excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        fingerprintMessageListenerScriptId,
+        ['fingerprintMessageListener.bundle.js'],
+        excludeMatchesFromAllowList,
+        'ISOLATED',
       )
     }
   }, [isAntiFingerprintingActive, excludeMatchesFromAllowList])

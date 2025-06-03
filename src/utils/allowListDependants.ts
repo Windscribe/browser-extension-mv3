@@ -9,6 +9,7 @@ import {
   fingerprintjsAntiFingerprintingScriptId,
   audioAntiFingerprintingScriptId,
   canvasAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
 } from './constants'
 import { toExcludeMatchesURL, updateScript } from './scriptController'
 
@@ -43,6 +44,7 @@ type ScriptExcludeMatches = {
   canvasAntiFingerprintingScriptExcludeMatches: string[] | undefined
   audioAntiFingerprintingScriptExcludeMatches: string[] | undefined
   fingerprintjsAntiFingerprintingScriptExcludeMatches: string[] | undefined
+  fingerprintMessageListenerScriptExcludeMatches: string[] | undefined
 }
 
 export const getAllExcludeMatches = async (): Promise<ScriptExcludeMatches> => {
@@ -59,6 +61,7 @@ export const getAllExcludeMatches = async (): Promise<ScriptExcludeMatches> => {
       canvasAntiFingerprintingScriptId,
       audioAntiFingerprintingScriptId,
       fingerprintjsAntiFingerprintingScriptId,
+      fingerprintMessageListenerScriptId,
     ],
   })
 
@@ -83,6 +86,9 @@ export const getAllExcludeMatches = async (): Promise<ScriptExcludeMatches> => {
   const fingerprintjsAntiFingerprintingScript = scripts.find(
     script => script.id === fingerprintjsAntiFingerprintingScriptId,
   )
+  const fingerprintMessageListenerScript = scripts.find(
+    script => script.id === fingerprintMessageListenerScriptId,
+  )
 
   return {
     workerBlockScriptExcludeMatches: workerBlockScript?.excludeMatches,
@@ -97,6 +103,8 @@ export const getAllExcludeMatches = async (): Promise<ScriptExcludeMatches> => {
     audioAntiFingerprintingScriptExcludeMatches: audioAntiFingerprintingScript?.excludeMatches,
     fingerprintjsAntiFingerprintingScriptExcludeMatches:
       fingerprintjsAntiFingerprintingScript?.excludeMatches,
+    fingerprintMessageListenerScriptExcludeMatches:
+      fingerprintMessageListenerScript?.excludeMatches,
   }
 }
 
@@ -119,6 +127,7 @@ export const removeFromExludeScriptMatches = async (
     canvasAntiFingerprintingScriptExcludeMatches,
     audioAntiFingerprintingScriptExcludeMatches,
     fingerprintjsAntiFingerprintingScriptExcludeMatches,
+    fingerprintMessageListenerScriptExcludeMatches,
   } = await getAllExcludeMatches()
 
   if (workerBlockScriptExcludeMatches) {
@@ -208,6 +217,15 @@ export const removeFromExludeScriptMatches = async (
       excludeMatches: newExcludeMatches,
     })
   }
+
+  if (fingerprintMessageListenerScriptExcludeMatches) {
+    const newExcludeMatches = fingerprintMessageListenerScriptExcludeMatches.filter(filter)
+
+    await updateScript({
+      id: fingerprintMessageListenerScriptId,
+      excludeMatches: newExcludeMatches,
+    })
+  }
 }
 
 export const addToExcludeScriptMatches = async (
@@ -226,6 +244,7 @@ export const addToExcludeScriptMatches = async (
     canvasAntiFingerprintingScriptExcludeMatches,
     audioAntiFingerprintingScriptExcludeMatches,
     fingerprintjsAntiFingerprintingScriptExcludeMatches,
+    fingerprintMessageListenerScriptExcludeMatches,
   } = await getAllExcludeMatches()
 
   const currentExcludeURL = toExcludeMatchesURL(domain, !isAllSubdomainsIncluded)
@@ -377,6 +396,21 @@ export const addToExcludeScriptMatches = async (
 
     await updateScript({
       id: fingerprintjsAntiFingerprintingScriptId,
+      excludeMatches: updatedExcludeMatches,
+    })
+  }
+
+  if (fingerprintMessageListenerScriptExcludeMatches) {
+    const updatedExcludeMatches = fingerprintMessageListenerScriptExcludeMatches.filter(
+      urlScheme => urlScheme !== currentExcludeURL && urlScheme !== newExcludeURL,
+    )
+
+    if (isPrivacyFeaturesAllowed) {
+      updatedExcludeMatches.push(newExcludeURL)
+    }
+
+    await updateScript({
+      id: fingerprintMessageListenerScriptId,
       excludeMatches: updatedExcludeMatches,
     })
   }

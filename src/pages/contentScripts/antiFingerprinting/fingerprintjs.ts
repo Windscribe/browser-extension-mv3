@@ -8,6 +8,24 @@
 
   const OriginalPromise = Promise
 
+  let lastDetectionTime = 0
+  const THROTTLE_MS = 3000 // 5 seconds between detections
+
+  const sendDetectionMessage = () => {
+    const now = Date.now()
+    if (now - lastDetectionTime >= THROTTLE_MS) {
+      window.dispatchEvent(
+        new CustomEvent('windscribe-fingerprint-detected', {
+          detail: {
+            url: window.location.href,
+          },
+        }),
+      )
+
+      lastDetectionTime = now
+    }
+  }
+
   window.Promise = new Proxy(OriginalPromise, {
     construct(target, args) {
       const [executor] = args
@@ -34,8 +52,11 @@
           return totalProps > 10 && matchCount / totalProps > 0.5
         }
 
+        // value can be literally anything since this will be called for every promise on a webpage
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const wrappedResolve = (value: any) => {
           if (isFingerprintingData(value)) {
+            sendDetectionMessage()
             return
           }
 

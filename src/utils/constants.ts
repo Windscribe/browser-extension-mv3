@@ -111,6 +111,7 @@ export const canvasAntiFingerprintingScriptId = 'canvasAntiFingerprintingScript'
 export const audioAntiFingerprintingScriptId = 'audioAntiFingerprintingScript' as const
 export const fingerprintjsAntiFingerprintingScriptId =
   'fingerprintjsAntiFingerprintingScript' as const
+export const fingerprintMessageListenerScriptId = 'fingerprintMessageListenerScript' as const
 export const DEBUG_LOG_MAX_SIZE_BYTES = 1_048_576 // 1MB
 export const PRUNE_SIZE_BYTES = 204_800 // 200KB
 export const THROTTLE_PROXY_ERROR_TIME_MS = 3000 // ms

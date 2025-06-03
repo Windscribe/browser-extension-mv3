@@ -10,6 +10,7 @@ import {
   audioAntiFingerprintingScriptId,
   canvasAntiFingerprintingScriptId,
   fingerprintjsAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
   fontAntiFingerprintingScriptId,
   languageWarpScriptId,
   locationWarpScriptId,
@@ -97,6 +98,13 @@ const registerScripts = async (
         fingerprintjsAntiFingerprintingScriptId,
         ['fingerprintjsAntiFingerprinting.bundle.js'],
         excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        fingerprintMessageListenerScriptId,
+        ['fingerprintMessageListener.bundle.js'],
+        excludeMatchesFromAllowList,
+        'ISOLATED',
       )
     }
 

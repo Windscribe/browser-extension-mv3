@@ -33,6 +33,7 @@ import {
   canvasAntiFingerprintingScriptId,
   CONTENT_SETTINGS,
   fingerprintjsAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
   fontAntiFingerprintingScriptId,
   languageWarpScriptId,
   locationWarpScriptId,
@@ -170,12 +171,20 @@ const Privacy: ThemeUiElement = () => {
                   ['fingerprintjsAntiFingerprinting.bundle.js'],
                   excludeMatchesFromAllowList,
                 )
+
+                await registerScript(
+                  fingerprintMessageListenerScriptId,
+                  ['fingerprintMessageListener.bundle.js'],
+                  excludeMatchesFromAllowList,
+                  'ISOLATED',
+                )
               } else {
                 await unregisterScript(fontAntiFingerprintingScriptId)
                 await unregisterScript(screenResAntiFingerprintingScriptId)
                 await unregisterScript(canvasAntiFingerprintingScriptId)
                 await unregisterScript(audioAntiFingerprintingScriptId)
                 await unregisterScript(fingerprintjsAntiFingerprintingScriptId)
+                await unregisterScript(fingerprintMessageListenerScriptId)
               }
             }}
             checked={antiFingerprintingActive}
