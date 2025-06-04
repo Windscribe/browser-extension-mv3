@@ -11,7 +11,6 @@
 
   // Main canvas spoofing function
   const spoofCanvas = function (originalFunction: any, canvas: any, args: any) {
-    console.log('toDataURL called')
     // Handle PNG format
     if (args.length == 0 || args[0] === 'image/png') {
       const width = canvas.width
@@ -63,5 +62,29 @@
     return spoofCanvas(originalToDataURL, this, arguments)
   }
 
-  console.log('Canvas fingerprinting protection initialized')
+  // Add getImageData spoofing
+  const originalGetImageData = CanvasRenderingContext2D.prototype.getImageData
+  CanvasRenderingContext2D.prototype.getImageData = function () {
+    // eslint-disable-next-line prefer-rest-params
+    const imageData = originalGetImageData.apply(this, arguments as any)
+    const { width, height } = imageData
+    const gridHeight = Math.max(1, Math.floor(height / 7))
+    const gridWidth = Math.max(1, Math.floor(width / 7))
+
+    for (let y = 0; y < height; y += gridHeight) {
+      for (let x = 0; x < width; x += gridWidth) {
+        const pixelIndex =
+          ((y + Math.floor(Math.random() * gridHeight)) * width +
+            (x + Math.floor(Math.random() * gridWidth))) *
+          4
+
+        if (pixelIndex < imageData.data.length) {
+          imageData.data[pixelIndex + 0] += noise.r
+          imageData.data[pixelIndex + 1] += noise.g
+          imageData.data[pixelIndex + 2] += noise.b
+        }
+      }
+    }
+    return imageData
+  }
 })()
