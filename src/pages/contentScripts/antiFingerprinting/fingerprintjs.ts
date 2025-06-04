@@ -26,7 +26,7 @@
     }
   }
 
-  window.Promise = new Proxy(OriginalPromise, {
+  const PatchedPromise: any = new Proxy(OriginalPromise, {
     construct(target, args) {
       const [executor] = args
       const promise = new target((resolve, reject) => {
@@ -68,8 +68,10 @@
     },
     get(target, prop) {
       if (prop === Symbol.toStringTag) return 'Promise'
-      if (prop === 'constructor') return OriginalPromise
+      if (prop === 'constructor') return PatchedPromise
       return target[prop as keyof typeof target]
     },
   })
+
+  window.Promise = PatchedPromise
 })()
