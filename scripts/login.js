@@ -1,7 +1,7 @@
 const fetch = require('node-fetch-commonjs')
 const getEndpoint = require('./buildUtils/api/getEndpoint')
 
-const { CACHE_TTL, FORCE_REFRESH, buildCache } = require('./cacheConfig')
+const { CACHE_TTL, FORCE_REFRESH, buildCache, BYPASS_CACHING } = require('./cacheConfig')
 
 async function login() {
   const cachedSession = buildCache.getKey('sessionData')
@@ -19,6 +19,10 @@ async function login() {
 
   if (FORCE_REFRESH) {
     console.log('♻️  Forcing session refresh (cache bypassed)')
+  }
+
+  if (BYPASS_CACHING) {
+    console.log('♻️  Bypassing session cache')
   }
 
   const body = {
@@ -42,11 +46,13 @@ async function login() {
   }
 
   // Cache the result
-  buildCache.setKey('sessionData', {
-    timestamp: now,
-    data: sessionData,
-  })
-  buildCache.save()
+  if (!BYPASS_CACHING) {
+    buildCache.setKey('sessionData', {
+      timestamp: now,
+      data: sessionData,
+    })
+    buildCache.save()
+  }
 
   return sessionData
 }

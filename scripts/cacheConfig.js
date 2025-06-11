@@ -6,6 +6,7 @@ const CACHE_FILE_DIR = path.resolve(__dirname, '..', '.ws-build-cache') // custo
 
 const CACHE_TTL = 1000 * 60 * 60 // 1 hour in milliseconds
 const FORCE_REFRESH = process.env.FORCE_BUILD_LOGIN === 'true'
+const BYPASS_CACHING = process.env.BYPASS_CACHING === 'true'
 
 const buildCache = create({
   cacheId: CACHE_KEY,
@@ -16,5 +17,6 @@ const buildCache = create({
 module.exports = {
   CACHE_TTL,
   FORCE_REFRESH,
+  BYPASS_CACHING,
   buildCache,
 }

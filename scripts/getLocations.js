@@ -1,7 +1,7 @@
 const fetch = require('node-fetch-commonjs')
 const getBaseApiUrl = require('../scripts/buildUtils/api/getBaseApiUrl')
 
-const { buildCache, CACHE_TTL, FORCE_REFRESH } = require('./cacheConfig')
+const { buildCache, CACHE_TTL, FORCE_REFRESH, BYPASS_CACHING } = require('./cacheConfig')
 
 async function getLocations(sessionData) {
   const cachedLocations = buildCache.getKey('locations')
@@ -21,6 +21,10 @@ async function getLocations(sessionData) {
     console.log('♻️  Forcing locations refresh (cache bypassed)')
   }
 
+  if (BYPASS_CACHING) {
+    console.log('♻️  Bypassing locations cache')
+  }
+
   const loc_hash = sessionData.data?.loc_hash
   const is_premium = sessionData.data?.is_premium
   const alc = sessionData.data?.alc
@@ -37,17 +41,17 @@ async function getLocations(sessionData) {
 
   const serverListData = await serverListResponse.json()
 
-  console.log('serverListData', serverListData)
-
   if (!serverListData.data) {
     throw Error('No serverlist is available')
   }
 
-  buildCache.setKey('locations', {
-    timestamp: now,
-    data: serverListData,
-  })
-  buildCache.save()
+  if (!BYPASS_CACHING) {
+    buildCache.setKey('locations', {
+      timestamp: now,
+      data: serverListData,
+    })
+    buildCache.save()
+  }
 
   return serverListData
 }
