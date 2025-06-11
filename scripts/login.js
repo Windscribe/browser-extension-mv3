@@ -1,7 +1,26 @@
 const fetch = require('node-fetch-commonjs')
 const getEndpoint = require('./buildUtils/api/getEndpoint')
 
+const { CACHE_TTL, FORCE_REFRESH, buildCache } = require('./cacheConfig')
+
 async function login() {
+  const cachedSession = buildCache.getKey('sessionData')
+  const now = Date.now()
+
+  if (
+    !FORCE_REFRESH &&
+    cachedSession &&
+    cachedSession.timestamp &&
+    now - cachedSession.timestamp < CACHE_TTL
+  ) {
+    console.log('✅ Returning cached session')
+    return cachedSession.data
+  }
+
+  if (FORCE_REFRESH) {
+    console.log('♻️  Forcing session refresh (cache bypassed)')
+  }
+
   const body = {
     password: process.env.BUILD_USER_PASSWORD,
     session_type_id: 2,
@@ -21,6 +40,13 @@ async function login() {
   if (!sessionData.data || !sessionData.data.session_auth_hash) {
     throw Error('No session auth hash is available')
   }
+
+  // Cache the result
+  buildCache.setKey('sessionData', {
+    timestamp: now,
+    data: sessionData,
+  })
+  buildCache.save()
 
   return sessionData
 }

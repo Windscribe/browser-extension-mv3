@@ -11,10 +11,15 @@ import {
   languageWarpScriptId,
   timeZoneWarpScriptId,
 } from 'utils/constants'
-import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
+import type { ApiErrorResponse, AuthTokenData, Credentials, SessionData } from 'api/types'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
-import { login as loginRequest, logout as logoutRequest, getSessionStatus } from 'api/endpoints'
+import {
+  login as loginRequest,
+  logout as logoutRequest,
+  getSessionStatus,
+  getLoginAuthToken,
+} from 'api/endpoints'
 import { resetWebRtcBlocker } from './webRtcEnabled'
 import { addOverlay } from 'state/slices/overlay'
 import { setView } from 'state/slices/view'
@@ -40,22 +45,52 @@ export interface SessionState {
   sessionData?: SessionData
   loading: LoadingState
   error?: ErrorState
+  authTokenData?: AuthTokenData
 }
 
 const initialState: SessionState = {
   sessionData: undefined,
   error: undefined,
   loading: 'idle',
+  authTokenData: undefined,
 }
 
 export const LOGIN = 'session/login'
+
+export const LOGIN_AUTH_TOKEN = 'AuthToken/login'
 export const LOGOUT = 'session/logout'
 export const CHECK_SESSION_STATUS = 'session/checkSessionStatus'
 
+export const getAuthToken = createAsyncThunk<Either<AuthTokenData, ApiErrorResponse>>(
+  LOGIN_AUTH_TOKEN,
+  async (_, { dispatch }) => {
+    const response = await getLoginAuthToken(dispatch)
+
+    if (response.errorMessage) return response
+    if (response.data) {
+      return response.data
+    }
+
+    throw Error('Unknown response format while trying to login')
+  },
+)
+
 export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Credentials>(
   LOGIN,
-  async ({ username, password, twoFa }, { getState, dispatch }) => {
-    const response = await loginRequest(dispatch, username, password, twoFa)
+  async (
+    { username, password, twoFa, secureToken, secureTokenSignature, captchaSolution, captchaTrail },
+    { getState, dispatch },
+  ) => {
+    const response = await loginRequest(
+      dispatch,
+      username,
+      password,
+      twoFa,
+      secureToken,
+      secureTokenSignature,
+      captchaSolution,
+      captchaTrail,
+    )
 
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
@@ -249,8 +284,29 @@ export const sessionSlice = createSlice({
           state.sessionData = action.payload
           state.loading = 'fulfilled'
         }
+        // clear authtokendata when login is fulfilled so fresh captcha is loaded next time
+        state.authTokenData = undefined
+      })
+      .addCase(getAuthToken.fulfilled, (state, action) => {
+        if (action.payload.errorMessage) {
+          state.loading = 'idle'
+          state.error = action.payload
+        } else if (action.payload) {
+          state.authTokenData = action.payload
+          state.loading = 'fulfilled'
+        }
+      })
+      .addCase(getAuthToken.pending, state => {
+        state.error = undefined
+        state.loading = 'pending'
       })
       .addCase(login.rejected, (state, action) => {
+        state.loading = 'rejected'
+        if (action.error.message) {
+          state.error = { errorMessage: action.error.message }
+        }
+      })
+      .addCase(getAuthToken.rejected, (state, action) => {
         state.loading = 'rejected'
         if (action.error.message) {
           state.error = { errorMessage: action.error.message }
