@@ -33,7 +33,6 @@ async function embedTimeZoneWarp(config, serverListData) {
         fileName: sha256(spoofedTime.id.toString()).toString() + 'tzw',
         content: timeZoneWarpContentScriptTemplate({
           timezone: spoofedTime.tz.desiredTimezone,
-          offset: spoofedTime.tz.offset.toString(),
         }),
       }
     })
