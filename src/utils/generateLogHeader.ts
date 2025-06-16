@@ -14,6 +14,8 @@ export const generateLogHeaders = (state: RootState): string => {
     COMMIT_HASH
   }
 
+[ublock Origin Lite Version]: ${UBO_LITE_VERSION + '-' + UBO_LITE_SUBMODULE_COMMIT_HASH}
+
 [User State]
 ------------------------------------------------------
 
