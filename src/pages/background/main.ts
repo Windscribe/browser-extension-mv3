@@ -20,6 +20,7 @@ import {
   handlePermissionsAdded,
   handlePermissionsRemoved,
 } from './eventHandlers/permissionsHandler'
+import { handleKeyboardCommand } from 'services/shortcuts/keyboardCommandHandler'
 
 try {
   const bgStore = initializeWrappedStore().then(async store => {
@@ -67,6 +68,8 @@ try {
 
   chrome.permissions.onAdded.addListener(handlePermissionsAdded(bgStore))
   chrome.permissions.onRemoved.addListener(handlePermissionsRemoved(bgStore))
+
+  chrome.commands.onCommand.addListener(handleKeyboardCommand(bgStore))
 
   chrome.contextMenus.onClicked.addListener(() => chrome.tabs.create({ url: 'debugLog.html' }))
 } catch (err) {

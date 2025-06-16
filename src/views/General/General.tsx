@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Box, Button, Flex } from 'theme-ui'
 
 import { ENVS } from 'utils/constants'
-import { sendDebugLog } from 'services/debugLog'
+import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
 import { Header, OptionBox, ToggleSwitch, ScrollableBox } from 'components'
@@ -16,6 +16,15 @@ import DebugLogIcon from 'assets/img/debugLog.svg'
 import DebugMenuIcon from 'assets/img/debugMenu.svg'
 import NotificationsIcon from 'assets/img/notifications.svg'
 import LocationLoadIcon from 'assets/img/locationLoad.svg'
+import ImportExportIcon from 'assets/img/importExport.svg'
+
+import { useManageAllowlist } from 'components/hooks'
+import { exportSettings } from 'services/importExport/exportSettings'
+import { importSettings } from 'services/importExport/importSettings'
+import { addOverlay } from 'state/slices/overlay'
+import getErrorMessage from 'utils/getErrorMessage'
+import { getFileExtension } from 'utils/getFileExtension'
+import KeyboardIcon from 'assets/img/keyboard.svg'
 
 const General: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -25,12 +34,88 @@ const General: ThemeUiElement = () => {
   const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
   const locationLoad = useSelector(s => s.locationLoad)
   const state = useSelector(s => s)
+  const serverList = useSelector(s => s.servers.serverList)
+  const existingAllowList = useSelector(s => s.allowlist)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const { addToAllowlist } = useManageAllowlist()
+  const favoriteLocations = useSelector(s => s.favoriteLocations)
+  const [shouldShowReloadAlert, showReloadAlert] = useState(false)
+  const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
+
+  const autopilot = useSelector(s => s.autopilot)
+  const currentDataCenter = useSelector(s => s.currentDataCenter)
+  const currentLocation = useSelector(s => s.currentLocation)
+
+  const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
 
   const [sentDebugLog, setSentDebugLog] = useState<string | undefined>(undefined)
 
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) {
+      pushToDebugLog({
+        message: 'File not found when importing settings',
+        level: 'WARN',
+      })
+      return
+    }
+
+    // check if uploaded settigs file is the correct extension, note you can only perform **real** validation on the server side only
+    // BUT using zod schema validators is the next best thing on the client side.
+
+    const fileName = fileInputRef.current?.value
+
+    if (!fileName) {
+      pushToDebugLog({
+        message: 'No file name found in input',
+        level: 'WARN',
+      })
+      return
+    }
+
+    const fileExtension = getFileExtension(fileName)
+
+    if (fileExtension !== 'json') {
+      pushToDebugLog({
+        message: 'File extension is not json',
+        data: JSON.stringify(fileExtension),
+        level: 'WARN',
+      })
+      dispatch(addOverlay('wrongFileExtension'))
+      return
+    }
+
+    try {
+      await importSettings({
+        file,
+        serverList,
+        existingAllowList,
+        addToAllowlist,
+        favoriteLocations,
+        dispatch,
+        autopilotSelected: autopilot.autopilotSelected,
+        isUserPro: isUserPro,
+        currentDataCenter,
+        locationId: currentLocation.id,
+        isSplitPersonalityEnabled,
+        spoofedUserAgent,
+      })
+      showReloadAlert(true)
+    } catch (err) {
+      // show overlays etc
+      dispatch(addOverlay('errorDuringImport'))
+      const message = getErrorMessage(err)
+      pushToDebugLog({
+        message: message,
+        level: 'ERROR',
+      })
+    }
+  }
+
   return (
     <Box data-testid="general-page" bg="background">
-      <Header title="General" />
+      <Header title="General" {...{ shouldShowReloadAlert, showReloadAlert }} />
       <ScrollableBox>
         <OptionBox
           Icon={NotificationsIcon}
@@ -61,6 +146,19 @@ const General: ThemeUiElement = () => {
             onChange={() => dispatch(showDebugContextMenu(!contextMenu))}
             checked={contextMenu}
           />
+        </OptionBox>
+        <OptionBox
+          Icon={KeyboardIcon}
+          title="Keyboard Shortcuts"
+          subTitle="Customize keyboard shortcuts to quickly access extension features"
+        >
+          <Button
+            variant="option"
+            onClick={() => chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })}
+            sx={{ transition: '0.3s' }}
+          >
+            Edit
+          </Button>
         </OptionBox>
         <OptionBox Icon={DebugLogIcon} title="Debug Log">
           {sentDebugLog ? (
@@ -98,6 +196,37 @@ const General: ThemeUiElement = () => {
               </Button>
             </Flex>
           )}
+        </OptionBox>
+
+        <OptionBox Icon={ImportExportIcon} title="Preferences">
+          <Flex sx={{ gap: '16px' }}>
+            <Button
+              variant="option"
+              onClick={() => {
+                exportSettings(state)
+              }}
+              sx={{ transition: '0.3s' }}
+            >
+              Export
+            </Button>
+            <Button
+              variant="option"
+              onClick={async () => {
+                fileInputRef.current?.click()
+              }}
+              sx={{ transition: '0.3s' }}
+            >
+              Import
+            </Button>
+            <input
+              accept="application/JSON"
+              onChange={handleFileChange}
+              multiple={false}
+              ref={fileInputRef}
+              type="file"
+              hidden
+            />
+          </Flex>
         </OptionBox>
         <Flex sx={{ justifyContent: 'center', mb: '16px' }}>
           <EllipseIcon />

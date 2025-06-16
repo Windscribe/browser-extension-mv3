@@ -1,13 +1,14 @@
 import UAParser from 'ua-parser-js'
 import React, { useEffect, useState } from 'react'
 import { Box, Button } from 'theme-ui'
-import { getStorage, removeStorage } from 'services/storage'
+import { clearLogDB, createLogDB } from 'services/storage'
 
 // import { ToggleSwitch } from 'components'
 import { AlignItemsCenter } from 'components/Flexbox'
 import { useSelector } from 'state/hooks'
 import { parseLogToStrings } from 'services/debugLog'
 import './DebugLog.css'
+import { Dexie } from 'dexie'
 
 const DebugLog: React.FC = () => {
   // const [isAutoScroll, setIsAutoScroll] = useState(false)
@@ -75,9 +76,21 @@ ${
 `
 
   useEffect(() => {
-    getStorage('debugLog').then(debugLog => {
-      debugLog && setParsedLog(parseLogToStrings(debugLog))
-    })
+    const fetchLogs = async () => {
+      const logDB = await createLogDB()
+      if (logDB instanceof Dexie) {
+        // IndexedDB path
+        const debugLog = await logDB.table('logs').toArray()
+        setParsedLog(parseLogToStrings(debugLog))
+      } else {
+        // Chrome storage path
+        const data = await logDB.get('debugLog')
+        const logs = data?.debugLog ?? []
+        setParsedLog(parseLogToStrings(logs))
+      }
+    }
+
+    fetchLogs()
   }, [])
 
   return (
@@ -99,7 +112,7 @@ ${
         <Button
           variant="debug"
           onClick={() => {
-            removeStorage('debugLog')
+            clearLogDB()
             setParsedLog([''])
           }}
         >

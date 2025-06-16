@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "version": "4.1.7",
-  "version_name": "4.1.7-beta",
-  "minimum_chrome_version": "119.0",
+  "version": "4.1.9",
+  "version_name": "4.1.9-beta",
+  "minimum_chrome_version": "122.0",
   "name": "Windscribe - MV3 Experimental",
   "short_name": "Windscribe - MV3 Experimental",
   "description": "Windscribe MV3 is an experimental extension that masks your physical location, circumvents censorship, and blocks ads and trackers",
@@ -28,6 +28,21 @@
     "offscreen",
     "unlimitedStorage"
   ],
+
+  "commands": {
+    "toggle-proxy": {
+      "description": "Toggle Proxy On/Off"
+    },
+    "open-preferences": {
+      "description": "Open Preferences"
+    },
+    "open-favourites": {
+      "description": "Open Favourite Locations"
+    },
+    "open-locations": {
+      "description": "Open Locations"
+    }
+  },
   "optional_permissions": ["contentSettings"],
   "host_permissions": ["<all_urls>"],
   "icons": {
@@ -42,6 +57,66 @@
         "id": "default",
         "enabled": true,
         "path": "/rulesets/main/default.json"
+      },
+      {
+        "id": "badware",
+        "enabled": true,
+        "path": "/rulesets/main/badware.json"
+      },
+      {
+        "id": "block-lan",
+        "enabled": false,
+        "path": "/rulesets/main/block-lan.json"
+      },
+      {
+        "id": "dpollock-0",
+        "enabled": false,
+        "path": "/rulesets/main/dpollock-0.json"
+      },
+      {
+        "id": "adguard-spyware-url",
+        "enabled": false,
+        "path": "/rulesets/main/adguard-spyware-url.json"
+      },
+      {
+        "id": "annoyances-cookies",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-cookies.json"
+      },
+      {
+        "id": "annoyances-overlays",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-overlays.json"
+      },
+      {
+        "id": "annoyances-social",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-social.json"
+      },
+      {
+        "id": "annoyances-widgets",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-widgets.json"
+      },
+      {
+        "id": "annoyances-others",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-others.json"
+      },
+      {
+        "id": "urlhaus-full",
+        "enabled": true,
+        "path": "/rulesets/main/urlhaus-full.json"
+      },
+      {
+        "id": "openphish-domains",
+        "enabled": true,
+        "path": "/rulesets/main/openphish-domains.json"
+      },
+      {
+        "id": "stevenblack-hosts",
+        "enabled": false,
+        "path": "/rulesets/main/stevenblack-hosts.json"
       },
       {
         "id": "alb-0",
@@ -174,6 +249,11 @@
         "path": "/rulesets/main/rus-0.json"
       },
       {
+        "id": "rus-1",
+        "enabled": false,
+        "path": "/rulesets/main/rus-1.json"
+      },
+      {
         "id": "spa-0",
         "enabled": false,
         "path": "/rulesets/main/spa-0.json"
@@ -204,6 +284,11 @@
         "path": "/rulesets/main/tur-0.json"
       },
       {
+        "id": "ukr-0",
+        "enabled": false,
+        "path": "/rulesets/main/ukr-0.json"
+      },
+      {
         "id": "vie-1",
         "enabled": false,
         "path": "/rulesets/main/vie-1.json"
@@ -212,51 +297,6 @@
         "id": "est-0",
         "enabled": false,
         "path": "/rulesets/main/est-0.json"
-      },
-      {
-        "id": "block-lan",
-        "enabled": false,
-        "path": "/rulesets/main/block-lan.json"
-      },
-      {
-        "id": "dpollock-0",
-        "enabled": false,
-        "path": "/rulesets/main/dpollock-0.json"
-      },
-      {
-        "id": "adguard-spyware-url",
-        "enabled": false,
-        "path": "/rulesets/main/adguard-spyware-url.json"
-      },
-      {
-        "id": "annoyances-cookies",
-        "enabled": false,
-        "path": "/rulesets/main/annoyances-cookies.json"
-      },
-      {
-        "id": "annoyances-overlays",
-        "enabled": false,
-        "path": "/rulesets/main/annoyances-overlays.json"
-      },
-      {
-        "id": "annoyances-social",
-        "enabled": false,
-        "path": "/rulesets/main/annoyances-social.json"
-      },
-      {
-        "id": "annoyances-widgets",
-        "enabled": false,
-        "path": "/rulesets/main/annoyances-widgets.json"
-      },
-      {
-        "id": "annoyances-others",
-        "enabled": false,
-        "path": "/rulesets/main/annoyances-others.json"
-      },
-      {
-        "id": "stevenblack-hosts",
-        "enabled": false,
-        "path": "/rulesets/main/stevenblack-hosts.json"
       }
     ]
   },
@@ -265,23 +305,30 @@
   },
   "web_accessible_resources": [
     {
+      "resources": ["/strictblock.html"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": true
+    },
+    {
       "resources": [
         "/web_accessible_resources/noop.js",
+        "/web_accessible_resources/google-ima.js",
         "/web_accessible_resources/noop.txt",
         "/web_accessible_resources/noop-1s.mp4",
         "/web_accessible_resources/noop.css",
+        "/web_accessible_resources/1x1.gif",
         "/web_accessible_resources/2x2.png",
         "/web_accessible_resources/32x32.png",
-        "/web_accessible_resources/1x1.gif",
         "/web_accessible_resources/empty",
         "/web_accessible_resources/noop.html",
         "/web_accessible_resources/nofab.js",
         "/web_accessible_resources/hd-main.js",
-        "/web_accessible_resources/google-ima.js",
         "/web_accessible_resources/popads.js",
-        "/web_accessible_resources/google-analytics_analytics.js",
         "/web_accessible_resources/googlesyndication_adsbygoogle.js",
+        "/web_accessible_resources/google-analytics_analytics.js",
+        "/web_accessible_resources/prebid-ads.js",
         "/web_accessible_resources/amazon_apstag.js",
+        "/web_accessible_resources/doubleclick_instream_ad_status.js",
         "/web_accessible_resources/google-analytics_cx_api.js",
         "/web_accessible_resources/googletagservices_gpt.js",
         "/web_accessible_resources/scorecardresearch_beacon.js",
