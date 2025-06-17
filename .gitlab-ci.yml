@@ -49,8 +49,8 @@ test:
     - install
   script:
     - curl https://ifconfig.me
-    - printf "\nNODE_ENV=production" >> ".env"
-    - printf "\nAPI_URL=api.windscribe.com" >> ".env"
+    - printf "\nNODE_ENV=staging" >> ".env"
+    - printf "\nAPI_URL=staging.windscribe.com" >> ".env"
     - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
     - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
     - printf "\nBUILD_USER_NAME=$BUILD_USER_NAME" >> ".env"
