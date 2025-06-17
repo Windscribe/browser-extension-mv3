@@ -48,6 +48,7 @@ test:
   dependencies:
     - install
   script:
+    - curl https://ifconfig.me
     - printf "\nNODE_ENV=production" >> ".env"
     - printf "\nAPI_URL=api.windscribe.com" >> ".env"
     - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
