@@ -10,6 +10,7 @@ import {
   locationWarpScriptId,
   languageWarpScriptId,
   timeZoneWarpScriptId,
+  SECRET_KEY_PSY_OP,
 } from 'utils/constants'
 import type { ApiErrorResponse, AuthTokenData, Credentials, SessionData } from 'api/types'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
@@ -40,6 +41,7 @@ import { resetSpoofUserAgentHeader } from 'services/declarativeNetRequest/update
 import { pushToDebugLog } from 'services/debugLog'
 import { activateSplitPersonality } from './splitPersonalityEnabled'
 import { setAdPrivacyEnabled } from './adPrivacyEnabled'
+import { SHA256 } from 'crypto-js'
 
 export interface SessionState {
   sessionData?: SessionData
@@ -78,19 +80,19 @@ export const getAuthToken = createAsyncThunk<Either<AuthTokenData, ApiErrorRespo
 export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Credentials>(
   LOGIN,
   async (
-    { username, password, twoFa, secureToken, secureTokenSignature, captchaSolution, captchaTrail },
+    { username, password, twoFa, secureToken, captchaSolution, captchaTrail },
     { getState, dispatch },
   ) => {
-    const response = await loginRequest(
+    const response = await loginRequest({
       dispatch,
       username,
       password,
+      secure_token: secureToken,
+      secure_token_signature: SHA256((secureToken ?? '') + SECRET_KEY_PSY_OP).toString(),
       twoFa,
-      secureToken,
-      secureTokenSignature,
       captchaSolution,
       captchaTrail,
-    )
+    })
 
     if (response.errorMessage) return response
     if (response.data && response.data.username) {

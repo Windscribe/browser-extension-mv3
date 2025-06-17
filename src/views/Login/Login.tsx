@@ -11,7 +11,6 @@ import ShowPassword from 'assets/img/showPassword.svg'
 import HidePassword from 'assets/img/hidePassword.svg'
 import { Either, type ThemeUiElement } from 'utils/types'
 import CaptchaSlider from 'components/CaptchaSlider'
-import { SHA256 } from 'crypto-js'
 import { ApiErrorResponse, AuthTokenData } from 'api/types'
 
 const Login: ThemeUiElement = () => {
@@ -33,8 +32,6 @@ const Login: ThemeUiElement = () => {
   const [error2fa, setError2fa] = useState<string | undefined>('')
   const authTokenData = useSelector(s => s.session.authTokenData)
   const [showCaptcha, setShowCaptcha] = useState(false)
-
-  console.log('authTokenData', authTokenData)
 
   const isPending = loginStatus === 'pending'
 
@@ -77,9 +74,6 @@ const Login: ThemeUiElement = () => {
         password: password?.value,
         twoFa: twoFa?.value,
         secureToken: authTokenResult?.token,
-        secureTokenSignature: SHA256(
-          authTokenResult?.token ?? '' + 'if_you_copy_this_you_might_die_a_painful_death',
-        ).toString(),
       })
     } else {
       setShowCaptcha(true)
@@ -125,9 +119,6 @@ const Login: ThemeUiElement = () => {
                     password: password,
                     twoFa: twoFa,
                     secureToken: authTokenData?.token,
-                    secureTokenSignature: SHA256(
-                      authTokenData?.token ?? '' + 'if_you_copy_this_you_might_die_a_painful_death',
-                    ).toString(),
                     captchaSolution: solution,
                     captchaTrail: trail,
                   })

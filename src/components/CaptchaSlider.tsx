@@ -13,45 +13,78 @@ interface CaptchaSliderProps {
   width: number
 }
 
-const BG_ORIG_W = 350 // original background width
-const BG_ORIG_H = 200 // original background height
-const SL_ORIG_SZ = 120 // original slider edge (square)
-
-const MAX_TRAIL_SIZE = 50 // how many points to keep
-
-const getScale = (targetW: number) => {
-  const factor = targetW / BG_ORIG_W
-  const scale = (v: number) => v * factor
-  return { factor, scale }
-}
+const MAX_TRAIL_SIZE = 50
 
 const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
   top,
   onComplete,
-  width, // e.g. <CaptchaSlider width={253} … />
+  width,
   background,
   slider,
 }) => {
-  const containerW = width ?? BG_ORIG_W // fall back to full size
-  const { factor, scale } = getScale(containerW)
-  const containerH = BG_ORIG_H * factor // keep 7 : 4 aspect
-
-  const sliderEdge = scale(SL_ORIG_SZ) // new slider size
-
   const [isDragging, setIsDragging] = useState(false)
-  const [position, setPosition] = useState(0) // slider X
+  const [position, setPosition] = useState(0)
   const [xTrail, setXTrail] = useState<number[]>([])
   const [yTrail, setYTrail] = useState<number[]>([])
 
   const containerRef = useRef<HTMLDivElement>(null)
   const offsetRef = useRef<number>(0)
 
+  // Track image dimensions
+  const [dimensions, setDimensions] = useState({
+    bg: { width: 0, height: 0 },
+    slider: { width: 0, height: 0 },
+  })
+
+  const bgRef = useRef<HTMLImageElement>(null)
+  const sliderRef = useRef<HTMLImageElement>(null)
+
+  // Load and measure background image
+  useEffect(() => {
+    if (bgRef.current) {
+      const img = new Image()
+      img.onload = () => {
+        setDimensions(prev => ({
+          ...prev,
+          bg: {
+            width: img.width,
+            height: img.height,
+          },
+        }))
+      }
+      img.src = background ? `data:image/png;base64,${background}` : BackgroundImage
+    }
+  }, [background])
+
+  // Load and measure slider image
+  useEffect(() => {
+    if (sliderRef.current) {
+      const img = new Image()
+      img.onload = () => {
+        setDimensions(prev => ({
+          ...prev,
+          slider: {
+            width: img.width,
+            height: img.height,
+          },
+        }))
+      }
+      img.src = slider ? `data:image/png;base64,${slider}` : SliderImage
+    }
+  }, [slider])
+
+  // Calculate scaling based on actual dimensions
+  const scale = width / dimensions.bg.width
+  const containerHeight = dimensions.bg.height * scale
+  const scaledSliderWidth = dimensions.slider.width * scale
+  const scaledSliderHeight = dimensions.slider.height * scale
+
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
       if (!isDragging || !containerRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
       let newX = e.clientX - rect.left - offsetRef.current
-      newX = Math.max(0, Math.min(newX, rect.width - sliderEdge))
+      newX = Math.max(0, Math.min(newX, width - scaledSliderWidth))
       setPosition(newX)
       setXTrail(prev => [...prev.slice(-MAX_TRAIL_SIZE + 1), Math.round(newX)])
     }
@@ -59,7 +92,9 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
     const handleUp = () => {
       if (isDragging) {
         setIsDragging(false)
-        onComplete(Math.round(position / factor), { x: xTrail, y: yTrail }) // report un-scaled solution
+        // Convert position back to original scale
+        const originalPosition = Math.round(position / scale)
+        onComplete(originalPosition, { x: xTrail, y: yTrail })
       }
     }
 
@@ -71,7 +106,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
       window.removeEventListener('mousemove', handleMove)
       window.removeEventListener('mouseup', handleUp)
     }
-  }, [isDragging, position, xTrail, yTrail, factor, onComplete, sliderEdge])
+  }, [isDragging, position, xTrail, yTrail, scale, onComplete, scaledSliderWidth, width])
 
   const handleDown = (e: React.MouseEvent) => {
     const rect = containerRef.current?.getBoundingClientRect()
@@ -105,8 +140,8 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
       <Box
         sx={{
           position: 'relative',
-          width: `${containerW}px`,
-          height: `${containerH}px`, // explicit height keeps layout stable
+          width: `${width}px`,
+          height: `${containerHeight}px`,
           overflow: 'hidden',
           borderRadius: '8px',
           userSelect: 'none',
@@ -114,6 +149,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
         }}
       >
         <img
+          ref={bgRef}
           src={background ? `data:image/png;base64,${background}` : BackgroundImage}
           alt="CAPTCHA background"
           draggable={false}
@@ -124,16 +160,17 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
         <Box
           sx={{
             position: 'absolute',
-            top: `${scale(top)}px`, // keep 'top' in proportion too
+            top: `${top * scale}px`,
             left: `${position}px`,
-            width: `${sliderEdge}px`,
-            height: `${sliderEdge}px`,
+            width: `${scaledSliderWidth}px`,
+            height: `${scaledSliderHeight}px`,
             zIndex: 2,
             cursor: isDragging ? 'grabbing' : 'grab',
           }}
           onMouseDown={handleDown}
         >
           <img
+            ref={sliderRef}
             src={slider ? `data:image/png;base64,${slider}` : SliderImage}
             alt="CAPTCHA slider"
             draggable={false}
@@ -145,7 +182,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
       {/* slider track */}
       <Box
         sx={{
-          width: `${containerW}px`,
+          width: `${width}px`,
           height: '24px',
           borderRadius: '999px',
           backgroundColor: '#0B0F16',
@@ -157,7 +194,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
           outline: '1px solid rgba(255, 255, 255, 0.05)',
         }}
       >
-        {/* Text overlay - now behind progress bar */}
+        {/* Text overlay */}
         <Box
           sx={{
             ml: '12px',
@@ -174,7 +211,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
           </Text>
         </Box>
 
-        {/* Progress bar - now above text but below circle */}
+        {/* Progress bar */}
         <Box
           sx={{
             position: 'absolute',
@@ -189,7 +226,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
           }}
         />
 
-        {/* Slider circle - stays on top */}
+        {/* Slider circle */}
         <Box
           sx={{
             display: 'flex',
