@@ -47,12 +47,13 @@ const fetchApi = async (
   body?: Record<string, unknown> | FormData,
   useAssets = false,
 ) => {
-  let url: string
-  if (NODE_ENV === 'production') {
-    url = useAssets ? `assets.${domain}` : `api.${domain}`
-  } else {
-    url = useAssets ? `assets-${domain}` : `api-${domain}`
-  }
+  // let url: string
+  // if (NODE_ENV === 'production') {
+  //   url = useAssets ? `assets.${domain}` : `api.${domain}`
+  // } else {
+  // temporary fix for staging - revert this when ip blessings are deployed on prod
+  const url = useAssets ? `assets-${domain}` : `api-${domain}`
+  // }
 
   return fetchWithTimeout(`https://${url}/${path}`, method, body)
 }
