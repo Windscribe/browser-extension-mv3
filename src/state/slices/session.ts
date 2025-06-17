@@ -10,6 +10,12 @@ import {
   locationWarpScriptId,
   languageWarpScriptId,
   timeZoneWarpScriptId,
+  fingerprintjsAntiFingerprintingScriptId,
+  fontAntiFingerprintingScriptId,
+  screenResAntiFingerprintingScriptId,
+  canvasAntiFingerprintingScriptId,
+  audioAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
 } from 'utils/constants'
 import type { ApiErrorResponse, Credentials, SessionData } from 'api/types'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
@@ -96,6 +102,13 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     await unregisterScript(locationWarpScriptId)
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(timeZoneWarpScriptId)
+
+    await unregisterScript(fontAntiFingerprintingScriptId)
+    await unregisterScript(screenResAntiFingerprintingScriptId)
+    await unregisterScript(canvasAntiFingerprintingScriptId)
+    await unregisterScript(audioAntiFingerprintingScriptId)
+    await unregisterScript(fingerprintjsAntiFingerprintingScriptId)
+    await unregisterScript(fingerprintMessageListenerScriptId)
     await resetSpoofUserAgentHeader()
   }
 

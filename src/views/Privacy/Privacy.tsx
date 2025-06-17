@@ -26,11 +26,18 @@ import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
 import InfoIcon from 'assets/img/infoIcon.svg'
+import IncognitoIcon from 'assets/img/incognito.svg'
 import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
 import {
+  audioAntiFingerprintingScriptId,
+  canvasAntiFingerprintingScriptId,
   CONTENT_SETTINGS,
+  fingerprintjsAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
+  fontAntiFingerprintingScriptId,
   languageWarpScriptId,
   locationWarpScriptId,
+  screenResAntiFingerprintingScriptId,
   timeZoneWarpScriptId,
   workerBlockScriptId,
 } from 'utils/constants'
@@ -41,6 +48,7 @@ import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import { pushToDebugLog } from 'services/debugLog'
 import { addOverlay } from 'state/slices/overlay'
 import { useState } from 'react'
+import { setAntiFingerprinting } from 'state/slices/antiFingerprinting'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -60,6 +68,7 @@ const Privacy: ThemeUiElement = () => {
   const currentLocation = useSelector(s => s.currentLocation)
   const serverList = useSelector(s => s.servers.serverList)
   const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
+  const antiFingerprintingActive = useSelector(s => s.antiFingerprinting)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -116,6 +125,70 @@ const Privacy: ThemeUiElement = () => {
             />
           </Flex>
         </OptionBox>
+
+        <OptionBox
+          Icon={IncognitoIcon}
+          path={'features/anti-fingerprinting'}
+          title="Anti Fingerprinting"
+          subTitle="Experimental feature Attemps to resist fingerprinting, but may break or slow down websites."
+        >
+          <ToggleSwitch
+            onChange={async () => {
+              showReloadAlert(true)
+              const isAntiFingerprintingActive = !antiFingerprintingActive
+              dispatch(setAntiFingerprinting(isAntiFingerprintingActive))
+              const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+
+              if (isAntiFingerprintingActive) {
+                await registerScript(
+                  fontAntiFingerprintingScriptId,
+                  ['fontAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  screenResAntiFingerprintingScriptId,
+                  ['screenResAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  canvasAntiFingerprintingScriptId,
+                  ['canvasAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  audioAntiFingerprintingScriptId,
+                  ['audioAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  fingerprintjsAntiFingerprintingScriptId,
+                  ['fingerprintjsAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  fingerprintMessageListenerScriptId,
+                  ['fingerprintMessageListener.bundle.js'],
+                  excludeMatchesFromAllowList,
+                  'ISOLATED',
+                )
+              } else {
+                await unregisterScript(fontAntiFingerprintingScriptId)
+                await unregisterScript(screenResAntiFingerprintingScriptId)
+                await unregisterScript(canvasAntiFingerprintingScriptId)
+                await unregisterScript(audioAntiFingerprintingScriptId)
+                await unregisterScript(fingerprintjsAntiFingerprintingScriptId)
+                await unregisterScript(fingerprintMessageListenerScriptId)
+              }
+            }}
+            checked={antiFingerprintingActive}
+          />
+        </OptionBox>
+
         <OptionBox
           Icon={WebRtcLeakIcon}
           path={'features/webrtc-slayer'}
@@ -346,9 +419,9 @@ const Privacy: ThemeUiElement = () => {
             checked={workerBlockEnabled}
           />
         </OptionBox>
+
         <OptionBox
           Icon={AdPrivacyIcon}
-          // path={'features/worker-block'}
           title="Ad Privacy"
           subTitle="Disable contextual ad topics and suggestions."
         >

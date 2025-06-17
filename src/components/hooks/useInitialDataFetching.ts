@@ -9,7 +9,16 @@ import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/use
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
 import sendMessage from 'services/runtime/sendMessage'
 import { registerScript } from 'utils/scriptController'
-import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
+import {
+  audioAntiFingerprintingScriptId,
+  canvasAntiFingerprintingScriptId,
+  fingerprintjsAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
+  fontAntiFingerprintingScriptId,
+  screenResAntiFingerprintingScriptId,
+  splitPersonalityScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
 import { SHA256 } from 'crypto-js'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { enableBlockNotifications } from 'state/slices/notificationBlockerEnabled'
@@ -36,6 +45,7 @@ export default (): void => {
   const allowList = useSelector(s => s.allowlist)
   const isNotificationBlockerActive = useSelector(s => s.notificationBlockerEnabled)
   const isWebRTCBlockerEnabled = useSelector(s => s.webRtcEnabled)
+  const isAntiFingerprintingActive = useSelector(s => s.antiFingerprinting)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -112,6 +122,47 @@ export default (): void => {
       )
     }
   }, [isWorkerBlockActive, excludeMatchesFromAllowList])
+
+  useEffect(() => {
+    if (isAntiFingerprintingActive) {
+      registerScript(
+        fontAntiFingerprintingScriptId,
+        ['fontAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        screenResAntiFingerprintingScriptId,
+        ['screenResAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        canvasAntiFingerprintingScriptId,
+        ['canvasAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        audioAntiFingerprintingScriptId,
+        ['audioAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        fingerprintjsAntiFingerprintingScriptId,
+        ['fingerprintjsAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        fingerprintMessageListenerScriptId,
+        ['fingerprintMessageListener.bundle.js'],
+        excludeMatchesFromAllowList,
+        'ISOLATED',
+      )
+    }
+  }, [isAntiFingerprintingActive, excludeMatchesFromAllowList])
 
   useEffect(() => {
     if (isSplitPersonalityEnabled && spoofedUserAgent) {

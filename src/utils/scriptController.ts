@@ -14,6 +14,7 @@ async function registerScript(
   scriptId: string,
   jsFileNames: string[],
   excludeDomains?: string[],
+  world: 'MAIN' | 'ISOLATED' = 'MAIN',
 ): Promise<void> {
   try {
     if ((await chrome.scripting.getRegisteredContentScripts({ ids: [scriptId] })).length > 0) {
@@ -32,13 +33,14 @@ async function registerScript(
     const res = await chrome.scripting.registerContentScripts([
       {
         id: scriptId,
-        world: 'MAIN',
+        world,
         runAt: 'document_start',
         persistAcrossSessions: true,
         js: jsFileNames,
         matches,
         allFrames: true,
         excludeMatches: exclusions,
+        matchOriginAsFallback: true,
       },
     ])
 

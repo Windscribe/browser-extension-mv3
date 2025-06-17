@@ -19,6 +19,11 @@ export function messageHandler(bgStore: Promise<StoreType>) {
       await disconnect(store.getState, store.dispatch)
     } else if (message.what === 'connectAutopilot') {
       await connectToAutopilot(store.getState, store.dispatch)
+    } else if (message.what === 'contentScriptLog') {
+      pushToDebugLog({
+        message: message.message,
+        tag: 'contentScript',
+      })
     } else if (message.what === 'networkChangeEvent') {
       const isOnline = message.onlineStatus
       pushToDebugLog({ message: `Network change event: ${isOnline}`, tag: 'background' })

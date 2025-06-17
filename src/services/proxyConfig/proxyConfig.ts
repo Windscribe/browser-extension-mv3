@@ -59,10 +59,8 @@ const createFindProxyForURLFunction = (
   return `
   function FindProxyForURL (url, host) {
 
-    alert('proxy url: ')
-    alert(url)
-    alert('host: ')
-    alert(host)
+    alert('proxy url: ' + url)
+    alert('host: ' + host)
     
     const userAllowlist = ${JSON.stringify(allowlist)}
     const lanIps = /(^(127|10)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$)|(^192\\.168\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.1[6-9]\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.2[0-9]\\.\\d{1,3}\.\\d{1,3}$)|(^172\\.3[0-1]\\.\\d{1,3}\\.\\d{1,3}$)/

@@ -62,6 +62,7 @@ import ShowReloadAlertReducer from './slices/reloadAlert'
 import privateModeReducer from './slices/privateMode'
 import locationTabReducer from './slices/locationTab'
 import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
+import antiFingerprintingReducer from './slices/antiFingerprinting'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 import shortcutStatusReducer from './slices/openedByShortcut'
@@ -117,6 +118,7 @@ const reducers = {
   shortcutStatus: shortcutStatusReducer,
   locationTab: locationTabReducer,
   dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
+  antiFingerprinting: antiFingerprintingReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

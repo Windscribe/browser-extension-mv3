@@ -52,6 +52,60 @@ const options = {
       'workerBlock.ts',
     ),
 
+    fontAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'font.ts',
+    ),
+
+    canvasAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'canvas.ts',
+    ),
+
+    screenResAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'screen.ts',
+    ),
+
+    audioAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'audio.ts',
+    ),
+
+    fingerprintjsAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'fingerprintjs.ts',
+    ),
+
+    fingerprintMessageListener: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'fingerprintMessageListener.ts',
+    ),
+
     offscreenHub: path.join(__dirname, 'src', 'services', 'offscreenActions', 'offscreenHub.ts'),
   },
   chromeExtensionBoilerplate: {
