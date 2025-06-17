@@ -202,7 +202,6 @@ const Login: ThemeUiElement = () => {
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 data-testid="password-input"
-                value={password}
                 onChange={e => setPassword(e.target.value)}
                 sx={{ pr: '38px', borderColor: error ? 'bloodRed' : 'transparent' }}
               />
