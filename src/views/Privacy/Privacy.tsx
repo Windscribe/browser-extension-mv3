@@ -54,11 +54,9 @@ const Privacy: ThemeUiElement = () => {
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const splitPersonalityCompatMode = useSelector(s => s.splitPersonalityCompatMode)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
-  const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
   const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
   const allowList = useSelector(s => s.allowlist)
-  const proxy = useSelector(s => s.proxy)
   const autopilot = useSelector(s => s.autopilot)
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const currentLocation = useSelector(s => s.currentLocation)
@@ -148,7 +146,7 @@ const Privacy: ThemeUiElement = () => {
               dispatch(setLocationWarp(isLocationWarpActive))
 
               const dataCenterId = currentDataCenter.id
-              if (proxy.status !== 'on') return
+
               if (autopilot.autopilotSelected) return
               if (dataCenterId === undefined || dataCenterId === null) return
 
@@ -204,7 +202,7 @@ const Privacy: ThemeUiElement = () => {
               }
             }}
             checked={locationWarp}
-            disabled={autopilotSelected}
+            disabled={autopilot.autopilotSelected}
             message="Not Available in Autopilot"
             data-testid="location-warp-toggle"
           />
@@ -216,7 +214,7 @@ const Privacy: ThemeUiElement = () => {
           subTitle="Sets your browser time to match the connected proxy."
         >
           <Flex sx={{ gap: '8px', alignItems: 'center' }}>
-            {timeWarpEnabled && !autopilotSelected && (
+            {timeWarpEnabled && !autopilot.autopilotSelected && (
               <Box sx={{ maxHeight: '16px' }}>
                 <ToolTip message={getTimeZoneInfo(currentLocationTimezone)}>
                   <TimeIcon
@@ -234,7 +232,6 @@ const Privacy: ThemeUiElement = () => {
 
                 const locationId = currentLocation.id
 
-                if (proxy.status !== 'on') return
                 if (autopilot.autopilotSelected) return
                 if (locationId === undefined || locationId === null) return
 
@@ -255,7 +252,7 @@ const Privacy: ThemeUiElement = () => {
                 }
               }}
               checked={timeWarpEnabled}
-              disabled={autopilotSelected}
+              disabled={autopilot.autopilotSelected}
               message="Not Available in Autopilot"
             />
           </Flex>
@@ -273,7 +270,6 @@ const Privacy: ThemeUiElement = () => {
               dispatch(setLanguageWarpEnabled(isLanguageWarpActive))
               const locationId = currentLocation.id
 
-              if (proxy.status !== 'on') return
               if (autopilot.autopilotSelected) return
               if (locationId === undefined || locationId === null) return
 
@@ -294,7 +290,7 @@ const Privacy: ThemeUiElement = () => {
               }
             }}
             checked={languageWarpEnabled}
-            disabled={autopilotSelected}
+            disabled={autopilot.autopilotSelected}
             data-testid="language-warp-toggle"
             message="Not Available in Autopilot"
           />

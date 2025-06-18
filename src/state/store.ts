@@ -59,6 +59,7 @@ import proxyStatusMV2Reducer from './slices/proxyStatusMV2'
 import serverListenerRunReducer from './slices/serverListenerRun'
 import PermissionsReducer from './slices/permissions'
 import ShowReloadAlertReducer from './slices/reloadAlert'
+import privateModeReducer from './slices/privateMode'
 import locationTabReducer from './slices/locationTab'
 import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
 import splitPersonalityCompatModeReducer from './slices/splitPersonalityCompatMode'
@@ -113,6 +114,7 @@ const reducers = {
   serverListenerRun: serverListenerRunReducer,
   permissions: PermissionsReducer,
   showReloadAlert: ShowReloadAlertReducer,
+  privateModalShown: privateModeReducer,
   shortcutStatus: shortcutStatusReducer,
   locationTab: locationTabReducer,
   dismissedUpgradeWarning: dismissedUpgradeWarningReducer,

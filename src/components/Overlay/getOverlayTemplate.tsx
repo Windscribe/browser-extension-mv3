@@ -17,6 +17,7 @@ import {
   setShowUblockWarningAtBlockerPage,
   setShowUblockWarningAtHomePage,
 } from 'state/slices/blocker'
+import { setPrivateModeModalShown } from 'state/slices/privateMode'
 import { setDismissedUpgradeWarning } from 'state/slices/upgradeWarning'
 
 type ActionsBlockComponent = React.ComponentType<{ close: () => void }>
@@ -97,6 +98,30 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         img: constructionGarry,
         ActionsBlock: LocationDown,
       }
+
+    case 'wrongFileExtension':
+      return {
+        title: 'Wrong File Format',
+        message: 'Please upload a json formatted file',
+        img: cautionGarry,
+        ActionsBlock: ImportingProblemFormat,
+      }
+
+    case 'errorDuringImport':
+      return {
+        title: 'Import Failed',
+        message: 'Something went wrong during the import',
+        img: cautionGarry,
+        ActionsBlock: ImportingProblemFormat,
+      }
+
+    case 'invalidFormat':
+      return {
+        title: 'Validation Failed',
+        message: 'Settings are incorrectly formatted',
+        img: cautionGarry,
+        ActionsBlock: ImportingProblemFormat,
+      }
     case 'notificationBlockerPermission':
       return {
         title: 'Permission Required',
@@ -105,6 +130,15 @@ export const getOverlayTemplate = (template: OverlayTemplate): OverlayTemplateCo
         img: teacherGarry,
         ActionsBlock: NotificationBlockerPermission,
       }
+
+    case 'firefoxInPrivateMode':
+      return {
+        title: 'Are you using Private Browsing Mode in a Firefox browser?',
+        message: 'With Private Browsing, nothing will be saved when you close your browser.',
+        img: cautionGarry,
+        ActionsBlock: FirefoxInPrivateMode,
+      }
+
     case 'versionUnsupportedWarning':
       return {
         title: 'Your Chrome Version is Outdated',
@@ -255,6 +289,14 @@ const LocationDown: ActionsBlockComponent = ({ close }) => {
   )
 }
 
+const ImportingProblemFormat: ActionsBlockComponent = ({ close }) => {
+  return (
+    <>
+      <ConfirmButton onClick={close}>OK</ConfirmButton>
+    </>
+  )
+}
+
 const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
   return (
     <>
@@ -269,6 +311,20 @@ const NotificationBlockerPermission: ActionsBlockComponent = ({ close }) => {
       </ConfirmButton>
       <CancelButton onClick={close}>Cancel</CancelButton>
     </>
+  )
+}
+
+const FirefoxInPrivateMode: ActionsBlockComponent = ({ close }) => {
+  const dispatch = useDispatch()
+  return (
+    <CancelButton
+      onClick={() => {
+        close()
+        dispatch(setPrivateModeModalShown(true))
+      }}
+    >
+      Got it
+    </CancelButton>
   )
 }
 

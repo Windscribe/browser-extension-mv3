@@ -46,6 +46,8 @@ export const setRandomSpoofedUserAgent = (
     //  if new random UA equals to the one currently spoofed than get a new random UA
   } while (randomizedUserAgent === spoofedUserAgent)
   dispatch(setSpoofedUserAgent(randomizedUserAgent))
+
+  return randomizedUserAgent
 }
 
 export const userAgentSlice = createSlice({
