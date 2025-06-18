@@ -89,8 +89,6 @@ const initialState: UserAgentState = {
     'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
     'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0',
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 OPR/113.0.0.0',
-    'Mozilla/5.0 (X11; Linux x86_64; rv:97.0) Gecko/20100101 Firefox/97.0 LibreWolf/97.0.1',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 MullvadBrowser/128.6.0',
   ],
   original: undefined,
   spoofed: '',
@@ -100,7 +98,7 @@ export const setRandomSpoofedUserAgent = (
   dispatch: AppDispatch,
   getState: GetState,
   isCompatMode: boolean,
-): void => {
+): string => {
   const originalUa = navigator.userAgent
   const userAgentList = getState().userAgent.list.filter(ua => {
     if (isCompatMode) {
@@ -123,6 +121,7 @@ export const setRandomSpoofedUserAgent = (
     //  if new random UA equals to the one currently spoofed than get a new random UA
   } while (randomizedUserAgent === spoofedUserAgent)
   dispatch(setSpoofedUserAgent(randomizedUserAgent))
+  return randomizedUserAgent
 }
 
 export const userAgentSlice = createSlice({

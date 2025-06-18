@@ -22,7 +22,7 @@ export const setRandomSpoofedUserAgent = (
   dispatch: AppDispatch,
   getState: GetState,
   isCompatMode: boolean,
-): void => {
+): string => {
   const originalUa = navigator.userAgent
   const userAgentList = getState().userAgent.list.filter(ua => {
     if (isCompatMode) {
@@ -46,7 +46,6 @@ export const setRandomSpoofedUserAgent = (
     //  if new random UA equals to the one currently spoofed than get a new random UA
   } while (randomizedUserAgent === spoofedUserAgent)
   dispatch(setSpoofedUserAgent(randomizedUserAgent))
-
   return randomizedUserAgent
 }
 
