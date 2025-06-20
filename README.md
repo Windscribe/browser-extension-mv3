@@ -7,8 +7,9 @@
 1. Check if your [Node.js](https://nodejs.org/) version is >= **14**.
 2. Update the environment file
 3. Run `yarn install` to install the dependencies.
-4. Run `yarn start`
-5. Load your extension on Chrome following:
+4. Run `git submodule update --init --recursive`
+5. Run `yarn start`
+6. Load your extension on Chrome following:
    1. Access `chrome://extensions/`
    2. Check `Developer mode`
    3. Click on `Load unpacked extension`
@@ -118,6 +119,8 @@ BROWSER=Chrome
 API_URL=staging.windscribe.com
 TEST_USER_NAME=your_username
 TEST_USER_PASSWORD=your_password
+BUILD_USER_NAME=
+BUILD_USER_PASSWORD=
 ```
 
 5. Run tests by
