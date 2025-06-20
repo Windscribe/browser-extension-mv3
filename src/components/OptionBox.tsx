@@ -38,7 +38,7 @@ const OptionBox: ThemeUiElement<OptionBoxProps> = ({
     >
       <RoundedBox>
         <ListItem noBorder>
-          <Flex sx={{ gap: '16px' }}>
+          <Flex sx={{ gap: '16px', alignItems: 'center' }}>
             <Icon sx={{ fill: 'primaryText' }} />
             {title}
           </Flex>
