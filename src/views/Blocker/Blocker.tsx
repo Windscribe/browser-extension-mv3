@@ -140,13 +140,13 @@ const Blocker: ThemeUiElement = () => {
               justifyContent: 'space-between',
             }}
           >
-            uBlock Version
+            Version
             <span
               sx={{
                 fontWeight: '400',
               }}
             >
-              {UBO_LITE_VERSION}
+              {UBO_LITE_VERSION + '-' + UBO_LITE_SUBMODULE_COMMIT_HASH}
             </span>
           </Box>
         </Box>
