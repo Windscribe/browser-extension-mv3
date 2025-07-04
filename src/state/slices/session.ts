@@ -124,6 +124,9 @@ export const checkSessionStatus = createAsyncThunk(
       )
 
       if (updatedSession.data) {
+        // always fetch server credentials when session status is updated
+        await dispatch(fetchServerCredentials())
+
         if (
           (status === 'on' &&
             !updatedSession.data.is_premium &&
@@ -171,7 +174,6 @@ export const checkSessionStatus = createAsyncThunk(
         })
 
         if (isSessionChanges) {
-          await dispatch(fetchServerCredentials())
           await dispatch(fetchServerList())
           await dispatch(fetchNotifications())
 
