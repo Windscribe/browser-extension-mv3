@@ -14,6 +14,10 @@ export type Credentials = {
   username: string
   password: string
   twoFa?: string
+  secureToken?: string
+  secureTokenSignature?: string
+  captchaSolution?: number
+  captchaTrail?: number[]
 }
 
 export interface MetaData {
@@ -61,6 +65,7 @@ export type Endpoint =
   | 'CruiseControlDomains'
   | 'Users'
   | 'RecordInstall/ext/chrome'
+  | 'AuthToken/login'
 
 export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -96,6 +101,30 @@ export interface SessionData {
   traffic_used?: number
   user_id?: string
   username?: string
+}
+
+export interface CaptchaData {
+  background?: string
+  slider?: string
+  top?: number
+}
+
+export interface AuthTokenData {
+  captcha?: CaptchaData
+  success?: number
+  token?: string
+  expires_at?: number
+  token_id?: string
+  access_level?: number
+  nonce?: string
+  algorithm?: string
+  version?: string
+  request_id?: string
+  entropy?: {
+    e: string
+    s: string
+  }
+  metadata?: MetaData
 }
 
 // keeps true to known session data interface in extension with manifest v2

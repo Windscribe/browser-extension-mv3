@@ -44,6 +44,15 @@ const options = {
   stats: {
     children: true,
     errorDetails: true,
+    children: true,
+    errorDetails: true,
+    logging: 'verbose',
+    loggingDebug: true,
+    colors: true,
+    modules: true,
+    reasons: true,
+    moduleTrace: true,
+    errorStack: true,
   },
   entry: {
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
