@@ -5,7 +5,7 @@ const CACHE_KEY = 'ws-build-cache'
 const CACHE_FILE_DIR = path.resolve(__dirname, '..', '.ws-build-cache') // custom dir to store cache
 
 const CACHE_TTL = 1000 * 60 * 60 // 1 hour in milliseconds
-const FORCE_REFRESH = process.env.FORCE_BUILD_LOGIN === 'true'
+const FORCE_REFRESH = process.env.FORCE_REFRESH === 'true'
 const BYPASS_CACHING = process.env.BYPASS_CACHING === 'true'
 
 const buildCache = create({
