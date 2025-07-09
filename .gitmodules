@@ -1,3 +1,3 @@
 [submodule "ubo-lite-mirror"]
 	path = ubo-lite-mirror
-	url = git@gitlab.int.windscribe.com:ws/client/client-libs/ubo-lite-mirror.git
+	url = https://github.com/Windscribe/ubo-lite.git
