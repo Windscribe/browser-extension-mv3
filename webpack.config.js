@@ -15,6 +15,12 @@ console.log('process.env.API_URL: ', process.env.API_URL)
 // get git info from command line
 const commitHash = require('child_process').execSync('git rev-parse --short HEAD').toString().trim()
 
+// get submodule commit hash
+const uboLiteSubmoduleCommitHash = require('child_process')
+  .execSync('git rev-parse --short HEAD:ubo-lite-mirror')
+  .toString()
+  .trim()
+
 // get ubo lite version maniest.json in ubo-lite-mirror/chromium
 const uboLiteVersion = require('./ubo-lite-mirror/chromium/manifest.json').version
 const uboLiteName = require('./ubo-lite-mirror/chromium/_locales/et/messages.json').extName.message
@@ -38,6 +44,15 @@ const options = {
   stats: {
     children: true,
     errorDetails: true,
+    children: true,
+    errorDetails: true,
+    logging: 'verbose',
+    loggingDebug: true,
+    colors: true,
+    modules: true,
+    reasons: true,
+    moduleTrace: true,
+    errorStack: true,
   },
   entry: {
     popup: path.join(__dirname, 'src', 'pages', 'popup', 'index.tsx'),
@@ -129,6 +144,7 @@ const options = {
   plugins: [
     new webpack.DefinePlugin({
       COMMIT_HASH: JSON.stringify(commitHash),
+      UBO_LITE_SUBMODULE_COMMIT_HASH: JSON.stringify(uboLiteSubmoduleCommitHash),
       UBO_LITE_VERSION: JSON.stringify(uboLiteVersion),
       UBO_LITE_NAME: JSON.stringify(uboLiteName),
     }),

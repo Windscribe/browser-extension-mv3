@@ -1,4 +1,5 @@
 require('dotenv').config()
+
 const login = require('./login')
 const getUserAgents = require('./getUa')
 const getLocations = require('./getLocations')
@@ -28,8 +29,23 @@ delete config.chromeExtensionBoilerplate
   await embedLanguageWarp(config, serverListData)
   await embedTimeZoneWarp(config, serverListData)
 
-  webpack(config, async function (err) {
-    if (err) throw err
+  webpack(config, async function (err, stats) {
+    if (err) {
+      console.error('Webpack build error:', err)
+    }
+
+    if (stats.hasErrors()) {
+      console.error('Webpack build failed with errors:')
+      console.error(
+        stats.toString({
+          chunks: false,
+          colors: true,
+          errorDetails: true,
+          moduleTrace: true,
+        }),
+      )
+      process.exit(1)
+    }
 
     console.log('Validating embedded files')
     await validateEmbeddedUserAgents(userAgents)

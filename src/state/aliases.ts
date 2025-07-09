@@ -6,6 +6,8 @@ import {
   LOGOUT,
   checkSessionStatus,
   CHECK_SESSION_STATUS,
+  LOGIN_AUTH_TOKEN,
+  getAuthToken,
 } from './slices/session'
 import { fetchBestLocation, FETCH_BEST_LOCATION } from './slices/bestLocation'
 import {
@@ -47,7 +49,10 @@ const _addToAllowlist: ActionCreator<AllowlistPayload[], void> = ({ payload }) =
 const _removeFromAllowlist: ActionCreator<string[], void> = ({ payload }) =>
   removeFromAllowlist(payload)
 
+const _getAuthToken: ActionCreator<void, ReturnType<typeof getAuthToken>> = () => getAuthToken()
+
 export default {
+  [`alias/${LOGIN_AUTH_TOKEN}`]: _getAuthToken,
   [`alias/${LOGIN}`]: _login,
   [`alias/${LOGOUT}`]: logout,
   [`alias/${FETCH_SERVER_LIST}`]: fetchServerList,

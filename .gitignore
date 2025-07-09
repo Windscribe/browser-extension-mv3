@@ -34,3 +34,6 @@ src/pages/contentScripts/timeZoneWarp/*
 !src/pages/contentScripts/locationWarp/.gitkeep
 !src/pages/contentScripts/languageWarp/.gitkeep
 !src/pages/contentScripts/timeZoneWarp/.gitkeep
+
+
+.ws-build-cache/

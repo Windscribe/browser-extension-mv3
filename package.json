@@ -1,6 +1,6 @@
 {
   "name": "windscribe",
-  "version": "4.1.9",
+  "version": "4.2.1",
   "description": "windscribe",
   "license": "MIT",
   "preset": "jest-puppeteer",
@@ -16,7 +16,8 @@
     "test:local": "DOTENV_CONFIG_PATH=./.env.local yarn mocha tests/e2e/tests.js --timeout 50000",
     "lint": "eslint ./src",
     "prepare": "husky install",
-    "slice": "node scripts/addSlice.mjs"
+    "slice": "node scripts/addSlice.mjs",
+    "clear-cache": "rm -rf .ws-build-cache"
   },
   "dependencies": {
     "@eduardoac-skimlinks/webext-redux": "^3.0.1-release-candidate",
@@ -40,6 +41,7 @@
     "dotenv": "^16.0.3",
     "dotenv-webpack": "^7.1.1",
     "fake-indexeddb": "3.0.0",
+    "flat-cache": "^6.1.10",
     "fuse.js": "^6.6.2",
     "is-valid-domain": "^0.1.6",
     "jest": "^28.1.2",
