@@ -178,3 +178,5 @@ export const IS_FIREFOX =
 export const SHORTCUT_COMMAND_THROTTLE_MS = 1000
 // usually used for ublock min version
 export const MIN_SUPPORTED_CHROME_VERSION = 122
+
+export const SECRET_KEY_PSY_OP = 'if_you_copy_this_you_might_die_a_painful_death'

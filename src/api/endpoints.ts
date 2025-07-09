@@ -9,24 +9,47 @@ import type {
   WebSessionData,
   ReportAppLogData,
   CruiseControlDomains,
+  AuthTokenData,
 } from 'api/types'
 import { sendRequest } from 'api/sendRequest'
 import { buildQueryString, generateTime, getClientAuthHash } from 'api/utils'
 import type { AppDispatch } from 'state/store'
 import { MigrationStatusReport } from 'state/slices/migration'
 
-const login = async (
-  dispatch: AppDispatch,
-  username: string,
-  password: string,
-  twoFa?: string,
-): Promise<ApiResponse<SessionData>> =>
-  await sendRequest(dispatch, 'POST', buildQueryString('Session'), {
+const login = async (arg: {
+  dispatch: AppDispatch
+  username: string
+  password: string
+  secure_token?: string
+  secure_token_signature?: string
+  twoFa?: string
+  captchaSolution?: number
+  captchaTrail?: number[]
+}): Promise<ApiResponse<SessionData>> => {
+  const {
+    dispatch,
+    username,
+    password,
+    secure_token,
+    secure_token_signature,
+    twoFa,
+    captchaSolution,
+    captchaTrail,
+  } = arg
+  return await sendRequest(dispatch, 'POST', buildQueryString('Session'), {
     username,
     password,
     session_type_id: 2,
+    ...(secure_token && { secure_token: secure_token }),
+    ...(secure_token_signature && { secure_token_sig: secure_token_signature }),
+    ...(captchaSolution && { captcha_solution: captchaSolution }),
+    ...(captchaTrail && { captcha_trail: captchaTrail }),
     ...(twoFa && { '2fa_code': twoFa }),
   })
+}
+
+const getLoginAuthToken = async (dispatch: AppDispatch): Promise<ApiResponse<AuthTokenData>> =>
+  await sendRequest(dispatch, 'POST', buildQueryString('AuthToken/login'), undefined)
 
 const logout = async (
   dispatch: AppDispatch,
@@ -183,4 +206,5 @@ export {
   reportAppLog,
   sendEmailConfirmation,
   recordInstall,
+  getLoginAuthToken,
 }

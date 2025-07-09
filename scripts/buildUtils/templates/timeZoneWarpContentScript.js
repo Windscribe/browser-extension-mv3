@@ -27,6 +27,28 @@ const processedNames = [
   'toLocaleTimeString',
   'toLocaleDateString',
 ]
+
+
+
+function computeOffset(zone, date = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: zone,
+    year: 'numeric',  month: '2-digit',  day: '2-digit',
+    hour: '2-digit',  minute: '2-digit', second: '2-digit',
+    hour12: false,
+  })
+  .formatToParts(date)
+  .reduce((o,p)=>{o[p.type]=p.value; return o;}, {});
+
+  const asUTC = Date.UTC(
+    +parts.year, +parts.month - 1, +parts.day,
+    +parts.hour, +parts.minute,   +parts.second
+  );
+
+  return Math.round(-(asUTC - date.getTime()) / 60000);  // minutes west of UTC
+}
+
+
 const propertyNames = Object.getOwnPropertyNames(Date.prototype).filter(function (item) {
   return processedNames.indexOf(item) === -1
 })
@@ -47,12 +69,12 @@ Object.defineProperty(Date.prototype, '_date', {
   get() {
     return this._newdate !== undefined
       ? this._newdate
-      : new Date(this.getTime() + (this._offset - ${options.offset}) * 60 * 1000)
+      : new Date(this.getTime() + (this._offset - computeOffset('${options.timezone}')) * 60 * 1000)
   },
 })
 Date.prototype.getTimezoneOffset = new Proxy(Date.prototype.getTimezoneOffset, {
   apply(target, self, args) {
-    return isNaN(self) ? Reflect.apply(target, self, args) : ${options.offset}
+    return isNaN(self) ? Reflect.apply(target, self, args) : computeOffset('${options.timezone}')
   },
 })
 Date.prototype.toString = new Proxy(Date.prototype.toString, {
@@ -94,7 +116,7 @@ Date.prototype.toTimeString = new Proxy(Date.prototype.toTimeString, {
     const desiredTimezoneName = timeString.split(', ')[1]
 
     const replace_1 = convertToGMT(self._offset)
-    const replace_2 = convertToGMT('${options.offset}')
+    const replace_2 = convertToGMT(computeOffset('${options.timezone}'))
     const replace_3 = \`(\${desiredTimezoneName})\`
 
     return isNaN(self)

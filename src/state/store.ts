@@ -63,6 +63,7 @@ import privateModeReducer from './slices/privateMode'
 import locationTabReducer from './slices/locationTab'
 import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
 import antiFingerprintingReducer from './slices/antiFingerprinting'
+import splitPersonalityCompatModeReducer from './slices/splitPersonalityCompatMode'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 import shortcutStatusReducer from './slices/openedByShortcut'
@@ -119,6 +120,7 @@ const reducers = {
   locationTab: locationTabReducer,
   dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
   antiFingerprinting: antiFingerprintingReducer,
+  splitPersonalityCompatMode: splitPersonalityCompatModeReducer,
 }
 
 const combinedReducer = combineReducers(reducers)

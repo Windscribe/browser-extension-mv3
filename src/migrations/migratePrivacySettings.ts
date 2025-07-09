@@ -198,7 +198,7 @@ export const migratePrivacySettings = async (
 
   if (splitPersonalityStateV2.success) {
     if (splitPersonalityStateV2.data.state) {
-      await store.dispatch(activateSplitPersonality())
+      await store.dispatch(activateSplitPersonality(false))
     } else {
       await store.dispatch(deactivateSplitPersonality())
     }

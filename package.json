@@ -1,6 +1,6 @@
 {
   "name": "windscribe",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "windscribe",
   "license": "MIT",
   "preset": "jest-puppeteer",
@@ -16,7 +16,8 @@
     "test:local": "DOTENV_CONFIG_PATH=./.env.local yarn mocha tests/e2e/tests.js --timeout 50000",
     "lint": "eslint ./src",
     "prepare": "husky install",
-    "slice": "node scripts/addSlice.mjs"
+    "slice": "node scripts/addSlice.mjs",
+    "clear-cache": "rm -rf .ws-build-cache"
   },
   "dependencies": {
     "@eduardoac-skimlinks/webext-redux": "^3.0.1-release-candidate",
@@ -25,6 +26,7 @@
     "@mdx-js/react": "^2.1.2",
     "@reduxjs/toolkit": "^1.8.3",
     "@svgr/webpack": "^6.3.0",
+    "@tanstack/react-virtual": "^3.10.8",
     "@theme-ui/color": "^0.16.0",
     "@tippyjs/react": "^4.2.6",
     "@types/lodash.throttle": "^4.1.9",
@@ -35,9 +37,11 @@
     "date-fns": "^2.29.1",
     "dexie": "^3.2.7",
     "dexie-export-import": "^4.1.1",
+    "dexie-react-hooks": "^1.1.7",
     "dotenv": "^16.0.3",
     "dotenv-webpack": "^7.1.1",
     "fake-indexeddb": "3.0.0",
+    "flat-cache": "^6.1.10",
     "fuse.js": "^6.6.2",
     "is-valid-domain": "^0.1.6",
     "jest": "^28.1.2",
@@ -52,6 +56,7 @@
     "react-dom": "^18.2.0",
     "react-hot-loader": "^4.13.0",
     "react-joyride": "^2.5.3",
+    "react-json-view-lite": "1.5.0",
     "react-redux": "^7.2.8",
     "redux-logger": "^3.0.6",
     "serialize-error": "^11.0.3",

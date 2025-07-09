@@ -6,9 +6,10 @@ import { toggleNotificationBlocker } from 'state/slices/notificationBlockerEnabl
 import { toggleWebRtcBlocker } from 'state/slices/webRtcEnabled'
 import { setLanguageWarpEnabled } from 'state/slices/languageWarpEnabled'
 import {
-  ACTIVATE_SPLIT_PERSONALITY,
+  activateSplitPersonality,
   TOGGLE_SPLIT_PERSONALITY,
 } from 'state/slices/splitPersonalityEnabled'
+import { setSplitPersonalityCompatMode } from 'state/slices/splitPersonalityCompatMode'
 import { setTimeWarpEnabled } from 'state/slices/timeWarpEnabled'
 import { setLocationWarp } from 'state/slices/locationWarp'
 import { setWorkerBlock } from 'state/slices/workerBlock'
@@ -59,6 +60,7 @@ const Privacy: ThemeUiElement = () => {
   const languageWarpEnabled = useSelector(s => s.languageWarpEnabled)
   const timeWarpEnabled = useSelector(s => s.timeWarpEnabled)
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const splitPersonalityCompatMode = useSelector(s => s.splitPersonalityCompatMode)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
   const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
@@ -378,7 +380,7 @@ const Privacy: ThemeUiElement = () => {
                   <GetNewButton
                     onClick={() => {
                       showReloadAlert(true)
-                      dispatchAlias(ACTIVATE_SPLIT_PERSONALITY)
+                      dispatch(activateSplitPersonality(splitPersonalityCompatMode))
                     }}
                   />
                 </ToolTip>
@@ -393,6 +395,31 @@ const Privacy: ThemeUiElement = () => {
             />
           </Flex>
         </OptionBox>
+
+        <OptionBox
+          Icon={SplitPersonalityIcon}
+          path={'features/split-personality'}
+          title="Split Personality Compat Mode"
+          subTitle="Stay within your browser's user agent family. This helps prevent some websites from breaking."
+        >
+          <Flex sx={{ gap: '8px', alignItems: 'center' }}>
+            <ToggleSwitch
+              disabled={!splitPersonalityEnabled}
+              message="Not available when Split Personality is disabled"
+              onChange={() => {
+                const isCompatMode = !splitPersonalityCompatMode
+
+                dispatch(setSplitPersonalityCompatMode(isCompatMode))
+
+                dispatch(activateSplitPersonality(isCompatMode))
+
+                showReloadAlert(true)
+              }}
+              checked={splitPersonalityCompatMode}
+            />
+          </Flex>
+        </OptionBox>
+
         <OptionBox
           Icon={WorkerBlockIcon}
           path={'features/worker-block'}

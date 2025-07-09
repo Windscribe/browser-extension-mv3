@@ -17,7 +17,7 @@
 .env.production.local
 .history
 .rest_examples
-
+.env
 # secrets
 secrets.*.js
 
@@ -36,4 +36,4 @@ src/pages/contentScripts/timeZoneWarp/*
 !src/pages/contentScripts/timeZoneWarp/.gitkeep
 
 
-/ws-build-cache
+.ws-build-cache/
