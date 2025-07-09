@@ -110,6 +110,9 @@ import PY from './PARAGUAY.svg'
 import BY from './BELARUS.svg'
 import UY from './URUGUAY.svg'
 
+import IR from './IRAN.svg'
+import SV from './ELSALVADOR.svg'
+
 export default {
   AUTO,
   AL,
@@ -202,4 +205,6 @@ export default {
   PY,
   BY,
   UY,
+  SV,
+  IR,
 }
