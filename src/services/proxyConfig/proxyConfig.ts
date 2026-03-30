@@ -26,12 +26,18 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
 import { pushToDebugLog } from 'services/debugLog'
+import locales from 'utils/locales'
 
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
+import {
+  resetSpoofAcceptLanguageHeader,
+  spoofAcceptLanguageHeader,
+} from 'services/declarativeNetRequest/updateDynamicRules'
 import { SHA256 } from 'crypto-js'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 import shuffle from 'lodash.shuffle'
 import { NO_IP } from 'services/proxyAuth/checkIp'
 import { serializeError } from 'serialize-error'
@@ -252,10 +258,14 @@ export const connect = async (
 
     const proxyStatus = getState().proxy.status
     const isAutoPilot = getState().autopilot.autopilotSelected
+    const currentLocation = getState().currentLocation
     const currentLocationId = getState().currentLocation.id
     const allowList = getState().allowlist
     const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
     const isLanguageWarpActive = getState().languageWarpEnabled
+    const dontSpoofDomains = getPrivacyFeatureEnabledDomains(allowList)
+    const localeKey = (currentLocation.country_code ?? 'AUTO') as keyof typeof locales
+    const languageWarpLocale = locales[localeKey]?.locale ?? 'en'
     const currentDataCenter = getState().currentDataCenter
     const currentDataCenterId = currentDataCenter.id
     const isLocationWarpActive = getState().locationWarp
@@ -281,9 +291,17 @@ export const connect = async (
           ],
           excludeMatchesFromAllowList,
         )
+
+        await spoofAcceptLanguageHeader(languageWarpLocale, dontSpoofDomains)
+      } else {
+        await resetSpoofAcceptLanguageHeader()
       }
-    } else if (isAutoPilot) {
-      await unregisterScript(languageWarpScriptId)
+    } else {
+      await resetSpoofAcceptLanguageHeader()
+
+      if (isAutoPilot) {
+        await unregisterScript(languageWarpScriptId)
+      }
     }
 
     if (
@@ -427,6 +445,7 @@ export const disconnect = async (
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(locationWarpScriptId)
     await unregisterScript(timeZoneWarpScriptId)
+    await resetSpoofAcceptLanguageHeader()
   }
 }
 
