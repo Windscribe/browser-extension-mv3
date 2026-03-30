@@ -21,6 +21,8 @@ type ImportSettingsArgs = {
   favoriteLocations: FavoriteLocationsState
   dispatch: AppDispatch
   locationId: number | undefined
+  currentLocationCountryCode: string | undefined
+  proxyStatus: string
   currentDataCenter: Partial<DataCenter>
   autopilotSelected: boolean
   isUserPro: 0 | 1 | undefined
@@ -36,6 +38,8 @@ export const importSettings = async ({
   favoriteLocations,
   dispatch,
   locationId,
+  currentLocationCountryCode,
+  proxyStatus,
   currentDataCenter,
   autopilotSelected,
   isUserPro,
@@ -64,11 +68,13 @@ export const importSettings = async ({
       addToAllowlist,
       autopilotSelected,
       currentDataCenter,
+      currentLocationCountryCode,
       dispatch,
       existingAllowList,
       importedSettings,
       isUserPro,
       locationId,
+      proxyStatus,
       serverList,
     })
 
