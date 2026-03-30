@@ -7,6 +7,12 @@ import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { ACTIVATE_SPLIT_PERSONALITY } from 'state/slices/splitPersonalityEnabled'
 import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import {
+  resetSpoofAcceptLanguageHeader,
+  spoofAcceptLanguageHeader,
+} from 'services/declarativeNetRequest/updateDynamicRules'
+import locales from 'utils/locales'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
+import {
   languageWarpScriptId,
   locationWarpScriptId,
   splitPersonalityScriptId,
@@ -117,6 +123,10 @@ const registerScripts = async (
     const isTimeZoneWarpActive = store.getState().timeWarpEnabled
     const serverList = store.getState().servers.serverList
     const isUserPro = store.getState().session.sessionData?.is_premium
+    const proxyStatus = store.getState().proxy.status
+    const dontSpoofDomains = getPrivacyFeatureEnabledDomains(store.getState().allowlist)
+    const localeKey = (currentLocation.country_code ?? 'AUTO') as keyof typeof locales
+    const languageWarpLocale = locales[localeKey]?.locale ?? 'en'
 
     const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(
       store.getState().allowlist,
@@ -178,6 +188,7 @@ const registerScripts = async (
     }
 
     if (
+      proxyStatus === 'on' &&
       !autopilot.autopilotSelected &&
       currentLocation.id !== undefined &&
       currentLocation.id !== null &&
@@ -192,6 +203,10 @@ const registerScripts = async (
         ],
         excludeMatchesFromAllowList,
       )
+
+      await spoofAcceptLanguageHeader(languageWarpLocale, dontSpoofDomains)
+    } else {
+      await resetSpoofAcceptLanguageHeader()
     }
 
     if (
