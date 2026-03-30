@@ -37,7 +37,10 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
 import { unregisterScript } from 'utils/scriptController'
 import { setIsRightAfterLogin } from './isRightAfterLogin'
-import { resetSpoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import {
+  resetSpoofAcceptLanguageHeader,
+  resetSpoofUserAgentHeader,
+} from 'services/declarativeNetRequest/updateDynamicRules'
 import { pushToDebugLog } from 'services/debugLog'
 import { activateSplitPersonality } from './splitPersonalityEnabled'
 import { setAdPrivacyEnabled } from './adPrivacyEnabled'
@@ -134,6 +137,7 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(timeZoneWarpScriptId)
     await resetSpoofUserAgentHeader()
+    await resetSpoofAcceptLanguageHeader()
   }
 
   await Promise.all([sendLogoutRequest(), resetState()])
