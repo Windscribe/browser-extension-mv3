@@ -14,26 +14,28 @@ const {
   OTHER,
 } = chrome.declarativeNetRequest.ResourceType
 
+const spoofableResourceTypes = [
+  MAIN_FRAME,
+  SUB_FRAME,
+  STYLESHEET,
+  SCRIPT,
+  IMAGE,
+  FONT,
+  OBJECT,
+  XMLHTTPREQUEST,
+  PING,
+  CSP_REPORT,
+  MEDIA,
+  WEBSOCKET,
+  OTHER,
+]
+
 // It's just a template of a rule. Spoofed Header value is required to make it finalized.
 const spoofUserAgentHeaderRuleTemplate: chrome.declarativeNetRequest.Rule = {
   id: 1,
   priority: 1,
   condition: {
-    resourceTypes: [
-      MAIN_FRAME,
-      SUB_FRAME,
-      STYLESHEET,
-      SCRIPT,
-      IMAGE,
-      FONT,
-      OBJECT,
-      XMLHTTPREQUEST,
-      PING,
-      CSP_REPORT,
-      MEDIA,
-      WEBSOCKET,
-      OTHER,
-    ],
+    resourceTypes: spoofableResourceTypes,
     urlFilter: '*',
   },
   action: {
@@ -135,6 +137,35 @@ const spoofUserAgentHeaderRuleTemplate: chrome.declarativeNetRequest.Rule = {
   },
 }
 
+const spoofAcceptLanguageHeaderRuleTemplate: chrome.declarativeNetRequest.Rule = {
+  id: 2,
+  priority: 1,
+  condition: {
+    resourceTypes: spoofableResourceTypes,
+    urlFilter: '*',
+  },
+  action: {
+    type: chrome.declarativeNetRequest.RuleActionType.MODIFY_HEADERS,
+    requestHeaders: [
+      {
+        header: 'Accept-Language',
+        operation: chrome.declarativeNetRequest.HeaderOperation.SET,
+      },
+    ],
+  },
+}
+
+const createAcceptLanguageHeaderValue = (locale = 'en'): string => {
+  const normalizedLocale = locale.trim() || 'en'
+  const primaryLanguage = normalizedLocale.split('-')[0]
+
+  if (!primaryLanguage || primaryLanguage === normalizedLocale) {
+    return normalizedLocale
+  }
+
+  return `${normalizedLocale},${primaryLanguage};q=0.9`
+}
+
 export async function spoofUserAgentHeader(
   spoofedUserAgent = '',
   dontSpoofDomains: string[],
@@ -154,5 +185,27 @@ export async function spoofUserAgentHeader(
 export async function resetSpoofUserAgentHeader(): Promise<void> {
   await chrome.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: [spoofUserAgentHeaderRuleTemplate.id],
+  })
+}
+
+export async function spoofAcceptLanguageHeader(
+  locale = 'en',
+  dontSpoofDomains: string[],
+): Promise<void> {
+  const rule = JSON.parse(JSON.stringify(spoofAcceptLanguageHeaderRuleTemplate))
+  rule.action.requestHeaders[0].value = createAcceptLanguageHeaderValue(locale)
+  // requests initiated from these domains will not be spoofed i.e from the page
+  rule.condition.excludedInitiatorDomains = dontSpoofDomains
+  // requests to these domains will not be spoofed
+  rule.condition.excludedRequestDomains = dontSpoofDomains
+  await chrome.declarativeNetRequest.updateDynamicRules({
+    addRules: [rule],
+    removeRuleIds: [spoofAcceptLanguageHeaderRuleTemplate.id],
+  })
+}
+
+export async function resetSpoofAcceptLanguageHeader(): Promise<void> {
+  await chrome.declarativeNetRequest.updateDynamicRules({
+    removeRuleIds: [spoofAcceptLanguageHeaderRuleTemplate.id],
   })
 }

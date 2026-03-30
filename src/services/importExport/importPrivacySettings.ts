@@ -1,6 +1,10 @@
 import { DataCenter, ServerList } from 'api/types'
 import { AddToAllowlistType } from 'components/hooks/useManageAllowlist'
 import { SHA256 } from 'crypto-js'
+import {
+  resetSpoofAcceptLanguageHeader,
+  spoofAcceptLanguageHeader,
+} from 'services/declarativeNetRequest/updateDynamicRules'
 import { pushToDebugLog } from 'services/debugLog'
 import { AppDispatch } from 'state'
 import { setAdPrivacyEnabled } from 'state/slices/adPrivacyEnabled'
@@ -28,6 +32,8 @@ import {
 } from 'utils/constants'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
+import locales from 'utils/locales'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { ImportedSettingsV1 } from 'utils/validators'
@@ -40,6 +46,8 @@ type ImportPrivacySettingsArgs = {
   isUserPro: 0 | 1 | undefined
   serverList: ServerList
   existingAllowList: AllowlistState
+  currentLocationCountryCode: string | undefined
+  proxyStatus: string
   dispatch: AppDispatch
   addToAllowlist: AddToAllowlistType
 }
@@ -57,10 +65,19 @@ type ImportLocationWarpArgs = Pick<
 
 type ImportLanguageWarpArgs = Pick<
   ImportPrivacySettingsArgs,
-  'importedSettings' | 'existingAllowList' | 'autopilotSelected' | 'locationId' | 'dispatch'
+  | 'importedSettings'
+  | 'existingAllowList'
+  | 'autopilotSelected'
+  | 'locationId'
+  | 'currentLocationCountryCode'
+  | 'proxyStatus'
+  | 'dispatch'
 >
 
-type ImportTimeZoneWarpArgs = ImportLanguageWarpArgs
+type ImportTimeZoneWarpArgs = Pick<
+  ImportPrivacySettingsArgs,
+  'importedSettings' | 'existingAllowList' | 'autopilotSelected' | 'locationId' | 'dispatch'
+>
 
 const activateLocationWarp = async ({
   autopilotSelected,
@@ -123,6 +140,8 @@ const activateLanguageWarp = async ({
   importedSettings,
   existingAllowList,
   locationId,
+  currentLocationCountryCode,
+  proxyStatus,
   dispatch,
 }: ImportLanguageWarpArgs) => {
   if (
@@ -130,20 +149,35 @@ const activateLanguageWarp = async ({
     importedSettings.languageWarpEnabled !== null
   ) {
     await dispatch(setLanguageWarpEnabled(importedSettings.languageWarpEnabled))
-
-    if (autopilotSelected) return
-    if (locationId === undefined || locationId === null) return
-
     const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(existingAllowList)
+    const dontSpoofDomains = getPrivacyFeatureEnabledDomains(existingAllowList)
+    const localeKey = (currentLocationCountryCode ?? 'AUTO') as keyof typeof locales
+    const languageWarpLocale = locales[localeKey]?.locale ?? 'en'
 
-    if (importedSettings.languageWarpEnabled) {
-      await registerScript(
-        languageWarpScriptId,
-        [SHA256(locationId.toString()) + getBundleNamePostFix('languageWarpScript') + '.bundle.js'],
-        excludeMatchesFromAllowList,
-      )
-    } else {
+    if (!importedSettings.languageWarpEnabled) {
       await unregisterScript(languageWarpScriptId)
+      await resetSpoofAcceptLanguageHeader()
+      return
+    }
+
+    if (autopilotSelected) {
+      await resetSpoofAcceptLanguageHeader()
+      return
+    }
+
+    if (locationId === undefined || locationId === null) {
+      await resetSpoofAcceptLanguageHeader()
+      return
+    }
+
+    await registerScript(
+      languageWarpScriptId,
+      [SHA256(locationId.toString()) + getBundleNamePostFix('languageWarpScript') + '.bundle.js'],
+      excludeMatchesFromAllowList,
+    )
+
+    if (proxyStatus === 'on') {
+      await spoofAcceptLanguageHeader(languageWarpLocale, dontSpoofDomains)
     }
   }
 }
@@ -178,10 +212,12 @@ const activateTimeZoneWarp = async ({
 export const importPrivacySettings = async ({
   autopilotSelected,
   currentDataCenter,
+  currentLocationCountryCode,
   importedSettings,
   isUserPro,
   locationId,
   existingAllowList,
+  proxyStatus,
   serverList,
   dispatch,
 }: ImportPrivacySettingsArgs): Promise<void> => {
@@ -197,9 +233,11 @@ export const importPrivacySettings = async ({
 
   await activateLanguageWarp({
     autopilotSelected,
+    currentLocationCountryCode,
     existingAllowList,
     importedSettings,
     locationId,
+    proxyStatus,
     dispatch,
   })
 

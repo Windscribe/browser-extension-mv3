@@ -46,6 +46,7 @@ const General: ThemeUiElement = () => {
   const autopilot = useSelector(s => s.autopilot)
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const currentLocation = useSelector(s => s.currentLocation)
+  const proxyStatus = useSelector(s => s.proxy.status)
 
   const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
 
@@ -97,7 +98,9 @@ const General: ThemeUiElement = () => {
         autopilotSelected: autopilot.autopilotSelected,
         isUserPro: isUserPro,
         currentDataCenter,
+        currentLocationCountryCode: currentLocation.country_code,
         locationId: currentLocation.id,
+        proxyStatus,
         isSplitPersonalityEnabled,
         spoofedUserAgent,
       })

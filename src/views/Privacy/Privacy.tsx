@@ -16,6 +16,7 @@ import { setWorkerBlock } from 'state/slices/workerBlock'
 import { setAdPrivacyEnabled } from 'state/slices/adPrivacyEnabled'
 import ToolTip from 'components/ToolTip'
 import getTimeZoneInfo from 'utils/getTimeZoneInfo'
+import locales from 'utils/locales'
 
 import DoNotDisturbIcon from 'assets/img/doNotDisturb.svg'
 import WebRtcLeakIcon from 'assets/img/webRtcLeak.svg'
@@ -42,6 +43,11 @@ import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import { pushToDebugLog } from 'services/debugLog'
 import { addOverlay } from 'state/slices/overlay'
 import { useState } from 'react'
+import {
+  resetSpoofAcceptLanguageHeader,
+  spoofAcceptLanguageHeader,
+} from 'services/declarativeNetRequest/updateDynamicRules'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -63,6 +69,7 @@ const Privacy: ThemeUiElement = () => {
   const serverList = useSelector(s => s.servers.serverList)
   const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
   const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
+  const proxyStatus = useSelector(s => s.proxy.status)
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -274,6 +281,9 @@ const Privacy: ThemeUiElement = () => {
               if (locationId === undefined || locationId === null) return
 
               const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+              const dontSpoofDomains = getPrivacyFeatureEnabledDomains(allowList)
+              const localeKey = (currentLocation.country_code ?? 'AUTO') as keyof typeof locales
+              const languageWarpLocale = locales[localeKey]?.locale ?? 'en'
 
               if (isLanguageWarpActive) {
                 await registerScript(
@@ -285,8 +295,13 @@ const Privacy: ThemeUiElement = () => {
                   ],
                   excludeMatchesFromAllowList,
                 )
+
+                if (proxyStatus === 'on') {
+                  await spoofAcceptLanguageHeader(languageWarpLocale, dontSpoofDomains)
+                }
               } else {
                 await unregisterScript(languageWarpScriptId)
+                await resetSpoofAcceptLanguageHeader()
               }
             }}
             checked={languageWarpEnabled}
