@@ -1,1 +1,1 @@
-export { addContextMenuItem, removeContextMenuItem } from './contextMenu'
+export { addContextMenuItem, removeContextMenuItem, updateContextMenuItem } from './contextMenu'

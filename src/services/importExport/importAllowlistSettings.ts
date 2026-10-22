@@ -1,15 +1,26 @@
 import { AddToAllowlistType } from 'components/hooks/useManageAllowlist'
 import isValidDomain from 'is-valid-domain'
-import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import {
+  spoofUserAgentHeader,
+  syncUrlCleanerWithAllowlist,
+} from 'services/declarativeNetRequest/updateDynamicRules'
+import {
+  isTrackerRuleOverrideDomain,
+  rulesetsContainingTrackerRules,
+  updateStaticRules,
+} from 'services/declarativeNetRequest/updateStaticRules'
 import { addToExcludeScriptMatches, ALLOWLIST_DOMAIN_TABLE } from 'utils/allowListDependants'
-import { updateAddExcludeDomains } from 'utils/networkSpoofing'
+import { getPrivacyFeatureEnabledDomains, updateAddExcludeDomains } from 'utils/networkSpoofing'
 import { ImportedSettingsV1 } from 'utils/validators'
+import type { LinkSanitizerState } from 'state/slices/linkSanitizer'
 
 export const importAllowListSettings = async (
   importedSettings: ImportedSettingsV1,
   addToAllowlist: AddToAllowlistType,
   isSplitPersonalityEnabled: boolean,
   spoofedUserAgent: string,
+  isUrlCleanerEnabled: boolean,
+  linkSanitizer: LinkSanitizerState,
 ): Promise<void> => {
   if (importedSettings.allowlist !== undefined && importedSettings.allowlist !== null) {
     const toAdd = []
@@ -61,6 +72,32 @@ export const importAllowListSettings = async (
       await spoofUserAgentHeader(spoofedUserAgent, Array.from(new Set(toExcludeFromSpoofing)))
     }
 
+    const urlCleanerEnabled = importedSettings.urlCleanerEnabled ?? isUrlCleanerEnabled
+    if (urlCleanerEnabled) {
+      await syncUrlCleanerWithAllowlist(
+        true,
+        getPrivacyFeatureEnabledDomains(importedSettings.allowlist),
+        {
+          enabledGroups: importedSettings.linkSanitizerEnabledGroups,
+          customParams: importedSettings.linkSanitizerCustomParams ?? linkSanitizer.customParams,
+        },
+      )
+    }
+
     await addToAllowlist(toAdd)
+
+    const shouldDisableTrackerRules = toAdd.some(
+      item =>
+        isTrackerRuleOverrideDomain(item.hostname) && item.domainWithSettings.allowAds === true,
+    )
+
+    if (shouldDisableTrackerRules) {
+      await updateStaticRules(
+        rulesetsContainingTrackerRules.map(ruleset => ({
+          rulesetId: ruleset.rulesetId,
+          disableRuleIds: ruleset.ruleIds,
+        })),
+      )
+    }
   }
 }

@@ -1,15 +1,34 @@
 import { pushToDebugLog } from 'services/debugLog'
+import { getLocalizedMessage, type SupportedLocales } from 'utils/getLocalisedString'
 
 const MENU_ITEM_ID = 'view-debug-log'
 
-export function addContextMenuItem(): void {
+const getDebugLogContextMenuTitle = (currentLanguage?: SupportedLocales) =>
+  `${getLocalizedMessage('wsext_view', currentLanguage)} ${getLocalizedMessage('wsext_debug_log',
+    currentLanguage,
+  )}`
+
+export function addContextMenuItem(currentLanguage?: SupportedLocales): void {
   chrome.contextMenus.create(
     {
       id: MENU_ITEM_ID,
-      title: 'View Debug Log',
+      title: getDebugLogContextMenuTitle(currentLanguage),
       contexts: ['all'],
     },
     onCreated,
+  )
+}
+
+export function updateContextMenuItem(currentLanguage?: SupportedLocales): void {
+  chrome.contextMenus.update(
+    MENU_ITEM_ID,
+    {
+      title: getDebugLogContextMenuTitle(currentLanguage),
+    },
+    () => {
+      // Ignore missing menu errors; the menu can be disabled by user settings.
+      void chrome.runtime.lastError
+    },
   )
 }
 

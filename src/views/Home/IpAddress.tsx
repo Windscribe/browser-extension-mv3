@@ -6,11 +6,13 @@ import AlertButton from 'components/AlertButton'
 import ClockIcon from 'assets/img/clock.svg'
 import ToolTip from 'components/ToolTip'
 import getTimeZoneInfo from 'utils/getTimeZoneInfo'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const IpAddress: ThemeUiElement = () => {
   const currentIp = useSelector(state => state.proxy.currentIp)
   const timeWarpEnabled = useSelector(s => s.timeWarpEnabled)
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null)
   const [isBlurred, setIsBlurred] = useState(false)
@@ -69,7 +71,7 @@ const IpAddress: ThemeUiElement = () => {
         )}
       </ToolTip>
       <AlertButton
-        text="IP Address Copied"
+        text={getLocalizedMessage('wsext_ip_address_copied', currentLanguage)}
         onClick={handleClick}
         sx={{
           visibility: showAlert ? 'visible' : 'hidden',

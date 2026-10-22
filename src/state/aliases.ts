@@ -25,7 +25,7 @@ import {
   toggleSplitPersonality,
   TOGGLE_SPLIT_PERSONALITY,
 } from './slices/splitPersonalityEnabled'
-import type { Credentials } from 'api/types'
+import type { Credentials, LoginTokenCredentials } from 'api/types'
 import {
   checkUserStash,
   CHECK_USER_STASH,
@@ -49,7 +49,9 @@ const _addToAllowlist: ActionCreator<AllowlistPayload[], void> = ({ payload }) =
 const _removeFromAllowlist: ActionCreator<string[], void> = ({ payload }) =>
   removeFromAllowlist(payload)
 
-const _getAuthToken: ActionCreator<void, ReturnType<typeof getAuthToken>> = () => getAuthToken()
+const _getAuthToken: ActionCreator<LoginTokenCredentials, ReturnType<typeof getAuthToken>> = ({
+  payload,
+}) => getAuthToken(payload)
 
 export default {
   [`alias/${LOGIN_AUTH_TOKEN}`]: _getAuthToken,

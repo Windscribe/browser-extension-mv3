@@ -10,9 +10,22 @@ import {
   locationWarpScriptId,
   languageWarpScriptId,
   timeZoneWarpScriptId,
+  fingerprintjsAntiFingerprintingScriptId,
+  fontAntiFingerprintingScriptId,
+  screenResAntiFingerprintingScriptId,
+  canvasAntiFingerprintingScriptId,
+  audioAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
   SECRET_KEY_PSY_OP,
+  webshareNoOpScriptId,
 } from 'utils/constants'
-import type { ApiErrorResponse, AuthTokenData, Credentials, SessionData } from 'api/types'
+import type {
+  ApiErrorResponse,
+  AuthTokenData,
+  Credentials,
+  LoginTokenCredentials,
+  SessionData,
+} from 'api/types'
 import { checkUserStash, saveUserStash } from 'state/slices/userStashes'
 import { resetNotificationBlocker } from './notificationBlockerEnabled'
 import {
@@ -37,7 +50,10 @@ import { fetchNotifications } from 'state/slices/newsfeed'
 import { refreshFavorites } from './favoriteLocations'
 import { unregisterScript } from 'utils/scriptController'
 import { setIsRightAfterLogin } from './isRightAfterLogin'
-import { resetSpoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import {
+  resetSpoofUserAgentHeader,
+  disableUrlCleaner,
+} from 'services/declarativeNetRequest/updateDynamicRules'
 import { pushToDebugLog } from 'services/debugLog'
 import { activateSplitPersonality } from './splitPersonalityEnabled'
 import { setAdPrivacyEnabled } from './adPrivacyEnabled'
@@ -63,19 +79,19 @@ export const LOGIN_AUTH_TOKEN = 'AuthToken/login'
 export const LOGOUT = 'session/logout'
 export const CHECK_SESSION_STATUS = 'session/checkSessionStatus'
 
-export const getAuthToken = createAsyncThunk<Either<AuthTokenData, ApiErrorResponse>>(
-  LOGIN_AUTH_TOKEN,
-  async (_, { dispatch }) => {
-    const response = await getLoginAuthToken(dispatch)
+export const getAuthToken = createAsyncThunk<
+  Either<AuthTokenData, ApiErrorResponse>,
+  LoginTokenCredentials
+>(LOGIN_AUTH_TOKEN, async (credentials, { dispatch }) => {
+  const response = await getLoginAuthToken(dispatch, credentials)
 
-    if (response.errorMessage) return response
-    if (response.data) {
-      return response.data
-    }
+  if (response.errorMessage) return response
+  if (response.data) {
+    return response.data
+  }
 
-    throw Error('Unknown response format while trying to login')
-  },
-)
+  throw Error('Unknown response format while trying to login')
+})
 
 export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Credentials>(
   LOGIN,
@@ -96,7 +112,7 @@ export const login = createAsyncThunk<Either<SessionData, ApiErrorResponse>, Cre
 
     if (response.errorMessage) return response
     if (response.data && response.data.username) {
-      const ip = await checkIp(getState().workingApi)
+      const ip = await checkIp()
       dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
       await dispatch(checkUserStash(response.data.username))
       dispatch(setView('Home'))
@@ -133,7 +149,15 @@ export const logout = createAsyncThunk(LOGOUT, async (_, { getState, dispatch })
     await unregisterScript(locationWarpScriptId)
     await unregisterScript(languageWarpScriptId)
     await unregisterScript(timeZoneWarpScriptId)
+    await unregisterScript(fontAntiFingerprintingScriptId)
+    await unregisterScript(screenResAntiFingerprintingScriptId)
+    await unregisterScript(canvasAntiFingerprintingScriptId)
+    await unregisterScript(audioAntiFingerprintingScriptId)
+    await unregisterScript(fingerprintjsAntiFingerprintingScriptId)
+    await unregisterScript(fingerprintMessageListenerScriptId)
+    await unregisterScript(webshareNoOpScriptId)
     await resetSpoofUserAgentHeader()
+    await disableUrlCleaner()
   }
 
   await Promise.all([sendLogoutRequest(), resetState()])

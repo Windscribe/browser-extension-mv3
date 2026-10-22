@@ -9,9 +9,16 @@ import {
 } from 'state/serverListListenerMiddleware'
 import { pushToDebugLog } from 'services/debugLog'
 import { recordInstall } from 'api/endpoints'
+import { setBlockLists } from 'state/slices/blocker'
+import { enableOrDisableUblock } from 'services/detectUblock'
+
+let installReason: chrome.runtime.OnInstalledReason | undefined
+
+export const getInstallReason = (): chrome.runtime.OnInstalledReason | undefined => installReason
 
 export function onInstalledHandler(bgStore: Promise<StoreType>) {
   return async (details: chrome.runtime.InstalledDetails): Promise<void> => {
+    installReason = details.reason
     const store = await bgStore
     const state = store.getState()
     if (!state.firstInstallDate) {
@@ -42,10 +49,42 @@ export function onInstalledHandler(bgStore: Promise<StoreType>) {
 
     await registerScripts(store, res)
 
+    if (details.reason === chrome.runtime.OnInstalledReason.UPDATE) {
+      const currentRunningVersion = chrome.runtime.getManifest().version
+      const currentBlockList = store.getState().blocker.blockLists
+
+      if (
+        // 4.2.2 is for main && 4.3.3 is for experimental
+        currentRunningVersion === '4.2.2' ||
+        currentRunningVersion === '4.3.3'
+      ) {
+        // is on older block list version, set to new default block list
+
+        // if off turn the new block list on anyway
+        const newBlockList = [
+          'easylist',
+          'easyprivacy',
+          'pgl',
+          'ublock-filters',
+          // keep evertyhing else except the older default list
+          // if it exists
+          ...currentBlockList.filter(list => list !== 'default'),
+        ]
+
+        // may already have the new default block list if user has upgraded
+
+        const dedupedBlockList = Array.from(new Set(newBlockList))
+
+        store.dispatch(setBlockLists(dedupedBlockList))
+
+        await enableOrDisableUblock(dedupedBlockList, store)
+      }
+    }
+
     const updatedState = store.getState()
 
     if (!updatedState.contextMenu) return
 
-    addContextMenuItem()
+    addContextMenuItem(updatedState.currentLanguage.currentLanguage)
   }
 }

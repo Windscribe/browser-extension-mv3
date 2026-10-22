@@ -16,7 +16,7 @@ export const importBlockerSettings = async (
     dispatch(setBlockLists(importedSettings.blockLists))
     // ... only enable ublock if ubolite is not active or not installed
     const ublockStatus = await detectUblock()
-    if (ublockStatus === 'disabled' || ublockStatus === 'not_installed') {
+    if (ublockStatus.status === 'disabled' || ublockStatus.status === 'not_installed') {
       sendMessage({
         what: 'applyRulesets',
         from: 'popup',

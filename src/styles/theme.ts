@@ -101,27 +101,17 @@ export const theme: Theme = {
       px: '16px',
       pb: '15px',
       borderRadius: '6px',
-      // TODO: fix all this repeated code
       transition: '0.3s',
-      div: {
-        transition: '0.3s',
-      },
-      span: {
-        transition: '0.3s',
-      },
-      svg: {
+      '& div, & span, & svg': {
         transition: '0.3s',
       },
       ':hover': {
         backgroundColor: 'primaryText',
         color: 'softBlack',
-        div: {
+        '& div, & span': {
           color: 'background',
         },
-        span: {
-          color: 'background',
-        },
-        svg: {
+        '& svg': {
           fill: 'background',
         },
       },

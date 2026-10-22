@@ -16,8 +16,10 @@ import PrivacySelected from 'assets/img/privacySelected.svg'
 import PrivacyDeselected from 'assets/img/privacyDeselected.svg'
 import Refresh from 'assets/img/refresh.svg'
 import ToolTip from 'components/ToolTip'
-import { CONTROL_D_DOMAIN } from 'utils/constants'
-import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import {
+  spoofUserAgentHeader,
+  syncUrlCleanerWithAllowlist,
+} from 'services/declarativeNetRequest/updateDynamicRules'
 import {
   addToExcludeScriptMatches,
   domainDependents,
@@ -25,11 +27,16 @@ import {
 } from 'utils/allowListDependants'
 import {
   updateStaticRules,
-  defaultUblockRulesetId,
-  ruleIdForMatomo,
+  rulesetsContainingTrackerRules,
+  isTrackerRuleOverrideDomain,
 } from 'services/declarativeNetRequest/updateStaticRules'
 import { pushToDebugLog } from 'services/debugLog'
-import { getPrivacyFeatureEnabledDomains, updateAddExcludeDomains } from 'utils/networkSpoofing'
+import {
+  getPrivacyFeatureEnabledDomains,
+  getPrivacyFeatureEnabledDomainsAfterChange,
+  updateAddExcludeDomains,
+} from 'utils/networkSpoofing'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 type DomainControlButtonGroupProps = {
   currentTabHostname: string
@@ -48,6 +55,9 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
   const allowlist = useSelector(s => s.allowlist)
   const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
+  const urlCleanerEnabled = useSelector(s => s.urlCleanerEnabled)
+  const linkSanitizer = useSelector(s => s.linkSanitizer)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const settings = allowlist[currentTabHostname]
   const allowAdsState = !!settings?.allowAds
@@ -143,11 +153,13 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         }
       }
 
-      if (currentTabHostname === CONTROL_D_DOMAIN) {
-        updateStaticRules({
-          rulesetId: defaultUblockRulesetId,
-          [domainWithSettings.allowAds ? 'disableRuleIds' : 'enableRuleIds']: ruleIdForMatomo,
-        })
+      if (isTrackerRuleOverrideDomain(currentTabHostname)) {
+        updateStaticRules(
+          rulesetsContainingTrackerRules.map(ruleset => ({
+            rulesetId: ruleset.rulesetId,
+            [domainWithSettings.allowAds ? 'disableRuleIds' : 'enableRuleIds']: ruleset.ruleIds,
+          })),
+        )
       }
 
       const excludeUrls = updateAddExcludeDomains({
@@ -161,6 +173,14 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         toExcludeFromSpoofing.push(...excludeUrls)
         const uniqueExcludeUrls = Array.from(new Set(toExcludeFromSpoofing))
         await spoofUserAgentHeader(spoofedUserAgent, uniqueExcludeUrls)
+      }
+
+      if (urlCleanerEnabled) {
+        await syncUrlCleanerWithAllowlist(
+          true,
+          getPrivacyFeatureEnabledDomainsAfterChange({ allowlist, toAdd }),
+          linkSanitizer,
+        )
       }
 
       // no need to await this since all the depenedent operations are done by this time
@@ -189,11 +209,13 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         }
       }
 
-      if (currentTabHostname === CONTROL_D_DOMAIN) {
-        updateStaticRules({
-          rulesetId: defaultUblockRulesetId,
-          enableRuleIds: ruleIdForMatomo,
-        })
+      if (isTrackerRuleOverrideDomain(currentTabHostname)) {
+        updateStaticRules(
+          rulesetsContainingTrackerRules.map(ruleset => ({
+            rulesetId: ruleset.rulesetId,
+            enableRuleIds: ruleset.ruleIds,
+          })),
+        )
       }
 
       if (isSplitPersonalityEnabled) {
@@ -202,6 +224,17 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         )
 
         await spoofUserAgentHeader(spoofedUserAgent, domainsToKeepSpoofing)
+      }
+
+      if (urlCleanerEnabled) {
+        await syncUrlCleanerWithAllowlist(
+          true,
+          getPrivacyFeatureEnabledDomainsAfterChange({
+            allowlist,
+            toRemove: toRemove.map(item => item.hostname),
+          }),
+          linkSanitizer,
+        )
       }
 
       removeFromAllowlist(toRemove)
@@ -243,7 +276,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
         }}
       />
       <Flex sx={{ gap: '16px', mr: '16px' }}>
-        <ToolTip message="Connection">
+        <ToolTip message={getLocalizedMessage('wsext_connection', currentLanguage)}>
           <StyledIconButton
             onClick={() => {
               handleSettingsItemClick({ isDirectConnectionsAllowed: !allowDirectConnectionsState })
@@ -256,7 +289,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
             )}
           </StyledIconButton>
         </ToolTip>
-        <ToolTip message="Ads">
+        <ToolTip message={getLocalizedMessage('wsext_ads', currentLanguage)}>
           <StyledIconButton
             onClick={() => {
               handleSettingsItemClick({ isAdsAllowed: !allowAdsState })
@@ -270,7 +303,7 @@ const DomainControlButtonGroup: ThemeUiElement<DomainControlButtonGroupProps> = 
           </StyledIconButton>
         </ToolTip>
 
-        <ToolTip message="Privacy Features">
+        <ToolTip message={getLocalizedMessage('wsext_privacy_features', currentLanguage)}>
           <StyledIconButton
             data-testid="allowlist-security-features-button"
             onClick={() => {

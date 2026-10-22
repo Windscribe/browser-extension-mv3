@@ -14,6 +14,7 @@ import { setTimeWarpEnabled } from 'state/slices/timeWarpEnabled'
 import { setLocationWarp } from 'state/slices/locationWarp'
 import { setWorkerBlock } from 'state/slices/workerBlock'
 import { setAdPrivacyEnabled } from 'state/slices/adPrivacyEnabled'
+import { setUrlCleanerEnabled } from 'state/slices/urlCleanerEnabled'
 import ToolTip from 'components/ToolTip'
 import getTimeZoneInfo from 'utils/getTimeZoneInfo'
 
@@ -27,11 +28,20 @@ import TimeWarpIcon from 'assets/img/timeWarp.svg'
 import TimeIcon from 'assets/img/time.svg'
 import AdPrivacyIcon from 'assets/img/adPrivacy.svg'
 import InfoIcon from 'assets/img/infoIcon.svg'
+import IncognitoIcon from 'assets/img/incognito.svg'
+import UrlCleanerIcon from 'assets/img/link.svg'
+import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
 import {
+  audioAntiFingerprintingScriptId,
+  canvasAntiFingerprintingScriptId,
   CONTENT_SETTINGS,
+  fingerprintjsAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
+  fontAntiFingerprintingScriptId,
   languageWarpScriptId,
   locationWarpScriptId,
+  screenResAntiFingerprintingScriptId,
   timeZoneWarpScriptId,
   workerBlockScriptId,
 } from 'utils/constants'
@@ -42,6 +52,16 @@ import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import { pushToDebugLog } from 'services/debugLog'
 import { addOverlay } from 'state/slices/overlay'
 import { useState } from 'react'
+import { setAntiFingerprinting } from 'state/slices/antiFingerprinting'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
+import { useGoTo } from 'services/navigation'
+import {
+  enableUrlCleaner,
+  disableUrlCleaner,
+} from 'services/declarativeNetRequest/updateDynamicRules'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
+import { getLinkSanitizerRemoveParamsFromState } from 'utils/linkSanitizerParams'
+import { useIsUblockLiteStatus } from 'services/detectUblock'
 
 const Privacy: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -56,13 +76,21 @@ const Privacy: ThemeUiElement = () => {
   const workerBlockEnabled = useSelector(s => s.workerBlock)
   const currentLocationTimezone = useSelector(s => s.currentLocation.tz)
   const adPrivacyEnabled = useSelector(s => s.adPrivacyEnabled)
+  const urlCleanerEnabled = useSelector(s => s.urlCleanerEnabled)
+  const linkSanitizer = useSelector(s => s.linkSanitizer)
   const allowList = useSelector(s => s.allowlist)
   const autopilot = useSelector(s => s.autopilot)
   const currentDataCenter = useSelector(s => s.currentDataCenter)
   const currentLocation = useSelector(s => s.currentLocation)
   const serverList = useSelector(s => s.servers.serverList)
   const isUserPro = useSelector(s => s.session.sessionData?.is_premium)
-  const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
+  const antiFingerprintingActive = useSelector(s => s.antiFingerprinting)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
+  const goToLinkSanitizer = useGoTo('LinkSanitizer')
+  const ublockStatus = useIsUblockLiteStatus()
+  const showUblockWarningAtLinkSanitizer = useSelector(
+    s => s.blocker.showUblockWarningAtLinkSanitizer !== false,
+  )
 
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
 
@@ -72,13 +100,16 @@ const Privacy: ThemeUiElement = () => {
 
   return (
     <Box data-testid={'privacy-page'} bg="background">
-      <Header title="Privacy" {...{ shouldShowReloadAlert, showReloadAlert }} />
+      <Header
+        title={getLocalizedMessage('wsext_privacy', currentLanguage)}
+        {...{ shouldShowReloadAlert, showReloadAlert }}
+      />
       <ScrollableBox>
         <OptionBox
           Icon={DoNotDisturbIcon}
           path={'features/dnd'}
-          title="Do Not Disturb"
-          subTitle="Block all sites from spamming you with notifications."
+          title={getLocalizedMessage('wsext_do_not_disturb', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_do_not_disturb_description', currentLanguage)}
         >
           <Flex
             sx={{
@@ -89,7 +120,7 @@ const Privacy: ThemeUiElement = () => {
             {!isContentSettingsGranted && (
               <ToolTip
                 childWrapperProps={{ sx: { height: 16 } }}
-                message={'Click to grant permission.'}
+                message={getLocalizedMessage('wsext_click_to_grant_permission', currentLanguage)}
               >
                 <InfoIcon
                   sx={{ cursor: 'pointer', fill: 'primaryText' }}
@@ -103,14 +134,17 @@ const Privacy: ThemeUiElement = () => {
                     }
                   }}
                 >
-                  Grant permission
+                  {getLocalizedMessage('wsext_grant_permission', currentLanguage)}
                 </InfoIcon>
               </ToolTip>
             )}
 
             <ToggleSwitch
               disabled={!isContentSettingsGranted}
-              message="Unavailable until permission is granted."
+              message={getLocalizedMessage(
+                'wsext_unavailable_until_permission_granted',
+                currentLanguage,
+              )}
               onChange={async () => {
                 dispatch(toggleNotificationBlocker())
                 showReloadAlert(true)
@@ -119,11 +153,75 @@ const Privacy: ThemeUiElement = () => {
             />
           </Flex>
         </OptionBox>
+
+        <OptionBox
+          Icon={IncognitoIcon}
+          path={'features/anti-fingerprinting'}
+          title={getLocalizedMessage('wsext_anti_fingerprinting', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_anti_fingerprinting_description', currentLanguage)}
+        >
+          <ToggleSwitch
+            onChange={async () => {
+              showReloadAlert(true)
+              const isAntiFingerprintingActive = !antiFingerprintingActive
+              dispatch(setAntiFingerprinting(isAntiFingerprintingActive))
+              const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(allowList)
+
+              if (isAntiFingerprintingActive) {
+                await registerScript(
+                  fontAntiFingerprintingScriptId,
+                  ['fontAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  screenResAntiFingerprintingScriptId,
+                  ['screenResAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  canvasAntiFingerprintingScriptId,
+                  ['canvasAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  audioAntiFingerprintingScriptId,
+                  ['audioAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  fingerprintjsAntiFingerprintingScriptId,
+                  ['fingerprintjsAntiFingerprinting.bundle.js'],
+                  excludeMatchesFromAllowList,
+                )
+
+                await registerScript(
+                  fingerprintMessageListenerScriptId,
+                  ['fingerprintMessageListener.bundle.js'],
+                  excludeMatchesFromAllowList,
+                  'ISOLATED',
+                )
+              } else {
+                await unregisterScript(fontAntiFingerprintingScriptId)
+                await unregisterScript(screenResAntiFingerprintingScriptId)
+                await unregisterScript(canvasAntiFingerprintingScriptId)
+                await unregisterScript(audioAntiFingerprintingScriptId)
+                await unregisterScript(fingerprintjsAntiFingerprintingScriptId)
+                await unregisterScript(fingerprintMessageListenerScriptId)
+              }
+            }}
+            checked={antiFingerprintingActive}
+          />
+        </OptionBox>
+
         <OptionBox
           Icon={WebRtcLeakIcon}
           path={'features/webrtc-slayer'}
-          title="WebRTC Slayer"
-          subTitle="Limits WebRTC requests to prevent leaks. This may break some applications."
+          title={getLocalizedMessage('wsext_webrtc_slayer', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_webrtc_slayer_description', currentLanguage)}
         >
           <ToggleSwitch
             onChange={() => {
@@ -136,8 +234,8 @@ const Privacy: ThemeUiElement = () => {
         <OptionBox
           Icon={LocationWarpIcon}
           path={'features/location-warp'}
-          title="Location Warp"
-          subTitle="Fakes your GPS location to match the connected proxy."
+          title={getLocalizedMessage('wsext_location_warp', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_location_warp_description', currentLanguage)}
         >
           <ToggleSwitch
             onChange={async () => {
@@ -203,15 +301,15 @@ const Privacy: ThemeUiElement = () => {
             }}
             checked={locationWarp}
             disabled={autopilot.autopilotSelected}
-            message="Not Available in Autopilot"
+            message={getLocalizedMessage('wsext_not_available_in_autopilot', currentLanguage)}
             data-testid="location-warp-toggle"
           />
         </OptionBox>
         <OptionBox
           Icon={TimeWarpIcon}
           path={'features/timezone-spoofing'}
-          title="Time Warp"
-          subTitle="Sets your browser time to match the connected proxy."
+          title={getLocalizedMessage('wsext_time_warp', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_time_warp_description', currentLanguage)}
         >
           <Flex sx={{ gap: '8px', alignItems: 'center' }}>
             {timeWarpEnabled && !autopilot.autopilotSelected && (
@@ -253,15 +351,15 @@ const Privacy: ThemeUiElement = () => {
               }}
               checked={timeWarpEnabled}
               disabled={autopilot.autopilotSelected}
-              message="Not Available in Autopilot"
+              message={getLocalizedMessage('wsext_not_available_in_autopilot', currentLanguage)}
             />
           </Flex>
         </OptionBox>
         <OptionBox
           Icon={LanguageWarpIcon}
           path={'features/languagewarp'}
-          title="Language Warp"
-          subTitle="Sets your language and locale settings to match the connected proxy."
+          title={getLocalizedMessage('wsext_language_warp', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_language_warp_description', currentLanguage)}
         >
           <ToggleSwitch
             onChange={async () => {
@@ -292,19 +390,19 @@ const Privacy: ThemeUiElement = () => {
             checked={languageWarpEnabled}
             disabled={autopilot.autopilotSelected}
             data-testid="language-warp-toggle"
-            message="Not Available in Autopilot"
+            message={getLocalizedMessage('wsext_not_available_in_autopilot', currentLanguage)}
           />
         </OptionBox>
         <OptionBox
           Icon={SplitPersonalityIcon}
           path={'features/split-personality'}
-          title="Split Personality"
-          subTitle="Randomly rotates your user agent."
+          title={getLocalizedMessage('wsext_split_personality', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_split_personality_description', currentLanguage)}
         >
           <Flex sx={{ gap: '8px', alignItems: 'center' }}>
             {splitPersonalityEnabled && (
               <Box sx={{ maxHeight: '16px' }}>
-                <ToolTip message="Rotate User Agent">
+                <ToolTip message={getLocalizedMessage('wsext_rotate_user_agent', currentLanguage)}>
                   <GetNewButton
                     onClick={() => {
                       showReloadAlert(true)
@@ -327,13 +425,19 @@ const Privacy: ThemeUiElement = () => {
         <OptionBox
           Icon={SplitPersonalityIcon}
           path={'features/split-personality'}
-          title="Split Personality Compat Mode"
-          subTitle="Stay within your browser's user agent family. This helps prevent some websites from breaking."
+          title={getLocalizedMessage('wsext_split_personality_compat_mode', currentLanguage)}
+          subTitle={getLocalizedMessage(
+            'wsext_split_personality_compat_mode_description',
+            currentLanguage,
+          )}
         >
           <Flex sx={{ gap: '8px', alignItems: 'center' }}>
             <ToggleSwitch
               disabled={!splitPersonalityEnabled}
-              message="Not available when Split Personality is disabled"
+              message={getLocalizedMessage(
+                'wsext_not_available_when_split_personality_disabled',
+                currentLanguage,
+              )}
               onChange={() => {
                 const isCompatMode = !splitPersonalityCompatMode
 
@@ -351,8 +455,8 @@ const Privacy: ThemeUiElement = () => {
         <OptionBox
           Icon={WorkerBlockIcon}
           path={'features/worker-block'}
-          title="Worker Block"
-          subTitle="Blocks web workers from running in the background."
+          title={getLocalizedMessage('wsext_worker_block', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_worker_block_description', currentLanguage)}
         >
           <ToggleSwitch
             onChange={async () => {
@@ -374,11 +478,11 @@ const Privacy: ThemeUiElement = () => {
             checked={workerBlockEnabled}
           />
         </OptionBox>
+
         <OptionBox
           Icon={AdPrivacyIcon}
-          // path={'features/worker-block'}
-          title="Ad Privacy"
-          subTitle="Disable contextual ad topics and suggestions."
+          title={getLocalizedMessage('wsext_ad_privacy', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_ad_privacy_description', currentLanguage)}
         >
           <ToggleSwitch
             onChange={() => {
@@ -388,6 +492,71 @@ const Privacy: ThemeUiElement = () => {
             checked={adPrivacyEnabled}
           />
         </OptionBox>
+
+        <Box onClick={goToLinkSanitizer} sx={{ cursor: 'pointer' }}>
+          <OptionBox
+            Icon={UrlCleanerIcon}
+            path={'features/link-sanitizer'}
+            title={getLocalizedMessage('wsext_link_sanitizer', currentLanguage)}
+            subTitle={
+              ublockStatus.status === 'enabled' ? (
+                <>
+                  <Box>
+                    {getLocalizedMessage('wsext_link_sanitizer_description', currentLanguage)}
+                  </Box>
+                  <Box sx={{ mt: '8px' }}>
+                    {getLocalizedMessage('wsext_link_sanitizer_ublock_warning', currentLanguage)}
+                  </Box>
+                </>
+              ) : (
+                getLocalizedMessage('wsext_link_sanitizer_description', currentLanguage)
+              )
+            }
+          >
+            <Flex
+              sx={{
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              <Box
+                onClick={event => {
+                  event.stopPropagation()
+                }}
+              >
+                <ToggleSwitch
+                  onChange={async () => {
+                    showReloadAlert(true)
+                    const isUrlCleanerActive = !urlCleanerEnabled
+                    dispatch(setUrlCleanerEnabled(isUrlCleanerActive))
+
+                    if (isUrlCleanerActive) {
+                      await enableUrlCleaner(
+                        getPrivacyFeatureEnabledDomains(allowList),
+                        getLinkSanitizerRemoveParamsFromState(linkSanitizer),
+                      )
+                    } else {
+                      await disableUrlCleaner()
+                    }
+
+                    if (
+                      ublockStatus.status === 'enabled' &&
+                      showUblockWarningAtLinkSanitizer
+                    ) {
+                      dispatch(addOverlay('ublockLinkSanitizer'))
+                    }
+                  }}
+                  checked={urlCleanerEnabled}
+                />
+              </Box>
+              <ArrowRightIcon
+                sx={{
+                  fill: 'secondaryText',
+                }}
+              />
+            </Flex>
+          </OptionBox>
+        </Box>
       </ScrollableBox>
     </Box>
   )

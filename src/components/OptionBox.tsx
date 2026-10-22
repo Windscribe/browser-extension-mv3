@@ -11,7 +11,7 @@ import InfoLinkIcon from 'assets/img/infoLink.svg'
 type OptionBoxProps = React.PropsWithChildren<BoxProps> & {
   Icon: React.ElementType
   title: string
-  subTitle?: string
+  subTitle?: React.ReactNode
   path?: string
 }
 
@@ -62,7 +62,10 @@ const OptionBox: ThemeUiElement<OptionBoxProps> = ({
             <Button
               variant="simple"
               mr="16px"
-              onClick={() => window.open(`${ENVS.ROOT_URL}/${path}`)}
+              onClick={event => {
+                event.stopPropagation()
+                window.open(`${ENVS.ROOT_URL}/${path}`)
+              }}
               sx={{
                 minWidth: '16px',
                 svg: {

@@ -20,6 +20,8 @@ export type Credentials = {
   captchaTrail?: number[]
 }
 
+export type LoginTokenCredentials = Pick<Credentials, 'username' | 'password'>
+
 export interface MetaData {
   serviceRequestId?: string
   hostName?: string

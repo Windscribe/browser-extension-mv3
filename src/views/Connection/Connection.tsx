@@ -10,22 +10,35 @@ import AutoConnectIcon from 'assets/img/autoconnecticon.svg'
 import FailoverIcon from 'assets/img/failover.svg'
 import SmokewallIcon from 'assets/img/smokewall.svg'
 import ProxyPortIcon from 'assets/img/proxyPort.svg'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
+
+const failoverLabelKey = (value: FailoverOption) => {
+  switch (value) {
+    case 'Auto / Best':
+      return 'wsext_failover_auto_best'
+    case 'Same Country':
+      return 'wsext_failover_same_country'
+    case 'None':
+      return 'wsext_failover_none'
+  }
+}
 
 const Connection: ThemeUiElement = () => {
   const autoConnect = useSelector(s => s.connection.autoConnect)
   const smokewall = useSelector(s => s.connection.smokeWall)
   const failover = useSelector(s => s.connection.failover)
   const proxyPort = useSelector(s => s.proxyPort)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   const dispatch = useDispatch()
 
   return (
     <Box data-testid="connection-page" bg="background">
-      <Header title="Connection" />
+      <Header title={getLocalizedMessage('wsext_connection', currentLanguage)} />
       <Box mx="16px">
         <OptionBox
           Icon={AutoConnectIcon}
-          title="Auto-Connect"
-          subTitle="Automatically connect on browser start."
+          title={getLocalizedMessage('wsext_auto_connect', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_auto_connect_description', currentLanguage)}
         >
           <ToggleSwitch
             onChange={() => dispatch(setAutoConnect(!autoConnect))}
@@ -34,31 +47,32 @@ const Connection: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={SmokewallIcon}
-          title="Smokewall"
-          subTitle="Do not disconnect even on proxy failure."
+          title={getLocalizedMessage('wsext_smokewall', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_smokewall_description', currentLanguage)}
         >
           <ToggleSwitch onChange={() => dispatch(setSmokeWall(!smokewall))} checked={smokewall} />
         </OptionBox>
         <OptionBox
           Icon={FailoverIcon}
-          title="Failover"
-          subTitle="On proxy failure, auto switch locations."
+          title={getLocalizedMessage('wsext_failover', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_failover_description', currentLanguage)}
         >
           <DropDown
             current={failover}
             items={['Auto / Best', 'Same Country', 'None'] as FailoverOption[]}
-            setValue={setFailover}
+            onItemClick={(value: FailoverOption) => dispatch(setFailover(value))}
+            getLabel={value => getLocalizedMessage(failoverLabelKey(value), currentLanguage)}
           />
         </OptionBox>
         <OptionBox
           Icon={ProxyPortIcon}
-          title="Proxy Port"
-          subTitle="Select which port to connect with."
+          title={getLocalizedMessage('wsext_proxy_port', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_proxy_port_description', currentLanguage)}
         >
           <DropDown
             current={proxyPort}
             items={[443, 9443] as ProxyPort[]}
-            setValue={setProxyPort}
+            onItemClick={(value: ProxyPort) => dispatch(setProxyPort(value))}
           />
         </OptionBox>
       </Box>

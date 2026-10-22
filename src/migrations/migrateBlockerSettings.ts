@@ -16,9 +16,9 @@ import { BlockListsValidatorManifestV2 } from 'utils/validators'
 // left side (key) is the blocker enabled list for v2 and right side (value) is the same but for v3
 
 export const BLOCKER_SETTINGS_MAPPER = {
-  adblock: 'default',
-  social: 'annoyances-social',
-  cookieaway: 'annoyances-cookies',
+  adblock: ['easylist', 'easyprivacy', 'pgl', 'ublock-filters'],
+  social: ['annoyances-social'],
+  cookieaway: ['annoyances-cookies'],
 }
 
 export const migrateBlockerSettings = async (
@@ -45,6 +45,7 @@ export const migrateBlockerSettings = async (
         .map(blockList => {
           return BLOCKER_SETTINGS_MAPPER[blockList as keyof typeof BLOCKER_SETTINGS_MAPPER]
         })
+        .flat()
         .filter(blockList => !!blockList)
 
       store.dispatch(setBlockLists(newBlocklist))

@@ -21,6 +21,9 @@ export const exportSettings = (state: RootState): void => {
       splitPersonalityEnabled: state.splitPersonalityEnabled,
       notificationBlockerEnabled: state.notificationBlockerEnabled,
       adPrivacyEnabled: state.adPrivacyEnabled,
+      urlCleanerEnabled: state.urlCleanerEnabled,
+      linkSanitizerEnabledGroups: state.linkSanitizer.enabledGroups,
+      linkSanitizerCustomParams: state.linkSanitizer.customParams,
       // allowlists
       allowlist: state.allowlist,
       // theme

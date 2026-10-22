@@ -8,11 +8,28 @@ variables:
   #TEST_USER_NAME: "sample"         # Set in Gitlab variables
   #TEST_USER_PASSWORD: "PaSsWoRd"  # Set in Gitlab variables
 
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && ($CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "edge-master")
+    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "edge-master"
+
 stages:
   - prepare_environment
   - install_packages
   - test
   - build
+  - verify
+
+.chrome:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"
+    - if: $CI_COMMIT_BRANCH == "master"
+
+.edge:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "edge-master"
+    - if: $CI_COMMIT_BRANCH == "edge-master"
 
 build:image:
   image: docker
@@ -40,16 +57,23 @@ eslint:
     - job: install
   script:
     - yarn run lint
+    - yarn run typecheck:tests
 
 test:
+  extends: .chrome
   stage: test
   needs:
     - job: install
   dependencies:
     - install
   script:
+    - echo "CI_RUNNER_DESCRIPTION=${CI_RUNNER_DESCRIPTION}"
+    - echo "hostname=$(hostname)"
+    - echo "local_ips=$(hostname -I 2>/dev/null || true)"
+    - node -e "Promise.any(['https://api.ipify.org','https://icanhazip.com'].map(u=>fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.text()}))).then(t=>console.log('egress_ipv4='+t.trim())).catch(e=>console.log('egress_ipv4_failed='+e.message))"
     - printf "\nNODE_ENV=production" >> ".env"
-    - printf "\nAPI_URL=api.windscribe.com" >> ".env"
+    - printf "\nAPI_URL=windscribe.com" >> ".env"
+    - printf "\nBACKUP_API_URL=$BACKUP_API_URL" >> ".env"
     - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
     - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
     - printf "\nBUILD_USER_NAME=$BUILD_USER_NAME" >> ".env"
@@ -59,9 +83,47 @@ test:
     - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 & # Start virtual display
     - yarn run test
 
+test:edge:
+  extends: .edge
+  stage: test
+  needs:
+    - job: install
+  dependencies:
+    - install
+  script:
+    - echo "CI_RUNNER_DESCRIPTION=${CI_RUNNER_DESCRIPTION}"
+    - echo "hostname=$(hostname)"
+    - echo "local_ips=$(hostname -I 2>/dev/null || true)"
+    - node -e "Promise.any(['https://api.ipify.org','https://icanhazip.com'].map(u=>fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.text()}))).then(t=>console.log('egress_ipv4='+t.trim())).catch(e=>console.log('egress_ipv4_failed='+e.message))"
+    - printf "\nNODE_ENV=production" >> ".env"
+    - printf "\nAPI_URL=windscribe.com" >> ".env"
+    - printf "\nBACKUP_API_URL=$BACKUP_API_URL" >> ".env"
+    - printf "\nTEST_USER_NAME=$TEST_USER_NAME" >> ".env"
+    - printf "\nTEST_USER_PASSWORD=$TEST_USER_PASSWORD" >> ".env"
+    - printf "\nBUILD_USER_NAME=$BUILD_USER_NAME" >> ".env"
+    - printf "\nBUILD_USER_PASSWORD=$BUILD_USER_PASSWORD" >> ".env"
+    # Pinned Edge 155.0.4283.62. Install only when the image does not already have this build.
+    # Apt checks the package against the signed repo index. The key must match
+    # BC528686B50D79E339D3721CEB3E94ADBE1229CF (packages.microsoft.com/keys/microsoft.asc).
+    - |
+      if ! microsoft-edge-stable --version 2>/dev/null | grep -q '155.0.4283.62'; then
+        apt-get update
+        apt-get install -y gnupg ca-certificates
+        mkdir -p /usr/share/keyrings
+        wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-edge.gpg
+        gpg --show-keys --with-colons /usr/share/keyrings/microsoft-edge.gpg | grep -q 'BC528686B50D79E339D3721CEB3E94ADBE1229CF'
+        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft-edge.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list
+        apt-get update
+        apt-get install -y microsoft-edge-stable=155.0.4283.62-1
+      fi
+    - yarn run build
+    - Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 &
+    - EDGE_BINARY=/usr/bin/microsoft-edge-stable yarn run test
+
 build:extension:
+  extends: .chrome
   stage: build
-  needs: ['install', 'eslint', 'test']
+  needs: ['install']
   dependencies:
     - install
   before_script:
@@ -76,3 +138,47 @@ build:extension:
     paths:
       - build/
     expire_in: 7 days
+
+build:extension:edge:
+  extends: .edge
+  stage: build
+  needs: ['install']
+  dependencies:
+    - install
+  before_script:
+    - echo "checking node version"
+    - node -v
+  script:
+    - printf "\nNODE_ENV=production" >> ".env"
+    - printf "\nAPI_URL=windscribe.com" >> ".env"
+    - printf "\nBACKUP_API_URL=totallyacdn.com" >> ".env"
+    - yarn run build
+  artifacts:
+    name: "edge-$CI_COMMIT_REF_SLUG-$CI_PIPELINE_ID"
+    paths:
+      - build/
+    expire_in: 7 days
+
+# Builds run alongside tests, so this job is the signal that a build passed lint and tests
+pipeline:passed:
+  stage: verify
+  needs:
+    - job: eslint
+      artifacts: false
+    - job: test
+      artifacts: false
+      optional: true
+    - job: build:extension
+      artifacts: false
+      optional: true
+    - job: test:edge
+      artifacts: false
+      optional: true
+    - job: build:extension:edge
+      artifacts: false
+      optional: true
+  variables:
+    GIT_STRATEGY: none
+    GIT_SUBMODULE_STRATEGY: none
+  script:
+    - echo "Lint, tests and builds passed"

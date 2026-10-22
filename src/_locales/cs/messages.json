@@ -1,0 +1,780 @@
+{
+  "wsext_on": {
+    "message": "ZAPNUTO",
+    "description": "The extension is enabled"
+  },
+  "wsext_off": {
+    "message": "VYPNUTO",
+    "description": "The extension is disabled"
+  },
+  "wsext_connecting": {
+    "message": "PŘIPOJOVÁNÍ...",
+    "description": "The extension is connecting to the internet"
+  },
+  "wsext_disconnecting": {
+    "message": "ODPOJOVÁNÍ...",
+    "description": "The extension is disconnecting from the internet"
+  },
+  "wsext_offline": {
+    "message": "OFFLINE",
+    "description": "The extension is offline"
+  },
+  "wsext_autopilot": {
+    "message": "Autopilot",
+    "description": "Option to enable or manage autopilot features."
+  },
+  "wsext_preferences": {
+    "message": "Předvolby",
+    "description": "User preferences and settings."
+  },
+  "wsext_general": {
+    "message": "Obecné",
+    "description": "General settings and configurations."
+  },
+  "wsext_connection": {
+    "message": "Připojení",
+    "description": "Manage connection settings and status."
+  },
+  "wsext_blocker": {
+    "message": "Blokátor",
+    "description": "Feature to block unwanted content or ads."
+  },
+  "wsext_privacy": {
+    "message": "Soukromí",
+    "description": "Privacy-related settings and controls."
+  },
+  "wsext_account": {
+    "message": "Účet",
+    "description": "Manage user account details."
+  },
+  "wsext_allowlist": {
+    "message": "Seznam povolených",
+    "description": "List of allowed websites or items."
+  },
+  "wsext_change_theme": {
+    "message": "Změnit téma",
+    "description": "Option to switch between different themes."
+  },
+  "wsext_restart_onboarding": {
+    "message": "Restartovat úvod",
+    "description": "Restart the onboarding process for the extension."
+  },
+  "wsext_get_support": {
+    "message": "Získat podporu",
+    "description": "Access support resources or contact helpdesk."
+  },
+  "wsext_logout": {
+    "message": "Odhlásit se",
+    "description": "Logout from the current account."
+  },
+  "wsext_newsfeed": {
+    "message": "Novinky",
+    "description": "Access the latest news and updates."
+  },
+  "wsext_proxy_failure": {
+    "message": "CHYBA PROXY",
+    "description": "Notification for proxy failure events."
+  },
+  "wsext_notifications": {
+    "message": "Oznámení",
+    "description": "Manage notification settings for the extension."
+  },
+  "wsext_show_connect_disconnect_notifications": {
+    "message": "Zobrazit systémová oznámení o připojení/odpojení.",
+    "description": "Option to display OS notifications when connecting or disconnecting."
+  },
+  "wsext_show_location_load": {
+    "message": "Zobrazit zatížení lokality",
+    "description": "Option to display the load of each data center."
+  },
+  "wsext_show_location_load_description": {
+    "message": "Zobrazit zatížení každého datového centra.",
+    "description": "Option to display the load of each data center."
+  },
+  "wsext_debug_context_menu": {
+    "message": "Kontextové menu ladění",
+    "description": "Option to display the debug log in the context menu."
+  },
+  "wsext_debug_context_menu_description": {
+    "message": "Zobrazit ladicí protokol v kontextovém menu.",
+    "description": "Option to display the debug log in the context menu."
+  },
+  "wsext_language": {
+    "message": "Jazyk",
+    "description": "Select the language for the extension."
+  },
+  "wsext_language_description": {
+    "message": "Vyberte jazyk rozšíření.",
+    "description": "Option to select the language for the extension."
+  },
+  "wsext_debug_log": {
+    "message": "Ladicí protokol",
+    "description": "Access the debug log of the extension."
+  },
+  "wsext_clear_log": {
+    "message": "Vymazat protokol",
+    "description": "Button label to clear the debug log."
+  },
+  "wsext_show_user_info": {
+    "message": "Zobrazit informace o uživateli",
+    "description": "Button label to show user and device information on the debug log page."
+  },
+  "wsext_download_logs": {
+    "message": "Stáhnout protokoly",
+    "description": "Button label to download debug logs."
+  },
+  "wsext_scroll_to_top": {
+    "message": "Posunout nahoru",
+    "description": "Button label to scroll to the top of the debug log."
+  },
+  "wsext_scroll_to_bottom": {
+    "message": "Posunout dolů",
+    "description": "Button label to scroll to the bottom of the debug log."
+  },
+  "wsext_no_logs_found": {
+    "message": "Nebyly nalezeny žádné protokoly",
+    "description": "Empty state message when there are no debug logs."
+  },
+  "wsext_send": {
+    "message": "Odeslat",
+    "description": "Send the current debug log."
+  },
+  "wsext_view": {
+    "message": "Zobrazit",
+    "description": "View the content or details."
+  },
+  "wsext_sent": {
+    "message": "Odesláno!",
+    "description": "Notification confirming a successful send operation."
+  },
+  "wsext_error": {
+    "message": "Chyba",
+    "description": "Message displayed when an error occurs."
+  },
+  "wsext_view_licenses": {
+    "message": "Zobrazit licence",
+    "description": "Option to view licenses associated with the extension."
+  },
+  "wsext_version": {
+    "message": "Verze",
+    "description": "Displays the current version of the extension."
+  },
+  "wsext_keyboard_shortcuts": {
+    "message": "Klávesové zkratky",
+    "description": "Title for the keyboard shortcuts option."
+  },
+  "wsext_keyboard_shortcuts_description": {
+    "message": "Přizpůsobte klávesové zkratky pro rychlý přístup k funkcím rozšíření",
+    "description": "Description for the keyboard shortcuts option."
+  },
+  "wsext_edit": {
+    "message": "Upravit",
+    "description": "Generic edit button label."
+  },
+  "wsext_export": {
+    "message": "Exportovat",
+    "description": "Export settings button label."
+  },
+  "wsext_import": {
+    "message": "Importovat",
+    "description": "Import settings button label."
+  },
+  "wsext_refresh_to_see_changes": {
+    "message": "Obnovte pro zobrazení změn",
+    "description": "Alert telling the user to refresh the current tab to see the effect of changes."
+  },
+  "wsext_back_to": {
+    "message": "Zpět na $page$",
+    "description": "Aria label for the go-back button.",
+    "placeholders": {
+      "page": {
+        "content": "$1",
+        "example": "Předvolby"
+      }
+    }
+  },
+  "wsext_my_account": {
+    "message": "Můj účet",
+    "description": "Tooltip for the edit account button."
+  },
+  "wsext_info": {
+    "message": "info",
+    "description": "Subheader for the info section in the account page."
+  },
+  "wsext_username": {
+    "message": "Uživatelské jméno",
+    "description": "Label for the username field."
+  },
+  "wsext_hash": {
+    "message": "Hash",
+    "description": "Switch to hashed login or label the account hash field."
+  },
+  "wsext_email": {
+    "message": "E-mail",
+    "description": "Label for the email field."
+  },
+  "wsext_add_email_with_bonus": {
+    "message": "Přidat e-mail (+8GB)",
+    "description": "Call to action to add an email and earn extra data."
+  },
+  "wsext_plan": {
+    "message": "tarif",
+    "description": "Subheader for the plan section in the account page."
+  },
+  "wsext_unlimited": {
+    "message": "Neomezeno",
+    "description": "Indicates an unlimited plan or data."
+  },
+  "wsext_per_month": {
+    "message": "/měsíc",
+    "description": "Suffix for monthly data values."
+  },
+  "wsext_pro": {
+    "message": "Pro",
+    "description": "Indicates a Pro account."
+  },
+  "wsext_upgrade": {
+    "message": "Upgradovat",
+    "description": "Button to upgrade the account."
+  },
+  "wsext_expiry_date": {
+    "message": "Datum vypršení",
+    "description": "Label for the premium expiry date."
+  },
+  "wsext_reset_date": {
+    "message": "Datum resetu",
+    "description": "Label for the data reset date."
+  },
+  "wsext_current_page": {
+    "message": "aktuální stránka",
+    "description": "Subheader for the currently active tab in the allowlist."
+  },
+  "wsext_allowlisted": {
+    "message": "povolené",
+    "description": "Subheader for the list of allowlisted sites."
+  },
+  "wsext_added_to_support": {
+    "message": "Přidáno pro podporu",
+    "description": "Prefix shown next to a domain that was added automatically to support another."
+  },
+  "wsext_edit_subheader": {
+    "message": "upravit",
+    "description": "Subheader when editing an allowlist entry."
+  },
+  "wsext_add_new": {
+    "message": "přidat nové",
+    "description": "Subheader when adding a new allowlist entry."
+  },
+  "wsext_enter_valid_domain": {
+    "message": "zadejte platnou doménu",
+    "description": "Subheader when the entered allowlist domain is invalid."
+  },
+  "wsext_enter_domain_to_allowlist": {
+    "message": "Zadejte doménu pro seznam povolených",
+    "description": "Placeholder for the allowlist domain input."
+  },
+  "wsext_allow_ads": {
+    "message": "Povolit reklamy",
+    "description": "Toggle label allowing ads on the domain."
+  },
+  "wsext_allow_connection": {
+    "message": "Povolit připojení",
+    "description": "Toggle label allowing direct connections on the domain."
+  },
+  "wsext_allow_privacy_features": {
+    "message": "Povolit funkce soukromí",
+    "description": "Toggle label allowing privacy features on the domain."
+  },
+  "wsext_apply_to_all_subdomains": {
+    "message": "Použít na všechny subdomény",
+    "description": "Toggle label to apply allowlist settings to all subdomains."
+  },
+  "wsext_cancel": {
+    "message": "Zrušit",
+    "description": "Generic cancel button label."
+  },
+  "wsext_save": {
+    "message": "Uložit",
+    "description": "Generic save button label."
+  },
+  "wsext_delete": {
+    "message": "Smazat",
+    "description": "Generic delete button label."
+  },
+  "wsext_add": {
+    "message": "Přidat",
+    "description": "Generic add button label."
+  },
+  "wsext_ad_crusher": {
+    "message": "Ad Crusher",
+    "description": "Title for the ad blocking feature."
+  },
+  "wsext_ad_crusher_description": {
+    "message": "Reklamy, malware, sledovače, těžaři a další",
+    "description": "Description for the ad blocking feature."
+  },
+  "wsext_not_available_when_ublock_lite_enabled": {
+    "message": "Nedostupné, když je uBlock Lite zapnutý",
+    "description": "Tooltip explaining a feature is unavailable while uBlock Lite is enabled."
+  },
+  "wsext_social_distancing": {
+    "message": "Sociální distancování",
+    "description": "Title for the social network blocking feature."
+  },
+  "wsext_social_distancing_description": {
+    "message": "Blokuje sledovací widgety a tlačítka sociálních sítí",
+    "description": "Description for the social network blocking feature."
+  },
+  "wsext_cookie_go_away": {
+    "message": "Cookies pryč",
+    "description": "Title for the cookie banner blocking feature."
+  },
+  "wsext_cookie_go_away_description": {
+    "message": "Blokuje otravné bannery \"Používáme cookies\" na všech webech",
+    "description": "Description for the cookie banner blocking feature."
+  },
+  "wsext_ublock_origin_lite": {
+    "message": "uBlock Origin Lite",
+    "description": "Title for the uBlock Origin Lite toggle."
+  },
+  "wsext_ublock_origin_lite_description": {
+    "message": "Nastavení blokátoru nejsou k dispozici, když je uBlock Lite zapnutý. Vypněte toto nastavení pro použití adblocku Windscribe",
+    "description": "Description for the uBlock Origin Lite toggle."
+  },
+  "wsext_not_available_when_ublock_origin_lite_enabled": {
+    "message": "Nedostupné, když je uBlock Origin Lite zapnutý",
+    "description": "Tooltip explaining a feature is unavailable while uBlock Origin Lite is enabled."
+  },
+  "wsext_ublock_settings": {
+    "message": "Nastavení uBlock",
+    "description": "Link label opening the uBlock settings dashboard."
+  },
+  "wsext_sponsorblock_recommendation": {
+    "message": "Vyzkoušejte rozšíření SponsorBlock pro přeskočení sponzorů ve videích YouTube.",
+    "description": "Recommendation banner for the SponsorBlock extension."
+  },
+  "wsext_auto_connect": {
+    "message": "Automatické připojení",
+    "description": "Title for the auto-connect feature."
+  },
+  "wsext_auto_connect_description": {
+    "message": "Automaticky se připojit při spuštění prohlížeče.",
+    "description": "Description for the auto-connect feature."
+  },
+  "wsext_smokewall": {
+    "message": "Smokewall",
+    "description": "Title for the smokewall feature."
+  },
+  "wsext_smokewall_description": {
+    "message": "Neodpojovat ani při selhání proxy.",
+    "description": "Description for the smokewall feature."
+  },
+  "wsext_failover": {
+    "message": "Failover",
+    "description": "Title for the failover feature."
+  },
+  "wsext_failover_description": {
+    "message": "Při selhání proxy automaticky přepnout lokality.",
+    "description": "Description for the failover feature."
+  },
+  "wsext_proxy_port": {
+    "message": "Port proxy",
+    "description": "Title for the proxy port option."
+  },
+  "wsext_proxy_port_description": {
+    "message": "Vyberte port pro připojení.",
+    "description": "Description for the proxy port option."
+  },
+  "wsext_locations_menu": {
+    "message": "Menu lokalit",
+    "description": "Tooltip for the globe button on the home page."
+  },
+  "wsext_ip_address_copied": {
+    "message": "IP adresa zkopírována",
+    "description": "Toast shown after copying the IP address."
+  },
+  "wsext_usage_bar": {
+    "message": "Lišta využití",
+    "description": "Aria label for the usage bar."
+  },
+  "wsext_out_of_data": {
+    "message": "Žádná data",
+    "description": "Shown when the user has used all of their data."
+  },
+  "wsext_left": {
+    "message": "zbývá",
+    "description": "Suffix for remaining data, e.g. '500 MB zbývá'."
+  },
+  "wsext_get_more_data": {
+    "message": "získat více dat",
+    "description": "Call to action for users without an account to get more data."
+  },
+  "wsext_allowlist_settings": {
+    "message": "Nastavení seznamu povolených",
+    "description": "Tooltip for the per-tab allowlist settings button."
+  },
+  "wsext_ads": {
+    "message": "Reklamy",
+    "description": "Tooltip for the per-tab ads toggle button."
+  },
+  "wsext_privacy_features": {
+    "message": "Funkce soukromí",
+    "description": "Tooltip for the per-tab privacy features toggle button."
+  },
+  "wsext_login": {
+    "message": "Přihlásit se",
+    "description": "Login screen title and submit button label."
+  },
+  "wsext_sign_up": {
+    "message": "Registrovat",
+    "description": "Sign up screen title and link label."
+  },
+  "wsext_password": {
+    "message": "Heslo",
+    "description": "Label for the password field."
+  },
+  "wsext_username_should_not_be_email": {
+    "message": "Vaše uživatelské jméno by nemělo být e-mail.",
+    "description": "Validation error when the username looks like an email."
+  },
+  "wsext_two_fa_code": {
+    "message": "Kód 2FA",
+    "description": "Label for the 2FA code input."
+  },
+  "wsext_two_fa_code_question": {
+    "message": "Kód 2FA?",
+    "description": "Button text to reveal the 2FA code input."
+  },
+  "wsext_two_fa_help": {
+    "message": "Pokud je povoleno, použijte autentizační aplikaci pro vygenerování kódu.",
+    "description": "Helper text for the 2FA code input."
+  },
+  "wsext_forgot_password": {
+    "message": "Zapomněli jste heslo?",
+    "description": "Link to the password reset flow."
+  },
+  "wsext_complete_puzzle_to_continue": {
+    "message": "Dokončete hádanku pro pokračování",
+    "description": "Captcha instruction text."
+  },
+  "wsext_news_feed": {
+    "message": "Novinky",
+    "description": "Title for the news feed page."
+  },
+  "wsext_today": {
+    "message": "Dnes",
+    "description": "Indicates an event happened today."
+  },
+  "wsext_day_ago": {
+    "message": "Před 1 dnem",
+    "description": "Indicates an event happened one day ago."
+  },
+  "wsext_days_ago": {
+    "message": "Před $count$ dny",
+    "description": "Indicates how many days ago an event happened.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "wsext_do_not_disturb": {
+    "message": "Nerušit",
+    "description": "Title for the do not disturb privacy feature."
+  },
+  "wsext_do_not_disturb_description": {
+    "message": "Zablokuje všem stránkám zasílání spamových oznámení.",
+    "description": "Description for the do not disturb privacy feature."
+  },
+  "wsext_click_to_grant_permission": {
+    "message": "Klikněte pro udělení oprávnění.",
+    "description": "Tooltip prompting the user to grant a browser permission."
+  },
+  "wsext_grant_permission": {
+    "message": "Udělit oprávnění",
+    "description": "Action prompting the user to grant a browser permission."
+  },
+  "wsext_unavailable_until_permission_granted": {
+    "message": "Nedostupné, dokud není uděleno oprávnění.",
+    "description": "Tooltip explaining a toggle is unavailable until a permission is granted."
+  },
+  "wsext_anti_fingerprinting": {
+    "message": "Anti Fingerprinting",
+    "description": "Title for the anti fingerprinting privacy feature."
+  },
+  "wsext_anti_fingerprinting_description": {
+    "message": "Experimentální funkce. Pokouší se odolat fingerprintingu, ale může poškodit nebo zpomalit weby.",
+    "description": "Description for the anti fingerprinting privacy feature."
+  },
+  "wsext_webrtc_slayer": {
+    "message": "WebRTC Slayer",
+    "description": "Title for the WebRTC Slayer privacy feature."
+  },
+  "wsext_webrtc_slayer_description": {
+    "message": "Omezuje požadavky WebRTC, aby se zabránilo únikům. Může poškodit některé aplikace.",
+    "description": "Description for the WebRTC Slayer privacy feature."
+  },
+  "wsext_location_warp": {
+    "message": "Location Warp",
+    "description": "Title for the location warp privacy feature."
+  },
+  "wsext_location_warp_description": {
+    "message": "Předstírá vaši GPS polohu, aby odpovídala připojenému proxy.",
+    "description": "Description for the location warp privacy feature."
+  },
+  "wsext_not_available_in_autopilot": {
+    "message": "Nedostupné v Autopilotu",
+    "description": "Tooltip explaining a feature is not available while autopilot is selected."
+  },
+  "wsext_time_warp": {
+    "message": "Time Warp",
+    "description": "Title for the time warp privacy feature."
+  },
+  "wsext_time_warp_description": {
+    "message": "Nastaví čas prohlížeče tak, aby odpovídal připojenému proxy.",
+    "description": "Description for the time warp privacy feature."
+  },
+  "wsext_language_warp": {
+    "message": "Language Warp",
+    "description": "Title for the language warp privacy feature."
+  },
+  "wsext_language_warp_description": {
+    "message": "Nastaví jazyk a místní nastavení tak, aby odpovídaly připojenému proxy.",
+    "description": "Description for the language warp privacy feature."
+  },
+  "wsext_split_personality": {
+    "message": "Split Personality",
+    "description": "Title for the split personality privacy feature."
+  },
+  "wsext_split_personality_description": {
+    "message": "Náhodně rotuje vašeho user agenta.",
+    "description": "Description for the split personality privacy feature."
+  },
+  "wsext_rotate_user_agent": {
+    "message": "Rotovat User Agent",
+    "description": "Tooltip for the button that rotates the user agent now."
+  },
+  "wsext_split_personality_compat_mode": {
+    "message": "Režim kompatibility Split Personality",
+    "description": "Title for the split personality compatibility mode option."
+  },
+  "wsext_split_personality_compat_mode_description": {
+    "message": "Zůstaňte v rámci rodiny user agentů vašeho prohlížeče. Pomáhá zabránit poškození některých webů.",
+    "description": "Description for the split personality compatibility mode option."
+  },
+  "wsext_not_available_when_split_personality_disabled": {
+    "message": "Nedostupné, když je Split Personality vypnutý",
+    "description": "Tooltip explaining a feature is unavailable when Split Personality is off."
+  },
+  "wsext_worker_block": {
+    "message": "Worker Block",
+    "description": "Title for the worker block privacy feature."
+  },
+  "wsext_worker_block_description": {
+    "message": "Blokuje běh web workerů na pozadí.",
+    "description": "Description for the worker block privacy feature."
+  },
+  "wsext_ad_privacy": {
+    "message": "Ad Privacy",
+    "description": "Title for the ad privacy feature."
+  },
+  "wsext_ad_privacy_description": {
+    "message": "Vypne kontextová témata reklam a návrhy.",
+    "description": "Description for the ad privacy feature."
+  },
+  "wsext_update_browser_warning": {
+    "message": "Aktualizujte prohlížeč pro pokračování v používání tohoto rozšíření a získání bezpečnostních aktualizací.",
+    "description": "Warning shown when the browser is below the minimum supported version."
+  },
+  "wsext_keep_your_secrets": {
+    "message": "Uchovejte svá tajemství.",
+    "description": "Tagline shown on the splash page."
+  },
+  "wsext_get_started": {
+    "message": "Začít",
+    "description": "Call to action on the splash page that leads to signup."
+  },
+  "wsext_pick_your_plan": {
+    "message": "Vyberte svůj tarif",
+    "description": "Heading on the signup screen."
+  },
+  "wsext_free": {
+    "message": "Zdarma",
+    "description": "Title of the free plan option."
+  },
+  "wsext_free_description": {
+    "message": "Až 10GB/měsíc",
+    "description": "Description of the free plan option."
+  },
+  "wsext_pro_description": {
+    "message": "Neomezené GB a více",
+    "description": "Description of the pro plan option."
+  },
+  "wsext_locations": {
+    "message": "Lokality",
+    "description": "Title for the locations page."
+  },
+  "wsext_sort_by": {
+    "message": "Seřadit podle $sort$",
+    "description": "Aria label describing the current sort order.",
+    "placeholders": {
+      "sort": {
+        "content": "$1",
+        "example": "abeceda"
+      }
+    }
+  },
+  "wsext_no_results": {
+    "message": "Žádné výsledky :(",
+    "description": "Shown when a search returns no locations."
+  },
+  "wsext_error_fetching_locations": {
+    "message": "Chyba při načítání lokalit",
+    "description": "Shown when the locations list fails to load."
+  },
+  "wsext_no_favorites": {
+    "message": "Žádné oblíbené",
+    "description": "Shown when the favorites list is empty."
+  },
+  "wsext_upgrade_uppercase": {
+    "message": "UPGRADE",
+    "description": "Upgrade label shown next to pro-only data centers."
+  },
+  "wsext_extDescription": {
+    "message": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
+    "description": "Extension description shown in the Chrome Web Store and chrome://extensions."
+  },
+  "wsext_cmdToggleProxy": {
+    "message": "Zapnout/Vypnout proxy",
+    "description": "Keyboard shortcut description for toggling the proxy."
+  },
+  "wsext_cmdOpenPreferences": {
+    "message": "Otevřít předvolby",
+    "description": "Keyboard shortcut description for opening preferences."
+  },
+  "wsext_cmdOpenFavourites": {
+    "message": "Otevřít oblíbené lokality",
+    "description": "Keyboard shortcut description for opening favourite locations."
+  },
+  "wsext_cmdOpenLocations": {
+    "message": "Otevřít lokality",
+    "description": "Keyboard shortcut description for opening locations."
+  },
+  "wsext_extName": {
+    "message": "Free VPN For Chrome - VPN Extension - Windscribe",
+    "description": "Extension name shown in the Chrome Web Store and chrome://extensions."
+  },
+  "wsext_link_sanitizer": {
+    "message": "Link Sanitizer",
+    "description": "Title for the link sanitizer privacy feature."
+  },
+  "wsext_link_sanitizer_description": {
+    "message": "Remove tracking parameters from URLs before they load.",
+    "description": "Description for the link sanitizer privacy feature."
+  },
+  "wsext_link_sanitizer_analytics": {
+    "message": "Analytics & UTM",
+    "description": "Title for the analytics and UTM parameter group."
+  },
+  "wsext_link_sanitizer_analytics_description": {
+    "message": "Remove UTM, Google Analytics, Matomo, and similar campaign parameters.",
+    "description": "Description for the analytics and UTM parameter group."
+  },
+  "wsext_link_sanitizer_ads": {
+    "message": "Ad Click IDs",
+    "description": "Title for the ad click identifier parameter group."
+  },
+  "wsext_link_sanitizer_ads_description": {
+    "message": "Remove Google Ads, Microsoft, Yahoo, and Yandex click identifiers.",
+    "description": "Description for the ad click identifier parameter group."
+  },
+  "wsext_link_sanitizer_social": {
+    "message": "Social Tracking",
+    "description": "Title for the social tracking parameter group."
+  },
+  "wsext_link_sanitizer_social_description": {
+    "message": "Remove Facebook, Instagram, X, TikTok, Snapchat, and Pinterest click IDs.",
+    "description": "Description for the social tracking parameter group."
+  },
+  "wsext_link_sanitizer_email": {
+    "message": "Email & Marketing",
+    "description": "Title for the email and marketing parameter group."
+  },
+  "wsext_link_sanitizer_email_description": {
+    "message": "Remove Mailchimp, HubSpot, Klaviyo, Marketo, and other email tracking parameters.",
+    "description": "Description for the email and marketing parameter group."
+  },
+  "wsext_link_sanitizer_affiliates": {
+    "message": "Affiliates & Attribution",
+    "description": "Title for the affiliates and attribution parameter group."
+  },
+  "wsext_link_sanitizer_affiliates_description": {
+    "message": "Remove affiliate, attribution, and other third-party tracking parameters.",
+    "description": "Description for the affiliates and attribution parameter group."
+  },
+  "wsext_link_sanitizer_custom_params": {
+    "message": "Custom parameters",
+    "description": "Title for the custom URL parameter input."
+  },
+  "wsext_link_sanitizer_custom_params_description": {
+    "message": "Add extra query parameter names to remove. Separate them with commas.",
+    "description": "Description for the custom URL parameter input."
+  },
+  "wsext_link_sanitizer_custom_params_placeholder": {
+    "message": "param1, param2, param3",
+    "description": "Placeholder for the custom URL parameter input."
+  },
+  "wsext_not_available_when_link_sanitizer_disabled": {
+    "message": "Not available when Link Sanitizer is disabled",
+    "description": "Tooltip explaining a setting is unavailable when Link Sanitizer is off."
+  },
+  "wsext_link_sanitizer_ublock_warning": {
+    "message": "Another extension, uBlock Origin Lite, may still remove tracking parameters from links.",
+    "description": "Persistent warning shown when a separate uBlock Origin Lite extension is enabled."
+  },
+  "wsext_overlay_ublock_link_sanitizer_title": {
+    "message": "uBlock Already Installed",
+    "description": "Title of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
+  },
+  "wsext_overlay_ublock_link_sanitizer_message": {
+    "message": "You already have uBlock Origin Lite. It can also strip tracking from links. Do not use it with Link Sanitizer.",
+    "description": "Body of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
+  },
+  "wsext_overlay_ublock_link_sanitizer_disable": {
+    "message": "Turn Off uBlock Lite",
+    "description": "Button that disables the separate uBlock Origin Lite extension."
+  },
+  "wsext_overlay_ublock_link_sanitizer_keep_both": {
+    "message": "Keep both",
+    "description": "Button that dismisses the Link Sanitizer uBlock overlay and keeps both extensions."
+  },
+  "wsext_clear_site_data": {
+    "message": "Clear this page",
+    "description": "Tooltip for the button that clears storage for the current page only."
+  },
+  "wsext_overlay_clear_site_data_permission_title": {
+    "message": "Permission Required",
+    "description": "Title shown when clearing site data needs an extra permission."
+  },
+  "wsext_overlay_clear_site_data_permission_message": {
+    "message": "You need to grant an extra permission to Windscribe before you can clear site data",
+    "description": "Body shown when clearing site data needs an extra permission."
+  },
+  "wsext_overlay_clear_site_data_confirm_title": {
+    "message": "Clear this page?",
+    "description": "Title of the confirmation shown before clearing the current page."
+  },
+  "wsext_overlay_clear_site_data_confirm_message": {
+    "message": "This removes cookies, local storage, IndexedDB, cache storage, and service workers for this site. You will be signed out.",
+    "description": "Body of the confirmation shown before clearing the current site. Cookies are cleared for the whole domain."
+  },
+  "wsext_overlay_clear_site_data_confirm_action": {
+    "message": "Clear",
+    "description": "Button that confirms clearing the current site data."
+  },
+  "wsext_overlay_clear_site_data_failed": {
+    "message": "Could not clear site data",
+    "description": "Error shown when clearing the current site data fails."
+  }
+}

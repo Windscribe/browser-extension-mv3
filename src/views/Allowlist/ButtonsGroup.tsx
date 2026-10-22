@@ -2,6 +2,8 @@ import { Button, type ButtonProps } from 'theme-ui'
 
 import { type ThemeUiElement } from 'utils/types'
 import { SpaceBetween } from 'components/Flexbox'
+import { useSelector } from 'state/hooks'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 export type SubmitButtonMode = 'add' | 'save' | 'delete' | 'disabled'
 
@@ -19,6 +21,7 @@ const ButtonsGroup: React.FC<ButtonsGroupProps> = ({
   handleSubmit,
   handleCancel,
 }) => {
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   return (
     <SpaceBetween mt="16px">
       <BasicButton
@@ -36,7 +39,7 @@ const ButtonsGroup: React.FC<ButtonsGroupProps> = ({
           },
         }}
       >
-        Cancel
+        {getLocalizedMessage('wsext_cancel', currentLanguage)}
       </BasicButton>
       <SubmitButton {...{ submitButtonMode, handleSubmit }} />
     </SpaceBetween>
@@ -57,24 +60,25 @@ const BasicButton: ThemeUiElement<BasicButtonProps> = ({ children, ...props }) =
 )
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ submitButtonMode, handleSubmit }) => {
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   if (submitButtonMode === 'save') {
     return (
       <BasicButton onClick={handleSubmit} backgroundColor="lakeBlue" color="primaryText">
-        Save
+        {getLocalizedMessage('wsext_save', currentLanguage)}
       </BasicButton>
     )
   }
   if (submitButtonMode === 'delete') {
     return (
       <BasicButton onClick={handleSubmit} backgroundColor="bloodRed" color="primaryText">
-        Delete
+        {getLocalizedMessage('wsext_delete', currentLanguage)}
       </BasicButton>
     )
   }
   if (submitButtonMode === 'disabled') {
     return (
       <BasicButton backgroundColor="foreground" color="disabledButtonText" disabled>
-        Add
+        {getLocalizedMessage('wsext_add', currentLanguage)}
       </BasicButton>
     )
   }
@@ -85,7 +89,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ submitButtonMode, handleSub
       backgroundColor="lakeBlue"
       color="primaryText"
     >
-      Add
+      {getLocalizedMessage('wsext_add', currentLanguage)}
     </BasicButton>
   )
 }

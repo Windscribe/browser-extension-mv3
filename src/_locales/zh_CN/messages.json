@@ -1,0 +1,780 @@
+{
+  "wsext_on": {
+    "message": "开",
+    "description": "The extension is enabled"
+  },
+  "wsext_off": {
+    "message": "关",
+    "description": "The extension is disabled"
+  },
+  "wsext_connecting": {
+    "message": "连接中...",
+    "description": "The extension is connecting to the internet"
+  },
+  "wsext_disconnecting": {
+    "message": "断开中...",
+    "description": "The extension is disconnecting from the internet"
+  },
+  "wsext_offline": {
+    "message": "离线",
+    "description": "The extension is offline"
+  },
+  "wsext_autopilot": {
+    "message": "自动驾驶",
+    "description": "Option to enable or manage autopilot features."
+  },
+  "wsext_preferences": {
+    "message": "偏好设置",
+    "description": "User preferences and settings."
+  },
+  "wsext_general": {
+    "message": "通用",
+    "description": "General settings and configurations."
+  },
+  "wsext_connection": {
+    "message": "连接",
+    "description": "Manage connection settings and status."
+  },
+  "wsext_blocker": {
+    "message": "拦截器",
+    "description": "Feature to block unwanted content or ads."
+  },
+  "wsext_privacy": {
+    "message": "隐私",
+    "description": "Privacy-related settings and controls."
+  },
+  "wsext_account": {
+    "message": "账户",
+    "description": "Manage user account details."
+  },
+  "wsext_allowlist": {
+    "message": "允许列表",
+    "description": "List of allowed websites or items."
+  },
+  "wsext_change_theme": {
+    "message": "更改主题",
+    "description": "Option to switch between different themes."
+  },
+  "wsext_restart_onboarding": {
+    "message": "重新开始引导",
+    "description": "Restart the onboarding process for the extension."
+  },
+  "wsext_get_support": {
+    "message": "获取支持",
+    "description": "Access support resources or contact helpdesk."
+  },
+  "wsext_logout": {
+    "message": "退出登录",
+    "description": "Logout from the current account."
+  },
+  "wsext_newsfeed": {
+    "message": "新闻",
+    "description": "Access the latest news and updates."
+  },
+  "wsext_proxy_failure": {
+    "message": "代理失败",
+    "description": "Notification for proxy failure events."
+  },
+  "wsext_notifications": {
+    "message": "通知",
+    "description": "Manage notification settings for the extension."
+  },
+  "wsext_show_connect_disconnect_notifications": {
+    "message": "显示连接/断开系统通知。",
+    "description": "Option to display OS notifications when connecting or disconnecting."
+  },
+  "wsext_show_location_load": {
+    "message": "显示位置负载",
+    "description": "Option to display the load of each data center."
+  },
+  "wsext_show_location_load_description": {
+    "message": "显示每个数据中心的负载。",
+    "description": "Option to display the load of each data center."
+  },
+  "wsext_debug_context_menu": {
+    "message": "调试右键菜单",
+    "description": "Option to display the debug log in the context menu."
+  },
+  "wsext_debug_context_menu_description": {
+    "message": "在右键菜单中显示调试日志。",
+    "description": "Option to display the debug log in the context menu."
+  },
+  "wsext_language": {
+    "message": "语言",
+    "description": "Select the language for the extension."
+  },
+  "wsext_language_description": {
+    "message": "选择扩展程序的语言。",
+    "description": "Option to select the language for the extension."
+  },
+  "wsext_debug_log": {
+    "message": "调试日志",
+    "description": "Access the debug log of the extension."
+  },
+  "wsext_clear_log": {
+    "message": "清除日志",
+    "description": "Button label to clear the debug log."
+  },
+  "wsext_show_user_info": {
+    "message": "显示用户信息",
+    "description": "Button label to show user and device information on the debug log page."
+  },
+  "wsext_download_logs": {
+    "message": "下载日志",
+    "description": "Button label to download debug logs."
+  },
+  "wsext_scroll_to_top": {
+    "message": "滚动到顶部",
+    "description": "Button label to scroll to the top of the debug log."
+  },
+  "wsext_scroll_to_bottom": {
+    "message": "滚动到底部",
+    "description": "Button label to scroll to the bottom of the debug log."
+  },
+  "wsext_no_logs_found": {
+    "message": "未找到日志",
+    "description": "Empty state message when there are no debug logs."
+  },
+  "wsext_send": {
+    "message": "发送",
+    "description": "Send the current debug log."
+  },
+  "wsext_view": {
+    "message": "查看",
+    "description": "View the content or details."
+  },
+  "wsext_sent": {
+    "message": "已发送!",
+    "description": "Notification confirming a successful send operation."
+  },
+  "wsext_error": {
+    "message": "错误",
+    "description": "Message displayed when an error occurs."
+  },
+  "wsext_view_licenses": {
+    "message": "查看许可证",
+    "description": "Option to view licenses associated with the extension."
+  },
+  "wsext_version": {
+    "message": "版本",
+    "description": "Displays the current version of the extension."
+  },
+  "wsext_keyboard_shortcuts": {
+    "message": "键盘快捷键",
+    "description": "Title for the keyboard shortcuts option."
+  },
+  "wsext_keyboard_shortcuts_description": {
+    "message": "自定义键盘快捷键以快速访问扩展程序功能",
+    "description": "Description for the keyboard shortcuts option."
+  },
+  "wsext_edit": {
+    "message": "编辑",
+    "description": "Generic edit button label."
+  },
+  "wsext_export": {
+    "message": "导出",
+    "description": "Export settings button label."
+  },
+  "wsext_import": {
+    "message": "导入",
+    "description": "Import settings button label."
+  },
+  "wsext_refresh_to_see_changes": {
+    "message": "刷新以查看更改",
+    "description": "Alert telling the user to refresh the current tab to see the effect of changes."
+  },
+  "wsext_back_to": {
+    "message": "返回到$page$",
+    "description": "Aria label for the go-back button.",
+    "placeholders": {
+      "page": {
+        "content": "$1",
+        "example": "偏好设置"
+      }
+    }
+  },
+  "wsext_my_account": {
+    "message": "我的账户",
+    "description": "Tooltip for the edit account button."
+  },
+  "wsext_info": {
+    "message": "信息",
+    "description": "Subheader for the info section in the account page."
+  },
+  "wsext_username": {
+    "message": "用户名",
+    "description": "Label for the username field."
+  },
+  "wsext_hash": {
+    "message": "Hash",
+    "description": "Switch to hashed login or label the account hash field."
+  },
+  "wsext_email": {
+    "message": "邮箱",
+    "description": "Label for the email field."
+  },
+  "wsext_add_email_with_bonus": {
+    "message": "添加邮箱 (+8GB)",
+    "description": "Call to action to add an email and earn extra data."
+  },
+  "wsext_plan": {
+    "message": "套餐",
+    "description": "Subheader for the plan section in the account page."
+  },
+  "wsext_unlimited": {
+    "message": "无限制",
+    "description": "Indicates an unlimited plan or data."
+  },
+  "wsext_per_month": {
+    "message": "/月",
+    "description": "Suffix for monthly data values."
+  },
+  "wsext_pro": {
+    "message": "Pro",
+    "description": "Indicates a Pro account."
+  },
+  "wsext_upgrade": {
+    "message": "升级",
+    "description": "Button to upgrade the account."
+  },
+  "wsext_expiry_date": {
+    "message": "到期日期",
+    "description": "Label for the premium expiry date."
+  },
+  "wsext_reset_date": {
+    "message": "重置日期",
+    "description": "Label for the data reset date."
+  },
+  "wsext_current_page": {
+    "message": "当前页面",
+    "description": "Subheader for the currently active tab in the allowlist."
+  },
+  "wsext_allowlisted": {
+    "message": "已允许",
+    "description": "Subheader for the list of allowlisted sites."
+  },
+  "wsext_added_to_support": {
+    "message": "为支持而添加",
+    "description": "Prefix shown next to a domain that was added automatically to support another."
+  },
+  "wsext_edit_subheader": {
+    "message": "编辑",
+    "description": "Subheader when editing an allowlist entry."
+  },
+  "wsext_add_new": {
+    "message": "添加新的",
+    "description": "Subheader when adding a new allowlist entry."
+  },
+  "wsext_enter_valid_domain": {
+    "message": "请输入有效域名",
+    "description": "Subheader when the entered allowlist domain is invalid."
+  },
+  "wsext_enter_domain_to_allowlist": {
+    "message": "输入要加入允许列表的域名",
+    "description": "Placeholder for the allowlist domain input."
+  },
+  "wsext_allow_ads": {
+    "message": "允许广告",
+    "description": "Toggle label allowing ads on the domain."
+  },
+  "wsext_allow_connection": {
+    "message": "允许连接",
+    "description": "Toggle label allowing direct connections on the domain."
+  },
+  "wsext_allow_privacy_features": {
+    "message": "允许隐私功能",
+    "description": "Toggle label allowing privacy features on the domain."
+  },
+  "wsext_apply_to_all_subdomains": {
+    "message": "应用于所有子域名",
+    "description": "Toggle label to apply allowlist settings to all subdomains."
+  },
+  "wsext_cancel": {
+    "message": "取消",
+    "description": "Generic cancel button label."
+  },
+  "wsext_save": {
+    "message": "保存",
+    "description": "Generic save button label."
+  },
+  "wsext_delete": {
+    "message": "删除",
+    "description": "Generic delete button label."
+  },
+  "wsext_add": {
+    "message": "添加",
+    "description": "Generic add button label."
+  },
+  "wsext_ad_crusher": {
+    "message": "Ad Crusher",
+    "description": "Title for the ad blocking feature."
+  },
+  "wsext_ad_crusher_description": {
+    "message": "广告、恶意软件、跟踪器、矿工等",
+    "description": "Description for the ad blocking feature."
+  },
+  "wsext_not_available_when_ublock_lite_enabled": {
+    "message": "启用 uBlock Lite 时不可用",
+    "description": "Tooltip explaining a feature is unavailable while uBlock Lite is enabled."
+  },
+  "wsext_social_distancing": {
+    "message": "社交距离",
+    "description": "Title for the social network blocking feature."
+  },
+  "wsext_social_distancing_description": {
+    "message": "屏蔽追踪社交网络小工具和按钮",
+    "description": "Description for the social network blocking feature."
+  },
+  "wsext_cookie_go_away": {
+    "message": "Cookie 走开",
+    "description": "Title for the cookie banner blocking feature."
+  },
+  "wsext_cookie_go_away_description": {
+    "message": "屏蔽所有网站上烦人的“我们使用 cookies”横幅",
+    "description": "Description for the cookie banner blocking feature."
+  },
+  "wsext_ublock_origin_lite": {
+    "message": "uBlock Origin Lite",
+    "description": "Title for the uBlock Origin Lite toggle."
+  },
+  "wsext_ublock_origin_lite_description": {
+    "message": "启用 uBlock Lite 时拦截器设置不可用。请禁用此设置以使用 Windscribe 的广告拦截器",
+    "description": "Description for the uBlock Origin Lite toggle."
+  },
+  "wsext_not_available_when_ublock_origin_lite_enabled": {
+    "message": "启用 uBlock Origin Lite 时不可用",
+    "description": "Tooltip explaining a feature is unavailable while uBlock Origin Lite is enabled."
+  },
+  "wsext_ublock_settings": {
+    "message": "uBlock 设置",
+    "description": "Link label opening the uBlock settings dashboard."
+  },
+  "wsext_sponsorblock_recommendation": {
+    "message": "试试 SponsorBlock 扩展程序,跳过 YouTube 视频中的赞助内容。",
+    "description": "Recommendation banner for the SponsorBlock extension."
+  },
+  "wsext_auto_connect": {
+    "message": "自动连接",
+    "description": "Title for the auto-connect feature."
+  },
+  "wsext_auto_connect_description": {
+    "message": "浏览器启动时自动连接。",
+    "description": "Description for the auto-connect feature."
+  },
+  "wsext_smokewall": {
+    "message": "Smokewall",
+    "description": "Title for the smokewall feature."
+  },
+  "wsext_smokewall_description": {
+    "message": "即使代理失败也不要断开连接。",
+    "description": "Description for the smokewall feature."
+  },
+  "wsext_failover": {
+    "message": "Failover",
+    "description": "Title for the failover feature."
+  },
+  "wsext_failover_description": {
+    "message": "代理失败时自动切换位置。",
+    "description": "Description for the failover feature."
+  },
+  "wsext_proxy_port": {
+    "message": "代理端口",
+    "description": "Title for the proxy port option."
+  },
+  "wsext_proxy_port_description": {
+    "message": "选择要连接的端口。",
+    "description": "Description for the proxy port option."
+  },
+  "wsext_locations_menu": {
+    "message": "位置菜单",
+    "description": "Tooltip for the globe button on the home page."
+  },
+  "wsext_ip_address_copied": {
+    "message": "IP 地址已复制",
+    "description": "Toast shown after copying the IP address."
+  },
+  "wsext_usage_bar": {
+    "message": "使用条",
+    "description": "Aria label for the usage bar."
+  },
+  "wsext_out_of_data": {
+    "message": "数据用完",
+    "description": "Shown when the user has used all of their data."
+  },
+  "wsext_left": {
+    "message": "剩余",
+    "description": "Suffix for remaining data, e.g. '500 MB 剩余'."
+  },
+  "wsext_get_more_data": {
+    "message": "获取更多数据",
+    "description": "Call to action for users without an account to get more data."
+  },
+  "wsext_allowlist_settings": {
+    "message": "允许列表设置",
+    "description": "Tooltip for the per-tab allowlist settings button."
+  },
+  "wsext_ads": {
+    "message": "广告",
+    "description": "Tooltip for the per-tab ads toggle button."
+  },
+  "wsext_privacy_features": {
+    "message": "隐私功能",
+    "description": "Tooltip for the per-tab privacy features toggle button."
+  },
+  "wsext_login": {
+    "message": "登录",
+    "description": "Login screen title and submit button label."
+  },
+  "wsext_sign_up": {
+    "message": "注册",
+    "description": "Sign up screen title and link label."
+  },
+  "wsext_password": {
+    "message": "密码",
+    "description": "Label for the password field."
+  },
+  "wsext_username_should_not_be_email": {
+    "message": "您的用户名不应是邮箱。",
+    "description": "Validation error when the username looks like an email."
+  },
+  "wsext_two_fa_code": {
+    "message": "2FA 代码",
+    "description": "Label for the 2FA code input."
+  },
+  "wsext_two_fa_code_question": {
+    "message": "2FA 代码?",
+    "description": "Button text to reveal the 2FA code input."
+  },
+  "wsext_two_fa_help": {
+    "message": "如启用,请使用身份验证应用程序生成代码。",
+    "description": "Helper text for the 2FA code input."
+  },
+  "wsext_forgot_password": {
+    "message": "忘记密码?",
+    "description": "Link to the password reset flow."
+  },
+  "wsext_complete_puzzle_to_continue": {
+    "message": "完成拼图以继续",
+    "description": "Captcha instruction text."
+  },
+  "wsext_news_feed": {
+    "message": "新闻",
+    "description": "Title for the news feed page."
+  },
+  "wsext_today": {
+    "message": "今天",
+    "description": "Indicates an event happened today."
+  },
+  "wsext_day_ago": {
+    "message": "1 天前",
+    "description": "Indicates an event happened one day ago."
+  },
+  "wsext_days_ago": {
+    "message": "$count$ 天前",
+    "description": "Indicates how many days ago an event happened.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "wsext_do_not_disturb": {
+    "message": "请勿打扰",
+    "description": "Title for the do not disturb privacy feature."
+  },
+  "wsext_do_not_disturb_description": {
+    "message": "阻止所有网站向您发送垃圾通知。",
+    "description": "Description for the do not disturb privacy feature."
+  },
+  "wsext_click_to_grant_permission": {
+    "message": "点击以授予权限。",
+    "description": "Tooltip prompting the user to grant a browser permission."
+  },
+  "wsext_grant_permission": {
+    "message": "授予权限",
+    "description": "Action prompting the user to grant a browser permission."
+  },
+  "wsext_unavailable_until_permission_granted": {
+    "message": "在授予权限之前不可用。",
+    "description": "Tooltip explaining a toggle is unavailable until a permission is granted."
+  },
+  "wsext_anti_fingerprinting": {
+    "message": "Anti Fingerprinting",
+    "description": "Title for the anti fingerprinting privacy feature."
+  },
+  "wsext_anti_fingerprinting_description": {
+    "message": "实验性功能。尝试抵抗指纹识别,但可能破坏或减慢网站。",
+    "description": "Description for the anti fingerprinting privacy feature."
+  },
+  "wsext_webrtc_slayer": {
+    "message": "WebRTC Slayer",
+    "description": "Title for the WebRTC Slayer privacy feature."
+  },
+  "wsext_webrtc_slayer_description": {
+    "message": "限制 WebRTC 请求以防止泄漏。可能破坏某些应用程序。",
+    "description": "Description for the WebRTC Slayer privacy feature."
+  },
+  "wsext_location_warp": {
+    "message": "Location Warp",
+    "description": "Title for the location warp privacy feature."
+  },
+  "wsext_location_warp_description": {
+    "message": "伪造您的 GPS 位置以匹配连接的代理。",
+    "description": "Description for the location warp privacy feature."
+  },
+  "wsext_not_available_in_autopilot": {
+    "message": "自动驾驶中不可用",
+    "description": "Tooltip explaining a feature is not available while autopilot is selected."
+  },
+  "wsext_time_warp": {
+    "message": "Time Warp",
+    "description": "Title for the time warp privacy feature."
+  },
+  "wsext_time_warp_description": {
+    "message": "设置浏览器时间以匹配连接的代理。",
+    "description": "Description for the time warp privacy feature."
+  },
+  "wsext_language_warp": {
+    "message": "Language Warp",
+    "description": "Title for the language warp privacy feature."
+  },
+  "wsext_language_warp_description": {
+    "message": "设置语言和区域设置以匹配连接的代理。",
+    "description": "Description for the language warp privacy feature."
+  },
+  "wsext_split_personality": {
+    "message": "Split Personality",
+    "description": "Title for the split personality privacy feature."
+  },
+  "wsext_split_personality_description": {
+    "message": "随机轮换您的用户代理。",
+    "description": "Description for the split personality privacy feature."
+  },
+  "wsext_rotate_user_agent": {
+    "message": "轮换 User Agent",
+    "description": "Tooltip for the button that rotates the user agent now."
+  },
+  "wsext_split_personality_compat_mode": {
+    "message": "Split Personality 兼容模式",
+    "description": "Title for the split personality compatibility mode option."
+  },
+  "wsext_split_personality_compat_mode_description": {
+    "message": "保持在浏览器的用户代理系列内。有助于防止某些网站破损。",
+    "description": "Description for the split personality compatibility mode option."
+  },
+  "wsext_not_available_when_split_personality_disabled": {
+    "message": "Split Personality 禁用时不可用",
+    "description": "Tooltip explaining a feature is unavailable when Split Personality is off."
+  },
+  "wsext_worker_block": {
+    "message": "Worker Block",
+    "description": "Title for the worker block privacy feature."
+  },
+  "wsext_worker_block_description": {
+    "message": "阻止 web workers 在后台运行。",
+    "description": "Description for the worker block privacy feature."
+  },
+  "wsext_ad_privacy": {
+    "message": "Ad Privacy",
+    "description": "Title for the ad privacy feature."
+  },
+  "wsext_ad_privacy_description": {
+    "message": "禁用上下文广告主题和建议。",
+    "description": "Description for the ad privacy feature."
+  },
+  "wsext_update_browser_warning": {
+    "message": "请更新您的浏览器以继续使用此扩展程序并接收安全更新。",
+    "description": "Warning shown when the browser is below the minimum supported version."
+  },
+  "wsext_keep_your_secrets": {
+    "message": "守护您的秘密。",
+    "description": "Tagline shown on the splash page."
+  },
+  "wsext_get_started": {
+    "message": "开始",
+    "description": "Call to action on the splash page that leads to signup."
+  },
+  "wsext_pick_your_plan": {
+    "message": "选择您的套餐",
+    "description": "Heading on the signup screen."
+  },
+  "wsext_free": {
+    "message": "免费",
+    "description": "Title of the free plan option."
+  },
+  "wsext_free_description": {
+    "message": "每月最多 10GB",
+    "description": "Description of the free plan option."
+  },
+  "wsext_pro_description": {
+    "message": "无限 GB 及更多",
+    "description": "Description of the pro plan option."
+  },
+  "wsext_locations": {
+    "message": "位置",
+    "description": "Title for the locations page."
+  },
+  "wsext_sort_by": {
+    "message": "按 $sort$ 排序",
+    "description": "Aria label describing the current sort order.",
+    "placeholders": {
+      "sort": {
+        "content": "$1",
+        "example": "字母"
+      }
+    }
+  },
+  "wsext_no_results": {
+    "message": "无结果 :(",
+    "description": "Shown when a search returns no locations."
+  },
+  "wsext_error_fetching_locations": {
+    "message": "获取位置时出错",
+    "description": "Shown when the locations list fails to load."
+  },
+  "wsext_no_favorites": {
+    "message": "无收藏",
+    "description": "Shown when the favorites list is empty."
+  },
+  "wsext_upgrade_uppercase": {
+    "message": "升级",
+    "description": "Upgrade label shown next to pro-only data centers."
+  },
+  "wsext_extDescription": {
+    "message": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
+    "description": "Extension description shown in the Chrome Web Store and chrome://extensions."
+  },
+  "wsext_cmdToggleProxy": {
+    "message": "切换代理开/关",
+    "description": "Keyboard shortcut description for toggling the proxy."
+  },
+  "wsext_cmdOpenPreferences": {
+    "message": "打开偏好设置",
+    "description": "Keyboard shortcut description for opening preferences."
+  },
+  "wsext_cmdOpenFavourites": {
+    "message": "打开收藏位置",
+    "description": "Keyboard shortcut description for opening favourite locations."
+  },
+  "wsext_cmdOpenLocations": {
+    "message": "打开位置",
+    "description": "Keyboard shortcut description for opening locations."
+  },
+  "wsext_extName": {
+    "message": "Free VPN For Chrome - VPN Extension - Windscribe",
+    "description": "Extension name shown in the Chrome Web Store and chrome://extensions."
+  },
+  "wsext_link_sanitizer": {
+    "message": "Link Sanitizer",
+    "description": "Title for the link sanitizer privacy feature."
+  },
+  "wsext_link_sanitizer_description": {
+    "message": "Remove tracking parameters from URLs before they load.",
+    "description": "Description for the link sanitizer privacy feature."
+  },
+  "wsext_link_sanitizer_analytics": {
+    "message": "Analytics & UTM",
+    "description": "Title for the analytics and UTM parameter group."
+  },
+  "wsext_link_sanitizer_analytics_description": {
+    "message": "Remove UTM, Google Analytics, Matomo, and similar campaign parameters.",
+    "description": "Description for the analytics and UTM parameter group."
+  },
+  "wsext_link_sanitizer_ads": {
+    "message": "Ad Click IDs",
+    "description": "Title for the ad click identifier parameter group."
+  },
+  "wsext_link_sanitizer_ads_description": {
+    "message": "Remove Google Ads, Microsoft, Yahoo, and Yandex click identifiers.",
+    "description": "Description for the ad click identifier parameter group."
+  },
+  "wsext_link_sanitizer_social": {
+    "message": "Social Tracking",
+    "description": "Title for the social tracking parameter group."
+  },
+  "wsext_link_sanitizer_social_description": {
+    "message": "Remove Facebook, Instagram, X, TikTok, Snapchat, and Pinterest click IDs.",
+    "description": "Description for the social tracking parameter group."
+  },
+  "wsext_link_sanitizer_email": {
+    "message": "Email & Marketing",
+    "description": "Title for the email and marketing parameter group."
+  },
+  "wsext_link_sanitizer_email_description": {
+    "message": "Remove Mailchimp, HubSpot, Klaviyo, Marketo, and other email tracking parameters.",
+    "description": "Description for the email and marketing parameter group."
+  },
+  "wsext_link_sanitizer_affiliates": {
+    "message": "Affiliates & Attribution",
+    "description": "Title for the affiliates and attribution parameter group."
+  },
+  "wsext_link_sanitizer_affiliates_description": {
+    "message": "Remove affiliate, attribution, and other third-party tracking parameters.",
+    "description": "Description for the affiliates and attribution parameter group."
+  },
+  "wsext_link_sanitizer_custom_params": {
+    "message": "Custom parameters",
+    "description": "Title for the custom URL parameter input."
+  },
+  "wsext_link_sanitizer_custom_params_description": {
+    "message": "Add extra query parameter names to remove. Separate them with commas.",
+    "description": "Description for the custom URL parameter input."
+  },
+  "wsext_link_sanitizer_custom_params_placeholder": {
+    "message": "param1, param2, param3",
+    "description": "Placeholder for the custom URL parameter input."
+  },
+  "wsext_not_available_when_link_sanitizer_disabled": {
+    "message": "Not available when Link Sanitizer is disabled",
+    "description": "Tooltip explaining a setting is unavailable when Link Sanitizer is off."
+  },
+  "wsext_link_sanitizer_ublock_warning": {
+    "message": "Another extension, uBlock Origin Lite, may still remove tracking parameters from links.",
+    "description": "Persistent warning shown when a separate uBlock Origin Lite extension is enabled."
+  },
+  "wsext_overlay_ublock_link_sanitizer_title": {
+    "message": "uBlock Already Installed",
+    "description": "Title of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
+  },
+  "wsext_overlay_ublock_link_sanitizer_message": {
+    "message": "You already have uBlock Origin Lite. It can also strip tracking from links. Do not use it with Link Sanitizer.",
+    "description": "Body of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
+  },
+  "wsext_overlay_ublock_link_sanitizer_disable": {
+    "message": "Turn Off uBlock Lite",
+    "description": "Button that disables the separate uBlock Origin Lite extension."
+  },
+  "wsext_overlay_ublock_link_sanitizer_keep_both": {
+    "message": "Keep both",
+    "description": "Button that dismisses the Link Sanitizer uBlock overlay and keeps both extensions."
+  },
+  "wsext_clear_site_data": {
+    "message": "Clear this page",
+    "description": "Tooltip for the button that clears storage for the current page only."
+  },
+  "wsext_overlay_clear_site_data_permission_title": {
+    "message": "Permission Required",
+    "description": "Title shown when clearing site data needs an extra permission."
+  },
+  "wsext_overlay_clear_site_data_permission_message": {
+    "message": "You need to grant an extra permission to Windscribe before you can clear site data",
+    "description": "Body shown when clearing site data needs an extra permission."
+  },
+  "wsext_overlay_clear_site_data_confirm_title": {
+    "message": "Clear this page?",
+    "description": "Title of the confirmation shown before clearing the current page."
+  },
+  "wsext_overlay_clear_site_data_confirm_message": {
+    "message": "This removes cookies, local storage, IndexedDB, cache storage, and service workers for this site. You will be signed out.",
+    "description": "Body of the confirmation shown before clearing the current site. Cookies are cleared for the whole domain."
+  },
+  "wsext_overlay_clear_site_data_confirm_action": {
+    "message": "Clear",
+    "description": "Button that confirms clearing the current site data."
+  },
+  "wsext_overlay_clear_site_data_failed": {
+    "message": "Could not clear site data",
+    "description": "Error shown when clearing the current site data fails."
+  }
+}

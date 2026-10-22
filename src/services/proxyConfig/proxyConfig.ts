@@ -26,6 +26,8 @@ import { setCurrentDataCenter } from 'state/slices/currentDataCenter'
 import proxyOffIcon from 'assets/img/proxyOff.png'
 import proxyOnIcon from 'assets/img/proxyOn.png'
 import { pushToDebugLog } from 'services/debugLog'
+import { clearConnectedThisSession, setConnectedThisSession } from 'services/connectedThisSession'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
 import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
@@ -59,10 +61,8 @@ const createFindProxyForURLFunction = (
   return `
   function FindProxyForURL (url, host) {
 
-    alert('proxy url: ')
-    alert(url)
-    alert('host: ')
-    alert(host)
+    alert('proxy url: ' + url)
+    alert('host: ' + host)
     
     const userAllowlist = ${JSON.stringify(allowlist)}
     const lanIps = /(^(127|10)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$)|(^192\\.168\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.1[6-9]\\.\\d{1,3}\\.\\d{1,3}$)|(^172\\.2[0-9]\\.\\d{1,3}\.\\d{1,3}$)|(^172\\.3[0-1]\\.\\d{1,3}\\.\\d{1,3}$)/
@@ -222,7 +222,7 @@ export const connect = async (
       })
       throw Error('No internet connection')
     }
-    const ip = await checkIp(getState().workingApi)
+    const ip = await checkIp()
 
     dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
     if (ip === NO_IP && getState().isOnline) {
@@ -238,14 +238,18 @@ export const connect = async (
       }
 
       dispatch(setStatus('on'))
+      await setConnectedThisSession()
 
       if (getState().allowSystemNotifications && !silent) {
         const autopilotSelected = getState().autopilot.autopilotSelected
         const { city = '', nick = '' } = getState().currentDataCenter
-        const locationInfo = autopilotSelected ? 'Autopilot' : `${city} ${nick}`
+        const { currentLanguage } = getState().currentLanguage
+        const locationInfo = autopilotSelected
+          ? getLocalizedMessage('wsext_autopilot', currentLanguage)
+          : `${city} ${nick}`
         createNotification({
           iconUrl: proxyOnIcon,
-          message: `You are now connected to Windscribe (${locationInfo})`,
+          message: getLocalizedMessage('wsext_notification_connected', currentLanguage, { locationInfo }),
         })
       }
     }
@@ -376,6 +380,7 @@ export const disconnect = async (
   dispatch: AppDispatch,
   showNotification = true,
 ): Promise<void> => {
+  await clearConnectedThisSession()
   dispatch(setStatus('disconnecting'))
 
   const config = {
@@ -405,18 +410,17 @@ export const disconnect = async (
     dispatch(setCurrentDataCenter(updatedDataCenter as DataCenter))
   }
 
-  const workingApi = getState().workingApi
-
-  const ip = await checkIp(workingApi)
+  const ip = await checkIp()
 
   dispatch(setCurrentIp({ currentIp: ip, isOnline: getState().isOnline }))
 
   const noData = getState().overlay.templates.includes('noData')
 
   if (showNotification && getState().allowSystemNotifications && !noData) {
+    const { currentLanguage } = getState().currentLanguage
     createNotification({
       iconUrl: proxyOffIcon,
-      message: 'Connection to Windscribe has been terminated',
+      message: getLocalizedMessage('wsext_notification_disconnected', currentLanguage),
     })
   }
 
@@ -495,12 +499,29 @@ export const handleProxyError = async (
     dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
     const currentHosts = getState().currentDataCenter?.hosts
     if (currentHosts) {
+      pushToDebugLog({
+        message: 'Failover: retrying current data center',
+        tag: 'background',
+        level: 'INFO',
+        data: JSON.stringify({
+          attempt: reconnectionAttempts + 1,
+          limit: RECONNECTION_ATTEMPTS_LIMIT,
+          dataCenterId: getState().currentDataCenter?.id,
+          city: getState().currentDataCenter?.city,
+          nick: getState().currentDataCenter?.nick,
+        }),
+      })
       await connect(getState, dispatch, currentHosts, true)
       return
     }
   }
   if (reconnectionAttempts === RECONNECTION_ATTEMPTS_LIMIT) {
     if (failover === 'Auto / Best') {
+      pushToDebugLog({
+        message: 'Failover: Auto / Best - delegating to connectToAutopilot',
+        tag: 'background',
+        level: 'INFO',
+      })
       dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
       await connectToAutopilot(getState, dispatch, true)
       return
@@ -508,17 +529,60 @@ export const handleProxyError = async (
     if (failover === 'Same Country') {
       const currentLocation = getState().currentLocation
       const currentDataCenter = getState().currentDataCenter
+      const isUserPro = getState().session.sessionData?.is_premium
 
       const newDatacenter = currentLocation.groups?.find(
-        dataCenter => dataCenter.id !== currentDataCenter.id,
+        dataCenter =>
+          dataCenter.id !== currentDataCenter.id && (isUserPro ? true : !dataCenter.pro),
       )
 
       if (newDatacenter) {
+        pushToDebugLog({
+          message: 'Failover: Same Country - switching to candidate data center',
+          tag: 'background',
+          level: 'INFO',
+          data: JSON.stringify({
+            isUserPro,
+            from: {
+              id: currentDataCenter.id,
+              city: currentDataCenter.city,
+              nick: currentDataCenter.nick,
+              pro: currentDataCenter.pro,
+            },
+            to: {
+              id: newDatacenter.id,
+              city: newDatacenter.city,
+              nick: newDatacenter.nick,
+              pro: newDatacenter.pro,
+            },
+          }),
+        })
         dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
         dispatch(setCurrentDataCenter(newDatacenter))
         await connect(getState, dispatch, newDatacenter.hosts, true)
         return
       }
+
+      // No eligible data center in the current location (e.g. free user where
+      // every other DC in currentLocation.groups is pro). Fall back to
+      // Auto / Best before smokewall so the user gets the best globally
+      // available node that respects their plan, instead of being stranded
+      // on a broken connection.
+      pushToDebugLog({
+        message:
+          'Failover: Same Country found no eligible data center, falling back to Auto / Best',
+        tag: 'background',
+        level: 'WARN',
+        data: JSON.stringify({
+          isUserPro,
+          locationId: currentLocation.id,
+          currentDataCenterId: currentDataCenter.id,
+          groupCount: currentLocation.groups?.length ?? 0,
+        }),
+      })
+      dispatch(setReconnectionAttempts(reconnectionAttempts + 1))
+      await connectToAutopilot(getState, dispatch, true)
+      return
     }
   }
 
@@ -527,6 +591,7 @@ export const handleProxyError = async (
   if (smokeWall) {
     dispatch(setConnectionError('Smoke Wall Failover'))
     dispatch(setStatus('on'))
+    await setConnectedThisSession()
   } else if (!smokeWall) {
     await disconnect(getState, dispatch)
     dispatch(addOverlay('somethingWeird'))

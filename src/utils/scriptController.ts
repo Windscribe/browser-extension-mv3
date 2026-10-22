@@ -7,43 +7,44 @@ const matches: string[] = ['<all_urls>']
 const excludeMatches: string[] = ['https://chrome.google.com/webstore/category/extensions']
 
 /**
- *  This is idempotent, running this again and again with the same args will unregister and
- *  re register this script, this is to protect against react hooks running multiple times.
+ *  This is idempotent: calling it again with the same args leaves one script registered with the
+ *  passed config. An existing registration is updated in place so the script stays registered the
+ *  whole time. Unregistering and registering again leaves a gap where pages load without the
+ *  script, and this runs every time the popup Home view mounts.
  */
 async function registerScript(
   scriptId: string,
   jsFileNames: string[],
   excludeDomains?: string[],
+  world: 'MAIN' | 'ISOLATED' = 'MAIN',
 ): Promise<void> {
   try {
-    if ((await chrome.scripting.getRegisteredContentScripts({ ids: [scriptId] })).length > 0) {
-      await unregisterScript(scriptId)
-      await pushToDebugLog({
-        message: `unregistered script with id ${scriptId}`,
-        tag: 'popup',
-      })
-    }
-
     let exclusions = [...excludeMatches]
     if (excludeDomains) {
       exclusions = [...exclusions, ...excludeDomains]
     }
 
-    const res = await chrome.scripting.registerContentScripts([
-      {
-        id: scriptId,
-        world: 'MAIN',
-        runAt: 'document_start',
-        persistAcrossSessions: true,
-        js: jsFileNames,
-        matches,
-        allFrames: true,
-        excludeMatches: exclusions,
-      },
-    ])
+    const script: chrome.scripting.RegisteredContentScript = {
+      id: scriptId,
+      world,
+      runAt: 'document_start',
+      persistAcrossSessions: true,
+      js: jsFileNames,
+      matches,
+      allFrames: true,
+      excludeMatches: exclusions,
+      matchOriginAsFallback: true,
+    }
+
+    const isRegistered =
+      (await chrome.scripting.getRegisteredContentScripts({ ids: [scriptId] })).length > 0
+
+    const res = isRegistered
+      ? await chrome.scripting.updateContentScripts([script])
+      : await chrome.scripting.registerContentScripts([script])
 
     await pushToDebugLog({
-      message: `registered script with id ${scriptId}`,
+      message: `${isRegistered ? 'updated' : 'registered'} script with id ${scriptId}`,
       tag: 'popup',
       data: JSON.stringify({
         res,

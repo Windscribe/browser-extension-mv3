@@ -2,7 +2,7 @@ import { type ProxyStore } from 'pages/proxyStore'
 import { removeOverlay } from 'state/slices/overlay'
 import { CHECK_CURRENT_IP } from 'state/slices/proxy'
 import { setView } from 'state/slices/view'
-import { CONTENT_SETTINGS } from 'utils/constants'
+import { BROWSING_DATA, CONTENT_SETTINGS } from 'utils/constants'
 
 export async function onBeforePopupRenders(proxyStore: ProxyStore): Promise<void> {
   const sessionLoading = proxyStore.getState().session?.loading
@@ -20,6 +20,10 @@ export async function onBeforePopupRenders(proxyStore: ProxyStore): Promise<void
     // popup closing due to permision woes
     if (!permissions.includes(CONTENT_SETTINGS)) {
       proxyStore.dispatch(removeOverlay('notificationBlockerPermission'))
+    }
+    proxyStore.dispatch(removeOverlay('clearSiteDataConfirm'))
+    if (!permissions.includes(BROWSING_DATA)) {
+      proxyStore.dispatch(removeOverlay('clearSiteDataPermission'))
     }
     return
   }

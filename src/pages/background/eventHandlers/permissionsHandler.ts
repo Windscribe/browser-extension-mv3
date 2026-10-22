@@ -5,7 +5,7 @@ import {
 } from 'state/slices/notificationBlockerEnabled'
 import { removeOverlay } from 'state/slices/overlay'
 import { addPermissions, removePermissions } from 'state/slices/permissions'
-import { CONTENT_SETTINGS } from 'utils/constants'
+import { BROWSING_DATA, CONTENT_SETTINGS } from 'utils/constants'
 
 export function handlePermissionsAdded(bgStore: Promise<StoreType>) {
   return async (permissions: chrome.permissions.Permissions): Promise<void> => {
@@ -23,6 +23,11 @@ export function handlePermissionsAdded(bgStore: Promise<StoreType>) {
         store.dispatch(resetNotificationBlocker())
       }
     }
+
+    if (permissions.permissions?.includes(BROWSING_DATA)) {
+      store.dispatch(addPermissions([BROWSING_DATA]))
+      store.dispatch(removeOverlay('clearSiteDataPermission'))
+    }
   }
 }
 
@@ -31,6 +36,10 @@ export function handlePermissionsRemoved(bgStore: Promise<StoreType>) {
     const store = await bgStore
     if (permissions.permissions?.includes(CONTENT_SETTINGS)) {
       store.dispatch(removePermissions([CONTENT_SETTINGS]))
+    }
+
+    if (permissions.permissions?.includes(BROWSING_DATA)) {
+      store.dispatch(removePermissions([BROWSING_DATA]))
     }
   }
 }

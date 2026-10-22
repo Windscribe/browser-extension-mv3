@@ -1,8 +1,39 @@
 import { Box, Button, useThemeUI } from 'theme-ui'
+import DOMPurify from 'dompurify'
 import { Column } from 'components/Flexbox'
 import { unreadIconRadius } from 'styles/constants'
 import PlusIcon from 'assets/img/plus-icon.svg'
 import getInnerHtmlStyles from './getInnerHtmlStyles'
+import { useSelector } from 'state/hooks'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
+
+const NEWSFEED_SANITIZE_CONFIG: DOMPurify.Config = {
+  USE_PROFILES: { html: true },
+  FORBID_TAGS: [
+    'form',
+    'input',
+    'button',
+    'select',
+    'textarea',
+    'iframe',
+    'object',
+    'embed',
+    'style',
+    'link',
+    'meta',
+    'base',
+  ],
+  FORBID_ATTR: ['style'],
+}
+
+// Newsfeed renders inside a tiny extension popup, so every link must open in
+// a new tab; otherwise a click navigates the popup itself and the popup closes
+// without anything visibly happening.
+DOMPurify.addHook('afterSanitizeAttributes', node => {
+  if (node.tagName === 'A') {
+    node.setAttribute('target', '_blank')
+  }
+})
 
 type NewsfeedItemProps = {
   id: number
@@ -25,10 +56,16 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
 }) => {
   const { colorMode, theme } = useThemeUI()
   const isDark = colorMode === 'dark'
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const currentDate = new Date().toString()
   const daysAgo = Math.floor((Date.parse(currentDate) / 1000 - date) / (3600 * 24)) | 0
-  const daysAgoText = daysAgo === 0 ? 'Today' : `${daysAgo} day${daysAgo === 1 ? '' : 's'} ago`
+  const daysAgoText =
+    daysAgo === 0
+      ? getLocalizedMessage('wsext_today', currentLanguage)
+      : daysAgo === 1
+        ? getLocalizedMessage('wsext_day_ago', currentLanguage)
+        : getLocalizedMessage('wsext_days_ago', currentLanguage, { count: daysAgo })
 
   return (
     <Box mb="16px">
@@ -124,7 +161,9 @@ const NewsfeedItem: React.FC<NewsfeedItemProps> = ({
           }}
           data-testid={`newsfeed-item-message`}
           css={getInnerHtmlStyles(isDark, theme?.colors)}
-          dangerouslySetInnerHTML={{ __html: message }}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(message, NEWSFEED_SANITIZE_CONFIG) as string,
+          }}
         />
       )}
     </Box>

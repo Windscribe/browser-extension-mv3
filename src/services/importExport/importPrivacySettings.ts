@@ -4,6 +4,11 @@ import { SHA256 } from 'crypto-js'
 import { pushToDebugLog } from 'services/debugLog'
 import { AppDispatch } from 'state'
 import { setAdPrivacyEnabled } from 'state/slices/adPrivacyEnabled'
+import { setUrlCleanerEnabled } from 'state/slices/urlCleanerEnabled'
+import {
+  setLinkSanitizerCustomParams,
+  setLinkSanitizerEnabledGroups,
+} from 'state/slices/linkSanitizer'
 import { AllowlistState } from 'state/slices/allowlist'
 import { setLanguageWarpEnabled } from 'state/slices/languageWarpEnabled'
 import { setLocationWarp } from 'state/slices/locationWarp'
@@ -28,8 +33,18 @@ import {
 } from 'utils/constants'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
+import {
+  enableUrlCleaner,
+  disableUrlCleaner,
+} from 'services/declarativeNetRequest/updateDynamicRules'
+import {
+  getLinkSanitizerRemoveParamsFromState,
+  LINK_SANITIZER_GROUP_IDS,
+  type LinkSanitizerGroupId,
+} from 'utils/linkSanitizerParams'
 import { doesBundleExistInBuild, registerScript, unregisterScript } from 'utils/scriptController'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 import { ImportedSettingsV1 } from 'utils/validators'
 
 type ImportPrivacySettingsArgs = {
@@ -269,5 +284,48 @@ export const importPrivacySettings = async ({
     importedSettings.adPrivacyEnabled !== null
   ) {
     dispatch(setAdPrivacyEnabled(importedSettings.adPrivacyEnabled))
+  }
+
+  if (
+    importedSettings.linkSanitizerEnabledGroups !== undefined &&
+    importedSettings.linkSanitizerEnabledGroups !== null
+  ) {
+    const enabledGroups = importedSettings.linkSanitizerEnabledGroups.filter(
+      (groupId): groupId is LinkSanitizerGroupId =>
+        LINK_SANITIZER_GROUP_IDS.includes(groupId as LinkSanitizerGroupId),
+    )
+    dispatch(setLinkSanitizerEnabledGroups(enabledGroups))
+  }
+
+  if (
+    importedSettings.linkSanitizerCustomParams !== undefined &&
+    importedSettings.linkSanitizerCustomParams !== null
+  ) {
+    dispatch(setLinkSanitizerCustomParams(importedSettings.linkSanitizerCustomParams))
+  }
+
+  if (
+    importedSettings.urlCleanerEnabled !== undefined &&
+    importedSettings.urlCleanerEnabled !== null
+  ) {
+    dispatch(setUrlCleanerEnabled(importedSettings.urlCleanerEnabled))
+    const dontCleanDomains = getPrivacyFeatureEnabledDomains(
+      importedSettings.allowlist ?? existingAllowList,
+    )
+
+    if (importedSettings.urlCleanerEnabled) {
+      await enableUrlCleaner(
+        dontCleanDomains,
+        getLinkSanitizerRemoveParamsFromState({
+          enabledGroups:
+            importedSettings.linkSanitizerEnabledGroups?.filter((groupId): groupId is LinkSanitizerGroupId =>
+              LINK_SANITIZER_GROUP_IDS.includes(groupId as LinkSanitizerGroupId),
+            ),
+          customParams: importedSettings.linkSanitizerCustomParams,
+        }),
+      )
+    } else {
+      await disableUrlCleaner()
+    }
   }
 }

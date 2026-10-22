@@ -12,6 +12,7 @@ export const adPrivacyEnabledSlice = createSlice({
   reducers: {
     setAdPrivacyEnabled(state: AdPrivacyEnabledState, action: PayloadAction<boolean>) {
       if (action.payload) {
+        // Ad topics & measurement
         chrome.privacy.websites.topicsEnabled.set({
           value: !action.payload,
         })
@@ -21,10 +22,24 @@ export const adPrivacyEnabledSlice = createSlice({
         chrome.privacy.websites.fledgeEnabled.set({
           value: !action.payload,
         })
+
+        // Network privacy
+        chrome.privacy.network.networkPredictionEnabled.set({
+          value: !action.payload,
+        })
+        chrome.privacy.websites.hyperlinkAuditingEnabled.set({
+          value: !action.payload,
+        })
+        chrome.privacy.services.searchSuggestEnabled.set({
+          value: !action.payload,
+        })
       } else {
         chrome.privacy.websites.topicsEnabled.clear({})
         chrome.privacy.websites.adMeasurementEnabled.clear({})
         chrome.privacy.websites.fledgeEnabled.clear({})
+        chrome.privacy.network.networkPredictionEnabled.clear({})
+        chrome.privacy.websites.hyperlinkAuditingEnabled.clear({})
+        chrome.privacy.services.searchSuggestEnabled.clear({})
       }
       return action.payload
     },

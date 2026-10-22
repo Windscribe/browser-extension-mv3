@@ -1,4 +1,5 @@
 import zod from 'zod'
+import { LINK_SANITIZER_GROUP_IDS } from './linkSanitizerParams'
 import {
   SYNC_KEY,
   LOCATION_LOAD_REDUCER,
@@ -438,7 +439,16 @@ const BaseSettingsV1 = zod
     proxyPort: zod.union([zod.literal(443), zod.literal(9443)]),
     // blocker settings
     blockLists: zod
-      .array(zod.enum(['default', 'annoyances-social', 'annoyances-cookies']))
+      .array(
+        zod.enum([
+          'easylist',
+          'easyprivacy',
+          'pgl',
+          'ublock-filters',
+          'annoyances-social',
+          'annoyances-cookies',
+        ]),
+      )
       .refine(arr => new Set(arr).size === arr.length, {
         message: 'Elements must be unique',
       }),
@@ -451,6 +461,9 @@ const BaseSettingsV1 = zod
     splitPersonalityEnabled: zod.boolean(),
     notificationBlockerEnabled: zod.boolean(),
     adPrivacyEnabled: zod.boolean(),
+    urlCleanerEnabled: zod.boolean(),
+    linkSanitizerEnabledGroups: zod.array(zod.enum(LINK_SANITIZER_GROUP_IDS)).optional(),
+    linkSanitizerCustomParams: zod.array(zod.string()).optional(),
     // allowlists
     allowlist: zod.record(
       zod.string(),

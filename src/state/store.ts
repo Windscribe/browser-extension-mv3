@@ -15,7 +15,12 @@ import aliases from './aliases'
 import viewReducer from './slices/view'
 import proxyReducer from './slices/proxy'
 import blockerReducer from './slices/blocker'
-import sessionReducer, { login } from './slices/session'
+import sessionReducer, {
+  login,
+  getAuthToken,
+  setSession,
+  replaceSession,
+} from './slices/session'
 import serversReducer from './slices/servers'
 import newsfeedReducer from './slices/newsfeed'
 import allowlistReducer from './slices/allowlist'
@@ -28,7 +33,10 @@ import bestLocationReducer from './slices/bestLocation'
 import currentLocationReducer from './slices/currentLocation'
 import locationSortingReducer from './slices/locationSorting'
 import currentDataCenterReducer from './slices/currentDataCenter'
-import serverCredentialsReducer from './slices/serverCredentials'
+import serverCredentialsReducer, {
+  fetchServerCredentials,
+  setServerCredentials,
+} from './slices/serverCredentials'
 import favoriteLocationsReducer from './slices/favoriteLocations'
 import notificationBlockerEnabledReducer from './slices/notificationBlockerEnabled'
 import webRtcEnabledReducer from './slices/webRtcEnabled'
@@ -62,7 +70,11 @@ import ShowReloadAlertReducer from './slices/reloadAlert'
 import privateModeReducer from './slices/privateMode'
 import locationTabReducer from './slices/locationTab'
 import dismissedUpgradeWarningReducer from './slices/upgradeWarning'
+import currentLanguageReducer from './slices/currentLanguage'
+import antiFingerprintingReducer from './slices/antiFingerprinting'
 import splitPersonalityCompatModeReducer from './slices/splitPersonalityCompatMode'
+import urlCleanerEnabledReducer from './slices/urlCleanerEnabled'
+import linkSanitizerReducer from './slices/linkSanitizer'
 
 import { serverListListenerMiddleware } from './serverListListenerMiddleware'
 import shortcutStatusReducer from './slices/openedByShortcut'
@@ -118,7 +130,11 @@ const reducers = {
   shortcutStatus: shortcutStatusReducer,
   locationTab: locationTabReducer,
   dismissedUpgradeWarning: dismissedUpgradeWarningReducer,
+  currentLanguage: currentLanguageReducer,
+  antiFingerprinting: antiFingerprintingReducer,
   splitPersonalityCompatMode: splitPersonalityCompatModeReducer,
+  urlCleanerEnabled: urlCleanerEnabledReducer,
+  linkSanitizer: linkSanitizerReducer,
 }
 
 const combinedReducer = combineReducers(reducers)
@@ -149,6 +165,71 @@ const consoleLogger = createLogger({
   // predicate: (_, action) => action.type !== pushToDebugLog.type || action.payload.level === 'ERROR',
 })
 
+// Action types whose payloads carry credentials (account password, login
+// token, session_auth_hash, proxy username/password). Each entry matches the
+// bare type, its `alias/` form, and its async-thunk lifecycle suffixes
+// (/pending, /fulfilled, /rejected). Session actions keep the account, plan,
+// usage, and location fields listed in SESSION_LOG_FIELDS.
+const SENSITIVE_ACTION_PREFIXES = [
+  login.typePrefix,
+  getAuthToken.typePrefix,
+  fetchServerCredentials.typePrefix,
+  setServerCredentials.type,
+  setSession.type,
+  replaceSession.type,
+]
+
+const baseActionType = (type: string) =>
+  type.startsWith('alias/') ? type.slice('alias/'.length) : type
+
+const isSensitiveAction = (type: string): boolean => {
+  const baseType = baseActionType(type)
+  return SENSITIVE_ACTION_PREFIXES.some(p => baseType === p || baseType.startsWith(`${p}/`))
+}
+
+const SESSION_LOG_FIELDS = [
+  'username',
+  'user_id',
+  'email',
+  'email_status',
+  'reg_date',
+  'status',
+  'is_premium',
+  'billing_plan_id',
+  'premium_expiry_date',
+  'rebill',
+  'alc',
+  'traffic_used',
+  'traffic_max',
+  'last_reset',
+  'loc_hash',
+  'loc_rev',
+  'our_addr',
+  'our_dc',
+  'our_ip',
+  'our_location',
+] as const
+
+const isSessionLogAction = (type: string) =>
+  type === setSession.type ||
+  type === replaceSession.type ||
+  baseActionType(type) === `${login.typePrefix}/fulfilled`
+
+const pickSessionLogData = (payload: Record<string, unknown>) => {
+  const data: Record<string, unknown> = {}
+  for (const key of SESSION_LOG_FIELDS) {
+    if (payload[key] !== undefined) data[key] = payload[key]
+  }
+  return Object.keys(data).length ? data : undefined
+}
+
+const getErrorDetails = (action: AnyAction) => {
+  const { errorCode, errorMessage, errorDescription, logStatus } = action.payload ?? {}
+  const apiError = errorMessage ? { errorCode, errorMessage, errorDescription, logStatus } : {}
+  const errorDetails = action.error ? { ...apiError, error: action.error } : apiError
+  return Object.keys(errorDetails).length ? errorDetails : undefined
+}
+
 const debugLogMiddleware: Middleware<Dispatch, RootState> = () => next => action => {
   const message = `Redux action: ${action.type}`
 
@@ -158,8 +239,12 @@ const debugLogMiddleware: Middleware<Dispatch, RootState> = () => next => action
   // Need a check if(contentScript) When contentScript will be added
 
   const logItem: LogItem = { message, tag }
-  // We don't want to put in debug log user's credentials:
-  if (action.payload && !action.type.endsWith(login.typePrefix)) logItem.data = action.payload
+  // Thunks pass through here as functions with no `type`
+  const type = typeof action.type === 'string' ? action.type : ''
+  if (isSessionLogAction(type) && action.payload && !action.payload.errorMessage) {
+    logItem.data = pickSessionLogData(action.payload)
+  } else if (isSensitiveAction(type)) logItem.data = getErrorDetails(action)
+  else if (action.payload) logItem.data = action.payload
   if (action.type?.includes('/rejected')) logItem.level = 'WARN'
 
   pushToDebugLog(logItem)

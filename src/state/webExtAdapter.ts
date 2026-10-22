@@ -11,10 +11,12 @@ import {
   STORAGE_CACHE_VERSION,
   REACT_APP_REDUX_PORT,
   THREE_DAYS_IN_MILLISECONDS,
+  webshareNoOpScriptId,
 } from 'utils/constants'
 import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { addOverlay } from './slices/overlay'
 import { testDexie } from 'utils/initializeDexie'
+import { registerScript } from 'utils/scriptController'
 
 export async function initializeWrappedStore(): Promise<StoreType> {
   const stateFromStorage = await browserApi.getStateFromStorage()
@@ -50,6 +52,8 @@ export async function initializeWrappedStore(): Promise<StoreType> {
   // await browserApi.clearStateInStorage()
 
   await setupOffscreenDocument('offscreenHub.html', [chrome.offscreen.Reason.IFRAME_SCRIPTING])
+
+  registerScript(webshareNoOpScriptId, ['webshareNoOpContentScript.bundle.js'])
 
   await browserApi.saveStateInStorage(store.getState())
 

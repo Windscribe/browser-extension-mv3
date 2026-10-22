@@ -5,7 +5,7 @@ import { ENVS } from 'utils/constants'
 import { pushToDebugLog, sendDebugLog } from 'services/debugLog'
 import type { ThemeUiElement } from 'utils/types'
 import { useDispatch, useSelector } from 'state/hooks'
-import { Header, OptionBox, ToggleSwitch, ScrollableBox } from 'components'
+import { Header, OptionBox, ToggleSwitch, ScrollableBox, DropDown } from 'components'
 import { showDebugContextMenu } from 'state/slices/contextMenu'
 import { setAllowSystemNotifications } from 'state/slices/allowSystemNotifications'
 import { setLocationLoad } from 'state/slices/locationLoad'
@@ -16,6 +16,14 @@ import DebugLogIcon from 'assets/img/debugLog.svg'
 import DebugMenuIcon from 'assets/img/debugMenu.svg'
 import NotificationsIcon from 'assets/img/notifications.svg'
 import LocationLoadIcon from 'assets/img/locationLoad.svg'
+import LanguageIcon from 'assets/img/languages.svg'
+import {
+  getLocalizedMessage,
+  localeNativeLabels,
+  SupportedLocaleOptions,
+  supportedLocaleOptions,
+} from 'utils/getLocalisedString'
+import { setCurrentLanguageSelection } from 'state/slices/currentLanguage'
 import ImportExportIcon from 'assets/img/importExport.svg'
 
 import { useManageAllowlist } from 'components/hooks'
@@ -33,6 +41,8 @@ const General: ThemeUiElement = () => {
   const sessionData = useSelector(s => s.session.sessionData)
   const allowSystemNotifications = useSelector(s => s.allowSystemNotifications)
   const locationLoad = useSelector(s => s.locationLoad)
+  const { currentLanguage, currentSelection } = useSelector(s => s.currentLanguage)
+
   const state = useSelector(s => s)
   const serverList = useSelector(s => s.servers.serverList)
   const existingAllowList = useSelector(s => s.allowlist)
@@ -42,6 +52,8 @@ const General: ThemeUiElement = () => {
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
   const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
+  const isUrlCleanerEnabled = useSelector(s => s.urlCleanerEnabled)
+  const linkSanitizer = useSelector(s => s.linkSanitizer)
 
   const autopilot = useSelector(s => s.autopilot)
   const currentDataCenter = useSelector(s => s.currentDataCenter)
@@ -100,6 +112,8 @@ const General: ThemeUiElement = () => {
         locationId: currentLocation.id,
         isSplitPersonalityEnabled,
         spoofedUserAgent,
+        isUrlCleanerEnabled,
+        linkSanitizer,
       })
       showReloadAlert(true)
     } catch (err) {
@@ -115,12 +129,15 @@ const General: ThemeUiElement = () => {
 
   return (
     <Box data-testid="general-page" bg="background">
-      <Header title="General" {...{ shouldShowReloadAlert, showReloadAlert }} />
+      <Header
+        title={getLocalizedMessage('wsext_general', currentLanguage)}
+        {...{ shouldShowReloadAlert, showReloadAlert }}
+      />
       <ScrollableBox>
         <OptionBox
           Icon={NotificationsIcon}
-          title="Notifications"
-          subTitle="Show connect/disconnect OS notifications."
+          title={getLocalizedMessage('wsext_notifications', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_show_connect_disconnect_notifications', currentLanguage)}
         >
           <ToggleSwitch
             onChange={() => dispatch(setAllowSystemNotifications(!allowSystemNotifications))}
@@ -129,8 +146,8 @@ const General: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={LocationLoadIcon}
-          title="Show Location Load"
-          subTitle="Show Location Load of each data center."
+          title={getLocalizedMessage('wsext_show_location_load', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_show_location_load_description', currentLanguage)}
         >
           <ToggleSwitch
             onChange={() => dispatch(setLocationLoad(!locationLoad))}
@@ -139,28 +156,52 @@ const General: ThemeUiElement = () => {
         </OptionBox>
         <OptionBox
           Icon={DebugMenuIcon}
-          title="Debug Context Menu"
-          subTitle="Show the debug log in the context menu."
+          title={getLocalizedMessage('wsext_debug_context_menu', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_debug_context_menu_description', currentLanguage)}
         >
           <ToggleSwitch
             onChange={() => dispatch(showDebugContextMenu(!contextMenu))}
             checked={contextMenu}
           />
         </OptionBox>
+
+        <OptionBox
+          Icon={LanguageIcon}
+          title={getLocalizedMessage('wsext_language', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_language_description', currentLanguage)}
+        >
+          <DropDown
+            current={currentSelection}
+            items={supportedLocaleOptions}
+            getLabel={(value: SupportedLocaleOptions) =>
+              value === 'system'
+                ? getLocalizedMessage('wsext_system', currentLanguage)
+                : localeNativeLabels[value]
+            }
+            menuMaxHeight={240}
+            onItemClick={(val: SupportedLocaleOptions) => {
+              dispatch(setCurrentLanguageSelection(val))
+            }}
+          />
+        </OptionBox>
+
         <OptionBox
           Icon={KeyboardIcon}
-          title="Keyboard Shortcuts"
-          subTitle="Customize keyboard shortcuts to quickly access extension features"
+          title={getLocalizedMessage('wsext_keyboard_shortcuts', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_keyboard_shortcuts_description', currentLanguage)}
         >
           <Button
             variant="option"
             onClick={() => chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })}
             sx={{ transition: '0.3s' }}
           >
-            Edit
+            {getLocalizedMessage('wsext_edit', currentLanguage)}
           </Button>
         </OptionBox>
-        <OptionBox Icon={DebugLogIcon} title="Debug Log">
+        <OptionBox
+          Icon={DebugLogIcon}
+          title={getLocalizedMessage('wsext_debug_log', currentLanguage)}
+        >
           {sentDebugLog ? (
             <Box sx={{ padding: 0, color: 'secondaryText', fontWeight: 'normal' }}>
               {sentDebugLog}
@@ -173,7 +214,7 @@ const General: ThemeUiElement = () => {
                 onClick={() => window.open(chrome.runtime.getURL('debugLog.html'))}
                 sx={{ transition: '0.3s' }}
               >
-                View
+                {getLocalizedMessage('wsext_view', currentLanguage)}
               </Button>
               <Button
                 variant="option"
@@ -186,19 +227,26 @@ const General: ThemeUiElement = () => {
                       sessionData?.username,
                       state,
                     ).then(response => {
-                      setSentDebugLog(response ? 'Sent!' : 'Error')
+                      setSentDebugLog(
+                        response
+                          ? getLocalizedMessage('wsext_sent', currentLanguage)
+                          : getLocalizedMessage('wsext_error', currentLanguage),
+                      )
                     })
                   }
                 }}
                 sx={{ transition: '0.3s' }}
               >
-                Send
+                {getLocalizedMessage('wsext_send', currentLanguage)}
               </Button>
             </Flex>
           )}
         </OptionBox>
 
-        <OptionBox Icon={ImportExportIcon} title="Preferences">
+        <OptionBox
+          Icon={ImportExportIcon}
+          title={getLocalizedMessage('wsext_preferences', currentLanguage)}
+        >
           <Flex sx={{ gap: '16px' }}>
             <Button
               variant="option"
@@ -207,7 +255,7 @@ const General: ThemeUiElement = () => {
               }}
               sx={{ transition: '0.3s' }}
             >
-              Export
+              {getLocalizedMessage('wsext_export', currentLanguage)}
             </Button>
             <Button
               variant="option"
@@ -216,7 +264,7 @@ const General: ThemeUiElement = () => {
               }}
               sx={{ transition: '0.3s' }}
             >
-              Import
+              {getLocalizedMessage('wsext_import', currentLanguage)}
             </Button>
             <input
               accept="application/JSON"
@@ -261,7 +309,7 @@ const General: ThemeUiElement = () => {
               },
             }}
           >
-            View Licenses
+            {getLocalizedMessage('wsext_view_licenses', currentLanguage)}
             <LinkIcon sx={{ fill: 'secondaryText' }} />
           </Button>
         </Box>
@@ -283,7 +331,7 @@ const General: ThemeUiElement = () => {
               justifyContent: 'space-between',
             }}
           >
-            Version
+            {getLocalizedMessage('wsext_version', currentLanguage)}
             <span
               sx={{
                 fontWeight: '400',

@@ -36,6 +36,9 @@ webRtcEnabled:  ${state.webRtcEnabled}
 splitPersonalityEnabled:  ${state.splitPersonalityEnabled}
 notificationBlockerEnabled:  ${state.notificationBlockerEnabled}
 adPrivacyEnabled:  ${state.adPrivacyEnabled}
+urlCleanerEnabled:  ${state.urlCleanerEnabled}
+linkSanitizerEnabledGroups:  ${state.linkSanitizer.enabledGroups}
+linkSanitizerCustomParams:  ${state.linkSanitizer.customParams}
 theme: ${state.theme.value}
 
 

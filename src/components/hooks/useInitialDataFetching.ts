@@ -9,11 +9,28 @@ import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/use
 import { setAutoConnectAfterLogin } from 'state/slices/autoConnectAfterLogin'
 import sendMessage from 'services/runtime/sendMessage'
 import { registerScript } from 'utils/scriptController'
-import { splitPersonalityScriptId, workerBlockScriptId } from 'utils/constants'
+import {
+  audioAntiFingerprintingScriptId,
+  canvasAntiFingerprintingScriptId,
+  fingerprintjsAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
+  fontAntiFingerprintingScriptId,
+  screenResAntiFingerprintingScriptId,
+  splitPersonalityScriptId,
+  webshareNoOpScriptId,
+  workerBlockScriptId,
+} from 'utils/constants'
 import { SHA256 } from 'crypto-js'
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 import { enableBlockNotifications } from 'state/slices/notificationBlockerEnabled'
 import { enableBlockWebRtc } from 'state/slices/webRtcEnabled'
+import {
+  disableUrlCleaner,
+  enableUrlCleaner,
+  spoofUserAgentHeader,
+} from 'services/declarativeNetRequest/updateDynamicRules'
+import { getLinkSanitizerRemoveParamsFromState } from 'utils/linkSanitizerParams'
 
 // This function could be used as a periodical data-fetcher after small refactoring
 export default (): void => {
@@ -36,6 +53,9 @@ export default (): void => {
   const allowList = useSelector(s => s.allowlist)
   const isNotificationBlockerActive = useSelector(s => s.notificationBlockerEnabled)
   const isWebRTCBlockerEnabled = useSelector(s => s.webRtcEnabled)
+  const isAntiFingerprintingActive = useSelector(s => s.antiFingerprinting)
+  const isUrlCleanerEnabled = useSelector(s => s.urlCleanerEnabled)
+  const linkSanitizer = useSelector(s => s.linkSanitizer)
 
   useEffect(() => {
     if (!userAgentOriginal) {
@@ -103,6 +123,10 @@ export default (): void => {
     return transformAllowListToExcludeMatches(allowList)
   }, [allowList])
 
+  const privacyAllowlistedDomains = useMemo(() => {
+    return getPrivacyFeatureEnabledDomains(allowList)
+  }, [allowList])
+
   useEffect(() => {
     if (isWorkerBlockActive) {
       registerScript(
@@ -112,6 +136,64 @@ export default (): void => {
       )
     }
   }, [isWorkerBlockActive, excludeMatchesFromAllowList])
+
+  useEffect(() => {
+    if (isUrlCleanerEnabled) {
+      enableUrlCleaner(
+        privacyAllowlistedDomains,
+        getLinkSanitizerRemoveParamsFromState(linkSanitizer),
+      )
+      return
+    }
+
+    disableUrlCleaner()
+  }, [isUrlCleanerEnabled, privacyAllowlistedDomains, linkSanitizer])
+
+  // always register webshareNoOpScript
+  useEffect(() => {
+    registerScript(webshareNoOpScriptId, ['webshareNoOpContentScript.bundle.js'])
+  }, [])
+
+  useEffect(() => {
+    if (isAntiFingerprintingActive) {
+      registerScript(
+        fontAntiFingerprintingScriptId,
+        ['fontAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        screenResAntiFingerprintingScriptId,
+        ['screenResAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        canvasAntiFingerprintingScriptId,
+        ['canvasAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        audioAntiFingerprintingScriptId,
+        ['audioAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        fingerprintjsAntiFingerprintingScriptId,
+        ['fingerprintjsAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      registerScript(
+        fingerprintMessageListenerScriptId,
+        ['fingerprintMessageListener.bundle.js'],
+        excludeMatchesFromAllowList,
+        'ISOLATED',
+      )
+    }
+  }, [isAntiFingerprintingActive, excludeMatchesFromAllowList])
 
   useEffect(() => {
     if (isSplitPersonalityEnabled && spoofedUserAgent) {

@@ -1,0 +1,780 @@
+{
+  "wsext_on": {
+    "message": "चालू",
+    "description": "The extension is enabled"
+  },
+  "wsext_off": {
+    "message": "बंद",
+    "description": "The extension is disabled"
+  },
+  "wsext_connecting": {
+    "message": "जोड़ रहे हैं...",
+    "description": "The extension is connecting to the internet"
+  },
+  "wsext_disconnecting": {
+    "message": "डिस्कनेक्ट कर रहे हैं...",
+    "description": "The extension is disconnecting from the internet"
+  },
+  "wsext_offline": {
+    "message": "ऑफ़लाइन",
+    "description": "The extension is offline"
+  },
+  "wsext_autopilot": {
+    "message": "ऑटोपायलट",
+    "description": "Option to enable or manage autopilot features."
+  },
+  "wsext_preferences": {
+    "message": "प्राथमिकताएँ",
+    "description": "User preferences and settings."
+  },
+  "wsext_general": {
+    "message": "सामान्य",
+    "description": "General settings and configurations."
+  },
+  "wsext_connection": {
+    "message": "कनेक्शन",
+    "description": "Manage connection settings and status."
+  },
+  "wsext_blocker": {
+    "message": "ब्लॉकर",
+    "description": "Feature to block unwanted content or ads."
+  },
+  "wsext_privacy": {
+    "message": "गोपनीयता",
+    "description": "Privacy-related settings and controls."
+  },
+  "wsext_account": {
+    "message": "खाता",
+    "description": "Manage user account details."
+  },
+  "wsext_allowlist": {
+    "message": "अनुमति सूची",
+    "description": "List of allowed websites or items."
+  },
+  "wsext_change_theme": {
+    "message": "थीम बदलें",
+    "description": "Option to switch between different themes."
+  },
+  "wsext_restart_onboarding": {
+    "message": "परिचय पुनः आरंभ करें",
+    "description": "Restart the onboarding process for the extension."
+  },
+  "wsext_get_support": {
+    "message": "सहायता प्राप्त करें",
+    "description": "Access support resources or contact helpdesk."
+  },
+  "wsext_logout": {
+    "message": "लॉग आउट",
+    "description": "Logout from the current account."
+  },
+  "wsext_newsfeed": {
+    "message": "समाचार",
+    "description": "Access the latest news and updates."
+  },
+  "wsext_proxy_failure": {
+    "message": "प्रॉक्सी विफलता",
+    "description": "Notification for proxy failure events."
+  },
+  "wsext_notifications": {
+    "message": "सूचनाएँ",
+    "description": "Manage notification settings for the extension."
+  },
+  "wsext_show_connect_disconnect_notifications": {
+    "message": "कनेक्ट/डिस्कनेक्ट सिस्टम सूचनाएँ दिखाएँ.",
+    "description": "Option to display OS notifications when connecting or disconnecting."
+  },
+  "wsext_show_location_load": {
+    "message": "स्थान लोड दिखाएँ",
+    "description": "Option to display the load of each data center."
+  },
+  "wsext_show_location_load_description": {
+    "message": "प्रत्येक डेटा केंद्र का लोड दिखाएँ.",
+    "description": "Option to display the load of each data center."
+  },
+  "wsext_debug_context_menu": {
+    "message": "डीबग संदर्भ मेनू",
+    "description": "Option to display the debug log in the context menu."
+  },
+  "wsext_debug_context_menu_description": {
+    "message": "संदर्भ मेनू में डीबग लॉग दिखाएँ.",
+    "description": "Option to display the debug log in the context menu."
+  },
+  "wsext_language": {
+    "message": "भाषा",
+    "description": "Select the language for the extension."
+  },
+  "wsext_language_description": {
+    "message": "एक्सटेंशन की भाषा चुनें.",
+    "description": "Option to select the language for the extension."
+  },
+  "wsext_debug_log": {
+    "message": "डीबग लॉग",
+    "description": "Access the debug log of the extension."
+  },
+  "wsext_clear_log": {
+    "message": "लॉग साफ़ करें",
+    "description": "Button label to clear the debug log."
+  },
+  "wsext_show_user_info": {
+    "message": "उपयोगकर्ता जानकारी दिखाएँ",
+    "description": "Button label to show user and device information on the debug log page."
+  },
+  "wsext_download_logs": {
+    "message": "लॉग डाउनलोड करें",
+    "description": "Button label to download debug logs."
+  },
+  "wsext_scroll_to_top": {
+    "message": "ऊपर स्क्रॉल करें",
+    "description": "Button label to scroll to the top of the debug log."
+  },
+  "wsext_scroll_to_bottom": {
+    "message": "नीचे स्क्रॉल करें",
+    "description": "Button label to scroll to the bottom of the debug log."
+  },
+  "wsext_no_logs_found": {
+    "message": "कोई लॉग नहीं मिला",
+    "description": "Empty state message when there are no debug logs."
+  },
+  "wsext_send": {
+    "message": "भेजें",
+    "description": "Send the current debug log."
+  },
+  "wsext_view": {
+    "message": "देखें",
+    "description": "View the content or details."
+  },
+  "wsext_sent": {
+    "message": "भेजा गया!",
+    "description": "Notification confirming a successful send operation."
+  },
+  "wsext_error": {
+    "message": "त्रुटि",
+    "description": "Message displayed when an error occurs."
+  },
+  "wsext_view_licenses": {
+    "message": "लाइसेंस देखें",
+    "description": "Option to view licenses associated with the extension."
+  },
+  "wsext_version": {
+    "message": "संस्करण",
+    "description": "Displays the current version of the extension."
+  },
+  "wsext_keyboard_shortcuts": {
+    "message": "कीबोर्ड शॉर्टकट",
+    "description": "Title for the keyboard shortcuts option."
+  },
+  "wsext_keyboard_shortcuts_description": {
+    "message": "एक्सटेंशन सुविधाओं तक त्वरित पहुँच के लिए कीबोर्ड शॉर्टकट अनुकूलित करें",
+    "description": "Description for the keyboard shortcuts option."
+  },
+  "wsext_edit": {
+    "message": "संपादित करें",
+    "description": "Generic edit button label."
+  },
+  "wsext_export": {
+    "message": "निर्यात",
+    "description": "Export settings button label."
+  },
+  "wsext_import": {
+    "message": "आयात",
+    "description": "Import settings button label."
+  },
+  "wsext_refresh_to_see_changes": {
+    "message": "परिवर्तन देखने के लिए रीफ्रेश करें",
+    "description": "Alert telling the user to refresh the current tab to see the effect of changes."
+  },
+  "wsext_back_to": {
+    "message": "$page$ पर वापस",
+    "description": "Aria label for the go-back button.",
+    "placeholders": {
+      "page": {
+        "content": "$1",
+        "example": "प्राथमिकताएँ"
+      }
+    }
+  },
+  "wsext_my_account": {
+    "message": "मेरा खाता",
+    "description": "Tooltip for the edit account button."
+  },
+  "wsext_info": {
+    "message": "जानकारी",
+    "description": "Subheader for the info section in the account page."
+  },
+  "wsext_username": {
+    "message": "उपयोगकर्ता नाम",
+    "description": "Label for the username field."
+  },
+  "wsext_hash": {
+    "message": "Hash",
+    "description": "Switch to hashed login or label the account hash field."
+  },
+  "wsext_email": {
+    "message": "ईमेल",
+    "description": "Label for the email field."
+  },
+  "wsext_add_email_with_bonus": {
+    "message": "ईमेल जोड़ें (+8GB)",
+    "description": "Call to action to add an email and earn extra data."
+  },
+  "wsext_plan": {
+    "message": "योजना",
+    "description": "Subheader for the plan section in the account page."
+  },
+  "wsext_unlimited": {
+    "message": "असीमित",
+    "description": "Indicates an unlimited plan or data."
+  },
+  "wsext_per_month": {
+    "message": "/माह",
+    "description": "Suffix for monthly data values."
+  },
+  "wsext_pro": {
+    "message": "Pro",
+    "description": "Indicates a Pro account."
+  },
+  "wsext_upgrade": {
+    "message": "अपग्रेड",
+    "description": "Button to upgrade the account."
+  },
+  "wsext_expiry_date": {
+    "message": "समाप्ति तिथि",
+    "description": "Label for the premium expiry date."
+  },
+  "wsext_reset_date": {
+    "message": "रीसेट तिथि",
+    "description": "Label for the data reset date."
+  },
+  "wsext_current_page": {
+    "message": "वर्तमान पृष्ठ",
+    "description": "Subheader for the currently active tab in the allowlist."
+  },
+  "wsext_allowlisted": {
+    "message": "अनुमति प्राप्त",
+    "description": "Subheader for the list of allowlisted sites."
+  },
+  "wsext_added_to_support": {
+    "message": "समर्थन के लिए जोड़ा गया",
+    "description": "Prefix shown next to a domain that was added automatically to support another."
+  },
+  "wsext_edit_subheader": {
+    "message": "संपादित करें",
+    "description": "Subheader when editing an allowlist entry."
+  },
+  "wsext_add_new": {
+    "message": "नया जोड़ें",
+    "description": "Subheader when adding a new allowlist entry."
+  },
+  "wsext_enter_valid_domain": {
+    "message": "मान्य डोमेन दर्ज करें",
+    "description": "Subheader when the entered allowlist domain is invalid."
+  },
+  "wsext_enter_domain_to_allowlist": {
+    "message": "अनुमति सूची के लिए डोमेन दर्ज करें",
+    "description": "Placeholder for the allowlist domain input."
+  },
+  "wsext_allow_ads": {
+    "message": "विज्ञापनों की अनुमति दें",
+    "description": "Toggle label allowing ads on the domain."
+  },
+  "wsext_allow_connection": {
+    "message": "कनेक्शन की अनुमति दें",
+    "description": "Toggle label allowing direct connections on the domain."
+  },
+  "wsext_allow_privacy_features": {
+    "message": "गोपनीयता सुविधाओं की अनुमति दें",
+    "description": "Toggle label allowing privacy features on the domain."
+  },
+  "wsext_apply_to_all_subdomains": {
+    "message": "सभी उप-डोमेन पर लागू करें",
+    "description": "Toggle label to apply allowlist settings to all subdomains."
+  },
+  "wsext_cancel": {
+    "message": "रद्द करें",
+    "description": "Generic cancel button label."
+  },
+  "wsext_save": {
+    "message": "सहेजें",
+    "description": "Generic save button label."
+  },
+  "wsext_delete": {
+    "message": "हटाएँ",
+    "description": "Generic delete button label."
+  },
+  "wsext_add": {
+    "message": "जोड़ें",
+    "description": "Generic add button label."
+  },
+  "wsext_ad_crusher": {
+    "message": "Ad Crusher",
+    "description": "Title for the ad blocking feature."
+  },
+  "wsext_ad_crusher_description": {
+    "message": "विज्ञापन, मैलवेयर, ट्रैकर, माइनर्स और अधिक",
+    "description": "Description for the ad blocking feature."
+  },
+  "wsext_not_available_when_ublock_lite_enabled": {
+    "message": "जब uBlock Lite सक्षम है तब उपलब्ध नहीं है",
+    "description": "Tooltip explaining a feature is unavailable while uBlock Lite is enabled."
+  },
+  "wsext_social_distancing": {
+    "message": "सोशल डिस्टेंसिंग",
+    "description": "Title for the social network blocking feature."
+  },
+  "wsext_social_distancing_description": {
+    "message": "ट्रैकिंग सोशल नेटवर्क विजेट और बटन ब्लॉक करता है",
+    "description": "Description for the social network blocking feature."
+  },
+  "wsext_cookie_go_away": {
+    "message": "कुकीज़ हटाओ",
+    "description": "Title for the cookie banner blocking feature."
+  },
+  "wsext_cookie_go_away_description": {
+    "message": "सभी वेबसाइटों पर परेशान करने वाले \"हम कुकीज़ का उपयोग करते हैं\" बैनर ब्लॉक करता है",
+    "description": "Description for the cookie banner blocking feature."
+  },
+  "wsext_ublock_origin_lite": {
+    "message": "uBlock Origin Lite",
+    "description": "Title for the uBlock Origin Lite toggle."
+  },
+  "wsext_ublock_origin_lite_description": {
+    "message": "जब uBlock Lite सक्षम है तब ब्लॉकर सेटिंग्स उपलब्ध नहीं हैं. Windscribe के adblock का उपयोग करने के लिए इस सेटिंग को अक्षम करें",
+    "description": "Description for the uBlock Origin Lite toggle."
+  },
+  "wsext_not_available_when_ublock_origin_lite_enabled": {
+    "message": "जब uBlock Origin Lite सक्षम है तब उपलब्ध नहीं है",
+    "description": "Tooltip explaining a feature is unavailable while uBlock Origin Lite is enabled."
+  },
+  "wsext_ublock_settings": {
+    "message": "uBlock सेटिंग्स",
+    "description": "Link label opening the uBlock settings dashboard."
+  },
+  "wsext_sponsorblock_recommendation": {
+    "message": "YouTube वीडियो में प्रायोजकों को छोड़ने के लिए SponsorBlock एक्सटेंशन आज़माएँ.",
+    "description": "Recommendation banner for the SponsorBlock extension."
+  },
+  "wsext_auto_connect": {
+    "message": "स्वतः कनेक्ट",
+    "description": "Title for the auto-connect feature."
+  },
+  "wsext_auto_connect_description": {
+    "message": "ब्राउज़र शुरू होने पर स्वतः कनेक्ट करें.",
+    "description": "Description for the auto-connect feature."
+  },
+  "wsext_smokewall": {
+    "message": "Smokewall",
+    "description": "Title for the smokewall feature."
+  },
+  "wsext_smokewall_description": {
+    "message": "प्रॉक्सी विफलता पर भी डिस्कनेक्ट न करें.",
+    "description": "Description for the smokewall feature."
+  },
+  "wsext_failover": {
+    "message": "Failover",
+    "description": "Title for the failover feature."
+  },
+  "wsext_failover_description": {
+    "message": "प्रॉक्सी विफलता पर, स्थानों को स्वतः बदलें.",
+    "description": "Description for the failover feature."
+  },
+  "wsext_proxy_port": {
+    "message": "प्रॉक्सी पोर्ट",
+    "description": "Title for the proxy port option."
+  },
+  "wsext_proxy_port_description": {
+    "message": "कनेक्ट करने के लिए पोर्ट चुनें.",
+    "description": "Description for the proxy port option."
+  },
+  "wsext_locations_menu": {
+    "message": "स्थान मेनू",
+    "description": "Tooltip for the globe button on the home page."
+  },
+  "wsext_ip_address_copied": {
+    "message": "IP पता कॉपी किया गया",
+    "description": "Toast shown after copying the IP address."
+  },
+  "wsext_usage_bar": {
+    "message": "उपयोग बार",
+    "description": "Aria label for the usage bar."
+  },
+  "wsext_out_of_data": {
+    "message": "डेटा खत्म हो गया",
+    "description": "Shown when the user has used all of their data."
+  },
+  "wsext_left": {
+    "message": "शेष",
+    "description": "Suffix for remaining data, e.g. '500 MB शेष'."
+  },
+  "wsext_get_more_data": {
+    "message": "अधिक डेटा प्राप्त करें",
+    "description": "Call to action for users without an account to get more data."
+  },
+  "wsext_allowlist_settings": {
+    "message": "अनुमति सूची सेटिंग्स",
+    "description": "Tooltip for the per-tab allowlist settings button."
+  },
+  "wsext_ads": {
+    "message": "विज्ञापन",
+    "description": "Tooltip for the per-tab ads toggle button."
+  },
+  "wsext_privacy_features": {
+    "message": "गोपनीयता सुविधाएँ",
+    "description": "Tooltip for the per-tab privacy features toggle button."
+  },
+  "wsext_login": {
+    "message": "लॉग इन",
+    "description": "Login screen title and submit button label."
+  },
+  "wsext_sign_up": {
+    "message": "साइन अप",
+    "description": "Sign up screen title and link label."
+  },
+  "wsext_password": {
+    "message": "पासवर्ड",
+    "description": "Label for the password field."
+  },
+  "wsext_username_should_not_be_email": {
+    "message": "आपका उपयोगकर्ता नाम ईमेल नहीं होना चाहिए.",
+    "description": "Validation error when the username looks like an email."
+  },
+  "wsext_two_fa_code": {
+    "message": "2FA कोड",
+    "description": "Label for the 2FA code input."
+  },
+  "wsext_two_fa_code_question": {
+    "message": "2FA कोड?",
+    "description": "Button text to reveal the 2FA code input."
+  },
+  "wsext_two_fa_help": {
+    "message": "यदि सक्षम है, तो कोड उत्पन्न करने के लिए प्रमाणीकरण ऐप का उपयोग करें.",
+    "description": "Helper text for the 2FA code input."
+  },
+  "wsext_forgot_password": {
+    "message": "पासवर्ड भूल गए?",
+    "description": "Link to the password reset flow."
+  },
+  "wsext_complete_puzzle_to_continue": {
+    "message": "जारी रखने के लिए पहेली पूरी करें",
+    "description": "Captcha instruction text."
+  },
+  "wsext_news_feed": {
+    "message": "समाचार",
+    "description": "Title for the news feed page."
+  },
+  "wsext_today": {
+    "message": "आज",
+    "description": "Indicates an event happened today."
+  },
+  "wsext_day_ago": {
+    "message": "1 दिन पहले",
+    "description": "Indicates an event happened one day ago."
+  },
+  "wsext_days_ago": {
+    "message": "$count$ दिन पहले",
+    "description": "Indicates how many days ago an event happened.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "wsext_do_not_disturb": {
+    "message": "परेशान न करें",
+    "description": "Title for the do not disturb privacy feature."
+  },
+  "wsext_do_not_disturb_description": {
+    "message": "सभी साइटों को आपको सूचनाओं से स्पैम करने से रोकता है.",
+    "description": "Description for the do not disturb privacy feature."
+  },
+  "wsext_click_to_grant_permission": {
+    "message": "अनुमति देने के लिए क्लिक करें.",
+    "description": "Tooltip prompting the user to grant a browser permission."
+  },
+  "wsext_grant_permission": {
+    "message": "अनुमति दें",
+    "description": "Action prompting the user to grant a browser permission."
+  },
+  "wsext_unavailable_until_permission_granted": {
+    "message": "अनुमति प्राप्त होने तक उपलब्ध नहीं.",
+    "description": "Tooltip explaining a toggle is unavailable until a permission is granted."
+  },
+  "wsext_anti_fingerprinting": {
+    "message": "Anti Fingerprinting",
+    "description": "Title for the anti fingerprinting privacy feature."
+  },
+  "wsext_anti_fingerprinting_description": {
+    "message": "प्रायोगिक सुविधा. fingerprinting का विरोध करने का प्रयास करता है, लेकिन साइटों को तोड़ या धीमा कर सकता है.",
+    "description": "Description for the anti fingerprinting privacy feature."
+  },
+  "wsext_webrtc_slayer": {
+    "message": "WebRTC Slayer",
+    "description": "Title for the WebRTC Slayer privacy feature."
+  },
+  "wsext_webrtc_slayer_description": {
+    "message": "लीक को रोकने के लिए WebRTC अनुरोधों को सीमित करता है. यह कुछ अनुप्रयोगों को तोड़ सकता है.",
+    "description": "Description for the WebRTC Slayer privacy feature."
+  },
+  "wsext_location_warp": {
+    "message": "Location Warp",
+    "description": "Title for the location warp privacy feature."
+  },
+  "wsext_location_warp_description": {
+    "message": "कनेक्ट किए गए प्रॉक्सी से मेल खाने के लिए आपके GPS स्थान को नकली बनाता है.",
+    "description": "Description for the location warp privacy feature."
+  },
+  "wsext_not_available_in_autopilot": {
+    "message": "ऑटोपायलट में उपलब्ध नहीं",
+    "description": "Tooltip explaining a feature is not available while autopilot is selected."
+  },
+  "wsext_time_warp": {
+    "message": "Time Warp",
+    "description": "Title for the time warp privacy feature."
+  },
+  "wsext_time_warp_description": {
+    "message": "कनेक्ट किए गए प्रॉक्सी से मेल खाने के लिए ब्राउज़र समय सेट करता है.",
+    "description": "Description for the time warp privacy feature."
+  },
+  "wsext_language_warp": {
+    "message": "Language Warp",
+    "description": "Title for the language warp privacy feature."
+  },
+  "wsext_language_warp_description": {
+    "message": "कनेक्ट किए गए प्रॉक्सी से मेल खाने के लिए भाषा और स्थानीय सेटिंग्स सेट करता है.",
+    "description": "Description for the language warp privacy feature."
+  },
+  "wsext_split_personality": {
+    "message": "Split Personality",
+    "description": "Title for the split personality privacy feature."
+  },
+  "wsext_split_personality_description": {
+    "message": "आपके user agent को यादृच्छिक रूप से बदलता है.",
+    "description": "Description for the split personality privacy feature."
+  },
+  "wsext_rotate_user_agent": {
+    "message": "User Agent बदलें",
+    "description": "Tooltip for the button that rotates the user agent now."
+  },
+  "wsext_split_personality_compat_mode": {
+    "message": "Split Personality संगतता मोड",
+    "description": "Title for the split personality compatibility mode option."
+  },
+  "wsext_split_personality_compat_mode_description": {
+    "message": "अपने ब्राउज़र के user agent परिवार के भीतर रहें. यह कुछ साइटों को टूटने से रोकने में मदद करता है.",
+    "description": "Description for the split personality compatibility mode option."
+  },
+  "wsext_not_available_when_split_personality_disabled": {
+    "message": "जब Split Personality अक्षम है तब उपलब्ध नहीं",
+    "description": "Tooltip explaining a feature is unavailable when Split Personality is off."
+  },
+  "wsext_worker_block": {
+    "message": "Worker Block",
+    "description": "Title for the worker block privacy feature."
+  },
+  "wsext_worker_block_description": {
+    "message": "पृष्ठभूमि में web workers को चलने से रोकता है.",
+    "description": "Description for the worker block privacy feature."
+  },
+  "wsext_ad_privacy": {
+    "message": "Ad Privacy",
+    "description": "Title for the ad privacy feature."
+  },
+  "wsext_ad_privacy_description": {
+    "message": "प्रासंगिक विज्ञापन विषयों और सुझावों को अक्षम करता है.",
+    "description": "Description for the ad privacy feature."
+  },
+  "wsext_update_browser_warning": {
+    "message": "इस एक्सटेंशन का उपयोग जारी रखने और सुरक्षा अद्यतन प्राप्त करने के लिए कृपया अपना ब्राउज़र अपडेट करें.",
+    "description": "Warning shown when the browser is below the minimum supported version."
+  },
+  "wsext_keep_your_secrets": {
+    "message": "अपने रहस्य रखें.",
+    "description": "Tagline shown on the splash page."
+  },
+  "wsext_get_started": {
+    "message": "शुरू करें",
+    "description": "Call to action on the splash page that leads to signup."
+  },
+  "wsext_pick_your_plan": {
+    "message": "अपनी योजना चुनें",
+    "description": "Heading on the signup screen."
+  },
+  "wsext_free": {
+    "message": "मुफ़्त",
+    "description": "Title of the free plan option."
+  },
+  "wsext_free_description": {
+    "message": "10GB/माह तक",
+    "description": "Description of the free plan option."
+  },
+  "wsext_pro_description": {
+    "message": "असीमित GB और अधिक",
+    "description": "Description of the pro plan option."
+  },
+  "wsext_locations": {
+    "message": "स्थान",
+    "description": "Title for the locations page."
+  },
+  "wsext_sort_by": {
+    "message": "$sort$ के अनुसार क्रमबद्ध करें",
+    "description": "Aria label describing the current sort order.",
+    "placeholders": {
+      "sort": {
+        "content": "$1",
+        "example": "वर्णमाला"
+      }
+    }
+  },
+  "wsext_no_results": {
+    "message": "कोई परिणाम नहीं :(",
+    "description": "Shown when a search returns no locations."
+  },
+  "wsext_error_fetching_locations": {
+    "message": "स्थान प्राप्त करते समय त्रुटि",
+    "description": "Shown when the locations list fails to load."
+  },
+  "wsext_no_favorites": {
+    "message": "कोई पसंदीदा नहीं",
+    "description": "Shown when the favorites list is empty."
+  },
+  "wsext_upgrade_uppercase": {
+    "message": "अपग्रेड",
+    "description": "Upgrade label shown next to pro-only data centers."
+  },
+  "wsext_extDescription": {
+    "message": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
+    "description": "Extension description shown in the Chrome Web Store and chrome://extensions."
+  },
+  "wsext_cmdToggleProxy": {
+    "message": "प्रॉक्सी चालू/बंद करें",
+    "description": "Keyboard shortcut description for toggling the proxy."
+  },
+  "wsext_cmdOpenPreferences": {
+    "message": "प्राथमिकताएँ खोलें",
+    "description": "Keyboard shortcut description for opening preferences."
+  },
+  "wsext_cmdOpenFavourites": {
+    "message": "पसंदीदा स्थान खोलें",
+    "description": "Keyboard shortcut description for opening favourite locations."
+  },
+  "wsext_cmdOpenLocations": {
+    "message": "स्थान खोलें",
+    "description": "Keyboard shortcut description for opening locations."
+  },
+  "wsext_extName": {
+    "message": "Free VPN For Chrome - VPN Extension - Windscribe",
+    "description": "Extension name shown in the Chrome Web Store and chrome://extensions."
+  },
+  "wsext_link_sanitizer": {
+    "message": "Link Sanitizer",
+    "description": "Title for the link sanitizer privacy feature."
+  },
+  "wsext_link_sanitizer_description": {
+    "message": "Remove tracking parameters from URLs before they load.",
+    "description": "Description for the link sanitizer privacy feature."
+  },
+  "wsext_link_sanitizer_analytics": {
+    "message": "Analytics & UTM",
+    "description": "Title for the analytics and UTM parameter group."
+  },
+  "wsext_link_sanitizer_analytics_description": {
+    "message": "Remove UTM, Google Analytics, Matomo, and similar campaign parameters.",
+    "description": "Description for the analytics and UTM parameter group."
+  },
+  "wsext_link_sanitizer_ads": {
+    "message": "Ad Click IDs",
+    "description": "Title for the ad click identifier parameter group."
+  },
+  "wsext_link_sanitizer_ads_description": {
+    "message": "Remove Google Ads, Microsoft, Yahoo, and Yandex click identifiers.",
+    "description": "Description for the ad click identifier parameter group."
+  },
+  "wsext_link_sanitizer_social": {
+    "message": "Social Tracking",
+    "description": "Title for the social tracking parameter group."
+  },
+  "wsext_link_sanitizer_social_description": {
+    "message": "Remove Facebook, Instagram, X, TikTok, Snapchat, and Pinterest click IDs.",
+    "description": "Description for the social tracking parameter group."
+  },
+  "wsext_link_sanitizer_email": {
+    "message": "Email & Marketing",
+    "description": "Title for the email and marketing parameter group."
+  },
+  "wsext_link_sanitizer_email_description": {
+    "message": "Remove Mailchimp, HubSpot, Klaviyo, Marketo, and other email tracking parameters.",
+    "description": "Description for the email and marketing parameter group."
+  },
+  "wsext_link_sanitizer_affiliates": {
+    "message": "Affiliates & Attribution",
+    "description": "Title for the affiliates and attribution parameter group."
+  },
+  "wsext_link_sanitizer_affiliates_description": {
+    "message": "Remove affiliate, attribution, and other third-party tracking parameters.",
+    "description": "Description for the affiliates and attribution parameter group."
+  },
+  "wsext_link_sanitizer_custom_params": {
+    "message": "Custom parameters",
+    "description": "Title for the custom URL parameter input."
+  },
+  "wsext_link_sanitizer_custom_params_description": {
+    "message": "Add extra query parameter names to remove. Separate them with commas.",
+    "description": "Description for the custom URL parameter input."
+  },
+  "wsext_link_sanitizer_custom_params_placeholder": {
+    "message": "param1, param2, param3",
+    "description": "Placeholder for the custom URL parameter input."
+  },
+  "wsext_not_available_when_link_sanitizer_disabled": {
+    "message": "Not available when Link Sanitizer is disabled",
+    "description": "Tooltip explaining a setting is unavailable when Link Sanitizer is off."
+  },
+  "wsext_link_sanitizer_ublock_warning": {
+    "message": "Another extension, uBlock Origin Lite, may still remove tracking parameters from links.",
+    "description": "Persistent warning shown when a separate uBlock Origin Lite extension is enabled."
+  },
+  "wsext_overlay_ublock_link_sanitizer_title": {
+    "message": "uBlock Already Installed",
+    "description": "Title of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
+  },
+  "wsext_overlay_ublock_link_sanitizer_message": {
+    "message": "You already have uBlock Origin Lite. It can also strip tracking from links. Do not use it with Link Sanitizer.",
+    "description": "Body of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
+  },
+  "wsext_overlay_ublock_link_sanitizer_disable": {
+    "message": "Turn Off uBlock Lite",
+    "description": "Button that disables the separate uBlock Origin Lite extension."
+  },
+  "wsext_overlay_ublock_link_sanitizer_keep_both": {
+    "message": "Keep both",
+    "description": "Button that dismisses the Link Sanitizer uBlock overlay and keeps both extensions."
+  },
+  "wsext_clear_site_data": {
+    "message": "Clear this page",
+    "description": "Tooltip for the button that clears storage for the current page only."
+  },
+  "wsext_overlay_clear_site_data_permission_title": {
+    "message": "Permission Required",
+    "description": "Title shown when clearing site data needs an extra permission."
+  },
+  "wsext_overlay_clear_site_data_permission_message": {
+    "message": "You need to grant an extra permission to Windscribe before you can clear site data",
+    "description": "Body shown when clearing site data needs an extra permission."
+  },
+  "wsext_overlay_clear_site_data_confirm_title": {
+    "message": "Clear this page?",
+    "description": "Title of the confirmation shown before clearing the current page."
+  },
+  "wsext_overlay_clear_site_data_confirm_message": {
+    "message": "This removes cookies, local storage, IndexedDB, cache storage, and service workers for this site. You will be signed out.",
+    "description": "Body of the confirmation shown before clearing the current site. Cookies are cleared for the whole domain."
+  },
+  "wsext_overlay_clear_site_data_confirm_action": {
+    "message": "Clear",
+    "description": "Button that confirms clearing the current site data."
+  },
+  "wsext_overlay_clear_site_data_failed": {
+    "message": "Could not clear site data",
+    "description": "Error shown when clearing the current site data fails."
+  }
+}

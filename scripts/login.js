@@ -1,5 +1,8 @@
 const fetch = require('node-fetch-commonjs')
+const SHA256 = require('crypto-js/sha256')
 const getEndpoint = require('./buildUtils/api/getEndpoint')
+
+const SECRET_KEY_PSY_OP = 'if_you_copy_this_you_might_die_a_painful_death'
 
 const { CACHE_TTL, FORCE_REFRESH, buildCache, BYPASS_CACHING } = require('./cacheConfig')
 
@@ -25,10 +28,26 @@ async function login() {
     console.log('♻️  Bypassing session cache')
   }
 
+  // Step 1: Get auth token
+  const authTokenResponse = await fetch(getEndpoint('AuthToken/login'), {
+    method: 'POST',
+  })
+  const authTokenData = await authTokenResponse.json()
+
+  if (!authTokenData.data?.token) {
+    throw Error('Failed to get auth token')
+  }
+
+  const secureToken = authTokenData.data.token
+  const secureTokenSig = SHA256(secureToken + SECRET_KEY_PSY_OP).toString()
+
+  // Step 2: Login with the token
   const body = {
     password: process.env.BUILD_USER_PASSWORD,
     session_type_id: 2,
     username: process.env.BUILD_USER_NAME,
+    secure_token: secureToken,
+    secure_token_sig: secureTokenSig,
     // cannot use 2fa flow during build process, so its not included and shouldn't be used
   }
 

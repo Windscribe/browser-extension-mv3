@@ -1,132 +1,194 @@
-# Windscribe MV3 Extension
+# Windscribe Browser Extension (Manifest V3)
 
-## Installing and Running
+Chrome/Edge extension that exposes the Windscribe VPN as an HTTPS proxy, plus
+privacy tools (split personality, anti-fingerprinting, language / location /
+timezone warps) and uBlock Origin Lite as a built-in ad /
+tracker blocker.
 
-### Procedures:
+Current version: see [`package.json`](./package.json) and
+[`src/manifest.json`](./src/manifest.json).
 
-1. Check if your [Node.js](https://nodejs.org/) version is >= **14**.
-2. Update the environment file
-3. Run `yarn install` to install the dependencies.
-4. Run `git submodule update --init --recursive`
-5. Run `yarn start`
-6. Load your extension on Chrome following:
-   1. Access `chrome://extensions/`
-   2. Check `Developer mode`
-   3. Click on `Load unpacked extension`
-   4. Select the `build` folder.
+---
 
-## Structure
+## Prerequisites
 
-All your extension's code must be placed in the `src` folder.
+| Tool                 | Version                   | Notes                                                 |
+| -------------------- | ------------------------- | ----------------------------------------------------- |
+| Node.js              | 22+ (LTS)                 | Older `README` said 14; that is out of date.          |
+| Yarn (classic)       | 1.22+                     | `npm` is not used — the lockfile is `yarn.lock`.      |
+| Git                  | any recent                | Needed for submodules.                                |
+| Chrome / Edge        | 122+                      | `minimum_chrome_version` in the manifest.             |
+| Git access           | HTTPS or SSH              | Needed to fetch the `ubo-lite-mirror` submodule.      |
+| A Windscribe account | any tier                  | Needed as the **build user** (see `.env` below).      |
 
-The boilerplate is already prepared to have a popup, an options page, a background page.
+---
 
-## Environment
+## First-time setup (zero to running dev build)
 
-Some variables needed for building extension are bundled in the env file. Two of them you will need to produce, signup on windscribe with an account
-and use the credentials from that account here for the `build password and username`. This is needed to fetch locations at build time and embed generated content scripts.
+```bash
+# 1. Clone with submodules
+git clone --recurse-submodules https://github.com/Windscribe/browser-extension-mv3.git
+cd browser-extension-mv3
 
+# 2. Install deps
+yarn install
+
+# 3. Create .env (not tracked; see "Environment" below for the fields)
+#    Add BUILD_USER_NAME / BUILD_USER_PASSWORD.
+
+# 4. Build (production bundle)
+yarn build
 ```
+
+If you forgot `--recurse-submodules`, run:
+
+```bash
+git submodule update --init --recursive
+```
+
+---
+
+## Loading the extension into Chrome / Edge
+
+1. Go to `chrome://extensions`.
+2. Turn on **Developer mode** (top right).
+3. Click **Load unpacked**.
+4. Select the `build/` folder produced by `yarn build`.
+
+You'll see a Windscribe icon in the toolbar. Click it to open the popup.
+
+---
+
+## Environment (`.env`)
+
+The build script logs into the Windscribe API at build time to fetch the server
+list (used for the location / language / timezone warps). The user-agent list
+(used for split personality) is read from the checked-in `useragents.txt`.
+Those fields are required:
+
+```dotenv
 REACT_APP_REDUX_PORT=WS_BROWSER_EXTENSION_STORE
 BROWSER=Chrome
 API_URL=windscribe.com
 BACKUP_API_URL=totallyacdn.com
 NODE_ENV=production
+
+# Build credentials — any Windscribe account works
 BUILD_USER_NAME=
 BUILD_USER_PASSWORD=
 
+# Only needed for running e2e tests
+TEST_USER_NAME=
+TEST_USER_PASSWORD=
 ```
 
-<!-- ## TypeScript -->
-
-<!-- This boilerplate now supports TypeScript! The `Options` Page is implemented using TypeScript. Please refer to `src/pages/Options/` for example usages. -->
-
-<!-- ## Webpack auto-reload and HRM
-
-To make your workflow much more efficient this boilerplate uses the [webpack server](https://webpack.github.io/docs/webpack-dev-server.html) to development (started with `npm start`) with auto reload feature that reloads the browser automatically every time that you save some file in your editor.
-
-You can run the dev mode on other port if you want. Just specify the env var `port` like this:
-
-```
-$ PORT=6002 npm run start
-``` -->
-
-## Content Scripts
-
-Although this boilerplate uses the webpack dev server, it's also prepared to write all your bundles files on the disk at every code change, so you can point, on your extension manifest, to your bundles that you want to use as [content scripts](https://developer.chrome.com/extensions/content_scripts), but you need to exclude these entry points from hot reloading [(why?)](https://github.com/samuelsimoes/chrome-extension-webpack-boilerplate/issues/4#issuecomment-261788690). To do so you need to expose which entry points are content scripts on the `webpack.config.js` using the `chromeExtensionBoilerplate -> notHotReload` config. Look the example below.
-
-Let's say that you want use the `myContentScript` entry point as content script, so on your `webpack.config.js` you will configure the entry point and exclude it from hot reloading, like this:
-
-```js
-{
-  …
-  entry: {
-    myContentScript: "./src/js/myContentScript.js"
-  },
-  chromeExtensionBoilerplate: {
-    notHotReload: ["myContentScript"]
-  }
-  …
-}
-```
-
-and on your `src/manifest.json`:
-
-```json
-{
-  "content_scripts": [
-    {
-      "matches": ["https://www.google.com/*"],
-      "js": ["myContentScript.bundle.js"]
-    }
-  ]
-}
-```
-
-## Intelligent Code Completion
-
-Thanks to [@hudidit](https://github.com/lxieyang/chrome-extension-boilerplate-react/issues/4)'s kind suggestions, this boilerplate supports chrome-specific intelligent code completion using [@types/chrome](https://www.npmjs.com/package/@types/chrome).
-
-## Packing
-
-After the development of your extension run the command
-
-```
-$ NODE_ENV=production npm run build
-```
-
-Now, the content of `build` folder will be the extension ready to be submitted to the Chrome Web Store. Just take a look at the [official guide](https://developer.chrome.com/webstore/publish) to more infos about publishing.
-
-## Resources:
-
-- [Webpack documentation](https://webpack.js.org/concepts/)
-- [Chrome Extension documentation](https://developer.chrome.com/extensions/getstarted)
+For staging / QA, swap `API_URL=staging.windscribe.com`. This changes the
+API host the built extension calls at runtime (`api.staging.windscribe.com`).
+The build-time login and server-list fetch always use production
+`api.windscribe.com` (`scripts/buildUtils/api/getBaseApiUrl.js`), so
+`BUILD_USER_*` must be a production account. See
+[`docs/api.md`](./docs/api.md) for the failover logic.
 
 ---
 
-## Test
+## Common commands
 
-To run e2e tests locally you need:
+| Command                   | What it does                                                             |
+| ------------------------- | ------------------------------------------------------------------------ |
+| `yarn build`              | Production build → `build/`. Runs `scripts/build.js` (see below).        |
+| `yarn start`              | Dev server with file watching (`scripts/webserver.js`).                  |
+| `yarn lint`               | ESLint over `src/`.                                                      |
+| `yarn test`               | Mocha + Puppeteer e2e suite (`tests/e2e/tests.ts`).                      |
+| `yarn test:local`         | Same. It sets `DOTENV_CONFIG_PATH`, but the suite still reads `.env`.    |
+| `yarn typecheck:tests`    | Type-check the e2e tests (`tests/tsconfig.json`). CI runs it.            |
+| `yarn prettier`           | Format everything.                                                       |
+| `yarn slice`              | Scaffold a new Redux slice and add it to `src/state/store.ts`.           |
+| `yarn clear-cache`        | Delete `.ws-build-cache` (build-time session and server list).           |
 
-1. Got to https://www-staging.windscribe.com/signup and create your test user on staging environment
-2. Save your Username and Password
-3. Ask guys in qa or web-team channel to upgrade your test user to Pro
-4. Create `.env.local` file in a root of the project and paste environment variables in it:
+What `yarn build` actually does:
+
+1. Loads `.env`.
+2. Logs into the Windscribe API using `BUILD_USER_*` credentials.
+3. Reads `useragents.txt` and fetches the server list (after login).
+4. Generates per-server content scripts for location / language / timezone warps
+   and per-UA content scripts for split personality, adds them to the in-memory
+   webpack `config.entry` object, and writes `src/state/slices/userAgent.ts`
+   with `fs.writeFileSync`.
+5. Runs webpack.
+6. Runs validators that log a `console.error` if a generated script is missing
+   from `build/` or embedded wrong. They do not fail the build.
+
+Full walkthrough: [`docs/build-system.md`](./docs/build-system.md).
+
+---
+
+## Project layout (top level)
 
 ```
-REACT_APP_REDUX_PORT=WS_BROWSER_EXTENSION_STORE
-BROWSER=Chrome
-API_URL=staging.windscribe.com
-TEST_USER_NAME=your_username
-TEST_USER_PASSWORD=your_password
-BUILD_USER_NAME=
-BUILD_USER_PASSWORD=
+.
+├── src/                 # All extension source
+│   ├── api/             # API clients, types, failover
+│   ├── assets/          # Icons, fonts, images
+│   ├── components/      # Shared UI components
+│   ├── migrations/      # MV2 → MV3 state migrations
+│   ├── pages/           # Entry points: background, popup, debugLog, contentScripts
+│   ├── services/        # Cross-cutting services (proxy, offscreen, storage, …)
+│   ├── state/           # Redux Toolkit store + 56 slice files (55 wired into the store) + aliases
+│   ├── styles/          # Theme-UI theme, global CSS
+│   ├── utils/           # Constants, helpers
+│   ├── views/           # Popup screens (Login, Home, Locations, …)
+│   ├── manifest.json    # Source of truth for the extension manifest
+│   └── backgroundScripts.js  # Service-worker entry (loads background + ubo-lite)
+├── scripts/             # Build-time scripts (login, getUa, getLocations, embed*…)
+├── tests/               # Mocha + Puppeteer e2e
+├── ubo-lite-mirror/     # Git submodule — uBlock Origin Lite, with patches (!)
+├── webpack.config.js
+└── package.json
 ```
 
-5. Run tests by
+---
 
-```
-$ yarn run test:local
+## Documentation index
+
+Detailed docs live in [`docs/`](./docs/). Start with the index:
+[`docs/README.md`](./docs/README.md).
+
+| Topic                        | File                                                                 |
+| ---------------------------- | -------------------------------------------------------------------- |
+| Docs index                   | [`docs/README.md`](./docs/README.md)                                 |
+| High-level architecture      | [`docs/architecture.md`](./docs/architecture.md)                     |
+| Redux + `webext-redux`       | [`docs/state-management.md`](./docs/state-management.md)             |
+| Build system                 | [`docs/build-system.md`](./docs/build-system.md)                     |
+| Content scripts              | [`docs/content-scripts.md`](./docs/content-scripts.md)               |
+| Background service worker    | [`docs/background-service-worker.md`](./docs/background-service-worker.md) |
+| Proxy + PAC script           | [`docs/proxy-and-pac.md`](./docs/proxy-and-pac.md)                   |
+| API                          | [`docs/api.md`](./docs/api.md)                                       |
+| Offscreen document           | [`docs/offscreen-document.md`](./docs/offscreen-document.md)         |
+| **ubo-lite-mirror patches**  | [`docs/ubo-lite-mirror.md`](./docs/ubo-lite-mirror.md)               |
+| Testing                      | [`docs/testing.md`](./docs/testing.md)                               |
+| Styling (Theme-UI → Mantine) | [`docs/styling.md`](./docs/styling.md)                               |
+| Code conventions             | [`docs/conventions.md`](./docs/conventions.md)                       |
+| Security                     | [`docs/security.md`](./docs/security.md)                             |
+| Gotchas / landmines          | [`docs/gotchas.md`](./docs/gotchas.md)                               |
+| Agent instructions           | [`AGENTS.md`](./AGENTS.md)                                           |
+
+---
+
+## Packing for the Chrome Web Store
+
+```bash
+NODE_ENV=production yarn build
 ```
 
-It opens a browser window, makes stuff, and closes it automatically. Please, don't interrupt test scenarios by pressing keys or clicking or whatever.
+The contents of `build/` are what gets uploaded. See
+[`docs/build-system.md`](./docs/build-system.md#packaging) for notes on
+versioning and CWS review gotchas.
+
+---
+
+## Resources
+
+- [Chrome Extensions MV3 docs](https://developer.chrome.com/docs/extensions/mv3/intro/)
+- [declarativeNetRequest](https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/)
+- [webext-redux (fork we use)](https://github.com/eduardoacskimlinks/webext-redux)
+- Internal: Notion workspace → **Web Team → Extension MV3**

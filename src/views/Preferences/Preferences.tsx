@@ -28,6 +28,7 @@ import LogoutIcon from 'assets/img/logout.svg'
 import { setTheme } from 'state/slices/theme'
 import sendMessage from 'services/runtime/sendMessage'
 import { getChromiumEngineVersion } from 'utils/getEngineVersion'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const Preferences: ThemeUiElement = () => {
   const [colorMode] = useColorMode()
@@ -74,6 +75,7 @@ const Preferences: ThemeUiElement = () => {
   const trafficDifference = traffic_max - traffic_used
   const remainingDataBytes = bytes(trafficDifference)
   const [isWebSessionPending, setIsWebSessionPending] = useState(false)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const openKnowledgeBase = async () => {
     setIsWebSessionPending(true)
@@ -85,8 +87,8 @@ const Preferences: ThemeUiElement = () => {
 
   return (
     <Box data-testid="preferences-page" bg="background">
-      <Header title="Preferences">
-        <ToolTip message="Newsfeed">
+      <Header title={getLocalizedMessage('wsext_preferences', currentLanguage)}>
+        <ToolTip message={getLocalizedMessage('wsext_newsfeed', currentLanguage)}>
           <CircleButton
             data-testid="go-to-newsfeed-button"
             onClick={goToNewsfeed}
@@ -111,15 +113,16 @@ const Preferences: ThemeUiElement = () => {
             mb="16px"
           >
             <Text sx={{ fontSize: 12, color: 'black', fontWeight: 600 }}>
-              Please update your browser to continue using this extension and to receive security
-              updates.
+              {getLocalizedMessage('wsext_update_browser_warning', currentLanguage)}
             </Text>
           </SpaceBetween>
         )}
         {is_premium || traffic_max === ACCOUNT_PLAN.UNLIMITED ? null : (
           <SpaceBetween mb="16px">
             <Text sx={{ color: 'primaryText', fontWeight: '600' }}>
-              {trafficDifference < 0 ? 'Out of data' : `${remainingDataBytes} Left`}
+              {trafficDifference < 0
+                ? getLocalizedMessage('wsext_out_of_data', currentLanguage)
+                : `${remainingDataBytes} ${getLocalizedMessage('wsext_left', currentLanguage)}`}
             </Text>
             {email && email_status === EMAIL.UNCONFIRMED ? (
               <ConfirmEmail />
@@ -129,18 +132,43 @@ const Preferences: ThemeUiElement = () => {
                 href={`${ENVS.ROOT_URL}/upgrade?pcpid=upgrade_ext1`}
                 target="_blank"
               >
-                Upgrade
+                {getLocalizedMessage('wsext_upgrade', currentLanguage)}
               </Link>
             )}
           </SpaceBetween>
         )}
         <RoundedBox>
-          <ListItemButton title="General" Icon={GeneralIcon} onClick={goToGeneral} />
-          <ListItemButton title="Connection" Icon={ConnectionIcon} onClick={goToConnection} />
-          <ListItemButton title="Blocker" Icon={BlockerIcon} onClick={goToBlocker} />
-          <ListItemButton title="Privacy" Icon={PrivacyIcon} onClick={goToPrivacy} />
-          <ListItemButton title="Account" Icon={AccountIcon} onClick={goToAccount} />
-          <ListItemButton title="Allowlist" Icon={AllowlistIcon} onClick={goToAllowlist} />
+          <ListItemButton
+            title={getLocalizedMessage('wsext_general', currentLanguage)}
+            Icon={GeneralIcon}
+            onClick={goToGeneral}
+          />
+          <ListItemButton
+            title={getLocalizedMessage('wsext_connection', currentLanguage)}
+            Icon={ConnectionIcon}
+            onClick={goToConnection}
+          />
+          <ListItemButton
+            title={getLocalizedMessage('wsext_blocker', currentLanguage)}
+            Icon={BlockerIcon}
+            onClick={goToBlocker}
+          />
+          <ListItemButton
+            title={getLocalizedMessage('wsext_privacy', currentLanguage)}
+            Icon={PrivacyIcon}
+            onClick={goToPrivacy}
+          />
+          <ListItemButton
+            title={getLocalizedMessage('wsext_account', currentLanguage)}
+            Icon={AccountIcon}
+            onClick={goToAccount}
+          />
+          <ListItemButton
+            title={getLocalizedMessage('wsext_allowlist', currentLanguage)}
+            Icon={AllowlistIcon}
+            onClick={goToAllowlist}
+            noBorder
+          />
         </RoundedBox>
         <Flex
           sx={{
@@ -153,7 +181,7 @@ const Preferences: ThemeUiElement = () => {
               gap: '16px',
             }}
           >
-            <ToolTip message="Change Theme">
+            <ToolTip message={getLocalizedMessage('wsext_change_theme', currentLanguage)}>
               <CircleButton
                 Icon={colorMode === 'light' ? LightModeIcon : DarkModeIcon}
                 onClick={() => {
@@ -161,14 +189,14 @@ const Preferences: ThemeUiElement = () => {
                 }}
               />
             </ToolTip>
-            <ToolTip message="Restart Onboarding">
+            <ToolTip message={getLocalizedMessage('wsext_restart_onboarding', currentLanguage)}>
               <CircleButton
                 Icon={TutorialIcon}
                 onClick={runTutorial}
                 data-testid="start-tutorial"
               />
             </ToolTip>
-            <ToolTip message="Get Support">
+            <ToolTip message={getLocalizedMessage('wsext_get_support', currentLanguage)}>
               <CircleButton
                 isPending={isWebSessionPending}
                 Icon={HelpIcon}
@@ -176,7 +204,7 @@ const Preferences: ThemeUiElement = () => {
               />
             </ToolTip>
           </Flex>
-          <ToolTip message="Logout">
+          <ToolTip message={getLocalizedMessage('wsext_logout', currentLanguage)}>
             <CircleButton
               onClick={handleLogoutClick}
               Icon={LogoutIcon}

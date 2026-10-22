@@ -1,0 +1,1030 @@
+{
+  "wsext_on": {
+    "message": "ATTIVO",
+    "description": "The extension is enabled"
+  },
+  "wsext_off": {
+    "message": "DISATTIVO",
+    "description": "The extension is disabled"
+  },
+  "wsext_connecting": {
+    "message": "CONNESSIONE...",
+    "description": "The extension is connecting to the internet"
+  },
+  "wsext_disconnecting": {
+    "message": "DISCONNESSIONE...",
+    "description": "The extension is disconnecting from the internet"
+  },
+  "wsext_offline": {
+    "message": "OFFLINE",
+    "description": "The extension is offline"
+  },
+  "wsext_autopilot": {
+    "message": "Pilota automatico",
+    "description": "Option to enable or manage autopilot features."
+  },
+  "wsext_preferences": {
+    "message": "Preferenze",
+    "description": "User preferences and settings."
+  },
+  "wsext_general": {
+    "message": "Generale",
+    "description": "General settings and configurations."
+  },
+  "wsext_connection": {
+    "message": "Connessione",
+    "description": "Manage connection settings and status."
+  },
+  "wsext_blocker": {
+    "message": "Blocker",
+    "description": "Feature to block unwanted content or ads."
+  },
+  "wsext_privacy": {
+    "message": "Privacy",
+    "description": "Privacy-related settings and controls."
+  },
+  "wsext_account": {
+    "message": "Conto",
+    "description": "Manage user account details."
+  },
+  "wsext_allowlist": {
+    "message": "Lista consentiti",
+    "description": "List of allowed websites or items."
+  },
+  "wsext_change_theme": {
+    "message": "Cambia tema",
+    "description": "Option to switch between different themes."
+  },
+  "wsext_restart_onboarding": {
+    "message": "Riavvia introduzione",
+    "description": "Restart the onboarding process for the extension."
+  },
+  "wsext_get_support": {
+    "message": "Ottieni supporto",
+    "description": "Access support resources or contact helpdesk."
+  },
+  "wsext_logout": {
+    "message": "Esci",
+    "description": "Logout from the current account."
+  },
+  "wsext_newsfeed": {
+    "message": "Notizie",
+    "description": "Access the latest news and updates."
+  },
+  "wsext_proxy_failure": {
+    "message": "ERRORE PROXY",
+    "description": "Notification for proxy failure events."
+  },
+  "wsext_notifications": {
+    "message": "Notifiche",
+    "description": "Manage notification settings for the extension."
+  },
+  "wsext_show_connect_disconnect_notifications": {
+    "message": "Mostra notifiche di connessione/disconnessione del sistema.",
+    "description": "Option to display OS notifications when connecting or disconnecting."
+  },
+  "wsext_show_location_load": {
+    "message": "Mostra carico località",
+    "description": "Option to display the load of each data center."
+  },
+  "wsext_show_location_load_description": {
+    "message": "Mostra il carico di ogni data center.",
+    "description": "Option to display the load of each data center."
+  },
+  "wsext_debug_context_menu": {
+    "message": "Menu contestuale di debug",
+    "description": "Option to display the debug log in the context menu."
+  },
+  "wsext_debug_context_menu_description": {
+    "message": "Mostra il registro di debug nel menu contestuale.",
+    "description": "Option to display the debug log in the context menu."
+  },
+  "wsext_language": {
+    "message": "Lingua",
+    "description": "Select the language for the extension."
+  },
+  "wsext_language_description": {
+    "message": "Seleziona la lingua dell'estensione.",
+    "description": "Option to select the language for the extension."
+  },
+  "wsext_debug_log": {
+    "message": "Registro di debug",
+    "description": "Access the debug log of the extension."
+  },
+  "wsext_clear_log": {
+    "message": "Cancella registro",
+    "description": "Button label to clear the debug log."
+  },
+  "wsext_show_user_info": {
+    "message": "Mostra info utente",
+    "description": "Button label to show user and device information on the debug log page."
+  },
+  "wsext_download_logs": {
+    "message": "Scarica registri",
+    "description": "Button label to download debug logs."
+  },
+  "wsext_scroll_to_top": {
+    "message": "Scorri in alto",
+    "description": "Button label to scroll to the top of the debug log."
+  },
+  "wsext_scroll_to_bottom": {
+    "message": "Scorri in basso",
+    "description": "Button label to scroll to the bottom of the debug log."
+  },
+  "wsext_no_logs_found": {
+    "message": "Nessun registro trovato",
+    "description": "Empty state message when there are no debug logs."
+  },
+  "wsext_send": {
+    "message": "Invia",
+    "description": "Send the current debug log."
+  },
+  "wsext_view": {
+    "message": "Visualizza",
+    "description": "View the content or details."
+  },
+  "wsext_sent": {
+    "message": "Inviato!",
+    "description": "Notification confirming a successful send operation."
+  },
+  "wsext_error": {
+    "message": "Errore",
+    "description": "Message displayed when an error occurs."
+  },
+  "wsext_view_licenses": {
+    "message": "Mostra licenze",
+    "description": "Option to view licenses associated with the extension."
+  },
+  "wsext_version": {
+    "message": "Versione",
+    "description": "Displays the current version of the extension."
+  },
+  "wsext_keyboard_shortcuts": {
+    "message": "Scorciatoie da tastiera",
+    "description": "Title for the keyboard shortcuts option."
+  },
+  "wsext_keyboard_shortcuts_description": {
+    "message": "Personalizza le scorciatoie da tastiera per accedere rapidamente alle funzionalità dell'estensione",
+    "description": "Description for the keyboard shortcuts option."
+  },
+  "wsext_edit": {
+    "message": "Modifica",
+    "description": "Generic edit button label."
+  },
+  "wsext_export": {
+    "message": "Esporta",
+    "description": "Export settings button label."
+  },
+  "wsext_import": {
+    "message": "Importa",
+    "description": "Import settings button label."
+  },
+  "wsext_refresh_to_see_changes": {
+    "message": "Aggiorna per vedere le modifiche",
+    "description": "Alert telling the user to refresh the current tab to see the effect of changes."
+  },
+  "wsext_back_to": {
+    "message": "Torna a $page$",
+    "description": "Aria label for the go-back button.",
+    "placeholders": {
+      "page": {
+        "content": "$1",
+        "example": "Preferenze"
+      }
+    }
+  },
+  "wsext_my_account": {
+    "message": "Il mio account",
+    "description": "Tooltip for the edit account button."
+  },
+  "wsext_info": {
+    "message": "info",
+    "description": "Subheader for the info section in the account page."
+  },
+  "wsext_username": {
+    "message": "Nome utente",
+    "description": "Label for the username field."
+  },
+  "wsext_hash": {
+    "message": "Hash",
+    "description": "Switch to hashed login or label the account hash field."
+  },
+  "wsext_email": {
+    "message": "E-mail",
+    "description": "Label for the email field."
+  },
+  "wsext_add_email_with_bonus": {
+    "message": "Aggiungi e-mail (+8GB)",
+    "description": "Call to action to add an email and earn extra data."
+  },
+  "wsext_plan": {
+    "message": "piano",
+    "description": "Subheader for the plan section in the account page."
+  },
+  "wsext_unlimited": {
+    "message": "Illimitato",
+    "description": "Indicates an unlimited plan or data."
+  },
+  "wsext_per_month": {
+    "message": "/mese",
+    "description": "Suffix for monthly data values."
+  },
+  "wsext_pro": {
+    "message": "Pro",
+    "description": "Indicates a Pro account."
+  },
+  "wsext_upgrade": {
+    "message": "Passa a Pro",
+    "description": "Button to upgrade the account."
+  },
+  "wsext_expiry_date": {
+    "message": "Data di scadenza",
+    "description": "Label for the premium expiry date."
+  },
+  "wsext_reset_date": {
+    "message": "Data di reset",
+    "description": "Label for the data reset date."
+  },
+  "wsext_current_page": {
+    "message": "pagina corrente",
+    "description": "Subheader for the currently active tab in the allowlist."
+  },
+  "wsext_allowlisted": {
+    "message": "consentiti",
+    "description": "Subheader for the list of allowlisted sites."
+  },
+  "wsext_added_to_support": {
+    "message": "Aggiunto per supportare",
+    "description": "Prefix shown next to a domain that was added automatically to support another."
+  },
+  "wsext_edit_subheader": {
+    "message": "modifica",
+    "description": "Subheader when editing an allowlist entry."
+  },
+  "wsext_add_new": {
+    "message": "aggiungi nuovo",
+    "description": "Subheader when adding a new allowlist entry."
+  },
+  "wsext_enter_valid_domain": {
+    "message": "inserisci un dominio valido",
+    "description": "Subheader when the entered allowlist domain is invalid."
+  },
+  "wsext_enter_domain_to_allowlist": {
+    "message": "Inserisci dominio da consentire",
+    "description": "Placeholder for the allowlist domain input."
+  },
+  "wsext_allow_ads": {
+    "message": "Consenti annunci",
+    "description": "Toggle label allowing ads on the domain."
+  },
+  "wsext_allow_connection": {
+    "message": "Consenti connessione",
+    "description": "Toggle label allowing direct connections on the domain."
+  },
+  "wsext_allow_privacy_features": {
+    "message": "Consenti funzionalità privacy",
+    "description": "Toggle label allowing privacy features on the domain."
+  },
+  "wsext_apply_to_all_subdomains": {
+    "message": "Applica a tutti i sottodomini",
+    "description": "Toggle label to apply allowlist settings to all subdomains."
+  },
+  "wsext_cancel": {
+    "message": "Annulla",
+    "description": "Generic cancel button label."
+  },
+  "wsext_save": {
+    "message": "Salva",
+    "description": "Generic save button label."
+  },
+  "wsext_delete": {
+    "message": "Elimina",
+    "description": "Generic delete button label."
+  },
+  "wsext_add": {
+    "message": "Aggiungi",
+    "description": "Generic add button label."
+  },
+  "wsext_ad_crusher": {
+    "message": "Schiacciapubblicità",
+    "description": "Title for the ad blocking feature."
+  },
+  "wsext_ad_crusher_description": {
+    "message": "Annunci, malware, tracker, miner e altro",
+    "description": "Description for the ad blocking feature."
+  },
+  "wsext_not_available_when_ublock_lite_enabled": {
+    "message": "Non disponibile quando uBlock Lite è abilitato",
+    "description": "Tooltip explaining a feature is unavailable while uBlock Lite is enabled."
+  },
+  "wsext_social_distancing": {
+    "message": "Distanziamento sociale",
+    "description": "Title for the social network blocking feature."
+  },
+  "wsext_social_distancing_description": {
+    "message": "Blocca widget e pulsanti di tracciamento dei social network",
+    "description": "Description for the social network blocking feature."
+  },
+  "wsext_cookie_go_away": {
+    "message": "Cookie via",
+    "description": "Title for the cookie banner blocking feature."
+  },
+  "wsext_cookie_go_away_description": {
+    "message": "Blocca i fastidiosi banner \"Utilizziamo i cookie\" su tutti i siti web",
+    "description": "Description for the cookie banner blocking feature."
+  },
+  "wsext_ublock_origin_lite": {
+    "message": "uBlock Origin Lite",
+    "description": "Title for the uBlock Origin Lite toggle."
+  },
+  "wsext_ublock_origin_lite_description": {
+    "message": "Le impostazioni del blocker non sono disponibili quando uBlock Lite è abilitato. Disattiva questa opzione per usare l'adblock di Windscribe",
+    "description": "Description for the uBlock Origin Lite toggle."
+  },
+  "wsext_not_available_when_ublock_origin_lite_enabled": {
+    "message": "Non disponibile quando uBlock Origin Lite è abilitato",
+    "description": "Tooltip explaining a feature is unavailable while uBlock Origin Lite is enabled."
+  },
+  "wsext_ublock_settings": {
+    "message": "Impostazioni uBlock",
+    "description": "Link label opening the uBlock settings dashboard."
+  },
+  "wsext_sponsorblock_recommendation": {
+    "message": "Prova l'estensione SponsorBlock per saltare le sponsorizzazioni nei video di YouTube.",
+    "description": "Recommendation banner for the SponsorBlock extension."
+  },
+  "wsext_auto_connect": {
+    "message": "Connessione automatica",
+    "description": "Title for the auto-connect feature."
+  },
+  "wsext_auto_connect_description": {
+    "message": "Connetti automaticamente all'avvio del browser.",
+    "description": "Description for the auto-connect feature."
+  },
+  "wsext_smokewall": {
+    "message": "Muro di fumo",
+    "description": "Title for the smokewall feature."
+  },
+  "wsext_smokewall_description": {
+    "message": "Non disconnettere anche in caso di errore del proxy.",
+    "description": "Description for the smokewall feature."
+  },
+  "wsext_failover": {
+    "message": "Failover di rete",
+    "description": "Title for the failover feature."
+  },
+  "wsext_failover_description": {
+    "message": "In caso di errore del proxy, cambia automaticamente località.",
+    "description": "Description for the failover feature."
+  },
+  "wsext_proxy_port": {
+    "message": "Porta proxy",
+    "description": "Title for the proxy port option."
+  },
+  "wsext_proxy_port_description": {
+    "message": "Seleziona la porta di connessione.",
+    "description": "Description for the proxy port option."
+  },
+  "wsext_locations_menu": {
+    "message": "Menu località",
+    "description": "Tooltip for the globe button on the home page."
+  },
+  "wsext_ip_address_copied": {
+    "message": "Indirizzo IP copiato",
+    "description": "Toast shown after copying the IP address."
+  },
+  "wsext_usage_bar": {
+    "message": "Barra di utilizzo",
+    "description": "Aria label for the usage bar."
+  },
+  "wsext_out_of_data": {
+    "message": "Dati esauriti",
+    "description": "Shown when the user has used all of their data."
+  },
+  "wsext_left": {
+    "message": "rimasti",
+    "description": "Suffix for remaining data, e.g. '500 MB rimasti'."
+  },
+  "wsext_get_more_data": {
+    "message": "ottieni più dati",
+    "description": "Call to action for users without an account to get more data."
+  },
+  "wsext_allowlist_settings": {
+    "message": "Impostazioni lista consentiti",
+    "description": "Tooltip for the per-tab allowlist settings button."
+  },
+  "wsext_ads": {
+    "message": "Annunci",
+    "description": "Tooltip for the per-tab ads toggle button."
+  },
+  "wsext_privacy_features": {
+    "message": "Funzionalità privacy",
+    "description": "Tooltip for the per-tab privacy features toggle button."
+  },
+  "wsext_login": {
+    "message": "Accedi",
+    "description": "Login screen title and submit button label."
+  },
+  "wsext_sign_up": {
+    "message": "Registrati",
+    "description": "Sign up screen title and link label."
+  },
+  "wsext_password": {
+    "message": "Password",
+    "description": "Label for the password field."
+  },
+  "wsext_username_should_not_be_email": {
+    "message": "Il tuo nome utente non dovrebbe essere un'email.",
+    "description": "Validation error when the username looks like an email."
+  },
+  "wsext_two_fa_code": {
+    "message": "Codice 2FA",
+    "description": "Label for the 2FA code input."
+  },
+  "wsext_two_fa_code_question": {
+    "message": "Codice 2FA?",
+    "description": "Button text to reveal the 2FA code input."
+  },
+  "wsext_two_fa_help": {
+    "message": "Se abilitato, usa un'app di autenticazione per generare il codice.",
+    "description": "Helper text for the 2FA code input."
+  },
+  "wsext_forgot_password": {
+    "message": "Password dimenticata?",
+    "description": "Link to the password reset flow."
+  },
+  "wsext_complete_puzzle_to_continue": {
+    "message": "Completa il puzzle per continuare",
+    "description": "Captcha instruction text."
+  },
+  "wsext_news_feed": {
+    "message": "Notizie",
+    "description": "Title for the news feed page."
+  },
+  "wsext_today": {
+    "message": "Oggi",
+    "description": "Indicates an event happened today."
+  },
+  "wsext_day_ago": {
+    "message": "1 giorno fa",
+    "description": "Indicates an event happened one day ago."
+  },
+  "wsext_days_ago": {
+    "message": "$count$ giorni fa",
+    "description": "Indicates how many days ago an event happened.",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "wsext_do_not_disturb": {
+    "message": "Non disturbare",
+    "description": "Title for the do not disturb privacy feature."
+  },
+  "wsext_do_not_disturb_description": {
+    "message": "Blocca tutti i siti dall'inviarti notifiche indesiderate.",
+    "description": "Description for the do not disturb privacy feature."
+  },
+  "wsext_click_to_grant_permission": {
+    "message": "Clicca per concedere il permesso.",
+    "description": "Tooltip prompting the user to grant a browser permission."
+  },
+  "wsext_grant_permission": {
+    "message": "Concedi permesso",
+    "description": "Action prompting the user to grant a browser permission."
+  },
+  "wsext_unavailable_until_permission_granted": {
+    "message": "Non disponibile finché non viene concesso il permesso.",
+    "description": "Tooltip explaining a toggle is unavailable until a permission is granted."
+  },
+  "wsext_anti_fingerprinting": {
+    "message": "Anti-impronta digitale",
+    "description": "Title for the anti fingerprinting privacy feature."
+  },
+  "wsext_anti_fingerprinting_description": {
+    "message": "Funzionalità sperimentale. Tenta di resistere al fingerprinting, ma può rompere o rallentare i siti web.",
+    "description": "Description for the anti fingerprinting privacy feature."
+  },
+  "wsext_webrtc_slayer": {
+    "message": "Sterminatore WebRTC",
+    "description": "Title for the WebRTC Slayer privacy feature."
+  },
+  "wsext_webrtc_slayer_description": {
+    "message": "Limita le richieste WebRTC per prevenire fughe. Può rompere alcune applicazioni.",
+    "description": "Description for the WebRTC Slayer privacy feature."
+  },
+  "wsext_location_warp": {
+    "message": "Distorsione posizione",
+    "description": "Title for the location warp privacy feature."
+  },
+  "wsext_location_warp_description": {
+    "message": "Falsifica la tua posizione GPS per corrispondere al proxy connesso.",
+    "description": "Description for the location warp privacy feature."
+  },
+  "wsext_not_available_in_autopilot": {
+    "message": "Non disponibile in Pilota automatico",
+    "description": "Tooltip explaining a feature is not available while autopilot is selected."
+  },
+  "wsext_time_warp": {
+    "message": "Distorsione temporale",
+    "description": "Title for the time warp privacy feature."
+  },
+  "wsext_time_warp_description": {
+    "message": "Imposta l'ora del browser per corrispondere al proxy connesso.",
+    "description": "Description for the time warp privacy feature."
+  },
+  "wsext_language_warp": {
+    "message": "Distorsione lingua",
+    "description": "Title for the language warp privacy feature."
+  },
+  "wsext_language_warp_description": {
+    "message": "Imposta la lingua e le impostazioni locali per corrispondere al proxy connesso.",
+    "description": "Description for the language warp privacy feature."
+  },
+  "wsext_split_personality": {
+    "message": "Personalità multipla",
+    "description": "Title for the split personality privacy feature."
+  },
+  "wsext_split_personality_description": {
+    "message": "Ruota casualmente il tuo user agent.",
+    "description": "Description for the split personality privacy feature."
+  },
+  "wsext_rotate_user_agent": {
+    "message": "Ruota User Agent",
+    "description": "Tooltip for the button that rotates the user agent now."
+  },
+  "wsext_split_personality_compat_mode": {
+    "message": "Modalità compatibilità Personalità multipla",
+    "description": "Title for the split personality compatibility mode option."
+  },
+  "wsext_split_personality_compat_mode_description": {
+    "message": "Rimani all'interno della famiglia di user agent del tuo browser. Aiuta a prevenire problemi su alcuni siti web.",
+    "description": "Description for the split personality compatibility mode option."
+  },
+  "wsext_not_available_when_split_personality_disabled": {
+    "message": "Non disponibile quando Personalità multipla è disabilitata",
+    "description": "Tooltip explaining a feature is unavailable when Split Personality is off."
+  },
+  "wsext_worker_block": {
+    "message": "Blocco worker",
+    "description": "Title for the worker block privacy feature."
+  },
+  "wsext_worker_block_description": {
+    "message": "Blocca l'esecuzione di web worker in background.",
+    "description": "Description for the worker block privacy feature."
+  },
+  "wsext_ad_privacy": {
+    "message": "Privacy annunci",
+    "description": "Title for the ad privacy feature."
+  },
+  "wsext_ad_privacy_description": {
+    "message": "Disabilita gli argomenti pubblicitari contestuali e i suggerimenti.",
+    "description": "Description for the ad privacy feature."
+  },
+  "wsext_update_browser_warning": {
+    "message": "Aggiorna il browser per continuare a utilizzare questa estensione e ricevere aggiornamenti di sicurezza.",
+    "description": "Warning shown when the browser is below the minimum supported version."
+  },
+  "wsext_keep_your_secrets": {
+    "message": "Custodisci i tuoi segreti.",
+    "description": "Tagline shown on the splash page."
+  },
+  "wsext_get_started": {
+    "message": "Inizia",
+    "description": "Call to action on the splash page that leads to signup."
+  },
+  "wsext_tutorial_turn_on_proxy": {
+    "message": "Attiva il proxy",
+    "description": "Onboarding tutorial step explaining the proxy toggle."
+  },
+  "wsext_tutorial_change_location": {
+    "message": "Cambia località",
+    "description": "Onboarding tutorial step explaining the location button."
+  },
+  "wsext_tutorial_allowlist_a_site": {
+    "message": "Consenti un sito per bypassare il proxy, abilitare gli annunci o disattivare le funzionalità privacy",
+    "description": "Onboarding tutorial step explaining the allowlist."
+  },
+  "wsext_tutorial_control_privacy": {
+    "message": "Controlla le impostazioni della privacy\nfacendo clic qui",
+    "description": "Onboarding tutorial step explaining the privacy settings."
+  },
+  "wsext_tutorial_control_blocker": {
+    "message": "Controlla le impostazioni del blocker\nfacendo clic qui",
+    "description": "Onboarding tutorial step explaining the blocker settings."
+  },
+  "wsext_tutorial_access_settings": {
+    "message": "Accedi al tutorial e ad altre impostazioni\nfacendo clic qui",
+    "description": "Onboarding tutorial step explaining the opt-out / settings menu."
+  },
+  "wsext_leave_tutorial": {
+    "message": "Esci",
+    "description": "Button label to leave/skip the onboarding tutorial."
+  },
+  "wsext_pick_your_plan": {
+    "message": "Scegli il tuo piano",
+    "description": "Heading on the signup screen."
+  },
+  "wsext_free": {
+    "message": "Gratuito",
+    "description": "Title of the free plan option."
+  },
+  "wsext_free_description": {
+    "message": "Fino a 10GB/mese",
+    "description": "Description of the free plan option."
+  },
+  "wsext_pro_description": {
+    "message": "GB illimitati e altro",
+    "description": "Description of the pro plan option."
+  },
+  "wsext_locations": {
+    "message": "Località",
+    "description": "Title for the locations page."
+  },
+  "wsext_sort_by": {
+    "message": "Ordina per $sort$",
+    "description": "Aria label describing the current sort order.",
+    "placeholders": {
+      "sort": {
+        "content": "$1",
+        "example": "alfabeto"
+      }
+    }
+  },
+  "wsext_no_results": {
+    "message": "Nessun risultato :(",
+    "description": "Shown when a search returns no locations."
+  },
+  "wsext_error_fetching_locations": {
+    "message": "Errore durante il recupero delle località",
+    "description": "Shown when the locations list fails to load."
+  },
+  "wsext_no_favorites": {
+    "message": "Nessun preferito",
+    "description": "Shown when the favorites list is empty."
+  },
+  "wsext_upgrade_uppercase": {
+    "message": "PASSA A PRO",
+    "description": "Upgrade label shown next to pro-only data centers."
+  },
+  "wsext_overlay_welcome_title": {
+    "message": "Sei connesso",
+    "description": "Title of the welcome overlay shown after a successful first connection."
+  },
+  "wsext_overlay_welcome_message": {
+    "message": "La tua connessione ora è sicura.   Vuoi imparare a usare l'estensione?",
+    "description": "Body of the welcome overlay."
+  },
+  "wsext_start_tutorial": {
+    "message": "Avvia tutorial",
+    "description": "Button label that begins the onboarding tutorial."
+  },
+  "wsext_skip": {
+    "message": "Salta",
+    "description": "Generic skip button label."
+  },
+  "wsext_overlay_something_weird_title": {
+    "message": "Qualcosa è andato storto",
+    "description": "Title of the generic connection-error overlay."
+  },
+  "wsext_overlay_something_weird_message": {
+    "message": "Impossibile stabilire la connessione, prova un'altra località o contatta il supporto.",
+    "description": "Body of the generic connection-error overlay."
+  },
+  "wsext_got_it": {
+    "message": "Capito",
+    "description": "Generic dismiss/acknowledge button label."
+  },
+  "wsext_overlay_ublock_detected_title": {
+    "message": "uBlock è già installato",
+    "description": "Title of the overlay shown when uBlock Lite is already installed."
+  },
+  "wsext_overlay_ublock_detected_message": {
+    "message": "Il blocco pubblicità di Windscribe usa uBlock Lite, che hai già installato. Non dovresti usarli entrambi contemporaneamente.",
+    "description": "Body of the uBlock-already-installed overlay."
+  },
+  "wsext_overlay_ublock_use_builtin": {
+    "message": "Usa il blocco integrato",
+    "description": "Button choosing the built-in Windscribe ad-blocker over uBlock Lite."
+  },
+  "wsext_overlay_ublock_keep_using": {
+    "message": "Continua con uBlock Lite",
+    "description": "Button keeping uBlock Lite as the active ad-blocker."
+  },
+  "wsext_overlay_ublock_link_sanitizer_title": {
+    "message": "uBlock Already Installed",
+    "description": "Title of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
+  },
+  "wsext_overlay_ublock_link_sanitizer_message": {
+    "message": "You already have uBlock Origin Lite. It can also strip tracking from links. Do not use it with Link Sanitizer.",
+    "description": "Body of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
+  },
+  "wsext_overlay_ublock_link_sanitizer_disable": {
+    "message": "Turn Off uBlock Lite",
+    "description": "Button that disables the separate uBlock Origin Lite extension."
+  },
+  "wsext_overlay_ublock_link_sanitizer_keep_both": {
+    "message": "Keep both",
+    "description": "Button that dismisses the Link Sanitizer uBlock overlay and keeps both extensions."
+  },
+  "wsext_overlay_uninstall_ublock_title": {
+    "message": "Come disattivare uBlock",
+    "description": "Title of the overlay explaining how to disable uBlock Lite."
+  },
+  "wsext_overlay_uninstall_ublock_message": {
+    "message": "Vai alla pagina delle estensioni (chrome://extensions). Trova l'estensione uBlock Lite e disattiva l'interruttore blu.",
+    "description": "Body of the disable-uBlock instructions overlay."
+  },
+  "wsext_ok": {
+    "message": "OK",
+    "description": "Generic OK button label."
+  },
+  "wsext_overlay_no_data_title": {
+    "message": "Hai esaurito i dati",
+    "description": "Title of the overlay shown when the user has run out of data."
+  },
+  "wsext_overlay_no_data_message": {
+    "message": "Effettua l'upgrade per restare protetto.",
+    "description": "Body of the out-of-data overlay."
+  },
+  "wsext_maybe_later": {
+    "message": "Forse più tardi",
+    "description": "Generic deferral button label."
+  },
+  "wsext_overlay_pro_plan_expired_title": {
+    "message": "Il tuo piano Pro è scaduto!",
+    "description": "Title of the overlay shown when the Pro plan has expired."
+  },
+  "wsext_overlay_pro_plan_expired_message": {
+    "message": "Hai perso l'accesso alle località premium e ai dati illimitati.",
+    "description": "Body of the Pro-plan-expired overlay."
+  },
+  "wsext_renew_plan": {
+    "message": "Rinnova piano",
+    "description": "Button label to renew the Pro plan."
+  },
+  "wsext_ignore": {
+    "message": "Ignora",
+    "description": "Generic ignore button label."
+  },
+  "wsext_overlay_banned_title": {
+    "message": "Sei stato bannato",
+    "description": "Title of the overlay shown when the account is banned."
+  },
+  "wsext_overlay_banned_message": {
+    "message": "Il tuo account è stato disabilitato per violazione dei termini di servizio",
+    "description": "Body of the banned-account overlay."
+  },
+  "wsext_learn_more": {
+    "message": "Scopri di più",
+    "description": "Generic learn-more button label."
+  },
+  "wsext_overlay_extension_conflict_title": {
+    "message": "Conflitto tra estensioni",
+    "description": "Title of the overlay shown when another extension controls proxy settings."
+  },
+  "wsext_overlay_extension_conflict_message": {
+    "message": "Le tue impostazioni proxy sono controllate da un'altra estensione. Disattiva l'estensione in conflitto per usare Windscribe.",
+    "description": "Body of the extension-conflict overlay."
+  },
+  "wsext_overlay_location_down_title": {
+    "message": "Questa località è in manutenzione",
+    "description": "Title of the overlay shown when the selected location is unavailable."
+  },
+  "wsext_overlay_location_down_message": {
+    "message": "Riprova più tardi o visita la pagina di stato per maggiori informazioni.",
+    "description": "Body of the location-under-maintenance overlay."
+  },
+  "wsext_check_status": {
+    "message": "Controlla stato",
+    "description": "Button label that opens the Windscribe status page."
+  },
+  "wsext_back": {
+    "message": "Indietro",
+    "description": "Generic back button label."
+  },
+  "wsext_overlay_wrong_file_extension_title": {
+    "message": "Formato file errato",
+    "description": "Title shown when an invalid file type is selected during settings import."
+  },
+  "wsext_overlay_wrong_file_extension_message": {
+    "message": "Carica un file in formato json",
+    "description": "Body shown when an invalid file type is selected during settings import."
+  },
+  "wsext_overlay_error_during_import_title": {
+    "message": "Importazione fallita",
+    "description": "Title shown when the settings import errors out."
+  },
+  "wsext_overlay_error_during_import_message": {
+    "message": "Qualcosa è andato storto durante l'importazione",
+    "description": "Body shown when the settings import errors out."
+  },
+  "wsext_overlay_invalid_format_title": {
+    "message": "Validazione fallita",
+    "description": "Title shown when the imported settings file fails validation."
+  },
+  "wsext_overlay_invalid_format_message": {
+    "message": "Le impostazioni hanno un formato errato",
+    "description": "Body shown when the imported settings file fails validation."
+  },
+  "wsext_overlay_notification_blocker_permission_title": {
+    "message": "Autorizzazione richiesta",
+    "description": "Title shown when the Notification Blocker needs an extra permission."
+  },
+  "wsext_overlay_notification_blocker_permission_message": {
+    "message": "Devi concedere un'autorizzazione aggiuntiva a Windscribe prima di poter usare il Blocco notifiche",
+    "description": "Body shown when the Notification Blocker needs an extra permission."
+  },
+  "wsext_overlay_grant_permission": {
+    "message": "Concedi autorizzazione",
+    "description": "Button label that requests the missing extension permission."
+  },
+  "wsext_overlay_firefox_private_mode_title": {
+    "message": "Stai usando la modalità di navigazione privata su Firefox?",
+    "description": "Title of the overlay shown to Firefox users in Private Browsing mode."
+  },
+  "wsext_overlay_firefox_private_mode_message": {
+    "message": "Con la navigazione privata, nulla verrà salvato alla chiusura del browser.",
+    "description": "Body of the Firefox-private-mode overlay."
+  },
+  "wsext_overlay_version_unsupported_title": {
+    "message": "La tua versione di Chrome è obsoleta",
+    "description": "Title of the overlay shown when the browser version is below the minimum supported."
+  },
+  "wsext_overlay_version_unsupported_message": {
+    "message": "Devi aggiornare il browser per continuare a usare l'estensione e ricevere aggiornamenti importanti.",
+    "description": "Body of the unsupported-browser-version overlay."
+  },
+  "wsext_dont_show_again": {
+    "message": "Non mostrare più",
+    "description": "Button label that dismisses a recurring warning permanently."
+  },
+  "wsext_failover_auto_best": {
+    "message": "Auto / Miglior",
+    "description": "Failover dropdown option meaning auto-pick the best alternate location."
+  },
+  "wsext_failover_same_country": {
+    "message": "Stesso paese",
+    "description": "Failover dropdown option meaning stay within the same country."
+  },
+  "wsext_failover_none": {
+    "message": "Nessuno",
+    "description": "Failover dropdown option meaning no failover."
+  },
+  "wsext_confirmation_email_sent": {
+    "message": "Email di conferma inviata!",
+    "description": "Confirmation shown after the email-verification message is sent."
+  },
+  "wsext_confirm_email": {
+    "message": "Conferma email",
+    "description": "Button label that triggers sending the email-verification message."
+  },
+  "wsext_slide_puzzle_piece": {
+    "message": "Trascina il pezzo del puzzle al suo posto",
+    "description": "Instruction text shown on the captcha slider track."
+  },
+  "wsext_encountered_problem": {
+    "message": "Windscribe ha riscontrato un problema. Riprova più tardi.",
+    "description": "Fallback message shown when the requested view cannot be rendered."
+  },
+  "wsext_notification_connected": {
+    "message": "Ora sei connesso a Windscribe ($locationInfo$)",
+    "description": "OS notification body shown after a successful connection.",
+    "placeholders": {
+      "locationInfo": {
+        "content": "$1",
+        "example": "Londra Big Ben"
+      }
+    }
+  },
+  "wsext_notification_disconnected": {
+    "message": "La connessione a Windscribe è stata terminata",
+    "description": "OS notification body shown after disconnecting."
+  },
+  "wsext_system": {
+    "message": "Sistema",
+    "description": "Language picker option that defers to the OS/browser language."
+  },
+  "wsext_extName": {
+    "message": "VPN gratis per Chrome - Windscribe Proxy & Ad Blocker",
+    "description": "Extension name shown in the Chrome Web Store and chrome://extensions."
+  },
+  "wsext_extDescription": {
+    "message": "VPN gratis per Chrome. Nasconde l'IP, blocca le pubblicità, sblocca streaming. Sede in Canada, fuori USA, Open Source. 10 GB/mese.",
+    "description": "Extension description shown in the Chrome Web Store and chrome://extensions."
+  },
+  "wsext_cmdToggleProxy": {
+    "message": "Attiva/Disattiva proxy",
+    "description": "Keyboard shortcut description for toggling the proxy."
+  },
+  "wsext_cmdOpenPreferences": {
+    "message": "Apri preferenze",
+    "description": "Keyboard shortcut description for opening preferences."
+  },
+  "wsext_cmdOpenFavourites": {
+    "message": "Apri località preferite",
+    "description": "Keyboard shortcut description for opening favourite locations."
+  },
+  "wsext_cmdOpenLocations": {
+    "message": "Apri località",
+    "description": "Keyboard shortcut description for opening locations."
+  },
+  "wsext_link_sanitizer": {
+    "message": "Pulitore di link",
+    "description": "Title for the link sanitizer privacy feature."
+  },
+  "wsext_link_sanitizer_description": {
+    "message": "Rimuove i parametri di tracciamento dagli URL prima che vengano caricati.",
+    "description": "Description for the link sanitizer privacy feature."
+  },
+  "wsext_link_sanitizer_analytics": {
+    "message": "Analisi e UTM",
+    "description": "Title for the analytics and UTM parameter group."
+  },
+  "wsext_link_sanitizer_analytics_description": {
+    "message": "Rimuove UTM, Google Analytics, Matomo e parametri di campagna simili.",
+    "description": "Description for the analytics and UTM parameter group."
+  },
+  "wsext_link_sanitizer_ads": {
+    "message": "ID clic degli annunci",
+    "description": "Title for the ad click identifier parameter group."
+  },
+  "wsext_link_sanitizer_ads_description": {
+    "message": "Rimuove gli identificatori di clic di Google Ads, Microsoft, Yahoo e Yandex.",
+    "description": "Description for the ad click identifier parameter group."
+  },
+  "wsext_link_sanitizer_social": {
+    "message": "Tracciamento social",
+    "description": "Title for the social tracking parameter group."
+  },
+  "wsext_link_sanitizer_social_description": {
+    "message": "Rimuove gli ID clic di Facebook, Instagram, X, TikTok, Snapchat e Pinterest.",
+    "description": "Description for the social tracking parameter group."
+  },
+  "wsext_link_sanitizer_email": {
+    "message": "Email e marketing",
+    "description": "Title for the email and marketing parameter group."
+  },
+  "wsext_link_sanitizer_email_description": {
+    "message": "Rimuove i parametri di tracciamento di Mailchimp, HubSpot, Klaviyo, Marketo e altri servizi email.",
+    "description": "Description for the email and marketing parameter group."
+  },
+  "wsext_link_sanitizer_affiliates": {
+    "message": "Affiliati e attribuzione",
+    "description": "Title for the affiliates and attribution parameter group."
+  },
+  "wsext_link_sanitizer_affiliates_description": {
+    "message": "Rimuove i parametri di affiliazione, attribuzione e altri tracker di terze parti.",
+    "description": "Description for the affiliates and attribution parameter group."
+  },
+  "wsext_link_sanitizer_custom_params": {
+    "message": "Parametri personalizzati",
+    "description": "Title for the custom URL parameter input."
+  },
+  "wsext_link_sanitizer_custom_params_description": {
+    "message": "Aggiungi altri nomi di parametri query da rimuovere. Separali con virgole.",
+    "description": "Description for the custom URL parameter input."
+  },
+  "wsext_link_sanitizer_custom_params_placeholder": {
+    "message": "param1, param2, param3",
+    "description": "Placeholder for the custom URL parameter input."
+  },
+  "wsext_not_available_when_link_sanitizer_disabled": {
+    "message": "Non disponibile quando Pulitore di link è disabilitato",
+    "description": "Tooltip explaining a setting is unavailable when Link Sanitizer is off."
+  },
+  "wsext_link_sanitizer_ublock_warning": {
+    "message": "Another extension, uBlock Origin Lite, may still remove tracking parameters from links.",
+    "description": "Persistent warning shown when a separate uBlock Origin Lite extension is enabled."
+  },
+  "wsext_clear_site_data": {
+    "message": "Clear this page",
+    "description": "Tooltip for the button that clears storage for the current page only."
+  },
+  "wsext_overlay_clear_site_data_permission_title": {
+    "message": "Permission Required",
+    "description": "Title shown when clearing site data needs an extra permission."
+  },
+  "wsext_overlay_clear_site_data_permission_message": {
+    "message": "You need to grant an extra permission to Windscribe before you can clear site data",
+    "description": "Body shown when clearing site data needs an extra permission."
+  },
+  "wsext_overlay_clear_site_data_confirm_title": {
+    "message": "Clear this page?",
+    "description": "Title of the confirmation shown before clearing the current page."
+  },
+  "wsext_overlay_clear_site_data_confirm_message": {
+    "message": "This removes cookies, local storage, IndexedDB, cache storage, and service workers for this site. You will be signed out.",
+    "description": "Body of the confirmation shown before clearing the current site. Cookies are cleared for the whole domain."
+  },
+  "wsext_overlay_clear_site_data_confirm_action": {
+    "message": "Clear",
+    "description": "Button that confirms clearing the current site data."
+  },
+  "wsext_overlay_clear_site_data_failed": {
+    "message": "Could not clear site data",
+    "description": "Error shown when clearing the current site data fails."
+  }
+}

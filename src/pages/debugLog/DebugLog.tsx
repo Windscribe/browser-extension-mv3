@@ -11,6 +11,7 @@ import { handleDownloadLogs } from './handleDownload'
 import { parseLogToStrings } from 'services/debugLog'
 import { Dexie } from 'dexie'
 import { useVirtualizer } from '@tanstack/react-virtual'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const DebugLog: React.FC = () => {
   const [isShowUserInfo, setIsShowUserInfo] = useState(false)
@@ -30,6 +31,7 @@ const DebugLog: React.FC = () => {
   const splitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const workerBlockEnabled = useSelector(s => s.workerBlock)
   const migrations = useSelector(s => s.migrations)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   const logContainerRef = useRef<HTMLDivElement>(null)
 
   const parser = new UAParser(navigator.userAgent)
@@ -145,7 +147,9 @@ ${
           zIndex: 10,
         }}
       >
-        <span sx={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>Debug Log</span>
+        <span sx={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>
+          {getLocalizedMessage('wsext_debug_log', currentLanguage)}
+        </span>
         <Button
           variant="debug"
           onClick={() => {
@@ -160,20 +164,20 @@ ${
             virtualizer.scrollToIndex(0, { align: 'start' })
           }}
         >
-          Clear Log
+          {getLocalizedMessage('wsext_clear_log', currentLanguage)}
         </Button>
         <Button
           variant="debug"
           data-testid="user-info-button"
           onClick={() => setIsShowUserInfo(!isShowUserInfo)}
         >
-          Show User Info
+          {getLocalizedMessage('wsext_show_user_info', currentLanguage)}
         </Button>
         <Button
           variant="debug"
           onClick={() => handleDownloadLogs(userInfo, parseLogToStrings(logs.slice(1)).join(''))}
         >
-          Download Logs
+          {getLocalizedMessage('wsext_download_logs', currentLanguage)}
         </Button>
       </AlignItemsCenter>
 
@@ -198,7 +202,7 @@ ${
           virtualizer.scrollToIndex(0, { align: 'start' })
         }}
       >
-        Scroll To Top
+        {getLocalizedMessage('wsext_scroll_to_top', currentLanguage)}
       </Button>
 
       <Button
@@ -222,7 +226,7 @@ ${
           virtualizer.scrollToIndex(count - 1, { align: 'start' })
         }}
       >
-        Scroll To Bottom
+        {getLocalizedMessage('wsext_scroll_to_bottom', currentLanguage)}
       </Button>
 
       <Box
@@ -293,7 +297,7 @@ ${
             {/* accounts for the header */}
             {items.length === 1 && (
               <div>
-                <span>No logs found</span>
+                <span>{getLocalizedMessage('wsext_no_logs_found', currentLanguage)}</span>
               </div>
             )}
           </div>

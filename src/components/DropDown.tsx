@@ -1,26 +1,28 @@
 import { useState } from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 import { type ThemeUIJSX } from '@theme-ui/core'
-import { type ActionCreatorWithPayload } from '@reduxjs/toolkit'
 
 import DropDownItem from './DropDownItem'
-import { useDispatch } from 'state/hooks'
 
 import DoubleArrowIcon from 'assets/img/doubleArrow.svg'
 
 type DropDownProps<T> = {
   current: T
   items: T[]
-  setValue: ActionCreatorWithPayload<T>
+  onItemClick: (value: T) => void
+  getLabel?: (value: T) => string
+  menuMaxHeight?: number | string
 }
 
 function DropDown<T extends string | number>({
   current,
   items,
-  setValue,
+  onItemClick,
+  getLabel,
+  menuMaxHeight,
 }: DropDownProps<T>): ThemeUIJSX.Element {
-  const dispatch = useDispatch()
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
+  const labelFor = (value: T) => (getLabel ? getLabel(value) : String(value))
 
   return (
     <Box>
@@ -39,7 +41,9 @@ function DropDown<T extends string | number>({
           },
         }}
       >
-        <Text sx={{ mr: '8px', fontWeight: '400', color: 'secondaryText' }}>{current}</Text>
+        <Text sx={{ mr: '8px', fontWeight: '400', color: 'secondaryText' }}>
+          {labelFor(current)}
+        </Text>
         <DoubleArrowIcon sx={{ fill: 'secondaryText' }} />
       </Flex>
       <Box
@@ -68,14 +72,17 @@ function DropDown<T extends string | number>({
             minWidth: '60px',
             whiteSpace: 'nowrap',
             boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.15)',
+            maxHeight: menuMaxHeight,
+            overflowY: menuMaxHeight ? 'auto' : 'visible',
           }}
         >
           {items.map(item => (
             <DropDownItem
               key={item}
               value={item}
+              label={labelFor(item)}
               current={current === item}
-              handleClick={value => dispatch(setValue(value))}
+              handleClick={value => onItemClick(value)}
             />
           ))}
         </Box>

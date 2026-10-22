@@ -1,4 +1,4 @@
-import { AllowlistState } from 'state/slices/allowlist'
+import { AllowlistState, AllowlistItemSettings } from 'state/slices/allowlist'
 
 export const updateAddExcludeDomains = ({
   allowlist,
@@ -28,4 +28,41 @@ export const getPrivacyFeatureEnabledDomains = (allowlist: AllowlistState): stri
   return Object.entries(allowlist)
     .filter(([_, value]) => value.allowPrivacyFeatures)
     .map(([key]) => key)
+}
+
+export const getPrivacyFeatureEnabledDomainsAfterChange = ({
+  allowlist,
+  toAdd = [],
+  toRemove = [],
+}: {
+  allowlist: AllowlistState
+  toAdd?: Array<{
+    hostname: string
+    domainWithSettings: Pick<AllowlistItemSettings, 'allowPrivacyFeatures'> &
+      Partial<AllowlistItemSettings>
+  }>
+  toRemove?: string[]
+}): string[] => {
+  const nextAllowlist: AllowlistState = { ...allowlist }
+
+  for (const hostname of toRemove) {
+    delete nextAllowlist[hostname]
+  }
+
+  for (const item of toAdd) {
+    const defaults: AllowlistItemSettings = {
+      allowAds: false,
+      allowDirectConnections: false,
+      includeAllSubdomains: false,
+      allowPrivacyFeatures: false,
+    }
+
+    nextAllowlist[item.hostname] = {
+      ...defaults,
+      ...nextAllowlist[item.hostname],
+      ...item.domainWithSettings,
+    }
+  }
+
+  return getPrivacyFeatureEnabledDomains(nextAllowlist)
 }

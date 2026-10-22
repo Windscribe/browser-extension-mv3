@@ -11,6 +11,8 @@ import PlusIcon from 'assets/img/plus-icon.svg'
 import AirplaneIcon from 'assets/img/airplane.svg'
 import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import { css } from '@emotion/react'
+import { useSelector } from 'state/hooks'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 type LocationsListItemProps = BoxProps & {
   location: Location
@@ -32,6 +34,7 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(currentlySelected && !isAutopilot)
   const goToHome = useGoTo('Home')
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const Flag: React.ElementType = flags[isAutopilot ? 'AUTO' : location.country_code]
 
@@ -112,12 +115,15 @@ const LocationsListItem: React.FC<LocationsListItemProps> = ({
               />
             )}
             <Text
+              data-testid="location-name"
               sx={{
                 fontWeight: '600',
                 marginLeft: '16px',
               }}
             >
-              {isAutopilot ? 'Autopilot' : location?.name}
+              {isAutopilot
+                ? getLocalizedMessage('wsext_autopilot', currentLanguage)
+                : location?.name}
             </Text>
           </Flex>
           <Flex

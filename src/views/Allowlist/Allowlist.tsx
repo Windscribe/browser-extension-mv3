@@ -13,14 +13,14 @@ import PlusIcon from 'assets/img/plus-icon.svg'
 import EditIcon from 'assets/img/editIcon.svg'
 import GarbageIcon from 'assets/img/garbageIcon.svg'
 import { domainDependents, removeFromExludeScriptMatches } from 'utils/allowListDependants'
-import { CONTROL_D_DOMAIN } from 'utils/constants'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 import {
-  defaultUblockRulesetId,
-  ruleIdForMatomo,
+  rulesetsContainingTrackerRules,
   updateStaticRules,
+  isTrackerRuleOverrideDomain,
 } from 'services/declarativeNetRequest/updateStaticRules'
-import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
-import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
+import { spoofUserAgentHeader, syncUrlCleanerWithAllowlist } from 'services/declarativeNetRequest/updateDynamicRules'
+import { getPrivacyFeatureEnabledDomains, getPrivacyFeatureEnabledDomainsAfterChange } from 'utils/networkSpoofing'
 
 const Allowlist: ThemeUiElement = () => {
   const allowlist = useSelector(s => s.allowlist)
@@ -30,8 +30,11 @@ const Allowlist: ThemeUiElement = () => {
   const [isEditMode, setIsEditMode] = useState(false)
   const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
   const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
+  const urlCleanerEnabled = useSelector(s => s.urlCleanerEnabled)
+  const linkSanitizer = useSelector(s => s.linkSanitizer)
   const currentTabHostname = useCurrentTabHostname()
   const { removeFromAllowlist } = useManageAllowlist()
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const openSettingsFor = (candidate: string): void => {
     setDomainToEdit(candidate)
@@ -55,7 +58,10 @@ const Allowlist: ThemeUiElement = () => {
 
   return (
     <Column data-testid="allowlist-page" bg="background">
-      <Header title="Allowlist" {...{ shouldShowReloadAlert, showReloadAlert }}>
+      <Header
+        title={getLocalizedMessage('wsext_allowlist', currentLanguage)}
+        {...{ shouldShowReloadAlert, showReloadAlert }}
+      >
         <CircleButton
           data-testid="add-to-allowlist-button"
           Icon={PlusIcon}
@@ -81,7 +87,7 @@ const Allowlist: ThemeUiElement = () => {
         }}
       >
         <Box sx={{ mt: '8px', mx: '16px' }}>
-          <Subheader>current page</Subheader>
+          <Subheader>{getLocalizedMessage('wsext_current_page', currentLanguage)}</Subheader>
           <Rectangle>
             <Hostname>{currentTabHostname}</Hostname>
             <IconButton
@@ -93,7 +99,7 @@ const Allowlist: ThemeUiElement = () => {
           </Rectangle>
         </Box>
         <Subheader mt="20px" pl="16px">
-          allowlisted
+          {getLocalizedMessage('wsext_allowlisted', currentLanguage)}
         </Subheader>
         <ScrollableBox data-testid="allowlist-items-list" sx={{ maxHeight: '212px' }}>
           {allowlistedDomains.map(([domain, value]) => (
@@ -115,7 +121,7 @@ const Allowlist: ThemeUiElement = () => {
                       flexShrink: 0,
                     }}
                   >
-                    Added to support: {value.addedBy}
+                    {getLocalizedMessage('wsext_added_to_support', currentLanguage)}: {value.addedBy}
                   </p>
                 )}
               </div>
@@ -149,11 +155,13 @@ const Allowlist: ThemeUiElement = () => {
                       }
                     }
 
-                    if (domain === CONTROL_D_DOMAIN) {
-                      updateStaticRules({
-                        rulesetId: defaultUblockRulesetId,
-                        enableRuleIds: ruleIdForMatomo,
-                      })
+                    if (isTrackerRuleOverrideDomain(domain)) {
+                      updateStaticRules(
+                        rulesetsContainingTrackerRules.map(ruleset => ({
+                          rulesetId: ruleset.rulesetId,
+                          enableRuleIds: ruleset.ruleIds,
+                        })),
+                      )
                     }
 
                     if (isSplitPersonalityEnabled) {
@@ -162,6 +170,17 @@ const Allowlist: ThemeUiElement = () => {
                       )
 
                       await spoofUserAgentHeader(spoofedUserAgent, domainsToKeepSpoofing)
+                    }
+
+                    if (urlCleanerEnabled) {
+                      await syncUrlCleanerWithAllowlist(
+                        true,
+                        getPrivacyFeatureEnabledDomainsAfterChange({
+                          allowlist,
+                          toRemove: toRemove.map(item => item.hostname),
+                        }),
+                        linkSanitizer,
+                      )
                     }
 
                     removeFromAllowlist(toRemove)

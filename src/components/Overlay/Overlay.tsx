@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Box, Flex, Text } from 'theme-ui'
 
 import { Column } from '../Flexbox'
-import { getOverlayTemplate } from './getOverlayTemplate'
+import { useOverlayTemplate } from './useOverlayTemplate'
 import { useDispatch } from 'state/hooks'
 import { type ThemeUiElement } from 'utils/types'
 import { removeOverlay } from 'state/slices/overlay'
@@ -21,7 +21,7 @@ export const Overlay: ThemeUiElement<{ template: OverlayTemplate; index: number 
     if (!isOpen) dispatch(removeOverlay(template))
   }, [dispatch, isOpen, template])
 
-  const { title, message, img, ActionsBlock } = getOverlayTemplate(template)
+  const { title, message, img, ActionsBlock } = useOverlayTemplate(template)
 
   return (
     <Box

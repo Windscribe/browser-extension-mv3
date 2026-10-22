@@ -3,34 +3,20 @@ import { ApiResponse } from './types'
 import browserApi from 'services/browserApi'
 import type { AppDispatch } from 'state/store'
 import { setWorkingApi } from 'state/slices/workingApi'
-
-const fetchDoh = async () => {
-  const res = await fetch(`https://1.1.1.1/dns-query?name=${ENVS.DOH_URL}&type=TXT`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/dns-json',
-    },
-  })
-  const json = await res.json()
-  const dohUrl = json?.Answer[0]?.data
-
-  if (!dohUrl || typeof dohUrl !== 'string') {
-    throw Error("Unknown URL's format of DNS over HTTPS")
-  }
-  // remove quotes from the response
-  return dohUrl.slice(1, -1)
-}
+import { fetchDoh } from './doh'
 
 const fetchWithTimeout = async (
   url: string,
   method = 'GET',
   body?: Record<string, unknown> | FormData,
+  headers?: HeadersInit,
 ) => {
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 3000)
   const params = {
     method,
     signal: controller.signal,
+    ...(headers && { headers }),
     ...(body && { body: body instanceof FormData ? body : JSON.stringify(body) }),
   }
   const response = await fetch(url, params)
@@ -46,6 +32,7 @@ const fetchApi = async (
   method: string,
   body?: Record<string, unknown> | FormData,
   useAssets = false,
+  headers?: HeadersInit,
 ) => {
   let url: string
   if (NODE_ENV === 'production') {
@@ -54,7 +41,7 @@ const fetchApi = async (
     url = useAssets ? `assets-${domain}` : `api-${domain}`
   }
 
-  return fetchWithTimeout(`https://${url}/${path}`, method, body)
+  return fetchWithTimeout(`https://${url}/${path}`, method, body, headers)
 }
 
 const sendRequest = async <DataType>(
@@ -63,6 +50,7 @@ const sendRequest = async <DataType>(
   path: string,
   body?: Record<string, unknown> | FormData,
   useAssets = false,
+  headers?: HeadersInit,
 ): Promise<ApiResponse<DataType>> => {
   const state = await browserApi.getStateFromStorage()
   const workingApi = state[1].workingApi
@@ -71,7 +59,7 @@ const sendRequest = async <DataType>(
     if (!domain) {
       throw Error('No API domain was provided')
     }
-    const response = await fetchApi(domain, path, method, body, useAssets)
+    const response = await fetchApi(domain, path, method, body, useAssets, headers)
     const json = await response.json()
     if (domain !== workingApi) {
       dispatch(setWorkingApi(domain))

@@ -24,6 +24,7 @@ export const migrateStashedBlockerSettings = async (
         .map(blockList => {
           return BLOCKER_SETTINGS_MAPPER[blockList as keyof typeof BLOCKER_SETTINGS_MAPPER]
         })
+        .flat()
         .filter(blockList => !!blockList)
 
       await store.dispatch(

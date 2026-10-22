@@ -6,11 +6,13 @@ import { Header, ScrollableBox } from 'components'
 import NewsfeedItem from './NewsfeedItem'
 import { markNewsAsViewed } from 'state/slices/newsfeed'
 import React, { useEffect, useState } from 'react'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const Newsfeed: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const notifications = useSelector(s => s.newsfeed.notifications)
   const viewedNewsIds = useSelector(s => s.newsfeed.viewedNewsIds)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   const [showOnce, setShowOnce] = useState(true)
 
   const [expandedId, setExpandedId] = useState<number | null>(null)
@@ -47,7 +49,7 @@ const Newsfeed: ThemeUiElement = () => {
 
   return (
     <Box data-testid="newsfeed-page" bg="background">
-      <Header title="News Feed" />
+      <Header title={getLocalizedMessage('wsext_news_feed', currentLanguage)} />
       <ScrollableBox>
         {notifications
           .sort((a, b) => b.date - a.date)

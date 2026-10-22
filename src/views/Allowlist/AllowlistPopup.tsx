@@ -9,7 +9,10 @@ import SettingsOption from './SettingsOption'
 import ExternalLinkButton from './ExternalLinkButton'
 import { useSelector } from 'state/hooks'
 import { useManageAllowlist } from 'components/hooks'
-import { spoofUserAgentHeader } from 'services/declarativeNetRequest/updateDynamicRules'
+import {
+  spoofUserAgentHeader,
+  syncUrlCleanerWithAllowlist,
+} from 'services/declarativeNetRequest/updateDynamicRules'
 import {
   addToExcludeScriptMatches,
   domainDependents,
@@ -17,12 +20,16 @@ import {
 } from 'utils/allowListDependants'
 import { pushToDebugLog } from 'services/debugLog'
 import {
-  defaultUblockRulesetId,
-  ruleIdForMatomo,
+  rulesetsContainingTrackerRules,
   updateStaticRules,
+  isTrackerRuleOverrideDomain,
 } from 'services/declarativeNetRequest/updateStaticRules'
-import { CONTROL_D_DOMAIN } from 'utils/constants'
-import { getPrivacyFeatureEnabledDomains, updateAddExcludeDomains } from 'utils/networkSpoofing'
+import {
+  getPrivacyFeatureEnabledDomains,
+  getPrivacyFeatureEnabledDomainsAfterChange,
+  updateAddExcludeDomains,
+} from 'utils/networkSpoofing'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 type AllowlistPopupProps = {
   domain: string
@@ -42,6 +49,9 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
   const allowlist = useSelector(s => s.allowlist)
   const spoofedUserAgent = useSelector(s => s.userAgent.spoofed)
   const isSplitPersonalityEnabled = useSelector(s => s.splitPersonalityEnabled)
+  const urlCleanerEnabled = useSelector(s => s.urlCleanerEnabled)
+  const linkSanitizer = useSelector(s => s.linkSanitizer)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const [submitButtonMode, setSubmitButtonMode] = useState<SubmitButtonMode>('disabled')
   const [isDomainValid, setIsDomainValid] = useState(true)
@@ -119,11 +129,13 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
       }
 
       // if ads were allowed, we need to enable the rule when the domain is removed
-      if (domainValue === CONTROL_D_DOMAIN) {
-        updateStaticRules({
-          rulesetId: defaultUblockRulesetId,
-          enableRuleIds: ruleIdForMatomo,
-        })
+      if (isTrackerRuleOverrideDomain(domainValue)) {
+        updateStaticRules(
+          rulesetsContainingTrackerRules.map(ruleset => ({
+            rulesetId: ruleset.rulesetId,
+            enableRuleIds: ruleset.ruleIds,
+          })),
+        )
       }
 
       if (isSplitPersonalityEnabled) {
@@ -131,6 +143,17 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
           d => !dependentsArray.includes(d) && d !== domainValue,
         )
         await spoofUserAgentHeader(spoofedUserAgent, domainsToKeepSpoofing)
+      }
+
+      if (urlCleanerEnabled) {
+        await syncUrlCleanerWithAllowlist(
+          true,
+          getPrivacyFeatureEnabledDomainsAfterChange({
+            allowlist,
+            toRemove: toRemove.map(item => item.hostname),
+          }),
+          linkSanitizer,
+        )
       }
 
       removeFromAllowlist(toRemove)
@@ -205,11 +228,13 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
       }
     }
 
-    if (domainValue === CONTROL_D_DOMAIN) {
-      updateStaticRules({
-        rulesetId: defaultUblockRulesetId,
-        [domainWithSettings.allowAds ? 'disableRuleIds' : 'enableRuleIds']: ruleIdForMatomo,
-      })
+    if (isTrackerRuleOverrideDomain(domainValue)) {
+      updateStaticRules(
+        rulesetsContainingTrackerRules.map(ruleset => ({
+          rulesetId: ruleset.rulesetId,
+          [domainWithSettings.allowAds ? 'disableRuleIds' : 'enableRuleIds']: ruleset.ruleIds,
+        })),
+      )
     }
 
     const excludeUrls = updateAddExcludeDomains({
@@ -223,6 +248,14 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
       toExcludeFromSpoofing.push(...excludeUrls)
       const uniqueExcludeUrls = Array.from(new Set(toExcludeFromSpoofing))
       await spoofUserAgentHeader(spoofedUserAgent, uniqueExcludeUrls)
+    }
+
+    if (urlCleanerEnabled) {
+      await syncUrlCleanerWithAllowlist(
+        true,
+        getPrivacyFeatureEnabledDomainsAfterChange({ allowlist, toAdd }),
+        linkSanitizer,
+      )
     }
 
     // no need to await this since all the depenedent operations are done by this time
@@ -246,16 +279,22 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
     <Popup data-testid="allowlist-settings-popup" isOpen={isOpen}>
       <Box bg="background" py="24px" px="16px" sx={{ height: '100%' }}>
         {isDomainValid ? (
-          <Subheader>{isEditMode ? 'edit' : 'add new'}</Subheader>
+          <Subheader>
+            {isEditMode
+              ? getLocalizedMessage('wsext_edit_subheader', currentLanguage)
+              : getLocalizedMessage('wsext_add_new', currentLanguage)}
+          </Subheader>
         ) : (
-          <Subheader color="bloodRed">enter valid domain</Subheader>
+          <Subheader color="bloodRed">
+            {getLocalizedMessage('wsext_enter_valid_domain', currentLanguage)}
+          </Subheader>
         )}
         {isEditMode ? (
           <ExternalLinkButton url={domainValue} />
         ) : (
           <Input
             data-testid="allowlist-domain-input"
-            placeholder={'Enter domain to allowlist'}
+            placeholder={getLocalizedMessage('wsext_enter_domain_to_allowlist', currentLanguage)}
             value={domainValue}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -269,7 +308,7 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
         <Flex mt="16px" sx={{ gap: '16px', flexDirection: 'column' }}>
           <RoundedBox>
             <SettingsOption isChecked={isAdsAllowed} toggleState={setIsAdsAllowed} noBorder>
-              Allow Ads
+              {getLocalizedMessage('wsext_allow_ads', currentLanguage)}
             </SettingsOption>
           </RoundedBox>
           <Box sx={{ borderRadius: '8px', border: '1px solid', borderColor: 'foreground' }}>
@@ -278,7 +317,7 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
                 isChecked={isDirectConnectionsAllowed}
                 toggleState={setIsDirectConnectionsAllowed}
               >
-                Allow Connection
+                {getLocalizedMessage('wsext_allow_connection', currentLanguage)}
               </SettingsOption>
               <SettingsOption
                 data-testid="allow-privacy-features-checkbox"
@@ -286,11 +325,13 @@ const AllowlistPopup: ThemeUiElement<AllowlistPopupProps> = ({
                 noBorder
                 toggleState={setIsPrivacyFeaturesAllowed}
               >
-                Allow Privacy Features
+                {getLocalizedMessage('wsext_allow_privacy_features', currentLanguage)}
               </SettingsOption>
             </RoundedBox>
             <ListItem sx={{ color: 'secondaryText', px: '16px' }} noBorder>
-              <Text sx={{ fontWeight: 'bold' }}>Apply to all subdomains</Text>
+              <Text sx={{ fontWeight: 'bold' }}>
+                {getLocalizedMessage('wsext_apply_to_all_subdomains', currentLanguage)}
+              </Text>
               <ToggleSwitch
                 onChange={e => setIsAllSubdomainsIncluded(e.target.checked)}
                 checked={isAllSubdomainsIncluded}

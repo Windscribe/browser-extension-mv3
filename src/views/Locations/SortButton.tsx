@@ -7,6 +7,7 @@ import { IconButton, InlineBlock } from 'components'
 import { setLocationSorting } from 'state/slices/locationSorting'
 import SortAlphabet from 'assets/img/sort-alphabet.svg'
 import SortGeography from 'assets/img/sort-geography.svg'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const Icons = {
   geography: <SortGeography />,
@@ -16,6 +17,7 @@ const Icons = {
 const SortButton: ThemeUiElement = () => {
   const dispatch = useDispatch()
   const sortBy = useSelector(s => s.locationSorting)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const handleClick = async () => {
     const locationSorting = sortBy === 'geography' ? 'alphabet' : 'geography'
@@ -31,7 +33,7 @@ const SortButton: ThemeUiElement = () => {
         onClick={handleClick}
       >
         <Box
-          aria-label={`Sort by ${sortBy}`}
+          aria-label={getLocalizedMessage('wsext_sort_by', currentLanguage, { sort: sortBy })}
           ml="auto"
           sx={{
             'svg > path': {

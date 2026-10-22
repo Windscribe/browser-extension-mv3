@@ -7,17 +7,30 @@ import { FETCH_SERVER_LIST } from 'state/slices/servers'
 import { ACTIVATE_SPLIT_PERSONALITY } from 'state/slices/splitPersonalityEnabled'
 import { initializeUserAgentsList, setOriginalUserAgent } from 'state/slices/userAgent'
 import {
+  audioAntiFingerprintingScriptId,
+  canvasAntiFingerprintingScriptId,
+  fingerprintjsAntiFingerprintingScriptId,
+  fingerprintMessageListenerScriptId,
+  fontAntiFingerprintingScriptId,
   languageWarpScriptId,
   locationWarpScriptId,
+  screenResAntiFingerprintingScriptId,
   splitPersonalityScriptId,
   timeZoneWarpScriptId,
+  webshareNoOpScriptId,
   workerBlockScriptId,
 } from 'utils/constants'
 import { getBundleNamePostFix } from 'utils/getBundleName'
 import { getNearestValidDataCenter } from 'utils/getNearestValidLocation'
 import { doesBundleExistInBuild, registerScript } from 'utils/scriptController'
+import {
+  disableUrlCleaner,
+  enableUrlCleaner,
+} from 'services/declarativeNetRequest/updateDynamicRules'
+import { getLinkSanitizerRemoveParamsFromState } from 'utils/linkSanitizerParams'
 
 import transformAllowListToExcludeMatches from 'utils/transformAllowListToExcludeMatches'
+import { getPrivacyFeatureEnabledDomains } from 'utils/networkSpoofing'
 
 const registerScripts = async (
   store: StoreType,
@@ -40,6 +53,8 @@ const registerScripts = async (
     const username = store.getState().serverCredentials.username
     const password = store.getState().serverCredentials.password
     const bestLocationLoading = store.getState().bestLocation.loading
+    const isAntiFingerprintingActive = store.getState().antiFingerprinting
+    const isUrlCleanerEnabled = store.getState().urlCleanerEnabled
 
     if (!session) {
       await pushToDebugLog({
@@ -59,6 +74,55 @@ const registerScripts = async (
         workerBlockScriptId,
         ['workerBlockContentScript.bundle.js'],
         excludeMatchesFromAllowList,
+      )
+    }
+
+    // URL Cleaner does not need data so we register here directly
+    if (isUrlCleanerEnabled) {
+      await enableUrlCleaner(
+        getPrivacyFeatureEnabledDomains(store.getState().allowlist),
+        getLinkSanitizerRemoveParamsFromState(store.getState().linkSanitizer),
+      )
+    } else {
+      await disableUrlCleaner()
+    }
+
+    if (isAntiFingerprintingActive) {
+      await registerScript(
+        fontAntiFingerprintingScriptId,
+        ['fontAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        screenResAntiFingerprintingScriptId,
+        ['screenResAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        canvasAntiFingerprintingScriptId,
+        ['canvasAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        audioAntiFingerprintingScriptId,
+        ['audioAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        fingerprintjsAntiFingerprintingScriptId,
+        ['fingerprintjsAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        fingerprintMessageListenerScriptId,
+        ['fingerprintMessageListener.bundle.js'],
+        excludeMatchesFromAllowList,
+        'ISOLATED',
       )
     }
 
@@ -117,6 +181,8 @@ const registerScripts = async (
     const isTimeZoneWarpActive = store.getState().timeWarpEnabled
     const serverList = store.getState().servers.serverList
     const isUserPro = store.getState().session.sessionData?.is_premium
+    const isAntiFingerprintingActive = store.getState().antiFingerprinting
+    const isUrlCleanerEnabled = store.getState().urlCleanerEnabled
 
     const excludeMatchesFromAllowList = transformAllowListToExcludeMatches(
       store.getState().allowlist,
@@ -130,6 +196,48 @@ const registerScripts = async (
       )
     }
 
+    // URL Cleaner does not need data so we register here directly
+    if (isUrlCleanerEnabled) {
+      await enableUrlCleaner(
+        getPrivacyFeatureEnabledDomains(store.getState().allowlist),
+        getLinkSanitizerRemoveParamsFromState(store.getState().linkSanitizer),
+      )
+    } else {
+      await disableUrlCleaner()
+    }
+
+    if (isAntiFingerprintingActive) {
+      await registerScript(
+        fontAntiFingerprintingScriptId,
+        ['fontAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        screenResAntiFingerprintingScriptId,
+        ['screenResAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        canvasAntiFingerprintingScriptId,
+        ['canvasAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        audioAntiFingerprintingScriptId,
+        ['audioAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+
+      await registerScript(
+        fingerprintjsAntiFingerprintingScriptId,
+        ['fingerprintjsAntiFingerprinting.bundle.js'],
+        excludeMatchesFromAllowList,
+      )
+    }
+
     if (isSplitPersonalityEnabled && spoofedUserAgent) {
       await registerScript(
         splitPersonalityScriptId,
@@ -137,6 +245,9 @@ const registerScripts = async (
         excludeMatchesFromAllowList,
       )
     }
+
+    // always register webshareNoOpScript
+    await registerScript(webshareNoOpScriptId, ['webshareNoOpContentScript.bundle.js'])
 
     if (
       !autopilot.autopilotSelected &&

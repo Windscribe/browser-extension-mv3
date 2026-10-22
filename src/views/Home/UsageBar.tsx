@@ -4,6 +4,7 @@ import bytes from 'bytes'
 import { useSelector } from 'state/hooks'
 import { SpaceBetween } from 'components/Flexbox'
 import { ACCOUNT_PLAN, ENVS } from 'utils/constants'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const getUsageColor = (percentage: number) => {
   if (percentage < 50) return 'neonGreen'
@@ -15,6 +16,7 @@ const UsageBar: React.FC<ButtonProps> = () => {
   const traffic_max = useSelector(s => s.session.sessionData?.traffic_max) || 0
   const traffic_used = useSelector(s => s.session.sessionData?.traffic_used) || 0
   const username = useSelector(s => s.session.sessionData?.username)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const percentageUsed = (traffic_used / traffic_max) * 100
   const trafficDifference = traffic_max - traffic_used
@@ -28,7 +30,7 @@ const UsageBar: React.FC<ButtonProps> = () => {
   return (
     <Button
       variant="simple"
-      aria-label="Usage Bar"
+      aria-label={getLocalizedMessage('wsext_usage_bar', currentLanguage)}
       tabIndex={0}
       onClick={handleClick}
       bg="black"
@@ -71,7 +73,7 @@ const UsageBar: React.FC<ButtonProps> = () => {
         {/* <WithTooltip tip={`${'Reset Date'}: ${addOneMonthToDate(last_reset)}`}> */}
         <Flex>
           {traffic_max === ACCOUNT_PLAN.UNLIMITED ? (
-            <Text color="green">Unlimited</Text>
+            <Text color="green">{getLocalizedMessage('wsext_unlimited', currentLanguage)}</Text>
           ) : (
             <Text
               sx={{
@@ -80,7 +82,9 @@ const UsageBar: React.FC<ButtonProps> = () => {
                 fontWeight: 'bold',
               }}
             >
-              {trafficDifference < 0 ? 'Out of data' : `${remainingDataBytes} Left`}
+              {trafficDifference < 0
+                ? getLocalizedMessage('wsext_out_of_data', currentLanguage)
+                : `${remainingDataBytes} ${getLocalizedMessage('wsext_left', currentLanguage)}`}
             </Text>
           )}
         </Flex>
@@ -96,7 +100,9 @@ const UsageBar: React.FC<ButtonProps> = () => {
               transition: 'color 0.3s ease',
             }}
           >
-            {username ? 'upgrade' : 'get more data'}
+            {username
+              ? getLocalizedMessage('wsext_upgrade', currentLanguage)
+              : getLocalizedMessage('wsext_get_more_data', currentLanguage)}
           </Text>
         </Box>
       </SpaceBetween>

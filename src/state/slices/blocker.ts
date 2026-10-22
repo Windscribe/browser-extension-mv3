@@ -4,12 +4,14 @@ interface BlockerState {
   blockLists: string[]
   showUblockWarningAtHomePage: boolean
   showUblockWarningAtBlockerPage: boolean
+  showUblockWarningAtLinkSanitizer: boolean
 }
 
 export const initialState: BlockerState = {
-  blockLists: ['default'],
+  blockLists: ['easylist', 'easyprivacy', 'pgl', 'ublock-filters'],
   showUblockWarningAtHomePage: true,
   showUblockWarningAtBlockerPage: true,
+  showUblockWarningAtLinkSanitizer: true,
 }
 
 export const blockerSlice = createSlice({
@@ -25,9 +27,16 @@ export const blockerSlice = createSlice({
     setShowUblockWarningAtBlockerPage(state, action: PayloadAction<boolean>) {
       state.showUblockWarningAtBlockerPage = action.payload
     },
+    setShowUblockWarningAtLinkSanitizer(state, action: PayloadAction<boolean>) {
+      state.showUblockWarningAtLinkSanitizer = action.payload
+    },
   },
 })
 
-export const { setBlockLists, setShowUblockWarningAtHomePage, setShowUblockWarningAtBlockerPage } =
-  blockerSlice.actions
+export const {
+  setBlockLists,
+  setShowUblockWarningAtHomePage,
+  setShowUblockWarningAtBlockerPage,
+  setShowUblockWarningAtLinkSanitizer,
+} = blockerSlice.actions
 export default blockerSlice.reducer

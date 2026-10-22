@@ -12,6 +12,7 @@ import { importBlockerSettings } from './importBlockerSettings'
 import { importAllowListSettings } from './importAllowlistSettings'
 import { importPrivacySettings } from './importPrivacySettings'
 import { addOverlay } from 'state/slices/overlay'
+import type { LinkSanitizerState } from 'state/slices/linkSanitizer'
 
 type ImportSettingsArgs = {
   file: File
@@ -26,6 +27,8 @@ type ImportSettingsArgs = {
   isUserPro: 0 | 1 | undefined
   isSplitPersonalityEnabled: boolean
   spoofedUserAgent: string
+  isUrlCleanerEnabled: boolean
+  linkSanitizer: LinkSanitizerState
 }
 
 export const importSettings = async ({
@@ -41,6 +44,8 @@ export const importSettings = async ({
   isUserPro,
   isSplitPersonalityEnabled,
   spoofedUserAgent,
+  isUrlCleanerEnabled,
+  linkSanitizer,
 }: ImportSettingsArgs): Promise<void> => {
   const fileContents = await file.text()
   const parsedJSONFile = JSON.parse(fileContents)
@@ -77,6 +82,8 @@ export const importSettings = async ({
       addToAllowlist,
       isSplitPersonalityEnabled,
       spoofedUserAgent,
+      isUrlCleanerEnabled,
+      linkSanitizer,
     )
 
     await pushToDebugLog({

@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Column } from 'components/Flexbox'
-import withSpinner from 'utils/withSpinner'
-import LocationsListItem from './LocationsListItem'
+import ServerList from './ServerList'
 import { useSelector } from 'state/hooks'
-import type { ServerList } from 'api/types'
+import type { ServerList as ServerListType } from 'api/types'
 import { selectSortedLocation } from 'state/slices/servers'
 import Fuse from 'fuse.js'
 
-const filterServerListBySearchText = (serverList: ServerList, searchText: string): ServerList => {
-  // Setup Fuse.js for searching
+const filterServerListBySearchText = (
+  serverList: ServerListType,
+  searchText: string,
+): ServerListType => {
   const fuseOptions = {
     keys: ['name', 'groups.city', 'groups.nick'],
     threshold: 0.3,
@@ -19,7 +20,7 @@ const filterServerListBySearchText = (serverList: ServerList, searchText: string
   const results = fuse.search(searchText)
 
   return results.map(({ item, matches }) => {
-    if (!matches) return item // Return the item unchanged if there are no matches
+    if (!matches) return item
 
     const nameMatches = matches.some(match => match.key && match.key === 'name')
     const matchedGroupIndexes = matches
@@ -51,8 +52,9 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
   const autopilotLocation = useSelector(s => s.autopilot.autopilotData?.location)
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
   const isPremium = useSelector(s => s.session.sessionData?.is_premium)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
-  const [serverList, setServerList] = useState<ServerList>(serverListSorted)
+  const [serverList, setServerList] = useState<ServerListType>(serverListSorted)
 
   useEffect(() => {
     if (searchText.length > 0) {
@@ -64,71 +66,18 @@ const LocationsList: React.FC<{ searchText: string }> = ({ searchText }) => {
     }
   }, [searchText, serverListSorted])
 
-  /*
-   * Creating components inside render function of another component is an anti-pattern
-   * because on every LocationsList re-render React will re-mount ServerList,
-   * which is going to be much slower than a normal re-render.
-   *
-   * TODO Refactor
-   */
-  const ServerList = (
-    <>
-      {searchText && !serverList.length ? (
-        <Column
-          sx={{
-            height: '90%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '16px',
-            color: 'primaryText',
-          }}
-        >
-          No Results :(
-        </Column>
-      ) : (
-        <>
-          {autopilotLocation && !searchText && (
-            <LocationsListItem
-              data-testid="autopilot-list-item"
-              location={autopilotLocation}
-              isPremium={!!isPremium}
-              isAutopilot
-              currentlySelected={currentLocationId === autopilotLocation.id && autopilotSelected}
-            />
-          )}
-          {serverList
-            .filter(location => location.groups?.length)
-            .map((location, i) => (
-              <LocationsListItem
-                data-testid={`locations-list-item-${i}`}
-                key={location.id}
-                location={location}
-                isPremium={!!isPremium}
-                proOnly={location.premium_only === 1}
-                currentlySelected={location.groupsModified}
-              />
-            ))}
-          <div
-            id="anchor"
-            sx={{
-              overflowAnchor: 'auto',
-              minHeight: 5,
-            }}
-          ></div>
-        </>
-      )}
-    </>
-  )
-
-  const ServerListWithSpinner = withSpinner(
-    ServerList,
-    serversListLoading,
-    'Error while fetching Locations',
-  )
-
   return (
     <Column data-testid="locations-list" sx={{ height: '100%' }}>
-      <ServerListWithSpinner />
+      <ServerList
+        serverList={serverList}
+        searchText={searchText}
+        serversListLoading={serversListLoading}
+        currentLocationId={currentLocationId}
+        autopilotLocation={autopilotLocation}
+        autopilotSelected={!!autopilotSelected}
+        isPremium={!!isPremium}
+        currentLanguage={currentLanguage}
+      />
     </Column>
   )
 }

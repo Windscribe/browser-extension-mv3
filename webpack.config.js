@@ -25,6 +25,42 @@ const uboLiteSubmoduleCommitHash = require('child_process')
 const uboLiteVersion = require('./ubo-lite-mirror/chromium/manifest.json').version
 const uboLiteName = require('./ubo-lite-mirror/chromium/_locales/et/messages.json').extName.message
 
+// Link Sanitizer owns URL cleaning while it is on. Index uBlock removeParams
+// rule IDs so those static rules can be disabled/restored at runtime.
+const isRemoveParamRule = rule => {
+  const removeParams = rule?.action?.redirect?.transform?.queryTransform?.removeParams
+  return Array.isArray(removeParams) && removeParams.length > 0
+}
+
+const collectUblockRemoveParamRuleIds = () => {
+  const rulesetsDir = path.join(__dirname, 'ubo-lite-mirror/chromium/rulesets/main')
+  const ruleIdsByRuleset = {}
+
+  for (const file of fileSystem.readdirSync(rulesetsDir)) {
+    if (!file.endsWith('.json')) {
+      continue
+    }
+
+    const rules = JSON.parse(fileSystem.readFileSync(path.join(rulesetsDir, file), 'utf8'))
+
+    if (!Array.isArray(rules)) {
+      continue
+    }
+
+    const ruleIds = rules.filter(isRemoveParamRule).map(rule => rule.id)
+
+    if (ruleIds.length > 0) {
+      const rulesetId = file.replace(/\.json$/, '')
+      ruleIdsByRuleset[rulesetId] = ruleIds
+      console.log(`[link-sanitizer] indexed ${ruleIds.length} removeParams rule(s) in ${rulesetId}`)
+    }
+  }
+
+  return ruleIdsByRuleset
+}
+
+const ublockRemoveParamRuleIds = collectUblockRemoveParamRuleIds()
+
 const alias = {
   'react-dom': '@hot-loader/react-dom',
 }
@@ -65,6 +101,68 @@ const options = {
       'pages',
       'contentScripts',
       'workerBlock.ts',
+    ),
+
+    webshareNoOpContentScript: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'webshareNoOp.ts',
+    ),
+
+    fontAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'font.ts',
+    ),
+
+    canvasAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'canvas.ts',
+    ),
+
+    screenResAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'screen.ts',
+    ),
+
+    audioAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'audio.ts',
+    ),
+
+    fingerprintjsAntiFingerprinting: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'fingerprintjs.ts',
+    ),
+
+    fingerprintMessageListener: path.join(
+      __dirname,
+      'src',
+      'pages',
+      'contentScripts',
+      'antiFingerprinting',
+      'fingerprintMessageListener.ts',
     ),
 
     offscreenHub: path.join(__dirname, 'src', 'services', 'offscreenActions', 'offscreenHub.ts'),
@@ -147,6 +245,7 @@ const options = {
       UBO_LITE_SUBMODULE_COMMIT_HASH: JSON.stringify(uboLiteSubmoduleCommitHash),
       UBO_LITE_VERSION: JSON.stringify(uboLiteVersion),
       UBO_LITE_NAME: JSON.stringify(uboLiteName),
+      UBLOCK_REMOVE_PARAM_RULE_IDS: JSON.stringify(ublockRemoveParamRuleIds),
     }),
 
     new CleanWebpackPlugin({ verbose: false }),
@@ -196,6 +295,17 @@ const options = {
         },
       ],
     }),
+
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/_locales',
+          to: path.join(__dirname, 'build/_locales'),
+          force: true,
+        },
+      ],
+    }),
+
     // new CopyWebpackPlugin({
     //   patterns: [
     //     {
@@ -213,14 +323,29 @@ const options = {
           to: path.join(__dirname, 'build'),
           force: true,
           globOptions: {
-            ignore: ['**/manifest.json'], // dont copy manifest.json
+            ignore: ['**/manifest.json', '**/log.txt'], // dont copy manifest.json
           },
-          transform(content, path) {
-            if (path.endsWith('dashboard.js')) {
+          transform(content, absoluteFrom) {
+            if (absoluteFrom.endsWith('dashboard.js')) {
               return content
                 .toString()
                 .replace(/UBO_LITE_VERSION/g, JSON.stringify(uboLiteVersion))
                 .replace(/UBO_LITE_NAME/g, JSON.stringify(uboLiteName))
+            }
+
+            const relativePath = path.relative(
+              path.join(__dirname, 'ubo-lite-mirror/chromium'),
+              absoluteFrom,
+            )
+
+            if (relativePath.includes('_locales') && relativePath.endsWith('messages.json')) {
+              const targetPath = path.join(__dirname, 'src', relativePath)
+
+              if (fileSystem.existsSync(targetPath)) {
+                const uboMessages = JSON.parse(content.toString())
+                const sourceMessages = JSON.parse(fileSystem.readFileSync(targetPath, 'utf8'))
+                return JSON.stringify({ ...uboMessages, ...sourceMessages }, null, 2)
+              }
             }
 
             return content
@@ -302,6 +427,17 @@ if (env.NODE_ENV === 'development') {
     minimizer: [
       new TerserPlugin({
         extractComments: false,
+        terserOptions: {
+          parse: {
+            module: true,
+          },
+          compress: {
+            toplevel: false,
+          },
+          mangle: {
+            toplevel: false,
+          },
+        },
       }),
     ],
   }

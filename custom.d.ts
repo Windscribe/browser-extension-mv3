@@ -13,3 +13,4 @@ declare const COMMIT_HASH: string
 declare const UBO_LITE_VERSION: string
 declare const UBO_LITE_NAME: string
 declare const UBO_LITE_SUBMODULE_COMMIT_HASH: string
+declare const UBLOCK_REMOVE_PARAM_RULE_IDS: Record<string, number[]>

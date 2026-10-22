@@ -11,10 +11,12 @@ import sendMessage from 'services/runtime/sendMessage'
 import AdblockIcon from 'assets/img/adblock.svg'
 import SocialDistancingIcon from 'assets/img/socialDistancing.svg'
 import CookieGoAwayIcon from 'assets/img/cookieGoAway.svg'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const Blocker: ThemeUiElement = () => {
   const blockLists = useSelector(s => s.blocker.blockLists)
   const showUblockWarningAtBlockerPage = useSelector(s => s.blocker.showUblockWarningAtBlockerPage)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const dispatch = useDispatch()
   const [shouldShowReloadAlert, showReloadAlert] = useState(false)
@@ -22,19 +24,24 @@ const Blocker: ThemeUiElement = () => {
   const ublockStatus = useIsUblockLiteStatus()
 
   useEffect(() => {
-    if (ublockStatus === 'enabled' && showUblockWarningAtBlockerPage) {
+    if (ublockStatus.status === 'enabled' && showUblockWarningAtBlockerPage) {
       dispatch(addOverlay('ublockDetected'))
     }
   }, [dispatch, ublockStatus, showUblockWarningAtBlockerPage])
 
-  const handleBlockListToggle = (listName: string) => {
+  const handleBlockListToggle = (rulesets: string[]) => {
     showReloadAlert(true)
-    let newBlocklist
-    if (blockLists.includes(listName)) {
-      newBlocklist = blockLists.filter(list => list !== listName)
-    } else {
-      newBlocklist = [...blockLists, listName]
-    }
+    let newBlocklist = [...blockLists] // Start with current list
+
+    // For each ruleset, toggle it individually (same as original behavior)
+    rulesets.forEach(ruleset => {
+      if (newBlocklist.includes(ruleset)) {
+        newBlocklist = newBlocklist.filter(list => list !== ruleset)
+      } else {
+        newBlocklist.push(ruleset)
+      }
+    })
+
     dispatch(setBlockLists(newBlocklist))
 
     sendMessage({
@@ -44,54 +51,59 @@ const Blocker: ThemeUiElement = () => {
     })
   }
 
-  const isUblockEnabled = ublockStatus === 'enabled'
-  const isUblockInstalled = ublockStatus !== 'not_installed'
+  const isUblockEnabled = ublockStatus.status === 'enabled'
+  const isUblockInstalled = ublockStatus.status !== 'not_installed'
 
   return (
     <Box data-testid="blocker-page" bg="background">
-      <Header title="Blocker" {...{ shouldShowReloadAlert, showReloadAlert }} />
+      <Header
+        title={getLocalizedMessage('wsext_blocker', currentLanguage)}
+        {...{ shouldShowReloadAlert, showReloadAlert }}
+      />
       <ScrollableBox>
         <OptionBox
           Icon={AdblockIcon}
-          title="Ad Crusher"
-          subTitle="Ads, Malware, Trackers, Miners, And More"
+          title={getLocalizedMessage('wsext_ad_crusher', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_ad_crusher_description', currentLanguage)}
           path={'features/ad-blocking'}
         >
           <ToggleSwitch
             disabled={isUblockEnabled}
-            message="Not available when Ublock Lite is enabled"
+            message={getLocalizedMessage('wsext_not_available_when_ublock_lite_enabled', currentLanguage)}
             onChange={() => {
-              handleBlockListToggle('default')
+              handleBlockListToggle(['easylist', 'easyprivacy', 'pgl', 'ublock-filters'])
             }}
-            checked={blockLists.includes('default')}
+            checked={['easylist', 'easyprivacy', 'pgl', 'ublock-filters'].every(ruleset =>
+              blockLists.includes(ruleset),
+            )}
           />
         </OptionBox>
         <OptionBox
           Icon={SocialDistancingIcon}
-          title="Social Distancing"
-          subTitle="Blocks tracking social network widgets and buttons"
+          title={getLocalizedMessage('wsext_social_distancing', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_social_distancing_description', currentLanguage)}
           path={'features/ad-blocking'}
         >
           <ToggleSwitch
             disabled={isUblockEnabled}
-            message="Not available when Ublock Lite is enabled"
+            message={getLocalizedMessage('wsext_not_available_when_ublock_lite_enabled', currentLanguage)}
             onChange={() => {
-              handleBlockListToggle('annoyances-social')
+              handleBlockListToggle(['annoyances-social'])
             }}
             checked={blockLists.includes('annoyances-social')}
           />
         </OptionBox>
         <OptionBox
           Icon={CookieGoAwayIcon}
-          title="Cookie Go Away"
-          subTitle='Blocks annoying "We use cookies" banners on all websites'
+          title={getLocalizedMessage('wsext_cookie_go_away', currentLanguage)}
+          subTitle={getLocalizedMessage('wsext_cookie_go_away_description', currentLanguage)}
           path={'features/ad-blocking'}
         >
           <ToggleSwitch
             disabled={isUblockEnabled}
-            message="Not available when Ublock Lite is enabled"
+            message={getLocalizedMessage('wsext_not_available_when_ublock_lite_enabled', currentLanguage)}
             onChange={() => {
-              handleBlockListToggle('annoyances-cookies')
+              handleBlockListToggle(['annoyances-cookies'])
             }}
             checked={blockLists.includes('annoyances-cookies')}
           />
@@ -100,8 +112,8 @@ const Blocker: ThemeUiElement = () => {
           <OptionBox
             // todo change icon
             Icon={CookieGoAwayIcon}
-            title="uBlock Origin Lite"
-            subTitle="Blocker settings are not available when uBlock Lite is enabled. Disable this setting to use Windscribe's adblock"
+            title={getLocalizedMessage('wsext_ublock_origin_lite', currentLanguage)}
+            subTitle={getLocalizedMessage('wsext_ublock_origin_lite_description', currentLanguage)}
           >
             <ToggleSwitch
               onChange={async () => {
@@ -114,9 +126,11 @@ const Blocker: ThemeUiElement = () => {
 
         <OptionLinkBox
           disabled={isUblockEnabled}
-          message="Not available when uBlock Origin Lite is enabled"
+          message={getLocalizedMessage('wsext_not_available_when_ublock_origin_lite_enabled',
+            currentLanguage,
+          )}
           url={chrome.runtime.getURL('dashboard.html')}
-          text="uBlock Settings"
+          text={getLocalizedMessage('wsext_ublock_settings', currentLanguage)}
           sx={{
             fontSize: '14px',
             fontWeight: 'bold',
@@ -140,7 +154,7 @@ const Blocker: ThemeUiElement = () => {
               justifyContent: 'space-between',
             }}
           >
-            Version
+            {getLocalizedMessage('wsext_version', currentLanguage)}
             <span
               sx={{
                 fontWeight: '400',
@@ -153,7 +167,7 @@ const Blocker: ThemeUiElement = () => {
 
         <OptionLinkBox
           url="https://chrome.google.com/webstore/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone"
-          text="Check out the SponsorBlock extension to skip sponsorships on YouTube videos."
+          text={getLocalizedMessage('wsext_sponsorblock_recommendation', currentLanguage)}
         />
       </ScrollableBox>
     </Box>

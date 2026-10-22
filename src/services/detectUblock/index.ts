@@ -1,17 +1,55 @@
 import { pushToDebugLog } from 'services/debugLog'
-import { UBLOCK_LITE_EXTENSION_ID } from 'utils/constants'
+import { UBLOCK_LITE_EXTENSION_IDS } from 'utils/constants'
 import getErrorMessage from 'utils/getErrorMessage'
 import { useEffect, useState } from 'react'
 import { Message } from 'api/types'
 import { StoreType } from 'state'
 import { serializeError } from 'serialize-error'
 
-type UblockInstallStatus = 'enabled' | 'disabled' | 'not_installed'
+type UblockInstallStatus = {
+  status: 'enabled' | 'disabled' | 'not_installed'
+  extensionId?: string
+}
 
+function isFulfilled<T>(r: PromiseSettledResult<T>): r is PromiseFulfilledResult<T> {
+  return r.status === 'fulfilled'
+}
+
+// id collisions are highly unlikely
 const detectUblock = async (): Promise<UblockInstallStatus> => {
   try {
-    const isEnabled = await chrome.management.get(UBLOCK_LITE_EXTENSION_ID)
-    return isEnabled.enabled ? 'enabled' : 'disabled'
+    const currentUblocksIfAnyEnabled = UBLOCK_LITE_EXTENSION_IDS.map(async id => {
+      const extension = await chrome.management.get(id)
+      return {
+        enabled: extension.enabled,
+        id: extension.id,
+      }
+    })
+
+    const result = await Promise.allSettled(currentUblocksIfAnyEnabled)
+
+    const enabledUblocks = result.filter(extension => extension.status === 'fulfilled')
+
+    if (enabledUblocks.length === 0) {
+      return {
+        status: 'not_installed',
+      }
+    }
+
+    const enabledUblock = result.find(isFulfilled)
+
+    if (!enabledUblock) {
+      return {
+        status: 'not_installed',
+      }
+    }
+
+    const { enabled, id } = enabledUblock.value
+
+    return {
+      status: enabled ? 'enabled' : 'disabled',
+      extensionId: id,
+    }
   } catch (err) {
     const message = getErrorMessage(err)
     await pushToDebugLog({
@@ -19,19 +57,30 @@ const detectUblock = async (): Promise<UblockInstallStatus> => {
       data: serializeError(err),
       level: 'ERROR',
     })
-    return 'not_installed'
+    return {
+      status: 'not_installed',
+    }
   }
 }
 
 const toggleUblockLite = async (): Promise<void> => {
   try {
-    const ublockStatus = await detectUblock()
-    if (ublockStatus === 'not_installed') {
+    const currentUblock = await detectUblock()
+    if (currentUblock.status === 'not_installed') {
       // the extension is not installed ignore toggling
       return
     }
-    const nextValue = ublockStatus === 'enabled' ? false : true
-    await chrome.management.setEnabled(UBLOCK_LITE_EXTENSION_ID, nextValue)
+
+    const nextValue = currentUblock.status === 'enabled' ? false : true
+
+    if (currentUblock.extensionId) {
+      await chrome.management.setEnabled(currentUblock.extensionId, nextValue)
+    } else {
+      await pushToDebugLog({
+        message: 'No extension id found for ublock lite',
+        level: 'WARN',
+      })
+    }
   } catch (err) {
     const message = getErrorMessage(err)
     await pushToDebugLog({
@@ -44,13 +93,18 @@ const toggleUblockLite = async (): Promise<void> => {
 
 // could also use sync external store but you would need to update react
 const useIsUblockLiteStatus = (): UblockInstallStatus => {
-  const [ublockStatus, setUblockStatus] = useState<UblockInstallStatus>('disabled')
+  const [ublockStatus, setUblockStatus] = useState<UblockInstallStatus>({
+    status: 'disabled',
+    extensionId: undefined,
+  })
 
   useEffect(() => {
     const listener = (info: chrome.management.ExtensionInfo) => {
-      if (info.id === UBLOCK_LITE_EXTENSION_ID) {
-        const result = info.enabled ? 'enabled' : 'disabled'
-        setUblockStatus(result)
+      if (UBLOCK_LITE_EXTENSION_IDS.find(id => id === info.id)) {
+        setUblockStatus({
+          status: info.enabled ? 'enabled' : 'disabled',
+          extensionId: info.id,
+        })
       }
     }
 
@@ -65,7 +119,7 @@ const useIsUblockLiteStatus = (): UblockInstallStatus => {
           data: serializeError(err),
           level: 'ERROR',
         })
-        setUblockStatus('not_installed')
+        setUblockStatus({ status: 'not_installed' })
       }
     }
 
@@ -83,7 +137,7 @@ const useIsUblockLiteStatus = (): UblockInstallStatus => {
 }
 
 const enableOrDisableUblock = async (blockLists: string[], store: StoreType): Promise<void> => {
-  const ublockStatus = await detectUblock()
+  const currentUblock = await detectUblock()
 
   const authHash = store.getState().session.sessionData?.session_auth_hash
   if (!authHash) {
@@ -95,7 +149,7 @@ const enableOrDisableUblock = async (blockLists: string[], store: StoreType): Pr
     return
   }
 
-  if (ublockStatus === 'enabled') {
+  if (currentUblock.status === 'enabled') {
     await chrome.runtime.sendMessage<Message>({
       target: 'offscreen',
       type: 'applyBlockerSettings',

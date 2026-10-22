@@ -28,6 +28,7 @@ export type OverlayTemplate =
   | 'welcome'
   | 'somethingWeird'
   | 'ublockDetected'
+  | 'ublockLinkSanitizer'
   | 'uninstallUblock'
   | 'noData'
   | 'extensionConflict'
@@ -38,6 +39,8 @@ export type OverlayTemplate =
   | 'invalidFormat'
   | 'errorDuringImport'
   | 'notificationBlockerPermission'
+  | 'clearSiteDataPermission'
+  | 'clearSiteDataConfirm'
   | 'firefoxInPrivateMode'
   | 'versionUnsupportedWarning'
 

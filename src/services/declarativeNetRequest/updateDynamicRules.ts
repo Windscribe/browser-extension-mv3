@@ -1,3 +1,10 @@
+import {
+  disableUblockRemoveParamRules,
+  restoreUblockRemoveParamRules,
+} from 'services/declarativeNetRequest/ublockRemoveParamRules'
+import { normalizeParamsList, getLinkSanitizerRemoveParamsFromState } from 'utils/linkSanitizerParams'
+import type { LinkSanitizerGroupId } from 'utils/linkSanitizerParams'
+
 const {
   MAIN_FRAME,
   SUB_FRAME,
@@ -155,4 +162,85 @@ export async function resetSpoofUserAgentHeader(): Promise<void> {
   await chrome.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: [spoofUserAgentHeaderRuleTemplate.id],
   })
+}
+
+const URL_CLEANER_RULE_ID = 2
+
+function createRemoveParamsRule(
+  paramsToRemove: string[],
+  dontCleanDomains: string[] = [],
+): chrome.declarativeNetRequest.Rule | null {
+  if (!paramsToRemove.length) {
+    return null
+  }
+
+  const condition: chrome.declarativeNetRequest.RuleCondition = {
+    urlFilter: '*',
+    resourceTypes: [XMLHTTPREQUEST, MAIN_FRAME, SUB_FRAME],
+  }
+
+  if (dontCleanDomains.length) {
+    condition.excludedRequestDomains = dontCleanDomains
+    condition.excludedInitiatorDomains = dontCleanDomains
+  }
+
+  return {
+    id: URL_CLEANER_RULE_ID,
+    priority: 1,
+    action: {
+      type: chrome.declarativeNetRequest.RuleActionType.REDIRECT,
+      redirect: {
+        transform: {
+          queryTransform: {
+            removeParams: paramsToRemove,
+          },
+        },
+      },
+    },
+    condition,
+  }
+}
+
+export async function enableUrlCleaner(
+  dontCleanDomains: string[],
+  removeParams: string[],
+): Promise<void> {
+  await disableUblockRemoveParamRules()
+
+  const rule = createRemoveParamsRule(normalizeParamsList(removeParams), dontCleanDomains)
+
+  if (!rule) {
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds: [URL_CLEANER_RULE_ID],
+    })
+    return
+  }
+
+  await chrome.declarativeNetRequest.updateDynamicRules({
+    addRules: [rule],
+    removeRuleIds: [URL_CLEANER_RULE_ID],
+  })
+}
+
+export async function disableUrlCleaner(): Promise<void> {
+  await chrome.declarativeNetRequest.updateDynamicRules({
+    removeRuleIds: [URL_CLEANER_RULE_ID],
+  })
+  await restoreUblockRemoveParamRules()
+}
+
+export async function syncUrlCleanerWithAllowlist(
+  enabled: boolean,
+  dontCleanDomains: string[],
+  linkSanitizer?: {
+    enabledGroups?: LinkSanitizerGroupId[]
+    customParams?: string[]
+  },
+): Promise<void> {
+  if (!enabled) {
+    await disableUrlCleaner()
+    return
+  }
+
+  await enableUrlCleaner(dontCleanDomains, getLinkSanitizerRemoveParamsFromState(linkSanitizer))
 }

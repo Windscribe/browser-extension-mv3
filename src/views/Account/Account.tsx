@@ -9,6 +9,7 @@ import { useWindowOpening } from 'components/hooks'
 import ToolTip from 'components/ToolTip'
 import ConfirmEmail from 'components/ConfirmEmail'
 import { EMAIL } from 'utils/constants'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const addOneMonthToDate = (date?: string) => {
   if (!date) return
@@ -19,6 +20,7 @@ const addOneMonthToDate = (date?: string) => {
 
 const Account: ThemeUiElement = () => {
   const sessionData = useSelector(s => s.session.sessionData)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   const trafficMax = sessionData?.traffic_max || 0
   const trafficMaxFormatted = bytes(trafficMax)
 
@@ -29,8 +31,8 @@ const Account: ThemeUiElement = () => {
 
   return (
     <Box data-testid="account-page" bg="background">
-      <Header title="Account">
-        <ToolTip message="My Account">
+      <Header title={getLocalizedMessage('wsext_account', currentLanguage)}>
+        <ToolTip message={getLocalizedMessage('wsext_my_account', currentLanguage)}>
           <CircleButton
             data-testid="edit-account-button"
             Icon={EditIcon}
@@ -52,35 +54,44 @@ const Account: ThemeUiElement = () => {
         </ToolTip>
       </Header>
       <ScrollableBox>
-        <Subheader>info</Subheader>
+        <Subheader>{getLocalizedMessage('wsext_info', currentLanguage)}</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
-            Username
-            <Box sx={{ fontWeight: '400' }} data-testid="account-username">
+            {getLocalizedMessage('wsext_username', currentLanguage)}
+            <Box
+              sx={{ fontWeight: '400', overflowWrap: 'anywhere', minWidth: 0, textAlign: 'right' }}
+              data-testid="account-username"
+            >
               {sessionData?.username}
             </Box>
           </ListItem>
           <ListItem noBorder>
-            Email
-            <Box sx={{ fontWeight: '400' }}>
+            {getLocalizedMessage('wsext_email', currentLanguage)}
+            <Box
+              sx={{ fontWeight: '400', overflowWrap: 'anywhere', minWidth: 0, textAlign: 'right' }}
+            >
               {sessionData?.email || (
                 <Button
                   onClick={openMyAccountPage}
                   sx={{ all: 'unset', cursor: 'pointer', color: 'lakeBlue' }}
                 >
-                  Add Email (+8GB)
+                  {getLocalizedMessage('wsext_add_email_with_bonus', currentLanguage)}
                 </Button>
               )}
             </Box>
           </ListItem>
         </RoundedBox>
-        <Subheader>plan</Subheader>
+        <Subheader>{getLocalizedMessage('wsext_plan', currentLanguage)}</Subheader>
         <RoundedBox sx={{ mb: '24px' }}>
           <ListItem>
-            {sessionData?.traffic_max === -1 ? 'Unlimited' : `${trafficMaxFormatted}/month`}
-            <Box sx={{ fontWeight: '400' }}>
+            {sessionData?.traffic_max === -1
+              ? getLocalizedMessage('wsext_unlimited', currentLanguage)
+              : `${trafficMaxFormatted}${getLocalizedMessage('wsext_per_month', currentLanguage)}`}
+            <Box
+              sx={{ fontWeight: '400', overflowWrap: 'anywhere', minWidth: 0, textAlign: 'right' }}
+            >
               {sessionData?.is_premium ? (
-                'Pro'
+                getLocalizedMessage('wsext_pro', currentLanguage)
               ) : (
                 <>
                   {sessionData?.email && sessionData?.email_status === EMAIL.UNCONFIRMED ? (
@@ -90,7 +101,7 @@ const Account: ThemeUiElement = () => {
                       onClick={openUpgradePage}
                       sx={{ all: 'unset', cursor: 'pointer', color: 'lakeBlue' }}
                     >
-                      Upgrade
+                      {getLocalizedMessage('wsext_upgrade', currentLanguage)}
                     </Button>
                   )}
                 </>
@@ -98,8 +109,12 @@ const Account: ThemeUiElement = () => {
             </Box>
           </ListItem>
           <ListItem noBorder>
-            {sessionData?.is_premium ? 'Expiry' : 'Reset'} Date
-            <Box sx={{ fontWeight: '400' }}>
+            {sessionData?.is_premium
+              ? getLocalizedMessage('wsext_expiry_date', currentLanguage)
+              : getLocalizedMessage('wsext_reset_date', currentLanguage)}
+            <Box
+              sx={{ fontWeight: '400', overflowWrap: 'anywhere', minWidth: 0, textAlign: 'right' }}
+            >
               {sessionData?.is_premium
                 ? sessionData?.premium_expiry_date
                 : addOneMonthToDate(sessionData?.last_reset)}

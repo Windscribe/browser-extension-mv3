@@ -39,8 +39,7 @@ export const checkCurrentIp = createAsyncThunk(
   CHECK_CURRENT_IP,
   async (_, { getState, dispatch }) => {
     try {
-      const workingApi = getState().workingApi
-      const currentIp = await checkIp(workingApi)
+      const currentIp = await checkIp()
       dispatch(setCurrentIp({ currentIp, isOnline: getState().isOnline }))
     } catch (err: unknown) {
       pushToDebugLog({

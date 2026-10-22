@@ -36,6 +36,7 @@ import { fetchServerList } from 'state/slices/servers'
 import { FETCH_NOTIFICATIONS, setShowNewsfeed } from 'state/slices/newsfeed'
 import ExclamationIcon from 'assets/img/exclamationIcon-short.svg'
 import { getChromiumEngineVersion } from 'utils/getEngineVersion'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const Home: ThemeUiElement = () => {
   const dispatch = useDispatch()
@@ -65,6 +66,7 @@ const Home: ThemeUiElement = () => {
   const dismissedUpgradeWarning = useSelector(s => s.dismissedUpgradeWarning)
   const parsedVersion = getChromiumEngineVersion()
   const showNewsfeed = useSelector(s => s.newsfeed.showNewsfeed)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const unreadNewsAmount = notifications
     .map(n => n.id)
@@ -97,7 +99,7 @@ const Home: ThemeUiElement = () => {
 
   useEffect(() => {
     detectUblock().then(ublockStatus => {
-      ublockStatus === 'enabled' &&
+      ublockStatus.status === 'enabled' &&
         showUblockWarningAtHomePage &&
         !isOnboardingActive &&
         dispatch(addOverlay('ublockDetected'))
@@ -111,7 +113,7 @@ const Home: ThemeUiElement = () => {
     let ignore = false
     detectUblock().then(ublockStatus => {
       if (ignore) return
-      if (ublockStatus === 'enabled') {
+      if (ublockStatus.status === 'enabled') {
         sendMessage({
           what: 'applyRulesets',
           from: 'popup',
@@ -310,7 +312,7 @@ const Home: ThemeUiElement = () => {
             }}
           >
             <ToolTip
-              message="Locations Menu"
+              message={getLocalizedMessage('wsext_locations_menu', currentLanguage)}
               sx={{
                 mr: '30px',
               }}

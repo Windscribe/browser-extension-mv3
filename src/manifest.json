@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "version": "4.2.1",
-  "version_name": "4.2.1",
+  "version": "4.3.1",
+  "version_name": "4.3.1",
   "minimum_chrome_version": "122.0",
-  "name": "Windscribe - Free Proxy and Ad Blocker",
+  "name": "__MSG_wsext_extName__",
   "short_name": "Windscribe",
-  "description": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
+  "description": "__MSG_wsext_extDescription__",
   "background": { "service_worker": "backgroundScripts.js", "type": "module" },
   "action": {
     "default_popup": "popup.html",
@@ -31,19 +31,19 @@
 
   "commands": {
     "toggle-proxy": {
-      "description": "Toggle Proxy On/Off"
+      "description": "__MSG_wsext_cmdToggleProxy__"
     },
     "open-preferences": {
-      "description": "Open Preferences"
+      "description": "__MSG_wsext_cmdOpenPreferences__"
     },
     "open-favourites": {
-      "description": "Open Favourite Locations"
+      "description": "__MSG_wsext_cmdOpenFavourites__"
     },
     "open-locations": {
-      "description": "Open Locations"
+      "description": "__MSG_wsext_cmdOpenLocations__"
     }
   },
-  "optional_permissions": ["contentSettings"],
+  "optional_permissions": ["browsingData", "contentSettings"],
   "host_permissions": ["<all_urls>"],
   "icons": {
     "16": "icon16.png",
@@ -54,14 +54,39 @@
   "declarative_net_request": {
     "rule_resources": [
       {
-        "id": "default",
+        "id": "ublock-filters",
         "enabled": true,
-        "path": "/rulesets/main/default.json"
+        "path": "/rulesets/main/ublock-filters.json"
       },
       {
-        "id": "badware",
+        "id": "easylist",
         "enabled": true,
-        "path": "/rulesets/main/badware.json"
+        "path": "/rulesets/main/easylist.json"
+      },
+      {
+        "id": "easyprivacy",
+        "enabled": true,
+        "path": "/rulesets/main/easyprivacy.json"
+      },
+      {
+        "id": "pgl",
+        "enabled": true,
+        "path": "/rulesets/main/pgl.json"
+      },
+      {
+        "id": "ublock-badware",
+        "enabled": true,
+        "path": "/rulesets/main/ublock-badware.json"
+      },
+      {
+        "id": "urlhaus-full",
+        "enabled": true,
+        "path": "/rulesets/main/urlhaus-full.json"
+      },
+      {
+        "id": "adguard-mobile",
+        "enabled": false,
+        "path": "/rulesets/main/adguard-mobile.json"
       },
       {
         "id": "block-lan",
@@ -69,14 +94,14 @@
         "path": "/rulesets/main/block-lan.json"
       },
       {
-        "id": "dpollock-0",
-        "enabled": false,
-        "path": "/rulesets/main/dpollock-0.json"
-      },
-      {
         "id": "adguard-spyware-url",
         "enabled": false,
         "path": "/rulesets/main/adguard-spyware-url.json"
+      },
+      {
+        "id": "annoyances-ai",
+        "enabled": false,
+        "path": "/rulesets/main/annoyances-ai.json"
       },
       {
         "id": "annoyances-cookies",
@@ -104,24 +129,29 @@
         "path": "/rulesets/main/annoyances-others.json"
       },
       {
-        "id": "urlhaus-full",
-        "enabled": true,
-        "path": "/rulesets/main/urlhaus-full.json"
-      },
-      {
-        "id": "openphish-domains",
-        "enabled": true,
-        "path": "/rulesets/main/openphish-domains.json"
-      },
-      {
-        "id": "stevenblack-hosts",
+        "id": "annoyances-notifications",
         "enabled": false,
-        "path": "/rulesets/main/stevenblack-hosts.json"
+        "path": "/rulesets/main/annoyances-notifications.json"
+      },
+      {
+        "id": "ublock-experimental",
+        "enabled": false,
+        "path": "/rulesets/main/ublock-experimental.json"
+      },
+      {
+        "id": "ubol-tests",
+        "enabled": false,
+        "path": "/rulesets/main/ubol-tests.json"
       },
       {
         "id": "alb-0",
         "enabled": false,
         "path": "/rulesets/main/alb-0.json"
+      },
+      {
+        "id": "ara-0",
+        "enabled": false,
+        "path": "/rulesets/main/ara-0.json"
       },
       {
         "id": "bgr-0",
@@ -142,6 +172,11 @@
         "id": "deu-0",
         "enabled": false,
         "path": "/rulesets/main/deu-0.json"
+      },
+      {
+        "id": "est-0",
+        "enabled": false,
+        "path": "/rulesets/main/est-0.json"
       },
       {
         "id": "fin-0",
@@ -239,6 +274,11 @@
         "path": "/rulesets/main/pol-0.json"
       },
       {
+        "id": "pol-3",
+        "enabled": false,
+        "path": "/rulesets/main/pol-3.json"
+      },
+      {
         "id": "rou-1",
         "enabled": false,
         "path": "/rulesets/main/rou-1.json"
@@ -292,11 +332,6 @@
         "id": "vie-1",
         "enabled": false,
         "path": "/rulesets/main/vie-1.json"
-      },
-      {
-        "id": "est-0",
-        "enabled": false,
-        "path": "/rulesets/main/est-0.json"
       }
     ]
   },
@@ -310,40 +345,59 @@
       "use_dynamic_url": true
     },
     {
+      "resources": ["/zapper-ui.html"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": true
+    },
+    {
+      "resources": ["/picker-ui.html"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": true
+    },
+    {
+      "resources": ["/unpicker-ui.html"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": true
+    },
+    {
       "resources": [
-        "/web_accessible_resources/noop.js",
-        "/web_accessible_resources/google-ima.js",
-        "/web_accessible_resources/noop.txt",
-        "/web_accessible_resources/noop-1s.mp4",
-        "/web_accessible_resources/noop.css",
-        "/web_accessible_resources/1x1.gif",
-        "/web_accessible_resources/2x2.png",
-        "/web_accessible_resources/32x32.png",
-        "/web_accessible_resources/empty",
-        "/web_accessible_resources/noop.html",
-        "/web_accessible_resources/nofab.js",
-        "/web_accessible_resources/hd-main.js",
-        "/web_accessible_resources/popads.js",
-        "/web_accessible_resources/googlesyndication_adsbygoogle.js",
-        "/web_accessible_resources/google-analytics_analytics.js",
-        "/web_accessible_resources/prebid-ads.js",
-        "/web_accessible_resources/amazon_apstag.js",
-        "/web_accessible_resources/doubleclick_instream_ad_status.js",
-        "/web_accessible_resources/google-analytics_cx_api.js",
-        "/web_accessible_resources/googletagservices_gpt.js",
-        "/web_accessible_resources/scorecardresearch_beacon.js",
-        "/web_accessible_resources/google-analytics_ga.js",
-        "/web_accessible_resources/outbrain-widget.js",
-        "/web_accessible_resources/fingerprint2.js",
-        "/web_accessible_resources/amazon_ads.js",
-        "/web_accessible_resources/chartbeat.js",
-        "/web_accessible_resources/noop-vmap1.xml",
-        "/web_accessible_resources/noop-vast3.xml",
-        "/web_accessible_resources/noop-0.1s.mp3",
-        "/web_accessible_resources/nobab2.js",
-        "/web_accessible_resources/noop.json",
-        "/web_accessible_resources/click2load.html",
-        "/web_accessible_resources/noeval-silent.js"
+        "web_accessible_resources/noop.js",
+        "web_accessible_resources/amazon_apstag.js",
+        "web_accessible_resources/google-ima.js",
+        "web_accessible_resources/fingerprint2.js",
+        "web_accessible_resources/sensors-analytics.js",
+        "web_accessible_resources/adthrive_abd.js",
+        "web_accessible_resources/noop.txt",
+        "web_accessible_resources/noop.css",
+        "web_accessible_resources/1x1.gif",
+        "web_accessible_resources/32x32.png",
+        "web_accessible_resources/2x2.png",
+        "web_accessible_resources/empty",
+        "web_accessible_resources/noop.html",
+        "web_accessible_resources/amazon_ads.js",
+        "web_accessible_resources/googletagservices_gpt.js",
+        "web_accessible_resources/google-analytics_analytics.js",
+        "web_accessible_resources/nofab.js",
+        "web_accessible_resources/hd-main.js",
+        "web_accessible_resources/popads.js",
+        "web_accessible_resources/googlesyndication_adsbygoogle.js",
+        "web_accessible_resources/prebid-ads.js",
+        "web_accessible_resources/doubleclick_instream_ad_status.js",
+        "web_accessible_resources/google-analytics_cx_api.js",
+        "web_accessible_resources/scorecardresearch_beacon.js",
+        "web_accessible_resources/google-analytics_ga.js",
+        "web_accessible_resources/outbrain-widget.js",
+        "web_accessible_resources/fingerprint3.js",
+        "web_accessible_resources/noop-vmap1.xml",
+        "web_accessible_resources/noop-vast3.xml",
+        "web_accessible_resources/noop-0.1s.mp3",
+        "web_accessible_resources/noop-vast2.xml",
+        "web_accessible_resources/noop-1s.mp4",
+        "web_accessible_resources/nobab2.js",
+        "web_accessible_resources/nitropay_ads.js",
+        "web_accessible_resources/chartbeat.js",
+        "web_accessible_resources/noop.json",
+        "web_accessible_resources/noeval-silent.js"
       ],
       "matches": ["<all_urls>"],
       "use_dynamic_url": true

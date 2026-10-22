@@ -4,13 +4,17 @@ import { SpaceBetween } from 'components/Flexbox'
 import { GoBackButton } from 'components'
 import SearchInput from './SearchInput'
 import { type HeaderActionsSectionProps } from './types'
+import { useSelector } from 'state/hooks'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const HeaderActionsSection: React.FC<HeaderActionsSectionProps> = ({
   showSearchInput,
   onSearchInputClose,
   onSearchInputChange,
   focusInitKey,
-}) => (
+}) => {
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
+  return (
   <SpaceBetween py="16px">
     <GoBackButton />
     <Flex
@@ -28,7 +32,7 @@ const HeaderActionsSection: React.FC<HeaderActionsSectionProps> = ({
           color: 'primaryText',
         }}
       >
-        Locations
+        {getLocalizedMessage('wsext_locations', currentLanguage)}
       </Flex>
     </Flex>
     {showSearchInput && (
@@ -39,6 +43,7 @@ const HeaderActionsSection: React.FC<HeaderActionsSectionProps> = ({
       />
     )}
   </SpaceBetween>
-)
+  )
+}
 
 export default HeaderActionsSection

@@ -4,18 +4,21 @@ import { type ThemeUIJSX } from '@theme-ui/core'
 type DropDownItemProps<T> = {
   current: boolean
   value: T
+  label?: string
   handleClick: (value: T) => void
 }
 
 function DropDownItem<T extends string | number>({
   current,
   value,
+  label,
   handleClick,
 }: DropDownItemProps<T>): ThemeUIJSX.Element {
+  const display = label ?? `${value}`
   return (
     <Flex
       onClick={() => handleClick(value)}
-      aria-label={`${value}`}
+      aria-label={display}
       sx={{
         color: current ? 'lakeBlue' : 'halfBlack',
         fontWeight: '700',
@@ -32,7 +35,7 @@ function DropDownItem<T extends string | number>({
         padding: '0 4px',
       }}
     >
-      {value}
+      {display}
     </Flex>
   )
 }

@@ -10,8 +10,7 @@ import isValidDomain from 'is-valid-domain'
 import { serializeError } from 'serialize-error'
 import { pushToDebugLog } from 'services/debugLog'
 import {
-  defaultUblockRulesetId,
-  ruleIdForMatomo,
+  rulesetsContainingTrackerRules,
   updateStaticRules,
 } from 'services/declarativeNetRequest/updateStaticRules'
 import { SetFilteringModeArgs } from 'services/ublockController/setFilteringMode'
@@ -169,10 +168,12 @@ export const migrateOtherSettings = async (
       await store.dispatch({ type: `alias/${ADD_TO_ALLOWLIST}`, payload: toSend })
 
       if (toSend.some(item => item && item.domain === CONTROL_D_DOMAIN && item.allowAds)) {
-        updateStaticRules({
-          rulesetId: defaultUblockRulesetId,
-          disableRuleIds: ruleIdForMatomo,
-        })
+        updateStaticRules(
+          rulesetsContainingTrackerRules.map(ruleset => ({
+            rulesetId: ruleset.rulesetId,
+            disableRuleIds: ruleset.ruleIds,
+          })),
+        )
       }
 
       // send in bulk

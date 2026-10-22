@@ -8,6 +8,8 @@ import { enableOrDisableUblock } from 'services/detectUblock'
 import { setupOffscreenDocument } from 'services/offscreenActions/offscreenController'
 import { setIsOnline } from 'state/slices/isOnline'
 import { chooseIcon } from 'state/slices/iconVariant'
+import { webshareNoOpScriptId } from 'utils/constants'
+import { registerScript } from 'utils/scriptController'
 
 export function startupHandler(bgStore: Promise<StoreType>) {
   return async (): Promise<void> => {
@@ -43,6 +45,8 @@ export function startupHandler(bgStore: Promise<StoreType>) {
         await connect(store.getState, store.dispatch, currentHosts)
         return
       }
+
+      registerScript(webshareNoOpScriptId, ['webshareNoOpContentScript.bundle.js'])
 
       await connectToAutopilot(store.getState, store.dispatch)
     } catch (err) {

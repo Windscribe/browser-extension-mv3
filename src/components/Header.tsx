@@ -4,6 +4,8 @@ import { type ThemeUiElement } from 'utils/types'
 import GoBackButton from './GoBackButton'
 import AlertButton from './AlertButton'
 import { reloadCurrentTab } from 'services/currentTab'
+import { useSelector } from 'state/hooks'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 type MandatoryProps = {
   title: string
@@ -23,6 +25,7 @@ const Header: ThemeUiElement<HeaderProps> = ({
   children,
   ...props
 }) => {
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   const handleClick = async () => {
     await reloadCurrentTab()
     // TODO Consider Should we reload all opened tabs instead just current one?
@@ -42,7 +45,7 @@ const Header: ThemeUiElement<HeaderProps> = ({
     >
       <GoBackButton />
       <AlertButton
-        text="Refresh to see changes"
+        text={getLocalizedMessage('wsext_refresh_to_see_changes', currentLanguage)}
         onClick={handleClick}
         sx={{
           visibility: shouldShowReloadAlert ? 'visible' : 'hidden',

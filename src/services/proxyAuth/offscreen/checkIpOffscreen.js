@@ -24,7 +24,7 @@ async function sendMessageToWorker(worker, message) {
 function handleMessages(message, sender, sendResponse) {
   // Return early if this message isn't meant for the offscreen script
   if (message.target !== 'offscreen') {
-    return
+    return false
   }
 
   switch (message.type) {

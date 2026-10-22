@@ -26,6 +26,8 @@ import ArrowRightIcon from 'assets/img/arrowRight.svg'
 import CheckmarkIcon from 'assets/img/checkmark.svg'
 import StarIcon from 'assets/img/star.svg'
 import GigabitSpeedIcon from 'assets/img/gigabitSpeed.svg'
+import DataCenterDownIcon from 'assets/img/dataCenterDown.svg'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 type DataCenterItem = ButtonProps & {
   isPremium?: boolean
@@ -45,19 +47,21 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
   const location = useSelector(s => selectLocationByDataCenterId(s, dataCenter.id))
   const locationLoad = useSelector(s => s.locationLoad)
   const autopilotSelected = useSelector(s => s.autopilot.autopilotSelected)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   const [showBrokenHeart, setShowBrokenHeart] = useState(false)
 
   const { openWindowUsingTempSession } = useWindowOpening()
 
-  const showPro = !isPremium && dataCenter.pro
+  const showPro = !isPremium && !!dataCenter.pro
+  const isDisabled = !showPro && (!dataCenter?.hosts || dataCenter?.hosts?.length === 0)
 
   const isSpeedy = dataCenter.link_speed === '10000' // 10_000 mbps is 10 Gbit
 
   const handleClick = async (dataCenter: DataCenter) => {
     if (showPro) {
       await openWindowUsingTempSession('upgrade?pcpid=upgrade_ext1')
-    } else if (!dataCenter?.hosts || dataCenter?.hosts?.length === 0) {
+    } else if (isDisabled) {
       dispatch(addOverlay('locationDown'))
     } else {
       location && dispatch(setCurrentLocation(location))
@@ -107,8 +111,21 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
           listStyleType: 'none',
         }}
       >
-        {/* only show in location list if user is pro, and show in fav list regardless if user is pro or not */}
-        {(!isFavorite && !showPro) || isFavorite ? (
+        {/* Show down icon if disabled, otherwise show heart (if applicable) */}
+        {isDisabled ? (
+          <Box
+            sx={{
+              height: '16px',
+              minWidth: '16px',
+              mr: '16px',
+              p: 0,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <DataCenterDownIcon sx={{ fill: 'secondaryText' }} />
+          </Box>
+        ) : (!isFavorite && !showPro) || isFavorite ? (
           <IconButton
             data-testid="heart-icon-button"
             onClick={handleHeartIconClick}
@@ -212,7 +229,7 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
                     backgroundColor: isFavorite ? 'background' : 'foreground',
                   }}
                 >
-                  UPGRADE
+                  {getLocalizedMessage('wsext_upgrade_uppercase', currentLanguage)}
                 </Text>
               </Flex>
             </>
@@ -253,8 +270,8 @@ const DataCenterItem: ThemeUiElement<DataCenterItem> = ({
         sx={{
           mt: '-2px',
           height: '2px',
-          width: `${dataCenter.health}%`,
-          display: locationLoad ? 'block' : 'none',
+          width: `${dataCenter.health ?? 0}%`,
+          display: locationLoad && !isDisabled ? 'block' : 'none',
         }}
         bg={getUsageColor(dataCenter.health)}
         opacity="0.5"

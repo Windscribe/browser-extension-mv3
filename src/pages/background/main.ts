@@ -1,10 +1,12 @@
 import { initializeWrappedStore } from 'state'
 import { chooseIcon } from 'state/slices/iconVariant'
 import { pushToDebugLog } from 'services/debugLog'
+import { checkSessionReconnect } from 'services/sessionReconnectCheck'
 import {
   alarmHandler,
   authRequiredHandler,
   onInstalledHandler,
+  getInstallReason,
   proxyErrorHandler,
   startupHandler,
   messageHandler,
@@ -20,12 +22,22 @@ import {
   handlePermissionsAdded,
   handlePermissionsRemoved,
 } from './eventHandlers/permissionsHandler'
+import { setCurrentLanguageSelection } from 'state/slices/currentLanguage'
 import { handleKeyboardCommand } from 'services/shortcuts/keyboardCommandHandler'
+import { updateContextMenuItem } from 'services/contextMenu'
 
 try {
   const bgStore = initializeWrappedStore().then(async store => {
+    await checkSessionReconnect(store.getState, store.dispatch, getInstallReason())
     pushToDebugLog({ message: 'Bg store was initialized', tag: 'background' })
     const grantedPermissions = await chrome.permissions.getAll()
+
+    // Only set system language if it's already set to system, to avoid overriding user's custom selection
+    if (store.getState().currentLanguage.currentSelection === 'system') {
+      // this actually sets the currentLanguge to what ever the system language is
+      store.dispatch(setCurrentLanguageSelection('system'))
+    }
+
     store.dispatch(addPermissions(grantedPermissions.permissions ?? []))
     store.dispatch(setIsOnline(navigator.onLine))
     //TODO dispatch it only if it is not in pending state already
@@ -39,6 +51,28 @@ try {
     store.dispatch(initializeUserAgentsList())
     enableOrDisableUblock(store.getState().blocker.blockLists, store)
     store.dispatch(setOriginalUserAgent(navigator.userAgent))
+
+    let previousLanguage = store.getState().currentLanguage.currentLanguage
+    let previousContextMenu = store.getState().contextMenu
+    if (previousContextMenu) {
+      updateContextMenuItem(previousLanguage)
+    }
+
+    store.subscribe(() => {
+      const state = store.getState()
+      const currentLanguage = state.currentLanguage.currentLanguage
+      const currentContextMenu = state.contextMenu
+      const shouldUpdateContextMenu =
+        currentContextMenu &&
+        (currentLanguage !== previousLanguage || currentContextMenu !== previousContextMenu)
+
+      previousLanguage = currentLanguage
+      previousContextMenu = currentContextMenu
+
+      if (shouldUpdateContextMenu) {
+        updateContextMenuItem(currentLanguage)
+      }
+    })
 
     return store
   })

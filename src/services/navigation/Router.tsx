@@ -2,12 +2,14 @@ import { useLayoutEffect } from 'react'
 import { useSelector } from 'state/hooks'
 import { useColorMode } from 'theme-ui'
 import { type View } from 'utils/types'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 import * as Views from 'views'
 
 const Router: () => JSX.Element = () => {
   const currentView: View = useSelector(s => s?.view?.current)
   const theme = useSelector(s => s?.theme?.value)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   const [, setColorMode] = useColorMode()
   useLayoutEffect(() => {
     if (theme) {
@@ -19,7 +21,7 @@ const Router: () => JSX.Element = () => {
 
   const View: React.ElementType = Views[currentView]
   return (
-    <>{View ? <View /> : <p>Windscribe has encountered a problem. Please try again later.</p>}</>
+    <>{View ? <View /> : <p>{getLocalizedMessage('wsext_encountered_problem', currentLanguage)}</p>}</>
   )
 }
 

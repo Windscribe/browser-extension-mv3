@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { addLocationToFavorite } from 'state/slices/favoriteLocations'
 import { setFavouriteLocationMigrationStatus } from 'state/slices/migratedFavoriteLocations'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 const FavoritesList: React.FC = () => {
   const favorites = useSelector(s => s.favoriteLocations)
@@ -12,6 +13,7 @@ const FavoritesList: React.FC = () => {
   const dispatch = useDispatch()
   const serverList = useSelector(s => s.servers)
   const migratedFavouriteLocations = useSelector(s => s.migratedFavouriteLocations)
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
 
   // migrate the server list ids
   useEffect(() => {
@@ -63,7 +65,7 @@ const FavoritesList: React.FC = () => {
         color: 'primaryText',
       }}
     >
-      No Favorites
+      {getLocalizedMessage('wsext_no_favorites', currentLanguage)}
     </Flex>
   )
 }

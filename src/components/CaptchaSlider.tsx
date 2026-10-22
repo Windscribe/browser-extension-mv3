@@ -4,6 +4,8 @@ import { type ThemeUiElement } from 'utils/types'
 import SliderArrow from 'assets/img/sliderArrow.svg'
 import SliderImage from 'assets/img/slider.png'
 import BackgroundImage from 'assets/img/sliderbg.png'
+import { useSelector } from 'state/hooks'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 interface CaptchaSliderProps {
   background?: string
@@ -22,6 +24,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
   background,
   slider,
 }) => {
+  const { currentLanguage } = useSelector(s => s.currentLanguage)
   const [isDragging, setIsDragging] = useState(false)
   const [position, setPosition] = useState(0)
   const [xTrail, setXTrail] = useState<number[]>([])
@@ -86,7 +89,12 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
       let newX = e.clientX - rect.left - offsetRef.current
       newX = Math.max(0, Math.min(newX, width - scaledSliderWidth))
       setPosition(newX)
+      // Both axes must be sampled from the same event. The API rejects the
+      // solution unless count(x) === count(y), so sampling y from a separate
+      // listener desynchronises the trails whenever the pointer leaves that
+      // listener's element mid-drag (horizontal overshoot or vertical drift).
       setXTrail(prev => [...prev.slice(-MAX_TRAIL_SIZE + 1), Math.round(newX)])
+      setYTrail(prev => [...prev.slice(-MAX_TRAIL_SIZE + 1), Math.round(e.clientY - rect.top)])
     }
 
     const handleUp = () => {
@@ -118,13 +126,6 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
     e.preventDefault()
   }
 
-  const handleContainerMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return
-    const rect = containerRef.current.getBoundingClientRect()
-    const relativeY = e.clientY - rect.top
-    setYTrail(prev => [...prev.slice(-MAX_TRAIL_SIZE + 1), Math.round(relativeY)])
-  }
-
   return (
     <Flex
       sx={{
@@ -135,7 +136,6 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
         alignItems: 'center',
       }}
       ref={containerRef}
-      onMouseMove={handleContainerMouseMove}
     >
       <Box
         sx={{
@@ -158,6 +158,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
 
         {/* slider */}
         <Box
+          data-testid="captcha-slider-handle"
           sx={{
             position: 'absolute',
             top: `${top * scale}px`,
@@ -207,7 +208,7 @@ const CaptchaSlider: ThemeUiElement<CaptchaSliderProps> = ({
           }}
         >
           <Text sx={{ color: 'secondaryText', fontSize: '12px' }}>
-            Slide puzzle piece into place
+            {getLocalizedMessage('wsext_slide_puzzle_piece', currentLanguage)}
           </Text>
         </Box>
 

@@ -6,6 +6,7 @@ import { addOverlay } from 'state/slices/overlay'
 import IpAddress from './IpAddress'
 import InfoIcon from 'assets/img/infoIcon.svg'
 import NoInternet from 'assets/img/noInternet.svg'
+import { getLocalizedMessage } from 'utils/getLocalisedString'
 
 type ConnectionStatusProps = {
   status: Status
@@ -22,6 +23,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
 }) => {
   const dispatch = useDispatch()
   const isOnline = useSelector(state => state.isOnline)
+  const { currentLanguage } = useSelector(state => state.currentLanguage)
 
   let ipAddressColor = 'white'
 
@@ -63,17 +65,19 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
           }}
         >
           {status === 'connecting' ? (
-            'CONNECTING...'
+            getLocalizedMessage('wsext_connecting', currentLanguage)
           ) : status === 'disconnecting' ? (
-            'DISCONNECTING...'
+            getLocalizedMessage('wsext_disconnecting', currentLanguage)
           ) : status === 'on' && isOnline ? (
-            'ON'
+            getLocalizedMessage('wsext_on', currentLanguage)
           ) : status === 'off' && isOnline ? (
-            'OFF'
+            getLocalizedMessage('wsext_off', currentLanguage)
           ) : (
             <Flex sx={{ alignItems: 'center', gap: '8px' }}>
               <NoInternet sx={{ fill: 'warningYellow', flexShrink: 0 }} />
-              <span sx={{ color: 'warningYellow' }}>OFFLINE</span>
+              <span sx={{ color: 'warningYellow' }}>
+                {getLocalizedMessage('wsext_offline', currentLanguage)}
+              </span>
             </Flex>
           )}
         </Text>
@@ -87,7 +91,7 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
         >
           {proxyFailure ? (
             <Flex sx={{ alignItems: 'center', gap: '8px' }}>
-              <span>PROXY FAILURE</span>
+              <span>{getLocalizedMessage('wsext_proxy_failure', currentLanguage)}</span>
               <InfoIcon
                 sx={{
                   cursor: 'pointer',
@@ -116,7 +120,9 @@ const ConnectionStatus: ThemeUiElement<ConnectionStatusProps> = ({
             fontWeight: 600,
           }}
         >
-          {autopilotSelected ? 'Autopilot' : currentDataCenter?.city}
+          {autopilotSelected
+            ? getLocalizedMessage('wsext_autopilot', currentLanguage)
+            : currentDataCenter?.city}
         </Text>
       </Box>
       {!autopilotSelected && currentDataCenter?.nick && (
