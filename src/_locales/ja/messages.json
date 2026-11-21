@@ -8,11 +8,11 @@
     "description": "The extension is disabled"
   },
   "wsext_connecting": {
-    "message": "接続中...",
+    "message": "接続中…",
     "description": "The extension is connecting to the internet"
   },
   "wsext_disconnecting": {
-    "message": "切断中...",
+    "message": "切断中…",
     "description": "The extension is disconnecting from the internet"
   },
   "wsext_offline": {
@@ -56,7 +56,7 @@
     "description": "Option to switch between different themes."
   },
   "wsext_restart_onboarding": {
-    "message": "オンボーディングを再開",
+    "message": "チュートリアルを再開",
     "description": "Restart the onboarding process for the extension."
   },
   "wsext_get_support": {
@@ -72,7 +72,7 @@
     "description": "Access the latest news and updates."
   },
   "wsext_proxy_failure": {
-    "message": "プロキシ失敗",
+    "message": "プロキシ接続エラー",
     "description": "Notification for proxy failure events."
   },
   "wsext_notifications": {
@@ -80,15 +80,15 @@
     "description": "Manage notification settings for the extension."
   },
   "wsext_show_connect_disconnect_notifications": {
-    "message": "接続/切断のシステム通知を表示する。",
+    "message": "接続・切断時にシステム通知を表示します。",
     "description": "Option to display OS notifications when connecting or disconnecting."
   },
   "wsext_show_location_load": {
-    "message": "ロケーション負荷を表示",
+    "message": "ロケーションの負荷を表示",
     "description": "Option to display the load of each data center."
   },
   "wsext_show_location_load_description": {
-    "message": "各データセンターの負荷を表示する。",
+    "message": "各データセンターの負荷状況を表示します。",
     "description": "Option to display the load of each data center."
   },
   "wsext_debug_context_menu": {
@@ -96,7 +96,7 @@
     "description": "Option to display the debug log in the context menu."
   },
   "wsext_debug_context_menu_description": {
-    "message": "コンテキストメニューにデバッグログを表示する。",
+    "message": "コンテキストメニューにデバッグログを表示します。",
     "description": "Option to display the debug log in the context menu."
   },
   "wsext_language": {
@@ -104,7 +104,7 @@
     "description": "Select the language for the extension."
   },
   "wsext_language_description": {
-    "message": "拡張機能の言語を選択します。",
+    "message": "拡張機能の表示言語を選択します。",
     "description": "Option to select the language for the extension."
   },
   "wsext_debug_log": {
@@ -144,7 +144,7 @@
     "description": "View the content or details."
   },
   "wsext_sent": {
-    "message": "送信しました!",
+    "message": "送信しました！",
     "description": "Notification confirming a successful send operation."
   },
   "wsext_error": {
@@ -164,7 +164,7 @@
     "description": "Title for the keyboard shortcuts option."
   },
   "wsext_keyboard_shortcuts_description": {
-    "message": "拡張機能の機能に素早くアクセスするためにキーボードショートカットをカスタマイズします",
+    "message": "拡張機能の機能にすばやくアクセスできるよう、キーボードショートカットをカスタマイズします。",
     "description": "Description for the keyboard shortcuts option."
   },
   "wsext_edit": {
@@ -180,7 +180,7 @@
     "description": "Import settings button label."
   },
   "wsext_refresh_to_see_changes": {
-    "message": "変更を確認するには更新してください",
+    "message": "変更を反映するにはページを更新してください",
     "description": "Alert telling the user to refresh the current tab to see the effect of changes."
   },
   "wsext_back_to": {
@@ -206,15 +206,15 @@
     "description": "Label for the username field."
   },
   "wsext_hash": {
-    "message": "Hash",
+    "message": "ハッシュ",
     "description": "Switch to hashed login or label the account hash field."
   },
   "wsext_email": {
-    "message": "メール",
+    "message": "メールアドレス",
     "description": "Label for the email field."
   },
   "wsext_add_email_with_bonus": {
-    "message": "メールを追加 (+8GB)",
+    "message": "メールを追加（+8GB）",
     "description": "Call to action to add an email and earn extra data."
   },
   "wsext_plan": {
@@ -254,7 +254,7 @@
     "description": "Subheader for the list of allowlisted sites."
   },
   "wsext_added_to_support": {
-    "message": "サポートのために追加されました",
+    "message": "動作サポートのため追加：",
     "description": "Prefix shown next to a domain that was added automatically to support another."
   },
   "wsext_edit_subheader": {
@@ -278,7 +278,7 @@
     "description": "Toggle label allowing ads on the domain."
   },
   "wsext_allow_connection": {
-    "message": "接続を許可",
+    "message": "直接接続を許可",
     "description": "Toggle label allowing direct connections on the domain."
   },
   "wsext_allow_privacy_features": {
@@ -310,7 +310,7 @@
     "description": "Title for the ad blocking feature."
   },
   "wsext_ad_crusher_description": {
-    "message": "広告、マルウェア、トラッカー、マイナーなど",
+    "message": "広告、マルウェア、トラッカー、暗号資産マイナーなどをブロックします。",
     "description": "Description for the ad blocking feature."
   },
   "wsext_not_available_when_ublock_lite_enabled": {
@@ -318,19 +318,19 @@
     "description": "Tooltip explaining a feature is unavailable while uBlock Lite is enabled."
   },
   "wsext_social_distancing": {
-    "message": "ソーシャルディスタンシング",
+    "message": "Social Distancing",
     "description": "Title for the social network blocking feature."
   },
   "wsext_social_distancing_description": {
-    "message": "ソーシャルネットワークの追跡ウィジェットとボタンをブロックします",
+    "message": "SNSの追跡ウィジェットやボタンをブロックします。",
     "description": "Description for the social network blocking feature."
   },
   "wsext_cookie_go_away": {
-    "message": "クッキーよ去れ",
+    "message": "Cookie Go Away",
     "description": "Title for the cookie banner blocking feature."
   },
   "wsext_cookie_go_away_description": {
-    "message": "すべてのウェブサイトで「クッキーを使用しています」というバナーをブロックします",
+    "message": "すべてのウェブサイトで「Cookieを使用しています」などのバナーをブロックします。",
     "description": "Description for the cookie banner blocking feature."
   },
   "wsext_ublock_origin_lite": {
@@ -338,7 +338,7 @@
     "description": "Title for the uBlock Origin Lite toggle."
   },
   "wsext_ublock_origin_lite_description": {
-    "message": "uBlock Liteが有効な場合、ブロッカー設定は利用できません。Windscribeの広告ブロッカーを使用するにはこの設定を無効にしてください",
+    "message": "uBlock Liteが有効な場合、ブロッカー設定は利用できません。Windscribeの広告ブロッカーを使用するには、この設定を無効にしてください。",
     "description": "Description for the uBlock Origin Lite toggle."
   },
   "wsext_not_available_when_ublock_origin_lite_enabled": {
@@ -350,7 +350,7 @@
     "description": "Link label opening the uBlock settings dashboard."
   },
   "wsext_sponsorblock_recommendation": {
-    "message": "YouTube動画のスポンサーをスキップするためにSponsorBlock拡張機能をお試しください。",
+    "message": "YouTube動画内のスポンサー広告をスキップしたい場合は、SponsorBlock拡張機能もお試しください。",
     "description": "Recommendation banner for the SponsorBlock extension."
   },
   "wsext_auto_connect": {
@@ -366,7 +366,7 @@
     "description": "Title for the smokewall feature."
   },
   "wsext_smokewall_description": {
-    "message": "プロキシが失敗しても切断しません。",
+    "message": "プロキシ接続に失敗しても切断しません。",
     "description": "Description for the smokewall feature."
   },
   "wsext_failover": {
@@ -374,7 +374,7 @@
     "description": "Title for the failover feature."
   },
   "wsext_failover_description": {
-    "message": "プロキシ失敗時、自動的にロケーションを切り替えます。",
+    "message": "プロキシ接続に失敗した際、自動的に別のロケーションへ切り替えます。",
     "description": "Description for the failover feature."
   },
   "wsext_proxy_port": {
@@ -382,7 +382,7 @@
     "description": "Title for the proxy port option."
   },
   "wsext_proxy_port_description": {
-    "message": "接続するポートを選択します。",
+    "message": "接続に使用するポートを選択します。",
     "description": "Description for the proxy port option."
   },
   "wsext_locations_menu": {
@@ -394,7 +394,7 @@
     "description": "Toast shown after copying the IP address."
   },
   "wsext_usage_bar": {
-    "message": "使用量バー",
+    "message": "データ使用量バー",
     "description": "Aria label for the usage bar."
   },
   "wsext_out_of_data": {
@@ -406,7 +406,7 @@
     "description": "Suffix for remaining data, e.g. '500 MB 残り'."
   },
   "wsext_get_more_data": {
-    "message": "もっとデータを取得",
+    "message": "データ容量を増やす",
     "description": "Call to action for users without an account to get more data."
   },
   "wsext_allowlist_settings": {
@@ -426,7 +426,7 @@
     "description": "Login screen title and submit button label."
   },
   "wsext_sign_up": {
-    "message": "サインアップ",
+    "message": "新規登録",
     "description": "Sign up screen title and link label."
   },
   "wsext_password": {
@@ -434,7 +434,7 @@
     "description": "Label for the password field."
   },
   "wsext_username_should_not_be_email": {
-    "message": "ユーザー名はメールアドレスにしないでください。",
+    "message": "ユーザー名にメールアドレスは指定できません。",
     "description": "Validation error when the username looks like an email."
   },
   "wsext_two_fa_code": {
@@ -442,19 +442,19 @@
     "description": "Label for the 2FA code input."
   },
   "wsext_two_fa_code_question": {
-    "message": "2FAコード?",
+    "message": "2FAコード？",
     "description": "Button text to reveal the 2FA code input."
   },
   "wsext_two_fa_help": {
-    "message": "有効な場合、認証アプリを使用してコードを生成してください。",
+    "message": "二要素認証が有効な場合は、認証アプリを使用してコードを生成してください。",
     "description": "Helper text for the 2FA code input."
   },
   "wsext_forgot_password": {
-    "message": "パスワードをお忘れですか?",
+    "message": "パスワードをお忘れですか？",
     "description": "Link to the password reset flow."
   },
   "wsext_complete_puzzle_to_continue": {
-    "message": "続けるにはパズルを完成させてください",
+    "message": "続行するにはパズルを完成させてください",
     "description": "Captcha instruction text."
   },
   "wsext_news_feed": {
@@ -504,7 +504,7 @@
     "description": "Title for the anti fingerprinting privacy feature."
   },
   "wsext_anti_fingerprinting_description": {
-    "message": "実験的機能。フィンガープリンティングに抵抗しようとしますが、サイトを壊したり遅くしたりする可能性があります。",
+    "message": "実験的機能です。フィンガープリンティング対策を行いますが、サイトが正常に動作しなくなったり遅くなったりする場合があります。",
     "description": "Description for the anti fingerprinting privacy feature."
   },
   "wsext_webrtc_slayer": {
@@ -512,7 +512,7 @@
     "description": "Title for the WebRTC Slayer privacy feature."
   },
   "wsext_webrtc_slayer_description": {
-    "message": "漏洩を防ぐためにWebRTCリクエストを制限します。一部のアプリケーションが壊れる可能性があります。",
+    "message": "IP漏洩を防ぐためWebRTCリクエストを制限します。一部のウェブアプリが正常に動作しなくなる場合があります。",
     "description": "Description for the WebRTC Slayer privacy feature."
   },
   "wsext_location_warp": {
@@ -520,7 +520,7 @@
     "description": "Title for the location warp privacy feature."
   },
   "wsext_location_warp_description": {
-    "message": "接続されたプロキシに合わせてGPS位置を偽装します。",
+    "message": "接続中のプロキシに合わせてGPS位置情報を偽装します。",
     "description": "Description for the location warp privacy feature."
   },
   "wsext_not_available_in_autopilot": {
@@ -532,7 +532,7 @@
     "description": "Title for the time warp privacy feature."
   },
   "wsext_time_warp_description": {
-    "message": "接続されたプロキシに合わせてブラウザ時間を設定します。",
+    "message": "接続中のプロキシに合わせてブラウザの時刻を設定します。",
     "description": "Description for the time warp privacy feature."
   },
   "wsext_language_warp": {
@@ -540,7 +540,7 @@
     "description": "Title for the language warp privacy feature."
   },
   "wsext_language_warp_description": {
-    "message": "接続されたプロキシに合わせて言語と地域設定を設定します。",
+    "message": "接続中のプロキシに合わせて言語と地域の設定を変更します。",
     "description": "Description for the language warp privacy feature."
   },
   "wsext_split_personality": {
@@ -552,7 +552,7 @@
     "description": "Description for the split personality privacy feature."
   },
   "wsext_rotate_user_agent": {
-    "message": "User Agentをローテーション",
+    "message": "ユーザーエージェントをローテーション",
     "description": "Tooltip for the button that rotates the user agent now."
   },
   "wsext_split_personality_compat_mode": {
@@ -560,7 +560,7 @@
     "description": "Title for the split personality compatibility mode option."
   },
   "wsext_split_personality_compat_mode_description": {
-    "message": "ブラウザのユーザーエージェントファミリー内に留まります。一部のサイトが壊れるのを防ぐのに役立ちます。",
+    "message": "現在お使いのブラウザと同じユーザーエージェント系統のみを使用します。一部のサイトが正常に動作しなくなるのを防ぎます。",
     "description": "Description for the split personality compatibility mode option."
   },
   "wsext_not_available_when_split_personality_disabled": {
@@ -580,11 +580,11 @@
     "description": "Title for the ad privacy feature."
   },
   "wsext_ad_privacy_description": {
-    "message": "コンテキスト広告トピックと提案を無効にします。",
+    "message": "コンテキスト広告のトピックと広告の提案を無効にします。",
     "description": "Description for the ad privacy feature."
   },
   "wsext_update_browser_warning": {
-    "message": "この拡張機能を引き続き使用し、セキュリティアップデートを受け取るためにブラウザを更新してください。",
+    "message": "この拡張機能を引き続き使用し、セキュリティアップデートを受け取るため、ブラウザを最新バージョンに更新してください。",
     "description": "Warning shown when the browser is below the minimum supported version."
   },
   "wsext_keep_your_secrets": {
@@ -608,7 +608,7 @@
     "description": "Description of the free plan option."
   },
   "wsext_pro_description": {
-    "message": "無制限GB & その他",
+    "message": "データ容量無制限＋全機能",
     "description": "Description of the pro plan option."
   },
   "wsext_locations": {
@@ -626,11 +626,11 @@
     }
   },
   "wsext_no_results": {
-    "message": "結果なし :(",
+    "message": "見つかりませんでした :(",
     "description": "Shown when a search returns no locations."
   },
   "wsext_error_fetching_locations": {
-    "message": "ロケーション取得中にエラーが発生しました",
+    "message": "ロケーションの取得中にエラーが発生しました",
     "description": "Shown when the locations list fails to load."
   },
   "wsext_no_favorites": {
@@ -642,7 +642,7 @@
     "description": "Upgrade label shown next to pro-only data centers."
   },
   "wsext_extDescription": {
-    "message": "Windscribe helps you mask your physical location, circumvent censorship, and block ads and trackers on websites you use every day",
+    "message": "Windscribeは、現在地を隠して検閲を回避し、普段利用するウェブサイト上の広告やトラッカーをブロックする拡張機能です。",
     "description": "Extension description shown in the Chrome Web Store and chrome://extensions."
   },
   "wsext_cmdToggleProxy": {
@@ -662,7 +662,7 @@
     "description": "Keyboard shortcut description for opening locations."
   },
   "wsext_extName": {
-    "message": "Free VPN For Chrome - VPN Extension - Windscribe",
+    "message": "Chrome用無料VPN - VPN拡張機能 - Windscribe",
     "description": "Extension name shown in the Chrome Web Store and chrome://extensions."
   },
   "wsext_link_sanitizer": {
@@ -670,55 +670,55 @@
     "description": "Title for the link sanitizer privacy feature."
   },
   "wsext_link_sanitizer_description": {
-    "message": "Remove tracking parameters from URLs before they load.",
+    "message": "ページが読み込まれる前に、URLからトラッキングパラメータを削除します。",
     "description": "Description for the link sanitizer privacy feature."
   },
   "wsext_link_sanitizer_analytics": {
-    "message": "Analytics & UTM",
+    "message": "アナリティクス & UTM",
     "description": "Title for the analytics and UTM parameter group."
   },
   "wsext_link_sanitizer_analytics_description": {
-    "message": "Remove UTM, Google Analytics, Matomo, and similar campaign parameters.",
+    "message": "UTM、Googleアナリティクス、Matomoなどのキャンペーン計測用パラメータを削除します。",
     "description": "Description for the analytics and UTM parameter group."
   },
   "wsext_link_sanitizer_ads": {
-    "message": "Ad Click IDs",
+    "message": "広告クリックID",
     "description": "Title for the ad click identifier parameter group."
   },
   "wsext_link_sanitizer_ads_description": {
-    "message": "Remove Google Ads, Microsoft, Yahoo, and Yandex click identifiers.",
+    "message": "Google広告、Microsoft、Yahoo!、Yandexなどの広告クリック識別子を削除します。",
     "description": "Description for the ad click identifier parameter group."
   },
   "wsext_link_sanitizer_social": {
-    "message": "Social Tracking",
+    "message": "SNSトラッキング",
     "description": "Title for the social tracking parameter group."
   },
   "wsext_link_sanitizer_social_description": {
-    "message": "Remove Facebook, Instagram, X, TikTok, Snapchat, and Pinterest click IDs.",
+    "message": "Facebook、Instagram、X、TikTok、Snapchat、PinterestのクリックIDを削除します。",
     "description": "Description for the social tracking parameter group."
   },
   "wsext_link_sanitizer_email": {
-    "message": "Email & Marketing",
+    "message": "メール & マーケティング",
     "description": "Title for the email and marketing parameter group."
   },
   "wsext_link_sanitizer_email_description": {
-    "message": "Remove Mailchimp, HubSpot, Klaviyo, Marketo, and other email tracking parameters.",
+    "message": "Mailchimp、HubSpot、Klaviyo、Marketoなどのメール追跡パラメータを削除します。",
     "description": "Description for the email and marketing parameter group."
   },
   "wsext_link_sanitizer_affiliates": {
-    "message": "Affiliates & Attribution",
+    "message": "アフィリエイト & アトリビューション",
     "description": "Title for the affiliates and attribution parameter group."
   },
   "wsext_link_sanitizer_affiliates_description": {
-    "message": "Remove affiliate, attribution, and other third-party tracking parameters.",
+    "message": "アフィリエイト、アトリビューション、その他のサードパーティ製トラッキングパラメータを削除します。",
     "description": "Description for the affiliates and attribution parameter group."
   },
   "wsext_link_sanitizer_custom_params": {
-    "message": "Custom parameters",
+    "message": "カスタムパラメータ",
     "description": "Title for the custom URL parameter input."
   },
   "wsext_link_sanitizer_custom_params_description": {
-    "message": "Add extra query parameter names to remove. Separate them with commas.",
+    "message": "追加で削除するクエリパラメータ名をカンマ区切りで入力してください。",
     "description": "Description for the custom URL parameter input."
   },
   "wsext_link_sanitizer_custom_params_placeholder": {
@@ -726,55 +726,55 @@
     "description": "Placeholder for the custom URL parameter input."
   },
   "wsext_not_available_when_link_sanitizer_disabled": {
-    "message": "Not available when Link Sanitizer is disabled",
+    "message": "Link Sanitizerが無効な場合は利用できません",
     "description": "Tooltip explaining a setting is unavailable when Link Sanitizer is off."
   },
   "wsext_link_sanitizer_ublock_warning": {
-    "message": "Another extension, uBlock Origin Lite, may still remove tracking parameters from links.",
+    "message": "別の拡張機能「uBlock Origin Lite」が、引き続きリンクからトラッキングパラメータを削除する場合があります。",
     "description": "Persistent warning shown when a separate uBlock Origin Lite extension is enabled."
   },
   "wsext_overlay_ublock_link_sanitizer_title": {
-    "message": "uBlock Already Installed",
+    "message": "uBlockがすでにインストールされています",
     "description": "Title of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
   },
   "wsext_overlay_ublock_link_sanitizer_message": {
-    "message": "You already have uBlock Origin Lite. It can also strip tracking from links. Do not use it with Link Sanitizer.",
+    "message": "すでにuBlock Origin Liteが導入されています。uBlock Origin Liteにもリンクからトラッキングを除去する機能があるため、Link Sanitizerと併用しないでください。",
     "description": "Body of the overlay shown when uBlock Origin Lite may interfere with Link Sanitizer."
   },
   "wsext_overlay_ublock_link_sanitizer_disable": {
-    "message": "Turn Off uBlock Lite",
+    "message": "uBlock Liteをオフにする",
     "description": "Button that disables the separate uBlock Origin Lite extension."
   },
   "wsext_overlay_ublock_link_sanitizer_keep_both": {
-    "message": "Keep both",
+    "message": "両方維持する",
     "description": "Button that dismisses the Link Sanitizer uBlock overlay and keeps both extensions."
   },
   "wsext_clear_site_data": {
-    "message": "Clear this page",
+    "message": "このページをクリア",
     "description": "Tooltip for the button that clears storage for the current page only."
   },
   "wsext_overlay_clear_site_data_permission_title": {
-    "message": "Permission Required",
+    "message": "権限が必要です",
     "description": "Title shown when clearing site data needs an extra permission."
   },
   "wsext_overlay_clear_site_data_permission_message": {
-    "message": "You need to grant an extra permission to Windscribe before you can clear site data",
+    "message": "サイトデータをクリアするには、Windscribeに追加の権限を付与する必要があります",
     "description": "Body shown when clearing site data needs an extra permission."
   },
   "wsext_overlay_clear_site_data_confirm_title": {
-    "message": "Clear this page?",
+    "message": "このページをクリアしますか？",
     "description": "Title of the confirmation shown before clearing the current page."
   },
   "wsext_overlay_clear_site_data_confirm_message": {
-    "message": "This removes cookies, local storage, IndexedDB, cache storage, and service workers for this site. You will be signed out.",
+    "message": "このサイトのCookie、ローカルストレージ、IndexedDB、キャッシュストレージ、Service Workerが削除されます。現在ログイン中の場合はログアウトされます。",
     "description": "Body of the confirmation shown before clearing the current site. Cookies are cleared for the whole domain."
   },
   "wsext_overlay_clear_site_data_confirm_action": {
-    "message": "Clear",
+    "message": "クリア",
     "description": "Button that confirms clearing the current site data."
   },
   "wsext_overlay_clear_site_data_failed": {
-    "message": "Could not clear site data",
+    "message": "サイトデータをクリアできませんでした",
     "description": "Error shown when clearing the current site data fails."
   }
 }
