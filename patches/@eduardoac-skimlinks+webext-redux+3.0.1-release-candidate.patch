@@ -1,0 +1,44 @@
+diff --git a/node_modules/@eduardoac-skimlinks/webext-redux/lib/wrap-store/wrapStore.js b/node_modules/@eduardoac-skimlinks/webext-redux/lib/wrap-store/wrapStore.js
+--- a/node_modules/@eduardoac-skimlinks/webext-redux/lib/wrap-store/wrapStore.js
++++ b/node_modules/@eduardoac-skimlinks/webext-redux/lib/wrap-store/wrapStore.js
+@@ -119,37 +119,11 @@
+       }
+     };
+ 
+-    (_browserAPI$runtime = browserAPI.runtime).sendMessage.apply(_browserAPI$runtime, args.concat([onErrorCallback])); // We will broadcast state changes to all tabs to sync state across content scripts
++    (_browserAPI$runtime = browserAPI.runtime).sendMessage.apply(_browserAPI$runtime, args.concat([onErrorCallback]));
+ 
++    // Windscribe uses proxy stores only in extension pages, which receive
++    // the runtime message above; content scripts do not subscribe to Redux.
+ 
+-    return browserAPI.tabs.query({}, function (tabs) {
+-      var _iteratorNormalCompletion = true;
+-      var _didIteratorError = false;
+-      var _iteratorError = undefined;
+-
+-      try {
+-        for (var _iterator = tabs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+-          var _browserAPI$tabs;
+-
+-          var tab = _step.value;
+-
+-          (_browserAPI$tabs = browserAPI.tabs).sendMessage.apply(_browserAPI$tabs, [tab.id].concat(args, [onErrorCallback]));
+-        }
+-      } catch (err) {
+-        _didIteratorError = true;
+-        _iteratorError = err;
+-      } finally {
+-        try {
+-          if (!_iteratorNormalCompletion && _iterator.return != null) {
+-            _iterator.return();
+-          }
+-        } finally {
+-          if (_didIteratorError) {
+-            throw _iteratorError;
+-          }
+-        }
+-      }
+-    });
+   });
+   var currentState = store.getState();
+ 

@@ -24,6 +24,22 @@ Topology:
 - The popup provides the proxy store through a normal React `<Provider>` so
   `useSelector` / `useDispatch` work the way components expect.
 
+Windscribe's proxy stores run in extension pages, not content scripts. The
+local patch for `webext-redux` therefore retains its runtime
+state messages but removes its tab-by-tab state broadcasts. Those broadcasts
+otherwise scale with the number of open tabs for every Redux update. If a
+future content script needs a Redux proxy store, revisit this transport and
+target actual subscribers instead of sending state to every tab. Run
+`yarn test:redux-sync` after changing the adapter or its dependency.
+
+`yarn benchmark:redux-sync` measures transport calls with simulated tab
+counts. `yarn benchmark:redux-browser` runs an offline, isolated Vivaldi
+fixture with real browser tabs and a memory ceiling. The latter defaults to
+100 tabs; set `WS_BENCH_MAX_TABS` to 500, 1000 or 3000 for larger runs.
+Set `WS_BENCH_NODE_MODULES` to a separate, unpatched dependency installation
+to record a baseline. This fixture measures the Redux transport, not the full
+Windscribe extension, its VPN connection, or a user's browsing workload.
+
 ![webext-redux dataflow](./assets/webext-redux.svg)
 
 See [the webext-redux dataflow docs](https://github.com/tshaddix/webext-redux/wiki)

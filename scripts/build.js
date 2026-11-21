@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./verifyReduxBroadcastPatch')
 
 const login = require('./login')
 const getUserAgents = require('./getUa')
