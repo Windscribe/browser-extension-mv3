@@ -1,5 +1,10 @@
 # Build system
 
+The build checks that the pinned `webext-redux` dependency has the local
+performance patch applied. Run `yarn install` with lifecycle
+scripts enabled; `--ignore-scripts` skips that patch and the build will fail
+until it is applied. `yarn test:redux-sync` checks the state transport.
+
 What `yarn build` does, how webpack is configured, and how content scripts
 get generated at build time.
 
