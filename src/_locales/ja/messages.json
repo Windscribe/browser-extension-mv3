@@ -8,11 +8,11 @@
     "description": "The extension is disabled"
   },
   "wsext_connecting": {
-    "message": "接続中...",
+    "message": "接続中…",
     "description": "The extension is connecting to the internet"
   },
   "wsext_disconnecting": {
-    "message": "切断中...",
+    "message": "切断中…",
     "description": "The extension is disconnecting from the internet"
   },
   "wsext_offline": {
@@ -104,7 +104,7 @@
     "description": "Select the language for the extension."
   },
   "wsext_language_description": {
-    "message": "拡張機能の言語を選択します。",
+    "message": "拡張機能の表示言語を選択します。",
     "description": "Option to select the language for the extension."
   },
   "wsext_debug_log": {
@@ -214,7 +214,7 @@
     "description": "Label for the email field."
   },
   "wsext_add_email_with_bonus": {
-    "message": "メールを追加 (+8GB)",
+    "message": "メールを追加（+8GB）",
     "description": "Call to action to add an email and earn extra data."
   },
   "wsext_plan": {
@@ -254,7 +254,7 @@
     "description": "Subheader for the list of allowlisted sites."
   },
   "wsext_added_to_support": {
-    "message": "動作サポートのため追加: ",
+    "message": "動作サポートのため追加：",
     "description": "Prefix shown next to a domain that was added automatically to support another."
   },
   "wsext_edit_subheader": {
@@ -318,7 +318,7 @@
     "description": "Tooltip explaining a feature is unavailable while uBlock Lite is enabled."
   },
   "wsext_social_distancing": {
-    "message": "ソーシャルディスタンシング",
+    "message": "Social Distancing",
     "description": "Title for the social network blocking feature."
   },
   "wsext_social_distancing_description": {
@@ -326,7 +326,7 @@
     "description": "Description for the social network blocking feature."
   },
   "wsext_cookie_go_away": {
-    "message": "Cookieよ去れ",
+    "message": "Cookie Go Away",
     "description": "Title for the cookie banner blocking feature."
   },
   "wsext_cookie_go_away_description": {
@@ -446,7 +446,7 @@
     "description": "Button text to reveal the 2FA code input."
   },
   "wsext_two_fa_help": {
-    "message": "2要素認証が有効な場合は、認証アプリを使用してコードを生成してください。",
+    "message": "二要素認証が有効な場合は、認証アプリを使用してコードを生成してください。",
     "description": "Helper text for the 2FA code input."
   },
   "wsext_forgot_password": {
