@@ -19,11 +19,11 @@ const fetchWithTimeout = async (
     ...(headers && { headers }),
     ...(body && { body: body instanceof FormData ? body : JSON.stringify(body) }),
   }
-  const response = await fetch(url, params)
-
-  clearTimeout(timeoutId)
-
-  return response
+  try {
+    return await fetch(url, params)
+  } finally {
+    clearTimeout(timeoutId)
+  }
 }
 
 const fetchApi = async (
@@ -55,11 +55,14 @@ const sendRequest = async <DataType>(
   const state = await browserApi.getStateFromStorage()
   const workingApi = state[1].workingApi
 
-  const tryFetch = async (domain?: string) => {
+  const tryFetch = async (domain?: string): Promise<ApiResponse<DataType>> => {
     if (!domain) {
       throw Error('No API domain was provided')
     }
     const response = await fetchApi(domain, path, method, body, useAssets, headers)
+    if (!response.ok && response.status >= 500) {
+      throw Error(`API HTTP ${response.status}`)
+    }
     const json = await response.json()
     if (domain !== workingApi) {
       dispatch(setWorkingApi(domain))
@@ -70,24 +73,37 @@ const sendRequest = async <DataType>(
     }
   }
 
-  try {
-    return await tryFetch(ENVS.API_URL ?? workingApi)
-  } catch (err) {
+  const candidates = Array.from(
+    new Set(
+      [ENVS.API_URL ? ENVS.API_URL : workingApi, ENVS.API_URL, ENVS.BACKUP_API_URL].filter(
+        (d): d is string => Boolean(d),
+      ),
+    ),
+  )
+
+  let lastErr: unknown
+  for (const domain of candidates) {
     try {
-      return await tryFetch(ENVS.BACKUP_API_URL)
-    } catch (err) {
-      try {
-        const dohUrl = await fetchDoh()
-        return await tryFetch(dohUrl)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
-        return {
-          errorMessage: 'API connectivity issues',
-          errorDescription: err?.message || '',
-          errorCode: err?.errorCode,
-          logStatus: err?.logStatus,
-        }
-      }
+      return await tryFetch(domain)
+    } catch (err: unknown) {
+      lastErr = err
+    }
+  }
+
+  try {
+    const dohUrl = await fetchDoh()
+    return await tryFetch(dohUrl)
+  } catch (err: unknown) {
+    const finalErr = err ?? lastErr
+    const errObj =
+      typeof finalErr === 'object' && finalErr !== null
+        ? (finalErr as { message?: string; errorCode?: number; logStatus?: number })
+        : undefined
+    return {
+      errorMessage: 'API connectivity issues',
+      errorDescription: finalErr instanceof Error ? finalErr.message : errObj?.message || '',
+      errorCode: errObj?.errorCode,
+      logStatus: errObj?.logStatus,
     }
   }
 }
