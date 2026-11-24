@@ -4,7 +4,7 @@ export const CLIENT_AUTH_SECRET = '952b4412f002315aa50751032fcaab03'
 
 export const ENVS = {
   API_URL: process.env.API_URL || 'staging.windscribe.com',
-  BACKUP_API_URL: process.env.BACKUP_API_URL,
+  BACKUP_API_URL: process.env.BACKUP_API_URL || 'totallyacdn.com',
   DOH_URL: 'dynamic-api-host.windscribe.com',
   ROOT_URL: 'https://www.windscribe.com',
 }

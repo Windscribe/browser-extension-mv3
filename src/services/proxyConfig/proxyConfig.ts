@@ -73,6 +73,10 @@ const createFindProxyForURLFunction = (
       '*://*.staticnetcontent.com/*',
       '*://api.totallyacdn.com/*',
       '*://assets.totallyacdn.com/*',
+      'https://1.1.1.1/dns-query*',
+      'https://1.0.0.1/dns-query*',
+      'https://8.8.8.8/resolve*',
+      'https://8.8.4.4/resolve*',
       'https://windscribe.com/installed/*',
       ${
         workingApi !== '.windscribe.com' && workingApi !== 'totallyacdn.com'
